@@ -22,42 +22,14 @@ type writerPool struct {
 	pool *sync.Pool
 }
 
-func newWriterPool(size int) *writerPool {
-	pool := &sync.Pool{
-		New: func() any {
-			var (
-				buffer  = bytes.NewBuffer(make([]byte, 0, size))
-				encoder = json.NewEncoder(buffer)
-			)
+func newWriterPool(size int) *writerPool { _ = "STUB: not implemented"; return nil }
 
-			return &writer{
-				buffer:  buffer,
-				encoder: encoder,
-			}
-		},
-	}
-	return &writerPool{pool: pool}
-}
+func (w *writer) Reset() { _ = "STUB: not implemented"; return }
 
-func (w *writer) Reset() {
-	w.buffer.Reset()
-}
+func (w *writer) Encode(v any) error { _ = "STUB: not implemented"; return nil }
 
-func (w *writer) Encode(v any) error {
-	return w.encoder.Encode(v)
-}
+func (w *writer) String() string { _ = "STUB: not implemented"; return "" }
 
-func (w *writer) String() string {
-	return w.buffer.String()
-}
+func (writerPool *writerPool) borrow() *writer { _ = "STUB: not implemented"; return nil }
 
-func (writerPool *writerPool) borrow() *writer {
-	return writerPool.pool.Get().(*writer)
-}
-
-func (writerPool *writerPool) release(w *writer) {
-	if w.buffer.Cap() < maxBufSize {
-		w.buffer.Reset()
-		writerPool.pool.Put(w)
-	}
-}
+func (writerPool *writerPool) release(w *writer) { _ = "STUB: not implemented"; return }

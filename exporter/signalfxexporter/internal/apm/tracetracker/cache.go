@@ -43,142 +43,48 @@ type TimeoutCache struct {
 }
 
 // returns whether the cache is full
-func (t *TimeoutCache) IsFull() bool {
-	t.Lock()
-	defer t.Unlock()
-	if time.Now().Before(t.maxSizeExpiryTS) {
-		return int64(len(t.keysActive)) >= t.maxSize
-	}
-	return false
-}
+func (t *TimeoutCache) IsFull() bool { _ = "STUB: not implemented"; return false }
 
-func (t *TimeoutCache) SetMaxSize(maxSize int64, now time.Time) {
-	t.Lock()
-	defer t.Unlock()
-	t.maxSize = maxSize
-	t.maxSizeExpiryTS = now.Add(time.Hour * 1)
-}
+func (t *TimeoutCache) SetMaxSize(maxSize int64, now time.Time) { _ = "STUB: not implemented"; return }
 
 // RunIfKeyDoesNotExist locks and runs the supplied function if the key does not exist.
 // Be careful not to perform cache operations inside of this function because they will deadlock
 func (t *TimeoutCache) RunIfKeyDoesNotExist(o *CacheKey, fn func()) {
-	t.Lock()
-	defer t.Unlock()
-	if _, ok := t.keysActive[*o]; ok {
-		return
-	}
-	fn()
+	_ = "STUB: not implemented"
+	return
 }
 
 // UpdateOrCreate
 func (t *TimeoutCache) UpdateOrCreate(o *CacheKey, now time.Time) (isNew bool) {
-	t.Lock()
-	defer t.Unlock()
-	if timeElm, ok := t.keysActive[*o]; ok {
-		if timeElm.Value.(*cacheElem).LastSeen.Before(now) {
-			timeElm.Value.(*cacheElem).LastSeen = now
-			t.keysByTime.MoveToFront(timeElm)
-		}
-	} else {
-		isNew = true
-		elm := t.keysByTime.PushFront(&cacheElem{
-			LastSeen: now,
-			Obj:      o,
-		})
-		t.keysActive[*o] = elm
-		t.ActiveCount++
-	}
-	return isNew
+	_ = "STUB: not implemented"
+	return false
 }
 
 // UpdateIfExists
 func (t *TimeoutCache) UpdateIfExists(o *CacheKey, now time.Time) bool {
-	t.Lock()
-	defer t.Unlock()
-	var timeElm *list.Element
-	var exists bool
-	if timeElm, exists = t.keysActive[*o]; exists {
-		timeElm.Value.(*cacheElem).LastSeen = now
-		t.keysByTime.MoveToFront(timeElm)
-	}
-	return exists
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (t *TimeoutCache) GetPurgeable(now time.Time) []*CacheKey {
-	t.Lock()
-	defer t.Unlock()
-
-	var candidates []*CacheKey
-	elm := t.keysByTime.Back()
-	for elm != nil {
-		e := elm.Value.(*cacheElem)
-		// If this one isn't timed out, nothing else in the list is either.
-		if now.Sub(e.LastSeen) < t.timeout {
-			break
-		}
-
-		candidates = append(candidates, e.Obj)
-
-		elm = elm.Prev()
-	}
-
-	return candidates
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (t *TimeoutCache) Delete(key *CacheKey) {
-	t.Lock()
-	defer t.Unlock()
+// If this one isn't timed out, nothing else in the list is either.
 
-	elem, ok := t.keysActive[*key]
-	if ok {
-		t.keysByTime.Remove(elem)
-		delete(t.keysActive, *key)
-
-		t.ActiveCount--
-		t.PurgedCount++
-	}
-}
+func (t *TimeoutCache) Delete(key *CacheKey) { _ = "STUB: not implemented"; return }
 
 // PurgeOld
 func (t *TimeoutCache) PurgeOld(now time.Time, onPurge func(*CacheKey)) {
-	t.Lock()
-	defer t.Unlock()
-	for {
-		elm := t.keysByTime.Back()
-		if elm == nil {
-			break
-		}
-		e := elm.Value.(*cacheElem)
-		// If this one isn't timed out, nothing else in the list is either.
-		if now.Sub(e.LastSeen) < t.timeout {
-			break
-		}
-
-		t.keysByTime.Remove(elm)
-		delete(t.keysActive, *e.Obj)
-		onPurge(e.Obj)
-
-		t.ActiveCount--
-		t.PurgedCount++
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (t *TimeoutCache) GetActiveCount() int64 {
-	t.Lock()
-	defer t.Unlock()
-	return t.ActiveCount
-}
+// If this one isn't timed out, nothing else in the list is either.
 
-func (t *TimeoutCache) GetPurgedCount() int64 {
-	t.Lock()
-	defer t.Unlock()
-	return t.PurgedCount
-}
+func (t *TimeoutCache) GetActiveCount() int64 { _ = "STUB: not implemented"; return 0 }
 
-func NewTimeoutCache(timeout time.Duration) *TimeoutCache {
-	return &TimeoutCache{
-		timeout:    timeout,
-		keysByTime: list.New(),
-		keysActive: make(map[CacheKey]*list.Element),
-	}
-}
+func (t *TimeoutCache) GetPurgedCount() int64 { _ = "STUB: not implemented"; return 0 }
+
+func NewTimeoutCache(timeout time.Duration) *TimeoutCache { _ = "STUB: not implemented"; return nil }

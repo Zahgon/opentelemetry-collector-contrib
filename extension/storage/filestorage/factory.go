@@ -11,8 +11,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage/internal/metadata"
 )
 
 const (
@@ -25,33 +23,11 @@ const (
 )
 
 // NewFactory creates a factory for HostObserver extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Directory: getDefaultDirectory(),
-		Compaction: &CompactionConfig{
-			Directory:                  getDefaultDirectory(),
-			OnStart:                    false,
-			OnRebound:                  false,
-			MaxTransactionSize:         defaultMaxTransactionSize,
-			ReboundNeededThresholdMiB:  defaultReboundNeededThresholdMib,
-			ReboundTriggerThresholdMiB: defaultReboundTriggerThresholdMib,
-			CheckInterval:              defaultCompactionInterval,
-			CleanupOnStart:             false,
-		},
-		Timeout:              time.Second,
-		FSync:                false,
-		CreateDirectory:      false,
-		DirectoryPermissions: "0750",
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(
@@ -59,5 +35,6 @@ func createExtension(
 	params extension.Settings,
 	cfg component.Config,
 ) (extension.Extension, error) {
-	return newLocalFileStorage(params.Logger, cfg.(*Config))
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

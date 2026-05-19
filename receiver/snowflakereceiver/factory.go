@@ -10,10 +10,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/snowflakereceiver/internal/metadata"
 )
 
 const (
@@ -24,25 +20,11 @@ const (
 )
 
 func createDefaultConfig() component.Config {
-	cfg := scraperhelper.NewDefaultControllerConfig()
-	cfg.CollectionInterval = defaultInterval
-
-	return &Config{
-		ControllerConfig:     cfg,
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-		Schema:               defaultSchema,
-		Database:             defaultDB,
-		Role:                 defaultRole,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createMetricsReceiver(
 	_ context.Context,
@@ -50,18 +32,6 @@ func createMetricsReceiver(
 	baseCfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	cfg := baseCfg.(*Config)
-	snowflakeScraper := newSnowflakeMetricsScraper(params, cfg)
-
-	s, err := scraper.NewMetrics(snowflakeScraper.scrape, scraper.WithStart(snowflakeScraper.start), scraper.WithShutdown(snowflakeScraper.shutdown))
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(
-		&cfg.ControllerConfig,
-		params,
-		consumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

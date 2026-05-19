@@ -14,16 +14,7 @@ type MetricConfig struct {
 }
 
 func (ms *MetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -47,58 +38,7 @@ type MetricsConfig struct {
 	ZookeeperZnodeCount                  MetricConfig `mapstructure:"zookeeper.znode.count"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ZookeeperConnectionActive: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperDataTreeEphemeralNodeCount: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperDataTreeSize: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperFileDescriptorLimit: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperFileDescriptorOpen: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperFollowerCount: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperFsyncExceededThresholdCount: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperLatencyAvg: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperLatencyMax: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperLatencyMin: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperPacketCount: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperRequestActive: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperRuok: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperSyncPending: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperWatchCount: MetricConfig{
-			Enabled: true,
-		},
-		ZookeeperZnodeCount: MetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -115,14 +55,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -133,14 +66,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ServerState: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ZkVersion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for zookeeper metrics builder.
@@ -150,13 +77,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -6,10 +6,8 @@ package splunkenterprisereceiver // import "github.com/open-telemetry/openteleme
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"go.opentelemetry.io/collector/component"
 )
@@ -32,12 +30,8 @@ type splunkEntClient struct {
 }
 
 func (c *splunkEntClient) newClientNotFoundError(eptType, apiEndpoint string) error {
-	availableTypes := make([]string, 0, len(c.clients))
-	for k := range c.clients {
-		availableTypes = append(availableTypes, k)
-	}
-	return fmt.Errorf("no client found for instance type '%s' when accessing '%s'. Instance types able to scrape this endpoint type: [%s]",
-		strings.Join(availableTypes, ", "), apiEndpoint, eptType)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Type wrapper for accessing context value
@@ -55,146 +49,39 @@ type splunkClient struct {
 }
 
 func newSplunkEntClient(ctx context.Context, cfg *Config, h component.Host, s component.TelemetrySettings) (*splunkEntClient, error) {
-	var err error
-	var e *url.URL
-	var c *http.Client
-	clientMap := make(splunkClientMap)
-
-	// if the endpoint is defined, put it in the endpoints map for later use
-	// we already checked that url.Parse does not fail in cfg.Validate()
-	if cfg.IdxEndpoint.Endpoint != "" {
-		e, _ = url.Parse(cfg.IdxEndpoint.Endpoint)
-		c, err = cfg.IdxEndpoint.ToClient(ctx, h.GetExtensions(), s)
-		if err != nil {
-			return nil, err
-		}
-		clientMap[typeIdx] = splunkClient{
-			client:   c,
-			endpoint: e,
-		}
-	}
-	if cfg.SHEndpoint.Endpoint != "" {
-		e, _ = url.Parse(cfg.SHEndpoint.Endpoint)
-		c, err = cfg.SHEndpoint.ToClient(ctx, h.GetExtensions(), s)
-		if err != nil {
-			return nil, err
-		}
-		clientMap[typeSh] = splunkClient{
-			client:   c,
-			endpoint: e,
-		}
-	}
-	if cfg.CMEndpoint.Endpoint != "" {
-		e, _ = url.Parse(cfg.CMEndpoint.Endpoint)
-		c, err = cfg.CMEndpoint.ToClient(ctx, h.GetExtensions(), s)
-		if err != nil {
-			return nil, err
-		}
-		clientMap[typeCm] = splunkClient{
-			client:   c,
-			endpoint: e,
-		}
-	}
-
-	return &splunkEntClient{clients: clientMap}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// if the endpoint is defined, put it in the endpoints map for later use
+// we already checked that url.Parse does not fail in cfg.Validate()
 
 // For running ad hoc searches only
 func (c *splunkEntClient) createRequest(eptType string, sr *searchResponse) (req *http.Request, err error) {
-	ctx := context.WithValue(context.Background(), endpointType("type"), eptType)
-
-	// Running searches via Splunk's REST API is a two step process: First you submit the job to run
-	// this returns a jobid which is then used in the second part to retrieve the search results
-	if sr.Jobid == nil {
-		var u string
-		path := "/services/search/v2/jobs/"
-
-		if e, ok := c.clients[eptType]; ok {
-			u, err = url.JoinPath(e.endpoint.String(), path)
-			if err != nil {
-				return nil, err
-			}
-		} else {
-			return nil, c.newClientNotFoundError(eptType, fmt.Sprintf("search response: %+v", sr))
-		}
-
-		// reader for the response data
-		data := strings.NewReader(sr.search)
-
-		// return the build request, ready to be run by makeRequest
-		req, err = http.NewRequestWithContext(ctx, http.MethodPost, u, data)
-		if err != nil {
-			return nil, err
-		}
-
-		return req, nil
-	}
-	data := url.Values{}
-	data.Add("add_summary_to_metadata", "true")
-	data.Add("count", fmt.Sprintf("%v", sr.count))
-	data.Add("offset", fmt.Sprintf("%v", sr.offset))
-
-	path := fmt.Sprintf("/services/search/v2/jobs/%s/results", *sr.Jobid)
-	url, _ := url.JoinPath(c.clients[eptType].endpoint.String(), path)
-
-	req, err = http.NewRequestWithContext(ctx, http.MethodPost, url, strings.NewReader(data.Encode()))
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-
-	return req, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Running searches via Splunk's REST API is a two step process: First you submit the job to run
+// this returns a jobid which is then used in the second part to retrieve the search results
+
+// reader for the response data
+
+// return the build request, ready to be run by makeRequest
 
 // forms an *http.Request for use with Splunk built-in API's (like introspection).
 func (c *splunkEntClient) createAPIRequest(eptType, apiEndpoint string) (req *http.Request, err error) {
-	var u string
-	ctx := context.WithValue(context.Background(), endpointType("type"), eptType)
-
-	if e, ok := c.clients[eptType]; ok {
-		u = e.endpoint.String() + apiEndpoint
-	} else {
-		return nil, c.newClientNotFoundError(eptType, apiEndpoint)
-	}
-
-	req, err = http.NewRequestWithContext(ctx, http.MethodGet, u, http.NoBody)
-	if err != nil {
-		return nil, err
-	}
-
-	return req, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Perform a request.
 func (c *splunkEntClient) makeRequest(req *http.Request) (*http.Response, error) {
+	_ = "STUB: not implemented"
 	// get endpoint type from the context
-	eptType := req.Context().Value(endpointType("type"))
-	if eptType == nil {
-		return nil, errCtxMissingEndpointType
-	}
-
-	var endpointType string
-	switch t := eptType.(type) {
-	case string:
-		endpointType = t
-	default:
-		endpointType = fmt.Sprintf("%v", eptType)
-	}
-
-	if sc, ok := c.clients[endpointType]; ok {
-		res, err := sc.client.Do(req)
-		if err != nil {
-			return nil, err
-		}
-		return res, nil
-	}
-	return nil, errEndpointTypeNotFound
+	return nil, nil
 }
 
 // Check if the splunkEntClient contains a configured endpoint for the type of scraper
 // Returns true if an entry exists, false if not.
-func (c *splunkEntClient) isConfigured(v string) bool {
-	_, ok := c.clients[v]
-	return ok
-}
+func (c *splunkEntClient) isConfigured(v string) bool { _ = "STUB: not implemented"; return false }

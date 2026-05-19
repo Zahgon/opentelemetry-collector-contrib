@@ -5,178 +5,63 @@ package metadatatest
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processortest"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata/metricdatatest"
 )
 
 func NewSettings(tt *componenttest.Telemetry) processor.Settings {
-	set := processortest.NewNopSettings(processortest.NopType)
-	set.ID = component.NewID(component.MustNewType("schema"))
-	set.TelemetrySettings = tt.NewTelemetrySettings()
-	return set
+	_ = "STUB: not implemented"
+	return *new(processor.Settings)
 }
 
 func AssertEqualProcessorSchemaTranslated(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema.translated",
-		Description: "Number of schema translations [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema.translated")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaCacheHits(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_cache.hits",
-		Description: "Number of schema cache hits [Development]",
-		Unit:        "{requests}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_cache.hits")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaCacheMisses(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_cache.misses",
-		Description: "Number of schema cache misses [Development]",
-		Unit:        "{requests}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_cache.misses")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaLogsFailed(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_logs.failed",
-		Description: "Number of log scope translation requests that failed [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_logs.failed")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaLogsSkipped(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_logs.skipped",
-		Description: "Number of log scope translation requests skipped because no schema URL was present on the scope or its resource [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_logs.skipped")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaMetricsFailed(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_metrics.failed",
-		Description: "Number of metric scope translation requests that failed [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_metrics.failed")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaMetricsSkipped(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_metrics.skipped",
-		Description: "Number of metric scope translation requests skipped because no schema URL was present on the scope or its resource [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_metrics.skipped")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaResourceFailed(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_resource.failed",
-		Description: "Number of resource translation requests that failed [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_resource.failed")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaTracesFailed(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_traces.failed",
-		Description: "Number of trace scope translation requests that failed [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_traces.failed")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorSchemaTracesSkipped(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_schema_traces.skipped",
-		Description: "Number of trace scope translation requests skipped because no schema URL was present on the scope or its resource [Development]",
-		Unit:        "{translations}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_schema_traces.skipped")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }

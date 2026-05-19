@@ -4,16 +4,11 @@
 package goldendataset // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/goldendataset"
 
 import (
-	"encoding/binary"
-	"errors"
-	"fmt"
 	"io"
 	"math/rand/v2"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/internal/metadata"
 )
 
 // GenerateTraces generates a slice of OTLP ResourceSpans objects based on the PICT-generated pairwise
@@ -21,53 +16,14 @@ import (
 // spans for defined in the file specified by the spanPairsFile parameter.
 // The slice of ResourceSpans are returned. If an err is returned, the slice elements will be nil.
 func GenerateTraces(tracePairsFile, spanPairsFile string) ([]ptrace.Traces, error) {
-	if metadata.InternalCoreinternalGoldendatasetDontEmitV0NetworkConventionsFeatureGate.IsEnabled() && !metadata.InternalCoreinternalGoldendatasetEmitV1NetworkConventionsFeatureGate.IsEnabled() {
-		return nil, errors.New("internal.coreinternal.goldendataset.DontEmitV0NetworkConventions cannot be enabled without enabling internal.coreinternal.goldendataset.EmitV1NetworkConventions")
-	}
-	if metadata.InternalCoreinternalGoldendatasetDontEmitV0RPCConventionsFeatureGate.IsEnabled() && !metadata.InternalCoreinternalGoldendatasetEmitV1RPCConventionsFeatureGate.IsEnabled() {
-		return nil, errors.New("internal.coreinternal.goldendataset.DontEmitV0RPCConventions cannot be enabled without enabling internal.coreinternal.goldendataset.EmitV1RPCConventions")
-	}
-	random := (*randReader)(rand.New(rand.NewPCG(42, 0)))
-	pairsData, err := loadPictOutputFile(tracePairsFile)
-	if err != nil {
-		return nil, err
-	}
-	pairsTotal := len(pairsData) - 1
-	traces := make([]ptrace.Traces, pairsTotal)
-	for index, values := range pairsData {
-		if index == 0 {
-			continue
-		}
-		tracingInputs := &PICTTracingInputs{
-			Resource:               PICTInputResource(values[TracesColumnResource]),
-			InstrumentationLibrary: PICTInputInstrumentationLibrary(values[TracesColumnInstrumentationLibrary]),
-			Spans:                  PICTInputSpans(values[TracesColumnSpans]),
-		}
-		traces[index-1] = ptrace.NewTraces()
-		spanErr := appendResourceSpan(tracingInputs, spanPairsFile, random, traces[index-1].ResourceSpans())
-		if spanErr != nil {
-			return nil, err
-		}
-	}
-	return traces, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // TODO: use math/rand/v2.ChaCha8.Read when we upgrade to go1.23.
 type randReader rand.Rand
 
-func (r *randReader) Read(p []byte) (n int, err error) {
-	for len(p) >= 8 {
-		binary.BigEndian.PutUint64(p[:8], (*rand.Rand)(r).Uint64())
-		p = p[8:]
-		n += 8
-	}
-	if len(p) > 0 {
-		var buf [8]byte
-		binary.BigEndian.PutUint64(buf[:], (*rand.Rand)(r).Uint64())
-		n += copy(p, buf[:])
-	}
-	return n, err
-}
+func (r *randReader) Read(p []byte) (n int, err error) { _ = "STUB: not implemented"; return 0, nil }
 
 // generateResourceSpan generates a single PData ResourceSpans populated based on the provided inputs. They are:
 //
@@ -79,74 +35,28 @@ func (r *randReader) Read(p []byte) (n int, err error) {
 func appendResourceSpan(tracingInputs *PICTTracingInputs, spanPairsFile string,
 	random io.Reader, resourceSpansSlice ptrace.ResourceSpansSlice,
 ) error {
-	resourceSpan := resourceSpansSlice.AppendEmpty()
-	err := appendScopeSpans(tracingInputs, spanPairsFile, random, resourceSpan.ScopeSpans())
-	if err != nil {
-		return err
-	}
-	GenerateResource(tracingInputs.Resource).CopyTo(resourceSpan.Resource())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func appendScopeSpans(tracingInputs *PICTTracingInputs, spanPairsFile string,
 	random io.Reader, scopeSpansSlice ptrace.ScopeSpansSlice,
 ) error {
-	var count int
-	switch tracingInputs.InstrumentationLibrary {
-	case LibraryNone:
-		count = 1
-	case LibraryOne:
-		count = 1
-	case LibraryTwo:
-		count = 2
-	}
-	for i := 0; i < count; i++ {
-		err := fillScopeSpans(tracingInputs, i, spanPairsFile, random, scopeSpansSlice.AppendEmpty())
-		if err != nil {
-			return err
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func fillScopeSpans(tracingInputs *PICTTracingInputs, index int, spanPairsFile string, random io.Reader, scopeSpans ptrace.ScopeSpans) error {
-	spanCaseCount, err := countTotalSpanCases(spanPairsFile)
-	if err != nil {
-		return err
-	}
-	fillInstrumentationLibrary(tracingInputs, index, scopeSpans.Scope())
-	switch tracingInputs.Spans {
-	case LibrarySpansNone:
-		return nil
-	case LibrarySpansOne:
-		return appendSpans(1, spanPairsFile, random, scopeSpans.Spans())
-	case LibrarySpansSeveral:
-		return appendSpans(spanCaseCount/4, spanPairsFile, random, scopeSpans.Spans())
-	case LibrarySpansAll:
-		return appendSpans(spanCaseCount, spanPairsFile, random, scopeSpans.Spans())
-	default:
-		return appendSpans(16, spanPairsFile, random, scopeSpans.Spans())
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func countTotalSpanCases(spanPairsFile string) (int, error) {
-	pairsData, err := loadPictOutputFile(spanPairsFile)
-	if err != nil {
-		return 0, err
-	}
-	count := len(pairsData) - 1
-	return count, err
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func fillInstrumentationLibrary(tracingInputs *PICTTracingInputs, index int, scope pcommon.InstrumentationScope) {
-	if tracingInputs.InstrumentationLibrary == LibraryNone {
-		return
-	}
-	nameStr := fmt.Sprintf("%s-%s-%s-%d", tracingInputs.Resource, tracingInputs.InstrumentationLibrary, tracingInputs.Spans, index)
-	verStr := "semver:1.1.7"
-	if index > 0 {
-		verStr = ""
-	}
-	scope.SetName(nameStr)
-	scope.SetVersion(verStr)
+	_ = "STUB: not implemented"
+	return
 }

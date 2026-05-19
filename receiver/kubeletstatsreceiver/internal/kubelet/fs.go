@@ -11,26 +11,16 @@ import (
 )
 
 func addFilesystemMetrics(mb *metadata.MetricsBuilder, filesystemMetrics metadata.FilesystemMetrics, s *stats.FsStats, currentTime pcommon.Timestamp) {
-	if s == nil {
-		return
-	}
-
-	recordIntDataPoint(mb, filesystemMetrics.Available, s.AvailableBytes, currentTime)
-	recordIntDataPoint(mb, filesystemMetrics.Capacity, s.CapacityBytes, currentTime)
-	recordIntDataPoint(mb, filesystemMetrics.Usage, s.UsedBytes, currentTime)
+	_ = "STUB: not implemented"
+	return
 }
 
 func addEphemeralStorageMetrics(mb *metadata.MetricsBuilder, esMetrics metadata.EphemeralStorageMetrics, s *stats.FsStats, fsType metadata.AttributeFsType, currentTime pcommon.Timestamp) {
-	if s == nil {
-		return
-	}
-
-	recordIntDataPointWithFsType(mb, esMetrics.Usage, s.UsedBytes, fsType, currentTime)
+	_ = "STUB: not implemented"
+	return
 }
 
 func recordIntDataPointWithFsType(mb *metadata.MetricsBuilder, recordDataPoint metadata.RecordIntDataPointWithFsTypeFunc, value *uint64, fsType metadata.AttributeFsType, currentTime pcommon.Timestamp) {
-	if value == nil || recordDataPoint == nil {
-		return
-	}
-	recordDataPoint(mb, currentTime, int64(*value), fsType)
+	_ = "STUB: not implemented"
+	return
 }

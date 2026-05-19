@@ -4,8 +4,6 @@
 package pipeline // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/pipeline"
 
 import (
-	"hash/fnv"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 )
 
@@ -18,43 +16,33 @@ type OperatorNode struct {
 
 // Operator returns the operator of the node.
 func (b OperatorNode) Operator() operator.Operator {
-	return b.operator
+	_ = "STUB: not implemented"
+
+	// ID returns the node id.
+	return *new(operator.Operator)
 }
 
-// ID returns the node id.
 func (b OperatorNode) ID() int64 {
-	return b.id
+	_ = "STUB: not implemented"
+
+	// DOTID returns the id used to represent this node in a dot graph.
+	return 0
 }
 
-// DOTID returns the id used to represent this node in a dot graph.
-func (b OperatorNode) DOTID() string {
-	return b.operator.ID()
-}
+func (b OperatorNode) DOTID() string { _ = "STUB: not implemented"; return "" }
 
 // OutputIDs returns a map of output operator ids to node ids.
 func (b OperatorNode) OutputIDs() map[string]int64 {
-	return b.outputIDs
+	_ = "STUB: not implemented"
+
+	// createOperatorNode will create an operator node.
+	return nil
 }
 
-// createOperatorNode will create an operator node.
 func createOperatorNode(operator operator.Operator) OperatorNode {
-	id := createNodeID(operator.ID())
-	outputIDs := make(map[string]int64)
-	if operator.CanOutput() {
-		for _, output := range operator.Outputs() {
-			outputIDs[output.ID()] = createNodeID(output.ID())
-		}
-	}
-	return OperatorNode{
-		operator:  operator,
-		outputIDs: outputIDs,
-		id:        id,
-	}
+	_ = "STUB: not implemented"
+	return *new(OperatorNode)
 }
 
 // createNodeID generates a node id from an operator id.
-func createNodeID(operatorID string) int64 {
-	hash := fnv.New64a()
-	_, _ = hash.Write([]byte(operatorID))
-	return int64(hash.Sum64())
-}
+func createNodeID(operatorID string) int64 { _ = "STUB: not implemented"; return 0 }

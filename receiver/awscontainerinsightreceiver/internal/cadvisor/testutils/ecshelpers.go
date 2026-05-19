@@ -8,22 +8,12 @@ type MockECSInfo struct {
 	InstanceIP  string
 }
 
-func (*MockECSInfo) GetRunningTaskCount() int64 {
-	return 2
-}
+func (*MockECSInfo) GetRunningTaskCount() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (*MockECSInfo) GetCPUReserved() int64 {
-	return 32
-}
+func (*MockECSInfo) GetCPUReserved() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (*MockECSInfo) GetMemReserved() int64 {
-	return 213
-}
+func (*MockECSInfo) GetMemReserved() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (*MockECSInfo) GetContainerInstanceID() string {
-	return "eeee12.dsfr"
-}
+func (*MockECSInfo) GetContainerInstanceID() string { _ = "STUB: not implemented"; return "" }
 
-func (*MockECSInfo) GetClusterName() string {
-	return "ecs-cluster"
-}
+func (*MockECSInfo) GetClusterName() string { _ = "STUB: not implemented"; return "" }

@@ -25,44 +25,31 @@ type clientOptionsResolver struct {
 // Unlike in the tests where there will be one option by API mock, here we don't need different options for each client.
 // Note the fact that it recreates the options each time. It's because the options are mutable, they can be modified by the client ctor.
 func newClientOptionsResolver(cloudStr string) ClientOptionsResolver {
-	var cloudToUse cloud.Configuration
-	switch cloudStr {
-	case azureGovernmentCloud:
-		cloudToUse = cloud.AzureGovernment
-	case azureChinaCloud:
-		cloudToUse = cloud.AzureChina
-	default:
-		cloudToUse = cloud.AzurePublic
-	}
-	return &clientOptionsResolver{cloud: cloudToUse}
+	_ = "STUB: not implemented"
+	return *new(ClientOptionsResolver)
 }
 
 func (r *clientOptionsResolver) getClientOptions() azcore.ClientOptions {
-	return azcore.ClientOptions{
-		Cloud: r.cloud,
-	}
+	_ = "STUB: not implemented"
+	return *new(azcore.ClientOptions)
 }
 
 func (r *clientOptionsResolver) GetArmResourceClientOptions(_ string) *arm.ClientOptions {
-	return &arm.ClientOptions{
-		ClientOptions: r.getClientOptions(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (r *clientOptionsResolver) GetArmSubscriptionsClientOptions() *arm.ClientOptions {
-	return &arm.ClientOptions{
-		ClientOptions: r.getClientOptions(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (r *clientOptionsResolver) GetArmMonitorClientOptions() *arm.ClientOptions {
-	return &arm.ClientOptions{
-		ClientOptions: r.getClientOptions(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (r *clientOptionsResolver) GetAzMetricsClientOptions() *azmetrics.ClientOptions {
-	return &azmetrics.ClientOptions{
-		ClientOptions: r.getClientOptions(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

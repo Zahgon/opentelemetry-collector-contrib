@@ -5,11 +5,7 @@ package oraclecloud // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"time"
 )
 
 // OracleCloud IMDS compute endpoint
@@ -22,24 +18,7 @@ type Provider interface {
 
 // IsRunningOnOracleCloud performs a fast probe to the OCI metadata endpoint with a short timeout.
 // Returns true if the endpoint responds with HTTP 200 OK, false otherwise.
-func IsRunningOnOracleCloud(ctx context.Context) bool {
-	client := &http.Client{
-		Timeout: 200 * time.Millisecond,
-	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodHead, metadataEndpoint, http.NoBody)
-	if err != nil {
-		return false
-	}
-
-	req.Header.Add("Authorization", "Bearer Oracle")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		return false
-	}
-	defer resp.Body.Close()
-	return resp.StatusCode == http.StatusOK
-}
+func IsRunningOnOracleCloud(ctx context.Context) bool { _ = "STUB: not implemented"; return false }
 
 // IsRunningOnOracleCloudFunc can be overridden in tests to simulate probe presence/absence.
 var IsRunningOnOracleCloudFunc = IsRunningOnOracleCloud
@@ -50,12 +29,7 @@ type oraclecloudProviderImpl struct {
 }
 
 // NewProvider creates a new metadata provider
-func NewProvider() Provider {
-	return &oraclecloudProviderImpl{
-		endpoint: metadataEndpoint,
-		client:   &http.Client{},
-	}
-}
+func NewProvider() Provider { _ = "STUB: not implemented"; return *new(Provider) }
 
 type ComputeTagsListMetadata struct {
 	Name  string `json:"name"`
@@ -80,34 +54,6 @@ type InstanceMetadata struct {
 
 // Metadata queries a given endpoint and parses the output to the OracleCloud IMDS format
 func (p *oraclecloudProviderImpl) Metadata(ctx context.Context) (*ComputeMetadata, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, p.endpoint, http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	req.Header.Add("Authorization", "Bearer Oracle")
-	q := req.URL.Query()
-	req.URL.RawQuery = q.Encode()
-
-	resp, err := p.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("failed to query OracleCloud IMDS: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("received non-OK response from OracleCloud IMDS: %s", resp.Status)
-	}
-
-	respBody, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read OracleCloud IMDS reply: %w", err)
-	}
-
-	var metadata *ComputeMetadata
-	err = json.Unmarshal(respBody, &metadata)
-	if err != nil {
-		return nil, fmt.Errorf("failed to decode OracleCloud IMDS reply: %w", err)
-	}
-
-	return metadata, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -4,14 +4,9 @@
 package logs
 
 import (
-	"errors"
-	"fmt"
-
 	"github.com/spf13/pflag"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/internal/config"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/internal/validate"
-	types "github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/pkg"
 )
 
 // Config describes the test scenario.
@@ -25,62 +20,15 @@ type Config struct {
 	SpanID         string
 }
 
-func NewConfig() *Config {
-	cfg := &Config{}
-	cfg.SetDefaults()
-	return cfg
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // Flags registers config flags.
-func (c *Config) Flags(fs *pflag.FlagSet) {
-	c.CommonFlags(fs)
-
-	fs.StringVar(&c.HTTPPath, "otlp-http-url-path", c.HTTPPath, "Which URL path to write to")
-
-	fs.IntVar(&c.NumLogs, "logs", c.NumLogs, "Number of logs to generate in each worker (ignored if duration is provided)")
-	fs.StringVar(&c.Body, "body", c.Body, "Body of the log")
-	fs.StringVar(&c.SeverityText, "severity-text", c.SeverityText, "Severity text of the log")
-	fs.Int32Var(&c.SeverityNumber, "severity-number", c.SeverityNumber, "Severity number of the log, range from 1 to 24 (inclusive)")
-	fs.StringVar(&c.TraceID, "trace-id", c.TraceID, "TraceID of the log")
-	fs.StringVar(&c.SpanID, "span-id", c.SpanID, "SpanID of the log")
-}
+func (c *Config) Flags(fs *pflag.FlagSet) { _ = "STUB: not implemented"; return }
 
 // SetDefaults sets the default values for the configuration
 // This is called before parsing the command line flags and when
 // calling NewConfig()
-func (c *Config) SetDefaults() {
-	c.Config.SetDefaults()
-	c.HTTPPath = "/v1/logs"
-	c.Rate = 1
-	c.TotalDuration = types.DurationWithInf(0)
-	c.Body = "the message"
-	c.SeverityText = "Info"
-	c.SeverityNumber = 9
-	c.TraceID = ""
-	c.SpanID = ""
-}
+func (c *Config) SetDefaults() { _ = "STUB: not implemented"; return }
 
 // Validate validates the test scenario parameters.
-func (c *Config) Validate() error {
-	if c.TotalDuration.Duration() <= 0 && c.NumLogs <= 0 && !c.TotalDuration.IsInf() {
-		return errors.New("either `logs` or `duration` must be greater than 0")
-	}
-
-	if c.LoadSize < 0 {
-		return fmt.Errorf("load size must be non-negative, found %d", c.LoadSize)
-	}
-
-	if c.TraceID != "" {
-		if err := validate.TraceID(c.TraceID); err != nil {
-			return err
-		}
-	}
-
-	if c.SpanID != "" {
-		if err := validate.SpanID(c.SpanID); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -5,14 +5,10 @@ package probabilisticsamplerprocessor // import "github.com/open-telemetry/opent
 
 import (
 	"context"
-	"strconv"
-	"strings"
 
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling"
@@ -56,214 +52,107 @@ type tracestateCarrier struct {
 var _ samplingCarrier = &tracestateCarrier{}
 
 func newTracestateCarrier(s ptrace.Span) (samplingCarrier, error) {
-	var err error
-	tsc := &tracestateCarrier{
-		span: s,
-	}
-	tsc.W3CTraceState, err = sampling.NewW3CTraceState(s.TraceState().AsRaw())
-	return tsc, err
+	_ = "STUB: not implemented"
+	return *new(samplingCarrier), nil
 }
 
 func (tc *tracestateCarrier) threshold() (sampling.Threshold, bool) {
-	return tc.W3CTraceState.OTelValue().TValueThreshold()
+	_ = "STUB: not implemented"
+	return *new(sampling.Threshold), false
 }
 
 func (tc *tracestateCarrier) explicitRandomness() (randomnessNamer, bool) {
-	rnd, ok := tc.W3CTraceState.OTelValue().RValueRandomness()
-	if !ok {
-		return newMissingRandomnessMethod(), false
-	}
-	return newSamplingRandomnessMethod(rnd), true
+	_ = "STUB: not implemented"
+	return *new(randomnessNamer), false
 }
 
 func (tc *tracestateCarrier) updateThreshold(th sampling.Threshold) error {
-	return tc.W3CTraceState.OTelValue().UpdateTValueWithSampling(th)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (tc *tracestateCarrier) setExplicitRandomness(rnd randomnessNamer) {
-	tc.W3CTraceState.OTelValue().SetRValue(rnd.randomness())
+	_ = "STUB: not implemented"
+	return
 }
 
-func (tc *tracestateCarrier) clearThreshold() {
-	tc.W3CTraceState.OTelValue().ClearTValue()
-}
+func (tc *tracestateCarrier) clearThreshold() { _ = "STUB: not implemented"; return }
 
-func (tc *tracestateCarrier) reserialize() error {
-	var w strings.Builder
-	err := tc.Serialize(&w)
-	if err == nil {
-		tc.span.TraceState().FromRaw(w.String())
-	}
-	return err
-}
+func (tc *tracestateCarrier) reserialize() error { _ = "STUB: not implemented"; return nil }
 
 // newTracesProcessor returns a processor.TracesProcessor that will
 // perform intermediate span sampling according to the given
 // configuration.
 func newTracesProcessor(ctx context.Context, set processor.Settings, cfg *Config, nextConsumer consumer.Traces) (processor.Traces, error) {
-	telemetryBuilder, err := metadata.NewTelemetryBuilder(set.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-	tp := &traceProcessor{
-		sampler:          makeSampler(cfg, false),
-		failClosed:       cfg.FailClosed,
-		logger:           set.Logger,
-		telemetryBuilder: telemetryBuilder,
-	}
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		tp.processTraces,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 func (th *hashingSampler) randomnessFromSpan(s ptrace.Span) (randomnessNamer, samplingCarrier, error) {
-	tid := s.TraceID()
-	tsc, err := newTracestateCarrier(s)
-	rnd := newMissingRandomnessMethod()
-	if !tid.IsEmpty() {
-		rnd = newTraceIDHashingMethod(randomnessFromBytes(tid[:], th.hashSeed))
-	}
-
-	// If the tracestate contains a proper R-value or T-value, we
-	// have to leave it alone.  The user should not be using this
-	// sampler mode if they are using specified forms of consistent
-	// sampling in OTel.
-	if err != nil {
-		return rnd, nil, err
-	} else if _, has := tsc.explicitRandomness(); has {
-		err = ErrRandomnessInUse
-		tsc = nil
-	} else if _, has := tsc.threshold(); has {
-		err = ErrThresholdInUse
-		tsc = nil
-	} else {
-		// When no sampling information is present, add a
-		// Randomness value.
-		tsc.setExplicitRandomness(rnd)
-	}
-	return rnd, tsc, err
+	_ = "STUB: not implemented"
+	return *new(randomnessNamer), *new(samplingCarrier), nil
 }
+
+// If the tracestate contains a proper R-value or T-value, we
+// have to leave it alone.  The user should not be using this
+// sampler mode if they are using specified forms of consistent
+// sampling in OTel.
+
+// When no sampling information is present, add a
+// Randomness value.
 
 func (*consistentTracestateCommon) randomnessFromSpan(s ptrace.Span) (randomnessNamer, samplingCarrier, error) {
-	rnd := newMissingRandomnessMethod()
-	tsc, err := newTracestateCarrier(s)
-	if err != nil {
-		tsc = nil
-	} else if rv, has := tsc.explicitRandomness(); has {
-		// When the tracestate is OK and has r-value, use it.
-		rnd = rv
-	} else if !s.TraceID().IsEmpty() {
-		rnd = newTraceIDW3CSpecMethod(sampling.TraceIDToRandomness(s.TraceID()))
-	}
-
-	return rnd, tsc, err
+	_ = "STUB: not implemented"
+	return *new(randomnessNamer), *new(samplingCarrier), nil
 }
 
+// When the tracestate is OK and has r-value, use it.
+
 func (*neverSampler) randomnessFromSpan(span ptrace.Span) (randomnessNamer, samplingCarrier, error) {
+	_ = "STUB: not implemented"
 	// We return a fake randomness value, since it will not be used.
 	// This avoids a consistency check error for missing randomness.
-	tsc, err := newTracestateCarrier(span)
-	return newSamplingPriorityMethod(sampling.AllProbabilitiesRandomness), tsc, err
+	return *new(randomnessNamer), *new(samplingCarrier), nil
 }
 
 func (tp *traceProcessor) processTraces(ctx context.Context, td ptrace.Traces) (ptrace.Traces, error) {
-	td.ResourceSpans().RemoveIf(func(rs ptrace.ResourceSpans) bool {
-		rs.ScopeSpans().RemoveIf(func(ils ptrace.ScopeSpans) bool {
-			ils.Spans().RemoveIf(func(s ptrace.Span) bool {
-				return !commonShouldSampleLogic(
-					ctx,
-					s,
-					tp.sampler,
-					tp.failClosed,
-					tp.sampler.randomnessFromSpan,
-					tp.priorityFunc,
-					"traces sampler",
-					tp.logger,
-					tp.telemetryBuilder.ProcessorProbabilisticSamplerCountTracesSampled,
-				)
-			})
-			// Filter out empty ScopeMetrics
-			return ils.Spans().Len() == 0
-		})
-		// Filter out empty ResourceMetrics
-		return rs.ScopeSpans().Len() == 0
-	})
-	if td.ResourceSpans().Len() == 0 {
-		return td, processorhelper.ErrSkipProcessingData
-	}
-	return td, nil
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
+// Filter out empty ScopeMetrics
+
+// Filter out empty ResourceMetrics
+
 func (*traceProcessor) priorityFunc(s ptrace.Span, rnd randomnessNamer, threshold sampling.Threshold) (randomnessNamer, sampling.Threshold) {
-	switch parseSpanSamplingPriority(s) {
-	case doNotSampleSpan:
-		// OpenTracing mentions this as a "hint". We take a stronger
-		// approach and do not sample the span since some may use it to
-		// remove specific spans from traces.
-		threshold = sampling.NeverSampleThreshold
-		rnd = newSamplingPriorityMethod(rnd.randomness()) // override policy name
-	case mustSampleSpan:
-		threshold = sampling.AlwaysSampleThreshold
-		rnd = newSamplingPriorityMethod(rnd.randomness()) // override policy name
-	case deferDecision:
-		// Note that the logs processor has very different logic here,
-		// but that in tracing the priority can only force to never or
-		// always.
-	}
-	return rnd, threshold
+	_ = "STUB: not implemented"
+	return *new(randomnessNamer), *new(sampling.Threshold)
 }
+
+// OpenTracing mentions this as a "hint". We take a stronger
+// approach and do not sample the span since some may use it to
+// remove specific spans from traces.
+
+// override policy name
+
+// override policy name
+
+// Note that the logs processor has very different logic here,
+// but that in tracing the priority can only force to never or
+// always.
 
 // parseSpanSamplingPriority checks if the span has the "sampling.priority" tag to
 // decide if the span should be sampled or not. The usage of the tag follows the
 // OpenTracing semantic tags:
 // https://github.com/opentracing/specification/blob/main/semantic_conventions.md#span-tags-table
 func parseSpanSamplingPriority(span ptrace.Span) samplingPriority {
-	attribMap := span.Attributes()
-	if attribMap.Len() <= 0 {
-		return deferDecision
-	}
-
-	samplingPriorityAttrib, ok := attribMap.Get("sampling.priority")
-	if !ok {
-		return deferDecision
-	}
-
-	// By default defer the decision.
-	decision := deferDecision
-
-	// Try check for different types since there are various client libraries
-	// using different conventions regarding "sampling.priority". Besides the
-	// client libraries it is also possible that the type was lost in translation
-	// between different formats.
-	switch samplingPriorityAttrib.Type() {
-	case pcommon.ValueTypeInt:
-		value := samplingPriorityAttrib.Int()
-		if value == 0 {
-			decision = doNotSampleSpan
-		} else if value > 0 {
-			decision = mustSampleSpan
-		}
-	case pcommon.ValueTypeDouble:
-		value := samplingPriorityAttrib.Double()
-		if value == 0.0 {
-			decision = doNotSampleSpan
-		} else if value > 0.0 {
-			decision = mustSampleSpan
-		}
-	case pcommon.ValueTypeStr:
-		attribVal := samplingPriorityAttrib.Str()
-		if value, err := strconv.ParseFloat(attribVal, 64); err == nil {
-			if value == 0.0 {
-				decision = doNotSampleSpan
-			} else if value > 0.0 {
-				decision = mustSampleSpan
-			}
-		}
-	}
-
-	return decision
+	_ = "STUB: not implemented"
+	return *new(samplingPriority)
 }
+
+// By default defer the decision.
+
+// Try check for different types since there are various client libraries
+// using different conventions regarding "sampling.priority". Besides the
+// client libraries it is also possible that the type was lost in translation
+// between different formats.

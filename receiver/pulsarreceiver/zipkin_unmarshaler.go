@@ -5,11 +5,6 @@
 
 package pulsarreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/pulsarreceiver"
 
-import (
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/zipkin/zipkinv1"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/zipkin/zipkinv2"
-)
-
 // copy from kafka receiver
 const (
 	zipkinProtobufEncoding = "zipkin_proto"
@@ -18,13 +13,16 @@ const (
 )
 
 func newZipkinProtobufUnmarshaler() TracesUnmarshaler {
-	return newPdataTracesUnmarshaler(zipkinv2.NewProtobufTracesUnmarshaler(false, false), zipkinProtobufEncoding)
+	_ = "STUB: not implemented"
+	return *new(TracesUnmarshaler)
 }
 
 func newZipkinJSONUnmarshaler() TracesUnmarshaler {
-	return newPdataTracesUnmarshaler(zipkinv2.NewJSONTracesUnmarshaler(false), zipkinJSONEncoding)
+	_ = "STUB: not implemented"
+	return *new(TracesUnmarshaler)
 }
 
 func newZipkinThriftUnmarshaler() TracesUnmarshaler {
-	return newPdataTracesUnmarshaler(zipkinv1.NewThriftTracesUnmarshaler(), zipkinThriftEncoding)
+	_ = "STUB: not implemented"
+	return *new(TracesUnmarshaler)
 }

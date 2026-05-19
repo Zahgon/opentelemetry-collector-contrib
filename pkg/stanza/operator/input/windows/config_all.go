@@ -24,22 +24,10 @@ const (
 )
 
 // NewConfig will return an event log config with default values.
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfig will return an event log config with default values.
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		InputConfig:         helper.NewInputConfig(operatorID, operatorType),
-		MaxReads:            100,
-		StartAt:             "end",
-		PollInterval:        1 * time.Second,
-		WaitTimeout:         5 * time.Second,
-		IgnoreChannelErrors: false,
-		EventDataFormat:     EventDataFormatMap,
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a windows event log operator.
 type Config struct {

@@ -5,8 +5,6 @@ package sanitizeutf8 // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
-	"strings"
 	"unicode/utf8"
 
 	"go.opentelemetry.io/collector/component"
@@ -26,17 +24,10 @@ func init() {
 }
 
 // NewConfig creates a new sanitize_utf8 config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new sanitize_utf8 config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-		Field:             entry.NewBodyField(),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a sanitize_utf8 operator
 type Config struct {
@@ -46,15 +37,8 @@ type Config struct {
 
 // Build creates a new Transformer from a config
 func (c *Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformer, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, fmt.Errorf("failed to build transformer config: %w", err)
-	}
-
-	return &Transformer{
-		TransformerOperator: transformer,
-		field:               c.Field,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }
 
 // Transformer is an operator that replaces invalid UTF-8 characters in a field
@@ -64,27 +48,13 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.ProcessWith)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *Transformer) Process(ctx context.Context, e *entry.Entry) error {
-	return t.TransformerOperator.ProcessWith(ctx, e, t.ProcessWith)
-}
-
-func (t *Transformer) ProcessWith(e *entry.Entry) error {
-	v, ok := t.field.Get(e)
-	if !ok {
-		return nil
-	}
-	s, ok := v.(string)
-	if !ok {
-		return fmt.Errorf("field '%s' is not a string, got %T", t.field.String(), v)
-	}
-	if utf8.ValidString(s) {
-		return nil
-	}
-	if err := t.field.Set(e, strings.ToValidUTF8(s, invalidCharacterMarker)); err != nil {
-		return fmt.Errorf("failed to set field %s: %w", t.field.String(), err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
+
+func (t *Transformer) ProcessWith(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }

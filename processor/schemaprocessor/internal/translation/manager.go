@@ -6,7 +6,6 @@ package translation // import "github.com/open-telemetry/opentelemetry-collector
 import (
 	"context"
 	"errors"
-	"fmt"
 	"sync"
 	"time"
 
@@ -47,119 +46,29 @@ var _ Manager = (*manager)(nil)
 // NewManager creates a manager that will allow for management
 // of schema
 func NewManager(targetSchemaURLS []string, log *zap.Logger, cooldown time.Duration, limit int, telemetryBuilder *metadata.TelemetryBuilder, migrationMap map[string]*Version, providers ...Provider) (Manager, error) {
-	if log == nil {
-		return nil, fmt.Errorf("logger: %w", errNilValueProvided)
-	}
-
-	match := make(map[string]*Version, len(targetSchemaURLS))
-	for _, target := range targetSchemaURLS {
-		family, version, err := GetFamilyAndVersion(target)
-		if err != nil {
-			return nil, err
-		}
-		match[family] = version
-	}
-
-	m := &manager{
-		log:              log,
-		telemetryBuilder: telemetryBuilder,
-		migrationMap:     migrationMap,
-		cooldown:         cooldown,
-		limit:            limit,
-		match:            match,
-		translatorMap:    make(map[string]*translator),
-	}
-
-	// wrap providers with cacheable provider
-	for _, p := range providers {
-		m.providers = append(m.providers, m.newCacheableProvider(p))
-	}
-
-	return m, nil
+	_ = "STUB: not implemented"
+	return *new(Manager), nil
 }
+
+// wrap providers with cacheable provider
 
 // newCacheableProvider wraps p with a CacheableProvider wired to the manager's telemetry.
 func (m *manager) newCacheableProvider(p Provider) Provider {
-	return NewCacheableProvider(p, m.cooldown, m.limit, m.telemetryBuilder)
+	_ = "STUB: not implemented"
+	return *new(Provider)
 }
 
 func (m *manager) RequestTranslation(ctx context.Context, schemaURL string) (Translation, error) {
-	m.log.Debug("Requesting translation for schemaURL", zap.String("schema-url", schemaURL))
-	family, version, err := GetFamilyAndVersion(schemaURL)
-	if err != nil {
-		m.log.Error("No valid schema url was provided",
-			zap.String("schema-url", schemaURL), zap.Error(err),
-		)
-		return nil, err
-	}
-
-	targetTranslation, match := m.match[family]
-	if !match {
-		m.log.Warn("Not a known target translation",
-			zap.String("schema-url", schemaURL),
-		)
-		return nil, fmt.Errorf("not a known targetTranslation: %s", family)
-	}
-
-	m.rw.RLock()
-	t, exists := m.translatorMap[family]
-	m.rw.RUnlock()
-
-	if exists && t.SupportedVersion(version) {
-		return t, nil
-	}
-
-	// Always fetch the schema file for the higher version, since it contains the complete
-	// migration history. For upgrades (signal older than target), fetch the target URL.
-	// For downgrades (signal newer than target), fetch the signal URL.
-	fetchURL := schemaURL
-	if version.Compare(targetTranslation) == Update {
-		fetchURL = joinSchemaFamilyAndVersion(family, targetTranslation)
-	}
-
-	for _, p := range m.providers {
-		content, err := p.Retrieve(ctx, fetchURL)
-		if err != nil {
-			m.log.Error("Failed to lookup schemaURL",
-				zap.Error(err),
-				zap.String("schemaURL", fetchURL),
-			)
-			// If we fail to retrieve the schema, we should
-			// try the next provider
-			continue
-		}
-		targetSchemaURL := joinSchemaFamilyAndVersion(family, targetTranslation)
-		copyFromVersion := m.migrationMap[targetSchemaURL]
-		t, err := newTranslator(
-			m.log.Named("translator").With(
-				zap.String("family", family),
-				zap.Stringer("target", targetTranslation),
-			),
-			targetSchemaURL,
-			content,
-			copyFromVersion,
-		)
-		if err != nil {
-			m.log.Error("Failed to create translator", zap.Error(err))
-			continue
-		}
-		m.rw.Lock()
-		m.translatorMap[family] = t
-		m.rw.Unlock()
-		return t, nil
-	}
-
-	return nil, fmt.Errorf("failed to retrieve translation for %s", schemaURL)
+	_ = "STUB: not implemented"
+	return *new(Translation), nil
 }
+
+// Always fetch the schema file for the higher version, since it contains the complete
+// migration history. For upgrades (signal older than target), fetch the target URL.
+// For downgrades (signal newer than target), fetch the signal URL.
+
+// If we fail to retrieve the schema, we should
+// try the next provider
 
 // AddProvider will add a provider to the Manager
-func (m *manager) AddProvider(p Provider) {
-	if p == nil {
-		m.log.Error("Nil provider provided, not adding to manager")
-		return
-	}
-	if _, ok := p.(*CacheableProvider); !ok {
-		p = m.newCacheableProvider(p)
-	}
-	m.providers = append(m.providers, p)
-}
+func (m *manager) AddProvider(p Provider) { _ = "STUB: not implemented"; return }

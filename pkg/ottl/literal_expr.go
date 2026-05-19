@@ -9,9 +9,7 @@ import (
 
 var _ boolExpr[any] = (*literalExpr[any, bool])(nil)
 
-func newLiteralExpr[K, V any](val V) *literalExpr[K, V] {
-	return &literalExpr[K, V]{val: val}
-}
+func newLiteralExpr[K, V any](val V) *literalExpr[K, V] { _ = "STUB: not implemented"; return nil }
 
 type literalExpr[K any, V any] struct {
 	val V
@@ -19,12 +17,12 @@ type literalExpr[K any, V any] struct {
 
 // Eval evaluates an OTTL condition
 func (e *literalExpr[K, V]) Eval(context.Context, K) (V, error) {
-	return e.val, nil
+	_ = "STUB: not implemented"
+
+	//nolint:unused
+	return *new(V), nil
 }
 
-//nolint:unused
-func (*literalExpr[K, V]) unexported() {}
+func (*literalExpr[K, V]) unexported() { _ = "STUB: not implemented"; return }
 
-func (e *literalExpr[K, V]) getValue() V {
-	return e.val
-}
+func (e *literalExpr[K, V]) getValue() V { _ = "STUB: not implemented"; return *new(V) }

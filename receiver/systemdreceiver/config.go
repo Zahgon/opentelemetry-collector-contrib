@@ -7,7 +7,6 @@ import (
 	"errors"
 
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/systemdreceiver/internal/metadata"
 )
@@ -26,16 +25,8 @@ type Config struct {
 }
 
 func (c Config) Validate() error {
-	var err error
+	_ = "STUB: not implemented"
 
 	// Ensure we have a valid scope.
-	if c.Scope != "system" && c.Scope != "user" {
-		err = multierr.Append(err, errInvalidScope)
-	}
-
-	if len(c.Units) == 0 {
-		err = multierr.Append(err, errNoUnits)
-	}
-
-	return err
+	return nil
 }

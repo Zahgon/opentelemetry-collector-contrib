@@ -5,7 +5,6 @@ package grpc // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component/componentstatus"
 	"google.golang.org/grpc/codes"
@@ -37,101 +36,18 @@ func (s *Server) Check(
 	_ context.Context,
 	req *healthpb.HealthCheckRequest,
 ) (*healthpb.HealthCheckResponse, error) {
-	st, ok := s.aggregator.AggregateStatus(status.Scope(req.Service), status.Concise)
-	if !ok {
-		return nil, errNotFound
-	}
-
-	return &healthpb.HealthCheckResponse{
-		Status: s.toServingStatus(st.Event),
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *Server) Watch(req *healthpb.HealthCheckRequest, stream healthpb.Health_WatchServer) error {
-	sub, unsub := s.aggregator.Subscribe(status.Scope(req.Service), status.Concise)
-	defer unsub()
-
-	var lastServingStatus healthpb.HealthCheckResponse_ServingStatus = -1
-	var failureTimer *time.Timer
-	failureCh := make(chan struct{})
-
-	for {
-		select {
-		case st, ok := <-sub:
-			if !ok {
-				return errShuttingDown
-			}
-			var sst healthpb.HealthCheckResponse_ServingStatus
-
-			switch {
-			case st == nil:
-				sst = healthpb.HealthCheckResponse_SERVICE_UNKNOWN
-			case s.componentHealthConfig.IncludeRecoverable &&
-				s.componentHealthConfig.RecoveryDuration > 0 &&
-				st.Status() == componentstatus.StatusRecoverableError:
-				if failureTimer == nil {
-					failureTimer = time.AfterFunc(
-						s.componentHealthConfig.RecoveryDuration,
-						func() { failureCh <- struct{}{} },
-					)
-				}
-				sst = lastServingStatus
-				if lastServingStatus == -1 {
-					sst = healthpb.HealthCheckResponse_SERVING
-				}
-			default:
-				if failureTimer != nil {
-					if !failureTimer.Stop() {
-						<-failureTimer.C
-					}
-					failureTimer = nil
-				}
-				sst = s.toServingStatus(st.Event)
-			}
-
-			if lastServingStatus == sst {
-				continue
-			}
-
-			lastServingStatus = sst
-
-			err := stream.Send(&healthpb.HealthCheckResponse{Status: sst})
-			if err != nil {
-				return errStreamSend
-			}
-		case <-failureCh:
-			failureTimer.Stop()
-			failureTimer = nil
-			if lastServingStatus == healthpb.HealthCheckResponse_NOT_SERVING {
-				continue
-			}
-			lastServingStatus = healthpb.HealthCheckResponse_NOT_SERVING
-			err := stream.Send(
-				&healthpb.HealthCheckResponse{
-					Status: healthpb.HealthCheckResponse_NOT_SERVING,
-				},
-			)
-			if err != nil {
-				return errStreamSend
-			}
-		case <-stream.Context().Done():
-			return errStreamEnded
-		}
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *Server) toServingStatus(
 	ev status.Event,
 ) healthpb.HealthCheckResponse_ServingStatus {
-	if s.componentHealthConfig.IncludeRecoverable &&
-		ev.Status() == componentstatus.StatusRecoverableError &&
-		time.Now().After(ev.Timestamp().Add(s.componentHealthConfig.RecoveryDuration)) {
-		return healthpb.HealthCheckResponse_NOT_SERVING
-	}
-
-	if s.componentHealthConfig.IncludePermanent && ev.Status() == componentstatus.StatusPermanentError {
-		return healthpb.HealthCheckResponse_NOT_SERVING
-	}
-
-	return statusToServingStatusMap[ev.Status()]
+	_ = "STUB: not implemented"
+	return *new(healthpb.HealthCheckResponse_ServingStatus)
 }

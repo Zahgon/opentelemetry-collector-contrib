@@ -4,9 +4,6 @@
 package retain // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/retain"
 
 import (
-	"errors"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
@@ -21,16 +18,10 @@ func init() {
 }
 
 // NewConfig creates a new retain operator config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new retain operator config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a retain operator
 type Config struct {
@@ -40,30 +31,6 @@ type Config struct {
 
 // Build will build a retain operator from the supplied configuration
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-	if len(c.Fields) == 0 {
-		return nil, errors.New("retain: 'fields' is empty")
-	}
-
-	retainOp := &Transformer{
-		TransformerOperator: transformerOperator,
-		Fields:              c.Fields,
-	}
-
-	for _, field := range c.Fields {
-		typeCheck := field.String()
-		if strings.HasPrefix(typeCheck, "resource") {
-			retainOp.AllResourceFields = true
-			continue
-		}
-		if strings.HasPrefix(typeCheck, "attributes") {
-			retainOp.AllAttributeFields = true
-			continue
-		}
-		retainOp.AllBodyFields = true
-	}
-	return retainOp, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

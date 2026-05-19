@@ -12,5 +12,6 @@ type eventService struct {
 }
 
 func (*eventService) Collect(event.EventService_CollectServer) error {
+	_ = "STUB: not implemented"
 	return nil
 }

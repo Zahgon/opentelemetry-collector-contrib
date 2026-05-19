@@ -4,16 +4,7 @@
 package auditlog // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/auditlog"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
-
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventionsv138 "go.opentelemetry.io/otel/semconv/v1.38.0"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -208,199 +199,42 @@ type destinationAttributes struct {
 
 // isValid checks that the log meets requirements
 // See: https://cloud.google.com/logging/docs/audit/understanding-audit-logs#interpreting_the_sample_audit_log_entry
-func isValid(log auditLog) error {
-	if log.Type != auditLogType {
-		return fmt.Errorf("expected @type to be %q, got %q", auditLogType, log.Type)
-	}
-	if log.ServiceName == "" {
-		return errors.New("missing service name")
-	}
-	if log.MethodName == "" {
-		return errors.New("missing method name")
-	}
-	return nil
-}
+func isValid(log auditLog) error { _ = "STUB: not implemented"; return nil }
 
 func handleResourceLocation(loc *resourceLocation, attr pcommon.Map) {
-	if loc == nil {
-		return
-	}
-
-	if len(loc.CurrentLocations) > 0 {
-		curr := attr.PutEmptySlice(gcpAuditResourceLocationCurrent)
-		for _, c := range loc.CurrentLocations {
-			v := curr.AppendEmpty()
-			v.SetStr(c)
-		}
-	}
-
-	if len(loc.OriginalLocations) > 0 {
-		original := attr.PutEmptySlice(gcpAuditResourceLocationOriginal)
-		for _, c := range loc.OriginalLocations {
-			v := original.AppendEmpty()
-			v.SetStr(c)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func handleStatus(s *status, attr pcommon.Map) {
-	if s == nil {
-		return
-	}
-
-	shared.PutInt(string(conventionsv138.RPCJSONRPCErrorCodeKey), s.Code, attr)
-	shared.PutStr(string(conventionsv138.RPCJSONRPCErrorMessageKey), s.Message, attr)
-}
+func handleStatus(s *status, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func handleAuthenticationInfo(info *authenticationInfo, attr pcommon.Map) {
-	if info == nil {
-		return
-	}
-
-	shared.PutStr(string(conventions.UserIDKey), info.PrincipalSubject, attr)
-	shared.PutStr(string(conventions.UserEmailKey), info.PrincipalEmail, attr)
-	shared.PutStr(gcpAuditAuthenticationAuthoritySelector, info.AuthoritySelector, attr)
-	shared.PutStr(gcpAuditAuthenticationServiceAccountKeyName, info.ServiceAccountKeyName, attr)
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleAuthorizationInfo(info []authorizationInfo, attr pcommon.Map) {
-	if len(info) == 0 {
-		return
-	}
-
-	infoList := attr.PutEmptySlice(gcpAuditAuthorization)
-	for _, authI := range info {
-		m := infoList.AppendEmpty().SetEmptyMap()
-		shared.PutStr(gcpAuditAuthorizationPermission, authI.Permission, m)
-		shared.PutBool(gcpAuditAuthorizationGranted, authI.Granted, m)
-		shared.PutStr(gcpAuditAuthorizationResource, authI.Resource, m)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func handlePolicyViolationInfo(info *policyViolationInfo, attr pcommon.Map) {
-	if info == nil {
-		return
-	}
-
-	// Some logs have:
-	// 		policyViolationInfo: {
-	// 			orgPolicyViolationInfo: {}
-	// 		}
-	// We should ignore those cases.
-	if info.OrgPolicyViolationInfo == nil {
-		return
-	}
-
-	shared.PutStr(gcpAuditPolicyViolationResourceType, info.OrgPolicyViolationInfo.ResourceType, attr)
-	if len(info.OrgPolicyViolationInfo.ResourceTags) > 0 {
-		tags := attr.PutEmptyMap(gcpAuditPolicyViolationResourceTags)
-		for name, value := range info.OrgPolicyViolationInfo.ResourceTags {
-			shared.PutStr(shared.ToSnakeCase(name, "."), value, tags)
-		}
-	}
-
-	if len(info.OrgPolicyViolationInfo.ViolationInfo) == 0 {
-		return
-	}
-	allInfo := attr.PutEmptySlice(gcpAuditPolicyViolationInfo)
-	for _, i := range info.OrgPolicyViolationInfo.ViolationInfo {
-		m := allInfo.AppendEmpty().SetEmptyMap()
-		m.PutStr(gcpAuditPolicyViolationInfoConstraint, i.Constraint)
-		m.PutStr(gcpAuditPolicyViolationInfoErrorMessage, i.ErrorMessage)
-		m.PutStr(gcpAuditPolicyViolationInfoPolicyType, i.PolicyType)
-		m.PutStr(gcpAuditPolicyViolationInfoCheckedValue, i.CheckedValue)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
+// Some logs have:
+// 		policyViolationInfo: {
+// 			orgPolicyViolationInfo: {}
+// 		}
+// We should ignore those cases.
+
 func handleRequestMetadata(metadata *requestMetadata, attr pcommon.Map) error {
-	if metadata == nil {
-		return nil
-	}
-
-	shared.PutStr(string(conventions.ClientAddressKey), metadata.CallerIP, attr)
-	shared.PutStr(string(conventions.UserAgentOriginalKey), metadata.CallerSuppliedUserAgent, attr)
-	shared.PutStr(gcpAuditRequestCallerNetwork, metadata.CallerNetwork, attr)
-
-	if metadata.RequestAttributes != nil {
-		if err := shared.AddStrAsInt(string(conventions.HTTPRequestSizeKey), metadata.RequestAttributes.Size, attr); err != nil {
-			return fmt.Errorf("failed to add http request size %s: %w", metadata.RequestAttributes.Size, err)
-		}
-		shared.PutStr(string(conventions.HTTPRequestMethodKey), metadata.RequestAttributes.Method, attr)
-		shared.PutStr(string(conventions.URLQueryKey), metadata.RequestAttributes.Query, attr)
-		shared.PutStr(string(conventions.URLPathKey), metadata.RequestAttributes.Path, attr)
-		shared.PutStr(string(conventions.URLSchemeKey), metadata.RequestAttributes.Scheme, attr)
-		shared.PutStr(gcpAuditRequestTime, metadata.RequestAttributes.Time, attr)
-		shared.PutStr("http.request.header.host", metadata.RequestAttributes.Host, attr)
-		for h, v := range metadata.RequestAttributes.Headers {
-			shared.PutStr("http.request.header."+strings.ToLower(h), v, attr)
-		}
-		shared.PutStr(string(conventions.NetworkProtocolNameKey), strings.ToLower(metadata.RequestAttributes.Protocol), attr)
-		shared.PutStr(gcpAuditRequestReason, metadata.RequestAttributes.Reason, attr)
-		shared.PutStr(httpRequestID, metadata.RequestAttributes.ID, attr)
-		shared.PutStr(gcpAuditRequestAuthPrincipal, metadata.RequestAttributes.Auth.Principal, attr)
-		shared.PutStr(gcpAuditRequestAuthPresenter, metadata.RequestAttributes.Auth.Presenter, attr)
-		if len(metadata.RequestAttributes.Auth.AccessLevels) > 0 {
-			sl := attr.PutEmptySlice(gcpAuditRequestAuthAccessLevels)
-			for _, level := range metadata.RequestAttributes.Auth.AccessLevels {
-				v := sl.AppendEmpty()
-				v.SetStr(level)
-			}
-		}
-		if len(metadata.RequestAttributes.Auth.Audiences) > 0 {
-			sl := attr.PutEmptySlice(gcpAuditRequestAuthAudiences)
-			for _, audience := range metadata.RequestAttributes.Auth.Audiences {
-				v := sl.AppendEmpty()
-				v.SetStr(audience)
-			}
-		}
-	}
-
-	if metadata.DestinationAttributes != nil {
-		if err := shared.AddStrAsInt(string(conventions.ServerPortKey), metadata.DestinationAttributes.Port, attr); err != nil {
-			return fmt.Errorf("failed to add destination port %s: %w", metadata.DestinationAttributes.Port, err)
-		}
-		shared.PutStr(string(conventions.ServerAddressKey), metadata.DestinationAttributes.IP, attr)
-		shared.PutStr(gcpAuditDestinationPrincipal, metadata.DestinationAttributes.Principal, attr)
-		shared.PutStr(gcpAuditDestinationRegionCode, metadata.DestinationAttributes.RegionCode, attr)
-		if len(metadata.DestinationAttributes.Labels) > 0 {
-			m := attr.PutEmptyMap(gcpAuditDestinationLabels)
-			for l, v := range metadata.DestinationAttributes.Labels {
-				shared.PutStr(shared.ToSnakeCase(l, "."), v, m)
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log auditLog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("failed to unmarshal audit log payload: %w", err)
-	}
-
-	if err := isValid(log); err != nil {
-		return fmt.Errorf("failed to validate audit log payload: %w", err)
-	}
-	attr.PutStr(gcpAuditServiceName, log.ServiceName)
-	attr.PutStr(gcpAuditMethodName, log.MethodName)
-
-	if err := shared.AddStrAsInt(gcpAuditNumResponseItems, log.NumResponseItems, attr); err != nil {
-		return fmt.Errorf("failed to add number of response items: %w", err)
-	}
-
-	if err := handleRequestMetadata(log.RequestMetadata, attr); err != nil {
-		return fmt.Errorf("failed to add request metadata: %w", err)
-	}
-
-	shared.PutStr(gcpAuditResourceName, log.ResourceName, attr)
-	handleResourceLocation(log.ResourceLocation, attr)
-
-	handleStatus(log.Status, attr)
-	handleAuthenticationInfo(log.AuthenticationInfo, attr)
-	handleAuthorizationInfo(log.AuthorizationInfo, attr)
-	handlePolicyViolationInfo(log.PolicyViolationInfo, attr)
-	handlePolicyViolationInfo(log.PolicyViolationInfo, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -25,16 +25,10 @@ func init() {
 }
 
 // NewConfig creates a new copy operator config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new copy operator config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a copy operator
 type Config struct {
@@ -45,28 +39,6 @@ type Config struct {
 
 // Build will build a copy operator from the supplied configuration
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	validationErrs := []error{}
-
-	if c.From.IsEmpty() {
-		validationErrs = append(validationErrs, errMissingFrom)
-	}
-
-	if c.To.IsEmpty() {
-		validationErrs = append(validationErrs, errMissingTo)
-	}
-
-	if len(validationErrs) > 0 {
-		return nil, errors.Join(validationErrs...)
-	}
-
-	return &Transformer{
-		TransformerOperator: transformerOperator,
-		From:                c.From,
-		To:                  c.To,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

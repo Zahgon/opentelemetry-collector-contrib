@@ -4,12 +4,6 @@
 package metadata // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azuremonitorreceiver/internal/metadata"
 
 import (
-	"errors"
-	"fmt"
-	"log"
-	"strings"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -37,40 +31,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
 
 func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:        mbc,
-		startTime:     pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer: pmetric.NewMetrics(),
-		buildInfo:     settings.BuildInfo,
-		metrics:       map[string]*metricAzureAbstract{},
-	}
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -81,15 +67,16 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -98,51 +85,28 @@ func WithResource(res pcommon.Resource) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.EmitAllMetrics(ils)
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user settings, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(rmo ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(rmo...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }
 
 type metricAzureAbstract struct {
 	data     pmetric.Metric // data buffer for generated metric.
 	capacity int            // max observed number of data points added to the metric.
 }
 
-func (m *metricAzureAbstract) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricAzureAbstract) updateCapacity() { _ = "STUB: not implemented"; return }
 
 func (m *metricAzureAbstract) init(name, unit string) {
 	m.data.SetName(name)
@@ -152,25 +116,13 @@ func (m *metricAzureAbstract) init(name, unit string) {
 }
 
 func (mb *MetricsBuilder) getMetric(resourceMetricID string) (*metricAzureAbstract, bool) {
-	if _, exists := mb.metrics[resourceMetricID]; !exists {
-		return nil, false
-	}
-	return mb.metrics[resourceMetricID], true
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 func (mb *MetricsBuilder) addMetric(resourceMetricID, logicalMetricID, unit string) (*metricAzureAbstract, error) {
-	if _, exists := mb.metrics[resourceMetricID]; exists {
-		return nil, errors.New("metric already exists")
-	}
-
-	m := &metricAzureAbstract{}
-	m.data = pmetric.NewMetric()
-
-	m.init(logicalMetricID, unit)
-
-	mb.metrics[resourceMetricID] = m
-
-	return mb.metrics[resourceMetricID], nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (mb *MetricsBuilder) AddDataPoint(
@@ -182,45 +134,18 @@ func (mb *MetricsBuilder) AddDataPoint(
 	ts pcommon.Timestamp,
 	val float64,
 ) {
-	logicalMetricID := getLogicalMetricID(metric, aggregation)
-	resourceMetricID := getLogicalResourceMetricID(resourceID, logicalMetricID)
-
-	m, exists := mb.getMetric(resourceMetricID)
-	if !exists {
-		var err error
-		m, err = mb.addMetric(resourceMetricID, logicalMetricID, unit)
-		if err != nil {
-			log.Println(err)
-		}
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(ts)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
-	dp.Attributes().PutStr("azuremonitor.resource_id", resourceID)
-	for key, value := range attributes {
-		dp.Attributes().PutStr(key, *value)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func getLogicalMetricID(metric, aggregation string) string {
-	return strings.ToLower(fmt.Sprintf("%s%s_%s", metricsPrefix, strings.ReplaceAll(metric, " ", "_"), aggregation))
-}
+func getLogicalMetricID(metric, aggregation string) string { _ = "STUB: not implemented"; return "" }
 
 func getLogicalResourceMetricID(resourceID, logicalMetricID string) string {
-	return fmt.Sprintf("%s/%s", strings.ToLower(resourceID), logicalMetricID)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (mb *MetricsBuilder) EmitAllMetrics(ils pmetric.ScopeMetrics) {
-	for _, m := range mb.metrics {
-		if m.data.Gauge().DataPoints().Len() == 0 {
-			continue
-		}
-		metrics := ils.Metrics()
-		m.updateCapacity()
-		name := m.data.Name()
-		unit := m.data.Unit()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init(name, unit)
-	}
+	_ = "STUB: not implemented"
+	return
 }

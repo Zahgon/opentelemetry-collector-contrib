@@ -11,38 +11,29 @@ type nopItemFilterResolver struct {
 	nopFilter *nopItemCardinalityFilter
 }
 
-func NewNopItemCardinalityFilter() ItemFilter {
-	return &nopItemCardinalityFilter{}
-}
+func NewNopItemCardinalityFilter() ItemFilter { _ = "STUB: not implemented"; return *new(ItemFilter) }
 
 func NewNopItemFilterResolver() ItemFilterResolver {
-	return &nopItemFilterResolver{
-		nopFilter: &nopItemCardinalityFilter{},
-	}
+	_ = "STUB: not implemented"
+	return *new(ItemFilterResolver)
 }
 
 func (*nopItemCardinalityFilter) Filter(sourceItems []*Item) []*Item {
-	return sourceItems
-}
-
-func (*nopItemCardinalityFilter) Shutdown() error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*nopItemCardinalityFilter) TotalLimit() int {
-	return 0
-}
+func (*nopItemCardinalityFilter) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
-func (*nopItemCardinalityFilter) LimitByTimestamp() int {
-	return 0
-}
+func (*nopItemCardinalityFilter) TotalLimit() int { _ = "STUB: not implemented"; return 0 }
+
+func (*nopItemCardinalityFilter) LimitByTimestamp() int { _ = "STUB: not implemented"; return 0 }
 
 func (r *nopItemFilterResolver) Resolve(string) (ItemFilter, error) {
-	return r.nopFilter, nil
+	_ = "STUB: not implemented"
+	return *new(ItemFilter), nil
 }
 
-func (*nopItemFilterResolver) Shutdown() error {
-	return nil
-}
+func (*nopItemFilterResolver) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
-func (*nopItemCardinalityFilter) StartCache() {}
+func (*nopItemCardinalityFilter) StartCache() { _ = "STUB: not implemented"; return }

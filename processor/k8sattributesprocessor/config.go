@@ -4,16 +4,9 @@
 package k8sattributesprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor"
 
 import (
-	"errors"
-	"fmt"
-	"os"
-	"regexp"
 	"time"
 
-	conventions "go.opentelemetry.io/otel/semconv/v1.41.0"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor/internal/kube"
 )
 
 // Config defines configuration for k8s attributes processor.
@@ -54,79 +47,7 @@ type Config struct {
 	WatchSyncPeriod time.Duration `mapstructure:"watch_sync_period"`
 }
 
-func (cfg *Config) Validate() error {
-	if err := cfg.APIConfig.Validate(); err != nil {
-		return err
-	}
-
-	if cfg.WatchSyncPeriod < 0 {
-		return errors.New("watch_sync_period must be greater than or equal to 0")
-	}
-
-	for _, assoc := range cfg.Association {
-		if len(assoc.Sources) > kube.PodIdentifierMaxLength {
-			return fmt.Errorf("too many association sources. limit is %v", kube.PodIdentifierMaxLength)
-		}
-	}
-
-	for _, f := range append(cfg.Extract.Labels, cfg.Extract.Annotations...) {
-		if f.Key != "" && f.KeyRegex != "" {
-			return fmt.Errorf("Out of Key or KeyRegex only one option is expected to be configured at a time, currently Key:%s and KeyRegex:%s", f.Key, f.KeyRegex)
-		}
-
-		switch f.From {
-		case "", kube.MetadataFromPod, kube.MetadataFromNamespace, kube.MetadataFromNode, kube.MetadataFromDeployment, kube.MetadataFromStatefulSet, kube.MetadataFromDaemonSet, kube.MetadataFromJob:
-		default:
-			return fmt.Errorf("%s is not a valid choice for From. Must be one of: pod, namespace, deployment, statefulset, daemonset, job, node", f.From)
-		}
-
-		if f.KeyRegex != "" {
-			_, err := regexp.Compile("^(?:" + f.KeyRegex + ")$")
-			if err != nil {
-				return err
-			}
-		}
-	}
-
-	for _, field := range cfg.Extract.Metadata {
-		switch field {
-		case string(conventions.K8SNamespaceNameKey), string(conventions.K8SPodNameKey), string(conventions.K8SPodUIDKey),
-			string(conventions.K8SPodHostnameKey), string(conventions.K8SPodStartTimeKey), string(conventions.K8SPodIPKey),
-			string(conventions.K8SDeploymentNameKey), string(conventions.K8SDeploymentUIDKey),
-			string(conventions.K8SReplicaSetNameKey), string(conventions.K8SReplicaSetUIDKey),
-			string(conventions.K8SDaemonSetNameKey), string(conventions.K8SDaemonSetUIDKey),
-			string(conventions.K8SStatefulSetNameKey), string(conventions.K8SStatefulSetUIDKey),
-			string(conventions.K8SJobNameKey), string(conventions.K8SJobUIDKey),
-			string(conventions.K8SCronJobNameKey), string(conventions.K8SCronJobUIDKey),
-			string(conventions.K8SNodeNameKey), string(conventions.K8SNodeUIDKey),
-			string(conventions.K8SContainerNameKey), string(conventions.ContainerIDKey),
-			string(conventions.ContainerImageNameKey), containerImageTag, string(conventions.ContainerImageTagsKey),
-			string(conventions.ServiceNamespaceKey), string(conventions.ServiceNameKey),
-			string(conventions.ServiceVersionKey), string(conventions.ServiceInstanceIDKey),
-			string(conventions.ContainerImageRepoDigestsKey), string(conventions.K8SClusterUIDKey):
-		default:
-			return fmt.Errorf("\"%s\" is not a supported metadata field", field)
-		}
-	}
-
-	for _, f := range cfg.Filter.Labels {
-		switch f.Op {
-		case "", filterOPEquals, filterOPNotEquals, filterOPExists, filterOPDoesNotExist:
-		default:
-			return fmt.Errorf("'%s' is not a valid label filter operation for key=%s, value=%s", f.Op, f.Key, f.Value)
-		}
-	}
-
-	for _, f := range cfg.Filter.Fields {
-		switch f.Op {
-		case "", filterOPEquals, filterOPNotEquals:
-		default:
-			return fmt.Errorf("'%s' is not a valid label filter operation for key=%s, value=%s", f.Op, f.Key, f.Value)
-		}
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ExtractConfig section allows specifying extraction rules to extract
 // data from k8s pod specs.
@@ -277,14 +198,7 @@ type FilterConfig struct {
 	Labels []FieldFilterConfig `mapstructure:"labels"`
 }
 
-func (cfg *FilterConfig) Validate() error {
-	if cfg.NodeFromEnvVar != "" {
-		if _, ok := os.LookupEnv(cfg.NodeFromEnvVar); !ok {
-			return fmt.Errorf("`node_from_env_var` is configured but envvar %q is not set", cfg.NodeFromEnvVar)
-		}
-	}
-	return nil
-}
+func (cfg *FilterConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // FieldFilterConfig allows specifying exactly one filter by a field.
 // It can be used to represent a label or generic field filter.

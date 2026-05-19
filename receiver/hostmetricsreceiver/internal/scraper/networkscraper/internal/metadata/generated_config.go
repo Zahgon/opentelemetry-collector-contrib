@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -26,34 +24,12 @@ type SystemNetworkConnectionsMetricConfig struct {
 }
 
 func (ms *SystemNetworkConnectionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SystemNetworkConnectionsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemNetworkConnectionsMetricAttributeKeyProtocol, SystemNetworkConnectionsMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric system.network.connections doesn't have an attribute %v, valid attributes: [protocol, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -64,16 +40,7 @@ type SystemNetworkConntrackCountMetricConfig struct {
 }
 
 func (ms *SystemNetworkConntrackCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -84,16 +51,7 @@ type SystemNetworkConntrackMaxMetricConfig struct {
 }
 
 func (ms *SystemNetworkConntrackMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -115,36 +73,11 @@ type SystemNetworkDroppedMetricConfig struct {
 }
 
 func (ms *SystemNetworkDroppedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemNetworkDroppedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemNetworkDroppedMetricAttributeKeyDevice, SystemNetworkDroppedMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.network.dropped doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemNetworkDroppedMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemNetworkErrorsMetricAttributeKey specifies the key of an attribute for the system.network.errors metric.
 type SystemNetworkErrorsMetricAttributeKey string
@@ -164,36 +97,11 @@ type SystemNetworkErrorsMetricConfig struct {
 }
 
 func (ms *SystemNetworkErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemNetworkErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemNetworkErrorsMetricAttributeKeyDevice, SystemNetworkErrorsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.network.errors doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemNetworkErrorsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemNetworkIoMetricAttributeKey specifies the key of an attribute for the system.network.io metric.
 type SystemNetworkIoMetricAttributeKey string
@@ -213,36 +121,11 @@ type SystemNetworkIoMetricConfig struct {
 }
 
 func (ms *SystemNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemNetworkIoMetricAttributeKeyDevice, SystemNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.network.io doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemNetworkPacketsMetricAttributeKey specifies the key of an attribute for the system.network.packets metric.
 type SystemNetworkPacketsMetricAttributeKey string
@@ -262,36 +145,11 @@ type SystemNetworkPacketsMetricConfig struct {
 }
 
 func (ms *SystemNetworkPacketsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemNetworkPacketsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemNetworkPacketsMetricAttributeKeyDevice, SystemNetworkPacketsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.network.packets doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemNetworkPacketsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MetricsConfig provides config for network metrics.
 type MetricsConfig struct {
@@ -304,41 +162,7 @@ type MetricsConfig struct {
 	SystemNetworkPackets        SystemNetworkPacketsMetricConfig        `mapstructure:"system.network.packets"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SystemNetworkConnections: SystemNetworkConnectionsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemNetworkConnectionsMetricAttributeKey{SystemNetworkConnectionsMetricAttributeKeyProtocol, SystemNetworkConnectionsMetricAttributeKeyState},
-		},
-		SystemNetworkConntrackCount: SystemNetworkConntrackCountMetricConfig{
-			Enabled: false,
-		},
-		SystemNetworkConntrackMax: SystemNetworkConntrackMaxMetricConfig{
-			Enabled: false,
-		},
-		SystemNetworkDropped: SystemNetworkDroppedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemNetworkDroppedMetricAttributeKey{SystemNetworkDroppedMetricAttributeKeyDevice, SystemNetworkDroppedMetricAttributeKeyDirection},
-		},
-		SystemNetworkErrors: SystemNetworkErrorsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemNetworkErrorsMetricAttributeKey{SystemNetworkErrorsMetricAttributeKeyDevice, SystemNetworkErrorsMetricAttributeKeyDirection},
-		},
-		SystemNetworkIo: SystemNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemNetworkIoMetricAttributeKey{SystemNetworkIoMetricAttributeKeyDevice, SystemNetworkIoMetricAttributeKeyDirection},
-		},
-		SystemNetworkPackets: SystemNetworkPacketsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemNetworkPacketsMetricAttributeKey{SystemNetworkPacketsMetricAttributeKeyDevice, SystemNetworkPacketsMetricAttributeKeyDirection},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for network metrics builder.
 type MetricsBuilderConfig struct {
@@ -346,12 +170,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

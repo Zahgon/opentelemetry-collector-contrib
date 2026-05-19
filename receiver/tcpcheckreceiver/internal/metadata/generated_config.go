@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -16,16 +13,7 @@ type TcpcheckDurationMetricConfig struct {
 }
 
 func (ms *TcpcheckDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -47,39 +35,11 @@ type TcpcheckErrorMetricConfig struct {
 }
 
 func (ms *TcpcheckErrorMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *TcpcheckErrorMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case TcpcheckErrorMetricAttributeKeyTcpcheckEndpoint, TcpcheckErrorMetricAttributeKeyErrorCode:
-		default:
-			return fmt.Errorf("metric tcpcheck.error doesn't have an attribute %v, valid attributes: [tcpcheck.endpoint, error.code]", val)
-		}
-	}
-	if !slices.Contains(ms.EnabledAttributes, TcpcheckErrorMetricAttributeKeyTcpcheckEndpoint) {
-		return fmt.Errorf("tcpcheck.endpoint is a required attribute for tcpcheck.error metric and must be included")
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *TcpcheckErrorMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TcpcheckStatusMetricConfig provides config for the tcpcheck.status metric.
 type TcpcheckStatusMetricConfig struct {
@@ -88,16 +48,7 @@ type TcpcheckStatusMetricConfig struct {
 }
 
 func (ms *TcpcheckStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -108,21 +59,7 @@ type MetricsConfig struct {
 	TcpcheckStatus   TcpcheckStatusMetricConfig   `mapstructure:"tcpcheck.status"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		TcpcheckDuration: TcpcheckDurationMetricConfig{
-			Enabled: true,
-		},
-		TcpcheckError: TcpcheckErrorMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []TcpcheckErrorMetricAttributeKey{TcpcheckErrorMetricAttributeKeyTcpcheckEndpoint, TcpcheckErrorMetricAttributeKeyErrorCode},
-		},
-		TcpcheckStatus: TcpcheckStatusMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for tcp_check metrics builder.
 type MetricsBuilderConfig struct {
@@ -130,12 +67,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

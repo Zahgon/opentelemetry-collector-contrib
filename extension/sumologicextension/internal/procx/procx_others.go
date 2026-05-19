@@ -5,13 +5,6 @@
 
 package procx // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/sumologicextension/internal/procx"
 
-import (
-	"fmt"
-	"strings"
-
-	"go.uber.org/zap"
-)
-
 const (
 	ApacheProcessIdentifier             ProcessIdentifier = "apache"
 	Apache2ProcessIdentifier            ProcessIdentifier = "apache2"
@@ -76,74 +69,27 @@ var sumoAppProcesses = map[ProcessIdentifier]SumoTag{
 }
 
 func GetSumoTag(processName string) (SumoTag, bool) {
-	tag, ok := sumoAppProcesses[ProcessIdentifier(processName)]
-	return tag, ok
+	_ = "STUB: not implemented"
+	return *new(SumoTag), false
 }
 
 func (procx *Procx) FilteredProcessList() ([]string, error) {
-	var pl []string
-
-	processes, err := procx.getProcesses()
-	if err != nil {
-		return pl, fmt.Errorf("process discovery failed: %w", err)
-	}
-
-	for _, v := range processes {
-		processName, ok := procx.getProcessName(v)
-		if !ok {
-			continue
-		}
-
-		if a, i := GetSumoTag(processName); i {
-			pl = append(pl, a.String())
-		}
-
-		// handling Java background processes
-		javaProcessName, ok := procx.getJavaProcessName(processName, v)
-		if a, i := GetSumoTag(javaProcessName); i && ok {
-			pl = append(pl, a.String())
-		}
-	}
-
-	return pl, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// handling Java background processes
 
 func (procx *Procx) getProcessName(process Process) (string, bool) {
-	e, err := process.Name()
-	if err != nil {
-		// If we can't get a process name, it may be a zombie process.
-		// We do not want to error out here, as it's not worth disrupting
-		// the startup process of the collector.
-		procx.logger.Warn(
-			"process discovery: failed to get executable name (is it a zombie?)",
-			zap.Int32("pid", process.Pid()),
-			zap.Error(err))
-		return "", false
-	}
-	return strings.ToLower(e), true
+	_ = "STUB: not implemented"
+	return "", false
 }
 
+// If we can't get a process name, it may be a zombie process.
+// We do not want to error out here, as it's not worth disrupting
+// the startup process of the collector.
+
 func (procx *Procx) getJavaProcessName(processName string, process Process) (string, bool) {
-	if processName != JavaProcessIdentifier.String() {
-		return "", false
-	}
-
-	cmdline, err := process.Cmdline()
-	if err != nil {
-		procx.logger.Warn(
-			"process discovery: failed to get process arguments",
-			zap.Int32("pid", process.Pid()),
-			zap.Error(err))
-		return "", false
-	}
-
-	switch {
-	case strings.Contains(cmdline, CassandraJavaProcessIdentifier.String()):
-		return CassandraJavaProcessIdentifier.String(), true
-	case strings.Contains(cmdline, JmxJavaProcessIdentifier.String()):
-		return JmxJavaProcessIdentifier.String(), true
-	case strings.Contains(cmdline, ActiveMQJavaProcessIdentifier.String()):
-		return ActiveMQJavaProcessIdentifier.String(), true
-	}
+	_ = "STUB: not implemented"
 	return "", false
 }

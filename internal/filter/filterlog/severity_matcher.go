@@ -15,22 +15,14 @@ type severityNumberMatcher struct {
 }
 
 func newSeverityNumberMatcher(minSeverity plog.SeverityNumber, matchUndefined bool) *severityNumberMatcher {
-	return &severityNumberMatcher{
-		minSeverityNumber: minSeverity,
-		matchUndefined:    matchUndefined,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (snm severityNumberMatcher) match(lr plog.LogRecord) bool {
+	_ = "STUB: not implemented"
 	// behavior on SeverityNumberUNDEFINED is explicitly defined by matchUndefined
-	if lr.SeverityNumber() == plog.SeverityNumberUnspecified {
-		return snm.matchUndefined
-	}
-
-	// If the log records severity is greater than or equal to the desired severity, it matches
-	if lr.SeverityNumber() >= snm.minSeverityNumber {
-		return true
-	}
-
 	return false
 }
+
+// If the log records severity is greater than or equal to the desired severity, it matches

@@ -5,18 +5,9 @@ package container // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"regexp"
-	"strings"
 	"sync"
-	"time"
 
-	"github.com/goccy/go-json"
-	"go.uber.org/multierr"
-	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/timeutils"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/attrs"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
@@ -70,382 +61,93 @@ type Parser struct {
 }
 
 func (p *Parser) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	processedEntries := make([]*entry.Entry, 0, len(entries))
-	write := func(_ context.Context, ent *entry.Entry) error {
-		processedEntries = append(processedEntries, ent)
-		return nil
-	}
-	var errs []error
-	var criEntries []*entry.Entry
-
-	for _, ent := range entries {
-		skip, err := p.Skip(ctx, ent)
-		if err != nil {
-			errs = append(errs, p.HandleEntryErrorWithWrite(ctx, ent, err, write))
-			continue
-		}
-		if skip {
-			_ = write(ctx, ent)
-			continue
-		}
-
-		format := p.format
-		if format == "" {
-			format, err = p.detectFormat(ent)
-			if err != nil {
-				errs = append(errs, p.HandleEntryErrorWithWrite(ctx, ent, fmt.Errorf("failed to detect a valid container log format: %w", err), write))
-				continue
-			}
-		}
-
-		switch format {
-		case dockerFormat:
-			p.timeLayout = goTimeLayout
-			if err = p.ParseWith(ctx, ent, p.parseDocker, write); err != nil {
-				if p.OnError != helper.DropOnErrorQuiet && p.OnError != helper.SendOnErrorQuiet {
-					errs = append(errs, fmt.Errorf("failed to process the docker log: %w", err))
-				}
-				continue
-			}
-			if err = p.handleTimeAndAttributeMappings(ent); err != nil {
-				errs = append(errs, p.HandleEntryErrorWithWrite(ctx, ent, err, write))
-				continue
-			}
-			_ = write(ctx, ent)
-
-		case containerdFormat, crioFormat:
-			p.recombineStartOnce.Do(func() {
-				err = p.criLogEmitter.Start(nil)
-				if err != nil {
-					p.Logger().Error("unable to start the internal LogEmitter", zap.Error(err))
-					return
-				}
-				err = p.recombineParser.Start(nil)
-				if err != nil {
-					p.Logger().Error("unable to start the internal recombine operator", zap.Error(err))
-					return
-				}
-				p.recombineStarted = true
-			})
-
-			if format == containerdFormat {
-				err = p.ParseWith(ctx, ent, p.parseContainerd, write)
-				if err != nil {
-					if p.OnError != helper.DropOnErrorQuiet && p.OnError != helper.SendOnErrorQuiet {
-						errs = append(errs, fmt.Errorf("failed to parse containerd log: %w", err))
-					}
-					continue
-				}
-				p.timeLayout = goTimeLayout
-			} else {
-				err = p.ParseWith(ctx, ent, p.parseCRIO, write)
-				if err != nil {
-					if p.OnError != helper.DropOnErrorQuiet && p.OnError != helper.SendOnErrorQuiet {
-						errs = append(errs, fmt.Errorf("failed to parse crio log: %w", err))
-					}
-					continue
-				}
-				p.timeLayout = crioTimeLayout
-			}
-
-			if err = p.handleTimeAndAttributeMappings(ent); err != nil {
-				errs = append(errs, p.HandleEntryErrorWithWrite(ctx, ent, err, write))
-				continue
-			}
-			criEntries = append(criEntries, ent)
-
-		default:
-			errs = append(errs, p.HandleEntryErrorWithWrite(ctx, ent, errors.New("failed to detect a valid container log format"), write))
-		}
-	}
-
-	// Send CRI entries as a batch to recombine
-	if len(criEntries) > 0 {
-		if err := p.recombineParser.ProcessBatch(ctx, criEntries); err != nil {
-			errs = append(errs, fmt.Errorf("failed to recombine cri logs: %w", err))
-		}
-	}
-
-	// Write all docker/skipped entries as a batch
-	if len(processedEntries) > 0 {
-		errs = append(errs, p.WriteBatch(ctx, processedEntries))
-	}
-
-	return errors.Join(errs...)
-}
-
-// Process will parse an entry of Container logs
-func (p *Parser) Process(ctx context.Context, entry *entry.Entry) (err error) {
-	// Short circuit if the "if" condition does not match
-	skip, err := p.Skip(ctx, entry)
-	if err != nil {
-		return p.HandleEntryError(ctx, entry, err)
-	}
-	if skip {
-		return p.Write(ctx, entry)
-	}
-
-	format := p.format
-	if format == "" {
-		format, err = p.detectFormat(entry)
-		if err != nil {
-			return p.HandleEntryError(ctx, entry, fmt.Errorf("failed to detect a valid container log format: %w", err))
-		}
-	}
-
-	switch format {
-	case dockerFormat:
-		p.timeLayout = goTimeLayout
-		err = p.ProcessWithCallback(ctx, entry, p.parseDocker, p.handleTimeAndAttributeMappings)
-		if err != nil {
-			return fmt.Errorf("failed to process the docker log: %w", err)
-		}
-	case containerdFormat, crioFormat:
-		p.recombineStartOnce.Do(func() {
-			err = p.criLogEmitter.Start(nil)
-			if err != nil {
-				p.Logger().Error("unable to start the internal LogEmitter", zap.Error(err))
-				return
-			}
-			err = p.recombineParser.Start(nil)
-			if err != nil {
-				p.Logger().Error("unable to start the internal recombine operator", zap.Error(err))
-				return
-			}
-			p.recombineStarted = true
-		})
-
-		if format == containerdFormat {
-			// parse the message
-			err = p.ParseWith(ctx, entry, p.parseContainerd, p.Write)
-			if err != nil {
-				return fmt.Errorf("failed to parse containerd log: %w", err)
-			}
-			p.timeLayout = goTimeLayout
-		} else {
-			// parse the message
-			err = p.ParseWith(ctx, entry, p.parseCRIO, p.Write)
-			if err != nil {
-				return fmt.Errorf("failed to parse crio log: %w", err)
-			}
-			p.timeLayout = crioTimeLayout
-		}
-
-		err = p.handleTimeAndAttributeMappings(entry)
-		if err != nil {
-			return fmt.Errorf("failed to handle attribute mappings: %w", err)
-		}
-
-		// send it to the recombine operator
-		err = p.recombineParser.Process(ctx, entry)
-		if err != nil {
-			return fmt.Errorf("failed to recombine the crio log: %w", err)
-		}
-	default:
-		return errors.New("failed to detect a valid container log format")
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Send CRI entries as a batch to recombine
+
+// Write all docker/skipped entries as a batch
+
+// Process will parse an entry of Container logs
+func (p *Parser) Process(ctx context.Context, entry *entry.Entry) (err error) {
+	_ = "STUB: not implemented"
+	// Short circuit if the "if" condition does not match
+	return nil
+}
+
+// parse the message
+
+// parse the message
+
+// send it to the recombine operator
+
 // Stop ensures that the internal recombineParser and criLogEmitter are stopped
 // in the proper order without being affected by any possible race conditions.
-func (p *Parser) Stop() error {
-	if !p.recombineStarted {
-		// nothing is started return
-		return nil
-	}
-	var errs error
-	if err := p.recombineParser.Stop(); err != nil {
-		errs = multierr.Append(errs, fmt.Errorf("unable to stop the internal recombine operator: %w", err))
-	}
-	if err := p.criLogEmitter.Stop(); err != nil {
-		errs = multierr.Append(errs, fmt.Errorf("unable to stop the internal LogEmitter: %w", err))
-	}
-	return errs
-}
+func (p *Parser) Stop() error { _ = "STUB: not implemented"; return nil }
+
+// nothing is started return
 
 // detectFormat will detect the container log format
 func (p *Parser) detectFormat(e *entry.Entry) (string, error) {
-	value, ok := e.Get(p.ParseFrom)
-	if !ok {
-		return "", errors.New("entry cannot be parsed as container logs")
-	}
-
-	raw, ok := value.(string)
-	if !ok {
-		return "", fmt.Errorf("type '%T' cannot be parsed as container logs", value)
-	}
-
-	switch {
-	case dockerMatcher.MatchString(raw):
-		return dockerFormat, nil
-	case crioMatcher.MatchString(raw):
-		return crioFormat, nil
-	case containerdMatcher.MatchString(raw):
-		return containerdFormat, nil
-	}
-	return "", fmt.Errorf("entry cannot be parsed as container logs: %v", value)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // parseCRIO will parse a crio log value based on a fixed regexp
-func (*Parser) parseCRIO(value any) (any, error) {
-	raw, ok := value.(string)
-	if !ok {
-		return "", fmt.Errorf("type '%T' cannot be parsed as cri-o container logs", value)
-	}
-
-	return helper.MatchValues(raw, crioMatcher)
-}
+func (*Parser) parseCRIO(value any) (any, error) { _ = "STUB: not implemented"; return *new(any), nil }
 
 // parseContainerd will parse a containerd log value based on a fixed regexp
 func (*Parser) parseContainerd(value any) (any, error) {
-	raw, ok := value.(string)
-	if !ok {
-		return nil, fmt.Errorf("type '%T' cannot be parsed as containerd logs", value)
-	}
-
-	return helper.MatchValues(raw, containerdMatcher)
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 // parseDocker will parse a docker log value as JSON
 func (*Parser) parseDocker(value any) (any, error) {
-	raw, ok := value.(string)
-	if !ok {
-		return nil, fmt.Errorf("type '%T' cannot be parsed as docker container logs", value)
-	}
-
-	parsedValue := make(map[string]any)
-	err := json.Unmarshal([]byte(raw), &parsedValue)
-	if err != nil {
-		return nil, err
-	}
-	return parsedValue, nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 // handleTimeAndAttributeMappings handles fields' mappings and k8s meta extraction
 func (p *Parser) handleTimeAndAttributeMappings(e *entry.Entry) error {
-	err := parseTime(e, p.timeLayout)
-	if err != nil {
-		return fmt.Errorf("failed to parse time: %w", err)
-	}
-
-	err = p.handleMoveAttributes(e)
-	if err != nil {
-		return err
-	}
-	err = p.extractk8sMetaFromFilePath(e)
-	if err != nil {
-		return err
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // handleMoveAttributes moves fields to final attributes
 func (*Parser) handleMoveAttributes(e *entry.Entry) error {
+	_ = "STUB: not implemented"
 	// move `log` to `body` explicitly first to avoid
 	// moving after more attributes have been added under the `log.*` key
-	err := moveFieldToBody(e, "log", "body")
-	if err != nil {
-		return err
-	}
-	// then move the rest of the fields
-	for originalKey, mappedKey := range logFieldsMapping {
-		err = moveField(e, originalKey, mappedKey)
-		if err != nil {
-			return err
-		}
-	}
 	return nil
 }
 
+// then move the rest of the fields
+
 // extractk8sMetaFromFilePath extracts metadata attributes from logfilePath
 func (p *Parser) extractk8sMetaFromFilePath(e *entry.Entry) error {
-	if !p.addMetadataFromFilepath {
-		return nil
-	}
-
-	logPath, ok := e.Attributes[logPathField]
-	if !ok {
-		return fmt.Errorf(
-			"operator '%s' has 'add_metadata_from_filepath' enabled, but the log record attribute '%s' is missing. Perhaps enable the 'include_file_path' option?",
-			p.OperatorID,
-			logPathField)
-	}
-
-	rawLogPath, ok := logPath.(string)
-	if !ok {
-		return fmt.Errorf("type '%T' cannot be parsed as log path field", logPath)
-	}
-
-	parsedValues, err := helper.MatchValues(rawLogPath, pathMatcher)
-	if err != nil {
-		return errors.New("failed to detect a valid log path")
-	}
-
-	for originalKey, attributeKey := range k8sMetadataMapping {
-		newField := entry.NewResourceField(attributeKey)
-		if err := newField.Set(e, parsedValues[originalKey]); err != nil {
-			return fmt.Errorf("failed to set %v as metadata at %v", originalKey, attributeKey)
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (p *Parser) consumeEntries(ctx context.Context, entries []*entry.Entry) {
-	if err := p.WriteBatch(ctx, entries); err != nil {
-		p.Logger().Error("failed to write batch of entries", zap.Error(err))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func moveField(e *entry.Entry, originalKey, mappedKey string) error {
-	val, exist := entry.NewAttributeField(originalKey).Delete(e)
-	if !exist {
-		return fmt.Errorf("move: field %v does not exist", originalKey)
-	}
-	atKey := entry.NewAttributeField(mappedKey)
-	if err := atKey.Set(e, val); err != nil {
-		return fmt.Errorf("failed to move %v to %v", originalKey, mappedKey)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func moveFieldToBody(e *entry.Entry, originalKey, mappedKey string) error {
-	val, exist := entry.NewAttributeField(originalKey).Delete(e)
-	if !exist {
-		return fmt.Errorf("move: field %v does not exist", originalKey)
-	}
-	body, _ := entry.NewField(mappedKey)
-	if err := body.Set(e, val); err != nil {
-		return fmt.Errorf("failed to move %v to %v", originalKey, mappedKey)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func parseTime(e *entry.Entry, layout string) error {
-	var location *time.Location
-	parseFrom := "time"
-	value, ok := e.Get(entry.NewAttributeField(parseFrom))
-	if !ok {
-		return fmt.Errorf("failed to get the time from %v", e)
-	}
+func parseTime(e *entry.Entry, layout string) error { _ = "STUB: not implemented"; return nil }
 
-	if strings.HasSuffix(layout, "Z") {
-		// If a timestamp ends with 'Z', it should be interpreted at Zulu (UTC) time
-		location = time.UTC
-	} else {
-		location = time.Local
-	}
+// If a timestamp ends with 'Z', it should be interpreted at Zulu (UTC) time
 
-	timeValue, err := timeutils.ParseGotime(layout, value, location)
-	if err != nil {
-		return err
-	}
-	// timeutils.ParseGotime calls timeutils.SetTimestampYear before returning the timeValue
-	e.Timestamp = timeValue
-
-	e.Delete(entry.NewAttributeField(parseFrom))
-
-	return nil
-}
+// timeutils.ParseGotime calls timeutils.SetTimestampYear before returning the timeValue

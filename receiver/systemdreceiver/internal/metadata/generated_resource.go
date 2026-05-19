@@ -15,22 +15,15 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetSystemdUnitName sets provided value as "systemd.unit.name" attribute.
-func (rb *ResourceBuilder) SetSystemdUnitName(val string) {
-	if rb.config.SystemdUnitName.Enabled {
-		rb.res.Attributes().PutStr("systemd.unit.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetSystemdUnitName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

@@ -4,8 +4,6 @@
 package grafanacloudconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/grafanacloudconnector"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/confmap/xconfmap"
@@ -24,14 +22,4 @@ type Config struct {
 var _ xconfmap.Validator = (*Config)(nil)
 
 // Validate checks if the configuration is valid
-func (c Config) Validate() error {
-	if len(c.HostIdentifiers) == 0 {
-		return errors.New("at least one host identifier is required")
-	}
-
-	if c.MetricsFlushInterval > 5*time.Minute || c.MetricsFlushInterval < 15*time.Second {
-		return fmt.Errorf("%q is not a valid flush interval between 15s and 5m", c.MetricsFlushInterval)
-	}
-
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }

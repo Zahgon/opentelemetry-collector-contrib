@@ -18,30 +18,33 @@ type traceToTraceConnector struct {
 }
 
 func newTraceToTraceConnector(logger *zap.Logger, nextConsumer consumer.Traces) *traceToTraceConnector {
-	logger.Info("Building datadog connector for trace to trace")
-	return &traceToTraceConnector{
-		logger:         logger,
-		tracesConsumer: nextConsumer,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start implements the component interface.
 func (*traceToTraceConnector) Start(context.Context, component.Host) error {
+	_ = "STUB: not implemented"
+
+	// Shutdown implements the component interface.
 	return nil
 }
 
-// Shutdown implements the component interface.
 func (*traceToTraceConnector) Shutdown(context.Context) error {
+	_ = "STUB: not implemented"
+
+	// Capabilities implements the consumer interface.
+	// tells use whether the component(connector) will mutate the data passed into it. if set to true the connector does modify the data
 	return nil
 }
 
-// Capabilities implements the consumer interface.
-// tells use whether the component(connector) will mutate the data passed into it. if set to true the connector does modify the data
 func (*traceToTraceConnector) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 // ConsumeTraces implements the consumer interface.
 func (c *traceToTraceConnector) ConsumeTraces(ctx context.Context, traces ptrace.Traces) error {
-	return c.tracesConsumer.ConsumeTraces(ctx, traces)
+	_ = "STUB: not implemented"
+	return nil
 }

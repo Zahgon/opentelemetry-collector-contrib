@@ -6,10 +6,7 @@ package dns // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"net"
-	"strings"
 	"time"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/lookupprocessor/lookupsource"
@@ -42,44 +39,18 @@ type Config struct {
 	Cache lookupsource.CacheConfig `mapstructure:"cache"`
 }
 
-func (c *Config) Validate() error {
-	switch c.RecordType {
-	case "", RecordTypePTR:
-		// Valid
-	default:
-		return fmt.Errorf("invalid record_type %q, only PTR is currently supported", c.RecordType)
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if c.Timeout <= 0 {
-		return errors.New("timeout must be greater than 0")
-	}
-
-	if err := c.Cache.Validate(); err != nil {
-		return err
-	}
-
-	return nil
-}
+// Valid
 
 func NewFactory() lookupsource.SourceFactory {
-	return lookupsource.NewSourceFactory(
-		sourceType,
-		createDefaultConfig,
-		createSource,
-	)
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceFactory)
 }
 
 func createDefaultConfig() lookupsource.SourceConfig {
-	return &Config{
-		RecordType: RecordTypePTR,
-		Timeout:    1 * time.Second,
-		Cache: lookupsource.CacheConfig{
-			Enabled:     true,
-			Size:        10000,
-			TTL:         5 * time.Minute,
-			NegativeTTL: 1 * time.Minute,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceConfig)
 }
 
 func createSource(
@@ -87,48 +58,14 @@ func createSource(
 	_ lookupsource.CreateSettings,
 	cfg lookupsource.SourceConfig,
 ) (lookupsource.Source, error) {
-	dnsCfg := cfg.(*Config)
-
-	recordType := dnsCfg.RecordType
-	if recordType == "" {
-		recordType = RecordTypePTR
-	}
-
-	timeout := dnsCfg.Timeout
-
-	var resolver *net.Resolver
-	if dnsCfg.Server != "" {
-		resolver = &net.Resolver{
-			PreferGo: true,
-			Dial: func(ctx context.Context, network, _ string) (net.Conn, error) {
-				d := net.Dialer{}
-				return d.DialContext(ctx, network, dnsCfg.Server)
-			},
-		}
-	} else {
-		resolver = net.DefaultResolver
-	}
-
-	s := &dnsSource{
-		recordType: recordType,
-		timeout:    timeout,
-		resolver:   resolver,
-	}
-
-	// Create the lookup function, optionally wrapped with cache
-	lookupFn := s.lookup
-	if dnsCfg.Cache.Enabled {
-		cache := lookupsource.NewCache(dnsCfg.Cache)
-		lookupFn = lookupsource.WrapWithCache(cache, lookupFn)
-	}
-
-	return lookupsource.NewSource(
-		lookupFn,
-		func() string { return sourceType },
-		nil, // no start needed
-		nil, // no shutdown needed
-	), nil
+	_ = "STUB: not implemented"
+	return *new(lookupsource.Source), nil
 }
+
+// Create the lookup function, optionally wrapped with cache
+
+// no start needed
+// no shutdown needed
 
 type dnsSource struct {
 	recordType RecordType
@@ -137,28 +74,18 @@ type dnsSource struct {
 }
 
 func (s *dnsSource) lookup(ctx context.Context, key string) (any, bool, error) {
-	ctx, cancel := context.WithTimeout(ctx, s.timeout)
-	defer cancel()
-	// Currently only PTR is supported
-	return s.lookupPTR(ctx, key)
+	_ = "STUB: not implemented"
+	return *new(any), false, nil
 }
+
+// Currently only PTR is supported
 
 // lookupPTR performs reverse DNS lookup (IP -> hostname).
 func (s *dnsSource) lookupPTR(ctx context.Context, ip string) (any, bool, error) {
-	names, err := s.resolver.LookupAddr(ctx, ip)
-	if err != nil {
-		// DNS errors for non-existent records should return not found, not error
-		var dnsErr *net.DNSError
-		if errors.As(err, &dnsErr) && (dnsErr.IsNotFound || dnsErr.IsTemporary) {
-			return nil, false, nil
-		}
-		return nil, false, err
-	}
-
-	if len(names) == 0 {
-		return nil, false, nil
-	}
-
-	// Return the first hostname, trimming trailing dot
-	return strings.TrimSuffix(names[0], "."), true, nil
+	_ = "STUB: not implemented"
+	return *new(any), false, nil
 }
+
+// DNS errors for non-existent records should return not found, not error
+
+// Return the first hostname, trimming trailing dot

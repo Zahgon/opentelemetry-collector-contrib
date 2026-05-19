@@ -44,13 +44,16 @@ type noopController struct{}
 var _ Queue = noopController{}
 
 // NewUnboundedQueue returns a no-op implementation of the Queue interface.
-func NewUnboundedQueue() Queue {
-	return noopController{}
+func NewUnboundedQueue() Queue { _ = "STUB: not implemented"; return *new(Queue) }
+
+func noopRelease() {
+	_ = "STUB: not implemented"
+
+	// Acquire implements Queue.
+	return
 }
 
-func noopRelease() {}
-
-// Acquire implements Queue.
 func (noopController) Acquire(_ context.Context, _ uint64) (ReleaseFunc, error) {
-	return noopRelease, nil
+	_ = "STUB: not implemented"
+	return *new(ReleaseFunc), nil
 }

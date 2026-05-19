@@ -4,20 +4,13 @@
 package sumologicexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sumologicexporter"
 
 import (
-	"errors"
-	"fmt"
-	"net/url"
 	"time"
 
-	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configauth"
 	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/sumologicextension"
 )
 
 // Config defines configuration for Sumo Logic exporter.
@@ -67,69 +60,11 @@ type Config struct {
 
 // createDefaultClientConfig returns default http client settings
 func createDefaultClientConfig() confighttp.ClientConfig {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Timeout = defaultTimeout
-	clientConfig.Compression = DefaultCompressEncoding
-	clientConfig.Auth = configoptional.Some(configauth.Config{
-		AuthenticatorID: component.NewID(sumologicextension.NewFactory().Type()),
-	})
-	return clientConfig
+	_ = "STUB: not implemented"
+	return *new(confighttp.ClientConfig)
 }
 
-func (cfg *Config) Validate() error {
-	if cfg.CompressEncoding != nil {
-		return errors.New("support for compress_encoding configuration has been removed, in favor of compression")
-	}
-
-	if cfg.Timeout < 1 || cfg.Timeout > maxTimeout {
-		return fmt.Errorf("timeout must be between 1 and 55 seconds, got %v", cfg.Timeout)
-	}
-
-	switch cfg.Compression {
-	case configcompression.TypeGzip:
-	case configcompression.TypeDeflate:
-	case configcompression.TypeZstd:
-	case NoCompression:
-
-	default:
-		return fmt.Errorf("invalid compression encoding type: %v", cfg.Compression)
-	}
-
-	switch cfg.LogFormat {
-	case OTLPLogFormat:
-	case JSONFormat:
-	case TextFormat:
-	default:
-		return fmt.Errorf("unexpected log format: %s", cfg.LogFormat)
-	}
-
-	switch cfg.MetricFormat {
-	case OTLPMetricFormat:
-	case PrometheusFormat:
-	case RemovedGraphiteFormat:
-		return errors.New("support for the graphite metric format was removed, please use prometheus or otlp instead")
-	case RemovedCarbon2Format:
-		return errors.New("support for the carbon2 metric format was removed, please use prometheus or otlp instead")
-	default:
-		return fmt.Errorf("unexpected metric format: %s", cfg.MetricFormat)
-	}
-
-	if cfg.Endpoint == "" && !cfg.Auth.HasValue() {
-		return errors.New("no endpoint and no auth extension specified")
-	}
-
-	if _, err := url.Parse(cfg.Endpoint); err != nil {
-		return fmt.Errorf("failed parsing endpoint URL: %s; err: %w",
-			cfg.Endpoint, err,
-		)
-	}
-
-	if err := cfg.QueueSettings.Validate(); err != nil {
-		return fmt.Errorf("queue settings has invalid configuration: %w", err)
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // LogFormatType represents log_format
 type LogFormatType string

@@ -14,53 +14,18 @@ type Node struct {
 
 // Close provides a mock function with given fields:
 func (_m *Node) Close() {
-	_m.Called()
+	_ = "STUB: not implemented"
+
+	// GetName provides a mock function with given fields:
+	return
 }
 
-// GetName provides a mock function with given fields:
-func (_m *Node) GetName() string {
-	ret := _m.Called()
-
-	var r0 string
-	if rf, ok := ret.Get(0).(func() string); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(string)
-	}
-
-	return r0
-}
+func (_m *Node) GetName() string { _ = "STUB: not implemented"; return "" }
 
 // RequestInfo provides a mock function with given fields: _a0, _a1
 func (_m *Node) RequestInfo(_a0 *aerospike.InfoPolicy, _a1 ...string) (map[string]string, aerospike.Error) {
-	_va := make([]any, len(_a1))
-	for _i := range _a1 {
-		_va[_i] = _a1[_i]
-	}
-	var _ca []any
-	_ca = append(_ca, _a0)
-	_ca = append(_ca, _va...)
-	ret := _m.Called(_ca...)
-
-	var r0 map[string]string
-	if rf, ok := ret.Get(0).(func(*aerospike.InfoPolicy, ...string) map[string]string); ok {
-		r0 = rf(_a0, _a1...)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(map[string]string)
-		}
-	}
-
-	var r1 aerospike.Error
-	if rf, ok := ret.Get(1).(func(*aerospike.InfoPolicy, ...string) aerospike.Error); ok {
-		r1 = rf(_a0, _a1...)
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(aerospike.Error)
-		}
-	}
-
-	return r0, r1
+	_ = "STUB: not implemented"
+	return nil, *new(aerospike.Error)
 }
 
 type mockConstructorTestingTNewNode interface {
@@ -69,11 +34,4 @@ type mockConstructorTestingTNewNode interface {
 }
 
 // NewNode creates a new instance of Node. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
-func NewNode(t mockConstructorTestingTNewNode) *Node {
-	mock := &Node{}
-	mock.Mock.Test(t)
-
-	t.Cleanup(func() { mock.AssertExpectations(t) })
-
-	return mock
-}
+func NewNode(t mockConstructorTestingTNewNode) *Node { _ = "STUB: not implemented"; return nil }

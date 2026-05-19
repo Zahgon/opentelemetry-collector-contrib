@@ -16,25 +16,14 @@ type mockLogsDataConsumer struct {
 
 // ConsumeLogsJSON provides a mock function with given fields: ctx, json
 func (_m *mockLogsDataConsumer) consumeLogsJSON(ctx context.Context, json []byte) error {
-	ret := _m.Called(ctx, json)
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, []byte) error); ok {
-		r0 = rf(ctx, json)
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetNextLogsConsumer provides a mock function with given fields: nextLogsConsumer
 func (_m *mockLogsDataConsumer) setNextLogsConsumer(nextLogsConsumer consumer.Logs) {
-	_m.Called(nextLogsConsumer)
+	_ = "STUB: not implemented"
+	return
 }
 
-func newMockLogsDataConsumer() *mockLogsDataConsumer {
-	logsDataConsumer := &mockLogsDataConsumer{}
-	logsDataConsumer.On("consumeLogsJSON", mock.Anything, mock.Anything).Return(nil)
-	return logsDataConsumer
-}
+func newMockLogsDataConsumer() *mockLogsDataConsumer { _ = "STUB: not implemented"; return nil }

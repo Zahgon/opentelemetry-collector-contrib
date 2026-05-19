@@ -16,10 +16,6 @@
 package chrony // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/chronyreceiver/internal/chrony"
 
 import (
-	"bytes"
-	"encoding/binary"
-	"fmt"
-	"math"
 	"net"
 	"time"
 
@@ -72,12 +68,7 @@ type ipAddr struct {
 	_      uint16 // Padding
 }
 
-func (ip *ipAddr) ToNetIP() net.IP {
-	if ip.Family == ipAddrInet4 {
-		return net.IP(ip.IP[:4])
-	}
-	return net.IP(ip.IP[:])
-}
+func (ip *ipAddr) ToNetIP() net.IP { _ = "STUB: not implemented"; return *new(net.IP) }
 
 type timeSpec struct {
 	SecHigh uint32
@@ -85,35 +76,11 @@ type timeSpec struct {
 	Nsec    uint32
 }
 
-func (bt *timeSpec) Time() time.Time {
-	highU64 := uint64(bt.SecHigh)
-	if bt.SecHigh == noHighSec {
-		highU64 = 0
-	}
-	lowU64 := uint64(bt.SecLow)
-	return time.Unix(int64(highU64<<32|lowU64), int64(bt.Nsec))
-}
+func (bt *timeSpec) Time() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
 
 type binaryFloat int32
 
-func (bf binaryFloat) Float() float64 {
-	var exp, coef int32
-
-	x := uint32(bf)
-
-	exp = int32(x >> floatCoefBits)
-	if exp >= 1<<(floatExpBits-1) {
-		exp -= 1 << floatExpBits
-	}
-	exp -= floatCoefBits
-
-	coef = int32(x % (1 << floatCoefBits))
-	if coef >= 1<<(floatCoefBits-1) {
-		coef -= 1 << floatCoefBits
-	}
-
-	return float64(coef) * math.Pow(2.0, float64(exp))
-}
+func (bf binaryFloat) Float() float64 { _ = "STUB: not implemented"; return 0 }
 
 type requestTrackingContent struct {
 	chrony.RequestHead
@@ -144,38 +111,6 @@ type replyTrackingContent struct {
 //
 // this client doesn't perform any other actions and due to the logrus logger being part of that code path,
 // it was simpler to port the logic here and reference the original.
-func newTrackingData(data []uint8) (*Tracking, error) {
-	head, buff := new(chrony.ReplyHead), bytes.NewReader(data)
-	if err := binary.Read(buff, binary.BigEndian, head); err != nil {
-		return nil, err
-	}
-	if head.Status != successfulRequest {
-		return nil, fmt.Errorf("request failed status %s: %w", head.Status.String(), errBadRequest)
-	}
-	if head.Reply != replyTrackingCode {
-		return nil, fmt.Errorf("unknown reply code from chronyd: %d: %w", head.Reply, errBadRequest)
-	}
+func newTrackingData(data []uint8) (*Tracking, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	// Convert the data from the chrony c representation of the data to a more go idiomatic value
-	val := new(replyTrackingContent)
-	if err := binary.Read(buff, binary.BigEndian, val); err != nil {
-		return nil, err
-	}
-
-	return &chrony.Tracking{
-		RefID:              val.RefID,
-		IPAddr:             val.IPAddr.ToNetIP(),
-		Stratum:            val.Stratum,
-		LeapStatus:         val.LeapStatus,
-		RefTime:            val.RefTime.Time(),
-		CurrentCorrection:  val.CurrentCorrection.Float(),
-		LastOffset:         val.LastOffset.Float(),
-		RMSOffset:          val.RMSOffset.Float(),
-		FreqPPM:            val.FreqPPM.Float(),
-		ResidFreqPPM:       val.ResidFreqPPM.Float(),
-		SkewPPM:            val.SkewPPM.Float(),
-		RootDelay:          val.RootDelay.Float(),
-		RootDispersion:     val.RootDispersion.Float(),
-		LastUpdateInterval: val.LastUpdateInterval.Float(),
-	}, nil
-}
+// Convert the data from the chrony c representation of the data to a more go idiomatic value

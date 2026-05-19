@@ -15,18 +15,12 @@ var encoders = map[string]compressFunc{
 }
 
 func buildCompressor(compression string) compressFunc {
-	if compression == "" {
-		return noneCompress
-	}
-	return encoders[compression]
+	_ = "STUB: not implemented"
+	return *new(compressFunc)
 }
 
 // zstdCompress compress a buffer with zstd
-func zstdCompress(src []byte) []byte {
-	return encoder.EncodeAll(src, make([]byte, 0, len(src)))
-}
+func zstdCompress(src []byte) []byte { _ = "STUB: not implemented"; return nil }
 
 // noneCompress return src
-func noneCompress(src []byte) []byte {
-	return src
-}
+func noneCompress(src []byte) []byte { _ = "STUB: not implemented"; return nil }

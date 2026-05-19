@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -87,338 +88,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.K8sPodAssociation, err = builder.meter.Int64Counter(
-		"otelcol.k8s.pod.association",
-		metric.WithDescription("Number of pod associations' evaluations [Development]"),
-		metric.WithUnit("{resources}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDaemonsetAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.daemonset.added",
-		metric.WithDescription("Number of daemonset add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDaemonsetDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.daemonset.deleted",
-		metric.WithDescription("Number of daemonset delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDaemonsetUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.daemonset.updated",
-		metric.WithDescription("Number of daemonset update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDeploymentAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.deployment.added",
-		metric.WithDescription("Number of deployment add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDeploymentDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.deployment.deleted",
-		metric.WithDescription("Number of deployment delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherDeploymentUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.deployment.updated",
-		metric.WithDescription("Number of deployment update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherJobAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.job.added",
-		metric.WithDescription("Number of job add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherJobDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.job.deleted",
-		metric.WithDescription("Number of job delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherJobUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.job.updated",
-		metric.WithDescription("Number of job update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNamespaceAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.namespace.added",
-		metric.WithDescription("Number of namespace add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNamespaceDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.namespace.deleted",
-		metric.WithDescription("Number of namespace delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNamespaceUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.namespace.updated",
-		metric.WithDescription("Number of namespace update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNodeAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.node.added",
-		metric.WithDescription("Number of node add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNodeDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.node.deleted",
-		metric.WithDescription("Number of node delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherNodeUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.node.updated",
-		metric.WithDescription("Number of node update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherPodAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.pod.added",
-		metric.WithDescription("Number of pod add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherPodDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.pod.deleted",
-		metric.WithDescription("Number of pod delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherPodUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.pod.updated",
-		metric.WithDescription("Number of pod update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherPodCacheSize, err = builder.meter.Int64Gauge(
-		"otelcol.k8s.watcher.pod_cache.size",
-		metric.WithDescription("Size of cache table containing pod info [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherReplicasetAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.replicaset.added",
-		metric.WithDescription("Number of ReplicaSet add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherReplicasetDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.replicaset.deleted",
-		metric.WithDescription("Number of ReplicaSet delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherReplicasetUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.replicaset.updated",
-		metric.WithDescription("Number of ReplicaSet update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherStatefulsetAdded, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.statefulset.added",
-		metric.WithDescription("Number of statefulset add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherStatefulsetDeleted, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.statefulset.deleted",
-		metric.WithDescription("Number of statefulset delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.K8sWatcherStatefulsetUpdated, err = builder.meter.Int64Counter(
-		"otelcol.k8s.watcher.statefulset.updated",
-		metric.WithDescription("Number of statefulset update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDaemonsetAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_daemonset_added",
-		metric.WithDescription("Number of daemonset add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDaemonsetDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_daemonset_deleted",
-		metric.WithDescription("Number of daemonset delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDaemonsetUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_daemonset_updated",
-		metric.WithDescription("Number of daemonset update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDeploymentAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_deployment_added",
-		metric.WithDescription("Number of deployment add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDeploymentDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_deployment_deleted",
-		metric.WithDescription("Number of deployment delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sDeploymentUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_deployment_updated",
-		metric.WithDescription("Number of deployment update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sIPLookupMiss, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_ip_lookup_miss",
-		metric.WithDescription("[DEPRECATED] Number of times pod by IP lookup failed [Deprecated]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sJobAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_job_added",
-		metric.WithDescription("Number of job add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sJobDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_job_deleted",
-		metric.WithDescription("Number of job delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sJobUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_job_updated",
-		metric.WithDescription("Number of job update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNamespaceAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_namespace_added",
-		metric.WithDescription("Number of namespace add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNamespaceDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_namespace_deleted",
-		metric.WithDescription("Number of namespace delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNamespaceUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_namespace_updated",
-		metric.WithDescription("Number of namespace update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNodeAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_node_added",
-		metric.WithDescription("Number of node add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNodeDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_node_deleted",
-		metric.WithDescription("Number of node delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sNodeUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_node_updated",
-		metric.WithDescription("Number of node update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sPodAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_pod_added",
-		metric.WithDescription("Number of pod add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sPodDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_pod_deleted",
-		metric.WithDescription("Number of pod delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sPodTableSize, err = builder.meter.Int64Gauge(
-		"otelcol_otelsvc_k8s_pod_table_size",
-		metric.WithDescription("Size of table containing pod info [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sPodUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_pod_updated",
-		metric.WithDescription("Number of pod update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sReplicasetAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_replicaset_added",
-		metric.WithDescription("Number of ReplicaSet add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sReplicasetDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_replicaset_deleted",
-		metric.WithDescription("Number of ReplicaSet delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sReplicasetUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_replicaset_updated",
-		metric.WithDescription("Number of ReplicaSet update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sStatefulsetAdded, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_statefulset_added",
-		metric.WithDescription("Number of statefulset add events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sStatefulsetDeleted, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_statefulset_deleted",
-		metric.WithDescription("Number of statefulset delete events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.OtelsvcK8sStatefulsetUpdated, err = builder.meter.Int64Counter(
-		"otelcol_otelsvc_k8s_statefulset_updated",
-		metric.WithDescription("Number of statefulset update events received [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -15,26 +15,11 @@ type exprMatcher struct {
 }
 
 func newExprMatcher(expressions []string) (*exprMatcher, error) {
-	m := &exprMatcher{}
-	for _, expression := range expressions {
-		matcher, err := filterexpr.NewMatcher(expression)
-		if err != nil {
-			return nil, err
-		}
-		m.matchers = append(m.matchers, matcher)
-	}
-	return m, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *exprMatcher) Eval(_ context.Context, tCtx *ottlmetric.TransformContext) (bool, error) {
-	for _, matcher := range m.matchers {
-		matched, err := matcher.MatchMetric(tCtx.GetMetric())
-		if err != nil {
-			return false, err
-		}
-		if matched {
-			return true, nil
-		}
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }

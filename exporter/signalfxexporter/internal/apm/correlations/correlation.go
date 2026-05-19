@@ -31,10 +31,6 @@ type Correlation struct {
 }
 
 func (c *Correlation) Logger(l log.Logger) log.Logger {
-	return l.WithFields(log.Fields{
-		"correlation.type":     c.Type,
-		"correlation.dimName":  c.DimName,
-		"correlation.dimValue": c.DimValue,
-		"correlation.value":    c.Value,
-	})
+	_ = "STUB: not implemented"
+	return *new(log.Logger)
 }

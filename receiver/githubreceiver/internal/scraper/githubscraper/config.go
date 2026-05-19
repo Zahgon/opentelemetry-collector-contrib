@@ -4,8 +4,6 @@
 package githubscraper // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver/internal/scraper/githubscraper"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configretry"
 
@@ -43,18 +41,4 @@ type Config struct {
 }
 
 // Validate validates the configuration
-func (cfg *Config) Validate() error {
-	if cfg.ConcurrencyLimit < 0 {
-		return errors.New("concurrency_limit must be non-negative")
-	}
-	if cfg.MergedPRLookbackDays < 0 {
-		return errors.New("merged_pr_lookback_days must be non-negative")
-	}
-	if cfg.RetryConfig.MaxRetries < 0 {
-		return errors.New("max_retries must be non-negative")
-	}
-	if err := cfg.RetryConfig.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

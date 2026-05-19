@@ -5,35 +5,17 @@ package dockerobserver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"time"
 
-	"github.com/moby/moby/client"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/dockerobserver/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/docker"
 )
 
 // NewFactory should be called to create a factory with default values.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		component.StabilityLevelBeta,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Config: docker.Config{
-			Endpoint:         client.DefaultDockerHost,
-			Timeout:          5 * time.Second,
-			DockerAPIVersion: defaultDockerAPIVersion,
-		},
-		CacheSyncInterval: 60 * time.Minute,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(
@@ -41,6 +23,6 @@ func createExtension(
 	settings extension.Settings,
 	cfg component.Config,
 ) (extension.Extension, error) {
-	config := cfg.(*Config)
-	return newObserver(settings.Logger, config)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

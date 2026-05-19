@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/config/configopaque"
-	"go.uber.org/multierr"
 )
 
 var (
@@ -33,23 +32,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	var errs error
-	if c.KeyID == "" {
-		errs = multierr.Append(errs, errNoKeyIDProvided)
-	}
-	if c.TTL <= 0 {
-		errs = multierr.Append(errs, errNoTTLProvided)
-	}
-	if len(c.Audience) == 0 {
-		errs = multierr.Append(errs, errNoAudienceProvided)
-	}
-
-	if c.Issuer == "" {
-		errs = multierr.Append(errs, errNoIssuerProvided)
-	}
-	if c.PrivateKey == "" {
-		errs = multierr.Append(errs, errNoPrivateKeyProvided)
-	}
-	return errs
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

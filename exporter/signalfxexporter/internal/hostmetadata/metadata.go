@@ -4,8 +4,6 @@
 package hostmetadata // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/hostmetadata"
 
 import (
-	"context"
-	"maps"
 	"sync"
 
 	"github.com/shirou/gopsutil/v4/common"
@@ -28,90 +26,32 @@ type Syncer struct {
 
 // NewSyncer creates new instance of host metadata syncer.
 func NewSyncer(logger *zap.Logger, dimClient dimensions.MetadataUpdateClient, envMap common.EnvMap) *Syncer {
-	return &Syncer{
-		envMap:    envMap,
-		logger:    logger,
-		dimClient: dimClient,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *Syncer) Sync(md pmetric.Metrics) {
+	_ = "STUB: not implemented"
 	// skip if already synced or if metrics data is empty
-	if md.ResourceMetrics().Len() == 0 {
-		return
-	}
-	s.once.Do(func() {
-		s.syncOnResource(md.ResourceMetrics().At(0).Resource())
-	})
+	return
 }
 
 func (s *Syncer) syncOnResource(res pcommon.Resource) {
+	_ = "STUB: not implemented"
 	// If resourcedetection processor is enabled, all the metrics should have resource attributes
 	// that can be used to update host metadata.
 	// Based of this assumption we check just one ResourceMetrics object,
-	hostID, ok := splunk.ResourceToHostID(res)
-	if !ok {
-		// if no attributes found, we assume that resourcedetection is not enabled or
-		// it doesn't set right attributes, and we do not retry.
-		s.logger.Error("Not found any host attributes. Host metadata synchronization skipped. " +
-			"Make sure that \"resourcedetection\" processor is enabled in the pipeline with one of " +
-			"the cloud provider detectors or environment variable detector setting \"host.name\" attribute")
-		return
-	}
-
-	props := s.scrapeHostProperties()
-	if len(props) == 0 {
-		// do not retry if scraping failed.
-		s.logger.Error("Failed to fetch system properties. Host metadata synchronization skipped")
-		return
-	}
-
-	metadataUpdate := s.prepareMetadataUpdate(props, hostID)
-	s.logger.Info("Preparing to sync host properties to host dimension", zap.String("dimension_key", string(hostID.Key)),
-		zap.String("dimension_value", hostID.ID), zap.Any("properties", props))
-	err := s.dimClient.PushMetadata([]*metadata.MetadataUpdate{metadataUpdate})
-	if err != nil {
-		s.logger.Error("Failed to push host metadata update", zap.Error(err))
-		return
-	}
-
-	s.logger.Info("Host metadata synchronized")
+	return
 }
+
+// if no attributes found, we assume that resourcedetection is not enabled or
+// it doesn't set right attributes, and we do not retry.
+
+// do not retry if scraping failed.
 
 func (*Syncer) prepareMetadataUpdate(props map[string]string, hostID splunk.HostID) *metadata.MetadataUpdate {
-	return &metadata.MetadataUpdate{
-		ResourceIDKey: string(hostID.Key),
-		ResourceID:    metadata.ResourceID(hostID.ID),
-		MetadataDelta: metadata.MetadataDelta{
-			MetadataToUpdate: props,
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *Syncer) scrapeHostProperties() map[string]string {
-	props := make(map[string]string)
-	ctx := context.WithValue(context.Background(), common.EnvKey, s.envMap)
-
-	cpu, err := getCPU(ctx)
-	if err == nil {
-		maps.Copy(props, cpu.toStringMap())
-	} else {
-		s.logger.Warn("Failed to scrape host hostCPU metadata", zap.Error(err))
-	}
-
-	mem, err := getMemory(ctx)
-	if err == nil {
-		maps.Copy(props, mem.toStringMap())
-	} else {
-		s.logger.Warn("Failed to scrape host memory metadata", zap.Error(err))
-	}
-
-	os, err := getOS(ctx)
-	if err == nil {
-		maps.Copy(props, os.toStringMap())
-	} else {
-		s.logger.Warn("Failed to scrape host hostOS metadata", zap.Error(err))
-	}
-
-	return props
-}
+func (s *Syncer) scrapeHostProperties() map[string]string { _ = "STUB: not implemented"; return nil }

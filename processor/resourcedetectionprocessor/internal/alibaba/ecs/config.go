@@ -20,9 +20,4 @@ type Config struct {
 }
 
 // CreateDefaultConfig returns the default configuration for the Alibaba Cloud ECS detector.
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes:    metadata.DefaultResourceAttributesConfig(),
-		FailOnMissingMetadata: false,
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

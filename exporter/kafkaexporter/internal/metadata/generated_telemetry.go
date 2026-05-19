@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -45,88 +46,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.KafkaBrokerClosed, err = builder.meter.Int64Counter(
-		"otelcol_kafka_broker_closed",
-		metric.WithDescription("The total number of connections closed. [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaBrokerConnects, err = builder.meter.Int64Counter(
-		"otelcol_kafka_broker_connects",
-		metric.WithDescription("The total number of connections opened. [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaBrokerThrottlingDuration, err = builder.meter.Int64Histogram(
-		"otelcol_kafka_broker_throttling_duration",
-		metric.WithDescription("The throttling duration in ms imposed by the broker when exporting messages. [Deprecated]"),
-		metric.WithUnit("ms"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaBrokerThrottlingLatency, err = builder.meter.Float64Histogram(
-		"otelcol_kafka_broker_throttling_latency",
-		metric.WithDescription("The throttling latency in seconds imposed by the broker when exporting records. [Development]"),
-		metric.WithUnit("s"),
-		metric.WithExplicitBucketBoundaries([]float64{0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10, 25, 50, 75, 100}...),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterBytes, err = builder.meter.Int64Counter(
-		"otelcol_kafka_exporter_bytes",
-		metric.WithDescription("The size in bytes of exported records seen by the broker. [Development]"),
-		metric.WithUnit("By"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterBytesUncompressed, err = builder.meter.Int64Counter(
-		"otelcol_kafka_exporter_bytes_uncompressed",
-		metric.WithDescription("The uncompressed size in bytes of exported messages seen by the client. [Development]"),
-		metric.WithUnit("By"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterLatency, err = builder.meter.Int64Histogram(
-		"otelcol_kafka_exporter_latency",
-		metric.WithDescription("The time it took in ms to export a batch of messages. [Deprecated]"),
-		metric.WithUnit("ms"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterMessages, err = builder.meter.Int64Counter(
-		"otelcol_kafka_exporter_messages",
-		metric.WithDescription("The number of exported messages. [Deprecated]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterRecords, err = builder.meter.Int64Counter(
-		"otelcol_kafka_exporter_records",
-		metric.WithDescription("The number of exported records. [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.KafkaExporterWriteLatency, err = builder.meter.Float64Histogram(
-		"otelcol_kafka_exporter_write_latency",
-		metric.WithDescription("The time it took in seconds to export a batch of records. [Development]"),
-		metric.WithUnit("s"),
-		metric.WithExplicitBucketBoundaries([]float64{0, 0.005, 0.01, 0.025, 0.05, 0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10, 25, 50, 75, 100}...),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

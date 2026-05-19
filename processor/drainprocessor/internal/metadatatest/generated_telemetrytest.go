@@ -5,48 +5,23 @@ package metadatatest
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processortest"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata/metricdatatest"
 )
 
 func NewSettings(tt *componenttest.Telemetry) processor.Settings {
-	set := processortest.NewNopSettings(processortest.NopType)
-	set.ID = component.NewID(component.MustNewType("drain"))
-	set.TelemetrySettings = tt.NewTelemetrySettings()
-	return set
+	_ = "STUB: not implemented"
+	return *new(processor.Settings)
 }
 
 func AssertEqualProcessorDrainClustersActive(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_drain_clusters_active",
-		Description: "Current number of active clusters in the Drain parse tree. [Development]",
-		Unit:        "{clusters}",
-		Data: metricdata.Gauge[int64]{
-			DataPoints: dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_drain_clusters_active")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualProcessorDrainLogRecordsAnnotated(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_processor_drain_log_records_annotated",
-		Description: "Number of log records successfully annotated with a template. [Development]",
-		Unit:        "{records}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_processor_drain_log_records_annotated")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }

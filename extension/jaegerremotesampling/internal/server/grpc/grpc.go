@@ -6,16 +6,10 @@ package grpc // import "github.com/open-telemetry/opentelemetry-collector-contri
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net"
 
-	"github.com/jaegertracing/jaeger-idl/proto-gen/api_v2"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configgrpc"
-	"go.uber.org/zap"
-	"google.golang.org/grpc/health"
-	"google.golang.org/grpc/health/grpc_health_v1"
-	"google.golang.org/grpc/reflection"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/jaegerremotesampling/internal/source"
 )
@@ -39,15 +33,8 @@ func NewGRPC(
 	settings configgrpc.ServerConfig,
 	strategyStore source.Source,
 ) (*SamplingGRPCServer, error) {
-	if strategyStore == nil {
-		return nil, errMissingStrategyStore
-	}
-
-	return &SamplingGRPCServer{
-		telemetry:     telemetry,
-		settings:      settings,
-		strategyStore: strategyStore,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // SamplingGRPCServer implements component.Component to make the life cycle easy to manage.
@@ -60,50 +47,12 @@ type SamplingGRPCServer struct {
 }
 
 func (s *SamplingGRPCServer) Start(ctx context.Context, host component.Host) error {
-	server, err := s.settings.ToServer(ctx, host.GetExtensions(), s.telemetry)
-	if err != nil {
-		return err
-	}
-	reflection.Register(server)
-	s.grpcServer = server
-
-	api_v2.RegisterSamplingManagerServer(server, NewGRPCHandler(s.strategyStore))
-
-	healthServer := health.NewServer()
-	healthServer.SetServingStatus("jaeger.api_v2.SamplingManager", grpc_health_v1.HealthCheckResponse_SERVING)
-	grpc_health_v1.RegisterHealthServer(server, healthServer)
-
-	listener, err := s.settings.NetAddr.Listen(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to listen on gRPC port: %w", err)
-	}
-
-	go func() {
-		if err := s.grpcServer.Serve(listener); err != nil {
-			s.telemetry.Logger.Error("could not launch gRPC service", zap.Error(err))
-		}
-	}()
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Shutdown tries to terminate connections gracefully as long as the passed context is valid.
 func (s *SamplingGRPCServer) Shutdown(ctx context.Context) error {
-	if s.grpcServer == nil {
-		return errGRPCServerNotRunning
-	}
-
-	ch := make(chan struct{}, 1)
-	go func() {
-		s.grpcServer.GracefulStop()
-		ch <- struct{}{}
-	}()
-
-	select {
-	case <-ctx.Done():
-		s.grpcServer.Stop()
-	case <-ch:
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -5,50 +5,24 @@ package pprofreceiver // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/consumer/xconsumer"
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/xreceiver"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/pprofreceiver/internal/metadata"
 )
 
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithProfiles(createProfilesReceiver, metadata.ProfilesStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func defaultControllerConfig() scraperhelper.ControllerConfig {
-	cfg := scraperhelper.NewDefaultControllerConfig()
-	cfg.CollectionInterval = 10 * time.Second
-	return cfg
+	_ = "STUB: not implemented"
+	return *new(scraperhelper.ControllerConfig)
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Remote: configoptional.Default(RemoteConfig{
-			ControllerConfig: defaultControllerConfig(),
-			ClientConfig:     confighttp.NewDefaultClientConfig(),
-		}),
-		File: configoptional.Default(FileConfig{
-			ControllerConfig: defaultControllerConfig(),
-		}),
-		Self: configoptional.Default(SelfConfig{
-			ControllerConfig:     defaultControllerConfig(),
-			BlockProfileFraction: 1,
-			MutexProfileFraction: 1,
-		}),
-		Server: configoptional.Default(ServerConfig{
-			ServerConfig: confighttp.NewDefaultServerConfig(),
-		}),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createProfilesReceiver(
@@ -57,6 +31,6 @@ func createProfilesReceiver(
 	cfg component.Config,
 	consumer xconsumer.Profiles,
 ) (xreceiver.Profiles, error) {
-	rCfg := cfg.(*Config)
-	return newReceiver(rCfg, settings, consumer)
+	_ = "STUB: not implemented"
+	return *new(xreceiver.Profiles), nil
 }

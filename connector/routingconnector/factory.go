@@ -11,27 +11,15 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
 	"go.opentelemetry.io/collector/consumer"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/routingconnector/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 )
 
 // NewFactory returns a ConnectorFactory.
-func NewFactory() connector.Factory {
-	return connector.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		connector.WithTracesToTraces(createTracesToTraces, metadata.TracesToTracesStability),
-		connector.WithMetricsToMetrics(createMetricsToMetrics, metadata.MetricsToMetricsStability),
-		connector.WithLogsToLogs(createLogsToLogs, metadata.LogsToLogsStability),
-	)
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }
 
 // createDefaultConfig creates the default configuration.
 func createDefaultConfig() component.Config {
-	return &Config{
-		ErrorMode: ottl.PropagateError,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createTracesToTraces creates a traces to traces connector based on provided config.
@@ -41,7 +29,8 @@ func createTracesToTraces(
 	cfg component.Config,
 	traces consumer.Traces,
 ) (connector.Traces, error) {
-	return newTracesConnector(set, cfg, traces)
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }
 
 // createMetricsToMetrics creates a metrics to metrics connector based on provided config.
@@ -51,7 +40,8 @@ func createMetricsToMetrics(
 	cfg component.Config,
 	metrics consumer.Metrics,
 ) (connector.Metrics, error) {
-	return newMetricsConnector(set, cfg, metrics)
+	_ = "STUB: not implemented"
+	return *new(connector.Metrics), nil
 }
 
 // createLogsToLogs creates a logs to logs connector based on provided config.
@@ -61,5 +51,6 @@ func createLogsToLogs(
 	cfg component.Config,
 	logs consumer.Logs,
 ) (connector.Logs, error) {
-	return newLogsConnector(set, cfg, logs)
+	_ = "STUB: not implemented"
+	return *new(connector.Logs), nil
 }

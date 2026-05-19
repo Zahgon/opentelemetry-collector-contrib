@@ -4,10 +4,7 @@
 package filterset // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset"
 
 import (
-	"fmt"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset/regexp"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset/strict"
 )
 
 // MatchType describes the type of pattern matching a FilterSet uses to filter strings.
@@ -31,18 +28,14 @@ type Config struct {
 }
 
 func NewUnrecognizedMatchTypeError(matchType MatchType) error {
-	return fmt.Errorf("unrecognized %v: '%v', valid types are: %v", MatchTypeFieldName, matchType, validMatchTypes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CreateFilterSet creates a FilterSet from yaml config.
 func CreateFilterSet(filters []string, cfg *Config) (FilterSet, error) {
-	switch cfg.MatchType {
-	case Regexp:
-		return regexp.NewFilterSet(filters, cfg.RegexpConfig)
-	case Strict:
-		// Strict FilterSets do not have any extra configuration options, so call the constructor directly.
-		return strict.NewFilterSet(filters), nil
-	default:
-		return nil, NewUnrecognizedMatchTypeError(cfg.MatchType)
-	}
+	_ = "STUB: not implemented"
+	return *new(FilterSet), nil
 }
+
+// Strict FilterSets do not have any extra configuration options, so call the constructor directly.

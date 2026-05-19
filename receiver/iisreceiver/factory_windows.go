@@ -11,10 +11,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/iisreceiver/internal/metadata"
 )
 
 func createMetricsReceiver(
@@ -23,18 +19,6 @@ func createMetricsReceiver(
 	rConf component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	cfg := rConf.(*Config)
-	rcvr := newIisReceiver(params, cfg, nextConsumer)
-
-	s, err := scraper.NewMetrics(rcvr.scrape,
-		scraper.WithStart(rcvr.start),
-		scraper.WithShutdown(rcvr.shutdown))
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(
-		&cfg.ControllerConfig, params, nextConsumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

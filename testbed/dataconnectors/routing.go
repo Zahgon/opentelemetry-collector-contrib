@@ -14,23 +14,17 @@ type RoutingDataConnector struct {
 var _ testbed.DataConnector = (*RoutingDataConnector)(nil)
 
 func NewRoutingDataConnector(receiverDataType string) *RoutingDataConnector {
-	return &RoutingDataConnector{DataConnectorBase: testbed.DataConnectorBase{ReceiverDataType: receiverDataType}}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*RoutingDataConnector) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates an exporter config for agent.
-	return `
-  routing:
-    table:
-      - statement: route()
-        pipelines: [traces/out]`
+	return ""
 }
 
 // ProtocolName returns protocol name as it is specified in Collector config.
-func (*RoutingDataConnector) ProtocolName() string {
-	return "routing"
-}
+func (*RoutingDataConnector) ProtocolName() string { _ = "STUB: not implemented"; return "" }
 
-func (rc *RoutingDataConnector) GetReceiverType() string {
-	return rc.ReceiverDataType
-}
+func (rc *RoutingDataConnector) GetReceiverType() string { _ = "STUB: not implemented"; return "" }

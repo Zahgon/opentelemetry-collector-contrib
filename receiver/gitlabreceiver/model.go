@@ -5,13 +5,10 @@ package gitlabreceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 
 	gitlab "gitlab.com/gitlab-org/api/client-go/v2"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 const (
@@ -67,53 +64,28 @@ type glPipeline struct {
 	*gitlab.PipelineEvent
 }
 
-func (p *glPipeline) setSpanData(span ptrace.Span) error {
-	var pipelineName string
-	if p.ObjectAttributes.Name != "" {
-		pipelineName = p.ObjectAttributes.Name
-	} else {
-		pipelineName = p.Commit.Title
-	}
-	span.SetName(pipelineName)
-	span.SetKind(ptrace.SpanKindServer)
-
-	err := p.setTimeStamps(span, p.ObjectAttributes.CreatedAt, p.ObjectAttributes.FinishedAt)
-	if err != nil {
-		return fmt.Errorf("%w: %w", errSetPipelineTimestamps, err)
-	}
-
-	p.setAttributes(span.Attributes())
-
-	setSpanStatus(span, p.ObjectAttributes.Status)
-
-	return nil
-}
+func (p *glPipeline) setSpanData(span ptrace.Span) error { _ = "STUB: not implemented"; return nil }
 
 // the glPipeline doesn't have a parent span ID, bc it's the root span
 func (*glPipeline) setSpanIDs(span ptrace.Span, spanID pcommon.SpanID) error {
-	span.SetSpanID(spanID)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*glPipeline) setTimeStamps(span ptrace.Span, startTime, endTime string) error {
-	return setSpanTimeStamps(span, startTime, endTime)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (p *glPipeline) setAttributes(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// ---------- The following attributes are not part of semconv yet ----------
-
-	// Pipeline
-	attrs.PutStr(AttributeGitLabPipelineSource, p.ObjectAttributes.Source)
-
-	// Parent Pipeline (only added if it's a multi-pipeline)
-	if p.SourcePipeline.PipelineID > 0 {
-		attrs.PutInt(AttributeGitLabPipelineSourcePipelineID, p.SourcePipeline.PipelineID)
-		attrs.PutInt(AttributeGitLabPipelineSourcePipelineProjectID, p.SourcePipeline.Project.ID)
-		attrs.PutInt(AttributeGitLabPipelineSourcePipelineJobID, p.SourcePipeline.JobID)
-		attrs.PutStr(AttributeGitLabPipelineSourcePipelineProjectNamespace, p.SourcePipeline.Project.PathWithNamespace)
-		attrs.PutStr(AttributeGitLabPipelineSourcePipelineProjectURL, p.SourcePipeline.Project.WebURL)
-	}
+	return
 }
+
+// Pipeline
+
+// Parent Pipeline (only added if it's a multi-pipeline)
 
 // glPipelineStage represents a stage in a pipeline event
 type glPipelineStage struct {
@@ -126,42 +98,28 @@ type glPipelineStage struct {
 }
 
 func (s *glPipelineStage) setSpanData(span ptrace.Span) error {
-	span.SetName(s.Name)
-	span.SetKind(ptrace.SpanKindServer)
-
-	err := s.setTimeStamps(span, s.StartedAt, s.FinishedAt)
-	if err != nil {
-		return fmt.Errorf("%w: %w", errSetStageTimestamps, err)
-	}
-
-	setSpanStatus(span, s.Status)
-
-	s.setAttributes(span.Attributes())
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (s *glPipelineStage) setSpanIDs(span ptrace.Span, parentSpanID pcommon.SpanID) error {
-	span.SetParentSpanID(parentSpanID)
-
-	stageSpanID, err := newStageSpanID(s.PipelineID, s.Name, s.StartedAt)
-	if err != nil {
-		return err
-	}
-	span.SetSpanID(stageSpanID)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*glPipelineStage) setTimeStamps(span ptrace.Span, startTime, endTime string) error {
-	return setSpanTimeStamps(span, startTime, endTime)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Appropriate attributes for stages require further discussion and are yet to be defined as part of: https://github.com/open-telemetry/semantic-conventions/issues/2900
 func (*glPipelineStage) setAttributes(pcommon.Map) {
+	_ = "STUB: not implemented"
+
+	// glJobEvent represents the PipelineEvent.Builds struct from the pipeline webhook event - it's not exported as type by the Gitlab API client, so we need to use this struct to represent it
+	return
 }
 
-// glJobEvent represents the PipelineEvent.Builds struct from the pipeline webhook event - it's not exported as type by the Gitlab API client, so we need to use this struct to represent it
 type glJobEvent struct {
 	ID             int64                                  `json:"id"`
 	Stage          string                                 `json:"stage"`
@@ -188,70 +146,30 @@ type glPipelineJob struct {
 	jobURL string
 }
 
-func (j *glPipelineJob) setSpanData(span ptrace.Span) error {
-	span.SetName(j.event.Name)
-	span.SetKind(ptrace.SpanKindServer)
-
-	err := j.setTimeStamps(span, j.event.StartedAt, j.event.FinishedAt)
-	if err != nil {
-		return fmt.Errorf("%w: %w", errSetJobTimestamps, err)
-	}
-
-	setSpanStatus(span, j.event.Status)
-
-	j.setAttributes(span.Attributes())
-
-	return nil
-}
+func (j *glPipelineJob) setSpanData(span ptrace.Span) error { _ = "STUB: not implemented"; return nil }
 
 func (j *glPipelineJob) setSpanIDs(span ptrace.Span, parentSpanID pcommon.SpanID) error {
-	span.SetParentSpanID(parentSpanID)
-
-	spanID, err := newJobSpanID(j.event.ID, j.event.StartedAt)
-	if err != nil {
-		return err
-	}
-	span.SetSpanID(spanID)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*glPipelineJob) setTimeStamps(span ptrace.Span, startTime, endTime string) error {
-	return setSpanTimeStamps(span, startTime, endTime)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (j *glPipelineJob) setAttributes(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Job
-	attrs.PutStr(string(conventions.CICDPipelineTaskNameKey), j.event.Name)
-	attrs.PutInt(string(conventions.CICDPipelineTaskRunIDKey), j.event.ID)
-	attrs.PutStr(string(conventions.CICDPipelineTaskRunResultKey), j.event.Status)
-	attrs.PutStr(string(conventions.CICDPipelineTaskRunURLFullKey), j.jobURL)
-
-	// Worker/Runner
-	attrs.PutInt(string(conventions.CICDWorkerIDKey), j.event.Runner.ID)
-	attrs.PutStr(string(conventions.CICDWorkerNameKey), j.event.Runner.Description)
-
-	// ---------- The following attributes are not part of semconv yet ----------
-
-	// Job
-	attrs.PutDouble(AttributeGitLabJobQueuedDuration, j.event.QueuedDuration)
-	attrs.PutStr(AttributeGitLabJobFailureReason, j.event.FailureReason)
-	attrs.PutBool(AttributeGitLabJobAllowFailure, j.event.AllowFailure)
-
-	// Environment
-	attrs.PutStr(AttributeCICDTaskEnvironmentName, j.event.Environment.Name)
-	attrs.PutStr(AttributeGitLabEnvironmentDeploymentTier, j.event.Environment.DeploymentTier)
-	attrs.PutStr(AttributeGitLabEnvironmentAction, j.event.Environment.Action)
-
-	// Worker/Runner
-	if len(j.event.Runner.Tags) > 0 {
-		labels := attrs.PutEmptySlice(AttributeCICDWorkerTags)
-		labels.EnsureCapacity(len(j.event.Runner.Tags))
-		for _, label := range j.event.Runner.Tags {
-			l := strings.ToLower(label)
-			labels.AppendEmpty().SetStr(l)
-		}
-	}
-
-	attrs.PutStr(AttributeCICDWorkerType, j.event.Runner.RunnerType)
-	attrs.PutBool(AttributeCICDWorkerShared, j.event.Runner.IsShared)
+	return
 }
+
+// Worker/Runner
+
+// ---------- The following attributes are not part of semconv yet ----------
+
+// Job
+
+// Environment
+
+// Worker/Runner

@@ -5,8 +5,6 @@ package filter // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"crypto/rand"
-	"errors"
-	"fmt"
 	"math/big"
 
 	"go.opentelemetry.io/collector/component"
@@ -27,17 +25,10 @@ func init() {
 }
 
 // NewConfig creates a filter operator config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a filter operator config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-		DropRatio:         1,
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a filter operator
 type Config struct {
@@ -48,23 +39,6 @@ type Config struct {
 
 // Build will build a filter operator from the supplied configuration
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformer, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	compiledExpression, err := helper.ExprCompileBool(c.Expression)
-	if err != nil {
-		return nil, fmt.Errorf("failed to compile expression '%s': %w", c.Expression, err)
-	}
-
-	if c.DropRatio < 0.0 || c.DropRatio > 1.0 {
-		return nil, errors.New("drop_ratio must be a number between 0 and 1")
-	}
-
-	return &Transformer{
-		TransformerOperator: transformer,
-		expression:          compiledExpression,
-		dropCutoff:          big.NewInt(int64(c.DropRatio * 1000)),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

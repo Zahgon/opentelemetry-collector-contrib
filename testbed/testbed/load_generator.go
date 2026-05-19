@@ -4,16 +4,10 @@
 package testbed // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"log"
-	"net"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	"go.opentelemetry.io/collector/consumer/consumererror"
 	"golang.org/x/text/message"
 )
 
@@ -80,105 +74,40 @@ type ProviderSender struct {
 
 // NewLoadGenerator creates a ProviderSender to send DataProvider-generated telemetry via a DataSender.
 func NewLoadGenerator(dataProvider DataProvider, sender DataSender) (LoadGenerator, error) {
-	if sender == nil {
-		return nil, errors.New("cannot create load generator without DataSender")
-	}
-
-	ps := &ProviderSender{
-		stopSignal: make(chan struct{}),
-		Sender:     sender,
-		Provider:   dataProvider,
-	}
-
-	switch t := ps.Sender.(type) {
-	case TraceDataSender:
-		ps.sendType = "traces"
-		ps.generateFunc = ps.generateTrace
-	case MetricDataSender:
-		ps.sendType = "metrics"
-		ps.generateFunc = ps.generateMetrics
-	case LogDataSender:
-		ps.sendType = "logs"
-		ps.generateFunc = ps.generateLog
-	default:
-		return nil, fmt.Errorf("failed creating load generator, unhandled data type %T", t)
-	}
-
-	return ps, nil
+	_ = "STUB: not implemented"
+	return *new(LoadGenerator), nil
 }
 
 // Start the load.
-func (ps *ProviderSender) Start(options LoadOptions) {
-	ps.options = options
+func (ps *ProviderSender) Start(options LoadOptions) { _ = "STUB: not implemented"; return }
 
-	if ps.options.ItemsPerBatch == 0 {
-		// 10 items per batch by default.
-		ps.options.ItemsPerBatch = 10
-	}
+// 10 items per batch by default.
 
-	if ps.options.MaxDelay == 0 {
-		// retry for an additional 10 seconds by default
-		ps.options.MaxDelay = time.Second * 10
-	}
+// retry for an additional 10 seconds by default
 
-	log.Printf("Starting load generator at %d items/sec.", ps.options.DataItemsPerSecond)
+// Indicate that generation is in progress.
 
-	// Indicate that generation is in progress.
-	ps.stopWait.Add(1)
-
-	// Begin generation
-	go ps.generate()
-	ps.startMutex.Lock()
-	defer ps.startMutex.Unlock()
-	ps.startedAt = time.Now()
-}
+// Begin generation
 
 // Stop the load.
-func (ps *ProviderSender) Stop() {
-	ps.stopOnce.Do(func() {
-		// Signal generate() to stop.
-		close(ps.stopSignal)
+func (ps *ProviderSender) Stop() { _ = "STUB: not implemented"; return }
 
-		// Wait for it to stop.
-		ps.stopWait.Wait()
+// Signal generate() to stop.
 
-		// Print stats.
-		log.Printf("Stopped generator. %s", ps.GetStats())
-	})
-}
+// Wait for it to stop.
 
-func (ps *ProviderSender) IsReady() bool {
-	endpoint := ps.Sender.GetEndpoint()
-	if endpoint == nil {
-		return true
-	}
-	conn, err := net.Dial(ps.Sender.GetEndpoint().Network(), ps.Sender.GetEndpoint().String())
-	if err == nil && conn != nil {
-		conn.Close()
-		return true
-	}
-	return false
-}
+// Print stats.
+
+func (ps *ProviderSender) IsReady() bool { _ = "STUB: not implemented"; return false }
 
 // GetStats returns the stats as a printable string.
-func (ps *ProviderSender) GetStats() string {
-	ps.startMutex.Lock()
-	defer ps.startMutex.Unlock()
-	sent := ps.DataItemsSent()
-	return printer.Sprintf("Sent:%10d %s (%d/sec)", sent, ps.sendType, int(float64(sent)/time.Since(ps.startedAt).Seconds()))
-}
+func (ps *ProviderSender) GetStats() string { _ = "STUB: not implemented"; return "" }
 
-func (ps *ProviderSender) DataItemsSent() uint64 {
-	return ps.dataItemsSent.Load()
-}
+func (ps *ProviderSender) DataItemsSent() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (ps *ProviderSender) PermanentErrors() uint64 {
-	return ps.permanentErrors.Load()
-}
+func (ps *ProviderSender) PermanentErrors() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (ps *ProviderSender) NonPermanentErrors() uint64 {
-	return ps.nonPermanentErrors.Load()
-}
+func (ps *ProviderSender) NonPermanentErrors() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // IncDataItemsSent is used when a test bypasses the ProviderSender and sends data
 // directly via its Sender. This is necessary so that the total number of sent
@@ -186,158 +115,35 @@ func (ps *ProviderSender) NonPermanentErrors() uint64 {
 // fields. This is not the best way, a better approach would be to refactor the
 // reports to use their own counter and load generator and other sending sources
 // to contribute to this counter. This could be done as a future improvement.
-func (ps *ProviderSender) IncDataItemsSent() {
-	ps.dataItemsSent.Add(1)
-}
+func (ps *ProviderSender) IncDataItemsSent() { _ = "STUB: not implemented"; return }
 
 func (ps *ProviderSender) generate() {
+	_ = "STUB: not implemented"
 	// Indicate that generation is done at the end
-	defer ps.stopWait.Done()
-
-	if ps.options.DataItemsPerSecond == 0 {
-		return
-	}
-
-	ps.Provider.SetLoadGeneratorCounters(&ps.dataItemsSent)
-
-	err := ps.Sender.Start()
-	if err != nil {
-		log.Printf("Cannot start sender: %v", err)
-		return
-	}
-
-	numWorkers := 1
-
-	if ps.options.Parallel > 0 {
-		numWorkers = ps.options.Parallel
-	}
-
-	var workers sync.WaitGroup
-
-	tickDuration := ps.perWorkerTickDuration(numWorkers)
-
-	for i := 0; i < numWorkers; i++ {
-		workers.Go(func() {
-			t := time.NewTicker(tickDuration)
-			defer t.Stop()
-
-			var prevErr error
-			for {
-				select {
-				case <-t.C:
-					err := ps.generateFunc()
-					// log the error if it is different from the previous result
-					if err != nil && (prevErr == nil || err.Error() != prevErr.Error()) {
-						log.Printf("%v", err)
-					}
-					prevErr = err
-				case <-ps.stopSignal:
-					return
-				}
-			}
-		})
-	}
-
-	workers.Wait()
-
-	// Send all pending generated data.
-	ps.Sender.Flush()
+	return
 }
 
-func (ps *ProviderSender) generateTrace() error {
-	traceSender := ps.Sender.(TraceDataSender)
+// log the error if it is different from the previous result
 
-	traceData, done := ps.Provider.GenerateTraces()
-	timer := time.NewTimer(ps.options.MaxDelay)
-	if done {
-		return nil
-	}
+// Send all pending generated data.
 
-	for {
-		// Generated data MUST be consumed once since the data counters
-		// are updated by the provider and not consuming the generated
-		// data will lead to accounting errors.
-		err := traceSender.ConsumeTraces(context.Background(), traceData)
-		if err == nil {
-			return nil
-		}
+func (ps *ProviderSender) generateTrace() error { _ = "STUB: not implemented"; return nil }
 
-		if consumererror.IsPermanent(err) {
-			ps.permanentErrors.Add(uint64(traceData.SpanCount()))
-			return fmt.Errorf("cannot send traces: %w", err)
-		}
-		ps.nonPermanentErrors.Add(uint64(traceData.SpanCount()))
-		select {
-		case <-timer.C:
-			return nil
-		default:
-		}
-	}
-}
+// Generated data MUST be consumed once since the data counters
+// are updated by the provider and not consuming the generated
+// data will lead to accounting errors.
 
-func (ps *ProviderSender) generateMetrics() error {
-	metricSender := ps.Sender.(MetricDataSender)
+func (ps *ProviderSender) generateMetrics() error { _ = "STUB: not implemented"; return nil }
 
-	metricData, done := ps.Provider.GenerateMetrics()
-	timer := time.NewTimer(ps.options.MaxDelay)
-	if done {
-		return nil
-	}
+// Generated data MUST be consumed once since the data counters
+// are updated by the provider and not consuming the generated
+// data will lead to accounting errors.
 
-	for {
-		// Generated data MUST be consumed once since the data counters
-		// are updated by the provider and not consuming the generated
-		// data will lead to accounting errors.
-		err := metricSender.ConsumeMetrics(context.Background(), metricData)
-		if err == nil {
-			return nil
-		}
+func (ps *ProviderSender) generateLog() error { _ = "STUB: not implemented"; return nil }
 
-		if consumererror.IsPermanent(err) {
-			ps.permanentErrors.Add(uint64(metricData.DataPointCount()))
-			return fmt.Errorf("cannot send metrics: %w", err)
-		}
-		ps.nonPermanentErrors.Add(uint64(metricData.DataPointCount()))
-
-		select {
-		case <-timer.C:
-			return nil
-		default:
-		}
-	}
-}
-
-func (ps *ProviderSender) generateLog() error {
-	logSender := ps.Sender.(LogDataSender)
-
-	logData, done := ps.Provider.GenerateLogs()
-	timer := time.NewTimer(ps.options.MaxDelay)
-	if done {
-		return nil
-	}
-
-	for {
-		// Generated data MUST be consumed once since the data counters
-		// are updated by the provider and not consuming the generated
-		// data will lead to accounting errors.
-		err := logSender.ConsumeLogs(context.Background(), logData)
-		if err == nil {
-			return nil
-		}
-
-		if consumererror.IsPermanent(err) {
-			ps.permanentErrors.Add(uint64(logData.LogRecordCount()))
-			return fmt.Errorf("cannot send logs: %w", err)
-		}
-		ps.nonPermanentErrors.Add(uint64(logData.LogRecordCount()))
-
-		select {
-		case <-timer.C:
-			return nil
-		default:
-		}
-	}
-}
+// Generated data MUST be consumed once since the data counters
+// are updated by the provider and not consuming the generated
+// data will lead to accounting errors.
 
 // perWorkerTickDuration calculates the tick interval each worker must observe in order to
 // produce the desired average DataItemsPerSecond given the constraints of ItemsPerBatch and numWorkers.
@@ -346,7 +152,6 @@ func (ps *ProviderSender) generateLog() error {
 // number of workers relative to the desired DataItemsPerSecond. If the total batchesPerSecond is less than the
 // number of workers then we are dealing with fractional batches per second per worker, so we need float arithmetic.
 func (ps *ProviderSender) perWorkerTickDuration(numWorkers int) time.Duration {
-	batchesPerSecond := float64(ps.options.DataItemsPerSecond) / float64(ps.options.ItemsPerBatch)
-	batchesPerSecondPerWorker := batchesPerSecond / float64(numWorkers)
-	return time.Duration(float64(time.Second) / batchesPerSecondPerWorker)
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }

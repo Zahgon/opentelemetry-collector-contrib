@@ -18,18 +18,15 @@ type pdataLogsUnmarshaler struct {
 }
 
 func (p pdataLogsUnmarshaler) Unmarshal(buf []byte) (plog.Logs, error) {
-	return p.UnmarshalLogs(buf)
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
-func (p pdataLogsUnmarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataLogsUnmarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataLogsUnmarshaler(unmarshaler plog.Unmarshaler, encoding string) LogsUnmarshaler {
-	return pdataLogsUnmarshaler{
-		Unmarshaler: unmarshaler,
-		encoding:    encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsUnmarshaler)
 }
 
 type pdataTracesUnmarshaler struct {
@@ -38,18 +35,15 @@ type pdataTracesUnmarshaler struct {
 }
 
 func (p pdataTracesUnmarshaler) Unmarshal(buf []byte) (ptrace.Traces, error) {
-	return p.UnmarshalTraces(buf)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
-func (p pdataTracesUnmarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataTracesUnmarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataTracesUnmarshaler(unmarshaler ptrace.Unmarshaler, encoding string) TracesUnmarshaler {
-	return pdataTracesUnmarshaler{
-		Unmarshaler: unmarshaler,
-		encoding:    encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(TracesUnmarshaler)
 }
 
 type pdataMetricsUnmarshaler struct {
@@ -58,16 +52,13 @@ type pdataMetricsUnmarshaler struct {
 }
 
 func (p pdataMetricsUnmarshaler) Unmarshal(buf []byte) (pmetric.Metrics, error) {
-	return p.UnmarshalMetrics(buf)
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
-func (p pdataMetricsUnmarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataMetricsUnmarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataMetricsUnmarshaler(unmarshaler pmetric.Unmarshaler, encoding string) MetricsUnmarshaler {
-	return pdataMetricsUnmarshaler{
-		Unmarshaler: unmarshaler,
-		encoding:    encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsUnmarshaler)
 }

@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -31,19 +28,7 @@ const (
 )
 
 // String returns the string representation of the AttributeLeapStatus.
-func (av AttributeLeapStatus) String() string {
-	switch av {
-	case AttributeLeapStatusNormal:
-		return "normal"
-	case AttributeLeapStatusInsertSecond:
-		return "insert_second"
-	case AttributeLeapStatusDeleteSecond:
-		return "delete_second"
-	case AttributeLeapStatusUnsynchronised:
-		return "unsynchronised"
-	}
-	return ""
-}
+func (av AttributeLeapStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeLeapStatus is a helper map of string to AttributeLeapStatus attribute value.
 var MapAttributeLeapStatus = map[string]AttributeLeapStatus{
@@ -109,75 +94,22 @@ func (m *metricNtpFrequencyOffset) init() {
 }
 
 func (m *metricNtpFrequencyOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, leapStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NtpFrequencyOffsetMetricAttributeKeyLeapStatus) {
-		dp.Attributes().PutStr("leap.status", leapStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpFrequencyOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpFrequencyOffset) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNtpFrequencyOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNtpFrequencyOffset(cfg NtpFrequencyOffsetMetricConfig) metricNtpFrequencyOffset {
-	m := metricNtpFrequencyOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpFrequencyOffset)
 }
 
 type metricNtpSkew struct {
@@ -195,39 +127,19 @@ func (m *metricNtpSkew) init() {
 }
 
 func (m *metricNtpSkew) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpSkew) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpSkew) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricNtpSkew) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricNtpSkew) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricNtpSkew(cfg NtpSkewMetricConfig) metricNtpSkew {
-	m := metricNtpSkew{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpSkew)
 }
 
 type metricNtpStratum struct {
@@ -245,39 +157,19 @@ func (m *metricNtpStratum) init() {
 }
 
 func (m *metricNtpStratum) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpStratum) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpStratum) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricNtpStratum) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricNtpStratum) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricNtpStratum(cfg NtpStratumMetricConfig) metricNtpStratum {
-	m := metricNtpStratum{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpStratum)
 }
 
 type metricNtpTimeCorrection struct {
@@ -298,75 +190,22 @@ func (m *metricNtpTimeCorrection) init() {
 }
 
 func (m *metricNtpTimeCorrection) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, leapStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NtpTimeCorrectionMetricAttributeKeyLeapStatus) {
-		dp.Attributes().PutStr("leap.status", leapStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpTimeCorrection) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpTimeCorrection) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNtpTimeCorrection) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNtpTimeCorrection(cfg NtpTimeCorrectionMetricConfig) metricNtpTimeCorrection {
-	m := metricNtpTimeCorrection{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpTimeCorrection)
 }
 
 type metricNtpTimeLastOffset struct {
@@ -387,75 +226,22 @@ func (m *metricNtpTimeLastOffset) init() {
 }
 
 func (m *metricNtpTimeLastOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, leapStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NtpTimeLastOffsetMetricAttributeKeyLeapStatus) {
-		dp.Attributes().PutStr("leap.status", leapStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpTimeLastOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpTimeLastOffset) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNtpTimeLastOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNtpTimeLastOffset(cfg NtpTimeLastOffsetMetricConfig) metricNtpTimeLastOffset {
-	m := metricNtpTimeLastOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpTimeLastOffset)
 }
 
 type metricNtpTimeRmsOffset struct {
@@ -476,75 +262,22 @@ func (m *metricNtpTimeRmsOffset) init() {
 }
 
 func (m *metricNtpTimeRmsOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, leapStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NtpTimeRmsOffsetMetricAttributeKeyLeapStatus) {
-		dp.Attributes().PutStr("leap.status", leapStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpTimeRmsOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpTimeRmsOffset) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNtpTimeRmsOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNtpTimeRmsOffset(cfg NtpTimeRmsOffsetMetricConfig) metricNtpTimeRmsOffset {
-	m := metricNtpTimeRmsOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpTimeRmsOffset)
 }
 
 type metricNtpTimeRootDelay struct {
@@ -565,75 +298,22 @@ func (m *metricNtpTimeRootDelay) init() {
 }
 
 func (m *metricNtpTimeRootDelay) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, leapStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NtpTimeRootDelayMetricAttributeKeyLeapStatus) {
-		dp.Attributes().PutStr("leap.status", leapStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNtpTimeRootDelay) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNtpTimeRootDelay) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNtpTimeRootDelay) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNtpTimeRootDelay(cfg NtpTimeRootDelayMetricConfig) metricNtpTimeRootDelay {
-	m := metricNtpTimeRootDelay{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNtpTimeRootDelay)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -661,41 +341,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                   mbc,
-		startTime:                pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:            pmetric.NewMetrics(),
-		buildInfo:                settings.BuildInfo,
-		metricNtpFrequencyOffset: newMetricNtpFrequencyOffset(mbc.Metrics.NtpFrequencyOffset),
-		metricNtpSkew:            newMetricNtpSkew(mbc.Metrics.NtpSkew),
-		metricNtpStratum:         newMetricNtpStratum(mbc.Metrics.NtpStratum),
-		metricNtpTimeCorrection:  newMetricNtpTimeCorrection(mbc.Metrics.NtpTimeCorrection),
-		metricNtpTimeLastOffset:  newMetricNtpTimeLastOffset(mbc.Metrics.NtpTimeLastOffset),
-		metricNtpTimeRmsOffset:   newMetricNtpTimeRmsOffset(mbc.Metrics.NtpTimeRmsOffset),
-		metricNtpTimeRootDelay:   newMetricNtpTimeRootDelay(mbc.Metrics.NtpTimeRootDelay),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -706,35 +371,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -743,79 +396,60 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricNtpFrequencyOffset.emit(ils.Metrics())
-	mb.metricNtpSkew.emit(ils.Metrics())
-	mb.metricNtpStratum.emit(ils.Metrics())
-	mb.metricNtpTimeCorrection.emit(ils.Metrics())
-	mb.metricNtpTimeLastOffset.emit(ils.Metrics())
-	mb.metricNtpTimeRmsOffset.emit(ils.Metrics())
-	mb.metricNtpTimeRootDelay.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordNtpFrequencyOffsetDataPoint adds a data point to ntp.frequency.offset metric.
 func (mb *MetricsBuilder) RecordNtpFrequencyOffsetDataPoint(ts pcommon.Timestamp, val float64, leapStatusAttributeValue AttributeLeapStatus) {
-	mb.metricNtpFrequencyOffset.recordDataPoint(mb.startTime, ts, val, leapStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpSkewDataPoint adds a data point to ntp.skew metric.
 func (mb *MetricsBuilder) RecordNtpSkewDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricNtpSkew.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpStratumDataPoint adds a data point to ntp.stratum metric.
 func (mb *MetricsBuilder) RecordNtpStratumDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNtpStratum.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpTimeCorrectionDataPoint adds a data point to ntp.time.correction metric.
 func (mb *MetricsBuilder) RecordNtpTimeCorrectionDataPoint(ts pcommon.Timestamp, val float64, leapStatusAttributeValue AttributeLeapStatus) {
-	mb.metricNtpTimeCorrection.recordDataPoint(mb.startTime, ts, val, leapStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpTimeLastOffsetDataPoint adds a data point to ntp.time.last_offset metric.
 func (mb *MetricsBuilder) RecordNtpTimeLastOffsetDataPoint(ts pcommon.Timestamp, val float64, leapStatusAttributeValue AttributeLeapStatus) {
-	mb.metricNtpTimeLastOffset.recordDataPoint(mb.startTime, ts, val, leapStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpTimeRmsOffsetDataPoint adds a data point to ntp.time.rms_offset metric.
 func (mb *MetricsBuilder) RecordNtpTimeRmsOffsetDataPoint(ts pcommon.Timestamp, val float64, leapStatusAttributeValue AttributeLeapStatus) {
-	mb.metricNtpTimeRmsOffset.recordDataPoint(mb.startTime, ts, val, leapStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNtpTimeRootDelayDataPoint adds a data point to ntp.time.root_delay metric.
 func (mb *MetricsBuilder) RecordNtpTimeRootDelayDataPoint(ts pcommon.Timestamp, val float64, leapStatusAttributeValue AttributeLeapStatus) {
-	mb.metricNtpTimeRootDelay.recordDataPoint(mb.startTime, ts, val, leapStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

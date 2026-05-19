@@ -5,7 +5,6 @@ package routingconnector // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pipeline"
 
@@ -52,67 +51,22 @@ type Config struct {
 }
 
 // UnmarshalText unmarshalls text to an Action.
-func (e *Action) UnmarshalText(text []byte) error {
-	if e == nil {
-		return errors.New("cannot unmarshal to a nil *Action")
-	}
-
-	str := string(text)
-	switch str {
-	case string(Copy):
-		*e = Copy
-	case string(Move):
-		*e = Move
-	default:
-		return fmt.Errorf("invalid Action string: %s", str)
-	}
-
-	return nil
-}
+func (e *Action) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 // Validate checks if the processor configuration is valid.
 func (c *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// validate that there's at least one item in the table
-	if len(c.Table) == 0 {
-		return errNoTableItems
-	}
-
-	// validate that every route has a value for the routing attribute and has
-	// at least one pipeline
-	for _, item := range c.Table {
-		if item.Statement == "" && item.Condition == "" {
-			return errNoConditionOrStatement
-		}
-		if item.Statement != "" && item.Condition != "" {
-			return errConditionAndStatement
-		}
-		if len(item.Pipelines) == 0 {
-			return errNoPipelines
-		}
-
-		switch item.Action {
-		case "":
-			item.Action = Move // use move if empty.
-		case Copy, Move: // ok
-		default:
-			return errUnexpectedAction
-		}
-
-		switch item.Context {
-		case "", "resource", "span", "metric", "datapoint", "log": // ok
-		case "request":
-			if item.Statement != "" || item.Condition == "" {
-				return fmt.Errorf("%q context requires a 'condition'", item.Context)
-			}
-			if _, err := parseRequestCondition(item.Condition); err != nil {
-				return err
-			}
-		default:
-			return errors.New("invalid context: " + item.Context)
-		}
-	}
 	return nil
 }
+
+// validate that every route has a value for the routing attribute and has
+// at least one pipeline
+
+// use move if empty.
+// ok
+
+// ok
 
 // RoutingTableItem specifies how data should be routed to the different pipelines
 type RoutingTableItem struct {

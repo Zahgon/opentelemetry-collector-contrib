@@ -5,7 +5,6 @@ package jaegerencodingextension // import "github.com/open-telemetry/opentelemet
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/ptrace"
@@ -24,21 +23,13 @@ type jaegerExtension struct {
 }
 
 func (e *jaegerExtension) UnmarshalTraces(buf []byte) (ptrace.Traces, error) {
-	return e.unmarshaler.UnmarshalTraces(buf)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
 func (e *jaegerExtension) Start(_ context.Context, _ component.Host) error {
-	switch e.config.Protocol {
-	case JaegerProtocolProtobuf:
-		e.unmarshaler = jaegerProtobufTrace{}
-	case JaegerProtocolJSON:
-		e.unmarshaler = jaegerJSONTrace{}
-	default:
-		return fmt.Errorf("unsupported protocol: %q", e.config.Protocol)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*jaegerExtension) Shutdown(context.Context) error {
-	return nil
-}
+func (*jaegerExtension) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }

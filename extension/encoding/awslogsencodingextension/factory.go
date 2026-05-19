@@ -8,31 +8,16 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-	"go.opentelemetry.io/collector/extension/xextension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/awslogsencodingextension/internal/constants"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/awslogsencodingextension/internal/metadata"
-	vpcflowlog "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/awslogsencodingextension/internal/unmarshaler/vpc-flow-log"
 )
 
-func NewFactory() extension.Factory {
-	return xextension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-		xextension.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(_ context.Context, settings extension.Settings, cfg component.Config) (extension.Extension, error) {
-	return newExtension(cfg.(*Config), settings)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		VPCFlowLogConfig: vpcflowlog.Config{
-			FileFormat: constants.FileFormatPlainText,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

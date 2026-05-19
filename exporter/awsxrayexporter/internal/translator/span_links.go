@@ -10,31 +10,6 @@ import (
 )
 
 func makeSpanLinks(links ptrace.SpanLinkSlice, skipTimestampValidation bool) ([]awsxray.SpanLinkData, error) {
-	var spanLinkDataArray []awsxray.SpanLinkData
-
-	for i := 0; i < links.Len(); i++ {
-		var spanLinkData awsxray.SpanLinkData
-		link := links.At(i)
-
-		spanID := link.SpanID().String()
-		traceID, err := convertToAmazonTraceID(link.TraceID(), skipTimestampValidation)
-		if err != nil {
-			return nil, err
-		}
-
-		spanLinkData.SpanID = &spanID
-		spanLinkData.TraceID = &traceID
-
-		if link.Attributes().Len() > 0 {
-			spanLinkData.Attributes = make(map[string]any)
-
-			for k, v := range link.Attributes().All() {
-				spanLinkData.Attributes[k] = v.AsRaw()
-			}
-		}
-
-		spanLinkDataArray = append(spanLinkDataArray, spanLinkData)
-	}
-
-	return spanLinkDataArray, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

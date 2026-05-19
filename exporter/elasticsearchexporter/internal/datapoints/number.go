@@ -4,9 +4,6 @@
 package datapoints // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/datapoints"
 
 import (
-	"fmt"
-	"math"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
@@ -20,68 +17,24 @@ type Number struct {
 }
 
 func NewNumber(metric pmetric.Metric, dp pmetric.NumberDataPoint) Number {
-	return Number{
-		NumberDataPoint:   dp,
-		MappingHintGetter: elasticsearch.NewMappingHintGetter(dp.Attributes()),
-		metric:            metric,
-	}
+	_ = "STUB: not implemented"
+	return *new(Number)
 }
 
 func (dp Number) Value() (pcommon.Value, error) {
-	switch dp.ValueType() {
-	case pmetric.NumberDataPointValueTypeDouble:
-		value := dp.DoubleValue()
-		if math.IsNaN(value) || math.IsInf(value, 0) {
-			return pcommon.Value{}, fmt.Errorf("invalid double value in number data point %q, either NaN or Inf", dp.metric.Name())
-		}
-		return pcommon.NewValueDouble(value), nil
-	case pmetric.NumberDataPointValueTypeInt:
-		return pcommon.NewValueInt(dp.IntValue()), nil
-	}
-	return pcommon.Value{}, fmt.Errorf("invalid number data point %q, wrong ValueType %s", dp.metric.Name(), dp.ValueType())
+	_ = "STUB: not implemented"
+	return *new(pcommon.Value), nil
 }
 
 func (dp Number) DynamicTemplate(metric pmetric.Metric, mode DynamicTemplateMode) string {
-	if mode == DynamicTemplateModeECS {
-		return "double_metrics"
-	}
-
-	switch metric.Type() {
-	case pmetric.MetricTypeSum:
-		sum := metric.Sum()
-		isCounter := sum.IsMonotonic() && sum.AggregationTemporality() == pmetric.AggregationTemporalityCumulative
-		switch dp.ValueType() {
-		case pmetric.NumberDataPointValueTypeDouble:
-			if isCounter {
-				return "counter_double"
-			}
-			return "gauge_double"
-		case pmetric.NumberDataPointValueTypeInt:
-			if isCounter {
-				return "counter_long"
-			}
-			return "gauge_long"
-		default:
-			return "" // NumberDataPointValueTypeEmpty should already be discarded in numberToValue
-		}
-	case pmetric.MetricTypeGauge:
-		switch dp.ValueType() {
-		case pmetric.NumberDataPointValueTypeDouble:
-			return "gauge_double"
-		case pmetric.NumberDataPointValueTypeInt:
-			return "gauge_long"
-		default:
-			return "" // NumberDataPointValueTypeEmpty should already be discarded in numberToValue
-		}
-	default:
-		return ""
-	}
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func (Number) DocCount() uint64 {
-	return 1
-}
+// NumberDataPointValueTypeEmpty should already be discarded in numberToValue
 
-func (dp Number) Metric() pmetric.Metric {
-	return dp.metric
-}
+// NumberDataPointValueTypeEmpty should already be discarded in numberToValue
+
+func (Number) DocCount() uint64 { _ = "STUB: not implemented"; return 0 }
+
+func (dp Number) Metric() pmetric.Metric { _ = "STUB: not implemented"; return *new(pmetric.Metric) }

@@ -5,14 +5,10 @@ package httpserver // import "github.com/open-telemetry/opentelemetry-collector-
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"fmt"
 	"net/http"
 	"sync"
 	"time"
 
-	"github.com/DataDog/datadog-agent/comp/forwarder/defaultforwarder"
 	"github.com/DataDog/datadog-agent/pkg/serializer/marshaler"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -62,136 +58,45 @@ func NewServer(
 	p payload.OtelCollector,
 	telemetrySettings component.TelemetrySettings,
 ) *Server {
+	_ = "STUB: not implemented"
 	// Create payload but don't add timestamp, that will happen in SendPayload
-	oc := &payload.OtelCollectorPayload{
-		Hostname: hostname,
-		Metadata: p,
-		UUID:     uuid,
-	}
-
-	srv := &Server{
-		logger:            logger,
-		telemetrySettings: telemetrySettings,
-		serializer:        s,
-		config:            config,
-		serverConfig:      &config.ServerConfig,
-		payload:           oc, // store as interface
-	}
-
-	mux := http.NewServeMux()
-	mux.HandleFunc(config.Path, srv.HandleMetadata)
-	srv.handler = mux
-
-	return srv
-}
-
-// Start starts the HTTP server and begins sending payloads periodically.
-func (s *Server) Start(ctx context.Context, host component.Host) error {
-	server, err := s.serverConfig.ToServer(
-		ctx,
-		host.GetExtensions(),
-		s.telemetrySettings,
-		s.handler,
-	)
-	if err != nil {
-		return err
-	}
-
-	listener, err := s.serverConfig.ToListener(ctx)
-	if err != nil {
-		return err
-	}
-	s.listenClose = server.Shutdown
-
-	// Start HTTP server
-	go func() {
-		if err := server.Serve(listener); err != nil && err != http.ErrServerClosed {
-			s.logger.Error("HTTP server error", zap.Error(err))
-		}
-	}()
-
-	s.logger.Info("HTTP Server started at " + s.config.NetAddr.Endpoint + s.config.Path)
 	return nil
 }
 
-// Stop shuts down the HTTP server, pass a context to allow for cancellation.
-func (s *Server) Stop(ctx context.Context) {
-	if s.listenClose != nil {
-		shutdownDone := make(chan struct{})
+// store as interface
 
-		go func() {
-			defer close(shutdownDone) // Ensure channel is always closed
-			if err := s.listenClose(ctx); err != nil {
-				s.logger.Error("Failed to shutdown HTTP server", zap.Error(err))
-			}
-		}()
-
-		select {
-		case <-shutdownDone:
-		case <-ctx.Done():
-			s.logger.Warn("Context cancelled while waiting for server shutdown")
-			<-shutdownDone
-		}
-	}
+// Start starts the HTTP server and begins sending payloads periodically.
+func (s *Server) Start(ctx context.Context, host component.Host) error {
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Start HTTP server
+
+// Stop shuts down the HTTP server, pass a context to allow for cancellation.
+func (s *Server) Stop(ctx context.Context) { _ = "STUB: not implemented"; return }
+
+// Ensure channel is always closed
 
 // SendPayload prepares and sends the fleet automation payloads using Server's handlerDeps
 // TODO: support generic payloads
 func (s *Server) SendPayload() (marshaler.JSONMarshaler, error) {
+	_ = "STUB: not implemented"
 	// Use datadog-agent serializer to send these payloads
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	// Clone the payload to avoid data races
-	var payloadCopy marshaler.JSONMarshaler
-	if oc, ok := s.payload.(*payload.OtelCollectorPayload); ok {
-		tmp := *oc // shallow copy is sufficient since fields are value types or slices (which are not mutated)
-		tmp.Timestamp = nowFunc().UnixNano()
-		payloadCopy = &tmp
-	} else {
-		payloadCopy = s.payload
-	}
-
-	if s.serializer.State() != defaultforwarder.Started {
-		return nil, errors.New("forwarder is not started, extension cannot send payloads to Datadog")
-	}
-
-	err := s.serializer.SendMetadata(payloadCopy)
-	if err != nil {
-		return nil, fmt.Errorf("failed to send payload to Datadog: %w", err)
-	}
-
-	return payloadCopy, nil
+	return *new(marshaler.JSONMarshaler), nil
 }
+
+// Clone the payload to avoid data races
+
+// shallow copy is sufficient since fields are value types or slices (which are not mutated)
 
 // HandleMetadata writes the metadata payloads to the response writer and sends them to the Datadog backend
 func (s *Server) HandleMetadata(w http.ResponseWriter, _ *http.Request) {
-	fullPayload, err := s.SendPayload()
-	if err != nil {
-		s.logger.Error("Failed to prepare and send fleet automation payload", zap.Error(err))
-		if w != nil {
-			http.Error(w, "Failed to prepare and send fleet automation payload", http.StatusInternalServerError)
-		}
-		return
-	}
-
-	// Marshal the combined payload to JSON
-	// Note: fullPayload is already thread-safe since SendPayload returned a marshaler interface
-	jsonData, err := json.MarshalIndent(fullPayload, "", "  ")
-	if err != nil {
-		s.logger.Error("Failed to marshal collector payload for local http response", zap.Error(err))
-		if w != nil {
-			http.Error(w, "Failed to marshal collector payload", http.StatusInternalServerError)
-		}
-		return
-	}
-
-	if w != nil {
-		// Write the JSON response
-		w.Header().Set("Content-Type", "application/json")
-		_, err = w.Write(jsonData)
-		if err != nil {
-			s.logger.Error("Failed to write response to local metadata request", zap.Error(err))
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Marshal the combined payload to JSON
+// Note: fullPayload is already thread-safe since SendPayload returned a marshaler interface
+
+// Write the JSON response

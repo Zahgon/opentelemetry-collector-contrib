@@ -9,15 +9,8 @@ type MetricsBuilderConfig struct {
 }
 
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		// Don't use DefaultResourceAttributesConfig() here to be able to set true by default.
-		ResourceAttributes: ResourceAttributesConfig{
-			AzuremonitorSubscriptionID: ResourceAttributeConfig{
-				Enabled: true,
-			},
-			AzuremonitorTenantID: ResourceAttributeConfig{
-				Enabled: true,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
+
+// Don't use DefaultResourceAttributesConfig() here to be able to set true by default.

@@ -15,24 +15,13 @@ type NodeGetter struct {
 
 // Close provides a mock function with given fields:
 func (_m *NodeGetter) Close() {
-	_m.Called()
+	_ = "STUB: not implemented"
+
+	// GetNodes provides a mock function with given fields:
+	return
 }
 
-// GetNodes provides a mock function with given fields:
-func (_m *NodeGetter) GetNodes() []cluster.Node {
-	ret := _m.Called()
-
-	var r0 []cluster.Node
-	if rf, ok := ret.Get(0).(func() []cluster.Node); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]cluster.Node)
-		}
-	}
-
-	return r0
-}
+func (_m *NodeGetter) GetNodes() []cluster.Node { _ = "STUB: not implemented"; return nil }
 
 type mockConstructorTestingTNewNodeGetter interface {
 	mock.TestingT
@@ -41,10 +30,6 @@ type mockConstructorTestingTNewNodeGetter interface {
 
 // NewNodeGetter creates a new instance of NodeGetter. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 func NewNodeGetter(t mockConstructorTestingTNewNodeGetter) *NodeGetter {
-	mock := &NodeGetter{}
-	mock.Mock.Test(t)
-
-	t.Cleanup(func() { mock.AssertExpectations(t) })
-
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }

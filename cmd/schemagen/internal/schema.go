@@ -3,14 +3,6 @@
 
 package internal
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-
-	"gopkg.in/yaml.v3"
-)
-
 type SchemaElement interface {
 	setIsPointer(value bool)
 	setDescription(description string)
@@ -28,17 +20,11 @@ type BaseSchemaElement struct {
 	IsOptional  bool   `json:"x-optional,omitempty" yaml:"x-optional,omitempty"`
 }
 
-func (b *BaseSchemaElement) setIsPointer(value bool) {
-	b.IsPointer = value
-}
+func (b *BaseSchemaElement) setIsPointer(value bool) { _ = "STUB: not implemented"; return }
 
-func (b *BaseSchemaElement) setDescription(value string) {
-	b.Description = value
-}
+func (b *BaseSchemaElement) setDescription(value string) { _ = "STUB: not implemented"; return }
 
-func (b *BaseSchemaElement) setOptional(value bool) {
-	b.IsOptional = value
-}
+func (b *BaseSchemaElement) setOptional(value bool) { _ = "STUB: not implemented"; return }
 
 type RefSchemaElement struct {
 	BaseSchemaElement `json:",inline" yaml:",inline"`
@@ -65,29 +51,21 @@ type ObjectSchemaElement struct {
 }
 
 func (s *ObjectSchemaElement) AddProperty(name string, property SchemaElement) {
-	if s.Properties == nil {
-		s.Properties = make(map[string]SchemaElement)
-	}
-	s.Properties[name] = property
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *ObjectSchemaElement) AddEmbedded(element SchemaElement) {
+	_ = "STUB: not implemented"
 	// prevent duplicates
-	if re, ok := element.(*RefSchemaElement); ok {
-		ref := re.Ref
-		for _, refEl := range s.AllOf {
-			if r, ok := refEl.(*RefSchemaElement); ok && r.Ref == ref {
-				return
-			}
-		}
-	}
-	s.AllOf = append(s.AllOf, element)
+	return
 }
 
 type DefsSchemaElement map[string]SchemaElement
 
 func (d DefsSchemaElement) AddDef(name string, property SchemaElement) {
-	d[name] = property
+	_ = "STUB: not implemented"
+	return
 }
 
 type Schema struct {
@@ -95,81 +73,35 @@ type Schema struct {
 	ObjectSchemaElement `json:",inline" yaml:",inline"`
 }
 
-func (s *Schema) ToJSON() ([]byte, error) {
-	return json.MarshalIndent(s, "", "  ")
-}
+func (s *Schema) ToJSON() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func (s *Schema) ToYAML() ([]byte, error) {
-	var b bytes.Buffer
-	enc := yaml.NewEncoder(&b)
+func (s *Schema) ToYAML() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	enc.SetIndent(2)
-
-	if err := enc.Encode(s); err != nil {
-		return nil, err
-	}
-
-	return b.Bytes(), nil
-}
-
-func CreateSchema() *Schema {
-	return &Schema{
-		Defs: DefsSchemaElement{},
-	}
-}
+func CreateSchema() *Schema { _ = "STUB: not implemented"; return nil }
 
 func CreateSimpleField(fieldType SchemaType, description string) *FieldSchemaElement {
-	return &FieldSchemaElement{
-		BaseSchemaElement: BaseSchemaElement{
-			Description: description,
-		},
-		ElementType: fieldType,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CreateArrayField(itemType SchemaElement, description string) *ArraySchemaElement {
-	return &ArraySchemaElement{
-		FieldSchemaElement: FieldSchemaElement{
-			BaseSchemaElement: BaseSchemaElement{
-				Description: description,
-			},
-			ElementType: SchemaTypeArray,
-		},
-		Items: itemType,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CreateRefField(ref, description string) *RefSchemaElement {
-	return &RefSchemaElement{
-		BaseSchemaElement: BaseSchemaElement{
-			Description: description,
-		},
-		Ref: ref,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CreateObjectField(description string) *ObjectSchemaElement {
-	return &ObjectSchemaElement{
-		FieldSchemaElement: FieldSchemaElement{
-			BaseSchemaElement: BaseSchemaElement{
-				Description: description,
-			},
-			ElementType: SchemaTypeObject,
-		},
-		Properties: make(map[string]SchemaElement),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func CreateMapField(valueType SchemaElement, description string) *ObjectSchemaElement {
-	return &ObjectSchemaElement{
-		FieldSchemaElement: FieldSchemaElement{
-			BaseSchemaElement: BaseSchemaElement{
-				Description: description,
-			},
-			ElementType: SchemaTypeObject,
-		},
-		AdditionalProperties: valueType,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type SchemaType string
@@ -186,14 +118,6 @@ const (
 )
 
 func mergeSchemas(base SchemaObject, additional SchemaElement) error {
-	if objectElement, ok := additional.(*ObjectSchemaElement); ok {
-		for name, prop := range objectElement.Properties {
-			base.AddProperty(name, prop)
-		}
-		for _, el := range objectElement.AllOf {
-			base.AddEmbedded(el)
-		}
-		return nil
-	}
-	return errors.New("cannot merge non-object schema elements")
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -4,11 +4,7 @@
 package sentryexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sentryexporter"
 
 import (
-	"errors"
-	"fmt"
-	"net/url"
 	"regexp"
-	"strings"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -59,50 +55,6 @@ var (
 	numericOnlySlugRegexp = regexp.MustCompile(`^\d+$`)
 )
 
-func (cfg *Config) Validate() error {
-	if cfg.URL == "" {
-		return errors.New("'url' must be configured")
-	}
-	if _, err := url.Parse(cfg.URL); err != nil {
-		return fmt.Errorf("invalid 'url': %w", err)
-	}
-	if cfg.OrgSlug == "" {
-		return errors.New("'org_slug' is required")
-	}
-	if cfg.AuthToken == "" {
-		return errors.New("'auth_token' is required")
-	}
-	if cfg.Timeout < 0 {
-		return errors.New("'timeout' must be non-negative")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	return validateRoutingConfig(cfg.Routing)
-}
-
-func validateRoutingConfig(routing RoutingConfig) error {
-	if len(routing.AttributeToProjectMapping) > maxProjects {
-		return fmt.Errorf("'attribute_to_project_mapping' must not define more than %d projects", maxProjects)
-	}
-
-	for attrValue, projectSlug := range routing.AttributeToProjectMapping {
-		if strings.TrimSpace(attrValue) == "" {
-			return errors.New("'attribute_to_project_mapping' contains an empty attribute value")
-		}
-
-		if trimmed := strings.TrimSpace(projectSlug); trimmed == "" {
-			return fmt.Errorf("'attribute_to_project_mapping' has empty project slug for attribute %q", attrValue)
-		} else if projectSlug != trimmed {
-			return fmt.Errorf("'attribute_to_project_mapping' project slug for attribute %q must not have leading or trailing whitespace", attrValue)
-		}
-
-		if !projectSlugRegexp.MatchString(projectSlug) {
-			return fmt.Errorf("'attribute_to_project_mapping' project slug %q for attribute %q must match %q", projectSlug, attrValue, projectSlugRegexp.String())
-		}
-
-		if numericOnlySlugRegexp.MatchString(projectSlug) {
-			return fmt.Errorf("'attribute_to_project_mapping' project slug %q for attribute %q must not be entirely numeric", projectSlug, attrValue)
-		}
-	}
-
-	return nil
-}
+func validateRoutingConfig(routing RoutingConfig) error { _ = "STUB: not implemented"; return nil }

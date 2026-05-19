@@ -15,36 +15,21 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetRabbitmqNodeName sets provided value as "rabbitmq.node.name" attribute.
-func (rb *ResourceBuilder) SetRabbitmqNodeName(val string) {
-	if rb.config.RabbitmqNodeName.Enabled {
-		rb.res.Attributes().PutStr("rabbitmq.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetRabbitmqNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetRabbitmqQueueName sets provided value as "rabbitmq.queue.name" attribute.
-func (rb *ResourceBuilder) SetRabbitmqQueueName(val string) {
-	if rb.config.RabbitmqQueueName.Enabled {
-		rb.res.Attributes().PutStr("rabbitmq.queue.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetRabbitmqQueueName(val string) { _ = "STUB: not implemented"; return }
 
 // SetRabbitmqVhostName sets provided value as "rabbitmq.vhost.name" attribute.
-func (rb *ResourceBuilder) SetRabbitmqVhostName(val string) {
-	if rb.config.RabbitmqVhostName.Enabled {
-		rb.res.Attributes().PutStr("rabbitmq.vhost.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetRabbitmqVhostName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

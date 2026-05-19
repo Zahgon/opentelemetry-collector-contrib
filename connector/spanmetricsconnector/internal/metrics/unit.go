@@ -5,9 +5,6 @@ package metrics // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"encoding"
-	"errors"
-	"fmt"
-	"strings"
 )
 
 const (
@@ -25,35 +22,10 @@ var (
 	_ encoding.TextUnmarshaler = (*Unit)(nil)
 )
 
-func (u Unit) String() string {
-	switch u {
-	case Milliseconds:
-		return MillisecondsStr
-	case Seconds:
-		return SecondsStr
-	}
-	return ""
-}
+func (u Unit) String() string { _ = "STUB: not implemented"; return "" }
 
 // MarshalText marshals Unit to text.
-func (u Unit) MarshalText() (text []byte, err error) {
-	return []byte(u.String()), nil
-}
+func (u Unit) MarshalText() (text []byte, err error) { _ = "STUB: not implemented"; return nil, nil }
 
 // UnmarshalText unmarshalls text to a Unit.
-func (u *Unit) UnmarshalText(text []byte) error {
-	if u == nil {
-		return errors.New("cannot unmarshal to a nil *Unit")
-	}
-
-	str := strings.ToLower(string(text))
-	switch str {
-	case strings.ToLower(MillisecondsStr):
-		*u = Milliseconds
-		return nil
-	case strings.ToLower(SecondsStr):
-		*u = Seconds
-		return nil
-	}
-	return fmt.Errorf("unknown Unit %q, allowed units are %q and %q", str, MillisecondsStr, SecondsStr)
-}
+func (u *Unit) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }

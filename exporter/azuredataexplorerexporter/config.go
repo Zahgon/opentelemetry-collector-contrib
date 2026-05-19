@@ -4,11 +4,6 @@
 package azuredataexplorerexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azuredataexplorerexporter"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
-
-	"github.com/google/uuid"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -37,50 +32,14 @@ type Config struct {
 }
 
 // Validate checks if the exporter configuration is valid
-func (adxCfg *Config) Validate() error {
-	if adxCfg == nil {
-		return errors.New("ADX config is nil / not provided")
-	}
-	isAppAuthEmpty := isEmpty(adxCfg.ApplicationID) || isEmpty(string(adxCfg.ApplicationKey)) || isEmpty(adxCfg.TenantID)
-	isManagedAuthEmpty := isEmpty(adxCfg.ManagedIdentityID)
-	isClusterURIEmpty := isEmpty(adxCfg.ClusterURI)
-	// Cluster URI is the target ADX cluster
-	if isClusterURIEmpty {
-		return errors.New(`clusterURI config is mandatory`)
-	}
-	// Parameters for AD App Auth or Managed Identity Auth or Default Auth are mandatory
-	authMethods := 0
+func (adxCfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if !isAppAuthEmpty {
-		authMethods++
-	}
+// Cluster URI is the target ADX cluster
 
-	if !isManagedAuthEmpty {
-		authMethods++
-	}
+// Parameters for AD App Auth or Managed Identity Auth or Default Auth are mandatory
 
-	if adxCfg.UseAzureAuth {
-		authMethods++
-	}
+// Validate managed identity ID. Use system for system assigned managed identity or UserManagedIdentityID (objectID) for user assigned managed identity
 
-	if authMethods != 1 {
-		return errors.New(`either ["application_id" , "application_key" , "tenant_id"] or ["managed_identity_id"] or ["use_azure_auth"] must be provided for auth`)
-	}
+// if the managed identity is not a system identity, validate if it is a valid UUID
 
-	if adxCfg.IngestionType != managedIngestType && adxCfg.IngestionType != queuedIngestTest && !isEmpty(adxCfg.IngestionType) {
-		return fmt.Errorf("unsupported configuration for ingestion_type. Accepted types [%s, %s] Provided [%s]", managedIngestType, queuedIngestTest, adxCfg.IngestionType)
-	}
-	// Validate managed identity ID. Use system for system assigned managed identity or UserManagedIdentityID (objectID) for user assigned managed identity
-	if !isEmpty(adxCfg.ManagedIdentityID) && !strings.EqualFold(strings.TrimSpace(adxCfg.ManagedIdentityID), "SYSTEM") {
-		// if the managed identity is not a system identity, validate if it is a valid UUID
-		_, err := uuid.Parse(strings.TrimSpace(adxCfg.ManagedIdentityID))
-		if err != nil {
-			return errors.New("managed_identity_id should be a UUID string (for User Managed Identity) or system (for System Managed Identity)")
-		}
-	}
-	return nil
-}
-
-func isEmpty(str string) bool {
-	return strings.TrimSpace(str) == ""
-}
+func isEmpty(str string) bool { _ = "STUB: not implemented"; return false }

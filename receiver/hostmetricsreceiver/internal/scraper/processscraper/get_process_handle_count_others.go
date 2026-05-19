@@ -15,5 +15,6 @@ const handleCountMetricsLen = 0
 var ErrHandlesPlatformSupport = errors.New("process handle collection is only supported on Windows")
 
 func (*wrappedProcessHandle) GetProcessHandleCountWithContext(context.Context) (int64, error) {
-	return 0, ErrHandlesPlatformSupport
+	_ = "STUB: not implemented"
+	return 0, nil
 }

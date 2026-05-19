@@ -118,5 +118,6 @@ var appPoolPerfCounterRecorders = []perfCounterRecorderConf{
 }
 
 func recordMaxQueueItemAge(mb *metadata.MetricsBuilder, ts pcommon.Timestamp, val float64) {
-	mb.RecordIisRequestQueueAgeMaxDataPoint(ts, int64(val))
+	_ = "STUB: not implemented"
+	return
 }

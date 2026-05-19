@@ -4,9 +4,6 @@
 package osqueryreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/osqueryreceiver"
 
 import (
-	"errors"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
 )
@@ -16,13 +13,8 @@ const (
 )
 
 func createDefaultConfig() component.Config {
-	scs := scraperhelper.NewDefaultControllerConfig()
-	scs.CollectionInterval = 30 * time.Second
-
-	return &Config{
-		ExtensionsSocket: defaultSocket,
-		ControllerConfig: scs,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 type Config struct {
@@ -31,9 +23,4 @@ type Config struct {
 	Queries                        []string `mapstructure:"queries"`
 }
 
-func (c Config) Validate() error {
-	if len(c.Queries) == 0 {
-		return errors.New("queries cannot be empty")
-	}
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }

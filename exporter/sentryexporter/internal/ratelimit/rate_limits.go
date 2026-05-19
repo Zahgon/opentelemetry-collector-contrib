@@ -5,9 +5,6 @@ package ratelimit // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"errors"
-	"math"
-	"strconv"
-	"strings"
 	"time"
 )
 
@@ -25,39 +22,14 @@ var errInvalidXSRLRetryAfter = errors.New("invalid retry-after value")
 //
 // Limits for unknown categories are ignored.
 func parseXSentryRateLimits(s string, now time.Time) Map {
+	_ = "STUB: not implemented"
 	// https://github.com/getsentry/relay/blob/0424a2e017d193a93918053c90cdae9472d164bf/relay-server/src/utils/rate_limits.rs#L44-L82
-	m := make(Map, len(knownCategories))
-	for limit := range strings.SplitSeq(s, ",") {
-		limit = strings.TrimSpace(limit)
-		if limit == "" {
-			continue
-		}
-		components := strings.Split(limit, ":")
-		if len(components) == 0 {
-			continue
-		}
-		retryAfter, err := parseXSRLRetryAfter(strings.TrimSpace(components[0]), now)
-		if err != nil {
-			continue
-		}
-		categories := ""
-		if len(components) > 1 {
-			categories = components[1]
-		}
-		for category := range strings.SplitSeq(categories, ";") {
-			c := Category(strings.ToLower(strings.TrimSpace(category)))
-			if _, ok := knownCategories[c]; !ok {
-				// skip unknown categories, keep m small
-				continue
-			}
-			// always keep the deadline furthest into the future
-			if retryAfter.After(m[c]) {
-				m[c] = retryAfter
-			}
-		}
-	}
-	return m
+	return *new(Map)
 }
+
+// skip unknown categories, keep m small
+
+// always keep the deadline furthest into the future
 
 // parseXSRLRetryAfter parses a string into a retry-after rate limit deadline.
 //
@@ -66,12 +38,7 @@ func parseXSentryRateLimits(s string, now time.Time) Map {
 // Negative values are treated as zero. Fractional values are rounded to the
 // next integer.
 func parseXSRLRetryAfter(s string, now time.Time) (Deadline, error) {
+	_ = "STUB: not implemented"
 	// https://github.com/getsentry/relay/blob/0424a2e017d193a93918053c90cdae9472d164bf/relay-quotas/src/rate_limit.rs#L88-L96
-	f, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		return Deadline{}, errInvalidXSRLRetryAfter
-	}
-	d := time.Duration(math.Ceil(math.Max(f, 0.0))) * time.Second
-	d = max(d, 0)
-	return Deadline(now.Add(d)), nil
+	return *new(Deadline), nil
 }

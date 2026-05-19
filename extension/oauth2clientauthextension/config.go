@@ -100,22 +100,4 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the extension configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.ClientID == "" && cfg.ClientIDFile == "" {
-		return errNoClientIDProvided
-	}
-	if cfg.GrantType == grantTypeJWTBearer {
-		if cfg.ClientCertificateKey == "" && cfg.ClientCertificateKeyFile == "" {
-			return errNoClientCertificateProvided
-		}
-	} else {
-		if cfg.ClientSecret == "" && cfg.ClientSecretFile == "" {
-			return errNoClientSecretProvided
-		}
-	}
-
-	if cfg.TokenURL == "" {
-		return errNoTokenURLProvided
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

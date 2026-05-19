@@ -5,14 +5,9 @@ package k8s // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"fmt"
-	"os"
 
 	"go.uber.org/zap"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8s "k8s.io/client-go/kubernetes"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 )
 
 type nodeNameProvider interface {
@@ -26,35 +21,20 @@ type nodeNameProviderImpl struct {
 	client k8s.Interface
 }
 
-func (p *nodeNameProviderImpl) namespace() string {
-	namespacePath := "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
-	val, err := os.ReadFile(namespacePath)
-	if err == nil && val != nil {
-		return string(val)
-	}
-	p.logger.Warn("Could not fetch k8s namespace, using 'default'", zap.Error(err))
-	return "default"
-}
+func (p *nodeNameProviderImpl) namespace() string { _ = "STUB: not implemented"; return "" }
 
 func (p *nodeNameProviderImpl) NodeName(ctx context.Context) (string, error) {
-	namespace := p.namespace()
+	_ = "STUB: not implemented"
+	return "",
 
-	// NOTE: The pod name may not match the OS hostname, e.g. if it has been modified
-	// via the 'setHostnameAsFQDN' and 'hostname' fields in the pod spec.
-	// The query below will error out in that case. See:
-	// https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/11033
-	podName, err := os.Hostname()
-	if err != nil {
-		return "", fmt.Errorf("could not fetch pod hostname: %w", err)
-	}
-
-	// NOTE: If changing this, check if the RBAC rules on the docs or examples need updates.
-	pod, err := p.client.CoreV1().Pods(namespace).Get(ctx, podName, metav1.GetOptions{})
-	if err != nil {
-		return "", err
-	}
-	return pod.Spec.NodeName, nil
+		// NOTE: The pod name may not match the OS hostname, e.g. if it has been modified
+		// via the 'setHostnameAsFQDN' and 'hostname' fields in the pod spec.
+		// The query below will error out in that case. See:
+		// https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/11033
+		nil
 }
+
+// NOTE: If changing this, check if the RBAC rules on the docs or examples need updates.
 
 var _ nodeNameProvider = (*nodeNameUnavailable)(nil)
 
@@ -63,18 +43,11 @@ type nodeNameUnavailable struct {
 }
 
 func (n *nodeNameUnavailable) NodeName(context.Context) (string, error) {
-	return "", fmt.Errorf("k8s client is unavailable: %w", n.err)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func newNodeNameProvider() nodeNameProvider {
-	client, err := k8sconfig.MakeClient(k8sconfig.APIConfig{
-		AuthType: k8sconfig.AuthTypeServiceAccount,
-	})
-	if err != nil {
-		return &nodeNameUnavailable{err: err}
-	}
-
-	return &nodeNameProviderImpl{
-		client: client,
-	}
+	_ = "STUB: not implemented"
+	return *new(nodeNameProvider)
 }

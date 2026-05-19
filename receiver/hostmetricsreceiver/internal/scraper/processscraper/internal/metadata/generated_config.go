@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -26,34 +24,12 @@ type ProcessContextSwitchesMetricConfig struct {
 }
 
 func (ms *ProcessContextSwitchesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ProcessContextSwitchesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessContextSwitchesMetricAttributeKeyContextSwitchType:
-		default:
-			return fmt.Errorf("metric process.context_switches doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -74,36 +50,11 @@ type ProcessCPUTimeMetricConfig struct {
 }
 
 func (ms *ProcessCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ProcessCPUTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessCPUTimeMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric process.cpu.time doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ProcessCPUTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ProcessCPUUtilizationMetricAttributeKey specifies the key of an attribute for the process.cpu.utilization metric.
 type ProcessCPUUtilizationMetricAttributeKey string
@@ -122,34 +73,12 @@ type ProcessCPUUtilizationMetricConfig struct {
 }
 
 func (ms *ProcessCPUUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ProcessCPUUtilizationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessCPUUtilizationMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric process.cpu.utilization doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -170,36 +99,11 @@ type ProcessDiskIoMetricConfig struct {
 }
 
 func (ms *ProcessDiskIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ProcessDiskIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessDiskIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric process.disk.io doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ProcessDiskIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ProcessDiskOperationsMetricAttributeKey specifies the key of an attribute for the process.disk.operations metric.
 type ProcessDiskOperationsMetricAttributeKey string
@@ -218,34 +122,12 @@ type ProcessDiskOperationsMetricConfig struct {
 }
 
 func (ms *ProcessDiskOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ProcessDiskOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessDiskOperationsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric process.disk.operations doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -256,16 +138,7 @@ type ProcessHandlesMetricConfig struct {
 }
 
 func (ms *ProcessHandlesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -276,16 +149,7 @@ type ProcessMemoryUsageMetricConfig struct {
 }
 
 func (ms *ProcessMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -296,16 +160,7 @@ type ProcessMemoryUtilizationMetricConfig struct {
 }
 
 func (ms *ProcessMemoryUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -316,16 +171,7 @@ type ProcessMemoryVirtualMetricConfig struct {
 }
 
 func (ms *ProcessMemoryVirtualMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -336,16 +182,7 @@ type ProcessOpenFileDescriptorsMetricConfig struct {
 }
 
 func (ms *ProcessOpenFileDescriptorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -366,36 +203,11 @@ type ProcessPagingFaultsMetricConfig struct {
 }
 
 func (ms *ProcessPagingFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ProcessPagingFaultsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ProcessPagingFaultsMetricAttributeKeyPagingFaultType:
-		default:
-			return fmt.Errorf("metric process.paging.faults doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ProcessPagingFaultsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ProcessSignalsPendingMetricConfig provides config for the process.signals_pending metric.
 type ProcessSignalsPendingMetricConfig struct {
@@ -404,16 +216,7 @@ type ProcessSignalsPendingMetricConfig struct {
 }
 
 func (ms *ProcessSignalsPendingMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -424,16 +227,7 @@ type ProcessThreadsMetricConfig struct {
 }
 
 func (ms *ProcessThreadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -444,16 +238,7 @@ type ProcessUptimeMetricConfig struct {
 }
 
 func (ms *ProcessUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -475,64 +260,7 @@ type MetricsConfig struct {
 	ProcessUptime              ProcessUptimeMetricConfig              `mapstructure:"process.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ProcessContextSwitches: ProcessContextSwitchesMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ProcessContextSwitchesMetricAttributeKey{ProcessContextSwitchesMetricAttributeKeyContextSwitchType},
-		},
-		ProcessCPUTime: ProcessCPUTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ProcessCPUTimeMetricAttributeKey{ProcessCPUTimeMetricAttributeKeyState},
-		},
-		ProcessCPUUtilization: ProcessCPUUtilizationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []ProcessCPUUtilizationMetricAttributeKey{ProcessCPUUtilizationMetricAttributeKeyState},
-		},
-		ProcessDiskIo: ProcessDiskIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ProcessDiskIoMetricAttributeKey{ProcessDiskIoMetricAttributeKeyDirection},
-		},
-		ProcessDiskOperations: ProcessDiskOperationsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ProcessDiskOperationsMetricAttributeKey{ProcessDiskOperationsMetricAttributeKeyDirection},
-		},
-		ProcessHandles: ProcessHandlesMetricConfig{
-			Enabled: false,
-		},
-		ProcessMemoryUsage: ProcessMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		ProcessMemoryUtilization: ProcessMemoryUtilizationMetricConfig{
-			Enabled: false,
-		},
-		ProcessMemoryVirtual: ProcessMemoryVirtualMetricConfig{
-			Enabled: true,
-		},
-		ProcessOpenFileDescriptors: ProcessOpenFileDescriptorsMetricConfig{
-			Enabled: false,
-		},
-		ProcessPagingFaults: ProcessPagingFaultsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ProcessPagingFaultsMetricAttributeKey{ProcessPagingFaultsMetricAttributeKeyPagingFaultType},
-		},
-		ProcessSignalsPending: ProcessSignalsPendingMetricConfig{
-			Enabled: false,
-		},
-		ProcessThreads: ProcessThreadsMetricConfig{
-			Enabled: false,
-		},
-		ProcessUptime: ProcessUptimeMetricConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -549,14 +277,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -573,32 +294,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ProcessCgroup: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ProcessCommand: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessCommandLine: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessExecutableName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessExecutablePath: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessOwner: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessParentPid: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ProcessPid: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for process metrics builder.
@@ -608,13 +305,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -5,17 +5,6 @@
 
 package pagingscraper // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/pagingscraper"
 
-import "github.com/shirou/gopsutil/v4/mem"
+func getPageFileStats() ([]*pageFileStats, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func getPageFileStats() ([]*pageFileStats, error) {
-	vmem, err := mem.VirtualMemory()
-	if err != nil {
-		return nil, err
-	}
-	return []*pageFileStats{{
-		deviceName:  "", // We do not support per-device swap
-		usedBytes:   vmem.SwapTotal - vmem.SwapFree - vmem.SwapCached,
-		freeBytes:   vmem.SwapFree,
-		cachedBytes: &vmem.SwapCached,
-	}}, nil
-}
+// We do not support per-device swap

@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/jaegertracing/jaeger-idl/proto-gen/api_v2"
-	"github.com/jonboulle/clockwork"
 )
 
 type serviceStrategyCache interface {
@@ -39,33 +38,20 @@ type serviceStrategyTTLCache struct {
 const initialRemoteResponseCacheSize = 32
 
 func newServiceStrategyCache(itemTTL time.Duration) serviceStrategyCache {
-	result := &serviceStrategyTTLCache{
-		itemTTL: itemTTL,
-		items:   make(map[string]serviceStrategyCacheEntry, initialRemoteResponseCacheSize),
-		stopCh:  make(chan struct{}),
-	}
-
-	// Launches a "cleaner" goroutine that naively blows away stale items with a frequency equal to the item TTL.
-	// Note that this is for memory usage and not for correctness (the get() function checks item validity).
-	go result.periodicallyClearCache(context.Background(), itemTTL)
-	return result
+	_ = "STUB: not implemented"
+	return *new(serviceStrategyCache)
 }
+
+// Launches a "cleaner" goroutine that naively blows away stale items with a frequency equal to the item TTL.
+// Note that this is for memory usage and not for correctness (the get() function checks item validity).
 
 // get returns a cached sampling strategy if one is present and is no older than the serviceStrategyTTLCache's per-item TTL.
 func (c *serviceStrategyTTLCache) get(
 	ctx context.Context,
 	serviceName string,
 ) (*api_v2.SamplingStrategyResponse, bool) {
-	c.rw.RLock()
-	defer c.rw.RUnlock()
-	found, ok := c.items[serviceName]
-	if !ok {
-		return nil, false
-	}
-	if c.staleItem(ctx, found) {
-		return nil, false
-	}
-	return found.strategyResponse, true
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 // put unconditionally overwrites the given service's serviceStrategyTTLCache item entry and resets its timestamp used for TTL checks.
@@ -74,12 +60,8 @@ func (c *serviceStrategyTTLCache) put(
 	serviceName string,
 	response *api_v2.SamplingStrategyResponse,
 ) {
-	c.rw.Lock()
-	defer c.rw.Unlock()
-	c.items[serviceName] = serviceStrategyCacheEntry{
-		strategyResponse: response,
-		retrievedAt:      clockwork.FromContext(ctx).Now(),
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // periodicallyClearCache periodically clears expired items from the cache and replaces the backing map with only
@@ -89,48 +71,34 @@ func (c *serviceStrategyTTLCache) periodicallyClearCache(
 	ctx context.Context,
 	schedulingPeriod time.Duration,
 ) {
-	ticker := clockwork.FromContext(ctx).NewTicker(schedulingPeriod)
-	for {
-		select {
-		case <-ticker.Chan():
-			c.rw.Lock()
-			newItems := make(map[string]serviceStrategyCacheEntry, initialRemoteResponseCacheSize)
-			for serviceName, item := range c.items {
-				if !c.staleItem(ctx, item) {
-					newItems[serviceName] = item
-				}
-			}
-			// Notice that we swap the map rather than using map's delete (which doesn't reduce its allocated size).
-			c.items = newItems
-			c.rw.Unlock()
-		case <-c.stopCh:
-			return
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (c *serviceStrategyTTLCache) Close() error {
-	close(c.stopCh)
-	return nil
-}
+// Notice that we swap the map rather than using map's delete (which doesn't reduce its allocated size).
+
+func (c *serviceStrategyTTLCache) Close() error { _ = "STUB: not implemented"; return nil }
 
 func (c *serviceStrategyTTLCache) staleItem(ctx context.Context, item serviceStrategyCacheEntry) bool {
-	return clockwork.FromContext(ctx).Now().After(item.retrievedAt.Add(c.itemTTL))
+	_ = "STUB: not implemented"
+	return false
 }
 
 type noopStrategyCache struct{}
 
 func (*noopStrategyCache) get(context.Context, string) (*api_v2.SamplingStrategyResponse, bool) {
+	_ = "STUB: not implemented"
 	return nil, false
 }
 
 func (*noopStrategyCache) put(context.Context, string, *api_v2.SamplingStrategyResponse) {
+	_ = "STUB: not implemented"
+	return
 }
 
-func (*noopStrategyCache) Close() error {
-	return nil
-}
+func (*noopStrategyCache) Close() error { _ = "STUB: not implemented"; return nil }
 
 func newNoopStrategyCache() serviceStrategyCache {
-	return &noopStrategyCache{}
+	_ = "STUB: not implemented"
+	return *new(serviceStrategyCache)
 }

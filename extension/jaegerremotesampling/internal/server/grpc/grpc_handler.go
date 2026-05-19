@@ -19,12 +19,12 @@ type GRPCHandler struct {
 
 // NewGRPCHandler creates a handler that controls sampling strategies for services.
 func NewGRPCHandler(provider source.Source) GRPCHandler {
-	return GRPCHandler{
-		samplingProvider: provider,
-	}
+	_ = "STUB: not implemented"
+	return *new(GRPCHandler)
 }
 
 // GetSamplingStrategy returns sampling decision from store.
 func (s GRPCHandler) GetSamplingStrategy(ctx context.Context, param *api_v2.SamplingStrategyParameters) (*api_v2.SamplingStrategyResponse, error) {
-	return s.samplingProvider.GetSamplingStrategy(ctx, param.GetServiceName())
+	_ = "STUB: not implemented"
+	return nil, nil
 }

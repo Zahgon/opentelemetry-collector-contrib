@@ -18,9 +18,7 @@ var templateFuncs = template.FuncMap{
 }
 
 // newTemplate creates a named template with the shared function map.
-func newTemplate(name, text string) *template.Template {
-	return template.Must(template.New(name).Funcs(templateFuncs).Parse(text))
-}
+func newTemplate(name, text string) *template.Template { _ = "STUB: not implemented"; return nil }
 
 // LOGS
 

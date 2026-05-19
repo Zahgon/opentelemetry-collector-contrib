@@ -8,8 +8,6 @@ import (
 
 	cinfo "github.com/google/cadvisor/info/v1"
 	"go.uber.org/zap"
-
-	ci "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/containerinsight"
 )
 
 var allowedPaths = regexp.MustCompile(`^(tmpfs|/dev/.*|overlay)$`)
@@ -20,74 +18,23 @@ type FileSystemMetricExtractor struct {
 }
 
 func (*FileSystemMetricExtractor) HasValue(info *cinfo.ContainerInfo) bool {
-	return info.Spec.HasFilesystem
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (f *FileSystemMetricExtractor) GetValue(info *cinfo.ContainerInfo, _ CPUMemInfoProvider, containerType string) []*CAdvisorMetric {
-	if containerType == ci.TypePod || containerType == ci.TypeInfraContainer {
-		return nil
-	}
-
-	containerType = getFSMetricType(containerType, f.logger)
-	stats := GetStats(info)
-	metrics := make([]*CAdvisorMetric, 0, len(stats.Filesystem))
-
-	for i := range stats.Filesystem {
-		v := stats.Filesystem[i]
-		metric := newCadvisorMetric(containerType, f.logger)
-		if v.Device == "" {
-			continue
-		}
-		if f.allowListRegexP != nil && !f.allowListRegexP.MatchString(v.Device) {
-			continue
-		}
-
-		metric.tags[ci.DiskDev] = v.Device
-		metric.tags[ci.FSType] = v.Type
-
-		metric.fields[ci.MetricName(containerType, ci.FSUsage)] = v.Usage
-		metric.fields[ci.MetricName(containerType, ci.FSCapacity)] = v.Limit
-		metric.fields[ci.MetricName(containerType, ci.FSAvailable)] = v.Available
-
-		if v.Limit != 0 {
-			metric.fields[ci.MetricName(containerType, ci.FSUtilization)] = float64(v.Usage) / float64(v.Limit) * 100
-		}
-
-		if v.HasInodes {
-			metric.fields[ci.MetricName(containerType, ci.FSInodes)] = v.Inodes
-			metric.fields[ci.MetricName(containerType, ci.FSInodesfree)] = v.InodesFree
-		}
-
-		metric.cgroupPath = info.Name
-		metrics = append(metrics, metric)
-	}
-	return metrics
-}
-
-func (*FileSystemMetricExtractor) Shutdown() error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func NewFileSystemMetricExtractor(logger *zap.Logger) *FileSystemMetricExtractor {
-	fse := &FileSystemMetricExtractor{
-		logger:          logger,
-		allowListRegexP: allowedPaths,
-	}
+func (*FileSystemMetricExtractor) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
-	return fse
+func NewFileSystemMetricExtractor(logger *zap.Logger) *FileSystemMetricExtractor {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getFSMetricType(containerType string, logger *zap.Logger) string {
-	metricType := ""
-	switch containerType {
-	case ci.TypeNode:
-		metricType = ci.TypeNodeFS
-	case ci.TypeInstance:
-		metricType = ci.TypeInstanceFS
-	case ci.TypeContainer:
-		metricType = ci.TypeContainerFS
-	default:
-		logger.Warn("fs_extractor: fs metric extractor is parsing unexpected containerType", zap.String("containerType", containerType))
-	}
-	return metricType
+	_ = "STUB: not implemented"
+	return ""
 }

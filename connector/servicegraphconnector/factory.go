@@ -7,15 +7,11 @@ package servicegraphconnector // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
-	"go.opentelemetry.io/collector/connector/xconnector"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/featuregate"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/servicegraphconnector/internal/metadata"
 )
 
 const (
@@ -51,27 +47,14 @@ func init() {
 }
 
 // NewFactory returns a ConnectorFactory.
-func NewFactory() connector.Factory {
-	return xconnector.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xconnector.WithTracesToMetrics(createTracesToMetricsConnector, metadata.TracesToMetricsStability),
-		xconnector.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Store: StoreConfig{
-			TTL:      2 * time.Second,
-			MaxItems: 1000,
-		},
-		CacheLoop:              time.Minute,
-		StoreExpirationLoop:    2 * time.Second,
-		MetricsTimestampOffset: 0,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesToMetricsConnector(_ context.Context, params connector.Settings, cfg component.Config, nextConsumer consumer.Metrics) (connector.Traces, error) {
-	return newConnector(params.TelemetrySettings, cfg, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }

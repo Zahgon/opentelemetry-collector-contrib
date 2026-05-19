@@ -20,11 +20,8 @@ type inMemoryAckExtension struct {
 }
 
 func newInMemoryAckExtension(conf *Config) *inMemoryAckExtension {
-	cache, _ := lru.New[string, *ackPartition](int(conf.MaxNumPartition))
-	return &inMemoryAckExtension{
-		partitionMap:                  cache,
-		maxNumPendingAcksPerPartition: conf.MaxNumPendingAcksPerPartition,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type ackPartition struct {
@@ -32,78 +29,46 @@ type ackPartition struct {
 	ackMap *lru.Cache[uint64, bool]
 }
 
-func newAckPartition(maxPendingAcks uint64) *ackPartition {
-	cache, _ := lru.New[uint64, bool](int(maxPendingAcks))
-	return &ackPartition{
-		ackMap: cache,
-	}
-}
+func newAckPartition(maxPendingAcks uint64) *ackPartition { _ = "STUB: not implemented"; return nil }
 
-func (as *ackPartition) nextAck() uint64 {
-	id := as.id.Add(1)
-	as.ackMap.Add(id, false)
-	return id
-}
+func (as *ackPartition) nextAck() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (as *ackPartition) ack(key uint64) {
-	if _, ok := as.ackMap.Get(key); ok {
-		as.ackMap.Add(key, true)
-	}
-}
+func (as *ackPartition) ack(key uint64) { _ = "STUB: not implemented"; return }
 
 func (as *ackPartition) computeAcks(ackIDs []uint64) map[uint64]bool {
-	result := make(map[uint64]bool, len(ackIDs))
-	for _, val := range ackIDs {
-		if isAcked, ok := as.ackMap.Get(val); ok && isAcked {
-			result[val] = true
-			as.ackMap.Remove(val)
-		} else {
-			result[val] = false
-		}
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start of inMemoryAckExtension does nothing and returns nil
 func (*inMemoryAckExtension) Start(context.Context, component.Host) error {
+	_ = "STUB: not implemented"
+
+	// Shutdown of inMemoryAckExtension does nothing and returns nil
 	return nil
 }
 
-// Shutdown of inMemoryAckExtension does nothing and returns nil
 func (*inMemoryAckExtension) Shutdown(context.Context) error {
+	_ = "STUB: not implemented"
+
+	// ProcessEvent marks the beginning of processing an event. It generates an ack ID for the associated partition ID.
 	return nil
 }
 
-// ProcessEvent marks the beginning of processing an event. It generates an ack ID for the associated partition ID.
 func (i *inMemoryAckExtension) ProcessEvent(partitionID string) (ackID uint64) {
-	if val, ok := i.partitionMap.Get(partitionID); ok {
-		return val.nextAck()
-	}
-
-	i.partitionMap.ContainsOrAdd(partitionID, newAckPartition(i.maxNumPendingAcksPerPartition))
-	val, _ := i.partitionMap.Get(partitionID)
-	return val.nextAck()
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // Ack acknowledges an event has been processed.
 func (i *inMemoryAckExtension) Ack(partitionID string, ackID uint64) {
-	if val, ok := i.partitionMap.Get(partitionID); ok {
-		val.ack(ackID)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // QueryAcks checks the statuses of given ackIDs for a partition.
 // ackIDs that are not generated from ProcessEvent or have been removed as a result of previous calls to QueryAcks will return false.
 func (i *inMemoryAckExtension) QueryAcks(partitionID string, ackIDs []uint64) map[uint64]bool {
-	if val, ok := i.partitionMap.Get(partitionID); ok {
-		return val.computeAcks(ackIDs)
-	}
-
-	result := make(map[uint64]bool, len(ackIDs))
-	for _, ackID := range ackIDs {
-		result[ackID] = false
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }

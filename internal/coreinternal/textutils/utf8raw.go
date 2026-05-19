@@ -5,7 +5,6 @@ package textutils // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"golang.org/x/text/encoding"
-	"golang.org/x/text/transform"
 )
 
 // UTF8Raw is a variant of the UTF-8 encoding without replacing invalid UTF-8 sequences.
@@ -14,10 +13,6 @@ var UTF8Raw encoding.Encoding = utf8raw{}
 
 type utf8raw struct{}
 
-func (utf8raw) NewDecoder() *encoding.Decoder {
-	return &encoding.Decoder{Transformer: transform.Nop}
-}
+func (utf8raw) NewDecoder() *encoding.Decoder { _ = "STUB: not implemented"; return nil }
 
-func (utf8raw) NewEncoder() *encoding.Encoder {
-	return &encoding.Encoder{Transformer: transform.Nop}
-}
+func (utf8raw) NewEncoder() *encoding.Encoder { _ = "STUB: not implemented"; return nil }

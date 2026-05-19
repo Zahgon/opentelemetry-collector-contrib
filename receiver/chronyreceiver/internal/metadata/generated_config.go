@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -25,36 +23,11 @@ type NtpFrequencyOffsetMetricConfig struct {
 }
 
 func (ms *NtpFrequencyOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NtpFrequencyOffsetMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NtpFrequencyOffsetMetricAttributeKeyLeapStatus:
-		default:
-			return fmt.Errorf("metric ntp.frequency.offset doesn't have an attribute %v, valid attributes: [leap.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NtpFrequencyOffsetMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NtpSkewMetricConfig provides config for the ntp.skew metric.
 type NtpSkewMetricConfig struct {
@@ -63,16 +36,7 @@ type NtpSkewMetricConfig struct {
 }
 
 func (ms *NtpSkewMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -83,16 +47,7 @@ type NtpStratumMetricConfig struct {
 }
 
 func (ms *NtpStratumMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -113,36 +68,11 @@ type NtpTimeCorrectionMetricConfig struct {
 }
 
 func (ms *NtpTimeCorrectionMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NtpTimeCorrectionMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NtpTimeCorrectionMetricAttributeKeyLeapStatus:
-		default:
-			return fmt.Errorf("metric ntp.time.correction doesn't have an attribute %v, valid attributes: [leap.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NtpTimeCorrectionMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NtpTimeLastOffsetMetricAttributeKey specifies the key of an attribute for the ntp.time.last_offset metric.
 type NtpTimeLastOffsetMetricAttributeKey string
@@ -161,36 +91,11 @@ type NtpTimeLastOffsetMetricConfig struct {
 }
 
 func (ms *NtpTimeLastOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NtpTimeLastOffsetMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NtpTimeLastOffsetMetricAttributeKeyLeapStatus:
-		default:
-			return fmt.Errorf("metric ntp.time.last_offset doesn't have an attribute %v, valid attributes: [leap.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NtpTimeLastOffsetMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NtpTimeRmsOffsetMetricAttributeKey specifies the key of an attribute for the ntp.time.rms_offset metric.
 type NtpTimeRmsOffsetMetricAttributeKey string
@@ -209,36 +114,11 @@ type NtpTimeRmsOffsetMetricConfig struct {
 }
 
 func (ms *NtpTimeRmsOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NtpTimeRmsOffsetMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NtpTimeRmsOffsetMetricAttributeKeyLeapStatus:
-		default:
-			return fmt.Errorf("metric ntp.time.rms_offset doesn't have an attribute %v, valid attributes: [leap.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NtpTimeRmsOffsetMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NtpTimeRootDelayMetricAttributeKey specifies the key of an attribute for the ntp.time.root_delay metric.
 type NtpTimeRootDelayMetricAttributeKey string
@@ -257,36 +137,11 @@ type NtpTimeRootDelayMetricConfig struct {
 }
 
 func (ms *NtpTimeRootDelayMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NtpTimeRootDelayMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NtpTimeRootDelayMetricAttributeKeyLeapStatus:
-		default:
-			return fmt.Errorf("metric ntp.time.root_delay doesn't have an attribute %v, valid attributes: [leap.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NtpTimeRootDelayMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MetricsConfig provides config for chrony metrics.
 type MetricsConfig struct {
@@ -299,41 +154,7 @@ type MetricsConfig struct {
 	NtpTimeRootDelay   NtpTimeRootDelayMetricConfig   `mapstructure:"ntp.time.root_delay"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		NtpFrequencyOffset: NtpFrequencyOffsetMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NtpFrequencyOffsetMetricAttributeKey{NtpFrequencyOffsetMetricAttributeKeyLeapStatus},
-		},
-		NtpSkew: NtpSkewMetricConfig{
-			Enabled: true,
-		},
-		NtpStratum: NtpStratumMetricConfig{
-			Enabled: false,
-		},
-		NtpTimeCorrection: NtpTimeCorrectionMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NtpTimeCorrectionMetricAttributeKey{NtpTimeCorrectionMetricAttributeKeyLeapStatus},
-		},
-		NtpTimeLastOffset: NtpTimeLastOffsetMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NtpTimeLastOffsetMetricAttributeKey{NtpTimeLastOffsetMetricAttributeKeyLeapStatus},
-		},
-		NtpTimeRmsOffset: NtpTimeRmsOffsetMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NtpTimeRmsOffsetMetricAttributeKey{NtpTimeRmsOffsetMetricAttributeKeyLeapStatus},
-		},
-		NtpTimeRootDelay: NtpTimeRootDelayMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NtpTimeRootDelayMetricAttributeKey{NtpTimeRootDelayMetricAttributeKeyLeapStatus},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for chrony metrics builder.
 type MetricsBuilderConfig struct {
@@ -341,12 +162,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

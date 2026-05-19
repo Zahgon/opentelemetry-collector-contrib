@@ -5,13 +5,10 @@ package couchdbreceiver // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/couchdbreceiver/internal/metadata"
 )
@@ -37,18 +34,4 @@ type Config struct {
 }
 
 // Validate validates missing and invalid configuration fields.
-func (cfg *Config) Validate() error {
-	var err error
-	if cfg.Username == "" {
-		err = multierr.Append(err, errMissingUsername)
-	}
-	if cfg.Password == "" {
-		err = multierr.Append(err, errMissingPassword)
-	}
-
-	_, parseErr := url.Parse(cfg.Endpoint)
-	if parseErr != nil {
-		err = multierr.Append(err, fmt.Errorf(errInvalidEndpoint.Error(), parseErr))
-	}
-	return err
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

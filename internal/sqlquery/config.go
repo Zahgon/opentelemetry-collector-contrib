@@ -4,9 +4,6 @@
 package sqlquery // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/sqlquery"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
@@ -27,60 +24,15 @@ type Config struct {
 	Telemetry                      TelemetryConfig     `mapstructure:"telemetry"`
 }
 
-func (c Config) Validate() error {
-	if c.Driver == "" {
-		return errors.New("'driver' cannot be empty")
-	}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	// check if driver is supported
-	if !IsValidDriver(c.Driver) {
-		return fmt.Errorf("unsupported driver: %s", c.Driver)
-	}
+// check if driver is supported
 
-	// If datasource is set, none of the individual connection parameters should be set
-	if c.DataSource != "" {
-		if c.Host != "" {
-			return errors.New("'host' cannot be set when 'datasource' is specified")
-		}
-		if c.Port != 0 {
-			return errors.New("'port' cannot be set when 'datasource' is specified")
-		}
-		if c.Database != "" {
-			return errors.New("'database' cannot be set when 'datasource' is specified")
-		}
-		if c.Username != "" {
-			return errors.New("'username' cannot be set when 'datasource' is specified")
-		}
-		if c.Password != "" {
-			return errors.New("'password' cannot be set when 'datasource' is specified")
-		}
-		if len(c.AdditionalParams) > 0 {
-			return errors.New("'additional_params' cannot be set when 'datasource' is specified")
-		}
-	} else {
-		// If datasource is not set, host, port, and database are required
-		if c.Host == "" {
-			return errors.New("'host' or 'datasource' must be specified")
-		}
-		// For sqlserver, port is optional
-		if c.Driver != DriverSQLServer && c.Port == 0 {
-			return errors.New("'port' or 'datasource' must be specified")
-		}
-		if c.Database == "" {
-			return errors.New("'database' or 'datasource' must be specified")
-		}
-	}
+// If datasource is set, none of the individual connection parameters should be set
 
-	if len(c.Queries) == 0 {
-		return errors.New("'queries' cannot be empty")
-	}
-	for _, query := range c.Queries {
-		if err := query.Validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
+// If datasource is not set, host, port, and database are required
+
+// For sqlserver, port is optional
 
 type Query struct {
 	SQL                string      `mapstructure:"sql"`
@@ -91,40 +43,14 @@ type Query struct {
 	IgnoreNullValues   bool        `mapstructure:"ignore_null_values"`
 }
 
-func (q Query) Validate() error {
-	var errs []error
-	if q.SQL == "" {
-		errs = append(errs, errors.New("'query.sql' cannot be empty"))
-	}
-	if len(q.Logs) == 0 && len(q.Metrics) == 0 {
-		errs = append(errs, errors.New("at least one of 'query.logs' and 'query.metrics' must not be empty"))
-	}
-	for _, logs := range q.Logs {
-		if err := logs.Validate(); err != nil {
-			errs = append(errs, err)
-		}
-	}
-	for i := range q.Metrics {
-		metric := &q.Metrics[i]
-		if err := metric.Validate(); err != nil {
-			errs = append(errs, err)
-		}
-	}
-	return errors.Join(errs...)
-}
+func (q Query) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type LogsCfg struct {
 	BodyColumn       string   `mapstructure:"body_column"`
 	AttributeColumns []string `mapstructure:"attribute_columns"`
 }
 
-func (config LogsCfg) Validate() error {
-	var errs []error
-	if config.BodyColumn == "" {
-		errs = append(errs, errors.New("'body_column' must not be empty"))
-	}
-	return errors.Join(errs...)
-}
+func (config LogsCfg) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RowCondition filters query result rows for a metric. Only rows where the
 // specified column equals the specified value are used to produce the metric.
@@ -152,36 +78,7 @@ type MetricCfg struct {
 	RowCondition     *RowCondition     `mapstructure:"row_condition"`
 }
 
-func (c MetricCfg) Validate() error {
-	var errs []error
-	if c.MetricName == "" {
-		errs = append(errs, errors.New("'metric_name' cannot be empty"))
-	}
-	if c.ValueColumn == "" {
-		errs = append(errs, errors.New("'value_column' cannot be empty"))
-	}
-	if err := c.ValueType.Validate(); err != nil {
-		errs = append(errs, err)
-	}
-	if err := c.DataType.Validate(); err != nil {
-		errs = append(errs, err)
-	}
-	if err := c.Aggregation.Validate(); err != nil {
-		errs = append(errs, err)
-	}
-	if c.DataType == MetricTypeGauge && c.Aggregation != "" {
-		errs = append(errs, fmt.Errorf("aggregation=%s but data_type=%s does not support aggregation", c.Aggregation, c.DataType))
-	}
-	if c.RowCondition != nil {
-		if c.RowCondition.Column == "" {
-			errs = append(errs, errors.New("'row_condition.column' cannot be empty"))
-		}
-	}
-	if errs != nil && c.MetricName != "" {
-		errs = append(errs, fmt.Errorf("invalid metric config with metric_name '%s'", c.MetricName))
-	}
-	return errors.Join(errs...)
-}
+func (c MetricCfg) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type MetricType string
 
@@ -191,13 +88,7 @@ const (
 	MetricTypeSum         MetricType = "sum"
 )
 
-func (t MetricType) Validate() error {
-	switch t {
-	case MetricTypeUnspecified, MetricTypeGauge, MetricTypeSum:
-		return nil
-	}
-	return fmt.Errorf("metric config has unsupported data_type: '%s'", t)
-}
+func (t MetricType) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type MetricValueType string
 
@@ -207,13 +98,7 @@ const (
 	MetricValueTypeDouble      MetricValueType = "double"
 )
 
-func (t MetricValueType) Validate() error {
-	switch t {
-	case MetricValueTypeUnspecified, MetricValueTypeInt, MetricValueTypeDouble:
-		return nil
-	}
-	return fmt.Errorf("metric config has unsupported value_type: '%s'", t)
-}
+func (t MetricValueType) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type MetricAggregation string
 
@@ -223,13 +108,7 @@ const (
 	MetricAggregationDelta       MetricAggregation = "delta"
 )
 
-func (a MetricAggregation) Validate() error {
-	switch a {
-	case MetricAggregationUnspecified, MetricAggregationCumulative, MetricAggregationDelta:
-		return nil
-	}
-	return fmt.Errorf("metric config has unsupported aggregation: '%s'", a)
-}
+func (a MetricAggregation) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type TelemetryConfig struct {
 	Logs TelemetryLogsConfig `mapstructure:"logs"`

@@ -6,7 +6,6 @@ package rabbitmq // import "github.com/open-telemetry/opentelemetry-collector-co
 import (
 	"context"
 	"crypto/tls"
-	"errors"
 	"sync"
 	"time"
 
@@ -66,7 +65,8 @@ type DialConfig struct {
 }
 
 func NewAmqpClient(logger *zap.Logger) AmqpClient {
-	return &client{logger: logger}
+	_ = "STUB: not implemented"
+	return *new(AmqpClient)
 }
 
 type client struct {
@@ -74,129 +74,44 @@ type client struct {
 }
 
 func (c *client) DialConfig(config DialConfig) (Connection, error) {
-	properties := amqp.Table{}
-	properties.SetClientConnectionName(config.ConnectionName)
-	ch := &connectionHolder{
-		url: config.URL,
-		config: amqp.Config{
-			SASL:            []amqp.Authentication{config.Auth},
-			Vhost:           config.Vhost,
-			TLSClientConfig: config.TLS,
-			Heartbeat:       config.Heartbeat,
-			Dial:            amqp.DefaultDial(config.ConnectionTimeout),
-			Properties:      properties,
-		},
-		logger:           c.logger,
-		connLock:         &sync.Mutex{},
-		connectionErrors: make(chan *amqp.Error, 1),
-	}
-
-	ch.connLock.Lock()
-	defer ch.connLock.Unlock()
-
-	err := ch.connect()
-	return ch, err
+	_ = "STUB: not implemented"
+	return *new(Connection), nil
 }
 
-func (c *connectionHolder) ReconnectIfUnhealthy() error {
-	c.connLock.Lock()
-	defer c.connLock.Unlock()
+func (c *connectionHolder) ReconnectIfUnhealthy() error { _ = "STUB: not implemented"; return nil }
 
-	hasConnectionError := false
-	select {
-	case err := <-c.connectionErrors:
-		hasConnectionError = true
-		c.logger.Info("Received connection error, will retry restoring unhealthy connection", zap.Error(err))
-	default:
-		break
-	}
+func (c *connectionHolder) connect() error { _ = "STUB: not implemented"; return nil }
 
-	if hasConnectionError || !c.isConnected() {
-		if c.isConnected() {
-			err := c.connection.Close()
-			if err != nil {
-				c.logger.Warn("Error closing unhealthy connection", zap.Error(err))
-			}
-		}
+// Goal is to lazily restore the connection so this needs to be buffered to avoid blocking on asynchronous amqp errors.
+// Also re-create this channel each time because apparently the amqp library can close it
 
-		if err := c.connect(); err != nil {
-			return errors.Join(errors.New("failed attempt at restoring unhealthy connection"), err)
-		}
-		c.logger.Info("Successfully restored unhealthy rabbitmq connection")
-	}
+func (c *connectionHolder) Close() error { _ = "STUB: not implemented"; return nil }
 
-	return nil
-}
-
-func (c *connectionHolder) connect() error {
-	c.logger.Debug("Connecting to rabbitmq")
-
-	connection, err := amqp.DialConfig(c.url, c.config)
-	if connection != nil {
-		c.connection = connection
-	}
-	if err != nil {
-		return err
-	}
-
-	// Goal is to lazily restore the connection so this needs to be buffered to avoid blocking on asynchronous amqp errors.
-	// Also re-create this channel each time because apparently the amqp library can close it
-	c.connectionErrors = make(chan *amqp.Error, 1)
-	c.connection.NotifyClose(c.connectionErrors)
-	return nil
-}
-
-func (c *connectionHolder) Close() error {
-	if c.isConnected() {
-		return c.connection.Close()
-	}
-	return nil
-}
-
-func (c *connectionHolder) isConnected() bool {
-	return c.connection != nil && !c.IsClosed()
-}
+func (c *connectionHolder) isConnected() bool { _ = "STUB: not implemented"; return false }
 
 func (c *connectionHolder) Channel() (Channel, error) {
-	channel, err := c.connection.Channel()
-	if err != nil {
-		return nil, err
-	}
-	return &channelHolder{channel: channel}, nil
+	_ = "STUB: not implemented"
+	return *new(Channel), nil
 }
 
-func (c *connectionHolder) IsClosed() bool {
-	return c.connection.IsClosed()
-}
+func (c *connectionHolder) IsClosed() bool { _ = "STUB: not implemented"; return false }
 
 func (c *connectionHolder) NotifyClose(receiver chan *amqp.Error) chan *amqp.Error {
-	return c.connection.NotifyClose(receiver)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *channelHolder) Confirm(noWait bool) error {
-	return c.channel.Confirm(noWait)
-}
+func (c *channelHolder) Confirm(noWait bool) error { _ = "STUB: not implemented"; return nil }
 
 func (c *channelHolder) PublishWithDeferredConfirmWithContext(ctx context.Context, exchange, key string, mandatory, immediate bool, msg amqp.Publishing) (DeferredConfirmation, error) {
-	confirmation, err := c.channel.PublishWithDeferredConfirmWithContext(ctx, exchange, key, mandatory, immediate, msg)
-	if err != nil {
-		return nil, err
-	}
-	return &deferredConfirmationHolder{confirmation: confirmation}, nil
+	_ = "STUB: not implemented"
+	return *new(DeferredConfirmation), nil
 }
 
-func (c *channelHolder) IsClosed() bool {
-	return c.channel.IsClosed()
-}
+func (c *channelHolder) IsClosed() bool { _ = "STUB: not implemented"; return false }
 
-func (c *channelHolder) Close() error {
-	return c.channel.Close()
-}
+func (c *channelHolder) Close() error { _ = "STUB: not implemented"; return nil }
 
-func (d *deferredConfirmationHolder) Done() <-chan struct{} {
-	return d.confirmation.Done()
-}
+func (d *deferredConfirmationHolder) Done() <-chan struct{} { _ = "STUB: not implemented"; return nil }
 
-func (d *deferredConfirmationHolder) Acked() bool {
-	return d.confirmation.Acked()
-}
+func (d *deferredConfirmationHolder) Acked() bool { _ = "STUB: not implemented"; return false }

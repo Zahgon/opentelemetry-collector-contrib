@@ -5,16 +5,12 @@ package faroreceiver // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/faroreceiver/internal/metadata"
 )
 
 const (
@@ -30,28 +26,15 @@ const (
 var receivers = sharedcomponent.NewSharedComponents()
 
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultFaroEndpoint
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{NetAddr: netAddr},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(createFaroReceiverTraces, metadata.TracesStability),
-		receiver.WithLogs(createFaroReceiverLogs, metadata.LogsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func newFaroReceiverFactory(fCfg *Config, set *receiver.Settings, err *error) func() component.Component {
-	return func() component.Component {
-		var rcv component.Component
-		rcv, *err = newFaroReceiver(fCfg, set)
-		return rcv
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createFaroReceiverTraces(
@@ -60,19 +43,8 @@ func createFaroReceiverTraces(
 	cfg component.Config,
 	nextTraces consumer.Traces,
 ) (receiver.Traces, error) {
-	fCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, fmt.Errorf("invalid configuration: %T", cfg)
-	}
-	var err error
-	receiver := receivers.GetOrAdd(fCfg, newFaroReceiverFactory(fCfg, &set, &err))
-	if err != nil {
-		return nil, err
-	}
-
-	receiver.Unwrap().(*faroReceiver).RegisterTracesConsumer(nextTraces)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func createFaroReceiverLogs(
@@ -81,17 +53,6 @@ func createFaroReceiverLogs(
 	cfg component.Config,
 	nextLogs consumer.Logs,
 ) (receiver.Logs, error) {
-	fCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, fmt.Errorf("invalid configuration: %T", cfg)
-	}
-	var err error
-	receiver := receivers.GetOrAdd(fCfg, newFaroReceiverFactory(fCfg, &set, &err))
-	if err != nil {
-		return nil, err
-	}
-
-	receiver.Unwrap().(*faroReceiver).RegisterLogsConsumer(nextLogs)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

@@ -5,8 +5,6 @@ package receivercreator // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/consumer/xconsumer"
@@ -46,101 +44,37 @@ func newEnhancingConsumer(
 	nextTraces consumer.Traces,
 	nextProfiles xconsumer.Profiles,
 ) (*enhancingConsumer, error) {
-	attrs := map[string]string{}
-
-	for _, resource := range []map[string]string{resources[endpoint.Details.Type()], receiverAttributes} {
-		// Precompute values that will be inserted for each resource object passed through.
-		for attr, expr := range resource {
-			// If the attribute value is empty this signals to delete existing
-			if expr == "" {
-				delete(attrs, attr)
-				continue
-			}
-
-			res, err := evalBackticksInConfigValue(expr, env)
-			if err != nil {
-				return nil, fmt.Errorf("failed processing resource attribute %q for endpoint %v: %w", attr, endpoint.ID, err)
-			}
-
-			val := fmt.Sprint(res)
-			if val != "" {
-				attrs[attr] = val
-			}
-		}
-	}
-
-	ec := &enhancingConsumer{attrs: attrs}
-	if nextLogs != nil {
-		ec.logs = nextLogs
-	}
-	if nextMetrics != nil {
-		ec.metrics = nextMetrics
-	}
-	if nextTraces != nil {
-		ec.traces = nextTraces
-	}
-	if nextProfiles != nil {
-		ec.profiles = nextProfiles
-	}
-	return ec, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Precompute values that will be inserted for each resource object passed through.
+
+// If the attribute value is empty this signals to delete existing
+
 func (*enhancingConsumer) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: true}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (ec *enhancingConsumer) ConsumeLogs(ctx context.Context, ld plog.Logs) error {
-	if ec.logs == nil {
-		return errors.New("no log consumer available")
-	}
-	rl := ld.ResourceLogs()
-	for i := 0; i < rl.Len(); i++ {
-		ec.putAttrs(rl.At(i).Resource().Attributes())
-	}
-
-	return ec.logs.ConsumeLogs(ctx, ld)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ec *enhancingConsumer) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	if ec.metrics == nil {
-		return errors.New("no metric consumer available")
-	}
-	rm := md.ResourceMetrics()
-	for i := 0; i < rm.Len(); i++ {
-		ec.putAttrs(rm.At(i).Resource().Attributes())
-	}
-
-	return ec.metrics.ConsumeMetrics(ctx, md)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ec *enhancingConsumer) ConsumeTraces(ctx context.Context, td ptrace.Traces) error {
-	if ec.traces == nil {
-		return errors.New("no trace consumer available")
-	}
-	rs := td.ResourceSpans()
-	for i := 0; i < rs.Len(); i++ {
-		ec.putAttrs(rs.At(i).Resource().Attributes())
-	}
-
-	return ec.traces.ConsumeTraces(ctx, td)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ec *enhancingConsumer) ConsumeProfiles(ctx context.Context, pd pprofile.Profiles) error {
-	if ec.profiles == nil {
-		return errors.New("no profile consumer available")
-	}
-	rp := pd.ResourceProfiles()
-	for i := 0; i < rp.Len(); i++ {
-		ec.putAttrs(rp.At(i).Resource().Attributes())
-	}
-
-	return ec.profiles.ConsumeProfiles(ctx, pd)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (ec *enhancingConsumer) putAttrs(attrs pcommon.Map) {
-	for attr, val := range ec.attrs {
-		if _, found := attrs.Get(attr); !found {
-			attrs.PutStr(attr, val)
-		}
-	}
-}
+func (ec *enhancingConsumer) putAttrs(attrs pcommon.Map) { _ = "STUB: not implemented"; return }

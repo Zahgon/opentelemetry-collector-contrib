@@ -5,7 +5,6 @@ package dorisexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	_ "embed"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -30,50 +29,13 @@ type metricModelSum struct {
 }
 
 func (*metricModelSum) metricType() pmetric.MetricType {
-	return pmetric.MetricTypeSum
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType)
 }
 
-func (*metricModelSum) tableSuffix() string {
-	return "_sum"
-}
+func (*metricModelSum) tableSuffix() string { _ = "STUB: not implemented"; return "" }
 
 func (m *metricModelSum) add(pm pmetric.Metric, dm *dMetric, e *metricsExporter) error {
-	if pm.Type() != pmetric.MetricTypeSum {
-		return fmt.Errorf("metric type is not sum: %v", pm.Type().String())
-	}
-
-	dataPoints := pm.Sum().DataPoints()
-	for i := 0; i < dataPoints.Len(); i++ {
-		dp := dataPoints.At(i)
-
-		exemplars := dp.Exemplars()
-		newExemplars := make([]*dExemplar, 0, exemplars.Len())
-		for j := 0; j < exemplars.Len(); j++ {
-			exemplar := exemplars.At(j)
-
-			newExemplar := &dExemplar{
-				FilteredAttributes: exemplar.FilteredAttributes().AsRaw(),
-				Timestamp:          e.formatTime(exemplar.Timestamp().AsTime()),
-				Value:              e.getExemplarValue(exemplar),
-				SpanID:             exemplar.SpanID().String(),
-				TraceID:            exemplar.TraceID().String(),
-			}
-
-			newExemplars = append(newExemplars, newExemplar)
-		}
-
-		metric := &dMetricSum{
-			dMetric:                dm,
-			Timestamp:              e.formatTime(dp.Timestamp().AsTime()),
-			Attributes:             dp.Attributes().AsRaw(),
-			StartTime:              e.formatTime(dp.StartTimestamp().AsTime()),
-			Value:                  e.getNumberDataPointValue(dp),
-			Exemplars:              newExemplars,
-			AggregationTemporality: pm.Sum().AggregationTemporality().String(),
-			IsMonotonic:            pm.Sum().IsMonotonic(),
-		}
-		m.data = append(m.data, metric)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -5,6 +5,4 @@
 
 package filestorage // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage"
 
-func getDefaultDirectory() string {
-	return "/var/lib/otelcol/file_storage"
-}
+func getDefaultDirectory() string { _ = "STUB: not implemented"; return "" }

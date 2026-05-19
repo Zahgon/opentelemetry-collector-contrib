@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -15,16 +13,7 @@ type NginxConnectionsAcceptedMetricConfig struct {
 }
 
 func (ms *NginxConnectionsAcceptedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -45,34 +34,12 @@ type NginxConnectionsCurrentMetricConfig struct {
 }
 
 func (ms *NginxConnectionsCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NginxConnectionsCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NginxConnectionsCurrentMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric nginx.connections_current doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -83,16 +50,7 @@ type NginxConnectionsHandledMetricConfig struct {
 }
 
 func (ms *NginxConnectionsHandledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -103,16 +61,7 @@ type NginxRequestsMetricConfig struct {
 }
 
 func (ms *NginxRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -124,24 +73,7 @@ type MetricsConfig struct {
 	NginxRequests            NginxRequestsMetricConfig            `mapstructure:"nginx.requests"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		NginxConnectionsAccepted: NginxConnectionsAcceptedMetricConfig{
-			Enabled: true,
-		},
-		NginxConnectionsCurrent: NginxConnectionsCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NginxConnectionsCurrentMetricAttributeKey{NginxConnectionsCurrentMetricAttributeKeyState},
-		},
-		NginxConnectionsHandled: NginxConnectionsHandledMetricConfig{
-			Enabled: true,
-		},
-		NginxRequests: NginxRequestsMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for nginx metrics builder.
 type MetricsBuilderConfig struct {
@@ -149,12 +81,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

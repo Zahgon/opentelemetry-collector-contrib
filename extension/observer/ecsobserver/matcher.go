@@ -5,12 +5,9 @@ package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	ecstypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 )
 
@@ -46,19 +43,9 @@ const (
 	matcherTypeDockerLabel
 )
 
-func (t matcherType) String() string {
-	switch t {
-	case matcherTypeService:
-		return "service"
-	case matcherTypeTaskDefinition:
-		return "task_definition"
-	case matcherTypeDockerLabel:
-		return "docker_label"
-	default:
-		// Give it a _matcher_type suffix so people can find it by string search.
-		return "unknown_matcher_type"
-	}
-}
+func (t matcherType) String() string { _ = "STUB: not implemented"; return "" }
+
+// Give it a _matcher_type suffix so people can find it by string search.
 
 type matchResult struct {
 	// Tasks are index for tasks that include matched containers
@@ -79,17 +66,11 @@ type matchedContainer struct {
 // the existing target and do not override.  Duplication could happen if there
 // are several rules matching same target.
 func (mc *matchedContainer) MergeTargets(newTargets []matchedTarget) {
-NextNewTarget:
-	for _, newt := range newTargets {
-		for _, old := range mc.Targets {
-			// If port and metrics_path are same, then we treat them as same target and keep the existing one
-			if old.Port == newt.Port && old.MetricsPath == newt.MetricsPath {
-				continue NextNewTarget
-			}
-		}
-		mc.Targets = append(mc.Targets, newt)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// If port and metrics_path are same, then we treat them as same target and keep the existing one
 
 // matchedTarget contains info for exporting prometheus scrape target
 // and tracing back into the config (can be used in stats, error reporting etc.).
@@ -101,39 +82,14 @@ type matchedTarget struct {
 	Job          string
 }
 
-func matcherOrders() []matcherType {
-	return []matcherType{
-		matcherTypeService,
-		matcherTypeTaskDefinition,
-		matcherTypeDockerLabel,
-	}
-}
+func matcherOrders() []matcherType { _ = "STUB: not implemented"; return nil }
 
 func newMatchers(c Config, mOpt matcherOptions) (map[matcherType][]targetMatcher, error) {
+	_ = "STUB: not implemented"
 	// We can have a registry or factory methods etc. but we only have three type of matchers
 	// and likely not going to add anymore in forseable future, just hard code the map here.
 	// All the XXXConfigToMatchers looks like copy pasted funcs, but there is no generic way to do it.
-	matcherConfigs := map[matcherType][]matcherConfig{
-		matcherTypeService:        serviceConfigsToMatchers(c.Services),
-		matcherTypeTaskDefinition: taskDefinitionConfigsToMatchers(c.TaskDefinitions),
-		matcherTypeDockerLabel:    dockerLabelConfigToMatchers(c.DockerLabels),
-	}
-	matchers := make(map[matcherType][]targetMatcher)
-	matcherCount := 0
-	for mType, cfgs := range matcherConfigs {
-		for i, cfg := range cfgs {
-			m, err := cfg.newMatcher(mOpt)
-			if err != nil {
-				return nil, fmt.Errorf("init matcher config failed type %s index %d: %w", mType, i, err)
-			}
-			matchers[mType] = append(matchers[mType], m)
-			matcherCount++
-		}
-	}
-	if matcherCount == 0 {
-		return nil, errors.New("no matcher specified in config")
-	}
-	return matchers, nil
+	return nil, nil
 }
 
 // a global instance because it's expected and we don't care about why the container didn't match (for now).
@@ -145,64 +101,21 @@ var errNotMatched = errors.New("container not matched")
 // It does not modify the task in place, the attaching match result logic is
 // performed by taskFilter at later stage.
 func matchContainers(tasks []*taskAnnotated, matcher targetMatcher, matcherIndex int) (*matchResult, error) {
-	var (
-		matchedTasks      []int
-		matchedContainers []matchedContainer
-	)
-	var merr error
-	tpe := matcher.matcherType()
-	for tIndex, t := range tasks {
-		var matched []matchedContainer
-		for cIndex := range t.Definition.ContainerDefinitions {
-			c := t.Definition.ContainerDefinitions[cIndex]
-			targets, err := matcher.matchTargets(t, c)
-			// NOTE: we don't stop when there is an error because it could be one task having invalid docker label.
-			if err != nil {
-				// Keep track of unexpected error
-				if !errors.Is(err, errNotMatched) {
-					multierr.AppendInto(&merr, err)
-				}
-				continue
-			}
-			for i := range targets {
-				targets[i].MatcherType = tpe
-				targets[i].MatcherIndex = matcherIndex
-			}
-			matched = append(matched, matchedContainer{
-				TaskIndex:      tIndex,
-				ContainerIndex: cIndex,
-				Targets:        targets,
-			})
-		}
-		if len(matched) > 0 {
-			matchedTasks = append(matchedTasks, tIndex)
-			matchedContainers = append(matchedContainers, matched...)
-		}
-	}
-	return &matchResult{
-		Tasks:      matchedTasks,
-		Containers: matchedContainers,
-	}, merr
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// NOTE: we don't stop when there is an error because it could be one task having invalid docker label.
+
+// Keep track of unexpected error
 
 // matchContainerByName is used by taskDefinitionMatcher and serviceMatcher.
 // The only exception is DockerLabelMatcher because it get ports from docker label.
 func matchContainerByName(nameRegex *regexp.Regexp, expSetting *commonExportSetting, container ecstypes.ContainerDefinition) ([]matchedTarget, error) {
-	if nameRegex != nil && !nameRegex.MatchString(aws.ToString(container.Name)) {
-		return nil, errNotMatched
-	}
-	// Match based on port
-	var targets []matchedTarget
-	// Only export container if it has at least one matching port.
-	for _, portMapping := range container.PortMappings {
-		port := int(aws.ToInt32(portMapping.ContainerPort))
-		if expSetting.hasContainerPort(port) {
-			targets = append(targets, matchedTarget{
-				Port:        port,
-				MetricsPath: expSetting.MetricsPath,
-				Job:         expSetting.JobName,
-			})
-		}
-	}
-	return targets, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Match based on port
+
+// Only export container if it has at least one matching port.

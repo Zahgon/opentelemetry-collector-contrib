@@ -5,11 +5,4 @@
 
 package filestorage // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/filestorage"
 
-import (
-	"os"
-	"path/filepath"
-)
-
-func getDefaultDirectory() string {
-	return filepath.Join(os.Getenv("ProgramData"), "Otelcol", "FileStorage")
-}
+func getDefaultDirectory() string { _ = "STUB: not implemented"; return "" }

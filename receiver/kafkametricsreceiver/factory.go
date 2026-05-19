@@ -9,11 +9,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkametricsreceiver/internal/metadata"
 )
 
 const (
@@ -22,27 +17,11 @@ const (
 )
 
 // NewFactory creates kafkametrics receiver factory.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	config := &Config{
-		ControllerConfig:     scraperhelper.NewDefaultControllerConfig(),
-		ClientConfig:         configkafka.NewDefaultClientConfig(),
-		GroupMatch:           defaultGroupMatch,
-		TopicMatch:           defaultTopicMatch,
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
-	if config.ClusterAlias != "" {
-		config.ResourceAttributes.KafkaClusterAlias.Enabled = true
-	}
-	return config
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -51,10 +30,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c := cfg.(*Config)
-	r, err := newMetricsReceiver(ctx, *c, params, nextConsumer)
-	if err != nil {
-		return nil, err
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

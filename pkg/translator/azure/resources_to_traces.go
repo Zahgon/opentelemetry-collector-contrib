@@ -4,14 +4,8 @@
 package azure // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/azure"
 
 import (
-	"bytes"
-	"encoding/hex"
-	"net/url"
-
-	json "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 )
 
@@ -68,123 +62,18 @@ type TracesUnmarshaler struct {
 }
 
 func (r TracesUnmarshaler) UnmarshalTraces(buf []byte) (ptrace.Traces, error) {
-	t := ptrace.NewTraces()
-
-	var azureTraces azureTracesRecords
-	decoder := json.NewDecoder(bytes.NewReader(buf))
-	err := decoder.Decode(&azureTraces)
-	if err != nil {
-		return t, err
-	}
-
-	resourceTraces := t.ResourceSpans().AppendEmpty()
-	resource := resourceTraces.Resource()
-	resource.Attributes().PutStr(string(conventions.TelemetrySDKNameKey), scopeName)
-	resource.Attributes().PutStr(string(conventions.TelemetrySDKLanguageKey), conventions.TelemetrySDKLanguageGo.Value.AsString())
-	resource.Attributes().PutStr(string(conventions.TelemetrySDKVersionKey), r.Version)
-	resource.Attributes().PutStr(string(conventions.CloudProviderKey), conventions.CloudProviderAzure.Value.AsString())
-
-	scopeSpans := resourceTraces.ScopeSpans().AppendEmpty()
-
-	spans := scopeSpans.Spans()
-
-	resourceID := ""
-	for i := range azureTraces.Records {
-		azureTrace := &azureTraces.Records[i]
-		if resourceID == "" && azureTrace.ResourceID != "" {
-			resourceID = azureTrace.ResourceID
-		}
-
-		resource.Attributes().PutStr("service.name", azureTrace.AppRoleName)
-
-		nanos, err := asTimestamp(azureTrace.Time, r.TimeFormats...)
-		if err != nil {
-			r.Logger.Warn("Invalid Timestamp", zap.String("time", azureTrace.Time))
-			continue
-		}
-
-		traceID, traceErr := TraceIDFromHex(azureTrace.OperationID)
-		if traceErr != nil {
-			r.Logger.Warn("Invalid TraceID", zap.String("traceID", azureTrace.OperationID))
-			return t, err
-		}
-		spanID, spanErr := SpanIDFromHex(azureTrace.SpanID)
-		if spanErr != nil {
-			r.Logger.Warn("Invalid SpanID", zap.String("spanID", azureTrace.SpanID))
-			return t, err
-		}
-		parentID, parentErr := SpanIDFromHex(azureTrace.ParentID)
-		if parentErr != nil {
-			r.Logger.Warn("Invalid ParentID", zap.String("parentID", azureTrace.ParentID))
-			return t, err
-		}
-
-		span := spans.AppendEmpty()
-		span.SetTraceID(traceID)
-		span.SetSpanID(spanID)
-		span.SetParentSpanID(parentID)
-
-		span.Attributes().PutStr("OperationName", azureTrace.OperationName)
-		span.Attributes().PutStr("AppRoleName", azureTrace.AppRoleName)
-		span.Attributes().PutStr("AppRoleInstance", azureTrace.AppRoleInstance)
-		span.Attributes().PutStr("Type", azureTrace.Type)
-
-		span.Attributes().PutStr("http.url", azureTrace.URL)
-
-		urlObj, _ := url.Parse(azureTrace.URL)
-		hostname := urlObj.Host
-		hostpath := urlObj.Path
-		scheme := urlObj.Scheme
-
-		span.Attributes().PutStr("http.host", hostname)
-		span.Attributes().PutStr("http.path", hostpath)
-		span.Attributes().PutStr("http.response.status_code", azureTrace.ResultCode)
-		span.Attributes().PutStr("http.client_ip", azureTrace.ClientIP)
-		span.Attributes().PutStr("http.client_city", azureTrace.ClientCity)
-		span.Attributes().PutStr("http.client_type", azureTrace.ClientType)
-		span.Attributes().PutStr("http.client_state", azureTrace.ClientStateOrProvince)
-		span.Attributes().PutStr("http.client_type", azureTrace.ClientType)
-		span.Attributes().PutStr("http.client_country", azureTrace.ClientCountryOrRegion)
-		span.Attributes().PutStr("http.scheme", scheme)
-		span.Attributes().PutStr("http.method", azureTrace.Properties["HTTP Method"])
-
-		for key, value := range azureTrace.Properties {
-			if key != "HTTP Method" { // HTTP Method is already mapped to http.method
-				span.Attributes().PutStr(key, value)
-			}
-		}
-
-		span.SetKind(ptrace.SpanKindServer)
-		span.SetName(azureTrace.Name)
-		span.SetStartTimestamp(nanos)
-		span.SetEndTimestamp(nanos + pcommon.Timestamp(azureTrace.DurationMs*1e6))
-	}
-
-	if resourceID != "" {
-		resourceTraces.Resource().Attributes().PutStr(traceAzureResourceID, resourceID)
-	} else {
-		r.Logger.Warn("No ResourceID Set on Traces!")
-	}
-
-	return t, nil
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
+// HTTP Method is already mapped to http.method
+
 func TraceIDFromHex(hexStr string) (pcommon.TraceID, error) {
-	bytes, err := hex.DecodeString(hexStr)
-	if err != nil {
-		return pcommon.TraceID{}, err
-	}
-	var id pcommon.TraceID
-	copy(id[:], bytes)
-	return id, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.TraceID), nil
 }
 
 func SpanIDFromHex(hexStr string) (pcommon.SpanID, error) {
-	bytes, err := hex.DecodeString(hexStr)
-	if err != nil {
-		return pcommon.SpanID{}, err
-	}
-	var id pcommon.SpanID
-	copy(id[:], bytes)
-	return id, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.SpanID), nil
 }

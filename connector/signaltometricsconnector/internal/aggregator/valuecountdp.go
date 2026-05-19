@@ -22,38 +22,17 @@ func newValueCountDP[K any](
 	md model.MetricDef[K],
 	attrs pcommon.Map,
 ) *valueCountDP {
-	var dp valueCountDP
-	if md.Key.Type == pmetric.MetricTypeExponentialHistogram {
-		dp.expHistogramDP = newExponentialHistogramDP(
-			attrs, md.ExponentialHistogram.MaxSize,
-		)
-	}
-	if md.Key.Type == pmetric.MetricTypeHistogram {
-		dp.explicitHistogramDP = newExplicitHistogramDP(
-			attrs, md.ExplicitHistogram.Buckets,
-		)
-	}
-	return &dp
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (dp *valueCountDP) Aggregate(value float64, count int64) {
-	if dp.expHistogramDP != nil {
-		dp.expHistogramDP.Aggregate(value, count)
-	}
-	if dp.explicitHistogramDP != nil {
-		dp.explicitHistogramDP.Aggregate(value, count)
-	}
-}
+func (dp *valueCountDP) Aggregate(value float64, count int64) { _ = "STUB: not implemented"; return }
 
 func (dp *valueCountDP) Copy(
 	timestamp time.Time,
 	destExpHist pmetric.ExponentialHistogram,
 	destExplicitHist pmetric.Histogram,
 ) {
-	if dp.expHistogramDP != nil {
-		dp.expHistogramDP.Copy(timestamp, destExpHist.DataPoints().AppendEmpty())
-	}
-	if dp.explicitHistogramDP != nil {
-		dp.explicitHistogramDP.Copy(timestamp, destExplicitHist.DataPoints().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }

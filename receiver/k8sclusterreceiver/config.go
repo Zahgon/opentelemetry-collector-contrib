@@ -4,7 +4,6 @@
 package k8sclusterreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/k8sclusterreceiver"
 
 import (
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -55,13 +54,4 @@ type Config struct {
 	K8sLeaderElector *component.ID `mapstructure:"k8s_leader_elector"`
 }
 
-func (cfg *Config) Validate() error {
-	switch cfg.Distribution {
-	case distributionOpenShift:
-	case distributionKubernetes:
-	default:
-		return fmt.Errorf("\"%s\" is not a supported distribution. Must be one of: \"openshift\", \"kubernetes\"", cfg.Distribution)
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

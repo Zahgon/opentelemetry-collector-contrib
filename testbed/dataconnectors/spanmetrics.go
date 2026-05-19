@@ -14,20 +14,17 @@ type SpanMetricDataConnector struct {
 var _ testbed.DataConnector = (*SpanMetricDataConnector)(nil)
 
 func NewSpanMetricDataConnector(receiverDataType string) *SpanMetricDataConnector {
-	return &SpanMetricDataConnector{DataConnectorBase: testbed.DataConnectorBase{ReceiverDataType: receiverDataType}}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*SpanMetricDataConnector) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates an exporter config for agent.
-	return `
-  spanmetrics:`
+	return ""
 }
 
 // ProtocolName returns protocol name as it is specified in Collector config.
-func (*SpanMetricDataConnector) ProtocolName() string {
-	return "spanmetrics"
-}
+func (*SpanMetricDataConnector) ProtocolName() string { _ = "STUB: not implemented"; return "" }
 
-func (smc *SpanMetricDataConnector) GetReceiverType() string {
-	return smc.ReceiverDataType
-}
+func (smc *SpanMetricDataConnector) GetReceiverType() string { _ = "STUB: not implemented"; return "" }

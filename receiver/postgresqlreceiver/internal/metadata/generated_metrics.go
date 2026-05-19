@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -32,19 +29,7 @@ const (
 )
 
 // String returns the string representation of the AttributeBgBufferSource.
-func (av AttributeBgBufferSource) String() string {
-	switch av {
-	case AttributeBgBufferSourceBackend:
-		return "backend"
-	case AttributeBgBufferSourceBackendFsync:
-		return "backend_fsync"
-	case AttributeBgBufferSourceCheckpoints:
-		return "checkpoints"
-	case AttributeBgBufferSourceBgwriter:
-		return "bgwriter"
-	}
-	return ""
-}
+func (av AttributeBgBufferSource) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeBgBufferSource is a helper map of string to AttributeBgBufferSource attribute value.
 var MapAttributeBgBufferSource = map[string]AttributeBgBufferSource{
@@ -64,15 +49,7 @@ const (
 )
 
 // String returns the string representation of the AttributeBgCheckpointType.
-func (av AttributeBgCheckpointType) String() string {
-	switch av {
-	case AttributeBgCheckpointTypeRequested:
-		return "requested"
-	case AttributeBgCheckpointTypeScheduled:
-		return "scheduled"
-	}
-	return ""
-}
+func (av AttributeBgCheckpointType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeBgCheckpointType is a helper map of string to AttributeBgCheckpointType attribute value.
 var MapAttributeBgCheckpointType = map[string]AttributeBgCheckpointType{
@@ -90,15 +67,7 @@ const (
 )
 
 // String returns the string representation of the AttributeBgDurationType.
-func (av AttributeBgDurationType) String() string {
-	switch av {
-	case AttributeBgDurationTypeSync:
-		return "sync"
-	case AttributeBgDurationTypeWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributeBgDurationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeBgDurationType is a helper map of string to AttributeBgDurationType attribute value.
 var MapAttributeBgDurationType = map[string]AttributeBgDurationType{
@@ -115,13 +84,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDbSystemName.
-func (av AttributeDbSystemName) String() string {
-	switch av {
-	case AttributeDbSystemNamePostgresql:
-		return "postgresql"
-	}
-	return ""
-}
+func (av AttributeDbSystemName) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDbSystemName is a helper map of string to AttributeDbSystemName attribute value.
 var MapAttributeDbSystemName = map[string]AttributeDbSystemName{
@@ -140,19 +103,7 @@ const (
 )
 
 // String returns the string representation of the AttributeOperation.
-func (av AttributeOperation) String() string {
-	switch av {
-	case AttributeOperationIns:
-		return "ins"
-	case AttributeOperationUpd:
-		return "upd"
-	case AttributeOperationDel:
-		return "del"
-	case AttributeOperationHotUpd:
-		return "hot_upd"
-	}
-	return ""
-}
+func (av AttributeOperation) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeOperation is a helper map of string to AttributeOperation attribute value.
 var MapAttributeOperation = map[string]AttributeOperation{
@@ -178,27 +129,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSource.
-func (av AttributeSource) String() string {
-	switch av {
-	case AttributeSourceHeapRead:
-		return "heap_read"
-	case AttributeSourceHeapHit:
-		return "heap_hit"
-	case AttributeSourceIdxRead:
-		return "idx_read"
-	case AttributeSourceIdxHit:
-		return "idx_hit"
-	case AttributeSourceToastRead:
-		return "toast_read"
-	case AttributeSourceToastHit:
-		return "toast_hit"
-	case AttributeSourceTidxRead:
-		return "tidx_read"
-	case AttributeSourceTidxHit:
-		return "tidx_hit"
-	}
-	return ""
-}
+func (av AttributeSource) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSource is a helper map of string to AttributeSource attribute value.
 var MapAttributeSource = map[string]AttributeSource{
@@ -222,15 +153,7 @@ const (
 )
 
 // String returns the string representation of the AttributeState.
-func (av AttributeState) String() string {
-	switch av {
-	case AttributeStateDead:
-		return "dead"
-	case AttributeStateLive:
-		return "live"
-	}
-	return ""
-}
+func (av AttributeState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeState is a helper map of string to AttributeState attribute value.
 var MapAttributeState = map[string]AttributeState{
@@ -249,17 +172,7 @@ const (
 )
 
 // String returns the string representation of the AttributeWalOperationLag.
-func (av AttributeWalOperationLag) String() string {
-	switch av {
-	case AttributeWalOperationLagFlush:
-		return "flush"
-	case AttributeWalOperationLagReplay:
-		return "replay"
-	case AttributeWalOperationLagWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributeWalOperationLag) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeWalOperationLag is a helper map of string to AttributeWalOperationLag attribute value.
 var MapAttributeWalOperationLag = map[string]AttributeWalOperationLag{
@@ -439,39 +352,22 @@ func (m *metricPostgresqlBackends) init() {
 }
 
 func (m *metricPostgresqlBackends) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBackends) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBackends) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBackends) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBackends(cfg PostgresqlBackendsMetricConfig) metricPostgresqlBackends {
-	m := metricPostgresqlBackends{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBackends)
 }
 
 type metricPostgresqlBgwriterBuffersAllocated struct {
@@ -491,39 +387,25 @@ func (m *metricPostgresqlBgwriterBuffersAllocated) init() {
 }
 
 func (m *metricPostgresqlBgwriterBuffersAllocated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricPostgresqlBgwriterBuffersAllocated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBgwriterBuffersAllocated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBgwriterBuffersAllocated(cfg PostgresqlBgwriterBuffersAllocatedMetricConfig) metricPostgresqlBgwriterBuffersAllocated {
-	m := metricPostgresqlBgwriterBuffersAllocated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBgwriterBuffersAllocated)
 }
 
 type metricPostgresqlBgwriterBuffersWrites struct {
@@ -546,75 +428,22 @@ func (m *metricPostgresqlBgwriterBuffersWrites) init() {
 }
 
 func (m *metricPostgresqlBgwriterBuffersWrites) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, bgBufferSourceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlBgwriterBuffersWritesMetricAttributeKeyBgBufferSource) {
-		dp.Attributes().PutStr("source", bgBufferSourceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBgwriterBuffersWrites) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBgwriterBuffersWrites) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBgwriterBuffersWrites) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBgwriterBuffersWrites(cfg PostgresqlBgwriterBuffersWritesMetricConfig) metricPostgresqlBgwriterBuffersWrites {
-	m := metricPostgresqlBgwriterBuffersWrites{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBgwriterBuffersWrites)
 }
 
 type metricPostgresqlBgwriterCheckpointCount struct {
@@ -637,75 +466,25 @@ func (m *metricPostgresqlBgwriterCheckpointCount) init() {
 }
 
 func (m *metricPostgresqlBgwriterCheckpointCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, bgCheckpointTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlBgwriterCheckpointCountMetricAttributeKeyBgCheckpointType) {
-		dp.Attributes().PutStr("type", bgCheckpointTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricPostgresqlBgwriterCheckpointCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBgwriterCheckpointCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBgwriterCheckpointCount(cfg PostgresqlBgwriterCheckpointCountMetricConfig) metricPostgresqlBgwriterCheckpointCount {
-	m := metricPostgresqlBgwriterCheckpointCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBgwriterCheckpointCount)
 }
 
 type metricPostgresqlBgwriterDuration struct {
@@ -728,75 +507,22 @@ func (m *metricPostgresqlBgwriterDuration) init() {
 }
 
 func (m *metricPostgresqlBgwriterDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, bgDurationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlBgwriterDurationMetricAttributeKeyBgDurationType) {
-		dp.Attributes().PutStr("type", bgDurationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBgwriterDuration) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBgwriterDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBgwriterDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBgwriterDuration(cfg PostgresqlBgwriterDurationMetricConfig) metricPostgresqlBgwriterDuration {
-	m := metricPostgresqlBgwriterDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBgwriterDuration)
 }
 
 type metricPostgresqlBgwriterMaxwritten struct {
@@ -816,39 +542,22 @@ func (m *metricPostgresqlBgwriterMaxwritten) init() {
 }
 
 func (m *metricPostgresqlBgwriterMaxwritten) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBgwriterMaxwritten) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBgwriterMaxwritten) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBgwriterMaxwritten) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBgwriterMaxwritten(cfg PostgresqlBgwriterMaxwrittenMetricConfig) metricPostgresqlBgwriterMaxwritten {
-	m := metricPostgresqlBgwriterMaxwritten{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBgwriterMaxwritten)
 }
 
 type metricPostgresqlBlksHit struct {
@@ -868,39 +577,22 @@ func (m *metricPostgresqlBlksHit) init() {
 }
 
 func (m *metricPostgresqlBlksHit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBlksHit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBlksHit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBlksHit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBlksHit(cfg PostgresqlBlksHitMetricConfig) metricPostgresqlBlksHit {
-	m := metricPostgresqlBlksHit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBlksHit)
 }
 
 type metricPostgresqlBlksRead struct {
@@ -920,39 +612,22 @@ func (m *metricPostgresqlBlksRead) init() {
 }
 
 func (m *metricPostgresqlBlksRead) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBlksRead) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBlksRead) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBlksRead) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBlksRead(cfg PostgresqlBlksReadMetricConfig) metricPostgresqlBlksRead {
-	m := metricPostgresqlBlksRead{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBlksRead)
 }
 
 type metricPostgresqlBlocksRead struct {
@@ -975,75 +650,22 @@ func (m *metricPostgresqlBlocksRead) init() {
 }
 
 func (m *metricPostgresqlBlocksRead) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, sourceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlBlocksReadMetricAttributeKeySource) {
-		dp.Attributes().PutStr("source", sourceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlBlocksRead) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlBlocksRead) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlBlocksRead) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlBlocksRead(cfg PostgresqlBlocksReadMetricConfig) metricPostgresqlBlocksRead {
-	m := metricPostgresqlBlocksRead{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlBlocksRead)
 }
 
 type metricPostgresqlCommits struct {
@@ -1063,39 +685,22 @@ func (m *metricPostgresqlCommits) init() {
 }
 
 func (m *metricPostgresqlCommits) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlCommits) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlCommits) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlCommits) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlCommits(cfg PostgresqlCommitsMetricConfig) metricPostgresqlCommits {
-	m := metricPostgresqlCommits{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlCommits)
 }
 
 type metricPostgresqlConnectionMax struct {
@@ -1113,39 +718,22 @@ func (m *metricPostgresqlConnectionMax) init() {
 }
 
 func (m *metricPostgresqlConnectionMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlConnectionMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlConnectionMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlConnectionMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlConnectionMax(cfg PostgresqlConnectionMaxMetricConfig) metricPostgresqlConnectionMax {
-	m := metricPostgresqlConnectionMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlConnectionMax)
 }
 
 type metricPostgresqlDatabaseCount struct {
@@ -1165,39 +753,22 @@ func (m *metricPostgresqlDatabaseCount) init() {
 }
 
 func (m *metricPostgresqlDatabaseCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlDatabaseCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlDatabaseCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlDatabaseCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlDatabaseCount(cfg PostgresqlDatabaseCountMetricConfig) metricPostgresqlDatabaseCount {
-	m := metricPostgresqlDatabaseCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlDatabaseCount)
 }
 
 type metricPostgresqlDatabaseLocks struct {
@@ -1218,81 +789,22 @@ func (m *metricPostgresqlDatabaseLocks) init() {
 }
 
 func (m *metricPostgresqlDatabaseLocks) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, relationAttributeValue string, modeAttributeValue string, lockTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlDatabaseLocksMetricAttributeKeyRelation) {
-		dp.Attributes().PutStr("relation", relationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlDatabaseLocksMetricAttributeKeyMode) {
-		dp.Attributes().PutStr("mode", modeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlDatabaseLocksMetricAttributeKeyLockType) {
-		dp.Attributes().PutStr("lock_type", lockTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlDatabaseLocks) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlDatabaseLocks) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlDatabaseLocks) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlDatabaseLocks(cfg PostgresqlDatabaseLocksMetricConfig) metricPostgresqlDatabaseLocks {
-	m := metricPostgresqlDatabaseLocks{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlDatabaseLocks)
 }
 
 type metricPostgresqlDbSize struct {
@@ -1312,39 +824,22 @@ func (m *metricPostgresqlDbSize) init() {
 }
 
 func (m *metricPostgresqlDbSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlDbSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlDbSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlDbSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlDbSize(cfg PostgresqlDbSizeMetricConfig) metricPostgresqlDbSize {
-	m := metricPostgresqlDbSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlDbSize)
 }
 
 type metricPostgresqlDeadlocks struct {
@@ -1364,39 +859,22 @@ func (m *metricPostgresqlDeadlocks) init() {
 }
 
 func (m *metricPostgresqlDeadlocks) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlDeadlocks) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlDeadlocks) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlDeadlocks) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlDeadlocks(cfg PostgresqlDeadlocksMetricConfig) metricPostgresqlDeadlocks {
-	m := metricPostgresqlDeadlocks{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlDeadlocks)
 }
 
 type metricPostgresqlFunctionCalls struct {
@@ -1419,75 +897,22 @@ func (m *metricPostgresqlFunctionCalls) init() {
 }
 
 func (m *metricPostgresqlFunctionCalls) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, functionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlFunctionCallsMetricAttributeKeyFunction) {
-		dp.Attributes().PutStr("function", functionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlFunctionCalls) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlFunctionCalls) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlFunctionCalls) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlFunctionCalls(cfg PostgresqlFunctionCallsMetricConfig) metricPostgresqlFunctionCalls {
-	m := metricPostgresqlFunctionCalls{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlFunctionCalls)
 }
 
 type metricPostgresqlIndexScans struct {
@@ -1507,39 +932,22 @@ func (m *metricPostgresqlIndexScans) init() {
 }
 
 func (m *metricPostgresqlIndexScans) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlIndexScans) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlIndexScans) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlIndexScans) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlIndexScans(cfg PostgresqlIndexScansMetricConfig) metricPostgresqlIndexScans {
-	m := metricPostgresqlIndexScans{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlIndexScans)
 }
 
 type metricPostgresqlIndexSize struct {
@@ -1557,39 +965,22 @@ func (m *metricPostgresqlIndexSize) init() {
 }
 
 func (m *metricPostgresqlIndexSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlIndexSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlIndexSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlIndexSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlIndexSize(cfg PostgresqlIndexSizeMetricConfig) metricPostgresqlIndexSize {
-	m := metricPostgresqlIndexSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlIndexSize)
 }
 
 type metricPostgresqlOperations struct {
@@ -1612,75 +1003,22 @@ func (m *metricPostgresqlOperations) init() {
 }
 
 func (m *metricPostgresqlOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlOperationsMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlOperations) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlOperations(cfg PostgresqlOperationsMetricConfig) metricPostgresqlOperations {
-	m := metricPostgresqlOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlOperations)
 }
 
 type metricPostgresqlReplicationDataDelay struct {
@@ -1701,75 +1039,22 @@ func (m *metricPostgresqlReplicationDataDelay) init() {
 }
 
 func (m *metricPostgresqlReplicationDataDelay) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, replicationClientAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlReplicationDataDelayMetricAttributeKeyReplicationClient) {
-		dp.Attributes().PutStr("replication_client", replicationClientAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlReplicationDataDelay) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlReplicationDataDelay) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlReplicationDataDelay) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlReplicationDataDelay(cfg PostgresqlReplicationDataDelayMetricConfig) metricPostgresqlReplicationDataDelay {
-	m := metricPostgresqlReplicationDataDelay{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlReplicationDataDelay)
 }
 
 type metricPostgresqlRollbacks struct {
@@ -1789,39 +1074,22 @@ func (m *metricPostgresqlRollbacks) init() {
 }
 
 func (m *metricPostgresqlRollbacks) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlRollbacks) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlRollbacks) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlRollbacks) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlRollbacks(cfg PostgresqlRollbacksMetricConfig) metricPostgresqlRollbacks {
-	m := metricPostgresqlRollbacks{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlRollbacks)
 }
 
 type metricPostgresqlRows struct {
@@ -1844,75 +1112,19 @@ func (m *metricPostgresqlRows) init() {
 }
 
 func (m *metricPostgresqlRows) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlRowsMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlRows) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlRows) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricPostgresqlRows) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricPostgresqlRows) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricPostgresqlRows(cfg PostgresqlRowsMetricConfig) metricPostgresqlRows {
-	m := metricPostgresqlRows{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlRows)
 }
 
 type metricPostgresqlSequentialScans struct {
@@ -1932,39 +1144,22 @@ func (m *metricPostgresqlSequentialScans) init() {
 }
 
 func (m *metricPostgresqlSequentialScans) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlSequentialScans) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlSequentialScans) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlSequentialScans) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlSequentialScans(cfg PostgresqlSequentialScansMetricConfig) metricPostgresqlSequentialScans {
-	m := metricPostgresqlSequentialScans{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlSequentialScans)
 }
 
 type metricPostgresqlTableCount struct {
@@ -1984,39 +1179,22 @@ func (m *metricPostgresqlTableCount) init() {
 }
 
 func (m *metricPostgresqlTableCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTableCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTableCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTableCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTableCount(cfg PostgresqlTableCountMetricConfig) metricPostgresqlTableCount {
-	m := metricPostgresqlTableCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTableCount)
 }
 
 type metricPostgresqlTableSize struct {
@@ -2036,39 +1214,22 @@ func (m *metricPostgresqlTableSize) init() {
 }
 
 func (m *metricPostgresqlTableSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTableSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTableSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTableSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTableSize(cfg PostgresqlTableSizeMetricConfig) metricPostgresqlTableSize {
-	m := metricPostgresqlTableSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTableSize)
 }
 
 type metricPostgresqlTableVacuumCount struct {
@@ -2088,39 +1249,22 @@ func (m *metricPostgresqlTableVacuumCount) init() {
 }
 
 func (m *metricPostgresqlTableVacuumCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTableVacuumCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTableVacuumCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTableVacuumCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTableVacuumCount(cfg PostgresqlTableVacuumCountMetricConfig) metricPostgresqlTableVacuumCount {
-	m := metricPostgresqlTableVacuumCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTableVacuumCount)
 }
 
 type metricPostgresqlTempIo struct {
@@ -2140,39 +1284,22 @@ func (m *metricPostgresqlTempIo) init() {
 }
 
 func (m *metricPostgresqlTempIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTempIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTempIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTempIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTempIo(cfg PostgresqlTempIoMetricConfig) metricPostgresqlTempIo {
-	m := metricPostgresqlTempIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTempIo)
 }
 
 type metricPostgresqlTempFiles struct {
@@ -2192,39 +1319,22 @@ func (m *metricPostgresqlTempFiles) init() {
 }
 
 func (m *metricPostgresqlTempFiles) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTempFiles) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTempFiles) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTempFiles) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTempFiles(cfg PostgresqlTempFilesMetricConfig) metricPostgresqlTempFiles {
-	m := metricPostgresqlTempFiles{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTempFiles)
 }
 
 type metricPostgresqlTupDeleted struct {
@@ -2244,39 +1354,22 @@ func (m *metricPostgresqlTupDeleted) init() {
 }
 
 func (m *metricPostgresqlTupDeleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTupDeleted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTupDeleted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTupDeleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTupDeleted(cfg PostgresqlTupDeletedMetricConfig) metricPostgresqlTupDeleted {
-	m := metricPostgresqlTupDeleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTupDeleted)
 }
 
 type metricPostgresqlTupFetched struct {
@@ -2296,39 +1389,22 @@ func (m *metricPostgresqlTupFetched) init() {
 }
 
 func (m *metricPostgresqlTupFetched) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTupFetched) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTupFetched) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTupFetched) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTupFetched(cfg PostgresqlTupFetchedMetricConfig) metricPostgresqlTupFetched {
-	m := metricPostgresqlTupFetched{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTupFetched)
 }
 
 type metricPostgresqlTupInserted struct {
@@ -2348,39 +1424,22 @@ func (m *metricPostgresqlTupInserted) init() {
 }
 
 func (m *metricPostgresqlTupInserted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTupInserted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTupInserted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTupInserted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTupInserted(cfg PostgresqlTupInsertedMetricConfig) metricPostgresqlTupInserted {
-	m := metricPostgresqlTupInserted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTupInserted)
 }
 
 type metricPostgresqlTupReturned struct {
@@ -2400,39 +1459,22 @@ func (m *metricPostgresqlTupReturned) init() {
 }
 
 func (m *metricPostgresqlTupReturned) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTupReturned) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTupReturned) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTupReturned) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTupReturned(cfg PostgresqlTupReturnedMetricConfig) metricPostgresqlTupReturned {
-	m := metricPostgresqlTupReturned{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTupReturned)
 }
 
 type metricPostgresqlTupUpdated struct {
@@ -2452,39 +1494,22 @@ func (m *metricPostgresqlTupUpdated) init() {
 }
 
 func (m *metricPostgresqlTupUpdated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlTupUpdated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlTupUpdated) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlTupUpdated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlTupUpdated(cfg PostgresqlTupUpdatedMetricConfig) metricPostgresqlTupUpdated {
-	m := metricPostgresqlTupUpdated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlTupUpdated)
 }
 
 type metricPostgresqlWalAge struct {
@@ -2502,39 +1527,22 @@ func (m *metricPostgresqlWalAge) init() {
 }
 
 func (m *metricPostgresqlWalAge) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlWalAge) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlWalAge) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlWalAge) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlWalAge(cfg PostgresqlWalAgeMetricConfig) metricPostgresqlWalAge {
-	m := metricPostgresqlWalAge{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlWalAge)
 }
 
 type metricPostgresqlWalDelay struct {
@@ -2555,78 +1563,22 @@ func (m *metricPostgresqlWalDelay) init() {
 }
 
 func (m *metricPostgresqlWalDelay) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, walOperationLagAttributeValue string, replicationClientAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlWalDelayMetricAttributeKeyWalOperationLag) {
-		dp.Attributes().PutStr("operation", walOperationLagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlWalDelayMetricAttributeKeyReplicationClient) {
-		dp.Attributes().PutStr("replication_client", replicationClientAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlWalDelay) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlWalDelay) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlWalDelay) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlWalDelay(cfg PostgresqlWalDelayMetricConfig) metricPostgresqlWalDelay {
-	m := metricPostgresqlWalDelay{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlWalDelay)
 }
 
 type metricPostgresqlWalLag struct {
@@ -2647,78 +1599,22 @@ func (m *metricPostgresqlWalLag) init() {
 }
 
 func (m *metricPostgresqlWalLag) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, walOperationLagAttributeValue string, replicationClientAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlWalLagMetricAttributeKeyWalOperationLag) {
-		dp.Attributes().PutStr("operation", walOperationLagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, PostgresqlWalLagMetricAttributeKeyReplicationClient) {
-		dp.Attributes().PutStr("replication_client", replicationClientAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricPostgresqlWalLag) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricPostgresqlWalLag) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricPostgresqlWalLag) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricPostgresqlWalLag(cfg PostgresqlWalLagMetricConfig) metricPostgresqlWalLag {
-	m := metricPostgresqlWalLag{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricPostgresqlWalLag)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -2777,107 +1673,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                   mbc,
-		startTime:                                pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                            pmetric.NewMetrics(),
-		buildInfo:                                settings.BuildInfo,
-		metricPostgresqlBackends:                 newMetricPostgresqlBackends(mbc.Metrics.PostgresqlBackends),
-		metricPostgresqlBgwriterBuffersAllocated: newMetricPostgresqlBgwriterBuffersAllocated(mbc.Metrics.PostgresqlBgwriterBuffersAllocated),
-		metricPostgresqlBgwriterBuffersWrites:    newMetricPostgresqlBgwriterBuffersWrites(mbc.Metrics.PostgresqlBgwriterBuffersWrites),
-		metricPostgresqlBgwriterCheckpointCount:  newMetricPostgresqlBgwriterCheckpointCount(mbc.Metrics.PostgresqlBgwriterCheckpointCount),
-		metricPostgresqlBgwriterDuration:         newMetricPostgresqlBgwriterDuration(mbc.Metrics.PostgresqlBgwriterDuration),
-		metricPostgresqlBgwriterMaxwritten:       newMetricPostgresqlBgwriterMaxwritten(mbc.Metrics.PostgresqlBgwriterMaxwritten),
-		metricPostgresqlBlksHit:                  newMetricPostgresqlBlksHit(mbc.Metrics.PostgresqlBlksHit),
-		metricPostgresqlBlksRead:                 newMetricPostgresqlBlksRead(mbc.Metrics.PostgresqlBlksRead),
-		metricPostgresqlBlocksRead:               newMetricPostgresqlBlocksRead(mbc.Metrics.PostgresqlBlocksRead),
-		metricPostgresqlCommits:                  newMetricPostgresqlCommits(mbc.Metrics.PostgresqlCommits),
-		metricPostgresqlConnectionMax:            newMetricPostgresqlConnectionMax(mbc.Metrics.PostgresqlConnectionMax),
-		metricPostgresqlDatabaseCount:            newMetricPostgresqlDatabaseCount(mbc.Metrics.PostgresqlDatabaseCount),
-		metricPostgresqlDatabaseLocks:            newMetricPostgresqlDatabaseLocks(mbc.Metrics.PostgresqlDatabaseLocks),
-		metricPostgresqlDbSize:                   newMetricPostgresqlDbSize(mbc.Metrics.PostgresqlDbSize),
-		metricPostgresqlDeadlocks:                newMetricPostgresqlDeadlocks(mbc.Metrics.PostgresqlDeadlocks),
-		metricPostgresqlFunctionCalls:            newMetricPostgresqlFunctionCalls(mbc.Metrics.PostgresqlFunctionCalls),
-		metricPostgresqlIndexScans:               newMetricPostgresqlIndexScans(mbc.Metrics.PostgresqlIndexScans),
-		metricPostgresqlIndexSize:                newMetricPostgresqlIndexSize(mbc.Metrics.PostgresqlIndexSize),
-		metricPostgresqlOperations:               newMetricPostgresqlOperations(mbc.Metrics.PostgresqlOperations),
-		metricPostgresqlReplicationDataDelay:     newMetricPostgresqlReplicationDataDelay(mbc.Metrics.PostgresqlReplicationDataDelay),
-		metricPostgresqlRollbacks:                newMetricPostgresqlRollbacks(mbc.Metrics.PostgresqlRollbacks),
-		metricPostgresqlRows:                     newMetricPostgresqlRows(mbc.Metrics.PostgresqlRows),
-		metricPostgresqlSequentialScans:          newMetricPostgresqlSequentialScans(mbc.Metrics.PostgresqlSequentialScans),
-		metricPostgresqlTableCount:               newMetricPostgresqlTableCount(mbc.Metrics.PostgresqlTableCount),
-		metricPostgresqlTableSize:                newMetricPostgresqlTableSize(mbc.Metrics.PostgresqlTableSize),
-		metricPostgresqlTableVacuumCount:         newMetricPostgresqlTableVacuumCount(mbc.Metrics.PostgresqlTableVacuumCount),
-		metricPostgresqlTempIo:                   newMetricPostgresqlTempIo(mbc.Metrics.PostgresqlTempIo),
-		metricPostgresqlTempFiles:                newMetricPostgresqlTempFiles(mbc.Metrics.PostgresqlTempFiles),
-		metricPostgresqlTupDeleted:               newMetricPostgresqlTupDeleted(mbc.Metrics.PostgresqlTupDeleted),
-		metricPostgresqlTupFetched:               newMetricPostgresqlTupFetched(mbc.Metrics.PostgresqlTupFetched),
-		metricPostgresqlTupInserted:              newMetricPostgresqlTupInserted(mbc.Metrics.PostgresqlTupInserted),
-		metricPostgresqlTupReturned:              newMetricPostgresqlTupReturned(mbc.Metrics.PostgresqlTupReturned),
-		metricPostgresqlTupUpdated:               newMetricPostgresqlTupUpdated(mbc.Metrics.PostgresqlTupUpdated),
-		metricPostgresqlWalAge:                   newMetricPostgresqlWalAge(mbc.Metrics.PostgresqlWalAge),
-		metricPostgresqlWalDelay:                 newMetricPostgresqlWalDelay(mbc.Metrics.PostgresqlWalDelay),
-		metricPostgresqlWalLag:                   newMetricPostgresqlWalLag(mbc.Metrics.PostgresqlWalLag),
-		resourceAttributeIncludeFilter:           make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:           make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.PostgresqlDatabaseName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["postgresql.database.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlDatabaseName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlDatabaseName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["postgresql.database.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlDatabaseName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlIndexName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["postgresql.index.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlIndexName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlIndexName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["postgresql.index.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlIndexName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlSchemaName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["postgresql.schema.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlSchemaName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlSchemaName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["postgresql.schema.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlSchemaName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlTableName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["postgresql.table.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlTableName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.PostgresqlTableName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["postgresql.table.name"] = filter.CreateFilter(mbc.ResourceAttributes.PostgresqlTableName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServiceInstanceID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["service.instance.id"] = filter.CreateFilter(mbc.ResourceAttributes.ServiceInstanceID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServiceInstanceID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["service.instance.id"] = filter.CreateFilter(mbc.ResourceAttributes.ServiceInstanceID.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -2888,35 +1709,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -2925,263 +1734,234 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricPostgresqlBackends.emit(ils.Metrics())
-	mb.metricPostgresqlBgwriterBuffersAllocated.emit(ils.Metrics())
-	mb.metricPostgresqlBgwriterBuffersWrites.emit(ils.Metrics())
-	mb.metricPostgresqlBgwriterCheckpointCount.emit(ils.Metrics())
-	mb.metricPostgresqlBgwriterDuration.emit(ils.Metrics())
-	mb.metricPostgresqlBgwriterMaxwritten.emit(ils.Metrics())
-	mb.metricPostgresqlBlksHit.emit(ils.Metrics())
-	mb.metricPostgresqlBlksRead.emit(ils.Metrics())
-	mb.metricPostgresqlBlocksRead.emit(ils.Metrics())
-	mb.metricPostgresqlCommits.emit(ils.Metrics())
-	mb.metricPostgresqlConnectionMax.emit(ils.Metrics())
-	mb.metricPostgresqlDatabaseCount.emit(ils.Metrics())
-	mb.metricPostgresqlDatabaseLocks.emit(ils.Metrics())
-	mb.metricPostgresqlDbSize.emit(ils.Metrics())
-	mb.metricPostgresqlDeadlocks.emit(ils.Metrics())
-	mb.metricPostgresqlFunctionCalls.emit(ils.Metrics())
-	mb.metricPostgresqlIndexScans.emit(ils.Metrics())
-	mb.metricPostgresqlIndexSize.emit(ils.Metrics())
-	mb.metricPostgresqlOperations.emit(ils.Metrics())
-	mb.metricPostgresqlReplicationDataDelay.emit(ils.Metrics())
-	mb.metricPostgresqlRollbacks.emit(ils.Metrics())
-	mb.metricPostgresqlRows.emit(ils.Metrics())
-	mb.metricPostgresqlSequentialScans.emit(ils.Metrics())
-	mb.metricPostgresqlTableCount.emit(ils.Metrics())
-	mb.metricPostgresqlTableSize.emit(ils.Metrics())
-	mb.metricPostgresqlTableVacuumCount.emit(ils.Metrics())
-	mb.metricPostgresqlTempIo.emit(ils.Metrics())
-	mb.metricPostgresqlTempFiles.emit(ils.Metrics())
-	mb.metricPostgresqlTupDeleted.emit(ils.Metrics())
-	mb.metricPostgresqlTupFetched.emit(ils.Metrics())
-	mb.metricPostgresqlTupInserted.emit(ils.Metrics())
-	mb.metricPostgresqlTupReturned.emit(ils.Metrics())
-	mb.metricPostgresqlTupUpdated.emit(ils.Metrics())
-	mb.metricPostgresqlWalAge.emit(ils.Metrics())
-	mb.metricPostgresqlWalDelay.emit(ils.Metrics())
-	mb.metricPostgresqlWalLag.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordPostgresqlBackendsDataPoint adds a data point to postgresql.backends metric.
 func (mb *MetricsBuilder) RecordPostgresqlBackendsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlBackends.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBgwriterBuffersAllocatedDataPoint adds a data point to postgresql.bgwriter.buffers.allocated metric.
 func (mb *MetricsBuilder) RecordPostgresqlBgwriterBuffersAllocatedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlBgwriterBuffersAllocated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBgwriterBuffersWritesDataPoint adds a data point to postgresql.bgwriter.buffers.writes metric.
 func (mb *MetricsBuilder) RecordPostgresqlBgwriterBuffersWritesDataPoint(ts pcommon.Timestamp, val int64, bgBufferSourceAttributeValue AttributeBgBufferSource) {
-	mb.metricPostgresqlBgwriterBuffersWrites.recordDataPoint(mb.startTime, ts, val, bgBufferSourceAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBgwriterCheckpointCountDataPoint adds a data point to postgresql.bgwriter.checkpoint.count metric.
 func (mb *MetricsBuilder) RecordPostgresqlBgwriterCheckpointCountDataPoint(ts pcommon.Timestamp, val int64, bgCheckpointTypeAttributeValue AttributeBgCheckpointType) {
-	mb.metricPostgresqlBgwriterCheckpointCount.recordDataPoint(mb.startTime, ts, val, bgCheckpointTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBgwriterDurationDataPoint adds a data point to postgresql.bgwriter.duration metric.
 func (mb *MetricsBuilder) RecordPostgresqlBgwriterDurationDataPoint(ts pcommon.Timestamp, val float64, bgDurationTypeAttributeValue AttributeBgDurationType) {
-	mb.metricPostgresqlBgwriterDuration.recordDataPoint(mb.startTime, ts, val, bgDurationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBgwriterMaxwrittenDataPoint adds a data point to postgresql.bgwriter.maxwritten metric.
 func (mb *MetricsBuilder) RecordPostgresqlBgwriterMaxwrittenDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlBgwriterMaxwritten.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBlksHitDataPoint adds a data point to postgresql.blks_hit metric.
 func (mb *MetricsBuilder) RecordPostgresqlBlksHitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlBlksHit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBlksReadDataPoint adds a data point to postgresql.blks_read metric.
 func (mb *MetricsBuilder) RecordPostgresqlBlksReadDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlBlksRead.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlBlocksReadDataPoint adds a data point to postgresql.blocks_read metric.
 func (mb *MetricsBuilder) RecordPostgresqlBlocksReadDataPoint(ts pcommon.Timestamp, val int64, sourceAttributeValue AttributeSource) {
-	mb.metricPostgresqlBlocksRead.recordDataPoint(mb.startTime, ts, val, sourceAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlCommitsDataPoint adds a data point to postgresql.commits metric.
 func (mb *MetricsBuilder) RecordPostgresqlCommitsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlCommits.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlConnectionMaxDataPoint adds a data point to postgresql.connection.max metric.
 func (mb *MetricsBuilder) RecordPostgresqlConnectionMaxDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlConnectionMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlDatabaseCountDataPoint adds a data point to postgresql.database.count metric.
 func (mb *MetricsBuilder) RecordPostgresqlDatabaseCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlDatabaseCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlDatabaseLocksDataPoint adds a data point to postgresql.database.locks metric.
 func (mb *MetricsBuilder) RecordPostgresqlDatabaseLocksDataPoint(ts pcommon.Timestamp, val int64, relationAttributeValue string, modeAttributeValue string, lockTypeAttributeValue string) {
-	mb.metricPostgresqlDatabaseLocks.recordDataPoint(mb.startTime, ts, val, relationAttributeValue, modeAttributeValue, lockTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlDbSizeDataPoint adds a data point to postgresql.db_size metric.
 func (mb *MetricsBuilder) RecordPostgresqlDbSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlDbSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlDeadlocksDataPoint adds a data point to postgresql.deadlocks metric.
 func (mb *MetricsBuilder) RecordPostgresqlDeadlocksDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlDeadlocks.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlFunctionCallsDataPoint adds a data point to postgresql.function.calls metric.
 func (mb *MetricsBuilder) RecordPostgresqlFunctionCallsDataPoint(ts pcommon.Timestamp, val int64, functionAttributeValue string) {
-	mb.metricPostgresqlFunctionCalls.recordDataPoint(mb.startTime, ts, val, functionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlIndexScansDataPoint adds a data point to postgresql.index.scans metric.
 func (mb *MetricsBuilder) RecordPostgresqlIndexScansDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlIndexScans.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlIndexSizeDataPoint adds a data point to postgresql.index.size metric.
 func (mb *MetricsBuilder) RecordPostgresqlIndexSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlIndexSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlOperationsDataPoint adds a data point to postgresql.operations metric.
 func (mb *MetricsBuilder) RecordPostgresqlOperationsDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation) {
-	mb.metricPostgresqlOperations.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlReplicationDataDelayDataPoint adds a data point to postgresql.replication.data_delay metric.
 func (mb *MetricsBuilder) RecordPostgresqlReplicationDataDelayDataPoint(ts pcommon.Timestamp, val int64, replicationClientAttributeValue string) {
-	mb.metricPostgresqlReplicationDataDelay.recordDataPoint(mb.startTime, ts, val, replicationClientAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlRollbacksDataPoint adds a data point to postgresql.rollbacks metric.
 func (mb *MetricsBuilder) RecordPostgresqlRollbacksDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlRollbacks.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlRowsDataPoint adds a data point to postgresql.rows metric.
 func (mb *MetricsBuilder) RecordPostgresqlRowsDataPoint(ts pcommon.Timestamp, val int64, stateAttributeValue AttributeState) {
-	mb.metricPostgresqlRows.recordDataPoint(mb.startTime, ts, val, stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlSequentialScansDataPoint adds a data point to postgresql.sequential_scans metric.
 func (mb *MetricsBuilder) RecordPostgresqlSequentialScansDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlSequentialScans.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTableCountDataPoint adds a data point to postgresql.table.count metric.
 func (mb *MetricsBuilder) RecordPostgresqlTableCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTableCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTableSizeDataPoint adds a data point to postgresql.table.size metric.
 func (mb *MetricsBuilder) RecordPostgresqlTableSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTableSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTableVacuumCountDataPoint adds a data point to postgresql.table.vacuum.count metric.
 func (mb *MetricsBuilder) RecordPostgresqlTableVacuumCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTableVacuumCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTempIoDataPoint adds a data point to postgresql.temp.io metric.
 func (mb *MetricsBuilder) RecordPostgresqlTempIoDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTempIo.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTempFilesDataPoint adds a data point to postgresql.temp_files metric.
 func (mb *MetricsBuilder) RecordPostgresqlTempFilesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTempFiles.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTupDeletedDataPoint adds a data point to postgresql.tup_deleted metric.
 func (mb *MetricsBuilder) RecordPostgresqlTupDeletedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTupDeleted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTupFetchedDataPoint adds a data point to postgresql.tup_fetched metric.
 func (mb *MetricsBuilder) RecordPostgresqlTupFetchedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTupFetched.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTupInsertedDataPoint adds a data point to postgresql.tup_inserted metric.
 func (mb *MetricsBuilder) RecordPostgresqlTupInsertedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTupInserted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTupReturnedDataPoint adds a data point to postgresql.tup_returned metric.
 func (mb *MetricsBuilder) RecordPostgresqlTupReturnedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTupReturned.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlTupUpdatedDataPoint adds a data point to postgresql.tup_updated metric.
 func (mb *MetricsBuilder) RecordPostgresqlTupUpdatedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlTupUpdated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlWalAgeDataPoint adds a data point to postgresql.wal.age metric.
 func (mb *MetricsBuilder) RecordPostgresqlWalAgeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricPostgresqlWalAge.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlWalDelayDataPoint adds a data point to postgresql.wal.delay metric.
 func (mb *MetricsBuilder) RecordPostgresqlWalDelayDataPoint(ts pcommon.Timestamp, val float64, walOperationLagAttributeValue AttributeWalOperationLag, replicationClientAttributeValue string) {
-	mb.metricPostgresqlWalDelay.recordDataPoint(mb.startTime, ts, val, walOperationLagAttributeValue.String(), replicationClientAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordPostgresqlWalLagDataPoint adds a data point to postgresql.wal.lag metric.
 func (mb *MetricsBuilder) RecordPostgresqlWalLagDataPoint(ts pcommon.Timestamp, val int64, walOperationLagAttributeValue AttributeWalOperationLag, replicationClientAttributeValue string) {
-	mb.metricPostgresqlWalLag.recordDataPoint(mb.startTime, ts, val, walOperationLagAttributeValue.String(), replicationClientAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

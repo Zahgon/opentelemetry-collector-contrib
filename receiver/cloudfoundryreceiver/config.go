@@ -4,11 +4,6 @@
 package cloudfoundryreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/cloudfoundryreceiver"
 
 import (
-	"errors"
-	"fmt"
-	"net/url"
-	"strings"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 )
@@ -57,41 +52,6 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	err := validateURLOption("rlp_gateway.endpoint", c.RLPGateway.Endpoint)
-	if err != nil {
-		return err
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if strings.TrimSpace(c.RLPGateway.ShardID) == "" {
-		return errors.New("shardID cannot be empty")
-	}
-
-	err = validateURLOption("uaa.endpoint", c.UAA.Endpoint)
-	if err != nil {
-		return err
-	}
-
-	if c.UAA.Username == "" {
-		return errors.New("UAA username not specified")
-	}
-
-	if c.UAA.Password == "" {
-		return errors.New("UAA password not specified")
-	}
-
-	return nil
-}
-
-func validateURLOption(name, value string) error {
-	if value == "" {
-		return fmt.Errorf("%s not specified", name)
-	}
-
-	_, err := url.Parse(value)
-	if err != nil {
-		return fmt.Errorf("failed to parse %s as url: %w", name, err)
-	}
-
-	return nil
-}
+func validateURLOption(name, value string) error { _ = "STUB: not implemented"; return nil }

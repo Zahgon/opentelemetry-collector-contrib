@@ -87,6 +87,4 @@ type Status struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }

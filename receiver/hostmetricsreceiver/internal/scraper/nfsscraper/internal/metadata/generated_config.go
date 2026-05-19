@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -25,36 +23,11 @@ type NfsClientNetCountMetricConfig struct {
 }
 
 func (ms *NfsClientNetCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NfsClientNetCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsClientNetCountMetricAttributeKeyNetworkTransport:
-		default:
-			return fmt.Errorf("metric nfs.client.net.count doesn't have an attribute %v, valid attributes: [network.transport]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NfsClientNetCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NfsClientNetTCPConnectionAcceptedMetricConfig provides config for the nfs.client.net.tcp.connection.accepted metric.
 type NfsClientNetTCPConnectionAcceptedMetricConfig struct {
@@ -63,16 +36,7 @@ type NfsClientNetTCPConnectionAcceptedMetricConfig struct {
 }
 
 func (ms *NfsClientNetTCPConnectionAcceptedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -94,34 +58,12 @@ type NfsClientOperationCountMetricConfig struct {
 }
 
 func (ms *NfsClientOperationCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NfsClientOperationCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsClientOperationCountMetricAttributeKeyOncRPCVersion, NfsClientOperationCountMetricAttributeKeyNfsOperationName:
-		default:
-			return fmt.Errorf("metric nfs.client.operation.count doesn't have an attribute %v, valid attributes: [onc_rpc.version, nfs.operation.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -143,34 +85,12 @@ type NfsClientProcedureCountMetricConfig struct {
 }
 
 func (ms *NfsClientProcedureCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NfsClientProcedureCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsClientProcedureCountMetricAttributeKeyOncRPCVersion, NfsClientProcedureCountMetricAttributeKeyOncRPCProcedureName:
-		default:
-			return fmt.Errorf("metric nfs.client.procedure.count doesn't have an attribute %v, valid attributes: [onc_rpc.version, onc_rpc.procedure.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -181,16 +101,7 @@ type NfsClientRPCAuthrefreshCountMetricConfig struct {
 }
 
 func (ms *NfsClientRPCAuthrefreshCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -201,16 +112,7 @@ type NfsClientRPCCountMetricConfig struct {
 }
 
 func (ms *NfsClientRPCCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -221,16 +123,7 @@ type NfsClientRPCRetransmitCountMetricConfig struct {
 }
 
 func (ms *NfsClientRPCRetransmitCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -241,16 +134,7 @@ type NfsServerFhStaleCountMetricConfig struct {
 }
 
 func (ms *NfsServerFhStaleCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -271,36 +155,11 @@ type NfsServerIoMetricConfig struct {
 }
 
 func (ms *NfsServerIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NfsServerIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerIoMetricAttributeKeyNetworkIoDirection:
-		default:
-			return fmt.Errorf("metric nfs.server.io doesn't have an attribute %v, valid attributes: [network.io.direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NfsServerIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NfsServerNetCountMetricAttributeKey specifies the key of an attribute for the nfs.server.net.count metric.
 type NfsServerNetCountMetricAttributeKey string
@@ -319,36 +178,11 @@ type NfsServerNetCountMetricConfig struct {
 }
 
 func (ms *NfsServerNetCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NfsServerNetCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerNetCountMetricAttributeKeyNetworkTransport:
-		default:
-			return fmt.Errorf("metric nfs.server.net.count doesn't have an attribute %v, valid attributes: [network.transport]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NfsServerNetCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NfsServerNetTCPConnectionAcceptedMetricConfig provides config for the nfs.server.net.tcp.connection.accepted metric.
 type NfsServerNetTCPConnectionAcceptedMetricConfig struct {
@@ -357,16 +191,7 @@ type NfsServerNetTCPConnectionAcceptedMetricConfig struct {
 }
 
 func (ms *NfsServerNetTCPConnectionAcceptedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -388,34 +213,12 @@ type NfsServerOperationCountMetricConfig struct {
 }
 
 func (ms *NfsServerOperationCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NfsServerOperationCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerOperationCountMetricAttributeKeyOncRPCVersion, NfsServerOperationCountMetricAttributeKeyNfsOperationName:
-		default:
-			return fmt.Errorf("metric nfs.server.operation.count doesn't have an attribute %v, valid attributes: [onc_rpc.version, nfs.operation.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -437,34 +240,12 @@ type NfsServerProcedureCountMetricConfig struct {
 }
 
 func (ms *NfsServerProcedureCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NfsServerProcedureCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerProcedureCountMetricAttributeKeyOncRPCVersion, NfsServerProcedureCountMetricAttributeKeyOncRPCProcedureName:
-		default:
-			return fmt.Errorf("metric nfs.server.procedure.count doesn't have an attribute %v, valid attributes: [onc_rpc.version, onc_rpc.procedure.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -485,34 +266,12 @@ type NfsServerRepcacheRequestsMetricConfig struct {
 }
 
 func (ms *NfsServerRepcacheRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NfsServerRepcacheRequestsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerRepcacheRequestsMetricAttributeKeyNfsServerRepcacheStatus:
-		default:
-			return fmt.Errorf("metric nfs.server.repcache.requests doesn't have an attribute %v, valid attributes: [nfs.server.repcache.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -533,36 +292,11 @@ type NfsServerRPCCountMetricConfig struct {
 }
 
 func (ms *NfsServerRPCCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NfsServerRPCCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NfsServerRPCCountMetricAttributeKeyErrorType:
-		default:
-			return fmt.Errorf("metric nfs.server.rpc.count doesn't have an attribute %v, valid attributes: [error.type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NfsServerRPCCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NfsServerThreadCountMetricConfig provides config for the nfs.server.thread.count metric.
 type NfsServerThreadCountMetricConfig struct {
@@ -571,16 +305,7 @@ type NfsServerThreadCountMetricConfig struct {
 }
 
 func (ms *NfsServerThreadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -604,76 +329,7 @@ type MetricsConfig struct {
 	NfsServerThreadCount              NfsServerThreadCountMetricConfig              `mapstructure:"nfs.server.thread.count"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		NfsClientNetCount: NfsClientNetCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsClientNetCountMetricAttributeKey{NfsClientNetCountMetricAttributeKeyNetworkTransport},
-		},
-		NfsClientNetTCPConnectionAccepted: NfsClientNetTCPConnectionAcceptedMetricConfig{
-			Enabled: true,
-		},
-		NfsClientOperationCount: NfsClientOperationCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsClientOperationCountMetricAttributeKey{NfsClientOperationCountMetricAttributeKeyOncRPCVersion, NfsClientOperationCountMetricAttributeKeyNfsOperationName},
-		},
-		NfsClientProcedureCount: NfsClientProcedureCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsClientProcedureCountMetricAttributeKey{NfsClientProcedureCountMetricAttributeKeyOncRPCVersion, NfsClientProcedureCountMetricAttributeKeyOncRPCProcedureName},
-		},
-		NfsClientRPCAuthrefreshCount: NfsClientRPCAuthrefreshCountMetricConfig{
-			Enabled: true,
-		},
-		NfsClientRPCCount: NfsClientRPCCountMetricConfig{
-			Enabled: true,
-		},
-		NfsClientRPCRetransmitCount: NfsClientRPCRetransmitCountMetricConfig{
-			Enabled: true,
-		},
-		NfsServerFhStaleCount: NfsServerFhStaleCountMetricConfig{
-			Enabled: true,
-		},
-		NfsServerIo: NfsServerIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerIoMetricAttributeKey{NfsServerIoMetricAttributeKeyNetworkIoDirection},
-		},
-		NfsServerNetCount: NfsServerNetCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerNetCountMetricAttributeKey{NfsServerNetCountMetricAttributeKeyNetworkTransport},
-		},
-		NfsServerNetTCPConnectionAccepted: NfsServerNetTCPConnectionAcceptedMetricConfig{
-			Enabled: true,
-		},
-		NfsServerOperationCount: NfsServerOperationCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerOperationCountMetricAttributeKey{NfsServerOperationCountMetricAttributeKeyOncRPCVersion, NfsServerOperationCountMetricAttributeKeyNfsOperationName},
-		},
-		NfsServerProcedureCount: NfsServerProcedureCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerProcedureCountMetricAttributeKey{NfsServerProcedureCountMetricAttributeKeyOncRPCVersion, NfsServerProcedureCountMetricAttributeKeyOncRPCProcedureName},
-		},
-		NfsServerRepcacheRequests: NfsServerRepcacheRequestsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerRepcacheRequestsMetricAttributeKey{NfsServerRepcacheRequestsMetricAttributeKeyNfsServerRepcacheStatus},
-		},
-		NfsServerRPCCount: NfsServerRPCCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NfsServerRPCCountMetricAttributeKey{NfsServerRPCCountMetricAttributeKeyErrorType},
-		},
-		NfsServerThreadCount: NfsServerThreadCountMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for nfs metrics builder.
 type MetricsBuilderConfig struct {
@@ -681,12 +337,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

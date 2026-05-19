@@ -4,16 +4,12 @@
 package dorisexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/dorisexporter"
 
 import (
-	"bytes"
 	"context"
 	"database/sql"
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql" // for register database driver
-	"github.com/google/uuid"
 	"go.opentelemetry.io/collector/component"
 	"go.uber.org/zap"
 )
@@ -32,18 +28,11 @@ type commonExporter struct {
 }
 
 func newExporter(logger *zap.Logger, cfg *Config, set component.TelemetrySettings, reporterName string) *commonExporter {
-	return &commonExporter{
-		TelemetrySettings: set,
-		logger:            logger,
-		cfg:               cfg,
-		timeZone:          cfg.timeLocation,
-		reporter:          newProgressReporter(reporterName, cfg.LogProgressInterval, logger),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (e *commonExporter) formatTime(t time.Time) string {
-	return t.In(e.timeZone).Format(timeFormat)
-}
+func (e *commonExporter) formatTime(t time.Time) string { _ = "STUB: not implemented"; return "" }
 
 type streamLoadResponse struct {
 	TxnID                  int64
@@ -65,78 +54,32 @@ type streamLoadResponse struct {
 	ErrorURL               string
 }
 
-func (r *streamLoadResponse) success() bool {
-	return r.Status == "Success" || r.Status == "Publish Timeout" || r.Status == "Label Already Exists"
-}
+func (r *streamLoadResponse) success() bool { _ = "STUB: not implemented"; return false }
 
-func (r *streamLoadResponse) duplication() bool {
-	return r.Status == "Label Already Exists"
-}
+func (r *streamLoadResponse) duplication() bool { _ = "STUB: not implemented"; return false }
 
-func streamLoadURL(address, db, table string) string {
-	return address + "/api/" + db + "/" + table + "/_stream_load"
-}
+func streamLoadURL(address, db, table string) string { _ = "STUB: not implemented"; return "" }
 
-func generateLabel(cfg *Config, table string) string {
-	return fmt.Sprintf(
-		"%s_%s_%s_%s_%s",
-		cfg.LabelPrefix,
-		cfg.Database,
-		table,
-		time.Now().In(cfg.timeLocation).Format("20060102150405"),
-		uuid.New().String(),
-	)
-}
+func generateLabel(cfg *Config, table string) string { _ = "STUB: not implemented"; return "" }
 
 func streamLoadRequest(ctx context.Context, cfg *Config, table string, data []byte, label string) (*http.Request, error) {
-	url := streamLoadURL(cfg.Endpoint, cfg.Database, table)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPut, url, bytes.NewBuffer(data))
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("format", "json")
-	req.Header.Set("Expect", "100-continue")
-	req.Header.Set("read_json_by_line", "true")
-	groupCommit, _ := cfg.Headers.Get("group_commit")
-	if groupCommit == "" || groupCommit == "off_mode" {
-		req.Header.Set("label", label)
-	}
-	if cfg.Timeout != 0 {
-		req.Header.Set("timeout", fmt.Sprintf("%d", cfg.Timeout/time.Second))
-	}
-	req.SetBasicAuth(cfg.Username, string(cfg.Password))
-
-	return req, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func createDorisHTTPClient(ctx context.Context, cfg *Config, host component.Host, settings component.TelemetrySettings) (*http.Client, error) {
-	client, err := cfg.ToClient(ctx, host.GetExtensions(), settings)
-	if err != nil {
-		return nil, err
-	}
-
-	client.CheckRedirect = func(req *http.Request, _ []*http.Request) error {
-		req.SetBasicAuth(cfg.Username, string(cfg.Password))
-		return nil
-	}
-
-	return client, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func createDorisMySQLClient(cfg *Config) (*sql.DB, error) {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/mysql", cfg.Username, string(cfg.Password), cfg.MySQLEndpoint)
-	conn, err := sql.Open("mysql", dsn)
-	return conn, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func createAndUseDatabase(ctx context.Context, conn *sql.DB, cfg *Config) error {
-	_, err := conn.ExecContext(ctx, "CREATE DATABASE IF NOT EXISTS "+cfg.Database)
-	if err != nil {
-		return err
-	}
-	_, err = conn.ExecContext(ctx, "USE "+cfg.Database)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type metric interface {
@@ -144,13 +87,6 @@ type metric interface {
 }
 
 func toJSONLines[T dLog | dTrace | metric](data []*T) ([]byte, error) {
-	buf := &bytes.Buffer{}
-	enc := json.NewEncoder(buf)
-	for _, d := range data {
-		err := enc.Encode(d)
-		if err != nil {
-			return nil, err
-		}
-	}
-	return buf.Bytes(), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

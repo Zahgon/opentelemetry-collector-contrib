@@ -13,13 +13,8 @@ type zapSematextLogger struct {
 }
 
 func newZapSematextLogger(logger *zap.Logger) common.Logger {
-	return &common.ErrorLogger{
-		Logger: &zapSematextLogger{
-			logger.Sugar(),
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(common.Logger)
 }
 
-func (l zapSematextLogger) Debug(msg string, kv ...any) {
-	l.Debugw(msg, kv...)
-}
+func (l zapSematextLogger) Debug(msg string, kv ...any) { _ = "STUB: not implemented"; return }

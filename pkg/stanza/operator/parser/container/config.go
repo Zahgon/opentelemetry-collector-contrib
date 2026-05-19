@@ -4,17 +4,12 @@
 package container // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/parser/container"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/component"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/attrs"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/recombine"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/stanzaerrors"
 )
 
 const (
@@ -29,19 +24,10 @@ func init() {
 }
 
 // NewConfig creates a new JSON parser config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new JSON parser config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		ParserConfig:            helper.NewParserConfig(operatorID, operatorType),
-		Format:                  "",
-		AddMetadataFromFilePath: true,
-		MaxLogSize:              defaultMaxLogSize,
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a Container parser operator.
 type Config struct {
@@ -54,39 +40,8 @@ type Config struct {
 
 // Build will build a Container parser operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	parserOperator, err := c.ParserConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.Format != "" {
-		switch c.Format {
-		case dockerFormat, crioFormat, containerdFormat:
-		default:
-			return &Parser{}, stanzaerrors.NewError(
-				"operator config has an invalid `format` field.",
-				"ensure that the `format` field is set to one of `docker`, `crio`, `containerd`.",
-				"format", c.OnError,
-			)
-		}
-	}
-
-	p := &Parser{
-		ParserOperator:          parserOperator,
-		format:                  c.Format,
-		addMetadataFromFilepath: c.AddMetadataFromFilePath,
-	}
-
-	cLogEmitter := helper.NewBatchingLogEmitter(set, p.consumeEntries)
-	p.criLogEmitter = cLogEmitter
-	recombineParser, err := createRecombine(set, c, cLogEmitter)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create internal recombine config: %w", err)
-	}
-
-	p.recombineParser = recombineParser
-
-	return p, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }
 
 // createRecombine creates an internal recombine operator which outputs to an async helper.LogEmitter
@@ -99,31 +54,12 @@ func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error
 //	source_identifier: attributes["log.file.path"]
 //	type: recombine
 func createRecombine(set component.TelemetrySettings, c Config, cLogEmitter *helper.BatchingLogEmitter) (operator.Operator, error) {
-	recombineParserCfg := createRecombineConfig(c)
-	recombineParser, err := recombineParserCfg.Build(set)
-	if err != nil {
-		return nil, fmt.Errorf("failed to resolve internal recombine config: %w", err)
-	}
-
-	// set the LogEmmiter as the output of the recombine parser
-	recombineParser.SetOutputIDs([]string{cLogEmitter.OperatorID})
-	if err := recombineParser.SetOutputs([]operator.Operator{cLogEmitter}); err != nil {
-		return nil, errors.New("failed to set outputs of internal recombine")
-	}
-
-	return recombineParser, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }
 
-func createRecombineConfig(c Config) *recombine.Config {
-	recombineParserCfg := recombine.NewConfigWithID(recombineInternalID)
-	recombineParserCfg.IsLastEntry = recombineIsLastEntry
-	recombineParserCfg.CombineField = entry.NewBodyField()
-	recombineParserCfg.CombineWith = ""
-	recombineParserCfg.SourceIdentifier = entry.NewAttributeField(recombineSourceIdentifier)
-	recombineParserCfg.MaxLogSize = c.MaxLogSize
-	// Set batch sizes to 0 (unlimited) - rely on max_log_size for protection
-	recombineParserCfg.MaxBatchSize = 0
-	recombineParserCfg.MaxUnmatchedBatchSize = 0
+// set the LogEmmiter as the output of the recombine parser
 
-	return recombineParserCfg
-}
+func createRecombineConfig(c Config) *recombine.Config { _ = "STUB: not implemented"; return nil }
+
+// Set batch sizes to 0 (unlimited) - rely on max_log_size for protection

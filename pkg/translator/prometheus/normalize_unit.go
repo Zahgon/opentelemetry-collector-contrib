@@ -3,11 +3,6 @@
 
 package prometheus // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus"
 
-import (
-	"strings"
-	"unicode"
-)
-
 // The map to translate OTLP units to Prometheus units
 // OTLP metrics use the c/s notation as specified at https://ucum.org/ucum.html
 // (See also https://github.com/open-telemetry/semantic-conventions/blob/main/docs/general/metrics.md#instrument-units)
@@ -61,69 +56,23 @@ var perUnitMap = map[string]string{
 	"y":  "year",
 }
 
-func BuildCompliantPrometheusUnit(unit string) string {
-	promUnitTokens := make([]string, 0, 3)
-	promMainUnit, promPerUnit := buildCompliantMainUnit(unit), buildCompliantPerUnit(unit)
-	if promMainUnit != "" {
-		promUnitTokens = append(promUnitTokens, promMainUnit)
-	}
-	if promPerUnit != "" {
-		promUnitTokens = append(promUnitTokens, "per", promPerUnit)
-	}
-	return strings.Join(promUnitTokens, "_")
-}
+func BuildCompliantPrometheusUnit(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // Extract the main unit from an OTLP unit and convert to Prometheus base unit
 // Returns an empty string if the unit is not found in the map
-func buildCompliantMainUnit(unit string) string {
-	unitTokens := strings.SplitN(unit, "/", 2)
-	if len(unitTokens) > 0 {
-		mainUnitOtel := strings.TrimSpace(unitTokens[0])
-		if mainUnitOtel != "" && !strings.ContainsAny(mainUnitOtel, "{}") {
-			mainUnitProm := CleanUpString(unitMapGetOrDefault(mainUnitOtel))
-			if mainUnitProm != "" {
-				return mainUnitProm
-			}
-		}
-	}
-	return ""
-}
+func buildCompliantMainUnit(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // Extract the rate unit from an OTLP unit and convert to Prometheus base unit
 // Returns an empty string if the unit is not found in the map
-func buildCompliantPerUnit(unit string) string {
-	unitTokens := strings.SplitN(unit, "/", 2)
-	if len(unitTokens) > 1 && unitTokens[1] != "" {
-		perUnitOtel := strings.TrimSpace(unitTokens[1])
-		if perUnitOtel != "" && !strings.ContainsAny(perUnitOtel, "{}") {
-			perUnitProm := CleanUpString(perUnitMapGetOrDefault(perUnitOtel))
-			if perUnitProm != "" {
-				return perUnitProm
-			}
-		}
-	}
-	return ""
-}
+func buildCompliantPerUnit(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // Retrieve the Prometheus "basic" unit corresponding to the specified "basic" unit
 // Returns the specified unit if not found in unitMap
-func unitMapGetOrDefault(unit string) string {
-	if promUnit, ok := unitMap[unit]; ok {
-		return promUnit
-	}
-	return unit
-}
+func unitMapGetOrDefault(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // Retrieve the Prometheus "per" unit corresponding to the specified "per" unit
 // Returns the specified unit if not found in perUnitMap
-func perUnitMapGetOrDefault(perUnit string) string {
-	if promPerUnit, ok := perUnitMap[perUnit]; ok {
-		return promPerUnit
-	}
-	return perUnit
-}
+func perUnitMapGetOrDefault(perUnit string) string { _ = "STUB: not implemented"; return "" }
 
 // Clean up specified string so it's Prometheus compliant
-func CleanUpString(s string) string {
-	return strings.Join(strings.FieldsFunc(s, func(r rune) bool { return !unicode.IsLetter(r) && !unicode.IsDigit(r) }), "_")
-}
+func CleanUpString(s string) string { _ = "STUB: not implemented"; return "" }

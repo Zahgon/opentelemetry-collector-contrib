@@ -5,11 +5,8 @@ package webhookeventreceiver // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"errors"
-	"regexp"
-	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.uber.org/multierr"
 )
 
 var (
@@ -39,64 +36,14 @@ type RequiredHeader struct {
 	Value string `mapstructure:"value"`
 }
 
-func (cfg *Config) Validate() error {
-	var errs error
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	maxReadWriteTimeout, _ := time.ParseDuration("10s")
+// If a user defines a custom read/write timeout there is a maximum value
+// of 10s imposed here.
 
-	if cfg.NetAddr.Endpoint == "" {
-		errs = multierr.Append(errs, errMissingEndpointFromConfig)
-	}
+// Set default MaxRequestBodySize if not configured
 
-	// If a user defines a custom read/write timeout there is a maximum value
-	// of 10s imposed here.
-	if cfg.ReadTimeout != "" {
-		readTimeout, err := time.ParseDuration(cfg.ReadTimeout)
-		if err != nil {
-			errs = multierr.Append(errs, err)
-		}
+// 20MiB
+// to match default value http://github.com/open-telemetry/opentelemetry-collector/blob/release/v0.139.x/config/confighttp/server.go#L31
 
-		if readTimeout > maxReadWriteTimeout {
-			errs = multierr.Append(errs, errReadTimeoutExceedsMaxValue)
-		}
-	}
-
-	if cfg.WriteTimeout != "" {
-		writeTimeout, err := time.ParseDuration(cfg.WriteTimeout)
-		if err != nil {
-			errs = multierr.Append(errs, err)
-		}
-
-		if writeTimeout > maxReadWriteTimeout {
-			errs = multierr.Append(errs, errWriteTimeoutExceedsMaxValue)
-		}
-	}
-
-	// Set default MaxRequestBodySize if not configured
-	if cfg.MaxRequestBodySize == 0 {
-		cfg.MaxRequestBodySize = int64(20 * 1024 * 1024) // 20MiB
-		// to match default value http://github.com/open-telemetry/opentelemetry-collector/blob/release/v0.139.x/config/confighttp/server.go#L31
-	}
-
-	if (cfg.RequiredHeader.Key != "" && cfg.RequiredHeader.Value == "") || (cfg.RequiredHeader.Value != "" && cfg.RequiredHeader.Key == "") {
-		errs = multierr.Append(errs, errRequiredHeader)
-	}
-
-	if cfg.SplitLogsAtNewLine && cfg.SplitLogsAtJSONBoundary {
-		errs = multierr.Append(errs, errors.New("split_logs_at_new_line and split_logs_at_json_boundary cannot be enabled at the same time"))
-	}
-
-	if cfg.HeaderAttributeRegex != "" {
-		_, err := regexp.Compile(cfg.HeaderAttributeRegex)
-		if err != nil {
-			errs = multierr.Append(errs, errHeaderAttributeRegexCompile)
-			errs = multierr.Append(errs, err)
-		}
-	}
-
-	return errs
-}
-
-func (cfg *Config) ShouldSplitLogsAtJSONBoundary() bool {
-	return cfg.SplitLogsAtJSONBoundary
-}
+func (cfg *Config) ShouldSplitLogsAtJSONBoundary() bool { _ = "STUB: not implemented"; return false }

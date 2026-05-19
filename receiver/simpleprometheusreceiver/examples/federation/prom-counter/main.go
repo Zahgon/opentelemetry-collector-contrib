@@ -6,41 +6,17 @@ package main
 import (
 	"context"
 	"log"
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/exporters/prometheus"
 	api "go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/sdk/metric"
 	"go.uber.org/zap"
 )
 
-func initMeter() api.Meter {
-	exporter, err := prometheus.New()
-	if err != nil {
-		log.Panicf("failed to initialize prometheus exporter %v", err)
-	}
-
-	mux := http.NewServeMux()
-	mux.Handle("/", promhttp.Handler())
-	server := &http.Server{
-		Addr:              ":8080",
-		Handler:           mux,
-		ReadHeaderTimeout: 20 * time.Second,
-	}
-	go func() {
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Panicf("failed to start prometheus server %v", err)
-		}
-	}()
-	provider := metric.NewMeterProvider(metric.WithReader(exporter))
-	return provider.Meter("federation/prom-counter")
-}
+func initMeter() api.Meter { _ = "STUB: not implemented"; return *new(api.Meter) }
 
 func main() {
 	// set up prometheus

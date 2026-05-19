@@ -59,17 +59,11 @@ type StatementEventsConfig struct {
 }
 
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		// Nothing to do if there is no config given.
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 
-	// Change the default to Insecure = true as we don't want to break
-	// existing deployments which does not use TLS by default.
-	if !componentParser.IsSet("tls") {
-		cfg.TLS = configtls.ClientConfig{}
-		cfg.TLS.Insecure = true
-	}
-
-	return componentParser.Unmarshal(cfg)
+	// Nothing to do if there is no config given.
 }
+
+// Change the default to Insecure = true as we don't want to break
+// existing deployments which does not use TLS by default.

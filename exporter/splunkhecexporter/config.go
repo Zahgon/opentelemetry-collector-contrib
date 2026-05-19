@@ -4,10 +4,7 @@
 package splunkhecexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter"
 
 import (
-	"errors"
-	"fmt"
 	"net/url"
-	"path"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -130,49 +127,7 @@ type Config struct {
 	Telemetry HecTelemetry `mapstructure:"telemetry"`
 }
 
-func (cfg *Config) getURL() (out *url.URL, err error) {
-	out, err = url.Parse(cfg.Endpoint)
-	if err != nil {
-		return out, err
-	}
-	if out.Path == "" || out.Path == "/" {
-		out.Path = path.Join(out.Path, hecPath)
-	}
-
-	return out, err
-}
+func (cfg *Config) getURL() (out *url.URL, err error) { _ = "STUB: not implemented"; return nil, nil }
 
 // Validate checks if the exporter configuration is valid.
-func (cfg *Config) Validate() error {
-	if !cfg.LogDataEnabled && !cfg.ProfilingDataEnabled {
-		return errors.New(`either "log_data_enabled" or "profiling_data_enabled" has to be true`)
-	}
-	if cfg.Endpoint == "" {
-		return errors.New(`requires a non-empty "endpoint"`)
-	}
-	_, err := cfg.getURL()
-	if err != nil {
-		return fmt.Errorf(`invalid "endpoint": %w`, err)
-	}
-	if cfg.Token == "" {
-		return errors.New(`requires a non-empty "token"`)
-	}
-
-	if cfg.MaxContentLengthLogs > maxContentLengthLogsLimit {
-		return fmt.Errorf(`requires "max_content_length_logs" <= %d`, maxContentLengthLogsLimit)
-	}
-
-	if cfg.MaxContentLengthMetrics > maxContentLengthMetricsLimit {
-		return fmt.Errorf(`requires "max_content_length_metrics" <= %d`, maxContentLengthMetricsLimit)
-	}
-
-	if cfg.MaxContentLengthTraces > maxContentLengthTracesLimit {
-		return fmt.Errorf(`requires "max_content_length_traces" <= %d`, maxContentLengthTracesLimit)
-	}
-
-	if cfg.MaxEventSize > maxMaxEventSize {
-		return fmt.Errorf(`requires "max_event_size" <= %d`, maxMaxEventSize)
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

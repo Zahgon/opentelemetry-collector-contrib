@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetApacheServerName sets provided value as "apache.server.name" attribute.
-func (rb *ResourceBuilder) SetApacheServerName(val string) {
-	if rb.config.ApacheServerName.Enabled {
-		rb.res.Attributes().PutStr("apache.server.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetApacheServerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetApacheServerPort sets provided value as "apache.server.port" attribute.
-func (rb *ResourceBuilder) SetApacheServerPort(val string) {
-	if rb.config.ApacheServerPort.Enabled {
-		rb.res.Attributes().PutStr("apache.server.port", val)
-	}
-}
+func (rb *ResourceBuilder) SetApacheServerPort(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

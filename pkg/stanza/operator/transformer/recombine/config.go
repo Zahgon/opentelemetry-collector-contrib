@@ -4,17 +4,11 @@
 package recombine // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/recombine"
 
 import (
-	"bytes"
-	"errors"
-	"fmt"
-	"sync"
 	"time"
 
-	"github.com/expr-lang/expr/vm"
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/attrs"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
 )
@@ -29,23 +23,10 @@ func init() {
 }
 
 // NewConfig creates a new recombine config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new recombine config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig:     helper.NewTransformerConfig(operatorID, operatorType),
-		MaxBatchSize:          1000,
-		MaxUnmatchedBatchSize: 100,
-		MaxSources:            1000,
-		CombineWith:           defaultCombineWith,
-		OverwriteWith:         "oldest",
-		ForceFlushTimeout:     5 * time.Second,
-		SourceIdentifier:      entry.NewAttributeField(attrs.LogFilePath),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a recombine operator
 type Config struct {
@@ -65,75 +46,6 @@ type Config struct {
 
 // Build creates a new Transformer from a config
 func (c *Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformer, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, fmt.Errorf("failed to build transformer config: %w", err)
-	}
-
-	if c.IsLastEntry != "" && c.IsFirstEntry != "" {
-		return nil, errors.New("only one of is_first_entry and is_last_entry can be set")
-	}
-
-	if c.IsLastEntry == "" && c.IsFirstEntry == "" {
-		return nil, errors.New("one of is_first_entry and is_last_entry must be set")
-	}
-
-	var matchesFirst bool
-	var prog *vm.Program
-	if c.IsFirstEntry != "" {
-		matchesFirst = true
-		prog, err = helper.ExprCompileBool(c.IsFirstEntry)
-		if err != nil {
-			return nil, fmt.Errorf("failed to compile is_first_entry: %w", err)
-		}
-	} else {
-		matchesFirst = false
-		prog, err = helper.ExprCompileBool(c.IsLastEntry)
-		if err != nil {
-			return nil, fmt.Errorf("failed to compile is_last_entry: %w", err)
-		}
-	}
-
-	if c.CombineField.FieldInterface == nil {
-		return nil, errors.New("missing required argument 'combine_field'")
-	}
-
-	var overwriteWithNewest bool
-	switch c.OverwriteWith {
-	case "newest":
-		overwriteWithNewest = true
-	case "oldest", "":
-		overwriteWithNewest = false
-	default:
-		return nil, fmt.Errorf("invalid value '%s' for parameter 'overwrite_with'", c.OverwriteWith)
-	}
-
-	if c.MaxBatchSize == 0 && c.MaxLogSize == 0 {
-		set.Logger.Warn("Both 'max_batch_size' and 'max_log_size' are set to 0. This will allow unlimited batching with no size constraints, which may lead to excessive memory usage.")
-	}
-
-	return &Transformer{
-		TransformerOperator:   transformer,
-		matchFirstLine:        matchesFirst,
-		prog:                  prog,
-		maxBatchSize:          c.MaxBatchSize,
-		maxUnmatchedBatchSize: c.MaxUnmatchedBatchSize,
-		maxSources:            c.MaxSources,
-		overwriteWithNewest:   overwriteWithNewest,
-		batchMap:              make(map[string]*sourceBatch),
-		batchPool: sync.Pool{
-			New: func() any {
-				return &sourceBatch{
-					recombined: &bytes.Buffer{},
-				}
-			},
-		},
-		combineField:      c.CombineField,
-		combineWith:       c.CombineWith,
-		forceFlushTimeout: c.ForceFlushTimeout,
-		ticker:            time.NewTicker(c.ForceFlushTimeout),
-		chClose:           make(chan struct{}),
-		sourceIdentifier:  c.SourceIdentifier,
-		maxLogSize:        int64(c.MaxLogSize),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -44,80 +45,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.ProcessorGroupbyattrsLogGroups, err = builder.meter.Int64Histogram(
-		"otelcol_processor_groupbyattrs_log_groups",
-		metric.WithDescription("Distribution of groups extracted for logs [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsMetricGroups, err = builder.meter.Int64Histogram(
-		"otelcol_processor_groupbyattrs_metric_groups",
-		metric.WithDescription("Distribution of groups extracted for metrics [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumGroupedLogs, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_grouped_logs",
-		metric.WithDescription("Number of logs that had attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumGroupedMetrics, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_grouped_metrics",
-		metric.WithDescription("Number of metrics that had attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumGroupedSpans, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_grouped_spans",
-		metric.WithDescription("Number of spans that had attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumNonGroupedLogs, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_non_grouped_logs",
-		metric.WithDescription("Number of logs that did not have attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumNonGroupedMetrics, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_non_grouped_metrics",
-		metric.WithDescription("Number of metrics that did not have attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsNumNonGroupedSpans, err = builder.meter.Int64Counter(
-		"otelcol_processor_groupbyattrs_num_non_grouped_spans",
-		metric.WithDescription("Number of spans that did not have attributes grouped [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorGroupbyattrsSpanGroups, err = builder.meter.Int64Histogram(
-		"otelcol_processor_groupbyattrs_span_groups",
-		metric.WithDescription("Distribution of groups extracted for spans [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

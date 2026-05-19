@@ -15,9 +15,8 @@ type CustomCapabilityRegisterOptions struct {
 
 // DefaultCustomCapabilityRegisterOptions returns the default options for CustomCapabilityRegisterOptions
 func DefaultCustomCapabilityRegisterOptions() *CustomCapabilityRegisterOptions {
-	return &CustomCapabilityRegisterOptions{
-		MaxQueuedMessages: 10,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CustomCapabilityRegisterOption represent a single option for CustomCapabilityRegistry.Register
@@ -26,9 +25,8 @@ type CustomCapabilityRegisterOption func(*CustomCapabilityRegisterOptions)
 // WithMaxQueuedMessages overrides the maximum number of queued messages. If a message is received while
 // MaxQueuedMessages messages are already queued to be processed, the message is dropped.
 func WithMaxQueuedMessages(maxQueuedMessages int) CustomCapabilityRegisterOption {
-	return func(c *CustomCapabilityRegisterOptions) {
-		c.MaxQueuedMessages = maxQueuedMessages
-	}
+	_ = "STUB: not implemented"
+	return *new(CustomCapabilityRegisterOption)
 }
 
 // CustomCapabilityRegistry allows for registering a custom capability that can receive custom messages.

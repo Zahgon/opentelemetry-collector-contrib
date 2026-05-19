@@ -6,11 +6,6 @@
 package datadogextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension"
 
 import (
-	"errors"
-	"fmt"
-	"slices"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
 
@@ -47,28 +42,10 @@ type Config struct {
 }
 
 // Validate ensures that the configuration is valid.
-func (c *Config) Validate() error {
-	if c.API.Site == "" {
-		return datadogconfig.ErrEmptyEndpoint
-	}
-	if c.API.Key == "" {
-		return datadogconfig.ErrUnsetAPIKey
-	}
-	if c.HTTPConfig == nil {
-		return errors.New("http config is required")
-	}
-	// Validate deployment_type if set
-	if c.DeploymentType != "" && c.DeploymentType != "gateway" && c.DeploymentType != "daemonset" && c.DeploymentType != "unknown" {
-		return errors.New("deployment_type must be one of: gateway, daemonset, or unknown")
-	}
-	// Set default if not provided
-	if c.DeploymentType == "" {
-		c.DeploymentType = "unknown"
-	}
-	// Validate installation_method if set
-	validInstallationMethods := []string{"", "kubernetes", "bare-metal", "docker", "ecs-fargate", "eks-fargate"}
-	if !slices.Contains(validInstallationMethods, c.InstallationMethod) {
-		return fmt.Errorf("installation_method must be one of: %s", strings.Join(validInstallationMethods[1:], ", "))
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
+
+// Validate deployment_type if set
+
+// Set default if not provided
+
+// Validate installation_method if set

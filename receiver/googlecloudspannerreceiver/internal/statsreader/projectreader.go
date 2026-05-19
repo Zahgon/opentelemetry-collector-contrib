@@ -5,9 +5,7 @@ package statsreader // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"strings"
 
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadata"
@@ -19,44 +17,15 @@ type ProjectReader struct {
 }
 
 func NewProjectReader(databaseReaders []CompositeReader, logger *zap.Logger) *ProjectReader {
-	return &ProjectReader{
-		databaseReaders: databaseReaders,
-		logger:          logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (projectReader *ProjectReader) Shutdown() {
-	for _, databaseReader := range projectReader.databaseReaders {
-		projectReader.logger.Info("Shutting down projectReader for database",
-			zap.String("database", databaseReader.Name()))
-		databaseReader.Shutdown()
-	}
-}
+func (projectReader *ProjectReader) Shutdown() { _ = "STUB: not implemented"; return }
 
 func (projectReader *ProjectReader) Read(ctx context.Context) ([]*metadata.MetricsDataPoint, error) {
-	var (
-		result []*metadata.MetricsDataPoint
-		err    error
-	)
-
-	for _, databaseReader := range projectReader.databaseReaders {
-		dataPoints, readErr := databaseReader.Read(ctx)
-		if readErr == nil {
-			result = append(result, dataPoints...)
-		} else {
-			err = multierr.Append(err, readErr)
-		}
-	}
-
-	return result, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (projectReader *ProjectReader) Name() string {
-	databaseReaderNames := make([]string, len(projectReader.databaseReaders))
-
-	for i, databaseReader := range projectReader.databaseReaders {
-		databaseReaderNames[i] = databaseReader.Name()
-	}
-
-	return "Project reader for: " + strings.Join(databaseReaderNames, ",")
-}
+func (projectReader *ProjectReader) Name() string { _ = "STUB: not implemented"; return "" }

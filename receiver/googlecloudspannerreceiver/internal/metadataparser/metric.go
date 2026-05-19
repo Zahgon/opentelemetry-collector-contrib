@@ -4,8 +4,6 @@
 package metadataparser // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadataparser"
 
 import (
-	"fmt"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadata"
 )
 
@@ -16,10 +14,6 @@ type Metric struct {
 }
 
 func (metric Metric) toMetricValueMetadata() (metadata.MetricValueMetadata, error) {
-	dataType, err := metric.DataType.toMetricType()
-	if err != nil {
-		return nil, fmt.Errorf("invalid value data type received for metric %q", metric.Name)
-	}
-
-	return metadata.NewMetricValueMetadata(metric.Name, metric.ColumnName, dataType, metric.Unit, metric.ValueType)
+	_ = "STUB: not implemented"
+	return *new(metadata.MetricValueMetadata), nil
 }

@@ -7,7 +7,6 @@ package udpserver // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	"github.com/apache/thrift/lib/go/thrift"
@@ -40,65 +39,31 @@ func NewThriftProcessor(
 	handler AgentProcessor,
 	logger *zap.Logger,
 ) (*ThriftProcessor, error) {
-	if numProcessors <= 0 {
-		return nil, fmt.Errorf(
-			"number of processors must be greater than 0, called with %d", numProcessors)
-	}
-	protocolPool := &sync.Pool{
-		New: func() any {
-			trans := &TBufferedReadTransport{}
-			return factory.GetProtocol(trans)
-		},
-	}
-
-	res := &ThriftProcessor{
-		server:        server,
-		handler:       handler,
-		protocolPool:  protocolPool,
-		logger:        logger,
-		numProcessors: numProcessors,
-	}
-	res.processing.Add(res.numProcessors)
-	for i := 0; i < res.numProcessors; i++ {
-		go func() {
-			res.processBuffer()
-			res.processing.Done()
-		}()
-	}
-	return res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Serve starts serving traffic
 func (s *ThriftProcessor) Serve() {
-	s.server.Serve()
+	_ = "STUB: not implemented"
+
+	// IsServing indicates whether the server is currently serving traffic
+	return
 }
 
-// IsServing indicates whether the server is currently serving traffic
-func (s *ThriftProcessor) IsServing() bool {
-	return s.server.IsServing()
-}
+func (s *ThriftProcessor) IsServing() bool { _ = "STUB: not implemented"; return false }
 
 // Stop stops the serving of traffic and waits until the queue is
 // emptied by the readers
-func (s *ThriftProcessor) Stop() {
-	s.server.Stop()
-	s.processing.Wait()
-}
+func (s *ThriftProcessor) Stop() { _ = "STUB: not implemented"; return }
 
 // processBuffer reads data off the channel and puts it into a custom transport for
 // the processor to process
-func (s *ThriftProcessor) processBuffer() {
-	for buf := range s.server.DataChan() {
-		protocol := s.protocolPool.Get().(thrift.TProtocol)
-		_, _ = buf.WriteTo(protocol.Transport()) // writes to memory transport don't fail
-		s.logger.Debug("Span(s) received by the agent", zap.Int("bytes-received", buf.Len()))
+func (s *ThriftProcessor) processBuffer() { _ = "STUB: not implemented"; return }
 
-		// NB: oddly, thrift-gen/agent/agent.go:L156 does this: `return true, thrift.WrapTException(err2)`
-		// So we check for both OK and error.
-		if ok, err := s.handler.Process(context.Background(), protocol, protocol); !ok || err != nil {
-			s.logger.Error("Processor failed", zap.Error(err))
-		}
-		s.protocolPool.Put(protocol)
-		s.server.DataRecd(buf) // acknowledge receipt and release the buffer
-	}
-}
+// writes to memory transport don't fail
+
+// NB: oddly, thrift-gen/agent/agent.go:L156 does this: `return true, thrift.WrapTException(err2)`
+// So we check for both OK and error.
+
+// acknowledge receipt and release the buffer

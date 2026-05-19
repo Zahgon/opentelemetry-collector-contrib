@@ -4,7 +4,6 @@
 package procx // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/sumologicextension/internal/procx"
 
 import (
-	"github.com/shirou/gopsutil/v4/process"
 	"go.uber.org/zap"
 )
 
@@ -34,22 +33,4 @@ type Procx struct {
 	getProcesses func() ([]Process, error)
 }
 
-func NewProcx(logger *zap.Logger) *Procx {
-	return &Procx{
-		logger: logger,
-		getProcesses: func() ([]Process, error) {
-			ps, err := process.Processes()
-			ret := make([]Process, len(ps))
-			if err != nil {
-				return ret, err
-			}
-			for i := range ps {
-				psw := &processWrapper{
-					process: ps[i],
-				}
-				ret[i] = psw
-			}
-			return ret, err
-		},
-	}
-}
+func NewProcx(logger *zap.Logger) *Procx { _ = "STUB: not implemented"; return nil }

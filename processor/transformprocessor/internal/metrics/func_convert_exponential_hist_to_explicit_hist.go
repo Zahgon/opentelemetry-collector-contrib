@@ -4,9 +4,6 @@
 package metrics // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor/internal/metrics"
 
 import (
-	"context"
-	"errors"
-	"fmt"
 	"math"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -30,122 +27,39 @@ var distributionFnMap = map[string]distAlgorithm{
 }
 
 func newconvertExponentialHistToExplicitHistFactory() ottl.Factory[*ottlmetric.TransformContext] {
-	return ottl.NewFactory("convert_exponential_histogram_to_histogram",
-		&convertExponentialHistToExplicitHistArguments{}, createconvertExponentialHistToExplicitHistFunction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createconvertExponentialHistToExplicitHistFunction(_ ottl.FunctionContext, oArgs ottl.Arguments) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	args, ok := oArgs.(*convertExponentialHistToExplicitHistArguments)
-
-	if !ok {
-		return nil, errors.New("convertExponentialHistToExplicitHistFactory args must be of type *convertExponentialHistToExplicitHistArguments")
-	}
-
-	if args.DistributionFn == "" {
-		args.DistributionFn = "random"
-	}
-
-	if _, ok := distributionFnMap[args.DistributionFn]; !ok {
-		return nil, fmt.Errorf("invalid conversion function: %s, must be one of [upper, midpoint, random, uniform]", args.DistributionFn)
-	}
-
-	return convertExponentialHistToExplicitHist(args.DistributionFn, args.ExplicitBounds)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // convertExponentialHistToExplicitHist converts an exponential histogram to a bucketed histogram
 func convertExponentialHistToExplicitHist(distributionFn string, explicitBounds []float64) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	if len(explicitBounds) == 0 {
-		return nil, fmt.Errorf("explicit bounds cannot be empty: %v", explicitBounds)
-	}
-
-	distFn, ok := distributionFnMap[distributionFn]
-	if !ok {
-		return nil, fmt.Errorf("invalid distribution algorithm: %s, must be one of [upper, midpoint, random, uniform]", distributionFn)
-	}
-
-	return func(_ context.Context, tCtx *ottlmetric.TransformContext) (any, error) {
-		metric := tCtx.GetMetric()
-
-		// only execute on exponential histograms
-		if metric.Type() != pmetric.MetricTypeExponentialHistogram {
-			return nil, nil
-		}
-
-		// create new metric and override metric
-		newMetric := pmetric.NewMetric()
-		newMetric.SetName(metric.Name())
-		newMetric.SetDescription(metric.Description())
-		newMetric.SetUnit(metric.Unit())
-		explicitHist := newMetric.SetEmptyHistogram()
-
-		dps := metric.ExponentialHistogram().DataPoints()
-		explicitHist.SetAggregationTemporality(metric.ExponentialHistogram().AggregationTemporality())
-
-		// map over each exponential histogram data point and calculate the bucket counts
-		for i := 0; i < dps.Len(); i++ {
-			expDataPoint := dps.At(i)
-			bucketCounts := calculateBucketCounts(expDataPoint, explicitBounds, distFn)
-			explicitHistDp := explicitHist.DataPoints().AppendEmpty()
-			explicitHistDp.SetStartTimestamp(expDataPoint.StartTimestamp())
-			explicitHistDp.SetTimestamp(expDataPoint.Timestamp())
-			explicitHistDp.SetCount(expDataPoint.Count())
-			explicitHistDp.SetSum(expDataPoint.Sum())
-			explicitHistDp.SetMin(expDataPoint.Min())
-			explicitHistDp.SetMax(expDataPoint.Max())
-			expDataPoint.Exemplars().MoveAndAppendTo(explicitHistDp.Exemplars())
-			explicitHistDp.ExplicitBounds().FromRaw(explicitBounds)
-			explicitHistDp.BucketCounts().FromRaw(bucketCounts)
-			expDataPoint.Attributes().MoveTo(explicitHistDp.Attributes())
-		}
-
-		newMetric.MoveTo(metric)
-
-		return nil, nil
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// only execute on exponential histograms
+
+// create new metric and override metric
+
+// map over each exponential histogram data point and calculate the bucket counts
 
 type distAlgorithm func(count uint64, upper, lower float64, boundaries []float64, bucketCountsDst *[]uint64)
 
 func calculateBucketCounts(dp pmetric.ExponentialHistogramDataPoint, boundaries []float64, distFn distAlgorithm) []uint64 {
-	scale := int(dp.Scale())
-	factor := math.Ldexp(math.Ln2, -scale)
-	posB := dp.Positive().BucketCounts()
-	bucketCounts := make([]uint64, len(boundaries))
-
-	// add zerocount if boundary starts at zero
-	if zerocount := dp.ZeroCount(); zerocount > 0 && boundaries[0] == 0 {
-		bucketCounts[0] += zerocount
-	}
-
-	for pos := 0; pos < posB.Len(); pos++ {
-		index := dp.Positive().Offset() + int32(pos)
-		upper := math.Exp(float64(index+1) * factor)
-		lower := math.Exp(float64(index) * factor)
-		count := posB.At(pos)
-		runDistFn := true
-
-		// if the lower bound is greater than the last boundary, add the count to the overflow bucket
-		if lower > boundaries[len(boundaries)-1] {
-			bucketCounts[len(boundaries)-1] += count
-			continue
-		}
-
-		// check if lower and upper bounds are within the boundaries
-		for bIndex := 1; bIndex < len(boundaries); bIndex++ {
-			if lower > boundaries[bIndex-1] && upper <= boundaries[bIndex] {
-				bucketCounts[bIndex-1] += count
-				runDistFn = false
-				break
-			}
-		}
-
-		if runDistFn {
-			distFn(count, upper, lower, boundaries, &bucketCounts)
-		}
-	}
-
-	return bucketCounts
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// add zerocount if boundary starts at zero
+
+// if the lower bound is greater than the last boundary, add the count to the overflow bucket
+
+// check if lower and upper bounds are within the boundaries
 
 // upperAlgorithm function calculates the bucket counts for a given exponential histogram data point.
 // The algorithm is inspired by the logExponentialHistogramDataPoints function used to Print Exponential Histograms in Otel.

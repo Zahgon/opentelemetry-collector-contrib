@@ -18,50 +18,32 @@ type Metric struct {
 	pmetric.Metric
 }
 
-func (m *Metric) Ident() Ident {
-	return identity.OfResourceMetric(m.res, m.scope, m.Metric)
-}
+func (m *Metric) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
 func (m *Metric) Resource() pcommon.Resource {
-	return m.res
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }
 
 func (m *Metric) Scope() pcommon.InstrumentationScope {
-	return m.scope
+	_ = "STUB: not implemented"
+	return *new(pcommon.InstrumentationScope)
 }
 
 func From(res pcommon.Resource, scope pcommon.InstrumentationScope, metric pmetric.Metric) Metric {
-	return Metric{res: res, scope: scope, Metric: metric}
+	_ = "STUB: not implemented"
+	return *new(Metric)
 }
 
 func (m Metric) AggregationTemporality() pmetric.AggregationTemporality {
-	switch m.Type() {
-	case pmetric.MetricTypeSum:
-		return m.Sum().AggregationTemporality()
-	case pmetric.MetricTypeHistogram:
-		return m.Histogram().AggregationTemporality()
-	case pmetric.MetricTypeExponentialHistogram:
-		return m.ExponentialHistogram().AggregationTemporality()
-	}
-
-	return pmetric.AggregationTemporalityUnspecified
+	_ = "STUB: not implemented"
+	return *new(pmetric.AggregationTemporality)
 }
 
 func (m Metric) Typed() Any {
+	_ = "STUB: not implemented"
 	//exhaustive:enforce
-	switch m.Type() {
-	case pmetric.MetricTypeSum:
-		return Sum(m)
-	case pmetric.MetricTypeGauge:
-		return Gauge(m)
-	case pmetric.MetricTypeExponentialHistogram:
-		return ExpHistogram(m)
-	case pmetric.MetricTypeHistogram:
-		return Histogram(m)
-	case pmetric.MetricTypeSummary:
-		return Summary(m)
-	}
-	panic("unreachable")
+	return *new(Any)
 }
 
 var (
@@ -78,33 +60,4 @@ type Any interface {
 	SetAggregationTemporality(pmetric.AggregationTemporality)
 }
 
-func (m Metric) Filter(ok func(id identity.Stream, dp any) bool) {
-	mid := m.Ident()
-	switch m.Type() {
-	case pmetric.MetricTypeSum:
-		m.Sum().DataPoints().RemoveIf(func(dp pmetric.NumberDataPoint) bool {
-			id := identity.OfStream(mid, dp)
-			return !ok(id, dp)
-		})
-	case pmetric.MetricTypeGauge:
-		m.Gauge().DataPoints().RemoveIf(func(dp pmetric.NumberDataPoint) bool {
-			id := identity.OfStream(mid, dp)
-			return !ok(id, dp)
-		})
-	case pmetric.MetricTypeHistogram:
-		m.Histogram().DataPoints().RemoveIf(func(dp pmetric.HistogramDataPoint) bool {
-			id := identity.OfStream(mid, dp)
-			return !ok(id, dp)
-		})
-	case pmetric.MetricTypeExponentialHistogram:
-		m.ExponentialHistogram().DataPoints().RemoveIf(func(dp pmetric.ExponentialHistogramDataPoint) bool {
-			id := identity.OfStream(mid, dp)
-			return !ok(id, dp)
-		})
-	case pmetric.MetricTypeSummary:
-		m.Summary().DataPoints().RemoveIf(func(dp pmetric.SummaryDataPoint) bool {
-			id := identity.OfStream(mid, dp)
-			return !ok(id, dp)
-		})
-	}
-}
+func (m Metric) Filter(ok func(id identity.Stream, dp any) bool) { _ = "STUB: not implemented"; return }

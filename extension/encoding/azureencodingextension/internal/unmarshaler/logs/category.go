@@ -6,14 +6,9 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 
-	jsoniter "github.com/json-iterator/go"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // List of supported Azure Resource Log Categories
@@ -143,69 +138,46 @@ type azureLogRecordBase struct {
 // GetResource returns resource attributes for the parsed Log Record
 // As for now it includes ResourceID, TenantID and Location
 func (r *azureLogRecordBase) GetResource() logsResourceAttributes {
-	return logsResourceAttributes{
-		ResourceID: r.ResourceID,
-		TenantID:   r.TenantID,
-		Location:   r.Location,
-	}
+	_ = "STUB: not implemented"
+	return *new(logsResourceAttributes)
 }
 
 // GetTimestamp tries to parse timestamp from either `time` or `timestamp` fields
 // using provided list of time formats.
 // If both fields are empty (undefined), or parsing failed - return an error
 func (r *azureLogRecordBase) GetTimestamp(formats ...string) (pcommon.Timestamp, error) {
-	if r.Time == "" && r.TimeStamp == "" {
-		return pcommon.Timestamp(0), errNoTimestamp
-	}
-
-	time := r.Time
-	if time == "" {
-		time = r.TimeStamp
-	}
-
-	nanos, err := unmarshaler.AsTimestamp(time, formats...)
-	if err != nil {
-		return pcommon.Timestamp(0), fmt.Errorf("unable to convert value %q as timestamp: %w", time, err)
-	}
-
-	return nanos, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp), nil
 }
 
 // GetLevel tries to convert the Log Level into OpenTelemetry SeverityNumber
 // If level is not set - return SeverityNumberUnspecified and flag that level is not set
 // If level is set, but invalid - return SeverityNumberUnspecified and flag that level is set
 func (r *azureLogRecordBase) GetLevel() (plog.SeverityNumber, string, bool) {
-	if r.Level == nil {
-		return plog.SeverityNumberUnspecified, "", false
-	}
-
-	severity := asSeverity(*r.Level)
-	// Saving original log.Level text,
-	// not the internal OpenTelemetry SeverityNumber -> SeverityText mapping
-	return severity, r.Level.String(), true
+	_ = "STUB: not implemented"
+	return *new(plog.SeverityNumber), "", false
 }
+
+// Saving original log.Level text,
+// not the internal OpenTelemetry SeverityNumber -> SeverityText mapping
 
 // PutCommonAttributes puts already parsed common attributes into provided Attributes Map/Body
 func (r *azureLogRecordBase) PutCommonAttributes(attrs pcommon.Map, _ pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Common fields for all Azure Resource Log Categories should be
 	// placed as attributes, no matter if we can map the category or not
-	unmarshaler.AttrPutStrIf(attrs, unmarshaler.AttributeAzureOperationName, r.OperationName)
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeAzureOperationVersion, r.OperationVersion)
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeAzureResultType, r.ResultType)
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeAzureResultSignature, r.ResultSignature)
-	unmarshaler.AttrPutStrPtrIf(attrs, attributesAzureResultDescription, r.ResultDescription)
-	unmarshaler.AttrPutStrPtrIf(attrs, string(conventions.NetworkPeerAddressKey), r.CallerIPAddress)
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeAzureCorrelationID, r.CorrelationID)
-	unmarshaler.AttrPutIntNumberPtrIf(attrs, attributeAzureOperationDuration, r.DurationMs)
-	// Identity is NOT processed here. Each category-specific struct is
-	// responsible for calling the appropriate identity parser in its own
-	// PutCommonAttributes override, because the identity field has different
-	// structures across Azure log categories (Activity, Storage, etc.).
+	return
 }
+
+// Identity is NOT processed here. Each category-specific struct is
+// responsible for calling the appropriate identity parser in its own
+// PutCommonAttributes override, because the identity field has different
+// structures across Azure log categories (Activity, Storage, etc.).
 
 // PutProperties puts already attributes from "properties" field into provided Attributes Map/Body
 // MUST be implemented by each specific logCategory structure if "properties" field is expected there
 func (*azureLogRecordBase) PutProperties(_ pcommon.Map, _ pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// By default - no "properties", so nothing to do here
 	return nil
 }
@@ -223,134 +195,30 @@ type azureLogRecordGeneric struct {
 }
 
 func (r *azureLogRecordGeneric) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	var properties map[string]any
-
-	if len(r.Properties) == 0 {
-		// Nothing to parse
-		return nil
-	}
-
-	// We expect "properties" to be a correct JSON object in most cases,
-	// so we'll try to parse it as JSON here
-	// If parsing will fail - we will put value of "properties" field
-	// into `azure.properties` Attribute and return parse error to caller
-	if err := jsoniter.ConfigFastest.Unmarshal(r.Properties, &properties); err != nil {
-		attrs.PutStr(attributesAzureProperties, string(r.Properties))
-		return fmt.Errorf("failed to parse Azure Logs 'properties' field as JSON: %w", err)
-	}
-
-	// Put everything into attributes
-	for k, v := range properties {
-		switch k {
-		case "Message", "message":
-			if err := body.FromRaw(v); err != nil {
-				body.SetStr(fmt.Sprintf("%v", v))
-			}
-		case "correlationId":
-			value := attrs.PutEmpty(attributeAzureCorrelationID)
-			if err := value.FromRaw(v); err != nil {
-				value.SetStr(fmt.Sprintf("%v", v))
-			}
-		case "duration":
-			value := attrs.PutEmpty(attributeAzureOperationDuration)
-			if err := value.FromRaw(v); err != nil {
-				value.SetStr(fmt.Sprintf("%v", v))
-			}
-		default:
-			// Keep all other fields as-is
-			value := attrs.PutEmpty(k)
-			if err := value.FromRaw(v); err != nil {
-				value.SetStr(fmt.Sprintf("%v", v))
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Nothing to parse
+
+// We expect "properties" to be a correct JSON object in most cases,
+// so we'll try to parse it as JSON here
+// If parsing will fail - we will put value of "properties" field
+// into `azure.properties` Attribute and return parse error to caller
+
+// Put everything into attributes
+
+// Keep all other fields as-is
+
 // processLogRecord tries to parse incoming record based of provided logCategory
 func processLogRecord(logCategory string, record []byte) (azureLogRecord, error) {
-	var parsed azureLogRecord
-
-	switch logCategory {
-	case categoryApplicationGatewayAccessLog:
-		parsed = new(azureApplicationGatewayAccessLog)
-	case categoryApplicationGatewayPerformanceLog:
-		parsed = new(azureApplicationGatewayPerformanceLog)
-	case categoryApplicationGatewayFirewallLog:
-		parsed = new(azureApplicationGatewayFirewallLog)
-	case categoryAppServiceAppLogs:
-		parsed = new(azureAppServiceAppLog)
-	case categoryAppServiceAuditLogs:
-		parsed = new(azureAppServiceAuditLog)
-	case categoryAppServiceAuthenticationLogs:
-		parsed = new(azureAppServiceAuthenticationLog)
-	case categoryAppServiceConsoleLogs:
-		parsed = new(azureAppServiceConsoleLog)
-	case categoryAppServiceHTTPLogs:
-		parsed = new(azureAppServiceHTTPLog)
-	case categoryAppServiceIPSecAuditLogs:
-		parsed = new(azureAppServiceIPSecAuditLog)
-	case categoryAppServicePlatformLogs:
-		parsed = new(azureAppServicePlatformLog)
-	case categoryAppServiceFileAuditLogs:
-		parsed = new(azureAppServiceFileAuditLog)
-	case categoryAzureCdnAccessLog:
-		parsed = new(azureHTTPAccessLog)
-	case categoryAzureMSApplicationMetricsLog:
-		parsed = new(azureMSApplicationMetricsLog)
-	case categoryAzureMSDiagnosticErrorLog:
-		parsed = new(azureMSDiagnosticErrorLog)
-	case categoryAzureMSOperationalLog:
-		parsed = new(azureMSOperationalLog)
-	case categoryAzureMSRuntimeAuditLog:
-		parsed = new(azureMSRuntimeAuditLog)
-	case categoryAzureMSVNetAndIPFilteringLog:
-		parsed = new(azureMSVNetAndIPFilteringLog)
-	case categoryDataFactoryActivityRuns:
-		parsed = new(azureDataFactoryActivityRunsLog)
-	case categoryDataFactoryPipelineRuns:
-		parsed = new(azureDataFactoryPipelineRunsLog)
-	case categoryDataFactoryTriggerRuns:
-		parsed = new(azureDataFactoryTriggerRunsLog)
-	case categoryFrontDoorAccessLog:
-		parsed = new(azureHTTPAccessLog)
-	case categoryFrontDoorHealthProbeLog:
-		parsed = new(frontDoorHealthProbeLog)
-	case categoryFrontdoorWebApplicationFirewallLog:
-		parsed = new(frontDoorWAFLog)
-	case categoryFunctionAppLogs:
-		parsed = new(azureFunctionAppLog)
-	// StorageRead, StorageWrite, StorageDelete share the same properties,
-	// called StorageBlobLogs, see https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/storagebloblogs
-	case categoryStorageRead, categoryStorageWrite, categoryStorageDelete:
-		parsed = new(azureStorageBlobLog)
-	case categoryAdministrative:
-		parsed = new(azureAdministrativeLog)
-	case categoryAlert:
-		parsed = new(azureAlertLog)
-	case categoryAutoscale:
-		parsed = new(azureAutoscaleLog)
-	case categorySecurity:
-		parsed = new(azureSecurityLog)
-	case categoryPolicy:
-		parsed = new(azurePolicyLog)
-	case categoryServiceHealth:
-		parsed = new(azureServiceHealthLog)
-	case categoryRecommendation:
-		parsed = new(azureRecommendationLog)
-	case categoryResourceHealth:
-		parsed = new(azureResourceHealthLog)
-	default:
-		parsed = new(azureLogRecordGeneric)
-	}
-
-	// Unfortunately, "goccy/go-json" has a bug with case-insensitive key matching
-	// for nested structures, so we have to use jsoniter here
-	// see https://github.com/goccy/go-json/issues/470
-	if err := jsoniter.ConfigFastest.Unmarshal(record, parsed); err != nil {
-		return nil, fmt.Errorf("JSON parse failed: %w", err)
-	}
-
-	return parsed, nil
+	_ = "STUB: not implemented"
+	return *new(azureLogRecord), nil
 }
+
+// StorageRead, StorageWrite, StorageDelete share the same properties,
+// called StorageBlobLogs, see https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/storagebloblogs
+
+// Unfortunately, "goccy/go-json" has a bug with case-insensitive key matching
+// for nested structures, so we have to use jsoniter here
+// see https://github.com/goccy/go-json/issues/470

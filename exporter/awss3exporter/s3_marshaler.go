@@ -20,21 +20,20 @@ type s3Marshaler struct {
 }
 
 func (marshaler *s3Marshaler) MarshalTraces(td ptrace.Traces) ([]byte, error) {
-	return marshaler.tracesMarshaler.MarshalTraces(td)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (marshaler *s3Marshaler) MarshalLogs(ld plog.Logs) ([]byte, error) {
-	return marshaler.logsMarshaler.MarshalLogs(ld)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (marshaler *s3Marshaler) MarshalMetrics(md pmetric.Metrics) ([]byte, error) {
-	return marshaler.metricsMarshaler.MarshalMetrics(md)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (marshaler *s3Marshaler) format() string {
-	return marshaler.fileFormat
-}
+func (marshaler *s3Marshaler) format() string { _ = "STUB: not implemented"; return "" }
 
-func (marshaler *s3Marshaler) compressed() bool {
-	return marshaler.IsCompressed
-}
+func (marshaler *s3Marshaler) compressed() bool { _ = "STUB: not implemented"; return false }

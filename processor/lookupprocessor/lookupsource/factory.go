@@ -54,11 +54,8 @@ func NewSourceFactory(
 	createDefaultConfig CreateDefaultConfigFunc,
 	createSource CreateSourceFunc,
 ) SourceFactory {
-	return &sourceFactoryImpl{
-		typ:                 typ,
-		createDefaultConfig: createDefaultConfig,
-		createSource:        createSource,
-	}
+	_ = "STUB: not implemented"
+	return *new(SourceFactory)
 }
 
 type sourceFactoryImpl struct {
@@ -67,20 +64,14 @@ type sourceFactoryImpl struct {
 	createSource        CreateSourceFunc
 }
 
-func (f *sourceFactoryImpl) Type() string {
-	return f.typ
-}
+func (f *sourceFactoryImpl) Type() string { _ = "STUB: not implemented"; return "" }
 
 func (f *sourceFactoryImpl) CreateDefaultConfig() SourceConfig {
-	if f.createDefaultConfig == nil {
-		return nil
-	}
-	return f.createDefaultConfig()
+	_ = "STUB: not implemented"
+	return *new(SourceConfig)
 }
 
 func (f *sourceFactoryImpl) CreateSource(ctx context.Context, settings CreateSettings, cfg SourceConfig) (Source, error) {
-	if f.createSource == nil {
-		return nil, nil
-	}
-	return f.createSource(ctx, settings, cfg)
+	_ = "STUB: not implemented"
+	return *new(Source), nil
 }

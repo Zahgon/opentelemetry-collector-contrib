@@ -6,8 +6,6 @@
 package isolationforestprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/isolationforestprocessor"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -72,180 +70,60 @@ type PerformanceConfig struct {
 // createDefaultConfig returns a configuration with sensible defaults
 // Note: This function returns component.Config to match the expected signature.
 func createDefaultConfig() component.Config {
-	return &Config{
-		ForestSize:        100,
-		SubsampleSize:     256,
-		ContaminationRate: 0.1,
-		Mode:              "enrich",
-		Threshold:         0.7,
-		TrainingWindow:    "24h",
-		UpdateFrequency:   "1h",
-		MinSamples:        1000,
-
-		ScoreAttribute:          "anomaly.isolation_score",
-		ClassificationAttribute: "anomaly.is_anomaly",
-
-		Features: FeatureConfig{
-			Traces:  []string{"duration", "error", "http.status_code"},
-			Metrics: []string{"value", "rate_of_change"},
-			Logs:    []string{"severity_number", "timestamp_gap"},
-		},
-
-		Performance: PerformanceConfig{
-			MaxMemoryMB:     512,
-			BatchSize:       1000,
-			ParallelWorkers: 4,
-		},
-
-		// Default adaptive window configuration (disabled by default for backward compatibility)
-		AdaptiveWindow: &AdaptiveWindowConfig{
-			Enabled:                false,  // Disabled by default - backward compatibility
-			MinWindowSize:          1000,   // Match MinSamples for consistency
-			MaxWindowSize:          100000, // Reasonable upper bound
-			MemoryLimitMB:          256,    // Half of total processor memory
-			AdaptationRate:         0.1,    // Conservative adjustment speed
-			VelocityThreshold:      50,     // Default growth threshold
-			StabilityCheckInterval: "5m",   // Check model stability every 5 minutes
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// Default adaptive window configuration (disabled by default for backward compatibility)
+
+// Disabled by default - backward compatibility
+// Match MinSamples for consistency
+// Reasonable upper bound
+// Half of total processor memory
+// Conservative adjustment speed
+// Default growth threshold
+// Check model stability every 5 minutes
 
 // Validate checks the configuration for logical consistency and valid parameter ranges.
-func (cfg *Config) Validate() error {
-	if cfg.ForestSize <= 0 {
-		return errors.New("forest_size must be positive")
-	}
-	// Upper bound required by tests
-	if cfg.ForestSize > 1000 {
-		return errors.New("forest_size should not exceed 1000")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.ContaminationRate < 0.0 || cfg.ContaminationRate > 1.0 {
-		return errors.New("contamination_rate must be between 0.0 and 1.0")
-	}
-	if cfg.Mode != "enrich" && cfg.Mode != "filter" && cfg.Mode != "both" {
-		return errors.New("mode must be 'enrich', 'filter', or 'both'")
-	}
-	if cfg.Threshold < 0.0 || cfg.Threshold > 1.0 {
-		return errors.New("threshold must be between 0.0 and 1.0")
-	}
+// Upper bound required by tests
 
-	if _, err := time.ParseDuration(cfg.TrainingWindow); err != nil {
-		return fmt.Errorf("training_window is not a valid duration: %w", err)
-	}
-	if _, err := time.ParseDuration(cfg.UpdateFrequency); err != nil {
-		return fmt.Errorf("update_frequency is not a valid duration: %w", err)
-	}
+// Require at least one feature type configured
 
-	if cfg.ScoreAttribute == cfg.ClassificationAttribute {
-		return errors.New("score_attribute and classification_attribute must be different")
-	}
-
-	// Require at least one feature type configured
-	if len(cfg.Features.Traces) == 0 && len(cfg.Features.Metrics) == 0 && len(cfg.Features.Logs) == 0 {
-		return errors.New("at least one feature type must be configured")
-	}
-
-	// Validate adaptive window configuration
-	if cfg.AdaptiveWindow != nil {
-		if err := cfg.validateAdaptiveWindow(); err != nil {
-			return fmt.Errorf("adaptive_window validation failed: %w", err)
-		}
-	}
-
-	return nil
-}
+// Validate adaptive window configuration
 
 // validateAdaptiveWindow validates the adaptive window configuration
-func (cfg *Config) validateAdaptiveWindow() error {
-	aw := cfg.AdaptiveWindow
+func (cfg *Config) validateAdaptiveWindow() error { _ = "STUB: not implemented"; return nil }
 
-	if aw.MinWindowSize <= 0 {
-		return errors.New("min_window_size must be positive")
-	}
+// Ensure consistency with main config
 
-	if aw.MaxWindowSize <= aw.MinWindowSize {
-		return errors.New("max_window_size must be greater than min_window_size")
-	}
-
-	// Ensure consistency with main config
-	if aw.MinWindowSize < cfg.MinSamples {
-		return fmt.Errorf("adaptive_window.min_window_size (%d) should be >= min_samples (%d) for consistency",
-			aw.MinWindowSize, cfg.MinSamples)
-	}
-
-	if aw.MemoryLimitMB <= 0 {
-		return errors.New("memory_limit_mb must be positive")
-	}
-
-	// Memory limit should be reasonable compared to total processor memory
-	if aw.MemoryLimitMB > cfg.Performance.MaxMemoryMB {
-		return fmt.Errorf("adaptive_window.memory_limit_mb (%d) should not exceed performance.max_memory_mb (%d)",
-			aw.MemoryLimitMB, cfg.Performance.MaxMemoryMB)
-	}
-
-	if aw.AdaptationRate < 0.0 || aw.AdaptationRate > 1.0 {
-		return errors.New("adaptation_rate must be between 0.0 and 1.0")
-	}
-
-	if aw.VelocityThreshold < 0 {
-		return errors.New("velocity_threshold must be non-negative")
-	}
-
-	if aw.StabilityCheckInterval != "" {
-		if _, err := time.ParseDuration(aw.StabilityCheckInterval); err != nil {
-			return fmt.Errorf("stability_check_interval is not a valid duration: %w", err)
-		}
-	}
-
-	return nil
-}
+// Memory limit should be reasonable compared to total processor memory
 
 // IsAdaptiveWindowEnabled returns true if adaptive window sizing is enabled
-func (cfg *Config) IsAdaptiveWindowEnabled() bool {
-	return cfg.AdaptiveWindow != nil && cfg.AdaptiveWindow.Enabled
-}
+func (cfg *Config) IsAdaptiveWindowEnabled() bool { _ = "STUB: not implemented"; return false }
 
 // GetStabilityCheckInterval returns the stability check interval duration
 func (cfg *Config) GetStabilityCheckInterval() (time.Duration, error) {
-	if cfg.AdaptiveWindow == nil || cfg.AdaptiveWindow.StabilityCheckInterval == "" {
-		return 5 * time.Minute, nil // Default
-	}
-	return time.ParseDuration(cfg.AdaptiveWindow.StabilityCheckInterval)
+	_ = "STUB: not implemented"
+	return *new(time.Duration), nil
 }
 
+// Default
+
 func (cfg *Config) GetTrainingWindowDuration() (time.Duration, error) {
-	return time.ParseDuration(cfg.TrainingWindow)
+	_ = "STUB: not implemented"
+	return *new(time.Duration), nil
 }
 
 func (cfg *Config) GetUpdateFrequencyDuration() (time.Duration, error) {
-	return time.ParseDuration(cfg.UpdateFrequency)
+	_ = "STUB: not implemented"
+	return *new(time.Duration), nil
 }
 
-func (cfg *Config) IsMultiModelMode() bool {
-	return len(cfg.Models) > 0
-}
+func (cfg *Config) IsMultiModelMode() bool { _ = "STUB: not implemented"; return false }
 
 func (cfg *Config) GetModelForAttributes(attributes map[string]any) *ModelConfig {
-	if !cfg.IsMultiModelMode() {
-		return nil
-	}
-	for _, model := range cfg.Models {
-		matches := true
-		for key, expectedValue := range model.Selector {
-			actualValue, exists := attributes[key]
-			if !exists {
-				matches = false
-				break
-			}
-			if fmt.Sprintf("%v", actualValue) != expectedValue {
-				matches = false
-				break
-			}
-		}
-		if matches {
-			return &model
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }

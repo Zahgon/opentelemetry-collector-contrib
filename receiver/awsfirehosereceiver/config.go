@@ -39,18 +39,6 @@ type Config struct {
 
 // Validate checks that the endpoint and record type exist and
 // are valid.
-func (c *Config) Validate() error {
-	if c.NetAddr.Endpoint == "" {
-		return errors.New("must specify endpoint")
-	}
-	if c.RecordType != "" && c.Encoding != "" {
-		return errRecordTypeEncodingSet
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func handleDeprecatedConfig(cfg *Config, logger *zap.Logger) {
-	if cfg.RecordType != "" {
-		logger.Warn("record_type is deprecated, and will be removed in a future version. Use encoding instead.")
-	}
-}
+func handleDeprecatedConfig(cfg *Config, logger *zap.Logger) { _ = "STUB: not implemented"; return }

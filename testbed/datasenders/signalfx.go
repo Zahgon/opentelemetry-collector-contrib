@@ -4,15 +4,8 @@
 package datasenders // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datasenders"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/exporter/exportertest"
-	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -27,49 +20,17 @@ var _ testbed.MetricDataSender = (*SFxMetricsDataSender)(nil)
 
 // NewSFxMetricDataSender creates a new SignalFx metric protocol sender that will send
 // to the specified port after Start is called.
-func NewSFxMetricDataSender(port int) *SFxMetricsDataSender {
-	return &SFxMetricsDataSender{
-		DataSenderBase: testbed.DataSenderBase{
-			Port: port,
-			Host: testbed.DefaultHost,
-		},
-	}
-}
+func NewSFxMetricDataSender(port int) *SFxMetricsDataSender { _ = "STUB: not implemented"; return nil }
 
 // Start the sender.
-func (sf *SFxMetricsDataSender) Start() error {
-	factory := signalfxexporter.NewFactory()
-	cfg := &signalfxexporter.Config{
-		IngestURL:   fmt.Sprintf("http://%s", sf.GetEndpoint()),
-		APIURL:      "http://127.0.0.1",
-		AccessToken: "access_token",
-	}
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exporter, err := factory.CreateMetrics(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	err = exporter.Start(context.Background(), componenttest.NewNopHost())
-	if err != nil {
-		return err
-	}
-
-	sf.Metrics = exporter
-	return nil
-}
+func (sf *SFxMetricsDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 // GenConfigYAMLStr returns receiver config for the agent.
 func (sf *SFxMetricsDataSender) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates a receiver config for agent.
-	return fmt.Sprintf(`
-  signalfx:
-    endpoint: "%s"`, sf.GetEndpoint())
+	return ""
 }
 
 // ProtocolName returns protocol name as it is specified in Collector config.
-func (*SFxMetricsDataSender) ProtocolName() string {
-	return "signalfx"
-}
+func (*SFxMetricsDataSender) ProtocolName() string { _ = "STUB: not implemented"; return "" }

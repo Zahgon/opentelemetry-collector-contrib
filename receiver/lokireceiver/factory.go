@@ -9,13 +9,8 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configgrpc"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/lokireceiver/internal/metadata"
 )
 
 const (
@@ -24,30 +19,11 @@ const (
 )
 
 // NewFactory return a new receiver.Factory for loki receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Protocols: Protocols{
-			GRPC: &configgrpc.ServerConfig{
-				NetAddr: confignet.AddrConfig{
-					Endpoint:  defaultGRPCEndpoint,
-					Transport: confignet.TransportTypeTCP,
-				},
-			},
-			HTTP: &confighttp.ServerConfig{
-				NetAddr: confignet.AddrConfig{
-					Transport: confignet.TransportTypeTCP,
-					Endpoint:  defaultHTTPEndpoint,
-				},
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsReceiver(
@@ -56,6 +32,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	rCfg := cfg.(*Config)
-	return newLokiReceiver(rCfg, consumer, settings)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

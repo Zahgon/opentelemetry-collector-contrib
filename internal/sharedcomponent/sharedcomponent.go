@@ -19,26 +19,13 @@ type SharedComponents struct {
 }
 
 // NewSharedComponents returns a new empty SharedComponents.
-func NewSharedComponents() *SharedComponents {
-	return &SharedComponents{
-		comps: make(map[any]*SharedComponent),
-	}
-}
+func NewSharedComponents() *SharedComponents { _ = "STUB: not implemented"; return nil }
 
 // GetOrAdd returns the already created instance if exists, otherwise creates a new instance
 // and adds it to the map of references.
 func (scs *SharedComponents) GetOrAdd(key any, create func() component.Component) *SharedComponent {
-	if c, ok := scs.comps[key]; ok {
-		return c
-	}
-	newComp := &SharedComponent{
-		Component: create(),
-		removeFunc: func() {
-			delete(scs.comps, key)
-		},
-	}
-	scs.comps[key] = newComp
-	return newComp
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SharedComponent ensures that the wrapped component is started and stopped only once.
@@ -53,24 +40,20 @@ type SharedComponent struct {
 
 // Unwrap returns the original component.
 func (r *SharedComponent) Unwrap() component.Component {
-	return r.Component
+	_ = "STUB: not implemented"
+	return *
+
+	// Start implements component.Component.
+	new(component.Component)
 }
 
-// Start implements component.Component.
 func (r *SharedComponent) Start(ctx context.Context, host component.Host) error {
-	var err error
-	r.startOnce.Do(func() {
-		err = r.Component.Start(ctx, host)
-	})
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Shutdown implements component.Component.
 func (r *SharedComponent) Shutdown(ctx context.Context) error {
-	var err error
-	r.stopOnce.Do(func() {
-		err = r.Component.Shutdown(ctx)
-		r.removeFunc()
-	})
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }

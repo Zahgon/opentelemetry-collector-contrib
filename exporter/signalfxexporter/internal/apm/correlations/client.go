@@ -6,19 +6,14 @@ package correlations // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 	"net/url"
-	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/apm/log"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/apm/requests"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/apm/requests/requestcounter"
 )
 
 var (
@@ -34,9 +29,7 @@ type ErrMaxEntries struct {
 	MaxEntries int64 `json:"max,omitempty"`
 }
 
-func (m *ErrMaxEntries) Error() string {
-	return fmt.Sprintf("max entries %d", m.MaxEntries)
-}
+func (m *ErrMaxEntries) Error() string { _ = "STUB: not implemented"; return "" }
 
 var _ error = (*ErrMaxEntries)(nil)
 
@@ -104,133 +97,42 @@ type ClientConfig struct {
 
 // NewCorrelationClient returns a new Client
 func NewCorrelationClient(ctx context.Context, log log.Logger, client *http.Client, conf ClientConfig) (CorrelationClient, error) {
-	sender := requests.NewReqSender(ctx, client, conf.MaxRequests, "correlation")
-	return &Client{
-		log:                  log,
-		ctx:                  ctx,
-		Token:                conf.AccessToken,
-		APIURL:               conf.URL,
-		requestSender:        sender,
-		client:               client,
-		now:                  time.Now,
-		logUpdates:           conf.LogUpdates,
-		requestChan:          make(chan *request, conf.MaxBuffered),
-		retryChan:            make(chan *request, conf.MaxBuffered),
-		dedup:                newDeduplicator(int(conf.MaxBuffered)),
-		retryDelay:           conf.RetryDelay,
-		maxAttempts:          uint32(conf.MaxRetries) + 1,
-		dedupCleanupInterval: conf.CleanupInterval,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(CorrelationClient), nil
 }
 
 func (cc *Client) putRequestOnChan(r *request) error {
+	_ = "STUB: not implemented"
 	// prevent requests against empty dimension names and values
-	if r.DimName == "" || r.DimValue == "" {
-		// logging this as debug because this means there's no actual dimension to correlate with
-		// and because this isn't being taken off on the request sender and subject to retries, this could
-		// potentially spam the logs
-		atomic.AddInt64(&cc.TotalInvalidDimensions, int64(1))
-		r.Logger(cc.log).WithFields(log.Fields{"method": r.operation}).Debug("No dimension key or value to correlate to")
-		return nil
-	}
-
-	r.ctx, r.cancel = context.WithCancel(requestcounter.ContextWithRequestCounter(context.Background()))
-
-	var err error
-	select {
-	case cc.requestChan <- r:
-	case <-cc.ctx.Done():
-		err = context.DeadlineExceeded
-	default:
-		err = ErrChFull
-	}
-	return err
+	return nil
 }
+
+// logging this as debug because this means there's no actual dimension to correlate with
+// and because this isn't being taken off on the request sender and subject to retries, this could
+// potentially spam the logs
 
 func (cc *Client) putRequestOnRetryChan(r *request) error {
+	_ = "STUB: not implemented"
 	// handle request counter
-	if requestcounter.GetRequestCount(r.ctx) >= cc.maxAttempts {
-		return errMaxAttempts
-	}
-	requestcounter.IncrementRequestCount(r.ctx)
-
-	// set the time to retry
-	r.sendAt = cc.now().Add(cc.retryDelay)
-
-	if r.ctx.Err() != nil {
-		return errRequestCancelled
-	}
-
-	var err error
-	select {
-	case <-r.ctx.Done():
-		err = errRequestCancelled
-	case cc.retryChan <- r:
-	case <-cc.ctx.Done():
-		err = context.DeadlineExceeded
-	default:
-		err = errRetryChFull
-	}
-
-	return err
+	return nil
 }
+
+// set the time to retry
 
 // CorrelateCB is a call back invoked with Correlate requests
 // it is not invoked if the request is deduplicated, cancelled, or the client context is cancelled
 type CorrelateCB func(cor *Correlation, err error)
 
 // Correlate
-func (cc *Client) Correlate(cor *Correlation, cb CorrelateCB) {
-	err := cc.putRequestOnChan(&request{
-		Correlation: cor,
-		operation:   http.MethodPut,
-		callback: func(body []byte, statuscode int, err error) {
-			switch statuscode {
-			case http.StatusOK:
-				if cc.logUpdates {
-					cor.Logger(cc.log).WithFields(log.Fields{"method": http.MethodPut}).Info("Updated dimension")
-				}
-			case http.StatusTeapot:
-				maxEntry := &ErrMaxEntries{}
-				err = json.Unmarshal(body, maxEntry)
-				if err == nil {
-					err = maxEntry
-				}
-			}
-			if err != nil {
-				cor.Logger(cc.log).WithError(err).WithFields(log.Fields{"method": http.MethodPut}).Error("Unable to update dimension, not retrying")
-			}
-			cb(cor, err)
-		},
-	})
-	if err != nil {
-		cor.Logger(cc.log).WithError(err).WithFields(log.Fields{"method": http.MethodPut}).Debug("Unable to update dimension, not retrying")
-	}
-}
+func (cc *Client) Correlate(cor *Correlation, cb CorrelateCB) { _ = "STUB: not implemented"; return }
 
 // SuccessfulDeleteCB is a call back that is only invoked on successful Deletion operations
 type SuccessfulDeleteCB func(cor *Correlation)
 
 // Delete removes a correlation
 func (cc *Client) Delete(cor *Correlation, callback SuccessfulDeleteCB) {
-	err := cc.putRequestOnChan(&request{
-		Correlation: cor,
-		operation:   http.MethodDelete,
-		callback: func(_ []byte, statuscode int, err error) {
-			switch statuscode {
-			case http.StatusOK:
-				callback(cor)
-				if cc.logUpdates {
-					cor.Logger(cc.log).WithFields(log.Fields{"method": http.MethodDelete}).Info("Updated dimension")
-				}
-			default:
-				cc.log.WithError(err).Error("Unable to update dimension, not retrying")
-			}
-		},
-	})
-	if err != nil {
-		cor.Logger(cc.log).WithError(err).WithFields(log.Fields{"method": http.MethodDelete}).Debug("Unable to update dimension, not retrying")
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SuccessfulGetCB
@@ -238,163 +140,57 @@ type SuccessfulGetCB func(map[string][]string)
 
 // Get
 func (cc *Client) Get(dimName, dimValue string, callback SuccessfulGetCB) {
-	err := cc.putRequestOnChan(&request{
-		Correlation: &Correlation{
-			DimName:  dimName,
-			DimValue: dimValue,
-		},
-		operation: http.MethodGet,
-		callback: func(body []byte, statuscode int, err error) {
-			switch statuscode {
-			case http.StatusOK:
-				response := map[string][]string{}
-				err = json.Unmarshal(body, &response)
-				if err != nil {
-					cc.log.WithError(err).WithFields(log.Fields{"dim": dimName, "value": dimValue}).Error("Unable to unmarshall correlations for dimension")
-					return
-				}
-				callback(response)
-			case http.StatusNotFound:
-				// only log this as debug because we do a blanket fetch of correlations on the backend
-				// and if the backend fails to find anything this isn't really an error for us
-				cc.log.WithError(err).Debug("Unable to update dimension, not retrying")
-			default:
-				cc.log.WithError(err).Error("Unable to update dimension, not retrying")
-			}
-		},
-	})
-	if err != nil {
-		cc.log.WithError(err).WithFields(log.Fields{"dimensionName": dimName, "dimensionValue": dimValue}).Debug("Unable to retrieve correlations for dimension, not retrying")
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (cc *Client) makeRequest(r *request) {
-	var (
-		req *http.Request
-		err error
-	)
+// only log this as debug because we do a blanket fetch of correlations on the backend
+// and if the backend fails to find anything this isn't really an error for us
 
-	// build endpoint url
-	endpoint := fmt.Sprintf("%s/v2/apm/correlate/%s/%s", cc.APIURL, url.PathEscape(r.DimName), url.PathEscape(r.DimValue))
+func (cc *Client) makeRequest(r *request) { _ = "STUB: not implemented"; return }
 
-	switch r.operation {
-	case http.MethodGet:
-		req, err = http.NewRequest(r.operation, endpoint, http.NoBody)
-	case http.MethodPut:
-		// TODO: pool the reader
-		endpoint = fmt.Sprintf("%s/%s", endpoint, r.Type)
-		req, err = http.NewRequest(r.operation, endpoint, strings.NewReader(r.Value))
-		req.Header.Add("Content-Type", "text/plain")
-	case http.MethodDelete:
-		endpoint = fmt.Sprintf("%s/%s/%s", endpoint, r.Type, url.PathEscape(r.Value))
-		req, err = http.NewRequest(r.operation, endpoint, http.NoBody)
-	default:
-		err = errors.New("unknown operation")
-	}
+// build endpoint url
 
-	if err != nil {
-		// logging this as debug because this means there's something fundamentally wrong with the request
-		// and because this isn't being taken off on the request sender and subject to retries, this could
-		// potentially spam the logs long term.  This would be a really good candidate for a throttled error logger
-		r.Correlation.Logger(cc.log).WithError(err).WithFields(log.Fields{"method": r.operation}).Debug("Unable to make request, not retrying")
-		r.cancel()
-		return
-	}
+// TODO: pool the reader
 
-	req.Header.Add("X-SF-TOKEN", cc.Token)
+// logging this as debug because this means there's something fundamentally wrong with the request
+// and because this isn't being taken off on the request sender and subject to retries, this could
+// potentially spam the logs long term.  This would be a really good candidate for a throttled error logger
 
-	req = req.WithContext(
-		context.WithValue(req.Context(), requests.RequestFailedCallbackKey, requests.RequestFailedCallback(func(body []byte, statusCode int, err error) {
-			// retry if the http status code is not 4XX. A 4xx or http client error implies
-			// an error that is not going to be remedied by retrying.
-			if statusCode < 400 || statusCode >= 500 {
-				// The retry (for non 400 errors) is meant to provide some measure of robustness against
-				// temporary API failures.  If the API is down for significant
-				// periods of time, correlation updates will probably eventually back
-				// up beyond conf.MaxBuffered and start dropping.
-				retryErr := cc.putRequestOnRetryChan(r)
-				if retryErr == nil {
-					r.Correlation.Logger(cc.log).WithError(err).WithFields(log.Fields{"method": req.Method}).Debug("Unable to update dimension, retrying")
-					return
-				}
-			} else {
-				atomic.AddInt64(&cc.TotalClientError4xxResponses, int64(1))
-			}
+// retry if the http status code is not 4XX. A 4xx or http client error implies
+// an error that is not going to be remedied by retrying.
 
-			// invoke the callback
-			r.callback(body, statusCode, err)
+// The retry (for non 400 errors) is meant to provide some measure of robustness against
+// temporary API failures.  If the API is down for significant
+// periods of time, correlation updates will probably eventually back
+// up beyond conf.MaxBuffered and start dropping.
 
-			// cancel the request context
-			r.cancel()
-		})))
+// invoke the callback
 
-	req = req.WithContext(
-		context.WithValue(req.Context(), requests.RequestSuccessCallbackKey, requests.RequestSuccessCallback(func(body []byte) {
-			r.callback(body, http.StatusOK, nil)
-			// close the request context
-			r.cancel()
-		})))
+// cancel the request context
 
-	// This will block if we don't have enough requests
-	cc.requestSender.Send(req)
-}
+// close the request context
+
+// This will block if we don't have enough requests
 
 // routines
 // processChan processes incoming requests, drops duplicates, and cancels conflicting requests
-func (cc *Client) processChan() {
-	defer cc.wg.Done()
-	purgeDeduper := time.NewTimer(cc.dedupCleanupInterval)
-	defer purgeDeduper.Stop()
-	for {
-		select {
-		case <-cc.ctx.Done():
-			return
-		case <-purgeDeduper.C:
-			cc.dedup.purge()
-			purgeDeduper.Reset(cc.dedupCleanupInterval)
-		case r := <-cc.requestChan:
-			if cc.dedup.isDup(r) {
-				r.cancel()
-				continue
-			}
-			cc.makeRequest(r)
-		}
-	}
-}
+func (cc *Client) processChan() { _ = "STUB: not implemented"; return }
 
 // processRetryChan is a routine that drains the retry channel and waits until the appropriate time to retry the request
-func (cc *Client) processRetryChan() {
-	defer cc.wg.Done()
-	for {
-		select {
-		case <-cc.ctx.Done(): // client is shutdown
-			return
-		case r := <-cc.retryChan:
-			if r.ctx.Err() != nil {
-				continue
-			}
-			select {
-			case <-time.After(time.Until(r.sendAt)): // wait and resend the request
-				atomic.AddInt64(&cc.TotalRetriedUpdates, int64(1))
-				cc.makeRequest(r)
-			case <-r.ctx.Done(): // request is cancelled
-				continue
-			case <-cc.ctx.Done(): // client is shutdown
-				return
-			}
-		}
-	}
-}
+func (cc *Client) processRetryChan() { _ = "STUB: not implemented"; return }
+
+// client is shutdown
+
+// wait and resend the request
+
+// request is cancelled
+
+// client is shutdown
 
 // Start the client's processing queue
-func (cc *Client) Start() {
-	cc.wg.Add(2)
-	go cc.processChan()
-	go cc.processRetryChan()
-}
+func (cc *Client) Start() { _ = "STUB: not implemented"; return }
 
 // Shutdown the client. This will block until the context's cancel
 // function is complete.
-func (cc *Client) Shutdown() {
-	cc.wg.Wait()
-}
+func (cc *Client) Shutdown() { _ = "STUB: not implemented"; return }

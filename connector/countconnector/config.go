@@ -4,16 +4,7 @@
 package countconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector"
 
 import (
-	"errors"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/confmap"
-	"go.opentelemetry.io/collector/pdata/pcommon"
-	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 )
 
 // Default metrics are emitted if no conditions are specified.
@@ -63,177 +54,43 @@ type AttributeConfig struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	for name, info := range c.Spans {
-		if name == "" {
-			return errors.New("spans: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForSpanWithPathContextNames(info.Conditions, filterottl.StandardSpanFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("spans condition: metric %q: %w", name, err)
-		}
-		if err := info.validateAttributes(); err != nil {
-			return fmt.Errorf("spans attributes: metric %q: %w", name, err)
-		}
-	}
-	for name, info := range c.SpanEvents {
-		if name == "" {
-			return errors.New("spanevents: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForSpanEventWithPathContextNames(info.Conditions, filterottl.StandardSpanEventFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("spanevents condition: metric %q: %w", name, err)
-		}
-		if err := info.validateAttributes(); err != nil {
-			return fmt.Errorf("spanevents attributes: metric %q: %w", name, err)
-		}
-	}
-	for name, info := range c.Metrics {
-		if name == "" {
-			return errors.New("metrics: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForMetricWithPathContextNames(info.Conditions, filterottl.StandardMetricFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("metrics condition: metric %q: %w", name, err)
-		}
-		if len(info.Attributes) > 0 {
-			return fmt.Errorf("metrics attributes not supported: metric %q", name)
-		}
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	for name, info := range c.DataPoints {
-		if name == "" {
-			return errors.New("datapoints: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForDataPointWithPathContextNames(info.Conditions, filterottl.StandardDataPointFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("datapoints condition: metric %q: %w", name, err)
-		}
-		if err := info.validateAttributes(); err != nil {
-			return fmt.Errorf("spans attributes: metric %q: %w", name, err)
-		}
-	}
-	for name, info := range c.Logs {
-		if name == "" {
-			return errors.New("logs: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForLogWithPathContextNames(info.Conditions, filterottl.StandardLogFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("logs condition: metric %q: %w", name, err)
-		}
-		if err := info.validateAttributes(); err != nil {
-			return fmt.Errorf("logs attributes: metric %q: %w", name, err)
-		}
-	}
-	for name, info := range c.Profiles {
-		if name == "" {
-			return errors.New("profiles: metric name missing")
-		}
-		if _, err := filterottl.NewBoolExprForProfileWithPathContextNames(info.Conditions, filterottl.StandardProfileFuncs(), ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()}); err != nil {
-			return fmt.Errorf("profiles condition: metric %q: %w", name, err)
-		}
-		if err := info.validateAttributes(); err != nil {
-			return fmt.Errorf("profiles attributes: metric %q: %w", name, err)
-		}
-	}
-	return nil
-}
-
-func (i *MetricInfo) validateAttributes() error {
-	tmp := pcommon.NewValueEmpty()
-
-	for _, attr := range i.Attributes {
-		if attr.Key == "" {
-			return errors.New("attribute key missing")
-		}
-
-		if err := tmp.FromRaw(attr.DefaultValue); err != nil {
-			return fmt.Errorf("invalid default value specified for attribute %s", attr.Key)
-		}
-	}
-	return nil
-}
+func (i *MetricInfo) validateAttributes() error { _ = "STUB: not implemented"; return nil }
 
 var _ confmap.Unmarshaler = (*Config)(nil)
 
 // Unmarshal with custom logic to override default values if user has specified any custom metrics.
 func (c *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		// Nothing to do if there is no config given.
-		return nil
-	}
-	// Start from defaults provided by createDefaultConfig.
-	// Unmarshal into a temporary struct and override only sections that are provided and non-empty.
-	var userCfg Config
-	if err := componentParser.Unmarshal(&userCfg, confmap.WithIgnoreUnused()); err != nil {
-		return err
-	}
-	// Spans
-	if componentParser.IsSet("spans") && len(userCfg.Spans) > 0 {
-		c.Spans = userCfg.Spans
-	}
-	// Span events
-	if componentParser.IsSet("spanevents") && len(userCfg.SpanEvents) > 0 {
-		c.SpanEvents = userCfg.SpanEvents
-	}
-	// Metrics
-	if componentParser.IsSet("metrics") && len(userCfg.Metrics) > 0 {
-		c.Metrics = userCfg.Metrics
-	}
-	// Data points
-	if componentParser.IsSet("datapoints") && len(userCfg.DataPoints) > 0 {
-		c.DataPoints = userCfg.DataPoints
-	}
-	// Logs
-	if componentParser.IsSet("logs") && len(userCfg.Logs) > 0 {
-		c.Logs = userCfg.Logs
-	}
-	// Profiles
-	if componentParser.IsSet("profiles") && len(userCfg.Profiles) > 0 {
-		c.Profiles = userCfg.Profiles
-	}
+	_ = "STUB: not implemented"
 	return nil
+
+	// Nothing to do if there is no config given.
 }
 
-func defaultSpansConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameSpans: {
-			Description: defaultMetricDescSpans,
-		},
-	}
-}
+// Start from defaults provided by createDefaultConfig.
+// Unmarshal into a temporary struct and override only sections that are provided and non-empty.
 
-func defaultSpanEventsConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameSpanEvents: {
-			Description: defaultMetricDescSpanEvents,
-		},
-	}
-}
+// Spans
 
-func defaultMetricsConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameMetrics: {
-			Description: defaultMetricDescMetrics,
-		},
-	}
-}
+// Span events
 
-func defaultDataPointsConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameDataPoints: {
-			Description: defaultMetricDescDataPoints,
-		},
-	}
-}
+// Metrics
 
-func defaultLogsConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameLogs: {
-			Description: defaultMetricDescLogs,
-		},
-	}
-}
+// Data points
 
-func defaultProfilesConfig() map[string]MetricInfo {
-	return map[string]MetricInfo{
-		defaultMetricNameProfiles: {
-			Description: defaultMetricDescProfiles,
-		},
-	}
-}
+// Logs
+
+// Profiles
+
+func defaultSpansConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }
+
+func defaultSpanEventsConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }
+
+func defaultMetricsConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }
+
+func defaultDataPointsConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }
+
+func defaultLogsConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }
+
+func defaultProfilesConfig() map[string]MetricInfo { _ = "STUB: not implemented"; return nil }

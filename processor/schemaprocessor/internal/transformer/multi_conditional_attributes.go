@@ -15,18 +15,9 @@ type SpanEventConditionalAttributes struct {
 	MultiConditionalAttributeSet migrate.MultiConditionalAttributeSet
 }
 
-func (SpanEventConditionalAttributes) IsMigrator() {}
+func (SpanEventConditionalAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o SpanEventConditionalAttributes) Do(ss migrate.StateSelector, span ptrace.Span) error {
-	for e := 0; e < span.Events().Len(); e++ {
-		event := span.Events().At(e)
-		if err := o.MultiConditionalAttributeSet.Do(ss, event.Attributes(),
-			map[string]string{
-				"event.name": event.Name(),
-				"span.name":  span.Name(),
-			}); err != nil {
-			return err
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }

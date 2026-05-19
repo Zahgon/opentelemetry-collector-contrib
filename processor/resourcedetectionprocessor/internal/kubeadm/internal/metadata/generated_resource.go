@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetK8sClusterName sets provided value as "k8s.cluster.name" attribute.
-func (rb *ResourceBuilder) SetK8sClusterName(val string) {
-	if rb.config.K8sClusterName.Enabled {
-		rb.res.Attributes().PutStr("k8s.cluster.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sClusterName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sClusterUID sets provided value as "k8s.cluster.uid" attribute.
-func (rb *ResourceBuilder) SetK8sClusterUID(val string) {
-	if rb.config.K8sClusterUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.cluster.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sClusterUID(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

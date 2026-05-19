@@ -5,10 +5,7 @@ package nsxtreceiver // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
-	"fmt"
-	"io"
 	"net/http"
 	"net/url"
 
@@ -39,69 +36,23 @@ type nsxClient struct {
 var errUnauthorized = errors.New("STATUS 403, unauthorized")
 
 func newClient(ctx context.Context, c *Config, settings component.TelemetrySettings, host component.Host, logger *zap.Logger) (*nsxClient, error) {
-	client, err := c.ToClient(ctx, host.GetExtensions(), settings)
-	if err != nil {
-		return nil, err
-	}
-
-	endpoint, err := url.Parse(c.Endpoint)
-	if err != nil {
-		return nil, err
-	}
-
-	return &nsxClient{
-		config:   c,
-		client:   client,
-		endpoint: endpoint,
-		logger:   logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) TransportNodes(ctx context.Context) ([]dm.TransportNode, error) {
-	body, err := c.doRequest(
-		ctx,
-		"/api/v1/transport-nodes",
-	)
-	if err != nil {
-		return nil, err
-	}
-	var nodes dm.TransportNodeList
-	err = json.Unmarshal(body, &nodes)
-	return nodes.Results, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) ClusterNodes(ctx context.Context) ([]dm.ClusterNode, error) {
-	body, err := c.doRequest(
-		ctx,
-		"/api/v1/cluster/nodes",
-	)
-	if err != nil {
-		return nil, fmt.Errorf("unable to get cluster nodes: %w", err)
-	}
-	var nodes dm.ClusterNodeList
-	err = json.Unmarshal(body, &nodes)
-
-	return nodes.Results, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) NodeStatus(ctx context.Context, nodeID string, class nodeClass) (*dm.NodeStatus, error) {
-	body, err := c.doRequest(
-		ctx,
-		c.nodeStatusEndpoint(class, nodeID),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("unable to get a node's status from the REST API: %w", err)
-	}
-
-	if class == transportClass {
-		var nodeStatus dm.TransportNodeStatus
-		err = json.Unmarshal(body, &nodeStatus)
-		return &nodeStatus.NodeStatus, err
-	}
-
-	var nodeStatus dm.NodeStatus
-	err = json.Unmarshal(body, &nodeStatus)
-	return &nodeStatus, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) Interfaces(
@@ -109,17 +60,8 @@ func (c *nsxClient) Interfaces(
 	nodeID string,
 	class nodeClass,
 ) ([]dm.NetworkInterface, error) {
-	body, err := c.doRequest(
-		ctx,
-		c.interfacesEndpoint(class, nodeID),
-	)
-	if err != nil {
-		return nil, err
-	}
-	var interfaces dm.NodeNetworkInterfacePropertiesListResult
-	err = json.Unmarshal(body, &interfaces)
-
-	return interfaces.Results, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) InterfaceStatus(
@@ -127,71 +69,26 @@ func (c *nsxClient) InterfaceStatus(
 	nodeID, interfaceID string,
 	class nodeClass,
 ) (*dm.NetworkInterfaceStats, error) {
-	body, err := c.doRequest(
-		ctx,
-		c.interfaceStatusEndpoint(class, nodeID, interfaceID),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("unable to get interface stats: %w", err)
-	}
-	var interfaceStats dm.NetworkInterfaceStats
-	err = json.Unmarshal(body, &interfaceStats)
-	return &interfaceStats, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nsxClient) doRequest(ctx context.Context, path string) ([]byte, error) {
-	endpoint, err := c.endpoint.Parse(path)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint.String(), http.NoBody)
-	if err != nil {
-		return nil, err
-	}
-	req.SetBasicAuth(c.config.Username, string(c.config.Password))
-	h := req.Header
-	h.Add("User-Agent", "opentelemetry-collector")
-	h.Add("Accept", "application/json")
-	h.Add("Connection", "keep-alive")
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode == http.StatusOK {
-		return io.ReadAll(resp.Body)
-	}
-
-	body, _ := io.ReadAll(resp.Body)
-	switch resp.StatusCode {
-	case http.StatusForbidden:
-		return nil, errUnauthorized
-	default:
-		c.logger.Info(fmt.Sprintf("%v", req))
-		return nil, fmt.Errorf("got non 200 status code %d: %w, %s", resp.StatusCode, err, string(body))
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (*nsxClient) nodeStatusEndpoint(class nodeClass, nodeID string) string {
-	if class == transportClass {
-		return fmt.Sprintf("/api/v1/transport-nodes/%s/status", nodeID)
-	}
-	return fmt.Sprintf("/api/v1/cluster/nodes/%s/status", nodeID)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (*nsxClient) interfacesEndpoint(class nodeClass, nodeID string) string {
-	if class == transportClass {
-		return fmt.Sprintf("/api/v1/transport-nodes/%s/network/interfaces", nodeID)
-	}
-	return fmt.Sprintf("/api/v1/cluster/nodes/%s/network/interfaces", nodeID)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (*nsxClient) interfaceStatusEndpoint(class nodeClass, nodeID, interfaceID string) string {
-	if class == transportClass {
-		return fmt.Sprintf("/api/v1/transport-nodes/%s/network/interfaces/%s/stats", nodeID, interfaceID)
-	}
-	return fmt.Sprintf("/api/v1/cluster/nodes/%s/network/interfaces/%s/stats", nodeID, interfaceID)
+	_ = "STUB: not implemented"
+	return ""
 }

@@ -17,34 +17,22 @@ type Summary struct {
 }
 
 func NewSummary(metric pmetric.Metric, dp pmetric.SummaryDataPoint) Summary {
-	return Summary{
-		SummaryDataPoint:  dp,
-		MappingHintGetter: elasticsearch.NewMappingHintGetter(dp.Attributes()),
-		metric:            metric,
-	}
+	_ = "STUB: not implemented"
+	return *new(Summary)
 }
 
 func (dp Summary) Value() (pcommon.Value, error) {
+	_ = "STUB: not implemented"
 	// TODO: Add support for quantiles
 	// https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/34561
-	vm := pcommon.NewValueMap()
-	m := vm.Map()
-	m.PutDouble("sum", dp.Sum())
-	m.PutInt("value_count", safeUint64ToInt64(dp.Count()))
-	return vm, nil
+	return *new(pcommon.Value), nil
 }
 
 func (Summary) DynamicTemplate(_ pmetric.Metric, mode DynamicTemplateMode) string {
-	if mode == DynamicTemplateModeECS {
-		return "summary_metrics"
-	}
-	return "summary"
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func (dp Summary) DocCount() uint64 {
-	return dp.Count()
-}
+func (dp Summary) DocCount() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (dp Summary) Metric() pmetric.Metric {
-	return dp.metric
-}
+func (dp Summary) Metric() pmetric.Metric { _ = "STUB: not implemented"; return *new(pmetric.Metric) }

@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -26,34 +24,12 @@ type NsxtNodeCPUUtilizationMetricConfig struct {
 }
 
 func (ms *NsxtNodeCPUUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NsxtNodeCPUUtilizationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NsxtNodeCPUUtilizationMetricAttributeKeyClass:
-		default:
-			return fmt.Errorf("metric nsxt.node.cpu.utilization doesn't have an attribute %v, valid attributes: [class]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -74,34 +50,12 @@ type NsxtNodeFilesystemUsageMetricConfig struct {
 }
 
 func (ms *NsxtNodeFilesystemUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NsxtNodeFilesystemUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NsxtNodeFilesystemUsageMetricAttributeKeyDiskState:
-		default:
-			return fmt.Errorf("metric nsxt.node.filesystem.usage doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -112,16 +66,7 @@ type NsxtNodeFilesystemUtilizationMetricConfig struct {
 }
 
 func (ms *NsxtNodeFilesystemUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -132,16 +77,7 @@ type NsxtNodeMemoryCacheUsageMetricConfig struct {
 }
 
 func (ms *NsxtNodeMemoryCacheUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -152,16 +88,7 @@ type NsxtNodeMemoryUsageMetricConfig struct {
 }
 
 func (ms *NsxtNodeMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -182,36 +109,11 @@ type NsxtNodeNetworkIoMetricConfig struct {
 }
 
 func (ms *NsxtNodeNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *NsxtNodeNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NsxtNodeNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric nsxt.node.network.io doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *NsxtNodeNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NsxtNodeNetworkPacketCountMetricAttributeKey specifies the key of an attribute for the nsxt.node.network.packet.count metric.
 type NsxtNodeNetworkPacketCountMetricAttributeKey string
@@ -231,34 +133,12 @@ type NsxtNodeNetworkPacketCountMetricConfig struct {
 }
 
 func (ms *NsxtNodeNetworkPacketCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *NsxtNodeNetworkPacketCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case NsxtNodeNetworkPacketCountMetricAttributeKeyDirection, NsxtNodeNetworkPacketCountMetricAttributeKeyPacketType:
-		default:
-			return fmt.Errorf("metric nsxt.node.network.packet.count doesn't have an attribute %v, valid attributes: [direction, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -273,39 +153,7 @@ type MetricsConfig struct {
 	NsxtNodeNetworkPacketCount    NsxtNodeNetworkPacketCountMetricConfig    `mapstructure:"nsxt.node.network.packet.count"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		NsxtNodeCPUUtilization: NsxtNodeCPUUtilizationMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []NsxtNodeCPUUtilizationMetricAttributeKey{NsxtNodeCPUUtilizationMetricAttributeKeyClass},
-		},
-		NsxtNodeFilesystemUsage: NsxtNodeFilesystemUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NsxtNodeFilesystemUsageMetricAttributeKey{NsxtNodeFilesystemUsageMetricAttributeKeyDiskState},
-		},
-		NsxtNodeFilesystemUtilization: NsxtNodeFilesystemUtilizationMetricConfig{
-			Enabled: true,
-		},
-		NsxtNodeMemoryCacheUsage: NsxtNodeMemoryCacheUsageMetricConfig{
-			Enabled: true,
-		},
-		NsxtNodeMemoryUsage: NsxtNodeMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		NsxtNodeNetworkIo: NsxtNodeNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NsxtNodeNetworkIoMetricAttributeKey{NsxtNodeNetworkIoMetricAttributeKeyDirection},
-		},
-		NsxtNodeNetworkPacketCount: NsxtNodeNetworkPacketCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []NsxtNodeNetworkPacketCountMetricAttributeKey{NsxtNodeNetworkPacketCountMetricAttributeKeyDirection, NsxtNodeNetworkPacketCountMetricAttributeKeyPacketType},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -322,14 +170,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -342,20 +183,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		DeviceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		NsxtNodeID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		NsxtNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		NsxtNodeType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for nsxt metrics builder.
@@ -365,13 +194,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

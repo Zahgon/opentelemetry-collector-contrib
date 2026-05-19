@@ -3,11 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -36,23 +31,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDatabaseStatus.
-func (av AttributeDatabaseStatus) String() string {
-	switch av {
-	case AttributeDatabaseStatusOnline:
-		return "online"
-	case AttributeDatabaseStatusRestoring:
-		return "restoring"
-	case AttributeDatabaseStatusRecovering:
-		return "recovering"
-	case AttributeDatabaseStatusPendingRecovery:
-		return "pending_recovery"
-	case AttributeDatabaseStatusSuspect:
-		return "suspect"
-	case AttributeDatabaseStatusOffline:
-		return "offline"
-	}
-	return ""
-}
+func (av AttributeDatabaseStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDatabaseStatus is a helper map of string to AttributeDatabaseStatus attribute value.
 var MapAttributeDatabaseStatus = map[string]AttributeDatabaseStatus{
@@ -74,15 +53,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionRead:
-		return "read"
-	case AttributeDirectionWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -100,15 +71,7 @@ const (
 )
 
 // String returns the string representation of the AttributePageOperations.
-func (av AttributePageOperations) String() string {
-	switch av {
-	case AttributePageOperationsRead:
-		return "read"
-	case AttributePageOperationsWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributePageOperations) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributePageOperations is a helper map of string to AttributePageOperations attribute value.
 var MapAttributePageOperations = map[string]AttributePageOperations{
@@ -126,15 +89,7 @@ const (
 )
 
 // String returns the string representation of the AttributeReplicaDirection.
-func (av AttributeReplicaDirection) String() string {
-	switch av {
-	case AttributeReplicaDirectionTransmit:
-		return "transmit"
-	case AttributeReplicaDirectionReceive:
-		return "receive"
-	}
-	return ""
-}
+func (av AttributeReplicaDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeReplicaDirection is a helper map of string to AttributeReplicaDirection attribute value.
 var MapAttributeReplicaDirection = map[string]AttributeReplicaDirection{
@@ -152,15 +107,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTableState.
-func (av AttributeTableState) String() string {
-	switch av {
-	case AttributeTableStateActive:
-		return "active"
-	case AttributeTableStateInactive:
-		return "inactive"
-	}
-	return ""
-}
+func (av AttributeTableState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTableState is a helper map of string to AttributeTableState attribute value.
 var MapAttributeTableState = map[string]AttributeTableState{
@@ -178,15 +125,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTableStatus.
-func (av AttributeTableStatus) String() string {
-	switch av {
-	case AttributeTableStatusTemporary:
-		return "temporary"
-	case AttributeTableStatusPermanent:
-		return "permanent"
-	}
-	return ""
-}
+func (av AttributeTableStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTableStatus is a helper map of string to AttributeTableStatus attribute value.
 var MapAttributeTableStatus = map[string]AttributeTableStatus{
@@ -204,15 +143,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTempdbState.
-func (av AttributeTempdbState) String() string {
-	switch av {
-	case AttributeTempdbStateFree:
-		return "free"
-	case AttributeTempdbStateUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeTempdbState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTempdbState is a helper map of string to AttributeTempdbState attribute value.
 var MapAttributeTempdbState = map[string]AttributeTempdbState{
@@ -445,39 +376,22 @@ func (m *metricSqlserverBatchRequestRate) init() {
 }
 
 func (m *metricSqlserverBatchRequestRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverBatchRequestRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverBatchRequestRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverBatchRequestRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverBatchRequestRate(cfg SqlserverBatchRequestRateMetricConfig) metricSqlserverBatchRequestRate {
-	m := metricSqlserverBatchRequestRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverBatchRequestRate)
 }
 
 type metricSqlserverBatchSQLCompilationRate struct {
@@ -495,39 +409,25 @@ func (m *metricSqlserverBatchSQLCompilationRate) init() {
 }
 
 func (m *metricSqlserverBatchSQLCompilationRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverBatchSQLCompilationRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverBatchSQLCompilationRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverBatchSQLCompilationRate(cfg SqlserverBatchSQLCompilationRateMetricConfig) metricSqlserverBatchSQLCompilationRate {
-	m := metricSqlserverBatchSQLCompilationRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverBatchSQLCompilationRate)
 }
 
 type metricSqlserverBatchSQLRecompilationRate struct {
@@ -545,39 +445,25 @@ func (m *metricSqlserverBatchSQLRecompilationRate) init() {
 }
 
 func (m *metricSqlserverBatchSQLRecompilationRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverBatchSQLRecompilationRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverBatchSQLRecompilationRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverBatchSQLRecompilationRate(cfg SqlserverBatchSQLRecompilationRateMetricConfig) metricSqlserverBatchSQLRecompilationRate {
-	m := metricSqlserverBatchSQLRecompilationRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverBatchSQLRecompilationRate)
 }
 
 type metricSqlserverComputerUptime struct {
@@ -595,39 +481,22 @@ func (m *metricSqlserverComputerUptime) init() {
 }
 
 func (m *metricSqlserverComputerUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverComputerUptime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverComputerUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverComputerUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverComputerUptime(cfg SqlserverComputerUptimeMetricConfig) metricSqlserverComputerUptime {
-	m := metricSqlserverComputerUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverComputerUptime)
 }
 
 type metricSqlserverCPUCount struct {
@@ -645,39 +514,22 @@ func (m *metricSqlserverCPUCount) init() {
 }
 
 func (m *metricSqlserverCPUCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverCPUCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverCPUCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverCPUCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverCPUCount(cfg SqlserverCPUCountMetricConfig) metricSqlserverCPUCount {
-	m := metricSqlserverCPUCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverCPUCount)
 }
 
 type metricSqlserverDatabaseBackupOrRestoreRate struct {
@@ -695,39 +547,25 @@ func (m *metricSqlserverDatabaseBackupOrRestoreRate) init() {
 }
 
 func (m *metricSqlserverDatabaseBackupOrRestoreRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverDatabaseBackupOrRestoreRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseBackupOrRestoreRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseBackupOrRestoreRate(cfg SqlserverDatabaseBackupOrRestoreRateMetricConfig) metricSqlserverDatabaseBackupOrRestoreRate {
-	m := metricSqlserverDatabaseBackupOrRestoreRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseBackupOrRestoreRate)
 }
 
 type metricSqlserverDatabaseCount struct {
@@ -748,75 +586,22 @@ func (m *metricSqlserverDatabaseCount) init() {
 }
 
 func (m *metricSqlserverDatabaseCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, databaseStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseCountMetricAttributeKeyDatabaseStatus) {
-		dp.Attributes().PutStr("database.status", databaseStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseCount(cfg SqlserverDatabaseCountMetricConfig) metricSqlserverDatabaseCount {
-	m := metricSqlserverDatabaseCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseCount)
 }
 
 type metricSqlserverDatabaseExecutionErrors struct {
@@ -834,39 +619,25 @@ func (m *metricSqlserverDatabaseExecutionErrors) init() {
 }
 
 func (m *metricSqlserverDatabaseExecutionErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverDatabaseExecutionErrors) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseExecutionErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseExecutionErrors(cfg SqlserverDatabaseExecutionErrorsMetricConfig) metricSqlserverDatabaseExecutionErrors {
-	m := metricSqlserverDatabaseExecutionErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseExecutionErrors)
 }
 
 type metricSqlserverDatabaseFullScanRate struct {
@@ -884,39 +655,22 @@ func (m *metricSqlserverDatabaseFullScanRate) init() {
 }
 
 func (m *metricSqlserverDatabaseFullScanRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseFullScanRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseFullScanRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseFullScanRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseFullScanRate(cfg SqlserverDatabaseFullScanRateMetricConfig) metricSqlserverDatabaseFullScanRate {
-	m := metricSqlserverDatabaseFullScanRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseFullScanRate)
 }
 
 type metricSqlserverDatabaseIo struct {
@@ -939,84 +693,22 @@ func (m *metricSqlserverDatabaseIo) init() {
 }
 
 func (m *metricSqlserverDatabaseIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseIoMetricAttributeKeyPhysicalFilename) {
-		dp.Attributes().PutStr("physical_filename", physicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseIoMetricAttributeKeyLogicalFilename) {
-		dp.Attributes().PutStr("logical_filename", logicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseIoMetricAttributeKeyFileType) {
-		dp.Attributes().PutStr("file_type", fileTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseIo(cfg SqlserverDatabaseIoMetricConfig) metricSqlserverDatabaseIo {
-	m := metricSqlserverDatabaseIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseIo)
 }
 
 type metricSqlserverDatabaseLatency struct {
@@ -1039,84 +731,22 @@ func (m *metricSqlserverDatabaseLatency) init() {
 }
 
 func (m *metricSqlserverDatabaseLatency) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseLatencyMetricAttributeKeyPhysicalFilename) {
-		dp.Attributes().PutStr("physical_filename", physicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseLatencyMetricAttributeKeyLogicalFilename) {
-		dp.Attributes().PutStr("logical_filename", logicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseLatencyMetricAttributeKeyFileType) {
-		dp.Attributes().PutStr("file_type", fileTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseLatencyMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseLatency) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseLatency) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseLatency) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseLatency(cfg SqlserverDatabaseLatencyMetricConfig) metricSqlserverDatabaseLatency {
-	m := metricSqlserverDatabaseLatency{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseLatency)
 }
 
 type metricSqlserverDatabaseOperations struct {
@@ -1139,84 +769,22 @@ func (m *metricSqlserverDatabaseOperations) init() {
 }
 
 func (m *metricSqlserverDatabaseOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseOperationsMetricAttributeKeyPhysicalFilename) {
-		dp.Attributes().PutStr("physical_filename", physicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseOperationsMetricAttributeKeyLogicalFilename) {
-		dp.Attributes().PutStr("logical_filename", logicalFilenameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseOperationsMetricAttributeKeyFileType) {
-		dp.Attributes().PutStr("file_type", fileTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseOperationsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseOperations) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseOperations(cfg SqlserverDatabaseOperationsMetricConfig) metricSqlserverDatabaseOperations {
-	m := metricSqlserverDatabaseOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseOperations)
 }
 
 type metricSqlserverDatabaseTempdbSpace struct {
@@ -1239,75 +807,22 @@ func (m *metricSqlserverDatabaseTempdbSpace) init() {
 }
 
 func (m *metricSqlserverDatabaseTempdbSpace) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, tempdbStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverDatabaseTempdbSpaceMetricAttributeKeyTempdbState) {
-		dp.Attributes().PutStr("tempdb.state", tempdbStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDatabaseTempdbSpace) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDatabaseTempdbSpace) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseTempdbSpace) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseTempdbSpace(cfg SqlserverDatabaseTempdbSpaceMetricConfig) metricSqlserverDatabaseTempdbSpace {
-	m := metricSqlserverDatabaseTempdbSpace{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseTempdbSpace)
 }
 
 type metricSqlserverDatabaseTempdbVersionStoreSize struct {
@@ -1325,39 +840,25 @@ func (m *metricSqlserverDatabaseTempdbVersionStoreSize) init() {
 }
 
 func (m *metricSqlserverDatabaseTempdbVersionStoreSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverDatabaseTempdbVersionStoreSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDatabaseTempdbVersionStoreSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDatabaseTempdbVersionStoreSize(cfg SqlserverDatabaseTempdbVersionStoreSizeMetricConfig) metricSqlserverDatabaseTempdbVersionStoreSize {
-	m := metricSqlserverDatabaseTempdbVersionStoreSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDatabaseTempdbVersionStoreSize)
 }
 
 type metricSqlserverDeadlockRate struct {
@@ -1375,39 +876,22 @@ func (m *metricSqlserverDeadlockRate) init() {
 }
 
 func (m *metricSqlserverDeadlockRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverDeadlockRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverDeadlockRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverDeadlockRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverDeadlockRate(cfg SqlserverDeadlockRateMetricConfig) metricSqlserverDeadlockRate {
-	m := metricSqlserverDeadlockRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverDeadlockRate)
 }
 
 type metricSqlserverIndexSearchRate struct {
@@ -1425,39 +909,22 @@ func (m *metricSqlserverIndexSearchRate) init() {
 }
 
 func (m *metricSqlserverIndexSearchRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverIndexSearchRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverIndexSearchRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverIndexSearchRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverIndexSearchRate(cfg SqlserverIndexSearchRateMetricConfig) metricSqlserverIndexSearchRate {
-	m := metricSqlserverIndexSearchRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverIndexSearchRate)
 }
 
 type metricSqlserverLockTimeoutRate struct {
@@ -1475,39 +942,22 @@ func (m *metricSqlserverLockTimeoutRate) init() {
 }
 
 func (m *metricSqlserverLockTimeoutRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLockTimeoutRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLockTimeoutRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLockTimeoutRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLockTimeoutRate(cfg SqlserverLockTimeoutRateMetricConfig) metricSqlserverLockTimeoutRate {
-	m := metricSqlserverLockTimeoutRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLockTimeoutRate)
 }
 
 type metricSqlserverLockWaitCount struct {
@@ -1527,39 +977,22 @@ func (m *metricSqlserverLockWaitCount) init() {
 }
 
 func (m *metricSqlserverLockWaitCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLockWaitCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLockWaitCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLockWaitCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLockWaitCount(cfg SqlserverLockWaitCountMetricConfig) metricSqlserverLockWaitCount {
-	m := metricSqlserverLockWaitCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLockWaitCount)
 }
 
 type metricSqlserverLockWaitRate struct {
@@ -1577,39 +1010,22 @@ func (m *metricSqlserverLockWaitRate) init() {
 }
 
 func (m *metricSqlserverLockWaitRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLockWaitRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLockWaitRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLockWaitRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLockWaitRate(cfg SqlserverLockWaitRateMetricConfig) metricSqlserverLockWaitRate {
-	m := metricSqlserverLockWaitRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLockWaitRate)
 }
 
 type metricSqlserverLockWaitTimeAvg struct {
@@ -1627,39 +1043,22 @@ func (m *metricSqlserverLockWaitTimeAvg) init() {
 }
 
 func (m *metricSqlserverLockWaitTimeAvg) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLockWaitTimeAvg) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLockWaitTimeAvg) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLockWaitTimeAvg) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLockWaitTimeAvg(cfg SqlserverLockWaitTimeAvgMetricConfig) metricSqlserverLockWaitTimeAvg {
-	m := metricSqlserverLockWaitTimeAvg{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLockWaitTimeAvg)
 }
 
 type metricSqlserverLoginRate struct {
@@ -1677,39 +1076,22 @@ func (m *metricSqlserverLoginRate) init() {
 }
 
 func (m *metricSqlserverLoginRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLoginRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLoginRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLoginRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLoginRate(cfg SqlserverLoginRateMetricConfig) metricSqlserverLoginRate {
-	m := metricSqlserverLoginRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLoginRate)
 }
 
 type metricSqlserverLogoutRate struct {
@@ -1727,39 +1109,22 @@ func (m *metricSqlserverLogoutRate) init() {
 }
 
 func (m *metricSqlserverLogoutRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverLogoutRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverLogoutRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverLogoutRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverLogoutRate(cfg SqlserverLogoutRateMetricConfig) metricSqlserverLogoutRate {
-	m := metricSqlserverLogoutRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverLogoutRate)
 }
 
 type metricSqlserverMemoryGrantsPendingCount struct {
@@ -1779,39 +1144,25 @@ func (m *metricSqlserverMemoryGrantsPendingCount) init() {
 }
 
 func (m *metricSqlserverMemoryGrantsPendingCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverMemoryGrantsPendingCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverMemoryGrantsPendingCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverMemoryGrantsPendingCount(cfg SqlserverMemoryGrantsPendingCountMetricConfig) metricSqlserverMemoryGrantsPendingCount {
-	m := metricSqlserverMemoryGrantsPendingCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverMemoryGrantsPendingCount)
 }
 
 type metricSqlserverMemoryUsage struct {
@@ -1831,39 +1182,22 @@ func (m *metricSqlserverMemoryUsage) init() {
 }
 
 func (m *metricSqlserverMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverMemoryUsage(cfg SqlserverMemoryUsageMetricConfig) metricSqlserverMemoryUsage {
-	m := metricSqlserverMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverMemoryUsage)
 }
 
 type metricSqlserverOsWaitDuration struct {
@@ -1886,78 +1220,22 @@ func (m *metricSqlserverOsWaitDuration) init() {
 }
 
 func (m *metricSqlserverOsWaitDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, waitCategoryAttributeValue string, waitTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverOsWaitDurationMetricAttributeKeyWaitCategory) {
-		dp.Attributes().PutStr("wait.category", waitCategoryAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverOsWaitDurationMetricAttributeKeyWaitType) {
-		dp.Attributes().PutStr("wait.type", waitTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverOsWaitDuration) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverOsWaitDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverOsWaitDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverOsWaitDuration(cfg SqlserverOsWaitDurationMetricConfig) metricSqlserverOsWaitDuration {
-	m := metricSqlserverOsWaitDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverOsWaitDuration)
 }
 
 type metricSqlserverPageBufferCacheFreeListStallsRate struct {
@@ -1975,39 +1253,25 @@ func (m *metricSqlserverPageBufferCacheFreeListStallsRate) init() {
 }
 
 func (m *metricSqlserverPageBufferCacheFreeListStallsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverPageBufferCacheFreeListStallsRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageBufferCacheFreeListStallsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageBufferCacheFreeListStallsRate(cfg SqlserverPageBufferCacheFreeListStallsRateMetricConfig) metricSqlserverPageBufferCacheFreeListStallsRate {
-	m := metricSqlserverPageBufferCacheFreeListStallsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageBufferCacheFreeListStallsRate)
 }
 
 type metricSqlserverPageBufferCacheHitRatio struct {
@@ -2025,39 +1289,25 @@ func (m *metricSqlserverPageBufferCacheHitRatio) init() {
 }
 
 func (m *metricSqlserverPageBufferCacheHitRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverPageBufferCacheHitRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageBufferCacheHitRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageBufferCacheHitRatio(cfg SqlserverPageBufferCacheHitRatioMetricConfig) metricSqlserverPageBufferCacheHitRatio {
-	m := metricSqlserverPageBufferCacheHitRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageBufferCacheHitRatio)
 }
 
 type metricSqlserverPageCheckpointFlushRate struct {
@@ -2075,39 +1325,25 @@ func (m *metricSqlserverPageCheckpointFlushRate) init() {
 }
 
 func (m *metricSqlserverPageCheckpointFlushRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverPageCheckpointFlushRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageCheckpointFlushRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageCheckpointFlushRate(cfg SqlserverPageCheckpointFlushRateMetricConfig) metricSqlserverPageCheckpointFlushRate {
-	m := metricSqlserverPageCheckpointFlushRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageCheckpointFlushRate)
 }
 
 type metricSqlserverPageLazyWriteRate struct {
@@ -2125,39 +1361,22 @@ func (m *metricSqlserverPageLazyWriteRate) init() {
 }
 
 func (m *metricSqlserverPageLazyWriteRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverPageLazyWriteRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverPageLazyWriteRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageLazyWriteRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageLazyWriteRate(cfg SqlserverPageLazyWriteRateMetricConfig) metricSqlserverPageLazyWriteRate {
-	m := metricSqlserverPageLazyWriteRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageLazyWriteRate)
 }
 
 type metricSqlserverPageLifeExpectancy struct {
@@ -2178,75 +1397,22 @@ func (m *metricSqlserverPageLifeExpectancy) init() {
 }
 
 func (m *metricSqlserverPageLifeExpectancy) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, performanceCounterObjectNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverPageLifeExpectancyMetricAttributeKeyPerformanceCounterObjectName) {
-		dp.Attributes().PutStr("performance_counter.object_name", performanceCounterObjectNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverPageLifeExpectancy) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverPageLifeExpectancy) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageLifeExpectancy) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageLifeExpectancy(cfg SqlserverPageLifeExpectancyMetricConfig) metricSqlserverPageLifeExpectancy {
-	m := metricSqlserverPageLifeExpectancy{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageLifeExpectancy)
 }
 
 type metricSqlserverPageLookupRate struct {
@@ -2264,39 +1430,22 @@ func (m *metricSqlserverPageLookupRate) init() {
 }
 
 func (m *metricSqlserverPageLookupRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverPageLookupRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverPageLookupRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageLookupRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageLookupRate(cfg SqlserverPageLookupRateMetricConfig) metricSqlserverPageLookupRate {
-	m := metricSqlserverPageLookupRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageLookupRate)
 }
 
 type metricSqlserverPageOperationRate struct {
@@ -2317,75 +1466,22 @@ func (m *metricSqlserverPageOperationRate) init() {
 }
 
 func (m *metricSqlserverPageOperationRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, pageOperationsAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverPageOperationRateMetricAttributeKeyPageOperations) {
-		dp.Attributes().PutStr("type", pageOperationsAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverPageOperationRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverPageOperationRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageOperationRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageOperationRate(cfg SqlserverPageOperationRateMetricConfig) metricSqlserverPageOperationRate {
-	m := metricSqlserverPageOperationRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageOperationRate)
 }
 
 type metricSqlserverPageSplitRate struct {
@@ -2403,39 +1499,22 @@ func (m *metricSqlserverPageSplitRate) init() {
 }
 
 func (m *metricSqlserverPageSplitRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverPageSplitRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverPageSplitRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverPageSplitRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverPageSplitRate(cfg SqlserverPageSplitRateMetricConfig) metricSqlserverPageSplitRate {
-	m := metricSqlserverPageSplitRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverPageSplitRate)
 }
 
 type metricSqlserverProcessesBlocked struct {
@@ -2453,39 +1532,22 @@ func (m *metricSqlserverProcessesBlocked) init() {
 }
 
 func (m *metricSqlserverProcessesBlocked) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverProcessesBlocked) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverProcessesBlocked) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverProcessesBlocked) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverProcessesBlocked(cfg SqlserverProcessesBlockedMetricConfig) metricSqlserverProcessesBlocked {
-	m := metricSqlserverProcessesBlocked{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverProcessesBlocked)
 }
 
 type metricSqlserverReplicaDataRate struct {
@@ -2506,75 +1568,22 @@ func (m *metricSqlserverReplicaDataRate) init() {
 }
 
 func (m *metricSqlserverReplicaDataRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, replicaDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverReplicaDataRateMetricAttributeKeyReplicaDirection) {
-		dp.Attributes().PutStr("replica.direction", replicaDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverReplicaDataRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverReplicaDataRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverReplicaDataRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverReplicaDataRate(cfg SqlserverReplicaDataRateMetricConfig) metricSqlserverReplicaDataRate {
-	m := metricSqlserverReplicaDataRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverReplicaDataRate)
 }
 
 type metricSqlserverResourcePoolDiskOperations struct {
@@ -2595,75 +1604,25 @@ func (m *metricSqlserverResourcePoolDiskOperations) init() {
 }
 
 func (m *metricSqlserverResourcePoolDiskOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverResourcePoolDiskOperationsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverResourcePoolDiskOperations) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverResourcePoolDiskOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverResourcePoolDiskOperations(cfg SqlserverResourcePoolDiskOperationsMetricConfig) metricSqlserverResourcePoolDiskOperations {
-	m := metricSqlserverResourcePoolDiskOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverResourcePoolDiskOperations)
 }
 
 type metricSqlserverResourcePoolDiskThrottledReadRate struct {
@@ -2681,39 +1640,25 @@ func (m *metricSqlserverResourcePoolDiskThrottledReadRate) init() {
 }
 
 func (m *metricSqlserverResourcePoolDiskThrottledReadRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverResourcePoolDiskThrottledReadRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverResourcePoolDiskThrottledReadRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverResourcePoolDiskThrottledReadRate(cfg SqlserverResourcePoolDiskThrottledReadRateMetricConfig) metricSqlserverResourcePoolDiskThrottledReadRate {
-	m := metricSqlserverResourcePoolDiskThrottledReadRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverResourcePoolDiskThrottledReadRate)
 }
 
 type metricSqlserverResourcePoolDiskThrottledWriteRate struct {
@@ -2731,39 +1676,25 @@ func (m *metricSqlserverResourcePoolDiskThrottledWriteRate) init() {
 }
 
 func (m *metricSqlserverResourcePoolDiskThrottledWriteRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverResourcePoolDiskThrottledWriteRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverResourcePoolDiskThrottledWriteRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverResourcePoolDiskThrottledWriteRate(cfg SqlserverResourcePoolDiskThrottledWriteRateMetricConfig) metricSqlserverResourcePoolDiskThrottledWriteRate {
-	m := metricSqlserverResourcePoolDiskThrottledWriteRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverResourcePoolDiskThrottledWriteRate)
 }
 
 type metricSqlserverTableCount struct {
@@ -2786,78 +1717,22 @@ func (m *metricSqlserverTableCount) init() {
 }
 
 func (m *metricSqlserverTableCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, tableStateAttributeValue string, tableStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SqlserverTableCountMetricAttributeKeyTableState) {
-		dp.Attributes().PutStr("table.state", tableStateAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SqlserverTableCountMetricAttributeKeyTableStatus) {
-		dp.Attributes().PutStr("table.status", tableStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverTableCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverTableCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTableCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTableCount(cfg SqlserverTableCountMetricConfig) metricSqlserverTableCount {
-	m := metricSqlserverTableCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTableCount)
 }
 
 type metricSqlserverTransactionDelay struct {
@@ -2877,39 +1752,22 @@ func (m *metricSqlserverTransactionDelay) init() {
 }
 
 func (m *metricSqlserverTransactionDelay) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverTransactionDelay) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverTransactionDelay) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionDelay) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionDelay(cfg SqlserverTransactionDelayMetricConfig) metricSqlserverTransactionDelay {
-	m := metricSqlserverTransactionDelay{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionDelay)
 }
 
 type metricSqlserverTransactionMirrorWriteRate struct {
@@ -2927,39 +1785,25 @@ func (m *metricSqlserverTransactionMirrorWriteRate) init() {
 }
 
 func (m *metricSqlserverTransactionMirrorWriteRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionMirrorWriteRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionMirrorWriteRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionMirrorWriteRate(cfg SqlserverTransactionMirrorWriteRateMetricConfig) metricSqlserverTransactionMirrorWriteRate {
-	m := metricSqlserverTransactionMirrorWriteRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionMirrorWriteRate)
 }
 
 type metricSqlserverTransactionRate struct {
@@ -2977,39 +1821,22 @@ func (m *metricSqlserverTransactionRate) init() {
 }
 
 func (m *metricSqlserverTransactionRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverTransactionRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverTransactionRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionRate(cfg SqlserverTransactionRateMetricConfig) metricSqlserverTransactionRate {
-	m := metricSqlserverTransactionRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionRate)
 }
 
 type metricSqlserverTransactionWriteRate struct {
@@ -3027,39 +1854,22 @@ func (m *metricSqlserverTransactionWriteRate) init() {
 }
 
 func (m *metricSqlserverTransactionWriteRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverTransactionWriteRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverTransactionWriteRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionWriteRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionWriteRate(cfg SqlserverTransactionWriteRateMetricConfig) metricSqlserverTransactionWriteRate {
-	m := metricSqlserverTransactionWriteRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionWriteRate)
 }
 
 type metricSqlserverTransactionLogFlushDataRate struct {
@@ -3077,39 +1887,25 @@ func (m *metricSqlserverTransactionLogFlushDataRate) init() {
 }
 
 func (m *metricSqlserverTransactionLogFlushDataRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionLogFlushDataRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogFlushDataRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogFlushDataRate(cfg SqlserverTransactionLogFlushDataRateMetricConfig) metricSqlserverTransactionLogFlushDataRate {
-	m := metricSqlserverTransactionLogFlushDataRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogFlushDataRate)
 }
 
 type metricSqlserverTransactionLogFlushRate struct {
@@ -3127,39 +1923,25 @@ func (m *metricSqlserverTransactionLogFlushRate) init() {
 }
 
 func (m *metricSqlserverTransactionLogFlushRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionLogFlushRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogFlushRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogFlushRate(cfg SqlserverTransactionLogFlushRateMetricConfig) metricSqlserverTransactionLogFlushRate {
-	m := metricSqlserverTransactionLogFlushRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogFlushRate)
 }
 
 type metricSqlserverTransactionLogFlushWaitRate struct {
@@ -3177,39 +1959,25 @@ func (m *metricSqlserverTransactionLogFlushWaitRate) init() {
 }
 
 func (m *metricSqlserverTransactionLogFlushWaitRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionLogFlushWaitRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogFlushWaitRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogFlushWaitRate(cfg SqlserverTransactionLogFlushWaitRateMetricConfig) metricSqlserverTransactionLogFlushWaitRate {
-	m := metricSqlserverTransactionLogFlushWaitRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogFlushWaitRate)
 }
 
 type metricSqlserverTransactionLogGrowthCount struct {
@@ -3229,39 +1997,25 @@ func (m *metricSqlserverTransactionLogGrowthCount) init() {
 }
 
 func (m *metricSqlserverTransactionLogGrowthCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionLogGrowthCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogGrowthCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogGrowthCount(cfg SqlserverTransactionLogGrowthCountMetricConfig) metricSqlserverTransactionLogGrowthCount {
-	m := metricSqlserverTransactionLogGrowthCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogGrowthCount)
 }
 
 type metricSqlserverTransactionLogShrinkCount struct {
@@ -3281,39 +2035,25 @@ func (m *metricSqlserverTransactionLogShrinkCount) init() {
 }
 
 func (m *metricSqlserverTransactionLogShrinkCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSqlserverTransactionLogShrinkCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogShrinkCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogShrinkCount(cfg SqlserverTransactionLogShrinkCountMetricConfig) metricSqlserverTransactionLogShrinkCount {
-	m := metricSqlserverTransactionLogShrinkCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogShrinkCount)
 }
 
 type metricSqlserverTransactionLogUsage struct {
@@ -3331,39 +2071,22 @@ func (m *metricSqlserverTransactionLogUsage) init() {
 }
 
 func (m *metricSqlserverTransactionLogUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverTransactionLogUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverTransactionLogUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverTransactionLogUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverTransactionLogUsage(cfg SqlserverTransactionLogUsageMetricConfig) metricSqlserverTransactionLogUsage {
-	m := metricSqlserverTransactionLogUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverTransactionLogUsage)
 }
 
 type metricSqlserverUserConnectionCount struct {
@@ -3381,39 +2104,22 @@ func (m *metricSqlserverUserConnectionCount) init() {
 }
 
 func (m *metricSqlserverUserConnectionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSqlserverUserConnectionCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSqlserverUserConnectionCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSqlserverUserConnectionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSqlserverUserConnectionCount(cfg SqlserverUserConnectionCountMetricConfig) metricSqlserverUserConnectionCount {
-	m := metricSqlserverUserConnectionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSqlserverUserConnectionCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -3486,133 +2192,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                            mbc,
-		startTime:                                         pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                                     pmetric.NewMetrics(),
-		buildInfo:                                         settings.BuildInfo,
-		metricSqlserverBatchRequestRate:                   newMetricSqlserverBatchRequestRate(mbc.Metrics.SqlserverBatchRequestRate),
-		metricSqlserverBatchSQLCompilationRate:            newMetricSqlserverBatchSQLCompilationRate(mbc.Metrics.SqlserverBatchSQLCompilationRate),
-		metricSqlserverBatchSQLRecompilationRate:          newMetricSqlserverBatchSQLRecompilationRate(mbc.Metrics.SqlserverBatchSQLRecompilationRate),
-		metricSqlserverComputerUptime:                     newMetricSqlserverComputerUptime(mbc.Metrics.SqlserverComputerUptime),
-		metricSqlserverCPUCount:                           newMetricSqlserverCPUCount(mbc.Metrics.SqlserverCPUCount),
-		metricSqlserverDatabaseBackupOrRestoreRate:        newMetricSqlserverDatabaseBackupOrRestoreRate(mbc.Metrics.SqlserverDatabaseBackupOrRestoreRate),
-		metricSqlserverDatabaseCount:                      newMetricSqlserverDatabaseCount(mbc.Metrics.SqlserverDatabaseCount),
-		metricSqlserverDatabaseExecutionErrors:            newMetricSqlserverDatabaseExecutionErrors(mbc.Metrics.SqlserverDatabaseExecutionErrors),
-		metricSqlserverDatabaseFullScanRate:               newMetricSqlserverDatabaseFullScanRate(mbc.Metrics.SqlserverDatabaseFullScanRate),
-		metricSqlserverDatabaseIo:                         newMetricSqlserverDatabaseIo(mbc.Metrics.SqlserverDatabaseIo),
-		metricSqlserverDatabaseLatency:                    newMetricSqlserverDatabaseLatency(mbc.Metrics.SqlserverDatabaseLatency),
-		metricSqlserverDatabaseOperations:                 newMetricSqlserverDatabaseOperations(mbc.Metrics.SqlserverDatabaseOperations),
-		metricSqlserverDatabaseTempdbSpace:                newMetricSqlserverDatabaseTempdbSpace(mbc.Metrics.SqlserverDatabaseTempdbSpace),
-		metricSqlserverDatabaseTempdbVersionStoreSize:     newMetricSqlserverDatabaseTempdbVersionStoreSize(mbc.Metrics.SqlserverDatabaseTempdbVersionStoreSize),
-		metricSqlserverDeadlockRate:                       newMetricSqlserverDeadlockRate(mbc.Metrics.SqlserverDeadlockRate),
-		metricSqlserverIndexSearchRate:                    newMetricSqlserverIndexSearchRate(mbc.Metrics.SqlserverIndexSearchRate),
-		metricSqlserverLockTimeoutRate:                    newMetricSqlserverLockTimeoutRate(mbc.Metrics.SqlserverLockTimeoutRate),
-		metricSqlserverLockWaitCount:                      newMetricSqlserverLockWaitCount(mbc.Metrics.SqlserverLockWaitCount),
-		metricSqlserverLockWaitRate:                       newMetricSqlserverLockWaitRate(mbc.Metrics.SqlserverLockWaitRate),
-		metricSqlserverLockWaitTimeAvg:                    newMetricSqlserverLockWaitTimeAvg(mbc.Metrics.SqlserverLockWaitTimeAvg),
-		metricSqlserverLoginRate:                          newMetricSqlserverLoginRate(mbc.Metrics.SqlserverLoginRate),
-		metricSqlserverLogoutRate:                         newMetricSqlserverLogoutRate(mbc.Metrics.SqlserverLogoutRate),
-		metricSqlserverMemoryGrantsPendingCount:           newMetricSqlserverMemoryGrantsPendingCount(mbc.Metrics.SqlserverMemoryGrantsPendingCount),
-		metricSqlserverMemoryUsage:                        newMetricSqlserverMemoryUsage(mbc.Metrics.SqlserverMemoryUsage),
-		metricSqlserverOsWaitDuration:                     newMetricSqlserverOsWaitDuration(mbc.Metrics.SqlserverOsWaitDuration),
-		metricSqlserverPageBufferCacheFreeListStallsRate:  newMetricSqlserverPageBufferCacheFreeListStallsRate(mbc.Metrics.SqlserverPageBufferCacheFreeListStallsRate),
-		metricSqlserverPageBufferCacheHitRatio:            newMetricSqlserverPageBufferCacheHitRatio(mbc.Metrics.SqlserverPageBufferCacheHitRatio),
-		metricSqlserverPageCheckpointFlushRate:            newMetricSqlserverPageCheckpointFlushRate(mbc.Metrics.SqlserverPageCheckpointFlushRate),
-		metricSqlserverPageLazyWriteRate:                  newMetricSqlserverPageLazyWriteRate(mbc.Metrics.SqlserverPageLazyWriteRate),
-		metricSqlserverPageLifeExpectancy:                 newMetricSqlserverPageLifeExpectancy(mbc.Metrics.SqlserverPageLifeExpectancy),
-		metricSqlserverPageLookupRate:                     newMetricSqlserverPageLookupRate(mbc.Metrics.SqlserverPageLookupRate),
-		metricSqlserverPageOperationRate:                  newMetricSqlserverPageOperationRate(mbc.Metrics.SqlserverPageOperationRate),
-		metricSqlserverPageSplitRate:                      newMetricSqlserverPageSplitRate(mbc.Metrics.SqlserverPageSplitRate),
-		metricSqlserverProcessesBlocked:                   newMetricSqlserverProcessesBlocked(mbc.Metrics.SqlserverProcessesBlocked),
-		metricSqlserverReplicaDataRate:                    newMetricSqlserverReplicaDataRate(mbc.Metrics.SqlserverReplicaDataRate),
-		metricSqlserverResourcePoolDiskOperations:         newMetricSqlserverResourcePoolDiskOperations(mbc.Metrics.SqlserverResourcePoolDiskOperations),
-		metricSqlserverResourcePoolDiskThrottledReadRate:  newMetricSqlserverResourcePoolDiskThrottledReadRate(mbc.Metrics.SqlserverResourcePoolDiskThrottledReadRate),
-		metricSqlserverResourcePoolDiskThrottledWriteRate: newMetricSqlserverResourcePoolDiskThrottledWriteRate(mbc.Metrics.SqlserverResourcePoolDiskThrottledWriteRate),
-		metricSqlserverTableCount:                         newMetricSqlserverTableCount(mbc.Metrics.SqlserverTableCount),
-		metricSqlserverTransactionDelay:                   newMetricSqlserverTransactionDelay(mbc.Metrics.SqlserverTransactionDelay),
-		metricSqlserverTransactionMirrorWriteRate:         newMetricSqlserverTransactionMirrorWriteRate(mbc.Metrics.SqlserverTransactionMirrorWriteRate),
-		metricSqlserverTransactionRate:                    newMetricSqlserverTransactionRate(mbc.Metrics.SqlserverTransactionRate),
-		metricSqlserverTransactionWriteRate:               newMetricSqlserverTransactionWriteRate(mbc.Metrics.SqlserverTransactionWriteRate),
-		metricSqlserverTransactionLogFlushDataRate:        newMetricSqlserverTransactionLogFlushDataRate(mbc.Metrics.SqlserverTransactionLogFlushDataRate),
-		metricSqlserverTransactionLogFlushRate:            newMetricSqlserverTransactionLogFlushRate(mbc.Metrics.SqlserverTransactionLogFlushRate),
-		metricSqlserverTransactionLogFlushWaitRate:        newMetricSqlserverTransactionLogFlushWaitRate(mbc.Metrics.SqlserverTransactionLogFlushWaitRate),
-		metricSqlserverTransactionLogGrowthCount:          newMetricSqlserverTransactionLogGrowthCount(mbc.Metrics.SqlserverTransactionLogGrowthCount),
-		metricSqlserverTransactionLogShrinkCount:          newMetricSqlserverTransactionLogShrinkCount(mbc.Metrics.SqlserverTransactionLogShrinkCount),
-		metricSqlserverTransactionLogUsage:                newMetricSqlserverTransactionLogUsage(mbc.Metrics.SqlserverTransactionLogUsage),
-		metricSqlserverUserConnectionCount:                newMetricSqlserverUserConnectionCount(mbc.Metrics.SqlserverUserConnectionCount),
-		resourceAttributeIncludeFilter:                    make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                    make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.HostName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HostName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServerAddress.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["server.address"] = filter.CreateFilter(mbc.ResourceAttributes.ServerAddress.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServerAddress.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["server.address"] = filter.CreateFilter(mbc.ResourceAttributes.ServerAddress.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServerPort.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["server.port"] = filter.CreateFilter(mbc.ResourceAttributes.ServerPort.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServerPort.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["server.port"] = filter.CreateFilter(mbc.ResourceAttributes.ServerPort.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServiceInstanceID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["service.instance.id"] = filter.CreateFilter(mbc.ResourceAttributes.ServiceInstanceID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServiceInstanceID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["service.instance.id"] = filter.CreateFilter(mbc.ResourceAttributes.ServiceInstanceID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SqlserverComputerName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["sqlserver.computer.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverComputerName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SqlserverComputerName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["sqlserver.computer.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverComputerName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SqlserverDatabaseName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["sqlserver.database.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverDatabaseName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SqlserverDatabaseName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["sqlserver.database.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverDatabaseName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SqlserverInstanceName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["sqlserver.instance.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverInstanceName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SqlserverInstanceName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["sqlserver.instance.name"] = filter.CreateFilter(mbc.ResourceAttributes.SqlserverInstanceName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -3623,35 +2228,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -3660,387 +2253,318 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSqlserverBatchRequestRate.emit(ils.Metrics())
-	mb.metricSqlserverBatchSQLCompilationRate.emit(ils.Metrics())
-	mb.metricSqlserverBatchSQLRecompilationRate.emit(ils.Metrics())
-	mb.metricSqlserverComputerUptime.emit(ils.Metrics())
-	mb.metricSqlserverCPUCount.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseBackupOrRestoreRate.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseCount.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseExecutionErrors.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseFullScanRate.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseIo.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseLatency.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseOperations.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseTempdbSpace.emit(ils.Metrics())
-	mb.metricSqlserverDatabaseTempdbVersionStoreSize.emit(ils.Metrics())
-	mb.metricSqlserverDeadlockRate.emit(ils.Metrics())
-	mb.metricSqlserverIndexSearchRate.emit(ils.Metrics())
-	mb.metricSqlserverLockTimeoutRate.emit(ils.Metrics())
-	mb.metricSqlserverLockWaitCount.emit(ils.Metrics())
-	mb.metricSqlserverLockWaitRate.emit(ils.Metrics())
-	mb.metricSqlserverLockWaitTimeAvg.emit(ils.Metrics())
-	mb.metricSqlserverLoginRate.emit(ils.Metrics())
-	mb.metricSqlserverLogoutRate.emit(ils.Metrics())
-	mb.metricSqlserverMemoryGrantsPendingCount.emit(ils.Metrics())
-	mb.metricSqlserverMemoryUsage.emit(ils.Metrics())
-	mb.metricSqlserverOsWaitDuration.emit(ils.Metrics())
-	mb.metricSqlserverPageBufferCacheFreeListStallsRate.emit(ils.Metrics())
-	mb.metricSqlserverPageBufferCacheHitRatio.emit(ils.Metrics())
-	mb.metricSqlserverPageCheckpointFlushRate.emit(ils.Metrics())
-	mb.metricSqlserverPageLazyWriteRate.emit(ils.Metrics())
-	mb.metricSqlserverPageLifeExpectancy.emit(ils.Metrics())
-	mb.metricSqlserverPageLookupRate.emit(ils.Metrics())
-	mb.metricSqlserverPageOperationRate.emit(ils.Metrics())
-	mb.metricSqlserverPageSplitRate.emit(ils.Metrics())
-	mb.metricSqlserverProcessesBlocked.emit(ils.Metrics())
-	mb.metricSqlserverReplicaDataRate.emit(ils.Metrics())
-	mb.metricSqlserverResourcePoolDiskOperations.emit(ils.Metrics())
-	mb.metricSqlserverResourcePoolDiskThrottledReadRate.emit(ils.Metrics())
-	mb.metricSqlserverResourcePoolDiskThrottledWriteRate.emit(ils.Metrics())
-	mb.metricSqlserverTableCount.emit(ils.Metrics())
-	mb.metricSqlserverTransactionDelay.emit(ils.Metrics())
-	mb.metricSqlserverTransactionMirrorWriteRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionWriteRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogFlushDataRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogFlushRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogFlushWaitRate.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogGrowthCount.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogShrinkCount.emit(ils.Metrics())
-	mb.metricSqlserverTransactionLogUsage.emit(ils.Metrics())
-	mb.metricSqlserverUserConnectionCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSqlserverBatchRequestRateDataPoint adds a data point to sqlserver.batch.request.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverBatchRequestRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverBatchRequestRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverBatchSQLCompilationRateDataPoint adds a data point to sqlserver.batch.sql_compilation.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverBatchSQLCompilationRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverBatchSQLCompilationRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverBatchSQLRecompilationRateDataPoint adds a data point to sqlserver.batch.sql_recompilation.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverBatchSQLRecompilationRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverBatchSQLRecompilationRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverComputerUptimeDataPoint adds a data point to sqlserver.computer.uptime metric.
 func (mb *MetricsBuilder) RecordSqlserverComputerUptimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverComputerUptime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverComputerUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverCPUCountDataPoint adds a data point to sqlserver.cpu.count metric.
 func (mb *MetricsBuilder) RecordSqlserverCPUCountDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverCPUCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverCPUCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverDatabaseBackupOrRestoreRateDataPoint adds a data point to sqlserver.database.backup_or_restore.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseBackupOrRestoreRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverDatabaseBackupOrRestoreRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDatabaseCountDataPoint adds a data point to sqlserver.database.count metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseCountDataPoint(ts pcommon.Timestamp, inputVal string, databaseStatusAttributeValue AttributeDatabaseStatus) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverDatabaseCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverDatabaseCount.recordDataPoint(mb.startTime, ts, val, databaseStatusAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverDatabaseExecutionErrorsDataPoint adds a data point to sqlserver.database.execution.errors metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseExecutionErrorsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverDatabaseExecutionErrors.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDatabaseFullScanRateDataPoint adds a data point to sqlserver.database.full_scan.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseFullScanRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverDatabaseFullScanRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDatabaseIoDataPoint adds a data point to sqlserver.database.io metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseIoDataPoint(ts pcommon.Timestamp, inputVal string, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue AttributeDirection) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverDatabaseIo, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverDatabaseIo.recordDataPoint(mb.startTime, ts, val, physicalFilenameAttributeValue, logicalFilenameAttributeValue, fileTypeAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverDatabaseLatencyDataPoint adds a data point to sqlserver.database.latency metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseLatencyDataPoint(ts pcommon.Timestamp, val float64, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue AttributeDirection) {
-	mb.metricSqlserverDatabaseLatency.recordDataPoint(mb.startTime, ts, val, physicalFilenameAttributeValue, logicalFilenameAttributeValue, fileTypeAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDatabaseOperationsDataPoint adds a data point to sqlserver.database.operations metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseOperationsDataPoint(ts pcommon.Timestamp, inputVal string, physicalFilenameAttributeValue string, logicalFilenameAttributeValue string, fileTypeAttributeValue string, directionAttributeValue AttributeDirection) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverDatabaseOperations, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverDatabaseOperations.recordDataPoint(mb.startTime, ts, val, physicalFilenameAttributeValue, logicalFilenameAttributeValue, fileTypeAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverDatabaseTempdbSpaceDataPoint adds a data point to sqlserver.database.tempdb.space metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseTempdbSpaceDataPoint(ts pcommon.Timestamp, val int64, tempdbStateAttributeValue AttributeTempdbState) {
-	mb.metricSqlserverDatabaseTempdbSpace.recordDataPoint(mb.startTime, ts, val, tempdbStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDatabaseTempdbVersionStoreSizeDataPoint adds a data point to sqlserver.database.tempdb.version_store.size metric.
 func (mb *MetricsBuilder) RecordSqlserverDatabaseTempdbVersionStoreSizeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverDatabaseTempdbVersionStoreSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverDeadlockRateDataPoint adds a data point to sqlserver.deadlock.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverDeadlockRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverDeadlockRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverIndexSearchRateDataPoint adds a data point to sqlserver.index.search.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverIndexSearchRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverIndexSearchRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLockTimeoutRateDataPoint adds a data point to sqlserver.lock.timeout.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverLockTimeoutRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverLockTimeoutRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLockWaitCountDataPoint adds a data point to sqlserver.lock.wait.count metric.
 func (mb *MetricsBuilder) RecordSqlserverLockWaitCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverLockWaitCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLockWaitRateDataPoint adds a data point to sqlserver.lock.wait.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverLockWaitRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverLockWaitRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLockWaitTimeAvgDataPoint adds a data point to sqlserver.lock.wait_time.avg metric.
 func (mb *MetricsBuilder) RecordSqlserverLockWaitTimeAvgDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverLockWaitTimeAvg.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLoginRateDataPoint adds a data point to sqlserver.login.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverLoginRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverLoginRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverLogoutRateDataPoint adds a data point to sqlserver.logout.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverLogoutRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverLogoutRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverMemoryGrantsPendingCountDataPoint adds a data point to sqlserver.memory.grants.pending.count metric.
 func (mb *MetricsBuilder) RecordSqlserverMemoryGrantsPendingCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverMemoryGrantsPendingCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverMemoryUsageDataPoint adds a data point to sqlserver.memory.usage metric.
 func (mb *MetricsBuilder) RecordSqlserverMemoryUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverOsWaitDurationDataPoint adds a data point to sqlserver.os.wait.duration metric.
 func (mb *MetricsBuilder) RecordSqlserverOsWaitDurationDataPoint(ts pcommon.Timestamp, val float64, waitCategoryAttributeValue string, waitTypeAttributeValue string) {
-	mb.metricSqlserverOsWaitDuration.recordDataPoint(mb.startTime, ts, val, waitCategoryAttributeValue, waitTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageBufferCacheFreeListStallsRateDataPoint adds a data point to sqlserver.page.buffer_cache.free_list.stalls.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageBufferCacheFreeListStallsRateDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverPageBufferCacheFreeListStallsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageBufferCacheHitRatioDataPoint adds a data point to sqlserver.page.buffer_cache.hit_ratio metric.
 func (mb *MetricsBuilder) RecordSqlserverPageBufferCacheHitRatioDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverPageBufferCacheHitRatio.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageCheckpointFlushRateDataPoint adds a data point to sqlserver.page.checkpoint.flush.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageCheckpointFlushRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverPageCheckpointFlushRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageLazyWriteRateDataPoint adds a data point to sqlserver.page.lazy_write.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageLazyWriteRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverPageLazyWriteRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageLifeExpectancyDataPoint adds a data point to sqlserver.page.life_expectancy metric.
 func (mb *MetricsBuilder) RecordSqlserverPageLifeExpectancyDataPoint(ts pcommon.Timestamp, val int64, performanceCounterObjectNameAttributeValue string) {
-	mb.metricSqlserverPageLifeExpectancy.recordDataPoint(mb.startTime, ts, val, performanceCounterObjectNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageLookupRateDataPoint adds a data point to sqlserver.page.lookup.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageLookupRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverPageLookupRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageOperationRateDataPoint adds a data point to sqlserver.page.operation.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageOperationRateDataPoint(ts pcommon.Timestamp, val float64, pageOperationsAttributeValue AttributePageOperations) {
-	mb.metricSqlserverPageOperationRate.recordDataPoint(mb.startTime, ts, val, pageOperationsAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverPageSplitRateDataPoint adds a data point to sqlserver.page.split.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverPageSplitRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverPageSplitRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverProcessesBlockedDataPoint adds a data point to sqlserver.processes.blocked metric.
 func (mb *MetricsBuilder) RecordSqlserverProcessesBlockedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverProcessesBlocked, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverProcessesBlocked.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverReplicaDataRateDataPoint adds a data point to sqlserver.replica.data.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverReplicaDataRateDataPoint(ts pcommon.Timestamp, val float64, replicaDirectionAttributeValue AttributeReplicaDirection) {
-	mb.metricSqlserverReplicaDataRate.recordDataPoint(mb.startTime, ts, val, replicaDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverResourcePoolDiskOperationsDataPoint adds a data point to sqlserver.resource_pool.disk.operations metric.
 func (mb *MetricsBuilder) RecordSqlserverResourcePoolDiskOperationsDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricSqlserverResourcePoolDiskOperations.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverResourcePoolDiskThrottledReadRateDataPoint adds a data point to sqlserver.resource_pool.disk.throttled.read.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverResourcePoolDiskThrottledReadRateDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SqlserverResourcePoolDiskThrottledReadRate, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverResourcePoolDiskThrottledReadRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverResourcePoolDiskThrottledWriteRateDataPoint adds a data point to sqlserver.resource_pool.disk.throttled.write.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverResourcePoolDiskThrottledWriteRateDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for SqlserverResourcePoolDiskThrottledWriteRate, value was %s: %w", inputVal, err)
-	}
-	mb.metricSqlserverResourcePoolDiskThrottledWriteRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSqlserverTableCountDataPoint adds a data point to sqlserver.table.count metric.
 func (mb *MetricsBuilder) RecordSqlserverTableCountDataPoint(ts pcommon.Timestamp, val int64, tableStateAttributeValue AttributeTableState, tableStatusAttributeValue AttributeTableStatus) {
-	mb.metricSqlserverTableCount.recordDataPoint(mb.startTime, ts, val, tableStateAttributeValue.String(), tableStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionDelayDataPoint adds a data point to sqlserver.transaction.delay metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionDelayDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionDelay.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionMirrorWriteRateDataPoint adds a data point to sqlserver.transaction.mirror_write.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionMirrorWriteRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionMirrorWriteRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionRateDataPoint adds a data point to sqlserver.transaction.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionWriteRateDataPoint adds a data point to sqlserver.transaction.write.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionWriteRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionWriteRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogFlushDataRateDataPoint adds a data point to sqlserver.transaction_log.flush.data.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogFlushDataRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionLogFlushDataRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogFlushRateDataPoint adds a data point to sqlserver.transaction_log.flush.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogFlushRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionLogFlushRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogFlushWaitRateDataPoint adds a data point to sqlserver.transaction_log.flush.wait.rate metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogFlushWaitRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSqlserverTransactionLogFlushWaitRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogGrowthCountDataPoint adds a data point to sqlserver.transaction_log.growth.count metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogGrowthCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverTransactionLogGrowthCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogShrinkCountDataPoint adds a data point to sqlserver.transaction_log.shrink.count metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogShrinkCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverTransactionLogShrinkCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverTransactionLogUsageDataPoint adds a data point to sqlserver.transaction_log.usage metric.
 func (mb *MetricsBuilder) RecordSqlserverTransactionLogUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverTransactionLogUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSqlserverUserConnectionCountDataPoint adds a data point to sqlserver.user.connection.count metric.
 func (mb *MetricsBuilder) RecordSqlserverUserConnectionCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSqlserverUserConnectionCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

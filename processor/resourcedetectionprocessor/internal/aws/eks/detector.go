@@ -5,17 +5,10 @@ package eks // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"fmt"
-	"os"
-	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/aws/retry"
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/feature/ec2/imds"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	imdsprovider "github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/aws/ec2"
@@ -72,163 +65,46 @@ var _ detectorUtils = (*eksDetectorUtils)(nil)
 
 // NewDetector returns a resource detector that will detect AWS EKS resources.
 func NewDetector(set processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-	utils := &eksDetectorUtils{cfg: cfg, logger: set.Logger}
-
-	awsConfig, err := utils.getAWSConfig(context.Background(), false)
-	if err != nil {
-		return nil, err
-	}
-
-	nodeName := os.Getenv(cfg.NodeFromEnvVar)
-	apiProvider, err := apiprovider.NewProvider(awsConfig, nodeName)
-	if err != nil {
-		return nil, err
-	}
-
-	return &detector{
-		cfg:          cfg,
-		logger:       set.Logger,
-		apiProvider:  apiProvider,
-		imdsProvider: imdsprovider.NewProvider(awsConfig),
-		ra:           cfg.ResourceAttributes,
-		rb:           metadata.NewResourceBuilder(cfg.ResourceAttributes),
-		utils:        utils,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 // Detect returns a Resource describing the Amazon EKS environment being run in.
 func (d *detector) Detect(ctx context.Context) (resource pcommon.Resource, schemaURL string, err error) {
+	_ = "STUB: not implemented"
 	// Check if running on EKS.
-	if isEKS, err := d.isEKS(ctx); err != nil || !isEKS {
-		if err != nil {
-			d.logger.Debug("Unable to identify EKS environment", zap.Error(err))
-		}
-		return pcommon.NewResource(), "", err
-	}
-
-	d.rb.SetCloudProvider(conventions.CloudProviderAWS.Value.AsString())
-	d.rb.SetCloudPlatform(conventions.CloudPlatformAWSEKS.Value.AsString())
-
-	if d.utils.isIMDSAccessible(ctx) {
-		return d.detectFromIMDS(ctx)
-	}
-	return d.detectFromAPI(ctx)
+	return *new(pcommon.Resource), "", nil
 }
 
 func (d *detector) detectFromIMDS(ctx context.Context) (pcommon.Resource, string, error) {
-	imdsMeta, err := d.imdsProvider.Get(ctx)
-	if err != nil {
-		return d.rb.Emit(), conventions.SchemaURL, err
-	}
-
-	d.rb.SetHostID(imdsMeta.InstanceID)
-	d.rb.SetCloudAvailabilityZone(imdsMeta.AvailabilityZone)
-	d.rb.SetCloudRegion(imdsMeta.Region)
-	d.rb.SetCloudAccountID(imdsMeta.AccountID)
-	d.rb.SetHostImageID(imdsMeta.ImageID)
-	d.rb.SetHostType(imdsMeta.InstanceType)
-
-	hostname, err := d.imdsProvider.Hostname(ctx)
-	if err != nil {
-		return d.rb.Emit(), conventions.SchemaURL, err
-	}
-	d.rb.SetHostName(hostname)
-
-	if d.ra.K8sClusterName.Enabled {
-		d.apiProvider.SetRegionInstanceID(imdsMeta.Region, imdsMeta.InstanceID)
-		var apiMeta apiprovider.InstanceMetadata
-		if apiMeta, err = d.apiProvider.GetInstanceMetadata(ctx); err != nil {
-			return d.rb.Emit(), conventions.SchemaURL, err
-		}
-		d.rb.SetK8sClusterName(apiMeta.ClusterName)
-	}
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
 
 func (d *detector) detectFromAPI(ctx context.Context) (pcommon.Resource, string, error) {
-	k8sMeta, err := d.apiProvider.GetK8sInstanceMetadata(ctx)
-	if err != nil {
-		return d.rb.Emit(), conventions.SchemaURL, err
-	}
-
-	d.rb.SetHostID(k8sMeta.InstanceID)
-	d.rb.SetCloudAvailabilityZone(k8sMeta.AvailabilityZone)
-	d.rb.SetCloudRegion(k8sMeta.Region)
-
-	apiMeta, err := d.apiProvider.GetInstanceMetadata(ctx)
-	if err != nil {
-		return d.rb.Emit(), conventions.SchemaURL, err
-	}
-
-	d.rb.SetCloudAccountID(apiMeta.AccountID)
-	d.rb.SetHostImageID(apiMeta.ImageID)
-	d.rb.SetHostType(apiMeta.InstanceType)
-	d.rb.SetHostName(apiMeta.Hostname)
-	d.rb.SetK8sClusterName(apiMeta.ClusterName)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
 
 func (d *detector) isEKS(ctx context.Context) (bool, error) {
-	if os.Getenv(kubernetesServiceHostEnvVar) == "" {
-		return false, nil
-	}
-
-	// Check for EKS-specific IRSA token path
-	if tokenFile := os.Getenv(awsWebIdentityTokenFileEnvVar); strings.Contains(tokenFile, eksIRSATokenPathIdentifier) {
-		return true, nil
-	}
-
-	// Check for EKS Pod Identity token path
-	if authFile := os.Getenv(awsContainerAuthTokenFileEnvVar); strings.Contains(authFile, eksPodIdentityPathIdentifier) {
-		return true, nil
-	}
-
-	// Check OIDC issuer for EKS-specific identifier
-	if issuer, err := d.apiProvider.OIDCIssuer(ctx); err == nil && strings.Contains(issuer, eksOIDCIssuerIdentifier) {
-		return true, nil
-	}
-
-	// Fallback: check cluster version for -eks- identifier
-	clusterVersion, err := d.apiProvider.ClusterVersion()
-	if err != nil {
-		return false, fmt.Errorf("isEks() error retrieving cluster version: %w", err)
-	}
-	if strings.Contains(clusterVersion, eksClusterStringIdentifier) {
-		return true, nil
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }
 
-func (e eksDetectorUtils) isIMDSAccessible(ctx context.Context) bool {
-	cfg, err := e.getAWSConfig(ctx, true)
-	if err != nil {
-		e.logger.Debug("EC2 Metadata service is not accessible", zap.Error(err))
-		return false
-	}
+// Check for EKS-specific IRSA token path
 
-	client := imds.NewFromConfig(cfg)
-	if _, err := client.GetMetadata(ctx, &imds.GetMetadataInput{Path: "instance-id"}); err != nil {
-		e.logger.Debug("EC2 Metadata service is not accessible", zap.Error(err))
-		return false
-	}
-	return true
+// Check for EKS Pod Identity token path
+
+// Check OIDC issuer for EKS-specific identifier
+
+// Fallback: check cluster version for -eks- identifier
+
+func (e eksDetectorUtils) isIMDSAccessible(ctx context.Context) bool {
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (eksDetectorUtils) getAWSConfig(ctx context.Context, checkAccess bool) (aws.Config, error) {
-	awsConfig, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		return aws.Config{}, err
-	}
-
-	if checkAccess {
-		awsConfig.Retryer = func() aws.Retryer {
-			return retry.NewStandard(func(options *retry.StandardOptions) {
-				options.MaxAttempts = imdsCheckMaxRetry
-			})
-		}
-	}
-
-	return awsConfig, nil
+	_ = "STUB: not implemented"
+	return *new(aws.Config), nil
 }

@@ -5,15 +5,10 @@ package attraction // import "github.com/open-telemetry/opentelemetry-collector-
 
 import (
 	"context"
-	"fmt"
 	"regexp"
-	"strings"
 
-	"go.opentelemetry.io/collector/client"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/clientutil"
 )
 
 // Settings specifies the processor settings.
@@ -92,21 +87,7 @@ type ActionKeyValue struct {
 	Action Action `mapstructure:"action"`
 }
 
-func (a *ActionKeyValue) valueSourceCount() int {
-	count := 0
-	if a.Value != nil {
-		count++
-	}
-
-	if a.FromAttribute != "" {
-		count++
-	}
-
-	if a.FromContext != "" {
-		count++
-	}
-	return count
-}
+func (a *ActionKeyValue) valueSourceCount() int { _ = "STUB: not implemented"; return 0 }
 
 // Action is the enum to capture the four types of actions to perform on an
 // attribute.
@@ -172,298 +153,64 @@ type AttrProc struct {
 // NewAttrProc validates that the input configuration has all of the required fields for the processor
 // and returns a AttrProc to be used to process attributes.
 // An error is returned if there are any invalid inputs.
-func NewAttrProc(settings *Settings) (*AttrProc, error) {
-	attributeActions := make([]attributeAction, 0, len(settings.Actions))
-	for i := range settings.Actions {
-		a := &settings.Actions[i]
-		// Convert `action` to lowercase for comparison.
-		a.Action = Action(strings.ToLower(string(a.Action)))
+func NewAttrProc(settings *Settings) (*AttrProc, error) { _ = "STUB: not implemented"; return nil, nil }
 
-		switch a.Action {
-		case DELETE, HASH:
-			// requires `key` and/or `pattern`
-			if a.Key == "" && a.RegexPattern == "" {
-				return nil, fmt.Errorf("error creating AttrProc due to missing required field (at least one of \"key\" and \"pattern\" have to be used) at the %d-th action", i)
-			}
-		default:
-			// `key` is a required field
-			if a.Key == "" {
-				return nil, fmt.Errorf("error creating AttrProc due to missing required field \"key\" at the %d-th action", i)
-			}
-		}
+// Convert `action` to lowercase for comparison.
 
-		action := attributeAction{
-			Key:    a.Key,
-			Action: a.Action,
-		}
+// requires `key` and/or `pattern`
 
-		valueSourceCount := a.valueSourceCount()
+// `key` is a required field
 
-		switch a.Action {
-		case INSERT, UPDATE, UPSERT:
-			if valueSourceCount == 0 && a.DefaultValue == nil {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Either field \"value\", \"from_attribute\", \"from_context\", or \"default_value\" must be specified", a.Key, i)
-			}
+// Convert the raw value from the configuration to the internal trace representation of the value.
 
-			if valueSourceCount > 1 {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to multiple value sources being set", a.Key, i)
-			}
-			if a.RegexPattern != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use the \"pattern\" field. This must not be specified", a.Key, i, a.Action)
-			}
-			if a.ConvertedType != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use the \"converted_type\" field. This must not be specified", a.Key, i, a.Action)
-			}
-			// Convert the raw value from the configuration to the internal trace representation of the value.
-			if a.Value != nil {
-				val := pcommon.NewValueEmpty()
-				err := val.FromRaw(a.Value)
-				if err != nil {
-					return nil, err
-				}
-				action.AttributeValue = &val
-			} else {
-				action.FromAttribute = a.FromAttribute
-				action.FromContext = a.FromContext
-			}
-
-			// Handle default_value
-			if a.DefaultValue != nil {
-				val := pcommon.NewValueEmpty()
-				err := val.FromRaw(a.DefaultValue)
-				if err != nil {
-					return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to invalid default value: %w", a.Key, i, err)
-				}
-				action.DefaultValue = &val
-			}
-		case HASH, DELETE:
-			if a.Value != nil || a.FromAttribute != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use \"value\" or \"from_attribute\" field. These must not be specified", a.Key, i, a.Action)
-			}
-
-			if a.RegexPattern != "" {
-				re, err := regexp.Compile(a.RegexPattern)
-				if err != nil {
-					return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Field \"pattern\" has invalid pattern: \"%s\"", a.Key, i, a.RegexPattern)
-				}
-				action.Regex = re
-			}
-			if a.ConvertedType != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use the \"converted_type\" field. This must not be specified", a.Key, i, a.Action)
-			}
-		case EXTRACT:
-			if valueSourceCount > 0 {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use a value source field. These must not be specified", a.Key, i, a.Action)
-			}
-			if a.RegexPattern == "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to missing required field \"pattern\" for action \"%s\"", a.Key, i, a.Action)
-			}
-			if a.ConvertedType != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use the \"converted_type\" field. This must not be specified", a.Key, i, a.Action)
-			}
-			re, err := regexp.Compile(a.RegexPattern)
-			if err != nil {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Field \"pattern\" has invalid pattern: \"%s\"", a.Key, i, a.RegexPattern)
-			}
-			attrNames := re.SubexpNames()
-			if len(attrNames) <= 1 {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Field \"pattern\" contains no named matcher groups", a.Key, i)
-			}
-
-			for subExpIndex := 1; subExpIndex < len(attrNames); subExpIndex++ {
-				if attrNames[subExpIndex] == "" {
-					return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Field \"pattern\" contains at least one unnamed matcher group", a.Key, i)
-				}
-			}
-			action.Regex = re
-			action.AttrNames = attrNames
-		case CONVERT:
-			if valueSourceCount > 0 || a.RegexPattern != "" {
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc. Action \"%s\" does not use value sources or \"pattern\" field. These must not be specified", a.Key, i, a.Action)
-			}
-			switch a.ConvertedType {
-			case stringConversionTarget:
-			case intConversionTarget:
-			case doubleConversionTarget:
-			case "":
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to missing required field \"converted_type\" for action \"%s\"", a.Key, i, a.Action)
-			default:
-				return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to invalid value \"%s\" in field \"converted_type\" for action \"%s\"", a.Key, i, a.ConvertedType, a.Action)
-			}
-			action.ConvertedType = a.ConvertedType
-		default:
-			return nil, fmt.Errorf("error with key %q (%d-th action): error creating AttrProc due to unsupported action %q", a.Key, i, a.Action)
-		}
-
-		attributeActions = append(attributeActions, action)
-	}
-	return &AttrProc{actions: attributeActions}, nil
-}
+// Handle default_value
 
 // Process applies the AttrProc to an attribute map.
 func (ap *AttrProc) Process(ctx context.Context, logger *zap.Logger, attrs pcommon.Map) {
-	for i := range ap.actions {
-		action := &ap.actions[i]
-		// TODO https://go.opentelemetry.io/collector/issues/296
-		// Do benchmark testing between having action be of type string vs integer.
-		// The reason is attributes processor will most likely be commonly used
-		// and could impact performance.
-		switch action.Action {
-		case DELETE:
-			attrs.Remove(action.Key)
-
-			if action.Regex != nil {
-				attrs.RemoveIf(func(k string, _ pcommon.Value) bool {
-					return action.Regex.MatchString(k)
-				})
-			}
-		case INSERT:
-			av, found := getSourceAttributeValue(ctx, *action, attrs)
-			if !found {
-				continue
-			}
-			if _, found = attrs.Get(action.Key); found {
-				continue
-			}
-			av.CopyTo(attrs.PutEmpty(action.Key))
-		case UPDATE:
-			av, found := getSourceAttributeValue(ctx, *action, attrs)
-			if !found {
-				continue
-			}
-			val, found := attrs.Get(action.Key)
-			if !found {
-				continue
-			}
-			av.CopyTo(val)
-		case UPSERT:
-			av, found := getSourceAttributeValue(ctx, *action, attrs)
-			if !found {
-				continue
-			}
-			val, found := attrs.Get(action.Key)
-			if found {
-				av.CopyTo(val)
-			} else {
-				av.CopyTo(attrs.PutEmpty(action.Key))
-			}
-		case HASH:
-			if value, exists := attrs.Get(action.Key); exists {
-				sha2Hasher(value)
-			}
-
-			if action.Regex != nil {
-				for key, val := range attrs.All() {
-					if action.Regex.MatchString(key) {
-						sha2Hasher(val)
-					}
-				}
-			}
-		case EXTRACT:
-			extractAttributes(*action, attrs)
-		case CONVERT:
-			convertAttribute(logger, *action, attrs)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// TODO https://go.opentelemetry.io/collector/issues/296
+// Do benchmark testing between having action be of type string vs integer.
+// The reason is attributes processor will most likely be commonly used
+// and could impact performance.
 
 func getAttributeValueFromContext(ctx context.Context, key string) (pcommon.Value, bool) {
-	const (
-		metadataPrefix   = "metadata."
-		authPrefix       = "auth."
-		clientAddressKey = "client.address"
-	)
-
-	ci := client.FromContext(ctx)
-	var vals []string
-
-	switch {
-	case key == clientAddressKey:
-		vals = []string{clientutil.Address(ci)}
-	case strings.HasPrefix(key, metadataPrefix):
-		mdKey := strings.TrimPrefix(key, metadataPrefix)
-		vals = ci.Metadata.Get(mdKey)
-	case strings.HasPrefix(key, authPrefix):
-		if ci.Auth == nil {
-			return pcommon.Value{}, false
-		}
-
-		attrName := strings.TrimPrefix(key, authPrefix)
-		attr := ci.Auth.GetAttribute(attrName)
-
-		switch a := attr.(type) {
-		case string:
-			return pcommon.NewValueStr(a), true
-		case []string:
-			vals = a
-		default:
-			// TODO: Warn about unexpected attribute types.
-			return pcommon.Value{}, false
-		}
-	default:
-		// Fallback to metadata for backwards compatibility.
-		vals = ci.Metadata.Get(key)
-	}
-
-	if len(vals) == 0 {
-		return pcommon.Value{}, false
-	}
-
-	return pcommon.NewValueStr(strings.Join(vals, ";")), true
+	_ = "STUB: not implemented"
+	return *new(pcommon.Value), false
 }
+
+// TODO: Warn about unexpected attribute types.
+
+// Fallback to metadata for backwards compatibility.
 
 func getSourceAttributeValue(ctx context.Context, action attributeAction, attrs pcommon.Map) (pcommon.Value, bool) {
+	_ = "STUB: not implemented"
 	// Set the key with a value from the configuration.
-	if action.AttributeValue != nil {
-		return *action.AttributeValue, true
-	}
-
-	if action.FromContext != "" {
-		if val, ok := getAttributeValueFromContext(ctx, action.FromContext); ok {
-			return val, true
-		}
-		// If FromContext didn't find the value, fall through to try FromAttribute and DefaultValue
-	}
-
-	if action.FromAttribute != "" {
-		if val, ok := attrs.Get(action.FromAttribute); ok {
-			return val, true
-		}
-		// If FromAttribute didn't find the value, fall through to DefaultValue
-	}
-
-	// Use default value if no other source provided a value
-	if action.DefaultValue != nil {
-		return *action.DefaultValue, true
-	}
-
-	return pcommon.Value{}, false
+	return *new(pcommon.Value), false
 }
 
+// If FromContext didn't find the value, fall through to try FromAttribute and DefaultValue
+
+// If FromAttribute didn't find the value, fall through to DefaultValue
+
+// Use default value if no other source provided a value
+
 func convertAttribute(logger *zap.Logger, action attributeAction, attrs pcommon.Map) {
-	if value, exists := attrs.Get(action.Key); exists {
-		convertValue(logger, action.Key, action.ConvertedType, value)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func extractAttributes(action attributeAction, attrs pcommon.Map) {
-	value, found := attrs.Get(action.Key)
-
-	// Extracting values only functions on strings.
-	if !found || value.Type() != pcommon.ValueTypeStr {
-		return
-	}
-
-	// Note: The number of matches will always be equal to number of
-	// subexpressions.
-	matches := action.Regex.FindStringSubmatch(value.Str())
-	if matches == nil {
-		return
-	}
-
-	// Start from index 1, which is the first submatch (index 0 is the entire
-	// match).
-	for i := 1; i < len(matches); i++ {
-		attrs.PutStr(action.AttrNames[i], matches[i])
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Extracting values only functions on strings.
+
+// Note: The number of matches will always be equal to number of
+// subexpressions.
+
+// Start from index 1, which is the first submatch (index 0 is the entire
+// match).

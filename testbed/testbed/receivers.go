@@ -4,17 +4,9 @@
 package testbed // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/otlpreceiver"
-	"go.opentelemetry.io/collector/receiver/receivertest"
 )
 
 // DataReceiver allows to receive traces or metrics. This is an interface that must
@@ -65,120 +57,60 @@ type BaseOTLPDataReceiver struct {
 
 // InsertDefault is a helper function to insert a default value for a configoptional.Optional type.
 func InsertDefault[T any](opt *configoptional.Optional[T]) error {
-	if opt.HasValue() {
-		return nil
-	}
-
-	empty := confmap.NewFromStringMap(map[string]any{})
-	return empty.Unmarshal(opt)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) Start(tc consumer.Traces, mc consumer.Metrics, lc consumer.Logs) error {
-	factory := otlpreceiver.NewFactory()
-	cfg := factory.CreateDefaultConfig().(*otlpreceiver.Config)
-	if bor.exporterType == "otlp_grpc" {
-		if err := InsertDefault(&cfg.Protocols.GRPC); err != nil {
-			return err
-		}
-		cfg.Protocols.GRPC.Get().NetAddr = confignet.AddrConfig{Endpoint: fmt.Sprintf("127.0.0.1:%d", bor.Port), Transport: confignet.TransportTypeTCP}
-	} else {
-		if err := InsertDefault(&cfg.Protocols.HTTP); err != nil {
-			return err
-		}
-		cfg.Protocols.HTTP.Get().ServerConfig.NetAddr.Endpoint = fmt.Sprintf("127.0.0.1:%d", bor.Port)
-	}
-
-	var err error
-	set := receivertest.NewNopSettings(factory.Type())
-	if bor.traceReceiver, err = factory.CreateTraces(context.Background(), set, cfg, tc); err != nil {
-		return err
-	}
-	if bor.metricsReceiver, err = factory.CreateMetrics(context.Background(), set, cfg, mc); err != nil {
-		return err
-	}
-	if bor.logReceiver, err = factory.CreateLogs(context.Background(), set, cfg, lc); err != nil {
-		return err
-	}
-
-	// we reuse the receiver across signals. Starting the log receiver starts the metrics and traces receiver.
-	return bor.logReceiver.Start(context.Background(), componenttest.NewNopHost())
+	_ = "STUB: not implemented"
+	return nil
 }
 
+// we reuse the receiver across signals. Starting the log receiver starts the metrics and traces receiver.
+
 func (bor *BaseOTLPDataReceiver) WithCompression(compression string) *BaseOTLPDataReceiver {
-	bor.compression = compression
-	return bor
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) WithRetry(retry string) *BaseOTLPDataReceiver {
-	bor.retry = retry
-	return bor
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) WithQueue(sendingQueue string) *BaseOTLPDataReceiver {
-	bor.sendingQueue = sendingQueue
-	return bor
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) WithTimeout(timeout string) *BaseOTLPDataReceiver {
-	bor.timeout = timeout
-	return bor
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) WithBatcher(batcher string) *BaseOTLPDataReceiver {
-	bor.batcher = batcher
-	return bor
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bor *BaseOTLPDataReceiver) Stop() error {
+	_ = "STUB: not implemented"
 	// we reuse the receiver across signals. Shutting down the log receiver shuts down the metrics and traces receiver.
-	return bor.logReceiver.Shutdown(context.Background())
+	return nil
 }
 
-func (bor *BaseOTLPDataReceiver) ProtocolName() string {
-	return bor.exporterType
-}
+func (bor *BaseOTLPDataReceiver) ProtocolName() string { _ = "STUB: not implemented"; return "" }
 
-func (bor *BaseOTLPDataReceiver) GenConfigYAMLStr() string {
-	addr := fmt.Sprintf("127.0.0.1:%d", bor.Port)
-	if bor.exporterType == "otlp_http" {
-		addr = "http://" + addr
-	}
-	// Note that this generates an exporter config for agent.
-	str := fmt.Sprintf(`
-  %s:
-    endpoint: "%s"
-    %s
-    %s
-    %s
-    %s
-    tls:
-      insecure: true`, bor.exporterType, addr, bor.retry, bor.sendingQueue, bor.timeout, bor.batcher)
-	comp := "none"
-	if bor.compression != "" {
-		comp = bor.compression
-	}
-	str += fmt.Sprintf(`
-    compression: "%s"`, comp)
+func (bor *BaseOTLPDataReceiver) GenConfigYAMLStr() string { _ = "STUB: not implemented"; return "" }
 
-	return str
-}
+// Note that this generates an exporter config for agent.
 
 var _ DataReceiver = (*BaseOTLPDataReceiver)(nil)
 
 // NewOTLPDataReceiver creates a new OTLP DataReceiver that will listen on the specified port after Start
 // is called.
-func NewOTLPDataReceiver(port int) *BaseOTLPDataReceiver {
-	return &BaseOTLPDataReceiver{
-		DataReceiverBase: DataReceiverBase{Port: port},
-		exporterType:     "otlp_grpc",
-	}
-}
+func NewOTLPDataReceiver(port int) *BaseOTLPDataReceiver { _ = "STUB: not implemented"; return nil }
 
 // NewOTLPHTTPDataReceiver creates a new OTLP/HTTP DataReceiver that will listen on the specified port after Start
 // is called.
-func NewOTLPHTTPDataReceiver(port int) *BaseOTLPDataReceiver {
-	return &BaseOTLPDataReceiver{
-		DataReceiverBase: DataReceiverBase{Port: port},
-		exporterType:     "otlp_http",
-	}
-}
+func NewOTLPHTTPDataReceiver(port int) *BaseOTLPDataReceiver { _ = "STUB: not implemented"; return nil }

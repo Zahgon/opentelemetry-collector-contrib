@@ -5,14 +5,11 @@ package translation // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"sort"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	encoder "go.opentelemetry.io/otel/schema/v1.1"
 	ast11 "go.opentelemetry.io/otel/schema/v1.1/ast"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/alias"
@@ -68,256 +65,51 @@ var (
 )
 
 func (t *translator) loadTranslation(content *ast11.Schema) error {
-	var errs error
-	t.log.Debug("Updating translation")
-	for v := range content.Versions {
-		def := content.Versions[v]
-		version, err := NewVersion(string(v))
-		if err != nil {
-			errs = multierr.Append(errs, err)
-			continue
-		}
-		_, exist := t.indexes[*version]
-		if exist {
-			continue
-		}
-		// When copyFromVersion is set, attribute renames preserve both old
-		// and new names for revisions between copyFromVersion and the target
-		// (in either direction).
-		copyAttributes := false
-		if t.copyFromVersion != nil {
-			lower, upper := t.copyFromVersion, t.target
-			if t.target.LessThan(t.copyFromVersion) {
-				lower, upper = t.target, t.copyFromVersion
-			}
-			copyAttributes = lower.LessThan(version) && !upper.LessThan(version)
-		}
-		rev, err := NewRevision(version, def, copyAttributes)
-		if err != nil {
-			errs = multierr.Append(errs, err)
-			continue
-		}
-		t.log.Debug("Creating new entry",
-			zap.Stringer("version", version),
-		)
-		t.indexes[*version], t.revisions = len(t.revisions), append(t.revisions, *rev)
-	}
-	sort.Sort(t)
-
-	t.log.Debug("Finished update")
-	return errs
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func newTranslatorFromSchema(log *zap.Logger, targetSchemaURL string, schemaFileSchema *ast11.Schema, copyFromVersion *Version) (*translator, error) {
-	_, target, err := GetFamilyAndVersion(targetSchemaURL)
-	if err != nil {
-		return nil, err
-	}
-	t := &translator{
-		targetSchemaURL: targetSchemaURL,
-		target:          target,
-		log:             log,
-		copyFromVersion: copyFromVersion,
-		indexes:         map[Version]int{},
-	}
+// When copyFromVersion is set, attribute renames preserve both old
+// and new names for revisions between copyFromVersion and the target
+// (in either direction).
 
-	if err := t.loadTranslation(schemaFileSchema); err != nil {
-		return nil, err
-	}
-	return t, nil
+func newTranslatorFromSchema(log *zap.Logger, targetSchemaURL string, schemaFileSchema *ast11.Schema, copyFromVersion *Version) (*translator, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func newTranslator(log *zap.Logger, targetSchemaURL, schema string, copyFromVersion *Version) (*translator, error) {
-	schemaFileSchema, err := encoder.Parse(strings.NewReader(schema))
-	if err != nil {
-		return nil, err
-	}
-	var t *translator
-	if t, err = newTranslatorFromSchema(log, targetSchemaURL, schemaFileSchema, copyFromVersion); err != nil {
-		return nil, err
-	}
-	return t, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (t *translator) Len() int {
-	return len(t.revisions)
-}
+func (t *translator) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (t *translator) Less(i, j int) bool {
-	return t.revisions[i].Version().LessThan(t.revisions[j].Version())
-}
+func (t *translator) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
-func (t *translator) Swap(i, j int) {
-	a, b := t.revisions[i].Version(), t.revisions[j].Version()
-	t.indexes[*a], t.indexes[*b] = j, i
-	t.revisions[i], t.revisions[j] = t.revisions[j], t.revisions[i]
-}
+func (t *translator) Swap(i, j int) { _ = "STUB: not implemented"; return }
 
-func (t *translator) TargetSchemaURL() string {
-	return t.targetSchemaURL
-}
+func (t *translator) TargetSchemaURL() string { _ = "STUB: not implemented"; return "" }
 
-func (t *translator) SupportedVersion(v *Version) bool {
-	_, ok := t.indexes[*v]
-	return ok
-}
+func (t *translator) SupportedVersion(v *Version) bool { _ = "STUB: not implemented"; return false }
 
 func (t *translator) ApplyAllResourceChanges(resource alias.Resource, inSchemaURL string) error {
-	t.log.Debug("Applying all resource changes")
-	_, ver, err := GetFamilyAndVersion(inSchemaURL)
-	if err != nil {
-		return err
-	}
-	it, status := t.iterator(ver)
-	for rev, more := it(); more; rev, more = it() {
-		switch status {
-		case Update:
-			err = rev.all.Apply(resource.Resource())
-			if err != nil {
-				return err
-			}
-			err = rev.resources.Apply(resource.Resource())
-			if err != nil {
-				return err
-			}
-		case Revert:
-			err = rev.resources.Rollback(resource.Resource())
-			if err != nil {
-				return err
-			}
-			err = rev.all.Rollback(resource.Resource())
-			if err != nil {
-				return err
-			}
-		}
-	}
-	resource.SetSchemaUrl(t.targetSchemaURL)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (t *translator) ApplyScopeLogChanges(scopeLogs plog.ScopeLogs, inSchemaURL string) error {
-	_, ver, err := GetFamilyAndVersion(inSchemaURL)
-	if err != nil {
-		return err
-	}
-	it, status := t.iterator(ver)
-	if status == NoChange {
-		return nil
-	}
-	for rev, more := it(); more; rev, more = it() {
-		for l := 0; l < scopeLogs.LogRecords().Len(); l++ {
-			log := scopeLogs.LogRecords().At(l)
-			switch status {
-			case Update:
-				err = rev.all.Apply(log)
-				if err != nil {
-					return err
-				}
-				err = rev.logs.Apply(log)
-				if err != nil {
-					return err
-				}
-			case Revert:
-				err = rev.logs.Rollback(log)
-				if err != nil {
-					return err
-				}
-				err = rev.all.Rollback(log)
-				if err != nil {
-					return err
-				}
-			}
-		}
-	}
-	scopeLogs.SetSchemaUrl(t.targetSchemaURL)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (t *translator) ApplyScopeSpanChanges(scopeSpans ptrace.ScopeSpans, inSchemaURL string) error {
-	_, ver, err := GetFamilyAndVersion(inSchemaURL)
-	if err != nil {
-		return err
-	}
-	it, status := t.iterator(ver)
-	for rev, more := it(); more; rev, more = it() {
-		for i := 0; i < scopeSpans.Spans().Len(); i++ {
-			span := scopeSpans.Spans().At(i)
-			switch status {
-			case Update:
-				err = rev.all.Apply(span)
-				if err != nil {
-					return err
-				}
-				err = rev.spans.Apply(span)
-				if err != nil {
-					return err
-				}
-				for e := 0; e < span.Events().Len(); e++ {
-					event := span.Events().At(e)
-					err = rev.all.Apply(event)
-					if err != nil {
-						return err
-					}
-				}
-				err = rev.spanEvents.Apply(span)
-				if err != nil {
-					return err
-				}
-			case Revert:
-				err = rev.spanEvents.Rollback(span)
-				if err != nil {
-					return err
-				}
-				for e := 0; e < span.Events().Len(); e++ {
-					event := span.Events().At(e)
-					err = rev.all.Rollback(event)
-					if err != nil {
-						return err
-					}
-				}
-				err = rev.spans.Rollback(span)
-				if err != nil {
-					return err
-				}
-				err = rev.all.Rollback(span)
-				if err != nil {
-					return err
-				}
-			}
-		}
-		scopeSpans.SetSchemaUrl(t.targetSchemaURL)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (t *translator) ApplyScopeMetricChanges(scopeMetrics pmetric.ScopeMetrics, inSchemaURL string) error {
-	_, ver, err := GetFamilyAndVersion(inSchemaURL)
-	if err != nil {
-		return err
-	}
-	it, status := t.iterator(ver)
-	for rev, more := it(); more; rev, more = it() {
-		for i := 0; i < scopeMetrics.Metrics().Len(); i++ {
-			metric := scopeMetrics.Metrics().At(i)
-			switch status {
-			case Update:
-				if err := rev.all.Apply(metric); err != nil {
-					return err
-				}
-				if err := rev.metrics.Apply(metric); err != nil {
-					return err
-				}
-			case Revert:
-				if err := rev.metrics.Rollback(metric); err != nil {
-					return err
-				}
-				if err := rev.all.Rollback(metric); err != nil {
-					return err
-				}
-			}
-		}
-	}
-	scopeMetrics.SetSchemaUrl(t.targetSchemaURL)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -332,29 +124,16 @@ func (t *translator) ApplyScopeMetricChanges(scopeMetrics pmetric.ScopeMetrics, 
 //
 //	in order for the read lock to be released if either Revert or Upgrade has been returned.
 func (t *translator) iterator(from *Version) (iterator, int) {
-	status := from.Compare(t.target)
-	if status == NoChange || !t.SupportedVersion(from) {
-		return func() (r RevisionV1, more bool) { return RevisionV1{}, false }, NoChange
-	}
-	it, stop := t.indexes[*from], t.indexes[*t.target]
-	if status == Update {
-		// In the event of an update, the iterator needs to also run that version
-		// for the signal to be the correct version.
-		stop++
-
-		// we need to not run the starting version to start with, that's already been done!
-		it++
-	}
-	return func() (RevisionV1, bool) {
-		// Performs a bounds check and if it has reached stop
-		if it < 0 || it == len(t.revisions) || it == stop {
-			return RevisionV1{}, false
-		}
-
-		r := t.revisions[it]
-		// The iterator value needs to move the opposite direction of what
-		// status is defined as so subtracting it to progress the iterator.
-		it -= status
-		return r, true
-	}, status
+	_ = "STUB: not implemented"
+	return *new(iterator), 0
 }
+
+// In the event of an update, the iterator needs to also run that version
+// for the signal to be the correct version.
+
+// we need to not run the starting version to start with, that's already been done!
+
+// Performs a bounds check and if it has reached stop
+
+// The iterator value needs to move the opposite direction of what
+// status is defined as so subtracting it to progress the iterator.

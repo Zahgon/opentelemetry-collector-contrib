@@ -9,66 +9,55 @@ import (
 
 type Sum Metric
 
-func (s Sum) Len() int {
-	return Metric(s).Sum().DataPoints().Len()
-}
+func (s Sum) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (s Sum) Ident() Ident {
-	return (*Metric)(&s).Ident()
-}
+func (s Sum) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
 func (s Sum) SetAggregationTemporality(at pmetric.AggregationTemporality) {
-	s.Sum().SetAggregationTemporality(at)
+	_ = "STUB: not implemented"
+	return
 }
 
 type Histogram Metric
 
-func (s Histogram) Len() int {
-	return Metric(s).Histogram().DataPoints().Len()
-}
+func (s Histogram) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (s Histogram) Ident() Ident {
-	return (*Metric)(&s).Ident()
-}
+func (s Histogram) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
 func (s Histogram) SetAggregationTemporality(at pmetric.AggregationTemporality) {
-	s.Histogram().SetAggregationTemporality(at)
+	_ = "STUB: not implemented"
+	return
 }
 
 type ExpHistogram Metric
 
-func (s ExpHistogram) Len() int {
-	return Metric(s).ExponentialHistogram().DataPoints().Len()
-}
+func (s ExpHistogram) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (s ExpHistogram) Ident() Ident {
-	return (*Metric)(&s).Ident()
-}
+func (s ExpHistogram) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
 func (s ExpHistogram) SetAggregationTemporality(at pmetric.AggregationTemporality) {
-	s.ExponentialHistogram().SetAggregationTemporality(at)
+	_ = "STUB: not implemented"
+	return
 }
 
 type Gauge Metric
 
-func (s Gauge) Len() int {
-	return Metric(s).Gauge().DataPoints().Len()
-}
+func (s Gauge) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (s Gauge) Ident() Ident {
-	return (*Metric)(&s).Ident()
-}
+func (s Gauge) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
-func (Gauge) SetAggregationTemporality(pmetric.AggregationTemporality) {}
+func (Gauge) SetAggregationTemporality(pmetric.AggregationTemporality) {
+	_ = "STUB: not implemented"
+	return
+}
 
 type Summary Metric
 
-func (s Summary) Len() int {
-	return Metric(s).Summary().DataPoints().Len()
-}
+func (s Summary) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (s Summary) Ident() Ident {
-	return (*Metric)(&s).Ident()
-}
+func (s Summary) Ident() Ident { _ = "STUB: not implemented"; return *new(Ident) }
 
-func (Summary) SetAggregationTemporality(pmetric.AggregationTemporality) {}
+func (Summary) SetAggregationTemporality(pmetric.AggregationTemporality) {
+	_ = "STUB: not implemented"
+	return
+}

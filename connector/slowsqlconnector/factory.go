@@ -7,41 +7,21 @@ package slowsqlconnector // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
-	"go.opentelemetry.io/collector/connector/xconnector"
 	"go.opentelemetry.io/collector/consumer"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/slowsqlconnector/internal/metadata"
 )
 
 // NewFactory creates a factory for the slowsql connector.
-func NewFactory() connector.Factory {
-	return xconnector.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xconnector.WithTracesToLogs(createTracesToLogsConnector, metadata.TracesToLogsStability),
-		xconnector.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Threshold: time.Millisecond * 500,
-		DBSystem: []string{
-			conventions.DBSystemNameH2database.Value.AsString(), conventions.DBSystemNameMongoDB.Value.AsString(),
-			conventions.DBSystemNameMySQL.Value.AsString(), conventions.DBSystemNameOracleDB.Value.AsString(),
-			conventions.DBSystemNamePostgreSQL.Value.AsString(), conventions.DBSystemNameMariaDB.Value.AsString(),
-		},
-		Dimensions: []Dimension{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesToLogsConnector(_ context.Context, params connector.Settings, cfg component.Config, nextConsumer consumer.Logs) (connector.Traces, error) {
-	lc := newLogsConnector(params.Logger, cfg)
-	lc.logsConsumer = nextConsumer
-	return lc, nil
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }

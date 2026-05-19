@@ -5,11 +5,7 @@ package generate // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"fmt"
 	"sync"
-	"time"
-
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
@@ -27,65 +23,9 @@ type Input struct {
 }
 
 // Start will start generating log entries.
-func (i *Input) Start(_ operator.Persister) error {
-	ctx, cancel := context.WithCancel(context.Background())
-	i.cancel = cancel
-
-	i.wg.Go(func() {
-		n := 0
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			default:
-			}
-
-			entry := i.entry.Copy()
-			if !i.static {
-				entry.Timestamp = time.Now()
-			}
-			err := i.Write(ctx, entry)
-			if err != nil {
-				i.Logger().Error("failed to write entry", zap.Error(err))
-				return
-			}
-
-			n++
-			if n == i.count {
-				return
-			}
-		}
-	})
-
-	return nil
-}
+func (i *Input) Start(_ operator.Persister) error { _ = "STUB: not implemented"; return nil }
 
 // Stop will stop generating logs.
-func (i *Input) Stop() error {
-	i.cancel()
-	i.wg.Wait()
-	return nil
-}
+func (i *Input) Stop() error { _ = "STUB: not implemented"; return nil }
 
-func recursiveMapInterfaceToMapString(m any) any {
-	switch m := m.(type) {
-	case map[string]any:
-		newMap := make(map[string]any)
-		for k, v := range m {
-			newMap[k] = recursiveMapInterfaceToMapString(v)
-		}
-		return newMap
-	case map[any]any:
-		newMap := make(map[string]any)
-		for k, v := range m {
-			str, ok := k.(string)
-			if !ok {
-				str = fmt.Sprintf("%v", k)
-			}
-			newMap[str] = recursiveMapInterfaceToMapString(v)
-		}
-		return newMap
-	default:
-		return m
-	}
-}
+func recursiveMapInterfaceToMapString(m any) any { _ = "STUB: not implemented"; return *new(any) }

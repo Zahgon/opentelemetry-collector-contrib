@@ -4,7 +4,6 @@
 package metricsgenerationprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricsgenerationprocessor"
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -73,10 +72,7 @@ const (
 
 var generationTypes = map[GenerationType]struct{}{calculate: {}, scale: {}}
 
-func (gt GenerationType) isValid() bool {
-	_, ok := generationTypes[gt]
-	return ok
-}
+func (gt GenerationType) isValid() bool { _ = "STUB: not implemented"; return false }
 
 var generationTypeKeys = func() []string {
 	ret := make([]string, len(generationTypes))
@@ -117,10 +113,7 @@ var operationTypes = map[OperationType]struct{}{
 	percent:  {},
 }
 
-func (ot OperationType) isValid() bool {
-	_, ok := operationTypes[ot]
-	return ok
-}
+func (ot OperationType) isValid() bool { _ = "STUB: not implemented"; return false }
 
 var operationTypeKeys = func() []string {
 	ret := make([]string, len(operationTypes))
@@ -135,42 +128,4 @@ var operationTypeKeys = func() []string {
 
 // Validate checks whether the input configuration has all of the required fields for the processor.
 // An error is returned if there are any invalid inputs.
-func (config *Config) Validate() error {
-	for _, rule := range config.Rules {
-		if rule.Name == "" {
-			return fmt.Errorf("missing required field %q", nameFieldName)
-		}
-
-		if rule.Type == "" {
-			return fmt.Errorf("missing required field %q", typeFieldName)
-		}
-
-		if !rule.Type.isValid() {
-			return fmt.Errorf("%q must be in %q", typeFieldName, generationTypeKeys())
-		}
-
-		if rule.Metric1 == "" {
-			return fmt.Errorf("missing required field %q", metric1FieldName)
-		}
-
-		if rule.Type == calculate && rule.Metric2 == "" {
-			return fmt.Errorf("missing required field %q for generation type %q", metric2FieldName, calculate)
-		}
-
-		if rule.Type == scale && rule.ScaleBy <= 0 {
-			return fmt.Errorf("field %q required to be greater than 0 for generation type %q", scaleByFieldName, scale)
-		}
-
-		if rule.Operation != "" && !rule.Operation.isValid() {
-			return fmt.Errorf("%q must be in %q", operationFieldName, operationTypeKeys())
-		}
-
-		switch rule.Name {
-		case rule.Metric1:
-			return fmt.Errorf("value of field %q may not match value of field %q", nameFieldName, metric1FieldName)
-		case rule.Metric2:
-			return fmt.Errorf("value of field %q may not match value of field %q", nameFieldName, metric2FieldName)
-		}
-	}
-	return nil
-}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }

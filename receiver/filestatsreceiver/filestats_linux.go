@@ -7,7 +7,6 @@ package filestatsreceiver // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"os"
-	"syscall"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.uber.org/zap"
@@ -16,11 +15,10 @@ import (
 )
 
 func collectStats(now pcommon.Timestamp, fileinfo os.FileInfo, metricsBuilder *metadata.MetricsBuilder, _ *zap.Logger) {
-	stat := fileinfo.Sys().(*syscall.Stat_t)
-	atime := stat.Atim.Sec
-	ctime := stat.Ctim.Sec
-	//nolint:unconvert
-	metricsBuilder.RecordFileAtimeDataPoint(now, int64(atime))
-	//nolint:unconvert
-	metricsBuilder.RecordFileCtimeDataPoint(now, int64(ctime), fileinfo.Mode().Perm().String())
+	_ = "STUB: not implemented"
+	return
 }
+
+//nolint:unconvert
+
+//nolint:unconvert

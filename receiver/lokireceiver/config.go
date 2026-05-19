@@ -4,8 +4,6 @@
 package lokireceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/lokireceiver"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configgrpc"
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -43,27 +41,7 @@ var (
 )
 
 // Validate checks the receiver configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.GRPC == nil && cfg.HTTP == nil {
-		return errors.New("must specify at least one protocol when using the Loki receiver")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal a confmap.Conf into the config struct.
-func (cfg *Config) Unmarshal(conf *confmap.Conf) error {
-	err := conf.Unmarshal(cfg)
-	if err != nil {
-		return err
-	}
-
-	if !conf.IsSet(protoGRPC) {
-		cfg.GRPC = nil
-	}
-
-	if !conf.IsSet(protoHTTP) {
-		cfg.HTTP = nil
-	}
-
-	return nil
-}
+func (cfg *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }

@@ -9,9 +9,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/kafkatopicsobserver/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka"
 )
 
 const (
@@ -19,23 +16,14 @@ const (
 )
 
 // NewFactory should be called to create a factory with default values.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ClientConfig:       configkafka.NewDefaultClientConfig(),
-		TopicsSyncInterval: defaultTopicsSyncInterval,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, settings extension.Settings, cfg component.Config) (extension.Extension, error) {
-	settings.Logger.Warn("kafkatopicsobserver is deprecated; use kafkareceiver with topic regex support instead")
-	return newObserver(settings.Logger, cfg.(*Config))
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

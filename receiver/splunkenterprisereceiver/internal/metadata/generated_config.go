@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -27,34 +25,12 @@ type SplunkAggregationQueueRatioMetricConfig struct {
 }
 
 func (ms *SplunkAggregationQueueRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkAggregationQueueRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkAggregationQueueRatioMetricAttributeKeySplunkHost, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.aggregation.queue.ratio doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -78,34 +54,12 @@ type SplunkBucketsSearchableStatusMetricConfig struct {
 }
 
 func (ms *SplunkBucketsSearchableStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkBucketsSearchableStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkBucketsSearchableStatusMetricAttributeKeySplunkHost, SplunkBucketsSearchableStatusMetricAttributeKeySplunkIndexerSearchable, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdBuild, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.buckets.searchable.status doesn't have an attribute %v, valid attributes: [splunk.host, splunk.indexer.searchable, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -128,34 +82,12 @@ type SplunkDataIndexesExtendedBucketCountMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedBucketCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedBucketCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.bucket.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -179,34 +111,12 @@ type SplunkDataIndexesExtendedBucketEventCountMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedBucketEventCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedBucketEventCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.bucket.event.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.bucket.dir, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -230,34 +140,12 @@ type SplunkDataIndexesExtendedBucketHotCountMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedBucketHotCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedBucketHotCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.bucket.hot.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.bucket.dir, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -281,34 +169,12 @@ type SplunkDataIndexesExtendedBucketWarmCountMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedBucketWarmCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedBucketWarmCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.bucket.warm.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.bucket.dir, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -331,34 +197,12 @@ type SplunkDataIndexesExtendedEventCountMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedEventCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedEventCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.event.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -381,34 +225,12 @@ type SplunkDataIndexesExtendedRawSizeMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedRawSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedRawSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.raw.size doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -431,34 +253,12 @@ type SplunkDataIndexesExtendedTotalSizeMetricConfig struct {
 }
 
 func (ms *SplunkDataIndexesExtendedTotalSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkDataIndexesExtendedTotalSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.data.indexes.extended.total.size doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -482,36 +282,11 @@ type SplunkHealthMetricConfig struct {
 }
 
 func (ms *SplunkHealthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkHealthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkHealthMetricAttributeKeySplunkFeature, SplunkHealthMetricAttributeKeySplunkFeatureHealth, SplunkHealthMetricAttributeKeySplunkSplunkdBuild, SplunkHealthMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.health doesn't have an attribute %v, valid attributes: [splunk.feature, splunk.feature.health, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkHealthMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkIndexerAvgRateMetricAttributeKey specifies the key of an attribute for the splunk.indexer.avg.rate metric.
 type SplunkIndexerAvgRateMetricAttributeKey string
@@ -532,36 +307,11 @@ type SplunkIndexerAvgRateMetricConfig struct {
 }
 
 func (ms *SplunkIndexerAvgRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkIndexerAvgRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerAvgRateMetricAttributeKeySplunkHost, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.avg.rate doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkIndexerAvgRateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkIndexerCPUTimeMetricAttributeKey specifies the key of an attribute for the splunk.indexer.cpu.time metric.
 type SplunkIndexerCPUTimeMetricAttributeKey string
@@ -582,36 +332,11 @@ type SplunkIndexerCPUTimeMetricConfig struct {
 }
 
 func (ms *SplunkIndexerCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkIndexerCPUTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerCPUTimeMetricAttributeKeySplunkHost, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.cpu.time doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkIndexerCPUTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkIndexerQueueRatioMetricAttributeKey specifies the key of an attribute for the splunk.indexer.queue.ratio metric.
 type SplunkIndexerQueueRatioMetricAttributeKey string
@@ -632,34 +357,12 @@ type SplunkIndexerQueueRatioMetricConfig struct {
 }
 
 func (ms *SplunkIndexerQueueRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexerQueueRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerQueueRatioMetricAttributeKeySplunkHost, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.queue.ratio doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -682,34 +385,12 @@ type SplunkIndexerRawWriteTimeMetricConfig struct {
 }
 
 func (ms *SplunkIndexerRawWriteTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexerRawWriteTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerRawWriteTimeMetricAttributeKeySplunkHost, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.raw.write.time doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -733,34 +414,12 @@ type SplunkIndexerRollingrestartStatusMetricConfig struct {
 }
 
 func (ms *SplunkIndexerRollingrestartStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexerRollingrestartStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSearchableRestart, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkRollingorrestart, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.rollingrestart.status doesn't have an attribute %v, valid attributes: [splunk.searchable.restart, splunk.rollingorrestart, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -783,34 +442,12 @@ type SplunkIndexerThroughputMetricConfig struct {
 }
 
 func (ms *SplunkIndexerThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexerThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexerThroughputMetricAttributeKeySplunkIndexerStatus, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexer.throughput doesn't have an attribute %v, valid attributes: [splunk.indexer.status, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -833,36 +470,11 @@ type SplunkIndexesAvgSizeMetricConfig struct {
 }
 
 func (ms *SplunkIndexesAvgSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkIndexesAvgSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexesAvgSizeMetricAttributeKeySplunkIndexName, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexes.avg.size doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkIndexesAvgSizeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkIndexesAvgUsageMetricAttributeKey specifies the key of an attribute for the splunk.indexes.avg.usage metric.
 type SplunkIndexesAvgUsageMetricAttributeKey string
@@ -883,34 +495,12 @@ type SplunkIndexesAvgUsageMetricConfig struct {
 }
 
 func (ms *SplunkIndexesAvgUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexesAvgUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexesAvgUsageMetricAttributeKeySplunkIndexName, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexes.avg.usage doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -933,34 +523,12 @@ type SplunkIndexesBucketCountMetricConfig struct {
 }
 
 func (ms *SplunkIndexesBucketCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexesBucketCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexesBucketCountMetricAttributeKeySplunkIndexName, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexes.bucket.count doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -983,34 +551,12 @@ type SplunkIndexesMedianDataAgeMetricConfig struct {
 }
 
 func (ms *SplunkIndexesMedianDataAgeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkIndexesMedianDataAgeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexesMedianDataAgeMetricAttributeKeySplunkIndexName, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexes.median.data.age doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1033,36 +579,11 @@ type SplunkIndexesSizeMetricConfig struct {
 }
 
 func (ms *SplunkIndexesSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkIndexesSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIndexesSizeMetricAttributeKeySplunkIndexName, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.indexes.size doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkIndexesSizeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkIoAvgIopsMetricAttributeKey specifies the key of an attribute for the splunk.io.avg.iops metric.
 type SplunkIoAvgIopsMetricAttributeKey string
@@ -1083,36 +604,11 @@ type SplunkIoAvgIopsMetricConfig struct {
 }
 
 func (ms *SplunkIoAvgIopsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkIoAvgIopsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkIoAvgIopsMetricAttributeKeySplunkHost, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdBuild, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.io.avg.iops doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkIoAvgIopsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkKvstoreBackupStatusMetricAttributeKey specifies the key of an attribute for the splunk.kvstore.backup.status metric.
 type SplunkKvstoreBackupStatusMetricAttributeKey string
@@ -1133,34 +629,12 @@ type SplunkKvstoreBackupStatusMetricConfig struct {
 }
 
 func (ms *SplunkKvstoreBackupStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkKvstoreBackupStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkKvstoreBackupStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.kvstore.backup.status doesn't have an attribute %v, valid attributes: [splunk.kvstore.status.value, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1183,34 +657,12 @@ type SplunkKvstoreReplicationStatusMetricConfig struct {
 }
 
 func (ms *SplunkKvstoreReplicationStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkKvstoreReplicationStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkKvstoreReplicationStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.kvstore.replication.status doesn't have an attribute %v, valid attributes: [splunk.kvstore.status.value, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1235,36 +687,11 @@ type SplunkKvstoreStatusMetricConfig struct {
 }
 
 func (ms *SplunkKvstoreStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkKvstoreStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStorageEngine, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreExternal, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.kvstore.status doesn't have an attribute %v, valid attributes: [splunk.kvstore.storage.engine, splunk.kvstore.external, splunk.kvstore.status.value, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkKvstoreStatusMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkLicenseExpirationSecondsRemainingMetricAttributeKey specifies the key of an attribute for the splunk.license.expiration.seconds_remaining metric.
 type SplunkLicenseExpirationSecondsRemainingMetricAttributeKey string
@@ -1287,34 +714,12 @@ type SplunkLicenseExpirationSecondsRemainingMetricConfig struct {
 }
 
 func (ms *SplunkLicenseExpirationSecondsRemainingMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkLicenseExpirationSecondsRemainingMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseStatus, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseLabel, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseType, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdBuild, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.license.expiration.seconds_remaining doesn't have an attribute %v, valid attributes: [splunk.license.status, splunk.license.label, splunk.license.type, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1337,34 +742,12 @@ type SplunkLicenseIndexUsageMetricConfig struct {
 }
 
 func (ms *SplunkLicenseIndexUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkLicenseIndexUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkLicenseIndexUsageMetricAttributeKeySplunkIndexName, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdBuild, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.license.index.usage doesn't have an attribute %v, valid attributes: [splunk.index.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1387,34 +770,12 @@ type SplunkParseQueueRatioMetricConfig struct {
 }
 
 func (ms *SplunkParseQueueRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkParseQueueRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkParseQueueRatioMetricAttributeKeySplunkHost, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.parse.queue.ratio doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1437,34 +798,12 @@ type SplunkPipelineSetCountMetricConfig struct {
 }
 
 func (ms *SplunkPipelineSetCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkPipelineSetCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkPipelineSetCountMetricAttributeKeySplunkHost, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdBuild, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.pipeline.set.count doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1487,34 +826,12 @@ type SplunkSchedulerAvgExecutionLatencyMetricConfig struct {
 }
 
 func (ms *SplunkSchedulerAvgExecutionLatencyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkSchedulerAvgExecutionLatencyMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkHost, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.scheduler.avg.execution.latency doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1537,34 +854,12 @@ type SplunkSchedulerAvgRunTimeMetricConfig struct {
 }
 
 func (ms *SplunkSchedulerAvgRunTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkSchedulerAvgRunTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkHost, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.scheduler.avg.run.time doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1587,34 +882,12 @@ type SplunkSchedulerCompletionRatioMetricConfig struct {
 }
 
 func (ms *SplunkSchedulerCompletionRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkSchedulerCompletionRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSchedulerCompletionRatioMetricAttributeKeySplunkHost, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.scheduler.completion.ratio doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1636,36 +909,11 @@ type SplunkSearchDurationMetricConfig struct {
 }
 
 func (ms *SplunkSearchDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkSearchDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSearchDurationMetricAttributeKeySplunkSplunkdBuild, SplunkSearchDurationMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.search.duration doesn't have an attribute %v, valid attributes: [splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkSearchDurationMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkSearchInitiationMetricAttributeKey specifies the key of an attribute for the splunk.search.initiation metric.
 type SplunkSearchInitiationMetricAttributeKey string
@@ -1685,34 +933,12 @@ type SplunkSearchInitiationMetricConfig struct {
 }
 
 func (ms *SplunkSearchInitiationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkSearchInitiationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSearchInitiationMetricAttributeKeySplunkSplunkdBuild, SplunkSearchInitiationMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.search.initiation doesn't have an attribute %v, valid attributes: [splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1735,36 +961,11 @@ type SplunkSearchStatusMetricConfig struct {
 }
 
 func (ms *SplunkSearchStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkSearchStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSearchStatusMetricAttributeKeySplunkSearchState, SplunkSearchStatusMetricAttributeKeySplunkSplunkdBuild, SplunkSearchStatusMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.search.status doesn't have an attribute %v, valid attributes: [splunk.search.state, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkSearchStatusMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkSearchSuccessMetricAttributeKey specifies the key of an attribute for the splunk.search.success metric.
 type SplunkSearchSuccessMetricAttributeKey string
@@ -1784,36 +985,11 @@ type SplunkSearchSuccessMetricConfig struct {
 }
 
 func (ms *SplunkSearchSuccessMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SplunkSearchSuccessMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkSearchSuccessMetricAttributeKeySplunkSplunkdBuild, SplunkSearchSuccessMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.search.success doesn't have an attribute %v, valid attributes: [splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SplunkSearchSuccessMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SplunkServerIntrospectionQueuesCurrentMetricAttributeKey specifies the key of an attribute for the splunk.server.introspection.queues.current metric.
 type SplunkServerIntrospectionQueuesCurrentMetricAttributeKey string
@@ -1834,34 +1010,12 @@ type SplunkServerIntrospectionQueuesCurrentMetricConfig struct {
 }
 
 func (ms *SplunkServerIntrospectionQueuesCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerIntrospectionQueuesCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkQueueName, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdBuild, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.introspection.queues.current doesn't have an attribute %v, valid attributes: [splunk.queue.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1884,34 +1038,12 @@ type SplunkServerIntrospectionQueuesCurrentBytesMetricConfig struct {
 }
 
 func (ms *SplunkServerIntrospectionQueuesCurrentBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerIntrospectionQueuesCurrentBytesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkQueueName, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdBuild, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.introspection.queues.current.bytes doesn't have an attribute %v, valid attributes: [splunk.queue.name, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1934,34 +1066,12 @@ type SplunkServerSearchartifactsAdhocMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsAdhocMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsAdhocMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkHost, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.adhoc doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1984,34 +1094,12 @@ type SplunkServerSearchartifactsAdhocSizeMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsAdhocSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsAdhocSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.adhoc.size doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2034,34 +1122,12 @@ type SplunkServerSearchartifactsCompletedMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsCompletedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsCompletedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkHost, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.completed doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2084,34 +1150,12 @@ type SplunkServerSearchartifactsCompletedSizeMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsCompletedSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsCompletedSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.completed.size doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2134,34 +1178,12 @@ type SplunkServerSearchartifactsIncompleteMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsIncompleteMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsIncompleteMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkHost, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.incomplete doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2184,34 +1206,12 @@ type SplunkServerSearchartifactsIncompleteSizeMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsIncompleteSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsIncompleteSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.incomplete.size doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2234,34 +1234,12 @@ type SplunkServerSearchartifactsInvalidMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsInvalidMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsInvalidMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkHost, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.invalid doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2284,34 +1262,12 @@ type SplunkServerSearchartifactsJobCacheCountMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsJobCacheCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsJobCacheCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkHost, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.job.cache.count doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2335,34 +1291,12 @@ type SplunkServerSearchartifactsJobCacheSizeMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsJobCacheSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsJobCacheSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSearchartifactsCacheType, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.job.cache.size doesn't have an attribute %v, valid attributes: [splunk.host, splunk.searchartifacts.cache.type, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2385,34 +1319,12 @@ type SplunkServerSearchartifactsSavedsearchesMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsSavedsearchesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsSavedsearchesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkHost, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.savedsearches doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2435,34 +1347,12 @@ type SplunkServerSearchartifactsScheduledMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsScheduledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsScheduledMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkHost, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.scheduled doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2485,34 +1375,12 @@ type SplunkServerSearchartifactsScheduledSizeMetricConfig struct {
 }
 
 func (ms *SplunkServerSearchartifactsScheduledSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkServerSearchartifactsScheduledSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.server.searchartifacts.scheduled.size doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2535,34 +1403,12 @@ type SplunkTypingQueueRatioMetricConfig struct {
 }
 
 func (ms *SplunkTypingQueueRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SplunkTypingQueueRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SplunkTypingQueueRatioMetricAttributeKeySplunkHost, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdVersion:
-		default:
-			return fmt.Errorf("metric splunk.typing.queue.ratio doesn't have an attribute %v, valid attributes: [splunk.host, splunk.splunkd.build, splunk.splunkd.version]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2621,265 +1467,7 @@ type MetricsConfig struct {
 	SplunkTypingQueueRatio                      SplunkTypingQueueRatioMetricConfig                      `mapstructure:"splunk.typing.queue.ratio"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SplunkAggregationQueueRatio: SplunkAggregationQueueRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkAggregationQueueRatioMetricAttributeKey{SplunkAggregationQueueRatioMetricAttributeKeySplunkHost, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkBucketsSearchableStatus: SplunkBucketsSearchableStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkBucketsSearchableStatusMetricAttributeKey{SplunkBucketsSearchableStatusMetricAttributeKeySplunkHost, SplunkBucketsSearchableStatusMetricAttributeKeySplunkIndexerSearchable, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdBuild, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedBucketCount: SplunkDataIndexesExtendedBucketCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedBucketCountMetricAttributeKey{SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedBucketEventCount: SplunkDataIndexesExtendedBucketEventCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedBucketEventCountMetricAttributeKey{SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedBucketHotCount: SplunkDataIndexesExtendedBucketHotCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedBucketHotCountMetricAttributeKey{SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedBucketWarmCount: SplunkDataIndexesExtendedBucketWarmCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKey{SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkBucketDir, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedEventCount: SplunkDataIndexesExtendedEventCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedEventCountMetricAttributeKey{SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedRawSize: SplunkDataIndexesExtendedRawSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedRawSizeMetricAttributeKey{SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkDataIndexesExtendedTotalSize: SplunkDataIndexesExtendedTotalSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkDataIndexesExtendedTotalSizeMetricAttributeKey{SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkIndexName, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdBuild, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkHealth: SplunkHealthMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkHealthMetricAttributeKey{SplunkHealthMetricAttributeKeySplunkFeature, SplunkHealthMetricAttributeKeySplunkFeatureHealth, SplunkHealthMetricAttributeKeySplunkSplunkdBuild, SplunkHealthMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerAvgRate: SplunkIndexerAvgRateMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerAvgRateMetricAttributeKey{SplunkIndexerAvgRateMetricAttributeKeySplunkHost, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerCPUTime: SplunkIndexerCPUTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerCPUTimeMetricAttributeKey{SplunkIndexerCPUTimeMetricAttributeKeySplunkHost, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerQueueRatio: SplunkIndexerQueueRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerQueueRatioMetricAttributeKey{SplunkIndexerQueueRatioMetricAttributeKeySplunkHost, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerRawWriteTime: SplunkIndexerRawWriteTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerRawWriteTimeMetricAttributeKey{SplunkIndexerRawWriteTimeMetricAttributeKeySplunkHost, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerRollingrestartStatus: SplunkIndexerRollingrestartStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerRollingrestartStatusMetricAttributeKey{SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSearchableRestart, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkRollingorrestart, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexerThroughput: SplunkIndexerThroughputMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexerThroughputMetricAttributeKey{SplunkIndexerThroughputMetricAttributeKeySplunkIndexerStatus, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdBuild, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexesAvgSize: SplunkIndexesAvgSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexesAvgSizeMetricAttributeKey{SplunkIndexesAvgSizeMetricAttributeKeySplunkIndexName, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexesAvgUsage: SplunkIndexesAvgUsageMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexesAvgUsageMetricAttributeKey{SplunkIndexesAvgUsageMetricAttributeKeySplunkIndexName, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexesBucketCount: SplunkIndexesBucketCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexesBucketCountMetricAttributeKey{SplunkIndexesBucketCountMetricAttributeKeySplunkIndexName, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexesMedianDataAge: SplunkIndexesMedianDataAgeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexesMedianDataAgeMetricAttributeKey{SplunkIndexesMedianDataAgeMetricAttributeKeySplunkIndexName, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIndexesSize: SplunkIndexesSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIndexesSizeMetricAttributeKey{SplunkIndexesSizeMetricAttributeKeySplunkIndexName, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdBuild, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkIoAvgIops: SplunkIoAvgIopsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkIoAvgIopsMetricAttributeKey{SplunkIoAvgIopsMetricAttributeKeySplunkHost, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdBuild, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkKvstoreBackupStatus: SplunkKvstoreBackupStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkKvstoreBackupStatusMetricAttributeKey{SplunkKvstoreBackupStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkKvstoreReplicationStatus: SplunkKvstoreReplicationStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkKvstoreReplicationStatusMetricAttributeKey{SplunkKvstoreReplicationStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkKvstoreStatus: SplunkKvstoreStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkKvstoreStatusMetricAttributeKey{SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStorageEngine, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreExternal, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStatusValue, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdBuild, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkLicenseExpirationSecondsRemaining: SplunkLicenseExpirationSecondsRemainingMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkLicenseExpirationSecondsRemainingMetricAttributeKey{SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseStatus, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseLabel, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseType, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdBuild, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkLicenseIndexUsage: SplunkLicenseIndexUsageMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkLicenseIndexUsageMetricAttributeKey{SplunkLicenseIndexUsageMetricAttributeKeySplunkIndexName, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdBuild, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkParseQueueRatio: SplunkParseQueueRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkParseQueueRatioMetricAttributeKey{SplunkParseQueueRatioMetricAttributeKeySplunkHost, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkPipelineSetCount: SplunkPipelineSetCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkPipelineSetCountMetricAttributeKey{SplunkPipelineSetCountMetricAttributeKeySplunkHost, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdBuild, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSchedulerAvgExecutionLatency: SplunkSchedulerAvgExecutionLatencyMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSchedulerAvgExecutionLatencyMetricAttributeKey{SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkHost, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSchedulerAvgRunTime: SplunkSchedulerAvgRunTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSchedulerAvgRunTimeMetricAttributeKey{SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkHost, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSchedulerCompletionRatio: SplunkSchedulerCompletionRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSchedulerCompletionRatioMetricAttributeKey{SplunkSchedulerCompletionRatioMetricAttributeKeySplunkHost, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdBuild, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSearchDuration: SplunkSearchDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSearchDurationMetricAttributeKey{SplunkSearchDurationMetricAttributeKeySplunkSplunkdBuild, SplunkSearchDurationMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSearchInitiation: SplunkSearchInitiationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSearchInitiationMetricAttributeKey{SplunkSearchInitiationMetricAttributeKeySplunkSplunkdBuild, SplunkSearchInitiationMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSearchStatus: SplunkSearchStatusMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSearchStatusMetricAttributeKey{SplunkSearchStatusMetricAttributeKeySplunkSearchState, SplunkSearchStatusMetricAttributeKeySplunkSplunkdBuild, SplunkSearchStatusMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkSearchSuccess: SplunkSearchSuccessMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkSearchSuccessMetricAttributeKey{SplunkSearchSuccessMetricAttributeKeySplunkSplunkdBuild, SplunkSearchSuccessMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerIntrospectionQueuesCurrent: SplunkServerIntrospectionQueuesCurrentMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerIntrospectionQueuesCurrentMetricAttributeKey{SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkQueueName, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdBuild, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerIntrospectionQueuesCurrentBytes: SplunkServerIntrospectionQueuesCurrentBytesMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKey{SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkQueueName, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdBuild, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsAdhoc: SplunkServerSearchartifactsAdhocMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsAdhocMetricAttributeKey{SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkHost, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsAdhocSize: SplunkServerSearchartifactsAdhocSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsAdhocSizeMetricAttributeKey{SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsCompleted: SplunkServerSearchartifactsCompletedMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsCompletedMetricAttributeKey{SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkHost, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsCompletedSize: SplunkServerSearchartifactsCompletedSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsCompletedSizeMetricAttributeKey{SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsIncomplete: SplunkServerSearchartifactsIncompleteMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsIncompleteMetricAttributeKey{SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkHost, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsIncompleteSize: SplunkServerSearchartifactsIncompleteSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsIncompleteSizeMetricAttributeKey{SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsInvalid: SplunkServerSearchartifactsInvalidMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsInvalidMetricAttributeKey{SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkHost, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsJobCacheCount: SplunkServerSearchartifactsJobCacheCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsJobCacheCountMetricAttributeKey{SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkHost, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsJobCacheSize: SplunkServerSearchartifactsJobCacheSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsJobCacheSizeMetricAttributeKey{SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSearchartifactsCacheType, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsSavedsearches: SplunkServerSearchartifactsSavedsearchesMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsSavedsearchesMetricAttributeKey{SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkHost, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsScheduled: SplunkServerSearchartifactsScheduledMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsScheduledMetricAttributeKey{SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkHost, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkServerSearchartifactsScheduledSize: SplunkServerSearchartifactsScheduledSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkServerSearchartifactsScheduledSizeMetricAttributeKey{SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkHost, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdBuild, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdVersion},
-		},
-		SplunkTypingQueueRatio: SplunkTypingQueueRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SplunkTypingQueueRatioMetricAttributeKey{SplunkTypingQueueRatioMetricAttributeKeySplunkHost, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdBuild, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdVersion},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for splunkenterprise metrics builder.
 type MetricsBuilderConfig struct {
@@ -2887,12 +1475,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

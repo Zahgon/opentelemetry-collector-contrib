@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -149,39 +147,25 @@ func (m *metricProcessRuntimeMemstatsBuckHashSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsBuckHashSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsBuckHashSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsBuckHashSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsBuckHashSys(cfg ProcessRuntimeMemstatsBuckHashSysMetricConfig) metricProcessRuntimeMemstatsBuckHashSys {
-	m := metricProcessRuntimeMemstatsBuckHashSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsBuckHashSys)
 }
 
 type metricProcessRuntimeMemstatsFrees struct {
@@ -201,39 +185,22 @@ func (m *metricProcessRuntimeMemstatsFrees) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsFrees) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsFrees) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsFrees) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsFrees) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsFrees(cfg ProcessRuntimeMemstatsFreesMetricConfig) metricProcessRuntimeMemstatsFrees {
-	m := metricProcessRuntimeMemstatsFrees{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsFrees)
 }
 
 type metricProcessRuntimeMemstatsGcCPUFraction struct {
@@ -251,39 +218,25 @@ func (m *metricProcessRuntimeMemstatsGcCPUFraction) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsGcCPUFraction) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsGcCPUFraction) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsGcCPUFraction) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsGcCPUFraction(cfg ProcessRuntimeMemstatsGcCPUFractionMetricConfig) metricProcessRuntimeMemstatsGcCPUFraction {
-	m := metricProcessRuntimeMemstatsGcCPUFraction{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsGcCPUFraction)
 }
 
 type metricProcessRuntimeMemstatsGcSys struct {
@@ -303,39 +256,22 @@ func (m *metricProcessRuntimeMemstatsGcSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsGcSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsGcSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsGcSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsGcSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsGcSys(cfg ProcessRuntimeMemstatsGcSysMetricConfig) metricProcessRuntimeMemstatsGcSys {
-	m := metricProcessRuntimeMemstatsGcSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsGcSys)
 }
 
 type metricProcessRuntimeMemstatsHeapAlloc struct {
@@ -355,39 +291,22 @@ func (m *metricProcessRuntimeMemstatsHeapAlloc) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapAlloc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsHeapAlloc) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsHeapAlloc) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapAlloc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapAlloc(cfg ProcessRuntimeMemstatsHeapAllocMetricConfig) metricProcessRuntimeMemstatsHeapAlloc {
-	m := metricProcessRuntimeMemstatsHeapAlloc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapAlloc)
 }
 
 type metricProcessRuntimeMemstatsHeapIdle struct {
@@ -407,39 +326,22 @@ func (m *metricProcessRuntimeMemstatsHeapIdle) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapIdle) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsHeapIdle) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsHeapIdle) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapIdle) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapIdle(cfg ProcessRuntimeMemstatsHeapIdleMetricConfig) metricProcessRuntimeMemstatsHeapIdle {
-	m := metricProcessRuntimeMemstatsHeapIdle{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapIdle)
 }
 
 type metricProcessRuntimeMemstatsHeapInuse struct {
@@ -459,39 +361,22 @@ func (m *metricProcessRuntimeMemstatsHeapInuse) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapInuse) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsHeapInuse) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsHeapInuse) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapInuse) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapInuse(cfg ProcessRuntimeMemstatsHeapInuseMetricConfig) metricProcessRuntimeMemstatsHeapInuse {
-	m := metricProcessRuntimeMemstatsHeapInuse{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapInuse)
 }
 
 type metricProcessRuntimeMemstatsHeapObjects struct {
@@ -511,39 +396,25 @@ func (m *metricProcessRuntimeMemstatsHeapObjects) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapObjects) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsHeapObjects) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapObjects) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapObjects(cfg ProcessRuntimeMemstatsHeapObjectsMetricConfig) metricProcessRuntimeMemstatsHeapObjects {
-	m := metricProcessRuntimeMemstatsHeapObjects{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapObjects)
 }
 
 type metricProcessRuntimeMemstatsHeapReleased struct {
@@ -563,39 +434,25 @@ func (m *metricProcessRuntimeMemstatsHeapReleased) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapReleased) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsHeapReleased) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapReleased) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapReleased(cfg ProcessRuntimeMemstatsHeapReleasedMetricConfig) metricProcessRuntimeMemstatsHeapReleased {
-	m := metricProcessRuntimeMemstatsHeapReleased{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapReleased)
 }
 
 type metricProcessRuntimeMemstatsHeapSys struct {
@@ -615,39 +472,22 @@ func (m *metricProcessRuntimeMemstatsHeapSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsHeapSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsHeapSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsHeapSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsHeapSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsHeapSys(cfg ProcessRuntimeMemstatsHeapSysMetricConfig) metricProcessRuntimeMemstatsHeapSys {
-	m := metricProcessRuntimeMemstatsHeapSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsHeapSys)
 }
 
 type metricProcessRuntimeMemstatsLastPause struct {
@@ -665,39 +505,22 @@ func (m *metricProcessRuntimeMemstatsLastPause) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsLastPause) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsLastPause) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsLastPause) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsLastPause) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsLastPause(cfg ProcessRuntimeMemstatsLastPauseMetricConfig) metricProcessRuntimeMemstatsLastPause {
-	m := metricProcessRuntimeMemstatsLastPause{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsLastPause)
 }
 
 type metricProcessRuntimeMemstatsLookups struct {
@@ -717,39 +540,22 @@ func (m *metricProcessRuntimeMemstatsLookups) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsLookups) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsLookups) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsLookups) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsLookups) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsLookups(cfg ProcessRuntimeMemstatsLookupsMetricConfig) metricProcessRuntimeMemstatsLookups {
-	m := metricProcessRuntimeMemstatsLookups{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsLookups)
 }
 
 type metricProcessRuntimeMemstatsMallocs struct {
@@ -769,39 +575,22 @@ func (m *metricProcessRuntimeMemstatsMallocs) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsMallocs) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsMallocs) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsMallocs) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsMallocs) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsMallocs(cfg ProcessRuntimeMemstatsMallocsMetricConfig) metricProcessRuntimeMemstatsMallocs {
-	m := metricProcessRuntimeMemstatsMallocs{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsMallocs)
 }
 
 type metricProcessRuntimeMemstatsMcacheInuse struct {
@@ -821,39 +610,25 @@ func (m *metricProcessRuntimeMemstatsMcacheInuse) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsMcacheInuse) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsMcacheInuse) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsMcacheInuse) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsMcacheInuse(cfg ProcessRuntimeMemstatsMcacheInuseMetricConfig) metricProcessRuntimeMemstatsMcacheInuse {
-	m := metricProcessRuntimeMemstatsMcacheInuse{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsMcacheInuse)
 }
 
 type metricProcessRuntimeMemstatsMcacheSys struct {
@@ -873,39 +648,22 @@ func (m *metricProcessRuntimeMemstatsMcacheSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsMcacheSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsMcacheSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsMcacheSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsMcacheSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsMcacheSys(cfg ProcessRuntimeMemstatsMcacheSysMetricConfig) metricProcessRuntimeMemstatsMcacheSys {
-	m := metricProcessRuntimeMemstatsMcacheSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsMcacheSys)
 }
 
 type metricProcessRuntimeMemstatsMspanInuse struct {
@@ -925,39 +683,25 @@ func (m *metricProcessRuntimeMemstatsMspanInuse) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsMspanInuse) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsMspanInuse) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsMspanInuse) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsMspanInuse(cfg ProcessRuntimeMemstatsMspanInuseMetricConfig) metricProcessRuntimeMemstatsMspanInuse {
-	m := metricProcessRuntimeMemstatsMspanInuse{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsMspanInuse)
 }
 
 type metricProcessRuntimeMemstatsMspanSys struct {
@@ -977,39 +721,22 @@ func (m *metricProcessRuntimeMemstatsMspanSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsMspanSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsMspanSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsMspanSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsMspanSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsMspanSys(cfg ProcessRuntimeMemstatsMspanSysMetricConfig) metricProcessRuntimeMemstatsMspanSys {
-	m := metricProcessRuntimeMemstatsMspanSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsMspanSys)
 }
 
 type metricProcessRuntimeMemstatsNextGc struct {
@@ -1029,39 +756,22 @@ func (m *metricProcessRuntimeMemstatsNextGc) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsNextGc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsNextGc) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsNextGc) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsNextGc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsNextGc(cfg ProcessRuntimeMemstatsNextGcMetricConfig) metricProcessRuntimeMemstatsNextGc {
-	m := metricProcessRuntimeMemstatsNextGc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsNextGc)
 }
 
 type metricProcessRuntimeMemstatsNumForcedGc struct {
@@ -1081,39 +791,25 @@ func (m *metricProcessRuntimeMemstatsNumForcedGc) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsNumForcedGc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsNumForcedGc) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsNumForcedGc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsNumForcedGc(cfg ProcessRuntimeMemstatsNumForcedGcMetricConfig) metricProcessRuntimeMemstatsNumForcedGc {
-	m := metricProcessRuntimeMemstatsNumForcedGc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsNumForcedGc)
 }
 
 type metricProcessRuntimeMemstatsNumGc struct {
@@ -1133,39 +829,22 @@ func (m *metricProcessRuntimeMemstatsNumGc) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsNumGc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsNumGc) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsNumGc) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsNumGc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsNumGc(cfg ProcessRuntimeMemstatsNumGcMetricConfig) metricProcessRuntimeMemstatsNumGc {
-	m := metricProcessRuntimeMemstatsNumGc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsNumGc)
 }
 
 type metricProcessRuntimeMemstatsOtherSys struct {
@@ -1185,39 +864,22 @@ func (m *metricProcessRuntimeMemstatsOtherSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsOtherSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsOtherSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsOtherSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsOtherSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsOtherSys(cfg ProcessRuntimeMemstatsOtherSysMetricConfig) metricProcessRuntimeMemstatsOtherSys {
-	m := metricProcessRuntimeMemstatsOtherSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsOtherSys)
 }
 
 type metricProcessRuntimeMemstatsPauseTotal struct {
@@ -1237,39 +899,25 @@ func (m *metricProcessRuntimeMemstatsPauseTotal) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsPauseTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsPauseTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsPauseTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsPauseTotal(cfg ProcessRuntimeMemstatsPauseTotalMetricConfig) metricProcessRuntimeMemstatsPauseTotal {
-	m := metricProcessRuntimeMemstatsPauseTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsPauseTotal)
 }
 
 type metricProcessRuntimeMemstatsStackInuse struct {
@@ -1289,39 +937,25 @@ func (m *metricProcessRuntimeMemstatsStackInuse) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsStackInuse) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsStackInuse) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsStackInuse) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsStackInuse(cfg ProcessRuntimeMemstatsStackInuseMetricConfig) metricProcessRuntimeMemstatsStackInuse {
-	m := metricProcessRuntimeMemstatsStackInuse{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsStackInuse)
 }
 
 type metricProcessRuntimeMemstatsStackSys struct {
@@ -1341,39 +975,22 @@ func (m *metricProcessRuntimeMemstatsStackSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsStackSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsStackSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsStackSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsStackSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsStackSys(cfg ProcessRuntimeMemstatsStackSysMetricConfig) metricProcessRuntimeMemstatsStackSys {
-	m := metricProcessRuntimeMemstatsStackSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsStackSys)
 }
 
 type metricProcessRuntimeMemstatsSys struct {
@@ -1393,39 +1010,22 @@ func (m *metricProcessRuntimeMemstatsSys) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsSys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricProcessRuntimeMemstatsSys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricProcessRuntimeMemstatsSys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsSys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsSys(cfg ProcessRuntimeMemstatsSysMetricConfig) metricProcessRuntimeMemstatsSys {
-	m := metricProcessRuntimeMemstatsSys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsSys)
 }
 
 type metricProcessRuntimeMemstatsTotalAlloc struct {
@@ -1445,39 +1045,25 @@ func (m *metricProcessRuntimeMemstatsTotalAlloc) init() {
 }
 
 func (m *metricProcessRuntimeMemstatsTotalAlloc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricProcessRuntimeMemstatsTotalAlloc) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricProcessRuntimeMemstatsTotalAlloc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricProcessRuntimeMemstatsTotalAlloc(cfg ProcessRuntimeMemstatsTotalAllocMetricConfig) metricProcessRuntimeMemstatsTotalAlloc {
-	m := metricProcessRuntimeMemstatsTotalAlloc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricProcessRuntimeMemstatsTotalAlloc)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1524,60 +1110,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                  mbc,
-		startTime:                               pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                           pmetric.NewMetrics(),
-		buildInfo:                               settings.BuildInfo,
-		metricProcessRuntimeMemstatsBuckHashSys: newMetricProcessRuntimeMemstatsBuckHashSys(mbc.Metrics.ProcessRuntimeMemstatsBuckHashSys),
-		metricProcessRuntimeMemstatsFrees:       newMetricProcessRuntimeMemstatsFrees(mbc.Metrics.ProcessRuntimeMemstatsFrees),
-		metricProcessRuntimeMemstatsGcCPUFraction: newMetricProcessRuntimeMemstatsGcCPUFraction(mbc.Metrics.ProcessRuntimeMemstatsGcCPUFraction),
-		metricProcessRuntimeMemstatsGcSys:         newMetricProcessRuntimeMemstatsGcSys(mbc.Metrics.ProcessRuntimeMemstatsGcSys),
-		metricProcessRuntimeMemstatsHeapAlloc:     newMetricProcessRuntimeMemstatsHeapAlloc(mbc.Metrics.ProcessRuntimeMemstatsHeapAlloc),
-		metricProcessRuntimeMemstatsHeapIdle:      newMetricProcessRuntimeMemstatsHeapIdle(mbc.Metrics.ProcessRuntimeMemstatsHeapIdle),
-		metricProcessRuntimeMemstatsHeapInuse:     newMetricProcessRuntimeMemstatsHeapInuse(mbc.Metrics.ProcessRuntimeMemstatsHeapInuse),
-		metricProcessRuntimeMemstatsHeapObjects:   newMetricProcessRuntimeMemstatsHeapObjects(mbc.Metrics.ProcessRuntimeMemstatsHeapObjects),
-		metricProcessRuntimeMemstatsHeapReleased:  newMetricProcessRuntimeMemstatsHeapReleased(mbc.Metrics.ProcessRuntimeMemstatsHeapReleased),
-		metricProcessRuntimeMemstatsHeapSys:       newMetricProcessRuntimeMemstatsHeapSys(mbc.Metrics.ProcessRuntimeMemstatsHeapSys),
-		metricProcessRuntimeMemstatsLastPause:     newMetricProcessRuntimeMemstatsLastPause(mbc.Metrics.ProcessRuntimeMemstatsLastPause),
-		metricProcessRuntimeMemstatsLookups:       newMetricProcessRuntimeMemstatsLookups(mbc.Metrics.ProcessRuntimeMemstatsLookups),
-		metricProcessRuntimeMemstatsMallocs:       newMetricProcessRuntimeMemstatsMallocs(mbc.Metrics.ProcessRuntimeMemstatsMallocs),
-		metricProcessRuntimeMemstatsMcacheInuse:   newMetricProcessRuntimeMemstatsMcacheInuse(mbc.Metrics.ProcessRuntimeMemstatsMcacheInuse),
-		metricProcessRuntimeMemstatsMcacheSys:     newMetricProcessRuntimeMemstatsMcacheSys(mbc.Metrics.ProcessRuntimeMemstatsMcacheSys),
-		metricProcessRuntimeMemstatsMspanInuse:    newMetricProcessRuntimeMemstatsMspanInuse(mbc.Metrics.ProcessRuntimeMemstatsMspanInuse),
-		metricProcessRuntimeMemstatsMspanSys:      newMetricProcessRuntimeMemstatsMspanSys(mbc.Metrics.ProcessRuntimeMemstatsMspanSys),
-		metricProcessRuntimeMemstatsNextGc:        newMetricProcessRuntimeMemstatsNextGc(mbc.Metrics.ProcessRuntimeMemstatsNextGc),
-		metricProcessRuntimeMemstatsNumForcedGc:   newMetricProcessRuntimeMemstatsNumForcedGc(mbc.Metrics.ProcessRuntimeMemstatsNumForcedGc),
-		metricProcessRuntimeMemstatsNumGc:         newMetricProcessRuntimeMemstatsNumGc(mbc.Metrics.ProcessRuntimeMemstatsNumGc),
-		metricProcessRuntimeMemstatsOtherSys:      newMetricProcessRuntimeMemstatsOtherSys(mbc.Metrics.ProcessRuntimeMemstatsOtherSys),
-		metricProcessRuntimeMemstatsPauseTotal:    newMetricProcessRuntimeMemstatsPauseTotal(mbc.Metrics.ProcessRuntimeMemstatsPauseTotal),
-		metricProcessRuntimeMemstatsStackInuse:    newMetricProcessRuntimeMemstatsStackInuse(mbc.Metrics.ProcessRuntimeMemstatsStackInuse),
-		metricProcessRuntimeMemstatsStackSys:      newMetricProcessRuntimeMemstatsStackSys(mbc.Metrics.ProcessRuntimeMemstatsStackSys),
-		metricProcessRuntimeMemstatsSys:           newMetricProcessRuntimeMemstatsSys(mbc.Metrics.ProcessRuntimeMemstatsSys),
-		metricProcessRuntimeMemstatsTotalAlloc:    newMetricProcessRuntimeMemstatsTotalAlloc(mbc.Metrics.ProcessRuntimeMemstatsTotalAlloc),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1588,35 +1140,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1625,193 +1165,174 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricProcessRuntimeMemstatsBuckHashSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsFrees.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsGcCPUFraction.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsGcSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapAlloc.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapIdle.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapInuse.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapObjects.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapReleased.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsHeapSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsLastPause.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsLookups.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsMallocs.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsMcacheInuse.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsMcacheSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsMspanInuse.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsMspanSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsNextGc.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsNumForcedGc.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsNumGc.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsOtherSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsPauseTotal.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsStackInuse.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsStackSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsSys.emit(ils.Metrics())
-	mb.metricProcessRuntimeMemstatsTotalAlloc.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordProcessRuntimeMemstatsBuckHashSysDataPoint adds a data point to process.runtime.memstats.buck_hash_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsBuckHashSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsBuckHashSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsFreesDataPoint adds a data point to process.runtime.memstats.frees metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsFreesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsFrees.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsGcCPUFractionDataPoint adds a data point to process.runtime.memstats.gc_cpu_fraction metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsGcCPUFractionDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricProcessRuntimeMemstatsGcCPUFraction.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsGcSysDataPoint adds a data point to process.runtime.memstats.gc_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsGcSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsGcSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapAllocDataPoint adds a data point to process.runtime.memstats.heap_alloc metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapAllocDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapAlloc.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapIdleDataPoint adds a data point to process.runtime.memstats.heap_idle metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapIdleDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapIdle.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapInuseDataPoint adds a data point to process.runtime.memstats.heap_inuse metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapInuseDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapInuse.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapObjectsDataPoint adds a data point to process.runtime.memstats.heap_objects metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapObjectsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapObjects.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapReleasedDataPoint adds a data point to process.runtime.memstats.heap_released metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapReleasedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapReleased.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsHeapSysDataPoint adds a data point to process.runtime.memstats.heap_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsHeapSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsHeapSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsLastPauseDataPoint adds a data point to process.runtime.memstats.last_pause metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsLastPauseDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsLastPause.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsLookupsDataPoint adds a data point to process.runtime.memstats.lookups metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsLookupsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsLookups.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsMallocsDataPoint adds a data point to process.runtime.memstats.mallocs metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsMallocsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsMallocs.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsMcacheInuseDataPoint adds a data point to process.runtime.memstats.mcache_inuse metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsMcacheInuseDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsMcacheInuse.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsMcacheSysDataPoint adds a data point to process.runtime.memstats.mcache_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsMcacheSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsMcacheSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsMspanInuseDataPoint adds a data point to process.runtime.memstats.mspan_inuse metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsMspanInuseDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsMspanInuse.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsMspanSysDataPoint adds a data point to process.runtime.memstats.mspan_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsMspanSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsMspanSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsNextGcDataPoint adds a data point to process.runtime.memstats.next_gc metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsNextGcDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsNextGc.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsNumForcedGcDataPoint adds a data point to process.runtime.memstats.num_forced_gc metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsNumForcedGcDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsNumForcedGc.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsNumGcDataPoint adds a data point to process.runtime.memstats.num_gc metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsNumGcDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsNumGc.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsOtherSysDataPoint adds a data point to process.runtime.memstats.other_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsOtherSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsOtherSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsPauseTotalDataPoint adds a data point to process.runtime.memstats.pause_total metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsPauseTotalDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsPauseTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsStackInuseDataPoint adds a data point to process.runtime.memstats.stack_inuse metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsStackInuseDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsStackInuse.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsStackSysDataPoint adds a data point to process.runtime.memstats.stack_sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsStackSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsStackSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsSysDataPoint adds a data point to process.runtime.memstats.sys metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsSysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsSys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordProcessRuntimeMemstatsTotalAllocDataPoint adds a data point to process.runtime.memstats.total_alloc metric.
 func (mb *MetricsBuilder) RecordProcessRuntimeMemstatsTotalAllocDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricProcessRuntimeMemstatsTotalAlloc.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

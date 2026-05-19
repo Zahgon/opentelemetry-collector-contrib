@@ -4,8 +4,6 @@
 package otelarrowreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/otelarrowreceiver"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configgrpc"
 	"go.opentelemetry.io/collector/confmap"
@@ -74,30 +72,9 @@ var (
 	_ xconfmap.Validator = (*ArrowConfig)(nil)
 )
 
-func (cfg *ArrowConfig) Validate() error {
-	if err := cfg.Zstd.Validate(); err != nil {
-		return fmt.Errorf("zstd decoder: invalid configuration: %w", err)
-	}
-	return nil
-}
+func (cfg *ArrowConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *Config) Validate() error {
-	if err := cfg.GRPC.Validate(); err != nil {
-		return err
-	}
-	if err := cfg.Arrow.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal will apply deprecated field values to assist the user with migration.
-func (cfg *Config) Unmarshal(conf *confmap.Conf) error {
-	if err := conf.Unmarshal(cfg); err != nil {
-		return err
-	}
-	if cfg.Admission.RequestLimitMiB == 0 && cfg.Arrow.DeprecatedAdmissionLimitMiB != 0 {
-		cfg.Admission.RequestLimitMiB = cfg.Arrow.DeprecatedAdmissionLimitMiB
-	}
-	return nil
-}
+func (cfg *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }

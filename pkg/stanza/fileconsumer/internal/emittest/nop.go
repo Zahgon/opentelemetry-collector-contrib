@@ -8,5 +8,6 @@ import (
 )
 
 func Nop(_ context.Context, _ [][]byte, _ map[string]any, _ int64, _ []int64) error {
+	_ = "STUB: not implemented"
 	return nil
 }

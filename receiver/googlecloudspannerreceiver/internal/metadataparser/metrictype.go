@@ -4,8 +4,6 @@
 package metadataparser // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadataparser"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadata"
@@ -34,47 +32,16 @@ type MetricType struct {
 }
 
 func (metricType MetricType) dataType() (pmetric.MetricType, error) {
-	var dataType pmetric.MetricType
-
-	switch metricType.DataType {
-	case GaugeMetricDataType:
-		dataType = pmetric.MetricTypeGauge
-	case SumMetricDataType:
-		dataType = pmetric.MetricTypeSum
-	default:
-		return pmetric.MetricTypeEmpty, errors.New("invalid data type received")
-	}
-
-	return dataType, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType), nil
 }
 
 func (metricType MetricType) aggregationTemporality() (pmetric.AggregationTemporality, error) {
-	var aggregationTemporality pmetric.AggregationTemporality
-
-	switch metricType.Aggregation {
-	case DeltaAggregationType:
-		aggregationTemporality = pmetric.AggregationTemporalityDelta
-	case CumulativeAggregationType:
-		aggregationTemporality = pmetric.AggregationTemporalityCumulative
-	case "":
-		aggregationTemporality = pmetric.AggregationTemporalityUnspecified
-	default:
-		return pmetric.AggregationTemporalityUnspecified, errors.New("invalid aggregation temporality received")
-	}
-
-	return aggregationTemporality, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.AggregationTemporality), nil
 }
 
 func (metricType MetricType) toMetricType() (metadata.MetricType, error) {
-	dataType, err := metricType.dataType()
-	if err != nil {
-		return nil, err
-	}
-
-	aggregationTemporality, err := metricType.aggregationTemporality()
-	if err != nil {
-		return nil, err
-	}
-
-	return metadata.NewMetricType(dataType, aggregationTemporality, metricType.Monotonic), nil
+	_ = "STUB: not implemented"
+	return *new(metadata.MetricType), nil
 }

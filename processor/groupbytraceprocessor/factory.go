@@ -11,8 +11,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor/internal/metadata"
 )
 
 const (
@@ -29,25 +27,15 @@ var (
 )
 
 // NewFactory returns a new factory for the Filter processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 // createDefaultConfig creates the default configuration for the processor.
 func createDefaultConfig() component.Config {
-	return &Config{
-		NumTraces:    defaultNumTraces,
-		NumWorkers:   defaultNumWorkers,
-		WaitDuration: defaultWaitDuration,
-
-		// not supported for now
-		DiscardOrphans: defaultDiscardOrphans,
-		StoreOnDisk:    defaultStoreOnDisk,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// not supported for now
 
 // createTracesProcessor creates a trace processor based on this config.
 func createTracesProcessor(
@@ -56,19 +44,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	oCfg := cfg.(*Config)
-
-	var st storage
-	if oCfg.StoreOnDisk {
-		return nil, errDiskStorageNotSupported
-	}
-	if oCfg.DiscardOrphans {
-		return nil, errDiscardOrphansNotSupported
-	}
-
-	processor := newGroupByTraceProcessor(params, nextConsumer, *oCfg)
-	// the only supported storage for now
-	st = newMemoryStorage(processor.telemetryBuilder)
-	processor.st = st
-	return processor, nil
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
+
+// the only supported storage for now

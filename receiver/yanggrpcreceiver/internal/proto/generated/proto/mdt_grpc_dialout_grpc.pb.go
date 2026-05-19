@@ -12,8 +12,6 @@ import (
 	context "context"
 
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -39,17 +37,13 @@ type gRPCMdtDialoutClient struct {
 }
 
 func NewGRPCMdtDialoutClient(cc grpc.ClientConnInterface) GRPCMdtDialoutClient {
-	return &gRPCMdtDialoutClient{cc}
+	_ = "STUB: not implemented"
+	return *new(GRPCMdtDialoutClient)
 }
 
 func (c *gRPCMdtDialoutClient) MdtDialout(ctx context.Context, opts ...grpc.CallOption) (grpc.BidiStreamingClient[MdtDialoutArgs, MdtDialoutArgs], error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	stream, err := c.cc.NewStream(ctx, &GRPCMdtDialout_ServiceDesc.Streams[0], GRPCMdtDialout_MdtDialout_FullMethodName, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &grpc.GenericClientStream[MdtDialoutArgs, MdtDialoutArgs]{ClientStream: stream}
-	return x, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.
@@ -73,10 +67,15 @@ type GRPCMdtDialoutServer interface {
 type UnimplementedGRPCMdtDialoutServer struct{}
 
 func (UnimplementedGRPCMdtDialoutServer) MdtDialout(grpc.BidiStreamingServer[MdtDialoutArgs, MdtDialoutArgs]) error {
-	return status.Errorf(codes.Unimplemented, "method MdtDialout not implemented")
+	_ = "STUB: not implemented"
+	return nil
 }
-func (UnimplementedGRPCMdtDialoutServer) mustEmbedUnimplementedGRPCMdtDialoutServer() {}
-func (UnimplementedGRPCMdtDialoutServer) testEmbeddedByValue()                        {}
+
+func (UnimplementedGRPCMdtDialoutServer) mustEmbedUnimplementedGRPCMdtDialoutServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedGRPCMdtDialoutServer) testEmbeddedByValue() { _ = "STUB: not implemented"; return }
 
 // UnsafeGRPCMdtDialoutServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to GRPCMdtDialoutServer will
@@ -86,18 +85,17 @@ type UnsafeGRPCMdtDialoutServer interface {
 }
 
 func RegisterGRPCMdtDialoutServer(s grpc.ServiceRegistrar, srv GRPCMdtDialoutServer) {
+	_ = "STUB: not implemented"
 	// If the following call pancis, it indicates UnimplementedGRPCMdtDialoutServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&GRPCMdtDialout_ServiceDesc, srv)
+	return
 }
 
 func _GRPCMdtDialout_MdtDialout_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(GRPCMdtDialoutServer).MdtDialout(&grpc.GenericServerStream[MdtDialoutArgs, MdtDialoutArgs]{ServerStream: stream})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // This type alias is provided for backwards compatibility with existing code that references the prior non-generic stream type by name.

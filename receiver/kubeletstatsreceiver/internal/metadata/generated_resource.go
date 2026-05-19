@@ -15,127 +15,66 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetAwsVolumeID sets provided value as "aws.volume.id" attribute.
-func (rb *ResourceBuilder) SetAwsVolumeID(val string) {
-	if rb.config.AwsVolumeID.Enabled {
-		rb.res.Attributes().PutStr("aws.volume.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetAwsVolumeID(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerID sets provided value as "container.id" attribute.
-func (rb *ResourceBuilder) SetContainerID(val string) {
-	if rb.config.ContainerID.Enabled {
-		rb.res.Attributes().PutStr("container.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerID(val string) { _ = "STUB: not implemented"; return }
 
 // SetFsType sets provided value as "fs.type" attribute.
-func (rb *ResourceBuilder) SetFsType(val string) {
-	if rb.config.FsType.Enabled {
-		rb.res.Attributes().PutStr("fs.type", val)
-	}
-}
+func (rb *ResourceBuilder) SetFsType(val string) { _ = "STUB: not implemented"; return }
 
 // SetGcePdName sets provided value as "gce.pd.name" attribute.
-func (rb *ResourceBuilder) SetGcePdName(val string) {
-	if rb.config.GcePdName.Enabled {
-		rb.res.Attributes().PutStr("gce.pd.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetGcePdName(val string) { _ = "STUB: not implemented"; return }
 
 // SetGlusterfsEndpointsName sets provided value as "glusterfs.endpoints.name" attribute.
-func (rb *ResourceBuilder) SetGlusterfsEndpointsName(val string) {
-	if rb.config.GlusterfsEndpointsName.Enabled {
-		rb.res.Attributes().PutStr("glusterfs.endpoints.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetGlusterfsEndpointsName(val string) { _ = "STUB: not implemented"; return }
 
 // SetGlusterfsPath sets provided value as "glusterfs.path" attribute.
-func (rb *ResourceBuilder) SetGlusterfsPath(val string) {
-	if rb.config.GlusterfsPath.Enabled {
-		rb.res.Attributes().PutStr("glusterfs.path", val)
-	}
-}
+func (rb *ResourceBuilder) SetGlusterfsPath(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sContainerName sets provided value as "k8s.container.name" attribute.
-func (rb *ResourceBuilder) SetK8sContainerName(val string) {
-	if rb.config.K8sContainerName.Enabled {
-		rb.res.Attributes().PutStr("k8s.container.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sContainerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNamespaceName sets provided value as "k8s.namespace.name" attribute.
-func (rb *ResourceBuilder) SetK8sNamespaceName(val string) {
-	if rb.config.K8sNamespaceName.Enabled {
-		rb.res.Attributes().PutStr("k8s.namespace.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sNamespaceName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNodeName sets provided value as "k8s.node.name" attribute.
-func (rb *ResourceBuilder) SetK8sNodeName(val string) {
-	if rb.config.K8sNodeName.Enabled {
-		rb.res.Attributes().PutStr("k8s.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNodeSystemContainerName sets provided value as "k8s.node.system_container.name" attribute.
 func (rb *ResourceBuilder) SetK8sNodeSystemContainerName(val string) {
-	if rb.config.K8sNodeSystemContainerName.Enabled {
-		rb.res.Attributes().PutStr("k8s.node.system_container.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetK8sPersistentvolumeclaimName sets provided value as "k8s.persistentvolumeclaim.name" attribute.
 func (rb *ResourceBuilder) SetK8sPersistentvolumeclaimName(val string) {
-	if rb.config.K8sPersistentvolumeclaimName.Enabled {
-		rb.res.Attributes().PutStr("k8s.persistentvolumeclaim.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetK8sPodName sets provided value as "k8s.pod.name" attribute.
-func (rb *ResourceBuilder) SetK8sPodName(val string) {
-	if rb.config.K8sPodName.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodUID sets provided value as "k8s.pod.uid" attribute.
-func (rb *ResourceBuilder) SetK8sPodUID(val string) {
-	if rb.config.K8sPodUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sVolumeName sets provided value as "k8s.volume.name" attribute.
-func (rb *ResourceBuilder) SetK8sVolumeName(val string) {
-	if rb.config.K8sVolumeName.Enabled {
-		rb.res.Attributes().PutStr("k8s.volume.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sVolumeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sVolumeType sets provided value as "k8s.volume.type" attribute.
-func (rb *ResourceBuilder) SetK8sVolumeType(val string) {
-	if rb.config.K8sVolumeType.Enabled {
-		rb.res.Attributes().PutStr("k8s.volume.type", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sVolumeType(val string) { _ = "STUB: not implemented"; return }
 
 // SetPartition sets provided value as "partition" attribute.
-func (rb *ResourceBuilder) SetPartition(val string) {
-	if rb.config.Partition.Enabled {
-		rb.res.Attributes().PutStr("partition", val)
-	}
-}
+func (rb *ResourceBuilder) SetPartition(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

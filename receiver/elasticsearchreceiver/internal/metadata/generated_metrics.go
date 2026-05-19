@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCacheName.
-func (av AttributeCacheName) String() string {
-	switch av {
-	case AttributeCacheNameFielddata:
-		return "fielddata"
-	case AttributeCacheNameQuery:
-		return "query"
-	}
-	return ""
-}
+func (av AttributeCacheName) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCacheName is a helper map of string to AttributeCacheName attribute value.
 var MapAttributeCacheName = map[string]AttributeCacheName{
@@ -57,12 +46,7 @@ const (
 
 // String returns the string representation of the AttributeClusterPublishedDifferenceState.
 func (av AttributeClusterPublishedDifferenceState) String() string {
-	switch av {
-	case AttributeClusterPublishedDifferenceStateIncompatible:
-		return "incompatible"
-	case AttributeClusterPublishedDifferenceStateCompatible:
-		return "compatible"
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -82,15 +66,7 @@ const (
 )
 
 // String returns the string representation of the AttributeClusterStateQueueState.
-func (av AttributeClusterStateQueueState) String() string {
-	switch av {
-	case AttributeClusterStateQueueStatePending:
-		return "pending"
-	case AttributeClusterStateQueueStateCommitted:
-		return "committed"
-	}
-	return ""
-}
+func (av AttributeClusterStateQueueState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeClusterStateQueueState is a helper map of string to AttributeClusterStateQueueState attribute value.
 var MapAttributeClusterStateQueueState = map[string]AttributeClusterStateQueueState{
@@ -112,23 +88,7 @@ const (
 )
 
 // String returns the string representation of the AttributeClusterStateUpdateType.
-func (av AttributeClusterStateUpdateType) String() string {
-	switch av {
-	case AttributeClusterStateUpdateTypeComputation:
-		return "computation"
-	case AttributeClusterStateUpdateTypeContextConstruction:
-		return "context_construction"
-	case AttributeClusterStateUpdateTypeCommit:
-		return "commit"
-	case AttributeClusterStateUpdateTypeCompletion:
-		return "completion"
-	case AttributeClusterStateUpdateTypeMasterApply:
-		return "master_apply"
-	case AttributeClusterStateUpdateTypeNotification:
-		return "notification"
-	}
-	return ""
-}
+func (av AttributeClusterStateUpdateType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeClusterStateUpdateType is a helper map of string to AttributeClusterStateUpdateType attribute value.
 var MapAttributeClusterStateUpdateType = map[string]AttributeClusterStateUpdateType{
@@ -150,15 +110,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionReceived:
-		return "received"
-	case AttributeDirectionSent:
-		return "sent"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -176,15 +128,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDocumentState.
-func (av AttributeDocumentState) String() string {
-	switch av {
-	case AttributeDocumentStateActive:
-		return "active"
-	case AttributeDocumentStateDeleted:
-		return "deleted"
-	}
-	return ""
-}
+func (av AttributeDocumentState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDocumentState is a helper map of string to AttributeDocumentState attribute value.
 var MapAttributeDocumentState = map[string]AttributeDocumentState{
@@ -202,15 +146,7 @@ const (
 )
 
 // String returns the string representation of the AttributeGetResult.
-func (av AttributeGetResult) String() string {
-	switch av {
-	case AttributeGetResultHit:
-		return "hit"
-	case AttributeGetResultMiss:
-		return "miss"
-	}
-	return ""
-}
+func (av AttributeGetResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeGetResult is a helper map of string to AttributeGetResult attribute value.
 var MapAttributeGetResult = map[string]AttributeGetResult{
@@ -229,17 +165,7 @@ const (
 )
 
 // String returns the string representation of the AttributeHealthStatus.
-func (av AttributeHealthStatus) String() string {
-	switch av {
-	case AttributeHealthStatusGreen:
-		return "green"
-	case AttributeHealthStatusYellow:
-		return "yellow"
-	case AttributeHealthStatusRed:
-		return "red"
-	}
-	return ""
-}
+func (av AttributeHealthStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeHealthStatus is a helper map of string to AttributeHealthStatus attribute value.
 var MapAttributeHealthStatus = map[string]AttributeHealthStatus{
@@ -258,15 +184,7 @@ const (
 )
 
 // String returns the string representation of the AttributeIndexAggregationType.
-func (av AttributeIndexAggregationType) String() string {
-	switch av {
-	case AttributeIndexAggregationTypePrimaryShards:
-		return "primary_shards"
-	case AttributeIndexAggregationTypeTotal:
-		return "total"
-	}
-	return ""
-}
+func (av AttributeIndexAggregationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeIndexAggregationType is a helper map of string to AttributeIndexAggregationType attribute value.
 var MapAttributeIndexAggregationType = map[string]AttributeIndexAggregationType{
@@ -285,17 +203,7 @@ const (
 )
 
 // String returns the string representation of the AttributeIndexingPressureStage.
-func (av AttributeIndexingPressureStage) String() string {
-	switch av {
-	case AttributeIndexingPressureStageCoordinating:
-		return "coordinating"
-	case AttributeIndexingPressureStagePrimary:
-		return "primary"
-	case AttributeIndexingPressureStageReplica:
-		return "replica"
-	}
-	return ""
-}
+func (av AttributeIndexingPressureStage) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeIndexingPressureStage is a helper map of string to AttributeIndexingPressureStage attribute value.
 var MapAttributeIndexingPressureStage = map[string]AttributeIndexingPressureStage{
@@ -314,15 +222,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMemoryState.
-func (av AttributeMemoryState) String() string {
-	switch av {
-	case AttributeMemoryStateFree:
-		return "free"
-	case AttributeMemoryStateUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeMemoryState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMemoryState is a helper map of string to AttributeMemoryState attribute value.
 var MapAttributeMemoryState = map[string]AttributeMemoryState{
@@ -349,33 +249,7 @@ const (
 )
 
 // String returns the string representation of the AttributeOperation.
-func (av AttributeOperation) String() string {
-	switch av {
-	case AttributeOperationIndex:
-		return "index"
-	case AttributeOperationDelete:
-		return "delete"
-	case AttributeOperationGet:
-		return "get"
-	case AttributeOperationQuery:
-		return "query"
-	case AttributeOperationFetch:
-		return "fetch"
-	case AttributeOperationScroll:
-		return "scroll"
-	case AttributeOperationSuggest:
-		return "suggest"
-	case AttributeOperationMerge:
-		return "merge"
-	case AttributeOperationRefresh:
-		return "refresh"
-	case AttributeOperationFlush:
-		return "flush"
-	case AttributeOperationWarmer:
-		return "warmer"
-	}
-	return ""
-}
+func (av AttributeOperation) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeOperation is a helper map of string to AttributeOperation attribute value.
 var MapAttributeOperation = map[string]AttributeOperation{
@@ -402,15 +276,7 @@ const (
 )
 
 // String returns the string representation of the AttributeQueryCacheCountType.
-func (av AttributeQueryCacheCountType) String() string {
-	switch av {
-	case AttributeQueryCacheCountTypeHit:
-		return "hit"
-	case AttributeQueryCacheCountTypeMiss:
-		return "miss"
-	}
-	return ""
-}
+func (av AttributeQueryCacheCountType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeQueryCacheCountType is a helper map of string to AttributeQueryCacheCountType attribute value.
 var MapAttributeQueryCacheCountType = map[string]AttributeQueryCacheCountType{
@@ -430,19 +296,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSegmentsMemoryObjectType.
-func (av AttributeSegmentsMemoryObjectType) String() string {
-	switch av {
-	case AttributeSegmentsMemoryObjectTypeTerm:
-		return "term"
-	case AttributeSegmentsMemoryObjectTypeDocValue:
-		return "doc_value"
-	case AttributeSegmentsMemoryObjectTypeIndexWriter:
-		return "index_writer"
-	case AttributeSegmentsMemoryObjectTypeFixedBitSet:
-		return "fixed_bit_set"
-	}
-	return ""
-}
+func (av AttributeSegmentsMemoryObjectType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSegmentsMemoryObjectType is a helper map of string to AttributeSegmentsMemoryObjectType attribute value.
 var MapAttributeSegmentsMemoryObjectType = map[string]AttributeSegmentsMemoryObjectType{
@@ -466,23 +320,7 @@ const (
 )
 
 // String returns the string representation of the AttributeShardState.
-func (av AttributeShardState) String() string {
-	switch av {
-	case AttributeShardStateActive:
-		return "active"
-	case AttributeShardStateActivePrimary:
-		return "active_primary"
-	case AttributeShardStateRelocating:
-		return "relocating"
-	case AttributeShardStateInitializing:
-		return "initializing"
-	case AttributeShardStateUnassigned:
-		return "unassigned"
-	case AttributeShardStateUnassignedDelayed:
-		return "unassigned_delayed"
-	}
-	return ""
-}
+func (av AttributeShardState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeShardState is a helper map of string to AttributeShardState attribute value.
 var MapAttributeShardState = map[string]AttributeShardState{
@@ -504,15 +342,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTaskState.
-func (av AttributeTaskState) String() string {
-	switch av {
-	case AttributeTaskStateRejected:
-		return "rejected"
-	case AttributeTaskStateCompleted:
-		return "completed"
-	}
-	return ""
-}
+func (av AttributeTaskState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTaskState is a helper map of string to AttributeTaskState attribute value.
 var MapAttributeTaskState = map[string]AttributeTaskState{
@@ -530,15 +360,7 @@ const (
 )
 
 // String returns the string representation of the AttributeThreadState.
-func (av AttributeThreadState) String() string {
-	switch av {
-	case AttributeThreadStateActive:
-		return "active"
-	case AttributeThreadStateIdle:
-		return "idle"
-	}
-	return ""
-}
+func (av AttributeThreadState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeThreadState is a helper map of string to AttributeThreadState attribute value.
 var MapAttributeThreadState = map[string]AttributeThreadState{
@@ -942,75 +764,25 @@ func (m *metricElasticsearchBreakerMemoryEstimated) init() {
 }
 
 func (m *metricElasticsearchBreakerMemoryEstimated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchBreakerMemoryEstimatedMetricAttributeKeyCircuitBreakerName) {
-		dp.Attributes().PutStr("name", circuitBreakerNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchBreakerMemoryEstimated) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchBreakerMemoryEstimated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchBreakerMemoryEstimated(cfg ElasticsearchBreakerMemoryEstimatedMetricConfig) metricElasticsearchBreakerMemoryEstimated {
-	m := metricElasticsearchBreakerMemoryEstimated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchBreakerMemoryEstimated)
 }
 
 type metricElasticsearchBreakerMemoryLimit struct {
@@ -1033,75 +805,22 @@ func (m *metricElasticsearchBreakerMemoryLimit) init() {
 }
 
 func (m *metricElasticsearchBreakerMemoryLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchBreakerMemoryLimitMetricAttributeKeyCircuitBreakerName) {
-		dp.Attributes().PutStr("name", circuitBreakerNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchBreakerMemoryLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchBreakerMemoryLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchBreakerMemoryLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchBreakerMemoryLimit(cfg ElasticsearchBreakerMemoryLimitMetricConfig) metricElasticsearchBreakerMemoryLimit {
-	m := metricElasticsearchBreakerMemoryLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchBreakerMemoryLimit)
 }
 
 type metricElasticsearchBreakerTripped struct {
@@ -1124,75 +843,22 @@ func (m *metricElasticsearchBreakerTripped) init() {
 }
 
 func (m *metricElasticsearchBreakerTripped) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchBreakerTrippedMetricAttributeKeyCircuitBreakerName) {
-		dp.Attributes().PutStr("name", circuitBreakerNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchBreakerTripped) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchBreakerTripped) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchBreakerTripped) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchBreakerTripped(cfg ElasticsearchBreakerTrippedMetricConfig) metricElasticsearchBreakerTripped {
-	m := metricElasticsearchBreakerTripped{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchBreakerTripped)
 }
 
 type metricElasticsearchClusterDataNodes struct {
@@ -1212,39 +878,22 @@ func (m *metricElasticsearchClusterDataNodes) init() {
 }
 
 func (m *metricElasticsearchClusterDataNodes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchClusterDataNodes) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchClusterDataNodes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterDataNodes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterDataNodes(cfg ElasticsearchClusterDataNodesMetricConfig) metricElasticsearchClusterDataNodes {
-	m := metricElasticsearchClusterDataNodes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterDataNodes)
 }
 
 type metricElasticsearchClusterHealth struct {
@@ -1267,75 +916,22 @@ func (m *metricElasticsearchClusterHealth) init() {
 }
 
 func (m *metricElasticsearchClusterHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, healthStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterHealthMetricAttributeKeyHealthStatus) {
-		dp.Attributes().PutStr("status", healthStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchClusterHealth) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchClusterHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterHealth(cfg ElasticsearchClusterHealthMetricConfig) metricElasticsearchClusterHealth {
-	m := metricElasticsearchClusterHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterHealth)
 }
 
 type metricElasticsearchClusterInFlightFetch struct {
@@ -1355,39 +951,25 @@ func (m *metricElasticsearchClusterInFlightFetch) init() {
 }
 
 func (m *metricElasticsearchClusterInFlightFetch) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterInFlightFetch) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterInFlightFetch) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterInFlightFetch(cfg ElasticsearchClusterInFlightFetchMetricConfig) metricElasticsearchClusterInFlightFetch {
-	m := metricElasticsearchClusterInFlightFetch{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterInFlightFetch)
 }
 
 type metricElasticsearchClusterIndicesCacheEvictions struct {
@@ -1410,75 +992,25 @@ func (m *metricElasticsearchClusterIndicesCacheEvictions) init() {
 }
 
 func (m *metricElasticsearchClusterIndicesCacheEvictions) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cacheNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterIndicesCacheEvictionsMetricAttributeKeyCacheName) {
-		dp.Attributes().PutStr("cache_name", cacheNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterIndicesCacheEvictions) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterIndicesCacheEvictions) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterIndicesCacheEvictions(cfg ElasticsearchClusterIndicesCacheEvictionsMetricConfig) metricElasticsearchClusterIndicesCacheEvictions {
-	m := metricElasticsearchClusterIndicesCacheEvictions{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterIndicesCacheEvictions)
 }
 
 type metricElasticsearchClusterNodes struct {
@@ -1498,39 +1030,22 @@ func (m *metricElasticsearchClusterNodes) init() {
 }
 
 func (m *metricElasticsearchClusterNodes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchClusterNodes) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchClusterNodes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterNodes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterNodes(cfg ElasticsearchClusterNodesMetricConfig) metricElasticsearchClusterNodes {
-	m := metricElasticsearchClusterNodes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterNodes)
 }
 
 type metricElasticsearchClusterPendingTasks struct {
@@ -1550,39 +1065,25 @@ func (m *metricElasticsearchClusterPendingTasks) init() {
 }
 
 func (m *metricElasticsearchClusterPendingTasks) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterPendingTasks) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterPendingTasks) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterPendingTasks(cfg ElasticsearchClusterPendingTasksMetricConfig) metricElasticsearchClusterPendingTasks {
-	m := metricElasticsearchClusterPendingTasks{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterPendingTasks)
 }
 
 type metricElasticsearchClusterPublishedStatesDifferences struct {
@@ -1605,75 +1106,25 @@ func (m *metricElasticsearchClusterPublishedStatesDifferences) init() {
 }
 
 func (m *metricElasticsearchClusterPublishedStatesDifferences) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, clusterPublishedDifferenceStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterPublishedStatesDifferencesMetricAttributeKeyClusterPublishedDifferenceState) {
-		dp.Attributes().PutStr("state", clusterPublishedDifferenceStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterPublishedStatesDifferences) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterPublishedStatesDifferences) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterPublishedStatesDifferences(cfg ElasticsearchClusterPublishedStatesDifferencesMetricConfig) metricElasticsearchClusterPublishedStatesDifferences {
-	m := metricElasticsearchClusterPublishedStatesDifferences{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterPublishedStatesDifferences)
 }
 
 type metricElasticsearchClusterPublishedStatesFull struct {
@@ -1693,39 +1144,25 @@ func (m *metricElasticsearchClusterPublishedStatesFull) init() {
 }
 
 func (m *metricElasticsearchClusterPublishedStatesFull) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterPublishedStatesFull) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterPublishedStatesFull) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterPublishedStatesFull(cfg ElasticsearchClusterPublishedStatesFullMetricConfig) metricElasticsearchClusterPublishedStatesFull {
-	m := metricElasticsearchClusterPublishedStatesFull{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterPublishedStatesFull)
 }
 
 type metricElasticsearchClusterShards struct {
@@ -1748,75 +1185,22 @@ func (m *metricElasticsearchClusterShards) init() {
 }
 
 func (m *metricElasticsearchClusterShards) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, shardStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterShardsMetricAttributeKeyShardState) {
-		dp.Attributes().PutStr("state", shardStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchClusterShards) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchClusterShards) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterShards) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterShards(cfg ElasticsearchClusterShardsMetricConfig) metricElasticsearchClusterShards {
-	m := metricElasticsearchClusterShards{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterShards)
 }
 
 type metricElasticsearchClusterStateQueue struct {
@@ -1839,75 +1223,22 @@ func (m *metricElasticsearchClusterStateQueue) init() {
 }
 
 func (m *metricElasticsearchClusterStateQueue) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, clusterStateQueueStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterStateQueueMetricAttributeKeyClusterStateQueueState) {
-		dp.Attributes().PutStr("state", clusterStateQueueStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchClusterStateQueue) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchClusterStateQueue) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterStateQueue) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterStateQueue(cfg ElasticsearchClusterStateQueueMetricConfig) metricElasticsearchClusterStateQueue {
-	m := metricElasticsearchClusterStateQueue{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterStateQueue)
 }
 
 type metricElasticsearchClusterStateUpdateCount struct {
@@ -1930,75 +1261,25 @@ func (m *metricElasticsearchClusterStateUpdateCount) init() {
 }
 
 func (m *metricElasticsearchClusterStateUpdateCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, clusterStateUpdateStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterStateUpdateCountMetricAttributeKeyClusterStateUpdateState) {
-		dp.Attributes().PutStr("state", clusterStateUpdateStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterStateUpdateCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterStateUpdateCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterStateUpdateCount(cfg ElasticsearchClusterStateUpdateCountMetricConfig) metricElasticsearchClusterStateUpdateCount {
-	m := metricElasticsearchClusterStateUpdateCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterStateUpdateCount)
 }
 
 type metricElasticsearchClusterStateUpdateTime struct {
@@ -2021,78 +1302,25 @@ func (m *metricElasticsearchClusterStateUpdateTime) init() {
 }
 
 func (m *metricElasticsearchClusterStateUpdateTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, clusterStateUpdateStateAttributeValue string, clusterStateUpdateTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterStateUpdateTimeMetricAttributeKeyClusterStateUpdateState) {
-		dp.Attributes().PutStr("state", clusterStateUpdateStateAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchClusterStateUpdateTimeMetricAttributeKeyClusterStateUpdateType) {
-		dp.Attributes().PutStr("type", clusterStateUpdateTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchClusterStateUpdateTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchClusterStateUpdateTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchClusterStateUpdateTime(cfg ElasticsearchClusterStateUpdateTimeMetricConfig) metricElasticsearchClusterStateUpdateTime {
-	m := metricElasticsearchClusterStateUpdateTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchClusterStateUpdateTime)
 }
 
 type metricElasticsearchIndexCacheEvictions struct {
@@ -2115,78 +1343,25 @@ func (m *metricElasticsearchIndexCacheEvictions) init() {
 }
 
 func (m *metricElasticsearchIndexCacheEvictions) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cacheNameAttributeValue string, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexCacheEvictionsMetricAttributeKeyCacheName) {
-		dp.Attributes().PutStr("cache_name", cacheNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexCacheEvictionsMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexCacheEvictions) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexCacheEvictions) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexCacheEvictions(cfg ElasticsearchIndexCacheEvictionsMetricConfig) metricElasticsearchIndexCacheEvictions {
-	m := metricElasticsearchIndexCacheEvictions{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexCacheEvictions)
 }
 
 type metricElasticsearchIndexCacheMemoryUsage struct {
@@ -2209,78 +1384,25 @@ func (m *metricElasticsearchIndexCacheMemoryUsage) init() {
 }
 
 func (m *metricElasticsearchIndexCacheMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cacheNameAttributeValue string, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexCacheMemoryUsageMetricAttributeKeyCacheName) {
-		dp.Attributes().PutStr("cache_name", cacheNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexCacheMemoryUsageMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexCacheMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexCacheMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexCacheMemoryUsage(cfg ElasticsearchIndexCacheMemoryUsageMetricConfig) metricElasticsearchIndexCacheMemoryUsage {
-	m := metricElasticsearchIndexCacheMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexCacheMemoryUsage)
 }
 
 type metricElasticsearchIndexCacheSize struct {
@@ -2303,75 +1425,22 @@ func (m *metricElasticsearchIndexCacheSize) init() {
 }
 
 func (m *metricElasticsearchIndexCacheSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexCacheSizeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexCacheSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexCacheSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexCacheSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexCacheSize(cfg ElasticsearchIndexCacheSizeMetricConfig) metricElasticsearchIndexCacheSize {
-	m := metricElasticsearchIndexCacheSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexCacheSize)
 }
 
 type metricElasticsearchIndexDocuments struct {
@@ -2394,78 +1463,22 @@ func (m *metricElasticsearchIndexDocuments) init() {
 }
 
 func (m *metricElasticsearchIndexDocuments) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, documentStateAttributeValue string, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexDocumentsMetricAttributeKeyDocumentState) {
-		dp.Attributes().PutStr("state", documentStateAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexDocumentsMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexDocuments) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexDocuments) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexDocuments) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexDocuments(cfg ElasticsearchIndexDocumentsMetricConfig) metricElasticsearchIndexDocuments {
-	m := metricElasticsearchIndexDocuments{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexDocuments)
 }
 
 type metricElasticsearchIndexOperationsCompleted struct {
@@ -2488,78 +1501,25 @@ func (m *metricElasticsearchIndexOperationsCompleted) init() {
 }
 
 func (m *metricElasticsearchIndexOperationsCompleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsCompletedMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsCompletedMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexOperationsCompleted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexOperationsCompleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexOperationsCompleted(cfg ElasticsearchIndexOperationsCompletedMetricConfig) metricElasticsearchIndexOperationsCompleted {
-	m := metricElasticsearchIndexOperationsCompleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexOperationsCompleted)
 }
 
 type metricElasticsearchIndexOperationsMergeCurrent struct {
@@ -2580,75 +1540,25 @@ func (m *metricElasticsearchIndexOperationsMergeCurrent) init() {
 }
 
 func (m *metricElasticsearchIndexOperationsMergeCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsMergeCurrentMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexOperationsMergeCurrent) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexOperationsMergeCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexOperationsMergeCurrent(cfg ElasticsearchIndexOperationsMergeCurrentMetricConfig) metricElasticsearchIndexOperationsMergeCurrent {
-	m := metricElasticsearchIndexOperationsMergeCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexOperationsMergeCurrent)
 }
 
 type metricElasticsearchIndexOperationsMergeDocsCount struct {
@@ -2671,75 +1581,25 @@ func (m *metricElasticsearchIndexOperationsMergeDocsCount) init() {
 }
 
 func (m *metricElasticsearchIndexOperationsMergeDocsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsMergeDocsCountMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexOperationsMergeDocsCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexOperationsMergeDocsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexOperationsMergeDocsCount(cfg ElasticsearchIndexOperationsMergeDocsCountMetricConfig) metricElasticsearchIndexOperationsMergeDocsCount {
-	m := metricElasticsearchIndexOperationsMergeDocsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexOperationsMergeDocsCount)
 }
 
 type metricElasticsearchIndexOperationsMergeSize struct {
@@ -2762,75 +1622,25 @@ func (m *metricElasticsearchIndexOperationsMergeSize) init() {
 }
 
 func (m *metricElasticsearchIndexOperationsMergeSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsMergeSizeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexOperationsMergeSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexOperationsMergeSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexOperationsMergeSize(cfg ElasticsearchIndexOperationsMergeSizeMetricConfig) metricElasticsearchIndexOperationsMergeSize {
-	m := metricElasticsearchIndexOperationsMergeSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexOperationsMergeSize)
 }
 
 type metricElasticsearchIndexOperationsTime struct {
@@ -2853,78 +1663,25 @@ func (m *metricElasticsearchIndexOperationsTime) init() {
 }
 
 func (m *metricElasticsearchIndexOperationsTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsTimeMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexOperationsTimeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexOperationsTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexOperationsTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexOperationsTime(cfg ElasticsearchIndexOperationsTimeMetricConfig) metricElasticsearchIndexOperationsTime {
-	m := metricElasticsearchIndexOperationsTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexOperationsTime)
 }
 
 type metricElasticsearchIndexSegmentsCount struct {
@@ -2947,75 +1704,22 @@ func (m *metricElasticsearchIndexSegmentsCount) init() {
 }
 
 func (m *metricElasticsearchIndexSegmentsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexSegmentsCountMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexSegmentsCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexSegmentsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexSegmentsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexSegmentsCount(cfg ElasticsearchIndexSegmentsCountMetricConfig) metricElasticsearchIndexSegmentsCount {
-	m := metricElasticsearchIndexSegmentsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexSegmentsCount)
 }
 
 type metricElasticsearchIndexSegmentsMemory struct {
@@ -3038,78 +1742,25 @@ func (m *metricElasticsearchIndexSegmentsMemory) init() {
 }
 
 func (m *metricElasticsearchIndexSegmentsMemory) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string, segmentsMemoryObjectTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexSegmentsMemoryMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexSegmentsMemoryMetricAttributeKeySegmentsMemoryObjectType) {
-		dp.Attributes().PutStr("object", segmentsMemoryObjectTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexSegmentsMemory) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexSegmentsMemory) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexSegmentsMemory(cfg ElasticsearchIndexSegmentsMemoryMetricConfig) metricElasticsearchIndexSegmentsMemory {
-	m := metricElasticsearchIndexSegmentsMemory{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexSegmentsMemory)
 }
 
 type metricElasticsearchIndexSegmentsSize struct {
@@ -3132,75 +1783,22 @@ func (m *metricElasticsearchIndexSegmentsSize) init() {
 }
 
 func (m *metricElasticsearchIndexSegmentsSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexSegmentsSizeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexSegmentsSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexSegmentsSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexSegmentsSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexSegmentsSize(cfg ElasticsearchIndexSegmentsSizeMetricConfig) metricElasticsearchIndexSegmentsSize {
-	m := metricElasticsearchIndexSegmentsSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexSegmentsSize)
 }
 
 type metricElasticsearchIndexShardsSize struct {
@@ -3223,75 +1821,22 @@ func (m *metricElasticsearchIndexShardsSize) init() {
 }
 
 func (m *metricElasticsearchIndexShardsSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexShardsSizeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexShardsSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexShardsSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexShardsSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexShardsSize(cfg ElasticsearchIndexShardsSizeMetricConfig) metricElasticsearchIndexShardsSize {
-	m := metricElasticsearchIndexShardsSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexShardsSize)
 }
 
 type metricElasticsearchIndexTranslogOperations struct {
@@ -3314,75 +1859,25 @@ func (m *metricElasticsearchIndexTranslogOperations) init() {
 }
 
 func (m *metricElasticsearchIndexTranslogOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexTranslogOperationsMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexTranslogOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexTranslogOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexTranslogOperations(cfg ElasticsearchIndexTranslogOperationsMetricConfig) metricElasticsearchIndexTranslogOperations {
-	m := metricElasticsearchIndexTranslogOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexTranslogOperations)
 }
 
 type metricElasticsearchIndexTranslogSize struct {
@@ -3405,75 +1900,22 @@ func (m *metricElasticsearchIndexTranslogSize) init() {
 }
 
 func (m *metricElasticsearchIndexTranslogSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchIndexTranslogSizeMetricAttributeKeyIndexAggregationType) {
-		dp.Attributes().PutStr("aggregation", indexAggregationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchIndexTranslogSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchIndexTranslogSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexTranslogSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexTranslogSize(cfg ElasticsearchIndexTranslogSizeMetricConfig) metricElasticsearchIndexTranslogSize {
-	m := metricElasticsearchIndexTranslogSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexTranslogSize)
 }
 
 type metricElasticsearchIndexingPressureMemoryLimit struct {
@@ -3491,39 +1933,25 @@ func (m *metricElasticsearchIndexingPressureMemoryLimit) init() {
 }
 
 func (m *metricElasticsearchIndexingPressureMemoryLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexingPressureMemoryLimit) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexingPressureMemoryLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexingPressureMemoryLimit(cfg ElasticsearchIndexingPressureMemoryLimitMetricConfig) metricElasticsearchIndexingPressureMemoryLimit {
-	m := metricElasticsearchIndexingPressureMemoryLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexingPressureMemoryLimit)
 }
 
 type metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections struct {
@@ -3543,39 +1971,25 @@ func (m *metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections) init()
 }
 
 func (m *metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexingPressureMemoryTotalPrimaryRejections(cfg ElasticsearchIndexingPressureMemoryTotalPrimaryRejectionsMetricConfig) metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections {
-	m := metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections)
 }
 
 type metricElasticsearchIndexingPressureMemoryTotalReplicaRejections struct {
@@ -3595,39 +2009,25 @@ func (m *metricElasticsearchIndexingPressureMemoryTotalReplicaRejections) init()
 }
 
 func (m *metricElasticsearchIndexingPressureMemoryTotalReplicaRejections) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchIndexingPressureMemoryTotalReplicaRejections) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchIndexingPressureMemoryTotalReplicaRejections) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchIndexingPressureMemoryTotalReplicaRejections(cfg ElasticsearchIndexingPressureMemoryTotalReplicaRejectionsMetricConfig) metricElasticsearchIndexingPressureMemoryTotalReplicaRejections {
-	m := metricElasticsearchIndexingPressureMemoryTotalReplicaRejections{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchIndexingPressureMemoryTotalReplicaRejections)
 }
 
 type metricElasticsearchMemoryIndexingPressure struct {
@@ -3650,75 +2050,25 @@ func (m *metricElasticsearchMemoryIndexingPressure) init() {
 }
 
 func (m *metricElasticsearchMemoryIndexingPressure) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, indexingPressureStageAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchMemoryIndexingPressureMetricAttributeKeyIndexingPressureStage) {
-		dp.Attributes().PutStr("stage", indexingPressureStageAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchMemoryIndexingPressure) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchMemoryIndexingPressure) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchMemoryIndexingPressure(cfg ElasticsearchMemoryIndexingPressureMetricConfig) metricElasticsearchMemoryIndexingPressure {
-	m := metricElasticsearchMemoryIndexingPressure{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchMemoryIndexingPressure)
 }
 
 type metricElasticsearchNodeCacheCount struct {
@@ -3741,75 +2091,22 @@ func (m *metricElasticsearchNodeCacheCount) init() {
 }
 
 func (m *metricElasticsearchNodeCacheCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, queryCacheCountTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeCacheCountMetricAttributeKeyQueryCacheCountType) {
-		dp.Attributes().PutStr("type", queryCacheCountTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeCacheCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeCacheCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeCacheCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeCacheCount(cfg ElasticsearchNodeCacheCountMetricConfig) metricElasticsearchNodeCacheCount {
-	m := metricElasticsearchNodeCacheCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeCacheCount)
 }
 
 type metricElasticsearchNodeCacheEvictions struct {
@@ -3832,75 +2129,22 @@ func (m *metricElasticsearchNodeCacheEvictions) init() {
 }
 
 func (m *metricElasticsearchNodeCacheEvictions) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cacheNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeCacheEvictionsMetricAttributeKeyCacheName) {
-		dp.Attributes().PutStr("cache_name", cacheNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeCacheEvictions) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeCacheEvictions) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeCacheEvictions) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeCacheEvictions(cfg ElasticsearchNodeCacheEvictionsMetricConfig) metricElasticsearchNodeCacheEvictions {
-	m := metricElasticsearchNodeCacheEvictions{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeCacheEvictions)
 }
 
 type metricElasticsearchNodeCacheMemoryUsage struct {
@@ -3923,75 +2167,25 @@ func (m *metricElasticsearchNodeCacheMemoryUsage) init() {
 }
 
 func (m *metricElasticsearchNodeCacheMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cacheNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeCacheMemoryUsageMetricAttributeKeyCacheName) {
-		dp.Attributes().PutStr("cache_name", cacheNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeCacheMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeCacheMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeCacheMemoryUsage(cfg ElasticsearchNodeCacheMemoryUsageMetricConfig) metricElasticsearchNodeCacheMemoryUsage {
-	m := metricElasticsearchNodeCacheMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeCacheMemoryUsage)
 }
 
 type metricElasticsearchNodeCacheSize struct {
@@ -4011,39 +2205,22 @@ func (m *metricElasticsearchNodeCacheSize) init() {
 }
 
 func (m *metricElasticsearchNodeCacheSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeCacheSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeCacheSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeCacheSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeCacheSize(cfg ElasticsearchNodeCacheSizeMetricConfig) metricElasticsearchNodeCacheSize {
-	m := metricElasticsearchNodeCacheSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeCacheSize)
 }
 
 type metricElasticsearchNodeClusterConnections struct {
@@ -4063,39 +2240,25 @@ func (m *metricElasticsearchNodeClusterConnections) init() {
 }
 
 func (m *metricElasticsearchNodeClusterConnections) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeClusterConnections) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeClusterConnections) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeClusterConnections(cfg ElasticsearchNodeClusterConnectionsMetricConfig) metricElasticsearchNodeClusterConnections {
-	m := metricElasticsearchNodeClusterConnections{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeClusterConnections)
 }
 
 type metricElasticsearchNodeClusterIo struct {
@@ -4118,75 +2281,22 @@ func (m *metricElasticsearchNodeClusterIo) init() {
 }
 
 func (m *metricElasticsearchNodeClusterIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeClusterIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeClusterIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeClusterIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeClusterIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeClusterIo(cfg ElasticsearchNodeClusterIoMetricConfig) metricElasticsearchNodeClusterIo {
-	m := metricElasticsearchNodeClusterIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeClusterIo)
 }
 
 type metricElasticsearchNodeDiskIoRead struct {
@@ -4206,39 +2316,22 @@ func (m *metricElasticsearchNodeDiskIoRead) init() {
 }
 
 func (m *metricElasticsearchNodeDiskIoRead) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeDiskIoRead) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeDiskIoRead) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeDiskIoRead) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeDiskIoRead(cfg ElasticsearchNodeDiskIoReadMetricConfig) metricElasticsearchNodeDiskIoRead {
-	m := metricElasticsearchNodeDiskIoRead{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeDiskIoRead)
 }
 
 type metricElasticsearchNodeDiskIoWrite struct {
@@ -4258,39 +2351,22 @@ func (m *metricElasticsearchNodeDiskIoWrite) init() {
 }
 
 func (m *metricElasticsearchNodeDiskIoWrite) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeDiskIoWrite) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeDiskIoWrite) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeDiskIoWrite) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeDiskIoWrite(cfg ElasticsearchNodeDiskIoWriteMetricConfig) metricElasticsearchNodeDiskIoWrite {
-	m := metricElasticsearchNodeDiskIoWrite{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeDiskIoWrite)
 }
 
 type metricElasticsearchNodeDocuments struct {
@@ -4313,75 +2389,22 @@ func (m *metricElasticsearchNodeDocuments) init() {
 }
 
 func (m *metricElasticsearchNodeDocuments) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, documentStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeDocumentsMetricAttributeKeyDocumentState) {
-		dp.Attributes().PutStr("state", documentStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeDocuments) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeDocuments) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeDocuments) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeDocuments(cfg ElasticsearchNodeDocumentsMetricConfig) metricElasticsearchNodeDocuments {
-	m := metricElasticsearchNodeDocuments{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeDocuments)
 }
 
 type metricElasticsearchNodeFsDiskAvailable struct {
@@ -4401,39 +2424,25 @@ func (m *metricElasticsearchNodeFsDiskAvailable) init() {
 }
 
 func (m *metricElasticsearchNodeFsDiskAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeFsDiskAvailable) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeFsDiskAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeFsDiskAvailable(cfg ElasticsearchNodeFsDiskAvailableMetricConfig) metricElasticsearchNodeFsDiskAvailable {
-	m := metricElasticsearchNodeFsDiskAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeFsDiskAvailable)
 }
 
 type metricElasticsearchNodeFsDiskFree struct {
@@ -4453,39 +2462,22 @@ func (m *metricElasticsearchNodeFsDiskFree) init() {
 }
 
 func (m *metricElasticsearchNodeFsDiskFree) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeFsDiskFree) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeFsDiskFree) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeFsDiskFree) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeFsDiskFree(cfg ElasticsearchNodeFsDiskFreeMetricConfig) metricElasticsearchNodeFsDiskFree {
-	m := metricElasticsearchNodeFsDiskFree{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeFsDiskFree)
 }
 
 type metricElasticsearchNodeFsDiskTotal struct {
@@ -4505,39 +2497,22 @@ func (m *metricElasticsearchNodeFsDiskTotal) init() {
 }
 
 func (m *metricElasticsearchNodeFsDiskTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeFsDiskTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeFsDiskTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeFsDiskTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeFsDiskTotal(cfg ElasticsearchNodeFsDiskTotalMetricConfig) metricElasticsearchNodeFsDiskTotal {
-	m := metricElasticsearchNodeFsDiskTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeFsDiskTotal)
 }
 
 type metricElasticsearchNodeHTTPConnections struct {
@@ -4557,39 +2532,25 @@ func (m *metricElasticsearchNodeHTTPConnections) init() {
 }
 
 func (m *metricElasticsearchNodeHTTPConnections) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeHTTPConnections) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeHTTPConnections) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeHTTPConnections(cfg ElasticsearchNodeHTTPConnectionsMetricConfig) metricElasticsearchNodeHTTPConnections {
-	m := metricElasticsearchNodeHTTPConnections{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeHTTPConnections)
 }
 
 type metricElasticsearchNodeIngestDocuments struct {
@@ -4609,39 +2570,25 @@ func (m *metricElasticsearchNodeIngestDocuments) init() {
 }
 
 func (m *metricElasticsearchNodeIngestDocuments) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeIngestDocuments) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeIngestDocuments) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeIngestDocuments(cfg ElasticsearchNodeIngestDocumentsMetricConfig) metricElasticsearchNodeIngestDocuments {
-	m := metricElasticsearchNodeIngestDocuments{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeIngestDocuments)
 }
 
 type metricElasticsearchNodeIngestDocumentsCurrent struct {
@@ -4661,39 +2608,25 @@ func (m *metricElasticsearchNodeIngestDocumentsCurrent) init() {
 }
 
 func (m *metricElasticsearchNodeIngestDocumentsCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeIngestDocumentsCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeIngestDocumentsCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeIngestDocumentsCurrent(cfg ElasticsearchNodeIngestDocumentsCurrentMetricConfig) metricElasticsearchNodeIngestDocumentsCurrent {
-	m := metricElasticsearchNodeIngestDocumentsCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeIngestDocumentsCurrent)
 }
 
 type metricElasticsearchNodeIngestOperationsFailed struct {
@@ -4713,39 +2646,25 @@ func (m *metricElasticsearchNodeIngestOperationsFailed) init() {
 }
 
 func (m *metricElasticsearchNodeIngestOperationsFailed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeIngestOperationsFailed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeIngestOperationsFailed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeIngestOperationsFailed(cfg ElasticsearchNodeIngestOperationsFailedMetricConfig) metricElasticsearchNodeIngestOperationsFailed {
-	m := metricElasticsearchNodeIngestOperationsFailed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeIngestOperationsFailed)
 }
 
 type metricElasticsearchNodeOpenFiles struct {
@@ -4765,39 +2684,22 @@ func (m *metricElasticsearchNodeOpenFiles) init() {
 }
 
 func (m *metricElasticsearchNodeOpenFiles) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeOpenFiles) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeOpenFiles) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOpenFiles) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOpenFiles(cfg ElasticsearchNodeOpenFilesMetricConfig) metricElasticsearchNodeOpenFiles {
-	m := metricElasticsearchNodeOpenFiles{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOpenFiles)
 }
 
 type metricElasticsearchNodeOperationsCompleted struct {
@@ -4820,75 +2722,25 @@ func (m *metricElasticsearchNodeOperationsCompleted) init() {
 }
 
 func (m *metricElasticsearchNodeOperationsCompleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeOperationsCompletedMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeOperationsCompleted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOperationsCompleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOperationsCompleted(cfg ElasticsearchNodeOperationsCompletedMetricConfig) metricElasticsearchNodeOperationsCompleted {
-	m := metricElasticsearchNodeOperationsCompleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOperationsCompleted)
 }
 
 type metricElasticsearchNodeOperationsCurrent struct {
@@ -4909,75 +2761,25 @@ func (m *metricElasticsearchNodeOperationsCurrent) init() {
 }
 
 func (m *metricElasticsearchNodeOperationsCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeOperationsCurrentMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeOperationsCurrent) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOperationsCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOperationsCurrent(cfg ElasticsearchNodeOperationsCurrentMetricConfig) metricElasticsearchNodeOperationsCurrent {
-	m := metricElasticsearchNodeOperationsCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOperationsCurrent)
 }
 
 type metricElasticsearchNodeOperationsGetCompleted struct {
@@ -5000,75 +2802,25 @@ func (m *metricElasticsearchNodeOperationsGetCompleted) init() {
 }
 
 func (m *metricElasticsearchNodeOperationsGetCompleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, getResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeOperationsGetCompletedMetricAttributeKeyGetResult) {
-		dp.Attributes().PutStr("result", getResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeOperationsGetCompleted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOperationsGetCompleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOperationsGetCompleted(cfg ElasticsearchNodeOperationsGetCompletedMetricConfig) metricElasticsearchNodeOperationsGetCompleted {
-	m := metricElasticsearchNodeOperationsGetCompleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOperationsGetCompleted)
 }
 
 type metricElasticsearchNodeOperationsGetTime struct {
@@ -5091,75 +2843,25 @@ func (m *metricElasticsearchNodeOperationsGetTime) init() {
 }
 
 func (m *metricElasticsearchNodeOperationsGetTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, getResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeOperationsGetTimeMetricAttributeKeyGetResult) {
-		dp.Attributes().PutStr("result", getResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeOperationsGetTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOperationsGetTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOperationsGetTime(cfg ElasticsearchNodeOperationsGetTimeMetricConfig) metricElasticsearchNodeOperationsGetTime {
-	m := metricElasticsearchNodeOperationsGetTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOperationsGetTime)
 }
 
 type metricElasticsearchNodeOperationsTime struct {
@@ -5182,75 +2884,22 @@ func (m *metricElasticsearchNodeOperationsTime) init() {
 }
 
 func (m *metricElasticsearchNodeOperationsTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeOperationsTimeMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeOperationsTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeOperationsTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeOperationsTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeOperationsTime(cfg ElasticsearchNodeOperationsTimeMetricConfig) metricElasticsearchNodeOperationsTime {
-	m := metricElasticsearchNodeOperationsTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeOperationsTime)
 }
 
 type metricElasticsearchNodePipelineIngestDocumentsCurrent struct {
@@ -5273,75 +2922,25 @@ func (m *metricElasticsearchNodePipelineIngestDocumentsCurrent) init() {
 }
 
 func (m *metricElasticsearchNodePipelineIngestDocumentsCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodePipelineIngestDocumentsCurrentMetricAttributeKeyIngestPipelineName) {
-		dp.Attributes().PutStr("name", ingestPipelineNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodePipelineIngestDocumentsCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodePipelineIngestDocumentsCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodePipelineIngestDocumentsCurrent(cfg ElasticsearchNodePipelineIngestDocumentsCurrentMetricConfig) metricElasticsearchNodePipelineIngestDocumentsCurrent {
-	m := metricElasticsearchNodePipelineIngestDocumentsCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodePipelineIngestDocumentsCurrent)
 }
 
 type metricElasticsearchNodePipelineIngestDocumentsPreprocessed struct {
@@ -5364,75 +2963,25 @@ func (m *metricElasticsearchNodePipelineIngestDocumentsPreprocessed) init() {
 }
 
 func (m *metricElasticsearchNodePipelineIngestDocumentsPreprocessed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodePipelineIngestDocumentsPreprocessedMetricAttributeKeyIngestPipelineName) {
-		dp.Attributes().PutStr("name", ingestPipelineNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodePipelineIngestDocumentsPreprocessed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodePipelineIngestDocumentsPreprocessed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodePipelineIngestDocumentsPreprocessed(cfg ElasticsearchNodePipelineIngestDocumentsPreprocessedMetricConfig) metricElasticsearchNodePipelineIngestDocumentsPreprocessed {
-	m := metricElasticsearchNodePipelineIngestDocumentsPreprocessed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodePipelineIngestDocumentsPreprocessed)
 }
 
 type metricElasticsearchNodePipelineIngestOperationsFailed struct {
@@ -5455,75 +3004,25 @@ func (m *metricElasticsearchNodePipelineIngestOperationsFailed) init() {
 }
 
 func (m *metricElasticsearchNodePipelineIngestOperationsFailed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodePipelineIngestOperationsFailedMetricAttributeKeyIngestPipelineName) {
-		dp.Attributes().PutStr("name", ingestPipelineNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodePipelineIngestOperationsFailed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodePipelineIngestOperationsFailed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodePipelineIngestOperationsFailed(cfg ElasticsearchNodePipelineIngestOperationsFailedMetricConfig) metricElasticsearchNodePipelineIngestOperationsFailed {
-	m := metricElasticsearchNodePipelineIngestOperationsFailed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodePipelineIngestOperationsFailed)
 }
 
 type metricElasticsearchNodeScriptCacheEvictions struct {
@@ -5543,39 +3042,25 @@ func (m *metricElasticsearchNodeScriptCacheEvictions) init() {
 }
 
 func (m *metricElasticsearchNodeScriptCacheEvictions) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeScriptCacheEvictions) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeScriptCacheEvictions) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeScriptCacheEvictions(cfg ElasticsearchNodeScriptCacheEvictionsMetricConfig) metricElasticsearchNodeScriptCacheEvictions {
-	m := metricElasticsearchNodeScriptCacheEvictions{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeScriptCacheEvictions)
 }
 
 type metricElasticsearchNodeScriptCompilationLimitTriggered struct {
@@ -5595,39 +3080,25 @@ func (m *metricElasticsearchNodeScriptCompilationLimitTriggered) init() {
 }
 
 func (m *metricElasticsearchNodeScriptCompilationLimitTriggered) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeScriptCompilationLimitTriggered) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeScriptCompilationLimitTriggered) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeScriptCompilationLimitTriggered(cfg ElasticsearchNodeScriptCompilationLimitTriggeredMetricConfig) metricElasticsearchNodeScriptCompilationLimitTriggered {
-	m := metricElasticsearchNodeScriptCompilationLimitTriggered{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeScriptCompilationLimitTriggered)
 }
 
 type metricElasticsearchNodeScriptCompilations struct {
@@ -5647,39 +3118,25 @@ func (m *metricElasticsearchNodeScriptCompilations) init() {
 }
 
 func (m *metricElasticsearchNodeScriptCompilations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeScriptCompilations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeScriptCompilations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeScriptCompilations(cfg ElasticsearchNodeScriptCompilationsMetricConfig) metricElasticsearchNodeScriptCompilations {
-	m := metricElasticsearchNodeScriptCompilations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeScriptCompilations)
 }
 
 type metricElasticsearchNodeSegmentsMemory struct {
@@ -5702,75 +3159,22 @@ func (m *metricElasticsearchNodeSegmentsMemory) init() {
 }
 
 func (m *metricElasticsearchNodeSegmentsMemory) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, segmentsMemoryObjectTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeSegmentsMemoryMetricAttributeKeySegmentsMemoryObjectType) {
-		dp.Attributes().PutStr("object", segmentsMemoryObjectTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeSegmentsMemory) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeSegmentsMemory) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeSegmentsMemory) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeSegmentsMemory(cfg ElasticsearchNodeSegmentsMemoryMetricConfig) metricElasticsearchNodeSegmentsMemory {
-	m := metricElasticsearchNodeSegmentsMemory{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeSegmentsMemory)
 }
 
 type metricElasticsearchNodeShardsDataSetSize struct {
@@ -5790,39 +3194,25 @@ func (m *metricElasticsearchNodeShardsDataSetSize) init() {
 }
 
 func (m *metricElasticsearchNodeShardsDataSetSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeShardsDataSetSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeShardsDataSetSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeShardsDataSetSize(cfg ElasticsearchNodeShardsDataSetSizeMetricConfig) metricElasticsearchNodeShardsDataSetSize {
-	m := metricElasticsearchNodeShardsDataSetSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeShardsDataSetSize)
 }
 
 type metricElasticsearchNodeShardsReservedSize struct {
@@ -5842,39 +3232,25 @@ func (m *metricElasticsearchNodeShardsReservedSize) init() {
 }
 
 func (m *metricElasticsearchNodeShardsReservedSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeShardsReservedSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeShardsReservedSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeShardsReservedSize(cfg ElasticsearchNodeShardsReservedSizeMetricConfig) metricElasticsearchNodeShardsReservedSize {
-	m := metricElasticsearchNodeShardsReservedSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeShardsReservedSize)
 }
 
 type metricElasticsearchNodeShardsSize struct {
@@ -5894,39 +3270,22 @@ func (m *metricElasticsearchNodeShardsSize) init() {
 }
 
 func (m *metricElasticsearchNodeShardsSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeShardsSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeShardsSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeShardsSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeShardsSize(cfg ElasticsearchNodeShardsSizeMetricConfig) metricElasticsearchNodeShardsSize {
-	m := metricElasticsearchNodeShardsSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeShardsSize)
 }
 
 type metricElasticsearchNodeThreadPoolTasksFinished struct {
@@ -5949,78 +3308,25 @@ func (m *metricElasticsearchNodeThreadPoolTasksFinished) init() {
 }
 
 func (m *metricElasticsearchNodeThreadPoolTasksFinished) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string, taskStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeThreadPoolTasksFinishedMetricAttributeKeyThreadPoolName) {
-		dp.Attributes().PutStr("thread_pool_name", threadPoolNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeThreadPoolTasksFinishedMetricAttributeKeyTaskState) {
-		dp.Attributes().PutStr("state", taskStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeThreadPoolTasksFinished) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeThreadPoolTasksFinished) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeThreadPoolTasksFinished(cfg ElasticsearchNodeThreadPoolTasksFinishedMetricConfig) metricElasticsearchNodeThreadPoolTasksFinished {
-	m := metricElasticsearchNodeThreadPoolTasksFinished{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeThreadPoolTasksFinished)
 }
 
 type metricElasticsearchNodeThreadPoolTasksQueued struct {
@@ -6043,75 +3349,25 @@ func (m *metricElasticsearchNodeThreadPoolTasksQueued) init() {
 }
 
 func (m *metricElasticsearchNodeThreadPoolTasksQueued) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeThreadPoolTasksQueuedMetricAttributeKeyThreadPoolName) {
-		dp.Attributes().PutStr("thread_pool_name", threadPoolNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeThreadPoolTasksQueued) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeThreadPoolTasksQueued) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeThreadPoolTasksQueued(cfg ElasticsearchNodeThreadPoolTasksQueuedMetricConfig) metricElasticsearchNodeThreadPoolTasksQueued {
-	m := metricElasticsearchNodeThreadPoolTasksQueued{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeThreadPoolTasksQueued)
 }
 
 type metricElasticsearchNodeThreadPoolThreads struct {
@@ -6134,78 +3390,25 @@ func (m *metricElasticsearchNodeThreadPoolThreads) init() {
 }
 
 func (m *metricElasticsearchNodeThreadPoolThreads) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string, threadStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeThreadPoolThreadsMetricAttributeKeyThreadPoolName) {
-		dp.Attributes().PutStr("thread_pool_name", threadPoolNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchNodeThreadPoolThreadsMetricAttributeKeyThreadState) {
-		dp.Attributes().PutStr("state", threadStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeThreadPoolThreads) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeThreadPoolThreads) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeThreadPoolThreads(cfg ElasticsearchNodeThreadPoolThreadsMetricConfig) metricElasticsearchNodeThreadPoolThreads {
-	m := metricElasticsearchNodeThreadPoolThreads{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeThreadPoolThreads)
 }
 
 type metricElasticsearchNodeTranslogOperations struct {
@@ -6225,39 +3428,25 @@ func (m *metricElasticsearchNodeTranslogOperations) init() {
 }
 
 func (m *metricElasticsearchNodeTranslogOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeTranslogOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeTranslogOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeTranslogOperations(cfg ElasticsearchNodeTranslogOperationsMetricConfig) metricElasticsearchNodeTranslogOperations {
-	m := metricElasticsearchNodeTranslogOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeTranslogOperations)
 }
 
 type metricElasticsearchNodeTranslogSize struct {
@@ -6277,39 +3466,22 @@ func (m *metricElasticsearchNodeTranslogSize) init() {
 }
 
 func (m *metricElasticsearchNodeTranslogSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchNodeTranslogSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchNodeTranslogSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeTranslogSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeTranslogSize(cfg ElasticsearchNodeTranslogSizeMetricConfig) metricElasticsearchNodeTranslogSize {
-	m := metricElasticsearchNodeTranslogSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeTranslogSize)
 }
 
 type metricElasticsearchNodeTranslogUncommittedSize struct {
@@ -6329,39 +3501,25 @@ func (m *metricElasticsearchNodeTranslogUncommittedSize) init() {
 }
 
 func (m *metricElasticsearchNodeTranslogUncommittedSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchNodeTranslogUncommittedSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchNodeTranslogUncommittedSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchNodeTranslogUncommittedSize(cfg ElasticsearchNodeTranslogUncommittedSizeMetricConfig) metricElasticsearchNodeTranslogUncommittedSize {
-	m := metricElasticsearchNodeTranslogUncommittedSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchNodeTranslogUncommittedSize)
 }
 
 type metricElasticsearchOsCPULoadAvg15m struct {
@@ -6379,39 +3537,22 @@ func (m *metricElasticsearchOsCPULoadAvg15m) init() {
 }
 
 func (m *metricElasticsearchOsCPULoadAvg15m) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchOsCPULoadAvg15m) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchOsCPULoadAvg15m) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchOsCPULoadAvg15m) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchOsCPULoadAvg15m(cfg ElasticsearchOsCPULoadAvg15mMetricConfig) metricElasticsearchOsCPULoadAvg15m {
-	m := metricElasticsearchOsCPULoadAvg15m{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchOsCPULoadAvg15m)
 }
 
 type metricElasticsearchOsCPULoadAvg1m struct {
@@ -6429,39 +3570,22 @@ func (m *metricElasticsearchOsCPULoadAvg1m) init() {
 }
 
 func (m *metricElasticsearchOsCPULoadAvg1m) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchOsCPULoadAvg1m) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchOsCPULoadAvg1m) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchOsCPULoadAvg1m) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchOsCPULoadAvg1m(cfg ElasticsearchOsCPULoadAvg1mMetricConfig) metricElasticsearchOsCPULoadAvg1m {
-	m := metricElasticsearchOsCPULoadAvg1m{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchOsCPULoadAvg1m)
 }
 
 type metricElasticsearchOsCPULoadAvg5m struct {
@@ -6479,39 +3603,22 @@ func (m *metricElasticsearchOsCPULoadAvg5m) init() {
 }
 
 func (m *metricElasticsearchOsCPULoadAvg5m) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchOsCPULoadAvg5m) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchOsCPULoadAvg5m) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchOsCPULoadAvg5m) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchOsCPULoadAvg5m(cfg ElasticsearchOsCPULoadAvg5mMetricConfig) metricElasticsearchOsCPULoadAvg5m {
-	m := metricElasticsearchOsCPULoadAvg5m{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchOsCPULoadAvg5m)
 }
 
 type metricElasticsearchOsCPUUsage struct {
@@ -6529,39 +3636,22 @@ func (m *metricElasticsearchOsCPUUsage) init() {
 }
 
 func (m *metricElasticsearchOsCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchOsCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchOsCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchOsCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchOsCPUUsage(cfg ElasticsearchOsCPUUsageMetricConfig) metricElasticsearchOsCPUUsage {
-	m := metricElasticsearchOsCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchOsCPUUsage)
 }
 
 type metricElasticsearchOsMemory struct {
@@ -6582,75 +3672,22 @@ func (m *metricElasticsearchOsMemory) init() {
 }
 
 func (m *metricElasticsearchOsMemory) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, memoryStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ElasticsearchOsMemoryMetricAttributeKeyMemoryState) {
-		dp.Attributes().PutStr("state", memoryStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchOsMemory) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchOsMemory) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchOsMemory) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchOsMemory(cfg ElasticsearchOsMemoryMetricConfig) metricElasticsearchOsMemory {
-	m := metricElasticsearchOsMemory{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchOsMemory)
 }
 
 type metricElasticsearchProcessCPUTime struct {
@@ -6670,39 +3707,22 @@ func (m *metricElasticsearchProcessCPUTime) init() {
 }
 
 func (m *metricElasticsearchProcessCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchProcessCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchProcessCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchProcessCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchProcessCPUTime(cfg ElasticsearchProcessCPUTimeMetricConfig) metricElasticsearchProcessCPUTime {
-	m := metricElasticsearchProcessCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchProcessCPUTime)
 }
 
 type metricElasticsearchProcessCPUUsage struct {
@@ -6720,39 +3740,22 @@ func (m *metricElasticsearchProcessCPUUsage) init() {
 }
 
 func (m *metricElasticsearchProcessCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricElasticsearchProcessCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricElasticsearchProcessCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchProcessCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchProcessCPUUsage(cfg ElasticsearchProcessCPUUsageMetricConfig) metricElasticsearchProcessCPUUsage {
-	m := metricElasticsearchProcessCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchProcessCPUUsage)
 }
 
 type metricElasticsearchProcessMemoryVirtual struct {
@@ -6772,39 +3775,25 @@ func (m *metricElasticsearchProcessMemoryVirtual) init() {
 }
 
 func (m *metricElasticsearchProcessMemoryVirtual) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricElasticsearchProcessMemoryVirtual) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricElasticsearchProcessMemoryVirtual) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricElasticsearchProcessMemoryVirtual(cfg ElasticsearchProcessMemoryVirtualMetricConfig) metricElasticsearchProcessMemoryVirtual {
-	m := metricElasticsearchProcessMemoryVirtual{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricElasticsearchProcessMemoryVirtual)
 }
 
 type metricJvmClassesLoaded struct {
@@ -6822,39 +3811,22 @@ func (m *metricJvmClassesLoaded) init() {
 }
 
 func (m *metricJvmClassesLoaded) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmClassesLoaded) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmClassesLoaded) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmClassesLoaded) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmClassesLoaded(cfg JvmClassesLoadedMetricConfig) metricJvmClassesLoaded {
-	m := metricJvmClassesLoaded{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmClassesLoaded)
 }
 
 type metricJvmGcCollectionsCount struct {
@@ -6877,75 +3849,22 @@ func (m *metricJvmGcCollectionsCount) init() {
 }
 
 func (m *metricJvmGcCollectionsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, collectorNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, JvmGcCollectionsCountMetricAttributeKeyCollectorName) {
-		dp.Attributes().PutStr("name", collectorNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmGcCollectionsCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricJvmGcCollectionsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmGcCollectionsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmGcCollectionsCount(cfg JvmGcCollectionsCountMetricConfig) metricJvmGcCollectionsCount {
-	m := metricJvmGcCollectionsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmGcCollectionsCount)
 }
 
 type metricJvmGcCollectionsElapsed struct {
@@ -6968,75 +3887,22 @@ func (m *metricJvmGcCollectionsElapsed) init() {
 }
 
 func (m *metricJvmGcCollectionsElapsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, collectorNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, JvmGcCollectionsElapsedMetricAttributeKeyCollectorName) {
-		dp.Attributes().PutStr("name", collectorNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmGcCollectionsElapsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricJvmGcCollectionsElapsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmGcCollectionsElapsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmGcCollectionsElapsed(cfg JvmGcCollectionsElapsedMetricConfig) metricJvmGcCollectionsElapsed {
-	m := metricJvmGcCollectionsElapsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmGcCollectionsElapsed)
 }
 
 type metricJvmMemoryHeapCommitted struct {
@@ -7054,39 +3920,22 @@ func (m *metricJvmMemoryHeapCommitted) init() {
 }
 
 func (m *metricJvmMemoryHeapCommitted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryHeapCommitted) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryHeapCommitted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryHeapCommitted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryHeapCommitted(cfg JvmMemoryHeapCommittedMetricConfig) metricJvmMemoryHeapCommitted {
-	m := metricJvmMemoryHeapCommitted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryHeapCommitted)
 }
 
 type metricJvmMemoryHeapMax struct {
@@ -7104,39 +3953,22 @@ func (m *metricJvmMemoryHeapMax) init() {
 }
 
 func (m *metricJvmMemoryHeapMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryHeapMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryHeapMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryHeapMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryHeapMax(cfg JvmMemoryHeapMaxMetricConfig) metricJvmMemoryHeapMax {
-	m := metricJvmMemoryHeapMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryHeapMax)
 }
 
 type metricJvmMemoryHeapUsed struct {
@@ -7154,39 +3986,22 @@ func (m *metricJvmMemoryHeapUsed) init() {
 }
 
 func (m *metricJvmMemoryHeapUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryHeapUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryHeapUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryHeapUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryHeapUsed(cfg JvmMemoryHeapUsedMetricConfig) metricJvmMemoryHeapUsed {
-	m := metricJvmMemoryHeapUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryHeapUsed)
 }
 
 type metricJvmMemoryHeapUtilization struct {
@@ -7204,39 +4019,22 @@ func (m *metricJvmMemoryHeapUtilization) init() {
 }
 
 func (m *metricJvmMemoryHeapUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryHeapUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryHeapUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryHeapUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryHeapUtilization(cfg JvmMemoryHeapUtilizationMetricConfig) metricJvmMemoryHeapUtilization {
-	m := metricJvmMemoryHeapUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryHeapUtilization)
 }
 
 type metricJvmMemoryNonheapCommitted struct {
@@ -7254,39 +4052,22 @@ func (m *metricJvmMemoryNonheapCommitted) init() {
 }
 
 func (m *metricJvmMemoryNonheapCommitted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryNonheapCommitted) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryNonheapCommitted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryNonheapCommitted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryNonheapCommitted(cfg JvmMemoryNonheapCommittedMetricConfig) metricJvmMemoryNonheapCommitted {
-	m := metricJvmMemoryNonheapCommitted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryNonheapCommitted)
 }
 
 type metricJvmMemoryNonheapUsed struct {
@@ -7304,39 +4085,22 @@ func (m *metricJvmMemoryNonheapUsed) init() {
 }
 
 func (m *metricJvmMemoryNonheapUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryNonheapUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryNonheapUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryNonheapUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryNonheapUsed(cfg JvmMemoryNonheapUsedMetricConfig) metricJvmMemoryNonheapUsed {
-	m := metricJvmMemoryNonheapUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryNonheapUsed)
 }
 
 type metricJvmMemoryPoolMax struct {
@@ -7357,75 +4121,22 @@ func (m *metricJvmMemoryPoolMax) init() {
 }
 
 func (m *metricJvmMemoryPoolMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, memoryPoolNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, JvmMemoryPoolMaxMetricAttributeKeyMemoryPoolName) {
-		dp.Attributes().PutStr("name", memoryPoolNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryPoolMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryPoolMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryPoolMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryPoolMax(cfg JvmMemoryPoolMaxMetricConfig) metricJvmMemoryPoolMax {
-	m := metricJvmMemoryPoolMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryPoolMax)
 }
 
 type metricJvmMemoryPoolUsed struct {
@@ -7446,75 +4157,22 @@ func (m *metricJvmMemoryPoolUsed) init() {
 }
 
 func (m *metricJvmMemoryPoolUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, memoryPoolNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, JvmMemoryPoolUsedMetricAttributeKeyMemoryPoolName) {
-		dp.Attributes().PutStr("name", memoryPoolNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmMemoryPoolUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmMemoryPoolUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmMemoryPoolUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmMemoryPoolUsed(cfg JvmMemoryPoolUsedMetricConfig) metricJvmMemoryPoolUsed {
-	m := metricJvmMemoryPoolUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmMemoryPoolUsed)
 }
 
 type metricJvmThreadsCount struct {
@@ -7532,39 +4190,22 @@ func (m *metricJvmThreadsCount) init() {
 }
 
 func (m *metricJvmThreadsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricJvmThreadsCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricJvmThreadsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricJvmThreadsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricJvmThreadsCount(cfg JvmThreadsCountMetricConfig) metricJvmThreadsCount {
-	m := metricJvmThreadsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricJvmThreadsCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -7679,157 +4320,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:        mbc,
-		startTime:     pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer: pmetric.NewMetrics(),
-		buildInfo:     settings.BuildInfo,
-		metricElasticsearchBreakerMemoryEstimated:                       newMetricElasticsearchBreakerMemoryEstimated(mbc.Metrics.ElasticsearchBreakerMemoryEstimated),
-		metricElasticsearchBreakerMemoryLimit:                           newMetricElasticsearchBreakerMemoryLimit(mbc.Metrics.ElasticsearchBreakerMemoryLimit),
-		metricElasticsearchBreakerTripped:                               newMetricElasticsearchBreakerTripped(mbc.Metrics.ElasticsearchBreakerTripped),
-		metricElasticsearchClusterDataNodes:                             newMetricElasticsearchClusterDataNodes(mbc.Metrics.ElasticsearchClusterDataNodes),
-		metricElasticsearchClusterHealth:                                newMetricElasticsearchClusterHealth(mbc.Metrics.ElasticsearchClusterHealth),
-		metricElasticsearchClusterInFlightFetch:                         newMetricElasticsearchClusterInFlightFetch(mbc.Metrics.ElasticsearchClusterInFlightFetch),
-		metricElasticsearchClusterIndicesCacheEvictions:                 newMetricElasticsearchClusterIndicesCacheEvictions(mbc.Metrics.ElasticsearchClusterIndicesCacheEvictions),
-		metricElasticsearchClusterNodes:                                 newMetricElasticsearchClusterNodes(mbc.Metrics.ElasticsearchClusterNodes),
-		metricElasticsearchClusterPendingTasks:                          newMetricElasticsearchClusterPendingTasks(mbc.Metrics.ElasticsearchClusterPendingTasks),
-		metricElasticsearchClusterPublishedStatesDifferences:            newMetricElasticsearchClusterPublishedStatesDifferences(mbc.Metrics.ElasticsearchClusterPublishedStatesDifferences),
-		metricElasticsearchClusterPublishedStatesFull:                   newMetricElasticsearchClusterPublishedStatesFull(mbc.Metrics.ElasticsearchClusterPublishedStatesFull),
-		metricElasticsearchClusterShards:                                newMetricElasticsearchClusterShards(mbc.Metrics.ElasticsearchClusterShards),
-		metricElasticsearchClusterStateQueue:                            newMetricElasticsearchClusterStateQueue(mbc.Metrics.ElasticsearchClusterStateQueue),
-		metricElasticsearchClusterStateUpdateCount:                      newMetricElasticsearchClusterStateUpdateCount(mbc.Metrics.ElasticsearchClusterStateUpdateCount),
-		metricElasticsearchClusterStateUpdateTime:                       newMetricElasticsearchClusterStateUpdateTime(mbc.Metrics.ElasticsearchClusterStateUpdateTime),
-		metricElasticsearchIndexCacheEvictions:                          newMetricElasticsearchIndexCacheEvictions(mbc.Metrics.ElasticsearchIndexCacheEvictions),
-		metricElasticsearchIndexCacheMemoryUsage:                        newMetricElasticsearchIndexCacheMemoryUsage(mbc.Metrics.ElasticsearchIndexCacheMemoryUsage),
-		metricElasticsearchIndexCacheSize:                               newMetricElasticsearchIndexCacheSize(mbc.Metrics.ElasticsearchIndexCacheSize),
-		metricElasticsearchIndexDocuments:                               newMetricElasticsearchIndexDocuments(mbc.Metrics.ElasticsearchIndexDocuments),
-		metricElasticsearchIndexOperationsCompleted:                     newMetricElasticsearchIndexOperationsCompleted(mbc.Metrics.ElasticsearchIndexOperationsCompleted),
-		metricElasticsearchIndexOperationsMergeCurrent:                  newMetricElasticsearchIndexOperationsMergeCurrent(mbc.Metrics.ElasticsearchIndexOperationsMergeCurrent),
-		metricElasticsearchIndexOperationsMergeDocsCount:                newMetricElasticsearchIndexOperationsMergeDocsCount(mbc.Metrics.ElasticsearchIndexOperationsMergeDocsCount),
-		metricElasticsearchIndexOperationsMergeSize:                     newMetricElasticsearchIndexOperationsMergeSize(mbc.Metrics.ElasticsearchIndexOperationsMergeSize),
-		metricElasticsearchIndexOperationsTime:                          newMetricElasticsearchIndexOperationsTime(mbc.Metrics.ElasticsearchIndexOperationsTime),
-		metricElasticsearchIndexSegmentsCount:                           newMetricElasticsearchIndexSegmentsCount(mbc.Metrics.ElasticsearchIndexSegmentsCount),
-		metricElasticsearchIndexSegmentsMemory:                          newMetricElasticsearchIndexSegmentsMemory(mbc.Metrics.ElasticsearchIndexSegmentsMemory),
-		metricElasticsearchIndexSegmentsSize:                            newMetricElasticsearchIndexSegmentsSize(mbc.Metrics.ElasticsearchIndexSegmentsSize),
-		metricElasticsearchIndexShardsSize:                              newMetricElasticsearchIndexShardsSize(mbc.Metrics.ElasticsearchIndexShardsSize),
-		metricElasticsearchIndexTranslogOperations:                      newMetricElasticsearchIndexTranslogOperations(mbc.Metrics.ElasticsearchIndexTranslogOperations),
-		metricElasticsearchIndexTranslogSize:                            newMetricElasticsearchIndexTranslogSize(mbc.Metrics.ElasticsearchIndexTranslogSize),
-		metricElasticsearchIndexingPressureMemoryLimit:                  newMetricElasticsearchIndexingPressureMemoryLimit(mbc.Metrics.ElasticsearchIndexingPressureMemoryLimit),
-		metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections: newMetricElasticsearchIndexingPressureMemoryTotalPrimaryRejections(mbc.Metrics.ElasticsearchIndexingPressureMemoryTotalPrimaryRejections),
-		metricElasticsearchIndexingPressureMemoryTotalReplicaRejections: newMetricElasticsearchIndexingPressureMemoryTotalReplicaRejections(mbc.Metrics.ElasticsearchIndexingPressureMemoryTotalReplicaRejections),
-		metricElasticsearchMemoryIndexingPressure:                       newMetricElasticsearchMemoryIndexingPressure(mbc.Metrics.ElasticsearchMemoryIndexingPressure),
-		metricElasticsearchNodeCacheCount:                               newMetricElasticsearchNodeCacheCount(mbc.Metrics.ElasticsearchNodeCacheCount),
-		metricElasticsearchNodeCacheEvictions:                           newMetricElasticsearchNodeCacheEvictions(mbc.Metrics.ElasticsearchNodeCacheEvictions),
-		metricElasticsearchNodeCacheMemoryUsage:                         newMetricElasticsearchNodeCacheMemoryUsage(mbc.Metrics.ElasticsearchNodeCacheMemoryUsage),
-		metricElasticsearchNodeCacheSize:                                newMetricElasticsearchNodeCacheSize(mbc.Metrics.ElasticsearchNodeCacheSize),
-		metricElasticsearchNodeClusterConnections:                       newMetricElasticsearchNodeClusterConnections(mbc.Metrics.ElasticsearchNodeClusterConnections),
-		metricElasticsearchNodeClusterIo:                                newMetricElasticsearchNodeClusterIo(mbc.Metrics.ElasticsearchNodeClusterIo),
-		metricElasticsearchNodeDiskIoRead:                               newMetricElasticsearchNodeDiskIoRead(mbc.Metrics.ElasticsearchNodeDiskIoRead),
-		metricElasticsearchNodeDiskIoWrite:                              newMetricElasticsearchNodeDiskIoWrite(mbc.Metrics.ElasticsearchNodeDiskIoWrite),
-		metricElasticsearchNodeDocuments:                                newMetricElasticsearchNodeDocuments(mbc.Metrics.ElasticsearchNodeDocuments),
-		metricElasticsearchNodeFsDiskAvailable:                          newMetricElasticsearchNodeFsDiskAvailable(mbc.Metrics.ElasticsearchNodeFsDiskAvailable),
-		metricElasticsearchNodeFsDiskFree:                               newMetricElasticsearchNodeFsDiskFree(mbc.Metrics.ElasticsearchNodeFsDiskFree),
-		metricElasticsearchNodeFsDiskTotal:                              newMetricElasticsearchNodeFsDiskTotal(mbc.Metrics.ElasticsearchNodeFsDiskTotal),
-		metricElasticsearchNodeHTTPConnections:                          newMetricElasticsearchNodeHTTPConnections(mbc.Metrics.ElasticsearchNodeHTTPConnections),
-		metricElasticsearchNodeIngestDocuments:                          newMetricElasticsearchNodeIngestDocuments(mbc.Metrics.ElasticsearchNodeIngestDocuments),
-		metricElasticsearchNodeIngestDocumentsCurrent:                   newMetricElasticsearchNodeIngestDocumentsCurrent(mbc.Metrics.ElasticsearchNodeIngestDocumentsCurrent),
-		metricElasticsearchNodeIngestOperationsFailed:                   newMetricElasticsearchNodeIngestOperationsFailed(mbc.Metrics.ElasticsearchNodeIngestOperationsFailed),
-		metricElasticsearchNodeOpenFiles:                                newMetricElasticsearchNodeOpenFiles(mbc.Metrics.ElasticsearchNodeOpenFiles),
-		metricElasticsearchNodeOperationsCompleted:                      newMetricElasticsearchNodeOperationsCompleted(mbc.Metrics.ElasticsearchNodeOperationsCompleted),
-		metricElasticsearchNodeOperationsCurrent:                        newMetricElasticsearchNodeOperationsCurrent(mbc.Metrics.ElasticsearchNodeOperationsCurrent),
-		metricElasticsearchNodeOperationsGetCompleted:                   newMetricElasticsearchNodeOperationsGetCompleted(mbc.Metrics.ElasticsearchNodeOperationsGetCompleted),
-		metricElasticsearchNodeOperationsGetTime:                        newMetricElasticsearchNodeOperationsGetTime(mbc.Metrics.ElasticsearchNodeOperationsGetTime),
-		metricElasticsearchNodeOperationsTime:                           newMetricElasticsearchNodeOperationsTime(mbc.Metrics.ElasticsearchNodeOperationsTime),
-		metricElasticsearchNodePipelineIngestDocumentsCurrent:           newMetricElasticsearchNodePipelineIngestDocumentsCurrent(mbc.Metrics.ElasticsearchNodePipelineIngestDocumentsCurrent),
-		metricElasticsearchNodePipelineIngestDocumentsPreprocessed:      newMetricElasticsearchNodePipelineIngestDocumentsPreprocessed(mbc.Metrics.ElasticsearchNodePipelineIngestDocumentsPreprocessed),
-		metricElasticsearchNodePipelineIngestOperationsFailed:           newMetricElasticsearchNodePipelineIngestOperationsFailed(mbc.Metrics.ElasticsearchNodePipelineIngestOperationsFailed),
-		metricElasticsearchNodeScriptCacheEvictions:                     newMetricElasticsearchNodeScriptCacheEvictions(mbc.Metrics.ElasticsearchNodeScriptCacheEvictions),
-		metricElasticsearchNodeScriptCompilationLimitTriggered:          newMetricElasticsearchNodeScriptCompilationLimitTriggered(mbc.Metrics.ElasticsearchNodeScriptCompilationLimitTriggered),
-		metricElasticsearchNodeScriptCompilations:                       newMetricElasticsearchNodeScriptCompilations(mbc.Metrics.ElasticsearchNodeScriptCompilations),
-		metricElasticsearchNodeSegmentsMemory:                           newMetricElasticsearchNodeSegmentsMemory(mbc.Metrics.ElasticsearchNodeSegmentsMemory),
-		metricElasticsearchNodeShardsDataSetSize:                        newMetricElasticsearchNodeShardsDataSetSize(mbc.Metrics.ElasticsearchNodeShardsDataSetSize),
-		metricElasticsearchNodeShardsReservedSize:                       newMetricElasticsearchNodeShardsReservedSize(mbc.Metrics.ElasticsearchNodeShardsReservedSize),
-		metricElasticsearchNodeShardsSize:                               newMetricElasticsearchNodeShardsSize(mbc.Metrics.ElasticsearchNodeShardsSize),
-		metricElasticsearchNodeThreadPoolTasksFinished:                  newMetricElasticsearchNodeThreadPoolTasksFinished(mbc.Metrics.ElasticsearchNodeThreadPoolTasksFinished),
-		metricElasticsearchNodeThreadPoolTasksQueued:                    newMetricElasticsearchNodeThreadPoolTasksQueued(mbc.Metrics.ElasticsearchNodeThreadPoolTasksQueued),
-		metricElasticsearchNodeThreadPoolThreads:                        newMetricElasticsearchNodeThreadPoolThreads(mbc.Metrics.ElasticsearchNodeThreadPoolThreads),
-		metricElasticsearchNodeTranslogOperations:                       newMetricElasticsearchNodeTranslogOperations(mbc.Metrics.ElasticsearchNodeTranslogOperations),
-		metricElasticsearchNodeTranslogSize:                             newMetricElasticsearchNodeTranslogSize(mbc.Metrics.ElasticsearchNodeTranslogSize),
-		metricElasticsearchNodeTranslogUncommittedSize:                  newMetricElasticsearchNodeTranslogUncommittedSize(mbc.Metrics.ElasticsearchNodeTranslogUncommittedSize),
-		metricElasticsearchOsCPULoadAvg15m:                              newMetricElasticsearchOsCPULoadAvg15m(mbc.Metrics.ElasticsearchOsCPULoadAvg15m),
-		metricElasticsearchOsCPULoadAvg1m:                               newMetricElasticsearchOsCPULoadAvg1m(mbc.Metrics.ElasticsearchOsCPULoadAvg1m),
-		metricElasticsearchOsCPULoadAvg5m:                               newMetricElasticsearchOsCPULoadAvg5m(mbc.Metrics.ElasticsearchOsCPULoadAvg5m),
-		metricElasticsearchOsCPUUsage:                                   newMetricElasticsearchOsCPUUsage(mbc.Metrics.ElasticsearchOsCPUUsage),
-		metricElasticsearchOsMemory:                                     newMetricElasticsearchOsMemory(mbc.Metrics.ElasticsearchOsMemory),
-		metricElasticsearchProcessCPUTime:                               newMetricElasticsearchProcessCPUTime(mbc.Metrics.ElasticsearchProcessCPUTime),
-		metricElasticsearchProcessCPUUsage:                              newMetricElasticsearchProcessCPUUsage(mbc.Metrics.ElasticsearchProcessCPUUsage),
-		metricElasticsearchProcessMemoryVirtual:                         newMetricElasticsearchProcessMemoryVirtual(mbc.Metrics.ElasticsearchProcessMemoryVirtual),
-		metricJvmClassesLoaded:                                          newMetricJvmClassesLoaded(mbc.Metrics.JvmClassesLoaded),
-		metricJvmGcCollectionsCount:                                     newMetricJvmGcCollectionsCount(mbc.Metrics.JvmGcCollectionsCount),
-		metricJvmGcCollectionsElapsed:                                   newMetricJvmGcCollectionsElapsed(mbc.Metrics.JvmGcCollectionsElapsed),
-		metricJvmMemoryHeapCommitted:                                    newMetricJvmMemoryHeapCommitted(mbc.Metrics.JvmMemoryHeapCommitted),
-		metricJvmMemoryHeapMax:                                          newMetricJvmMemoryHeapMax(mbc.Metrics.JvmMemoryHeapMax),
-		metricJvmMemoryHeapUsed:                                         newMetricJvmMemoryHeapUsed(mbc.Metrics.JvmMemoryHeapUsed),
-		metricJvmMemoryHeapUtilization:                                  newMetricJvmMemoryHeapUtilization(mbc.Metrics.JvmMemoryHeapUtilization),
-		metricJvmMemoryNonheapCommitted:                                 newMetricJvmMemoryNonheapCommitted(mbc.Metrics.JvmMemoryNonheapCommitted),
-		metricJvmMemoryNonheapUsed:                                      newMetricJvmMemoryNonheapUsed(mbc.Metrics.JvmMemoryNonheapUsed),
-		metricJvmMemoryPoolMax:                                          newMetricJvmMemoryPoolMax(mbc.Metrics.JvmMemoryPoolMax),
-		metricJvmMemoryPoolUsed:                                         newMetricJvmMemoryPoolUsed(mbc.Metrics.JvmMemoryPoolUsed),
-		metricJvmThreadsCount:                                           newMetricJvmThreadsCount(mbc.Metrics.JvmThreadsCount),
-		resourceAttributeIncludeFilter:                                  make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                                  make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.ElasticsearchClusterName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["elasticsearch.cluster.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchClusterName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchClusterName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["elasticsearch.cluster.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchClusterName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchIndexName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["elasticsearch.index.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchIndexName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchIndexName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["elasticsearch.index.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchIndexName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchNodeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["elasticsearch.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchNodeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchNodeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["elasticsearch.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchNodeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchNodeVersion.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["elasticsearch.node.version"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchNodeVersion.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ElasticsearchNodeVersion.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["elasticsearch.node.version"] = filter.CreateFilter(mbc.ResourceAttributes.ElasticsearchNodeVersion.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -7840,35 +4356,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -7877,599 +4381,570 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricElasticsearchBreakerMemoryEstimated.emit(ils.Metrics())
-	mb.metricElasticsearchBreakerMemoryLimit.emit(ils.Metrics())
-	mb.metricElasticsearchBreakerTripped.emit(ils.Metrics())
-	mb.metricElasticsearchClusterDataNodes.emit(ils.Metrics())
-	mb.metricElasticsearchClusterHealth.emit(ils.Metrics())
-	mb.metricElasticsearchClusterInFlightFetch.emit(ils.Metrics())
-	mb.metricElasticsearchClusterIndicesCacheEvictions.emit(ils.Metrics())
-	mb.metricElasticsearchClusterNodes.emit(ils.Metrics())
-	mb.metricElasticsearchClusterPendingTasks.emit(ils.Metrics())
-	mb.metricElasticsearchClusterPublishedStatesDifferences.emit(ils.Metrics())
-	mb.metricElasticsearchClusterPublishedStatesFull.emit(ils.Metrics())
-	mb.metricElasticsearchClusterShards.emit(ils.Metrics())
-	mb.metricElasticsearchClusterStateQueue.emit(ils.Metrics())
-	mb.metricElasticsearchClusterStateUpdateCount.emit(ils.Metrics())
-	mb.metricElasticsearchClusterStateUpdateTime.emit(ils.Metrics())
-	mb.metricElasticsearchIndexCacheEvictions.emit(ils.Metrics())
-	mb.metricElasticsearchIndexCacheMemoryUsage.emit(ils.Metrics())
-	mb.metricElasticsearchIndexCacheSize.emit(ils.Metrics())
-	mb.metricElasticsearchIndexDocuments.emit(ils.Metrics())
-	mb.metricElasticsearchIndexOperationsCompleted.emit(ils.Metrics())
-	mb.metricElasticsearchIndexOperationsMergeCurrent.emit(ils.Metrics())
-	mb.metricElasticsearchIndexOperationsMergeDocsCount.emit(ils.Metrics())
-	mb.metricElasticsearchIndexOperationsMergeSize.emit(ils.Metrics())
-	mb.metricElasticsearchIndexOperationsTime.emit(ils.Metrics())
-	mb.metricElasticsearchIndexSegmentsCount.emit(ils.Metrics())
-	mb.metricElasticsearchIndexSegmentsMemory.emit(ils.Metrics())
-	mb.metricElasticsearchIndexSegmentsSize.emit(ils.Metrics())
-	mb.metricElasticsearchIndexShardsSize.emit(ils.Metrics())
-	mb.metricElasticsearchIndexTranslogOperations.emit(ils.Metrics())
-	mb.metricElasticsearchIndexTranslogSize.emit(ils.Metrics())
-	mb.metricElasticsearchIndexingPressureMemoryLimit.emit(ils.Metrics())
-	mb.metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections.emit(ils.Metrics())
-	mb.metricElasticsearchIndexingPressureMemoryTotalReplicaRejections.emit(ils.Metrics())
-	mb.metricElasticsearchMemoryIndexingPressure.emit(ils.Metrics())
-	mb.metricElasticsearchNodeCacheCount.emit(ils.Metrics())
-	mb.metricElasticsearchNodeCacheEvictions.emit(ils.Metrics())
-	mb.metricElasticsearchNodeCacheMemoryUsage.emit(ils.Metrics())
-	mb.metricElasticsearchNodeCacheSize.emit(ils.Metrics())
-	mb.metricElasticsearchNodeClusterConnections.emit(ils.Metrics())
-	mb.metricElasticsearchNodeClusterIo.emit(ils.Metrics())
-	mb.metricElasticsearchNodeDiskIoRead.emit(ils.Metrics())
-	mb.metricElasticsearchNodeDiskIoWrite.emit(ils.Metrics())
-	mb.metricElasticsearchNodeDocuments.emit(ils.Metrics())
-	mb.metricElasticsearchNodeFsDiskAvailable.emit(ils.Metrics())
-	mb.metricElasticsearchNodeFsDiskFree.emit(ils.Metrics())
-	mb.metricElasticsearchNodeFsDiskTotal.emit(ils.Metrics())
-	mb.metricElasticsearchNodeHTTPConnections.emit(ils.Metrics())
-	mb.metricElasticsearchNodeIngestDocuments.emit(ils.Metrics())
-	mb.metricElasticsearchNodeIngestDocumentsCurrent.emit(ils.Metrics())
-	mb.metricElasticsearchNodeIngestOperationsFailed.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOpenFiles.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOperationsCompleted.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOperationsCurrent.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOperationsGetCompleted.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOperationsGetTime.emit(ils.Metrics())
-	mb.metricElasticsearchNodeOperationsTime.emit(ils.Metrics())
-	mb.metricElasticsearchNodePipelineIngestDocumentsCurrent.emit(ils.Metrics())
-	mb.metricElasticsearchNodePipelineIngestDocumentsPreprocessed.emit(ils.Metrics())
-	mb.metricElasticsearchNodePipelineIngestOperationsFailed.emit(ils.Metrics())
-	mb.metricElasticsearchNodeScriptCacheEvictions.emit(ils.Metrics())
-	mb.metricElasticsearchNodeScriptCompilationLimitTriggered.emit(ils.Metrics())
-	mb.metricElasticsearchNodeScriptCompilations.emit(ils.Metrics())
-	mb.metricElasticsearchNodeSegmentsMemory.emit(ils.Metrics())
-	mb.metricElasticsearchNodeShardsDataSetSize.emit(ils.Metrics())
-	mb.metricElasticsearchNodeShardsReservedSize.emit(ils.Metrics())
-	mb.metricElasticsearchNodeShardsSize.emit(ils.Metrics())
-	mb.metricElasticsearchNodeThreadPoolTasksFinished.emit(ils.Metrics())
-	mb.metricElasticsearchNodeThreadPoolTasksQueued.emit(ils.Metrics())
-	mb.metricElasticsearchNodeThreadPoolThreads.emit(ils.Metrics())
-	mb.metricElasticsearchNodeTranslogOperations.emit(ils.Metrics())
-	mb.metricElasticsearchNodeTranslogSize.emit(ils.Metrics())
-	mb.metricElasticsearchNodeTranslogUncommittedSize.emit(ils.Metrics())
-	mb.metricElasticsearchOsCPULoadAvg15m.emit(ils.Metrics())
-	mb.metricElasticsearchOsCPULoadAvg1m.emit(ils.Metrics())
-	mb.metricElasticsearchOsCPULoadAvg5m.emit(ils.Metrics())
-	mb.metricElasticsearchOsCPUUsage.emit(ils.Metrics())
-	mb.metricElasticsearchOsMemory.emit(ils.Metrics())
-	mb.metricElasticsearchProcessCPUTime.emit(ils.Metrics())
-	mb.metricElasticsearchProcessCPUUsage.emit(ils.Metrics())
-	mb.metricElasticsearchProcessMemoryVirtual.emit(ils.Metrics())
-	mb.metricJvmClassesLoaded.emit(ils.Metrics())
-	mb.metricJvmGcCollectionsCount.emit(ils.Metrics())
-	mb.metricJvmGcCollectionsElapsed.emit(ils.Metrics())
-	mb.metricJvmMemoryHeapCommitted.emit(ils.Metrics())
-	mb.metricJvmMemoryHeapMax.emit(ils.Metrics())
-	mb.metricJvmMemoryHeapUsed.emit(ils.Metrics())
-	mb.metricJvmMemoryHeapUtilization.emit(ils.Metrics())
-	mb.metricJvmMemoryNonheapCommitted.emit(ils.Metrics())
-	mb.metricJvmMemoryNonheapUsed.emit(ils.Metrics())
-	mb.metricJvmMemoryPoolMax.emit(ils.Metrics())
-	mb.metricJvmMemoryPoolUsed.emit(ils.Metrics())
-	mb.metricJvmThreadsCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordElasticsearchBreakerMemoryEstimatedDataPoint adds a data point to elasticsearch.breaker.memory.estimated metric.
 func (mb *MetricsBuilder) RecordElasticsearchBreakerMemoryEstimatedDataPoint(ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	mb.metricElasticsearchBreakerMemoryEstimated.recordDataPoint(mb.startTime, ts, val, circuitBreakerNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchBreakerMemoryLimitDataPoint adds a data point to elasticsearch.breaker.memory.limit metric.
 func (mb *MetricsBuilder) RecordElasticsearchBreakerMemoryLimitDataPoint(ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	mb.metricElasticsearchBreakerMemoryLimit.recordDataPoint(mb.startTime, ts, val, circuitBreakerNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchBreakerTrippedDataPoint adds a data point to elasticsearch.breaker.tripped metric.
 func (mb *MetricsBuilder) RecordElasticsearchBreakerTrippedDataPoint(ts pcommon.Timestamp, val int64, circuitBreakerNameAttributeValue string) {
-	mb.metricElasticsearchBreakerTripped.recordDataPoint(mb.startTime, ts, val, circuitBreakerNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterDataNodesDataPoint adds a data point to elasticsearch.cluster.data_nodes metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterDataNodesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchClusterDataNodes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterHealthDataPoint adds a data point to elasticsearch.cluster.health metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterHealthDataPoint(ts pcommon.Timestamp, val int64, healthStatusAttributeValue AttributeHealthStatus) {
-	mb.metricElasticsearchClusterHealth.recordDataPoint(mb.startTime, ts, val, healthStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterInFlightFetchDataPoint adds a data point to elasticsearch.cluster.in_flight_fetch metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterInFlightFetchDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchClusterInFlightFetch.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterIndicesCacheEvictionsDataPoint adds a data point to elasticsearch.cluster.indices.cache.evictions metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterIndicesCacheEvictionsDataPoint(ts pcommon.Timestamp, val int64, cacheNameAttributeValue AttributeCacheName) {
-	mb.metricElasticsearchClusterIndicesCacheEvictions.recordDataPoint(mb.startTime, ts, val, cacheNameAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterNodesDataPoint adds a data point to elasticsearch.cluster.nodes metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterNodesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchClusterNodes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterPendingTasksDataPoint adds a data point to elasticsearch.cluster.pending_tasks metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterPendingTasksDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchClusterPendingTasks.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterPublishedStatesDifferencesDataPoint adds a data point to elasticsearch.cluster.published_states.differences metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterPublishedStatesDifferencesDataPoint(ts pcommon.Timestamp, val int64, clusterPublishedDifferenceStateAttributeValue AttributeClusterPublishedDifferenceState) {
-	mb.metricElasticsearchClusterPublishedStatesDifferences.recordDataPoint(mb.startTime, ts, val, clusterPublishedDifferenceStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterPublishedStatesFullDataPoint adds a data point to elasticsearch.cluster.published_states.full metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterPublishedStatesFullDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchClusterPublishedStatesFull.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterShardsDataPoint adds a data point to elasticsearch.cluster.shards metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterShardsDataPoint(ts pcommon.Timestamp, val int64, shardStateAttributeValue AttributeShardState) {
-	mb.metricElasticsearchClusterShards.recordDataPoint(mb.startTime, ts, val, shardStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterStateQueueDataPoint adds a data point to elasticsearch.cluster.state_queue metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterStateQueueDataPoint(ts pcommon.Timestamp, val int64, clusterStateQueueStateAttributeValue AttributeClusterStateQueueState) {
-	mb.metricElasticsearchClusterStateQueue.recordDataPoint(mb.startTime, ts, val, clusterStateQueueStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterStateUpdateCountDataPoint adds a data point to elasticsearch.cluster.state_update.count metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterStateUpdateCountDataPoint(ts pcommon.Timestamp, val int64, clusterStateUpdateStateAttributeValue string) {
-	mb.metricElasticsearchClusterStateUpdateCount.recordDataPoint(mb.startTime, ts, val, clusterStateUpdateStateAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchClusterStateUpdateTimeDataPoint adds a data point to elasticsearch.cluster.state_update.time metric.
 func (mb *MetricsBuilder) RecordElasticsearchClusterStateUpdateTimeDataPoint(ts pcommon.Timestamp, val int64, clusterStateUpdateStateAttributeValue string, clusterStateUpdateTypeAttributeValue AttributeClusterStateUpdateType) {
-	mb.metricElasticsearchClusterStateUpdateTime.recordDataPoint(mb.startTime, ts, val, clusterStateUpdateStateAttributeValue, clusterStateUpdateTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexCacheEvictionsDataPoint adds a data point to elasticsearch.index.cache.evictions metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexCacheEvictionsDataPoint(ts pcommon.Timestamp, val int64, cacheNameAttributeValue AttributeCacheName, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexCacheEvictions.recordDataPoint(mb.startTime, ts, val, cacheNameAttributeValue.String(), indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexCacheMemoryUsageDataPoint adds a data point to elasticsearch.index.cache.memory.usage metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexCacheMemoryUsageDataPoint(ts pcommon.Timestamp, val int64, cacheNameAttributeValue AttributeCacheName, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexCacheMemoryUsage.recordDataPoint(mb.startTime, ts, val, cacheNameAttributeValue.String(), indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexCacheSizeDataPoint adds a data point to elasticsearch.index.cache.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexCacheSizeDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexCacheSize.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexDocumentsDataPoint adds a data point to elasticsearch.index.documents metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexDocumentsDataPoint(ts pcommon.Timestamp, val int64, documentStateAttributeValue AttributeDocumentState, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexDocuments.recordDataPoint(mb.startTime, ts, val, documentStateAttributeValue.String(), indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexOperationsCompletedDataPoint adds a data point to elasticsearch.index.operations.completed metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexOperationsCompletedDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexOperationsCompleted.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String(), indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexOperationsMergeCurrentDataPoint adds a data point to elasticsearch.index.operations.merge.current metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexOperationsMergeCurrentDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexOperationsMergeCurrent.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexOperationsMergeDocsCountDataPoint adds a data point to elasticsearch.index.operations.merge.docs_count metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexOperationsMergeDocsCountDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexOperationsMergeDocsCount.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexOperationsMergeSizeDataPoint adds a data point to elasticsearch.index.operations.merge.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexOperationsMergeSizeDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexOperationsMergeSize.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexOperationsTimeDataPoint adds a data point to elasticsearch.index.operations.time metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexOperationsTimeDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexOperationsTime.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String(), indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexSegmentsCountDataPoint adds a data point to elasticsearch.index.segments.count metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexSegmentsCountDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexSegmentsCount.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexSegmentsMemoryDataPoint adds a data point to elasticsearch.index.segments.memory metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexSegmentsMemoryDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType, segmentsMemoryObjectTypeAttributeValue AttributeSegmentsMemoryObjectType) {
-	mb.metricElasticsearchIndexSegmentsMemory.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String(), segmentsMemoryObjectTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexSegmentsSizeDataPoint adds a data point to elasticsearch.index.segments.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexSegmentsSizeDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexSegmentsSize.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexShardsSizeDataPoint adds a data point to elasticsearch.index.shards.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexShardsSizeDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexShardsSize.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexTranslogOperationsDataPoint adds a data point to elasticsearch.index.translog.operations metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexTranslogOperationsDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexTranslogOperations.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexTranslogSizeDataPoint adds a data point to elasticsearch.index.translog.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexTranslogSizeDataPoint(ts pcommon.Timestamp, val int64, indexAggregationTypeAttributeValue AttributeIndexAggregationType) {
-	mb.metricElasticsearchIndexTranslogSize.recordDataPoint(mb.startTime, ts, val, indexAggregationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexingPressureMemoryLimitDataPoint adds a data point to elasticsearch.indexing_pressure.memory.limit metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexingPressureMemoryLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchIndexingPressureMemoryLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexingPressureMemoryTotalPrimaryRejectionsDataPoint adds a data point to elasticsearch.indexing_pressure.memory.total.primary_rejections metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexingPressureMemoryTotalPrimaryRejectionsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchIndexingPressureMemoryTotalPrimaryRejections.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchIndexingPressureMemoryTotalReplicaRejectionsDataPoint adds a data point to elasticsearch.indexing_pressure.memory.total.replica_rejections metric.
 func (mb *MetricsBuilder) RecordElasticsearchIndexingPressureMemoryTotalReplicaRejectionsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchIndexingPressureMemoryTotalReplicaRejections.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchMemoryIndexingPressureDataPoint adds a data point to elasticsearch.memory.indexing_pressure metric.
 func (mb *MetricsBuilder) RecordElasticsearchMemoryIndexingPressureDataPoint(ts pcommon.Timestamp, val int64, indexingPressureStageAttributeValue AttributeIndexingPressureStage) {
-	mb.metricElasticsearchMemoryIndexingPressure.recordDataPoint(mb.startTime, ts, val, indexingPressureStageAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeCacheCountDataPoint adds a data point to elasticsearch.node.cache.count metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeCacheCountDataPoint(ts pcommon.Timestamp, val int64, queryCacheCountTypeAttributeValue AttributeQueryCacheCountType) {
-	mb.metricElasticsearchNodeCacheCount.recordDataPoint(mb.startTime, ts, val, queryCacheCountTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeCacheEvictionsDataPoint adds a data point to elasticsearch.node.cache.evictions metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeCacheEvictionsDataPoint(ts pcommon.Timestamp, val int64, cacheNameAttributeValue AttributeCacheName) {
-	mb.metricElasticsearchNodeCacheEvictions.recordDataPoint(mb.startTime, ts, val, cacheNameAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeCacheMemoryUsageDataPoint adds a data point to elasticsearch.node.cache.memory.usage metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeCacheMemoryUsageDataPoint(ts pcommon.Timestamp, val int64, cacheNameAttributeValue AttributeCacheName) {
-	mb.metricElasticsearchNodeCacheMemoryUsage.recordDataPoint(mb.startTime, ts, val, cacheNameAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeCacheSizeDataPoint adds a data point to elasticsearch.node.cache.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeCacheSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeCacheSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeClusterConnectionsDataPoint adds a data point to elasticsearch.node.cluster.connections metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeClusterConnectionsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeClusterConnections.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeClusterIoDataPoint adds a data point to elasticsearch.node.cluster.io metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeClusterIoDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricElasticsearchNodeClusterIo.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeDiskIoReadDataPoint adds a data point to elasticsearch.node.disk.io.read metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeDiskIoReadDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeDiskIoRead.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeDiskIoWriteDataPoint adds a data point to elasticsearch.node.disk.io.write metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeDiskIoWriteDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeDiskIoWrite.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeDocumentsDataPoint adds a data point to elasticsearch.node.documents metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeDocumentsDataPoint(ts pcommon.Timestamp, val int64, documentStateAttributeValue AttributeDocumentState) {
-	mb.metricElasticsearchNodeDocuments.recordDataPoint(mb.startTime, ts, val, documentStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeFsDiskAvailableDataPoint adds a data point to elasticsearch.node.fs.disk.available metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeFsDiskAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeFsDiskAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeFsDiskFreeDataPoint adds a data point to elasticsearch.node.fs.disk.free metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeFsDiskFreeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeFsDiskFree.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeFsDiskTotalDataPoint adds a data point to elasticsearch.node.fs.disk.total metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeFsDiskTotalDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeFsDiskTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeHTTPConnectionsDataPoint adds a data point to elasticsearch.node.http.connections metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeHTTPConnectionsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeHTTPConnections.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeIngestDocumentsDataPoint adds a data point to elasticsearch.node.ingest.documents metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeIngestDocumentsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeIngestDocuments.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeIngestDocumentsCurrentDataPoint adds a data point to elasticsearch.node.ingest.documents.current metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeIngestDocumentsCurrentDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeIngestDocumentsCurrent.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeIngestOperationsFailedDataPoint adds a data point to elasticsearch.node.ingest.operations.failed metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeIngestOperationsFailedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeIngestOperationsFailed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOpenFilesDataPoint adds a data point to elasticsearch.node.open_files metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOpenFilesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeOpenFiles.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOperationsCompletedDataPoint adds a data point to elasticsearch.node.operations.completed metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOperationsCompletedDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation) {
-	mb.metricElasticsearchNodeOperationsCompleted.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOperationsCurrentDataPoint adds a data point to elasticsearch.node.operations.current metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOperationsCurrentDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation) {
-	mb.metricElasticsearchNodeOperationsCurrent.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOperationsGetCompletedDataPoint adds a data point to elasticsearch.node.operations.get.completed metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOperationsGetCompletedDataPoint(ts pcommon.Timestamp, val int64, getResultAttributeValue AttributeGetResult) {
-	mb.metricElasticsearchNodeOperationsGetCompleted.recordDataPoint(mb.startTime, ts, val, getResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOperationsGetTimeDataPoint adds a data point to elasticsearch.node.operations.get.time metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOperationsGetTimeDataPoint(ts pcommon.Timestamp, val int64, getResultAttributeValue AttributeGetResult) {
-	mb.metricElasticsearchNodeOperationsGetTime.recordDataPoint(mb.startTime, ts, val, getResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeOperationsTimeDataPoint adds a data point to elasticsearch.node.operations.time metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeOperationsTimeDataPoint(ts pcommon.Timestamp, val int64, operationAttributeValue AttributeOperation) {
-	mb.metricElasticsearchNodeOperationsTime.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodePipelineIngestDocumentsCurrentDataPoint adds a data point to elasticsearch.node.pipeline.ingest.documents.current metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodePipelineIngestDocumentsCurrentDataPoint(ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	mb.metricElasticsearchNodePipelineIngestDocumentsCurrent.recordDataPoint(mb.startTime, ts, val, ingestPipelineNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodePipelineIngestDocumentsPreprocessedDataPoint adds a data point to elasticsearch.node.pipeline.ingest.documents.preprocessed metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodePipelineIngestDocumentsPreprocessedDataPoint(ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	mb.metricElasticsearchNodePipelineIngestDocumentsPreprocessed.recordDataPoint(mb.startTime, ts, val, ingestPipelineNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodePipelineIngestOperationsFailedDataPoint adds a data point to elasticsearch.node.pipeline.ingest.operations.failed metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodePipelineIngestOperationsFailedDataPoint(ts pcommon.Timestamp, val int64, ingestPipelineNameAttributeValue string) {
-	mb.metricElasticsearchNodePipelineIngestOperationsFailed.recordDataPoint(mb.startTime, ts, val, ingestPipelineNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeScriptCacheEvictionsDataPoint adds a data point to elasticsearch.node.script.cache_evictions metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeScriptCacheEvictionsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeScriptCacheEvictions.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeScriptCompilationLimitTriggeredDataPoint adds a data point to elasticsearch.node.script.compilation_limit_triggered metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeScriptCompilationLimitTriggeredDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeScriptCompilationLimitTriggered.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeScriptCompilationsDataPoint adds a data point to elasticsearch.node.script.compilations metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeScriptCompilationsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeScriptCompilations.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeSegmentsMemoryDataPoint adds a data point to elasticsearch.node.segments.memory metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeSegmentsMemoryDataPoint(ts pcommon.Timestamp, val int64, segmentsMemoryObjectTypeAttributeValue AttributeSegmentsMemoryObjectType) {
-	mb.metricElasticsearchNodeSegmentsMemory.recordDataPoint(mb.startTime, ts, val, segmentsMemoryObjectTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeShardsDataSetSizeDataPoint adds a data point to elasticsearch.node.shards.data_set.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeShardsDataSetSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeShardsDataSetSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeShardsReservedSizeDataPoint adds a data point to elasticsearch.node.shards.reserved.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeShardsReservedSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeShardsReservedSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeShardsSizeDataPoint adds a data point to elasticsearch.node.shards.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeShardsSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeShardsSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeThreadPoolTasksFinishedDataPoint adds a data point to elasticsearch.node.thread_pool.tasks.finished metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeThreadPoolTasksFinishedDataPoint(ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string, taskStateAttributeValue AttributeTaskState) {
-	mb.metricElasticsearchNodeThreadPoolTasksFinished.recordDataPoint(mb.startTime, ts, val, threadPoolNameAttributeValue, taskStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeThreadPoolTasksQueuedDataPoint adds a data point to elasticsearch.node.thread_pool.tasks.queued metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeThreadPoolTasksQueuedDataPoint(ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string) {
-	mb.metricElasticsearchNodeThreadPoolTasksQueued.recordDataPoint(mb.startTime, ts, val, threadPoolNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeThreadPoolThreadsDataPoint adds a data point to elasticsearch.node.thread_pool.threads metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeThreadPoolThreadsDataPoint(ts pcommon.Timestamp, val int64, threadPoolNameAttributeValue string, threadStateAttributeValue AttributeThreadState) {
-	mb.metricElasticsearchNodeThreadPoolThreads.recordDataPoint(mb.startTime, ts, val, threadPoolNameAttributeValue, threadStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeTranslogOperationsDataPoint adds a data point to elasticsearch.node.translog.operations metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeTranslogOperationsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeTranslogOperations.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeTranslogSizeDataPoint adds a data point to elasticsearch.node.translog.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeTranslogSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeTranslogSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchNodeTranslogUncommittedSizeDataPoint adds a data point to elasticsearch.node.translog.uncommitted.size metric.
 func (mb *MetricsBuilder) RecordElasticsearchNodeTranslogUncommittedSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchNodeTranslogUncommittedSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchOsCPULoadAvg15mDataPoint adds a data point to elasticsearch.os.cpu.load_avg.15m metric.
 func (mb *MetricsBuilder) RecordElasticsearchOsCPULoadAvg15mDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricElasticsearchOsCPULoadAvg15m.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchOsCPULoadAvg1mDataPoint adds a data point to elasticsearch.os.cpu.load_avg.1m metric.
 func (mb *MetricsBuilder) RecordElasticsearchOsCPULoadAvg1mDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricElasticsearchOsCPULoadAvg1m.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchOsCPULoadAvg5mDataPoint adds a data point to elasticsearch.os.cpu.load_avg.5m metric.
 func (mb *MetricsBuilder) RecordElasticsearchOsCPULoadAvg5mDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricElasticsearchOsCPULoadAvg5m.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchOsCPUUsageDataPoint adds a data point to elasticsearch.os.cpu.usage metric.
 func (mb *MetricsBuilder) RecordElasticsearchOsCPUUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchOsCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchOsMemoryDataPoint adds a data point to elasticsearch.os.memory metric.
 func (mb *MetricsBuilder) RecordElasticsearchOsMemoryDataPoint(ts pcommon.Timestamp, val int64, memoryStateAttributeValue AttributeMemoryState) {
-	mb.metricElasticsearchOsMemory.recordDataPoint(mb.startTime, ts, val, memoryStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchProcessCPUTimeDataPoint adds a data point to elasticsearch.process.cpu.time metric.
 func (mb *MetricsBuilder) RecordElasticsearchProcessCPUTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchProcessCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchProcessCPUUsageDataPoint adds a data point to elasticsearch.process.cpu.usage metric.
 func (mb *MetricsBuilder) RecordElasticsearchProcessCPUUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricElasticsearchProcessCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordElasticsearchProcessMemoryVirtualDataPoint adds a data point to elasticsearch.process.memory.virtual metric.
 func (mb *MetricsBuilder) RecordElasticsearchProcessMemoryVirtualDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricElasticsearchProcessMemoryVirtual.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmClassesLoadedDataPoint adds a data point to jvm.classes.loaded metric.
 func (mb *MetricsBuilder) RecordJvmClassesLoadedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmClassesLoaded.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmGcCollectionsCountDataPoint adds a data point to jvm.gc.collections.count metric.
 func (mb *MetricsBuilder) RecordJvmGcCollectionsCountDataPoint(ts pcommon.Timestamp, val int64, collectorNameAttributeValue string) {
-	mb.metricJvmGcCollectionsCount.recordDataPoint(mb.startTime, ts, val, collectorNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmGcCollectionsElapsedDataPoint adds a data point to jvm.gc.collections.elapsed metric.
 func (mb *MetricsBuilder) RecordJvmGcCollectionsElapsedDataPoint(ts pcommon.Timestamp, val int64, collectorNameAttributeValue string) {
-	mb.metricJvmGcCollectionsElapsed.recordDataPoint(mb.startTime, ts, val, collectorNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryHeapCommittedDataPoint adds a data point to jvm.memory.heap.committed metric.
 func (mb *MetricsBuilder) RecordJvmMemoryHeapCommittedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmMemoryHeapCommitted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryHeapMaxDataPoint adds a data point to jvm.memory.heap.max metric.
 func (mb *MetricsBuilder) RecordJvmMemoryHeapMaxDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmMemoryHeapMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryHeapUsedDataPoint adds a data point to jvm.memory.heap.used metric.
 func (mb *MetricsBuilder) RecordJvmMemoryHeapUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmMemoryHeapUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryHeapUtilizationDataPoint adds a data point to jvm.memory.heap.utilization metric.
 func (mb *MetricsBuilder) RecordJvmMemoryHeapUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricJvmMemoryHeapUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryNonheapCommittedDataPoint adds a data point to jvm.memory.nonheap.committed metric.
 func (mb *MetricsBuilder) RecordJvmMemoryNonheapCommittedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmMemoryNonheapCommitted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryNonheapUsedDataPoint adds a data point to jvm.memory.nonheap.used metric.
 func (mb *MetricsBuilder) RecordJvmMemoryNonheapUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmMemoryNonheapUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryPoolMaxDataPoint adds a data point to jvm.memory.pool.max metric.
 func (mb *MetricsBuilder) RecordJvmMemoryPoolMaxDataPoint(ts pcommon.Timestamp, val int64, memoryPoolNameAttributeValue string) {
-	mb.metricJvmMemoryPoolMax.recordDataPoint(mb.startTime, ts, val, memoryPoolNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmMemoryPoolUsedDataPoint adds a data point to jvm.memory.pool.used metric.
 func (mb *MetricsBuilder) RecordJvmMemoryPoolUsedDataPoint(ts pcommon.Timestamp, val int64, memoryPoolNameAttributeValue string) {
-	mb.metricJvmMemoryPoolUsed.recordDataPoint(mb.startTime, ts, val, memoryPoolNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordJvmThreadsCountDataPoint adds a data point to jvm.threads.count metric.
 func (mb *MetricsBuilder) RecordJvmThreadsCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricJvmThreadsCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

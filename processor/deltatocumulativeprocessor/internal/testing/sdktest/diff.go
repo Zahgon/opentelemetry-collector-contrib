@@ -27,6 +27,4 @@ var Opts = cmp.Options{
 	}),
 }
 
-func Diff[T any](a, b T, opts ...cmp.Option) string {
-	return cmp.Diff(a, b, Opts, cmp.Options(opts))
-}
+func Diff[T any](a, b T, opts ...cmp.Option) string { _ = "STUB: not implemented"; return "" }

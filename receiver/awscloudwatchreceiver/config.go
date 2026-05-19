@@ -5,8 +5,6 @@ package awscloudwatchreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -132,140 +130,24 @@ var (
 // Validate overrides the embedded ControllerConfig.Validate so that a zero CollectionInterval
 // does not cause a validation error when metrics collection is not configured. The scraper
 // framework requires a positive CollectionInterval only when the metrics controller is started.
-func (m *MetricsConfig) Validate() error {
-	if len(m.Queries) == 0 && m.Discovery == nil {
-		return nil
-	}
-	return m.ControllerConfig.Validate()
-}
+func (m *MetricsConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Validate validates all portions of the relevant config
-func (c *Config) Validate() error {
-	if c.Region == "" {
-		return errNoRegion
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if c.IMDSEndpoint != "" {
-		_, err := url.ParseRequestURI(c.IMDSEndpoint)
-		if err != nil {
-			return fmt.Errorf("unable to parse URI for imds_endpoint: %w", err)
-		}
-	}
+func (c *Config) validateMetricsDurations() error { _ = "STUB: not implemented"; return nil }
 
-	var errs error
-	errs = errors.Join(errs, c.validateLogsConfig())
-	errs = errors.Join(errs, c.validateMetricsConfig())
-	return errs
-}
-
-func (c *Config) validateMetricsDurations() error {
-	if c.Metrics.CollectionInterval != 0 && c.Metrics.CollectionInterval < time.Second {
-		return errInvalidMetricsCollectionInterval
-	}
-	if c.Metrics.Period != 0 && c.Metrics.Period < time.Second {
-		return errInvalidMetricsPeriod
-	}
-	if c.Metrics.Delay != 0 && c.Metrics.Delay < time.Second {
-		return errInvalidMetricsDelay
-	}
-	if c.Metrics.CollectionInterval > 0 && c.Metrics.Period > 0 &&
-		c.Metrics.CollectionInterval < c.Metrics.Period {
-		return errCollectionIntervalLessThanPeriod
-	}
-	return nil
-}
-
-func (c *Config) validateMetricsConfig() error {
-	if c.Metrics.Discovery != nil && len(c.Metrics.Queries) > 0 {
-		return errMetricsAndDiscoveryConfigured
-	}
-	if discovery := c.Metrics.Discovery; discovery != nil {
-		if discovery.Limit <= 0 {
-			return errInvalidDiscoveryLimit
-		}
-		for j, st := range discovery.Stats {
-			if st == "" {
-				return fmt.Errorf("metrics.discovery.stats[%d]: %w", j, errEmptyStatName)
-			}
-		}
-		return c.validateMetricsDurations()
-	}
-	if len(c.Metrics.Queries) == 0 {
-		return nil
-	}
-	if err := c.validateMetricsDurations(); err != nil {
-		return err
-	}
-	for i, m := range c.Metrics.Queries {
-		if m.Namespace == "" {
-			return fmt.Errorf("metrics[%d]: %w", i, errMetricMissingNamespace)
-		}
-		if m.MetricName == "" {
-			return fmt.Errorf("metrics[%d]: %w", i, errMetricMissingName)
-		}
-		for j, st := range m.Stats {
-			if st == "" {
-				return fmt.Errorf("metrics[%d].stats[%d]: %w", i, j, errEmptyStatName)
-			}
-		}
-	}
-	return nil
-}
+func (c *Config) validateMetricsConfig() error { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal is a custom unmarshaller that ensures that autodiscover is nil if
 // autodiscover is not specified
 func (c *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		return errors.New("")
-	}
-	err := componentParser.Unmarshal(c)
-	if err != nil {
-		return err
-	}
-
-	if componentParser.IsSet("logs::groups::named") && !componentParser.IsSet("logs::groups::autodiscover") {
-		c.Logs.Groups.AutodiscoverConfig = nil
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (c *Config) validateLogsConfig() error {
-	if c.Logs.StartFrom != "" {
-		_, err := time.Parse(time.RFC3339, c.Logs.StartFrom)
-		if err != nil {
-			return fmt.Errorf("invalid start_from time format: %w", err)
-		}
-	}
+func (c *Config) validateLogsConfig() error { _ = "STUB: not implemented"; return nil }
 
-	if c.Logs.MaxEventsPerRequest <= 0 {
-		return errInvalidEventLimit
-	}
+func (c *GroupConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
-	if c.Logs.PollInterval < time.Second {
-		return errInvalidPollInterval
-	}
-
-	return c.Logs.Groups.validate()
-}
-
-func (c *GroupConfig) validate() error {
-	if c.AutodiscoverConfig != nil && len(c.NamedConfigs) > 0 {
-		return errAutodiscoverAndNamedConfigured
-	}
-
-	if c.AutodiscoverConfig != nil {
-		return validateAutodiscover(*c.AutodiscoverConfig)
-	}
-
-	return nil
-}
-
-func validateAutodiscover(cfg AutodiscoverConfig) error {
-	if cfg.Limit <= 0 {
-		return errInvalidAutodiscoverLimit
-	}
-	if cfg.Pattern != "" && cfg.Prefix != "" {
-		return errPrefixAndPatternConfigured
-	}
-	return nil
-}
+func validateAutodiscover(cfg AutodiscoverConfig) error { _ = "STUB: not implemented"; return nil }

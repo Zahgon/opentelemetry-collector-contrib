@@ -4,12 +4,9 @@
 package identity // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/exp/metrics/identity"
 
 import (
-	"fmt"
 	"hash"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil"
 )
 
 type Stream struct {
@@ -17,22 +14,15 @@ type Stream struct {
 	attrs  [16]byte
 }
 
-func (s Stream) Hash() hash.Hash64 {
-	sum := s.metric.Hash()
-	sum.Write(s.attrs[:])
-	return sum
-}
+func (s Stream) Hash() hash.Hash64 { _ = "STUB: not implemented"; return *new(hash.Hash64) }
 
-func (s Stream) Metric() Metric {
-	return s.metric
-}
+func (s Stream) Metric() Metric { _ = "STUB: not implemented"; return *new(Metric) }
 
-func (s Stream) String() string {
-	return fmt.Sprintf("stream/%x", s.Hash().Sum64())
-}
+func (s Stream) String() string { _ = "STUB: not implemented"; return "" }
 
 func OfStream[DataPoint attrPoint](m Metric, dp DataPoint) Stream {
-	return Stream{metric: m, attrs: pdatautil.MapHash(dp.Attributes())}
+	_ = "STUB: not implemented"
+	return *new(Stream)
 }
 
 type attrPoint interface {

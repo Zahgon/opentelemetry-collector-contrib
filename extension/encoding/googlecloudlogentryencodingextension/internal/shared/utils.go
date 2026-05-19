@@ -4,10 +4,6 @@
 package shared // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 
 import (
-	"fmt"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
@@ -163,79 +159,40 @@ var protocolNames = map[uint32]string{
 }
 
 // ProtocolName returns the textual protocol name for the provided protocol number.
-func ProtocolName(protocol uint32) (string, bool) {
-	name, ok := protocolNames[protocol]
-	return name, ok
-}
+func ProtocolName(protocol uint32) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 // strToInt converts a string representation of a number into a 64-bit integer.
 // The string must contain a valid base-10 integer. If parsing fails, the function
 // returns -1 and an error describing the failure.
-func strToInt(numberStr string) (int64, error) {
-	num, err := strconv.ParseInt(numberStr, 10, 64)
-	if err != nil {
-		return -1, fmt.Errorf("failed to convert string %q to int64", numberStr)
-	}
-	return num, nil
-}
+func strToInt(numberStr string) (int64, error) { _ = "STUB: not implemented"; return 0, nil }
 
 // AddStrAsInt parses a string value into an integer and adds it to the attributes map.
 // If the input string is empty, the function does nothing and returns nil.
 // Returns an error if the string cannot be parsed as an integer.
 func AddStrAsInt(field, value string, attributes pcommon.Map) error {
-	if value == "" {
-		return nil
-	}
-	n, err := strToInt(value)
-	if err != nil {
-		return err
-	}
-	attributes.PutInt(field, n)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // PutStr places value in the attributes map, if not empty
-func PutStr(field, value string, attributes pcommon.Map) {
-	if value != "" {
-		attributes.PutStr(field, value)
-	}
-}
+func PutStr(field, value string, attributes pcommon.Map) { _ = "STUB: not implemented"; return }
 
 // PutInt places value in the attributes map, if not nil
-func PutInt(field string, value *int64, attributes pcommon.Map) {
-	if value != nil {
-		attributes.PutInt(field, *value)
-	}
-}
+func PutInt(field string, value *int64, attributes pcommon.Map) { _ = "STUB: not implemented"; return }
 
 // PutBool places the value in the attributes map, if not nil
-func PutBool(field string, value *bool, attributes pcommon.Map) {
-	if value != nil {
-		attributes.PutBool(field, *value)
-	}
-}
+func PutBool(field string, value *bool, attributes pcommon.Map) { _ = "STUB: not implemented"; return }
 
 // PutDouble places the value in the attributes map, if not nil
 func PutDouble(field string, value *float64, attributes pcommon.Map) {
-	if value != nil {
-		attributes.PutDouble(field, *value)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // PutStrIfNotPresent places value in the attributes map if not empty and not already present
 // Returns an error if the attribute is already present with a different value.
 func PutStrIfNotPresent(field, value string, attributes pcommon.Map) (bool, error) {
-	if value == "" {
-		return false, nil
-	}
-	val, exists := attributes.Get(field)
-	if !exists {
-		attributes.PutStr(field, value)
-		return true, nil
-	}
-	if val.Str() != value {
-		return false, fmt.Errorf("attribute %q already present with different value: existing=%q, new=%q", field, val.Str(), value)
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }
 
@@ -243,13 +200,6 @@ func PutStrIfNotPresent(field, value string, attributes pcommon.Map) (bool, erro
 // If the input string is empty, the function does nothing and returns nil.
 // Returns an error if the string cannot be parsed as a duration.
 func PutDurationAsSeconds(field, value string, attributes pcommon.Map) error {
-	if value == "" {
-		return nil
-	}
-	d, err := time.ParseDuration(value)
-	if err != nil {
-		return fmt.Errorf("failed to parse duration %q: %w", value, err)
-	}
-	attributes.PutDouble(field, d.Seconds())
+	_ = "STUB: not implemented"
 	return nil
 }

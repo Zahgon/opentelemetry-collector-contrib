@@ -6,8 +6,6 @@ package isolationforestprocessor // import "github.com/open-telemetry/openteleme
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -23,15 +21,7 @@ const (
 	stability = component.StabilityLevelAlpha
 )
 
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		component.MustNewType(typeStr),
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, stability),
-		processor.WithMetrics(createMetricsProcessor, stability),
-		processor.WithLogs(createLogsProcessor, stability),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createTracesProcessor(
 	_ context.Context,
@@ -39,32 +29,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	processorCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, errors.New("configuration is not of type *Config")
-	}
-
-	if err := processorCfg.Validate(); err != nil {
-		return nil, fmt.Errorf("invalid configuration: %w", err)
-	}
-
-	set.Logger.Info("Creating isolation forest traces processor",
-		zap.String("processor_id", set.ID.String()),
-		zap.Int("forest_size", processorCfg.ForestSize),
-		zap.String("mode", processorCfg.Mode),
-		zap.Float64("threshold", processorCfg.Threshold),
-	)
-
-	proc, err := newIsolationForestProcessor(processorCfg, set.Logger)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create processor: %w", err)
-	}
-
-	return &tracesProcessor{
-		isolationForestProcessor: proc,
-		nextConsumer:             nextConsumer,
-		logger:                   set.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 func createMetricsProcessor(
@@ -73,31 +39,8 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	processorCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, errors.New("configuration is not of type *Config")
-	}
-
-	if err := processorCfg.Validate(); err != nil {
-		return nil, fmt.Errorf("invalid configuration: %w", err)
-	}
-
-	set.Logger.Info("Creating isolation forest metrics processor",
-		zap.String("processor_id", set.ID.String()),
-		zap.Int("forest_size", processorCfg.ForestSize),
-		zap.String("mode", processorCfg.Mode),
-	)
-
-	proc, err := newIsolationForestProcessor(processorCfg, set.Logger)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create processor: %w", err)
-	}
-
-	return &metricsProcessor{
-		isolationForestProcessor: proc,
-		nextConsumer:             nextConsumer,
-		logger:                   set.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }
 
 func createLogsProcessor(
@@ -106,31 +49,8 @@ func createLogsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (processor.Logs, error) {
-	processorCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, errors.New("configuration is not of type *Config")
-	}
-
-	if err := processorCfg.Validate(); err != nil {
-		return nil, fmt.Errorf("invalid configuration: %w", err)
-	}
-
-	set.Logger.Info("Creating isolation forest logs processor",
-		zap.String("processor_id", set.ID.String()),
-		zap.Int("forest_size", processorCfg.ForestSize),
-		zap.String("mode", processorCfg.Mode),
-	)
-
-	proc, err := newIsolationForestProcessor(processorCfg, set.Logger)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create processor: %w", err)
-	}
-
-	return &logsProcessor{
-		isolationForestProcessor: proc,
-		nextConsumer:             nextConsumer,
-		logger:                   set.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
 
 type tracesProcessor struct {
@@ -140,23 +60,23 @@ type tracesProcessor struct {
 }
 
 func (tp *tracesProcessor) Start(ctx context.Context, host component.Host) error {
-	return tp.isolationForestProcessor.Start(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (tp *tracesProcessor) Shutdown(ctx context.Context) error {
-	return tp.isolationForestProcessor.Shutdown(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (tp *tracesProcessor) ConsumeTraces(ctx context.Context, td ptrace.Traces) error {
-	processedTraces, err := tp.processTraces(ctx, td)
-	if err != nil {
-		return err
-	}
-	return tp.nextConsumer.ConsumeTraces(ctx, processedTraces)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*tracesProcessor) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: true}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 type metricsProcessor struct {
@@ -166,23 +86,23 @@ type metricsProcessor struct {
 }
 
 func (mp *metricsProcessor) Start(ctx context.Context, host component.Host) error {
-	return mp.isolationForestProcessor.Start(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (mp *metricsProcessor) Shutdown(ctx context.Context) error {
-	return mp.isolationForestProcessor.Shutdown(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (mp *metricsProcessor) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	processedMetrics, err := mp.processMetrics(ctx, md)
-	if err != nil {
-		return err
-	}
-	return mp.nextConsumer.ConsumeMetrics(ctx, processedMetrics)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*metricsProcessor) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: true}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 type logsProcessor struct {
@@ -192,21 +112,18 @@ type logsProcessor struct {
 }
 
 func (lp *logsProcessor) Start(ctx context.Context, host component.Host) error {
-	return lp.isolationForestProcessor.Start(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (lp *logsProcessor) Shutdown(ctx context.Context) error {
-	return lp.isolationForestProcessor.Shutdown(ctx)
-}
+func (lp *logsProcessor) Shutdown(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (lp *logsProcessor) ConsumeLogs(ctx context.Context, ld plog.Logs) error {
-	processedLogs, err := lp.processLogs(ctx, ld)
-	if err != nil {
-		return err
-	}
-	return lp.nextConsumer.ConsumeLogs(ctx, processedLogs)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*logsProcessor) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: true}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }

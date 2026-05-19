@@ -17,33 +17,24 @@ type literal[K any, T any] struct {
 	value T
 }
 
-func newLiteral[K, T any](value T) *literal[K, T] {
-	return &literal[K, T]{value: value}
-}
+func newLiteral[K, T any](value T) *literal[K, T] { _ = "STUB: not implemented"; return nil }
 
 func (l *literal[K, T]) Get(context.Context, K) (T, error) {
-	return l.value, nil
+	_ = "STUB: not implemented"
+	return *new(T), nil
 }
 
-func (*literal[K, T]) isLiteral() {}
+func (*literal[K, T]) isLiteral() { _ = "STUB: not implemented"; return }
 
 func isLiteralGetter[K, V any](getter typedGetter[K, V]) bool {
-	_, isLiteral := getter.(literalGetter)
-	return isLiteral
+	_ = "STUB: not implemented"
+	return false
 }
 
 // GetLiteralValue retrieves the literal value from the given getter.
 // If the getter is not a literal getter, or if the value it's currently holding is not a
 // literal value, it returns the zero value of V and false.
 func GetLiteralValue[K, V any](getter typedGetter[K, V]) (V, bool) {
-	if !isLiteralGetter(getter) {
-		return *new(V), false
-	}
-
-	val, err := getter.Get(context.Background(), *new(K))
-	if err != nil {
-		return *new(V), false
-	}
-
-	return val, true
+	_ = "STUB: not implemented"
+	return *new(V), false
 }

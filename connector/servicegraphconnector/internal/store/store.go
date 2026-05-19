@@ -21,12 +21,11 @@ type Key struct {
 	sid pcommon.SpanID
 }
 
-func (k *Key) SpanIDIsEmpty() bool {
-	return k.sid.IsEmpty()
-}
+func (k *Key) SpanIDIsEmpty() bool { _ = "STUB: not implemented"; return false }
 
 func NewKey(tid pcommon.TraceID, sid pcommon.SpanID) Key {
-	return Key{tid: tid, sid: sid}
+	_ = "STUB: not implemented"
+	return *new(Key)
 }
 
 type Store struct {
@@ -45,93 +44,38 @@ type Store struct {
 // request between two services. Once an edge is complete its metrics can be collected. Edges that
 // have not found their pair are deleted after ttl time.
 func NewStore(ttl time.Duration, maxItems int, onComplete, onExpire Callback) *Store {
-	s := &Store{
-		l: list.New(),
-		m: make(map[Key]*list.Element),
-
-		onComplete: onComplete,
-		onExpire:   onExpire,
-
-		ttl:      ttl,
-		maxItems: maxItems,
-	}
-
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Len is only used for testing.
 func (s *Store) Len() int {
-	return s.l.Len()
+	_ = "STUB: not implemented"
+
+	// UpsertEdge fetches an Edge from the store and updates it using the given callback. If the Edge
+	// doesn't exist yet, it creates a new one with the default TTL.
+	// If the Edge is complete after applying the callback, it's completed and removed.
+	return 0
 }
 
-// UpsertEdge fetches an Edge from the store and updates it using the given callback. If the Edge
-// doesn't exist yet, it creates a new one with the default TTL.
-// If the Edge is complete after applying the callback, it's completed and removed.
 func (s *Store) UpsertEdge(key Key, update Callback) (isNew bool, err error) {
-	s.mtx.Lock()
-	defer s.mtx.Unlock()
-
-	if storedEdge, ok := s.m[key]; ok {
-		edge := storedEdge.Value.(*Edge)
-		update(edge)
-
-		if edge.isComplete() {
-			s.onComplete(edge)
-			delete(s.m, key)
-			s.l.Remove(storedEdge)
-		}
-
-		return false, nil
-	}
-
-	edge := newEdge(key, s.ttl)
-	update(edge)
-
-	if edge.isComplete() {
-		s.onComplete(edge)
-		return true, nil
-	}
-
-	// Check we can add new edges
-	if s.l.Len() >= s.maxItems {
-		// TODO: try to evict expired items
-		return false, ErrTooManyItems
-	}
-
-	ele := s.l.PushBack(edge)
-	s.m[key] = ele
-
-	return true, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// Check we can add new edges
+
+// TODO: try to evict expired items
 
 // Expire evicts all expired items in the store.
-func (s *Store) Expire() {
-	s.mtx.Lock()
-	defer s.mtx.Unlock()
+func (s *Store) Expire() { _ = "STUB: not implemented"; return }
 
-	// Iterates until no more items can be evicted
-	for s.tryEvictHead() {
-	}
-}
+// Iterates until no more items can be evicted
 
 // tryEvictHead checks if the oldest item (head of list) can be evicted and will delete it if so.
 // Returns true if the head was evicted.
 //
 // Must be called holding lock.
-func (s *Store) tryEvictHead() bool {
-	head := s.l.Front()
-	if head == nil {
-		return false // list is empty
-	}
+func (s *Store) tryEvictHead() bool { _ = "STUB: not implemented"; return false }
 
-	headEdge := head.Value.(*Edge)
-	if !headEdge.isExpired() {
-		return false
-	}
-
-	s.onExpire(headEdge)
-	delete(s.m, headEdge.Key)
-	s.l.Remove(head)
-
-	return true
-}
+// list is empty

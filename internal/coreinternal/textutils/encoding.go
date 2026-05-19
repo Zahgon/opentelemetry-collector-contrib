@@ -4,12 +4,7 @@
 package textutils // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/textutils"
 
 import (
-	"fmt"
-	"strings"
-	"unsafe"
-
 	"golang.org/x/text/encoding"
-	"golang.org/x/text/encoding/ianaindex"
 	"golang.org/x/text/encoding/unicode"
 )
 
@@ -27,39 +22,19 @@ var encodingOverrides = map[string]encoding.Encoding{
 }
 
 func LookupEncoding(enc string) (encoding.Encoding, error) {
-	if e, ok := encodingOverrides[strings.ToLower(enc)]; ok {
-		return e, nil
-	}
-	e, err := ianaindex.IANA.Encoding(enc)
-	if err != nil {
-		return nil, fmt.Errorf("unsupported encoding '%s'", enc)
-	}
-	if e == nil {
-		return nil, fmt.Errorf("no charmap defined for encoding '%s'", enc)
-	}
-	return e, nil
+	_ = "STUB: not implemented"
+	return *new(encoding.Encoding), nil
 }
 
-func IsNop(enc string) bool {
-	e, err := LookupEncoding(enc)
-	if err != nil {
-		return false
-	}
-	return e == encoding.Nop
-}
+func IsNop(enc string) bool { _ = "STUB: not implemented"; return false }
 
 // DecodeAsString converts the given encoded bytes using the given decoder. It returns the converted
 // bytes or nil, err if any error occurred.
 func DecodeAsString(decoder *encoding.Decoder, buf []byte) (string, error) {
-	dstBuf, err := decoder.Bytes(buf)
-	if err != nil {
-		return "", err
-	}
-	return UnsafeBytesAsString(dstBuf), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // UnsafeBytesAsString converts the byte array to string.
 // This function must be called iff the input buffer is not going to be re-used after.
-func UnsafeBytesAsString(buf []byte) string {
-	return unsafe.String(unsafe.SliceData(buf), len(buf))
-}
+func UnsafeBytesAsString(buf []byte) string { _ = "STUB: not implemented"; return "" }

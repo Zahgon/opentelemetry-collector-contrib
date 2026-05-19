@@ -5,40 +5,20 @@ package adapter // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"fmt"
-	"strings"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension/xextension/storage"
 )
 
 func GetStorageClient(ctx context.Context, host component.Host, storageID *component.ID, componentID component.ID) (storage.Client, error) {
-	if storageID == nil {
-		return storage.NewNopClient(), nil
-	}
-
-	extension, ok := host.GetExtensions()[*storageID]
-	if !ok {
-		return nil, fmt.Errorf("storage extension '%s' not found", storageID)
-	}
-
-	storageExtension, ok := extension.(storage.Extension)
-	if !ok {
-		return nil, fmt.Errorf("non-storage extension '%s' found", storageID)
-	}
-
-	// Make storage immune to component renames that add underscores to the component type.
-	// This is a workaround for https://github.com/open-telemetry/opentelemetry-collector/issues/14988.
-	normalizedComponentType := strings.ReplaceAll(componentID.Type().String(), "_", "")
-	normalizedComponentID := component.MustNewIDWithName(normalizedComponentType, componentID.Name())
-	return storageExtension.GetClient(ctx, component.KindReceiver, normalizedComponentID, "")
+	_ = "STUB: not implemented"
+	return *new(storage.Client), nil
 }
 
+// Make storage immune to component renames that add underscores to the component type.
+// This is a workaround for https://github.com/open-telemetry/opentelemetry-collector/issues/14988.
+
 func (r *receiver) setStorageClient(ctx context.Context, host component.Host) error {
-	client, err := GetStorageClient(ctx, host, r.storageID, r.id)
-	if err != nil {
-		return err
-	}
-	r.storageClient = client
+	_ = "STUB: not implemented"
 	return nil
 }

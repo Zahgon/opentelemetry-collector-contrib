@@ -5,9 +5,6 @@ package add // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"strings"
 
 	"github.com/expr-lang/expr/vm"
 
@@ -25,32 +22,17 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will process an entry with a add transformation.
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Transform will apply the add operations to an entry
-func (t *Transformer) Transform(e *entry.Entry) error {
-	if t.Value != nil {
-		return e.Set(t.Field, t.Value)
-	}
-	if t.program != nil {
-		env := helper.GetExprEnv(e)
-		defer helper.PutExprEnv(env)
+func (t *Transformer) Transform(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }
 
-		result, err := vm.Run(t.program, env)
-		if err != nil {
-			return fmt.Errorf("evaluate value_expr: %w", err)
-		}
-		return e.Set(t.Field, result)
-	}
-	return errors.New("add: missing required field 'value'")
-}
-
-func isExpr(str string) bool {
-	return strings.HasPrefix(str, "EXPR(") && strings.HasSuffix(str, ")")
-}
+func isExpr(str string) bool { _ = "STUB: not implemented"; return false }

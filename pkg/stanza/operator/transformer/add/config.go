@@ -4,9 +4,6 @@
 package add // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/add"
 
 import (
-	"fmt"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
@@ -21,16 +18,10 @@ func init() {
 }
 
 // NewConfig creates a new add operator config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new add operator config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of an add operator
 type Config struct {
@@ -41,28 +32,6 @@ type Config struct {
 
 // Build will build an add operator from the supplied configuration
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	addOperator := &Transformer{
-		TransformerOperator: transformerOperator,
-		Field:               c.Field,
-	}
-	strVal, ok := c.Value.(string)
-	if !ok || !isExpr(strVal) {
-		addOperator.Value = c.Value
-		return addOperator, nil
-	}
-	exprStr := strings.TrimPrefix(strVal, "EXPR(")
-	exprStr = strings.TrimSuffix(exprStr, ")")
-
-	compiled, err := helper.ExprCompile(exprStr)
-	if err != nil {
-		return nil, fmt.Errorf("failed to compile expression '%s': %w", c.IfExpr, err)
-	}
-
-	addOperator.program = compiled
-	return addOperator, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

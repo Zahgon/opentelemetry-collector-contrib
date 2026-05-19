@@ -5,9 +5,6 @@ package stores // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"errors"
-	"os"
-	"time"
 
 	"go.uber.org/zap"
 
@@ -45,62 +42,13 @@ type K8sDecorator struct {
 }
 
 func NewK8sDecorator(ctx context.Context, tagService, prefFullPodName, addFullPodNameMetricLabel bool, logger *zap.Logger) (*K8sDecorator, error) {
-	hostIP := os.Getenv("HOST_IP")
-	if hostIP == "" {
-		return nil, errors.New("environment variable HOST_IP is not set in k8s deployment config")
-	}
-
-	k := &K8sDecorator{
-		ctx: ctx,
-	}
-
-	podstore, err := NewPodStore(hostIP, prefFullPodName, addFullPodNameMetricLabel, logger)
-	if err != nil {
-		return nil, err
-	}
-	k.podStore = podstore
-	k.stores = append(k.stores, podstore)
-
-	if tagService {
-		servicestore, err := NewServiceStore(logger)
-		if err != nil {
-			return nil, err
-		}
-		k.stores = append(k.stores, servicestore)
-	}
-
-	go func() {
-		refreshTicker := time.NewTicker(time.Second)
-		for {
-			select {
-			case <-refreshTicker.C:
-				for _, store := range k.stores {
-					store.RefreshTick(k.ctx)
-				}
-			case <-k.ctx.Done():
-				refreshTicker.Stop()
-				return
-			}
-		}
-	}()
-
-	return k, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (k *K8sDecorator) Decorate(metric *extractors.CAdvisorMetric) *extractors.CAdvisorMetric {
-	kubernetesBlob := map[string]any{}
-	for _, store := range k.stores {
-		ok := store.Decorate(k.ctx, metric, kubernetesBlob)
-		if !ok {
-			return nil
-		}
-	}
-
-	AddKubernetesInfo(metric, kubernetesBlob)
-	TagMetricSource(metric)
-	return metric
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (k *K8sDecorator) Shutdown() error {
-	return k.podStore.Shutdown()
-}
+func (k *K8sDecorator) Shutdown() error { _ = "STUB: not implemented"; return nil }

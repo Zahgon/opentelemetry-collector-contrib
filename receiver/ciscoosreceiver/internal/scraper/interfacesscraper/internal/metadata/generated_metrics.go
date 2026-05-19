@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -22,15 +20,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNetworkIoDirection.
-func (av AttributeNetworkIoDirection) String() string {
-	switch av {
-	case AttributeNetworkIoDirectionReceive:
-		return "receive"
-	case AttributeNetworkIoDirectionTransmit:
-		return "transmit"
-	}
-	return ""
-}
+func (av AttributeNetworkIoDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNetworkIoDirection is a helper map of string to AttributeNetworkIoDirection attribute value.
 var MapAttributeNetworkIoDirection = map[string]AttributeNetworkIoDirection{
@@ -48,15 +38,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNetworkPacketType.
-func (av AttributeNetworkPacketType) String() string {
-	switch av {
-	case AttributeNetworkPacketTypeMulticast:
-		return "multicast"
-	case AttributeNetworkPacketTypeBroadcast:
-		return "broadcast"
-	}
-	return ""
-}
+func (av AttributeNetworkPacketType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNetworkPacketType is a helper map of string to AttributeNetworkPacketType attribute value.
 var MapAttributeNetworkPacketType = map[string]AttributeNetworkPacketType{
@@ -112,44 +94,22 @@ func (m *metricSystemNetworkErrors) init() {
 }
 
 func (m *metricSystemNetworkErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue string, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("network.io.direction", networkIoDirectionAttributeValue)
-	dp.Attributes().PutStr("network.interface.description", networkInterfaceDescriptionAttributeValue)
-	dp.Attributes().PutStr("network.interface.mac", networkInterfaceMacAttributeValue)
-	dp.Attributes().PutStr("network.interface.name", networkInterfaceNameAttributeValue)
-	dp.Attributes().PutStr("network.interface.speed", networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemNetworkErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemNetworkErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemNetworkErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemNetworkErrors(cfg MetricConfig) metricSystemNetworkErrors {
-	m := metricSystemNetworkErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemNetworkErrors)
 }
 
 type metricSystemNetworkInterfaceStatus struct {
@@ -168,43 +128,22 @@ func (m *metricSystemNetworkInterfaceStatus) init() {
 }
 
 func (m *metricSystemNetworkInterfaceStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("network.interface.description", networkInterfaceDescriptionAttributeValue)
-	dp.Attributes().PutStr("network.interface.mac", networkInterfaceMacAttributeValue)
-	dp.Attributes().PutStr("network.interface.name", networkInterfaceNameAttributeValue)
-	dp.Attributes().PutStr("network.interface.speed", networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemNetworkInterfaceStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemNetworkInterfaceStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemNetworkInterfaceStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemNetworkInterfaceStatus(cfg MetricConfig) metricSystemNetworkInterfaceStatus {
-	m := metricSystemNetworkInterfaceStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemNetworkInterfaceStatus)
 }
 
 type metricSystemNetworkIo struct {
@@ -225,44 +164,22 @@ func (m *metricSystemNetworkIo) init() {
 }
 
 func (m *metricSystemNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue string, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("network.io.direction", networkIoDirectionAttributeValue)
-	dp.Attributes().PutStr("network.interface.description", networkInterfaceDescriptionAttributeValue)
-	dp.Attributes().PutStr("network.interface.mac", networkInterfaceMacAttributeValue)
-	dp.Attributes().PutStr("network.interface.name", networkInterfaceNameAttributeValue)
-	dp.Attributes().PutStr("network.interface.speed", networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemNetworkIo(cfg MetricConfig) metricSystemNetworkIo {
-	m := metricSystemNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemNetworkIo)
 }
 
 type metricSystemNetworkPacketCount struct {
@@ -283,44 +200,22 @@ func (m *metricSystemNetworkPacketCount) init() {
 }
 
 func (m *metricSystemNetworkPacketCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkPacketTypeAttributeValue string, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("network.packet.type", networkPacketTypeAttributeValue)
-	dp.Attributes().PutStr("network.interface.description", networkInterfaceDescriptionAttributeValue)
-	dp.Attributes().PutStr("network.interface.mac", networkInterfaceMacAttributeValue)
-	dp.Attributes().PutStr("network.interface.name", networkInterfaceNameAttributeValue)
-	dp.Attributes().PutStr("network.interface.speed", networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemNetworkPacketCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemNetworkPacketCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemNetworkPacketCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemNetworkPacketCount(cfg MetricConfig) metricSystemNetworkPacketCount {
-	m := metricSystemNetworkPacketCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemNetworkPacketCount)
 }
 
 type metricSystemNetworkPacketDropped struct {
@@ -341,44 +236,22 @@ func (m *metricSystemNetworkPacketDropped) init() {
 }
 
 func (m *metricSystemNetworkPacketDropped) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue string, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("network.io.direction", networkIoDirectionAttributeValue)
-	dp.Attributes().PutStr("network.interface.description", networkInterfaceDescriptionAttributeValue)
-	dp.Attributes().PutStr("network.interface.mac", networkInterfaceMacAttributeValue)
-	dp.Attributes().PutStr("network.interface.name", networkInterfaceNameAttributeValue)
-	dp.Attributes().PutStr("network.interface.speed", networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemNetworkPacketDropped) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemNetworkPacketDropped) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemNetworkPacketDropped) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemNetworkPacketDropped(cfg MetricConfig) metricSystemNetworkPacketDropped {
-	m := metricSystemNetworkPacketDropped{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemNetworkPacketDropped)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -406,64 +279,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                             mbc,
-		startTime:                          pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                      pmetric.NewMetrics(),
-		buildInfo:                          settings.BuildInfo,
-		metricSystemNetworkErrors:          newMetricSystemNetworkErrors(mbc.Metrics.SystemNetworkErrors),
-		metricSystemNetworkInterfaceStatus: newMetricSystemNetworkInterfaceStatus(mbc.Metrics.SystemNetworkInterfaceStatus),
-		metricSystemNetworkIo:              newMetricSystemNetworkIo(mbc.Metrics.SystemNetworkIo),
-		metricSystemNetworkPacketCount:     newMetricSystemNetworkPacketCount(mbc.Metrics.SystemNetworkPacketCount),
-		metricSystemNetworkPacketDropped:   newMetricSystemNetworkPacketDropped(mbc.Metrics.SystemNetworkPacketDropped),
-		resourceAttributeIncludeFilter:     make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:     make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.HostIP.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["host.ip"] = filter.CreateFilter(mbc.ResourceAttributes.HostIP.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HostIP.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["host.ip"] = filter.CreateFilter(mbc.ResourceAttributes.HostIP.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.HwType.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["hw.type"] = filter.CreateFilter(mbc.ResourceAttributes.HwType.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HwType.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["hw.type"] = filter.CreateFilter(mbc.ResourceAttributes.HwType.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.OsName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["os.name"] = filter.CreateFilter(mbc.ResourceAttributes.OsName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.OsName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["os.name"] = filter.CreateFilter(mbc.ResourceAttributes.OsName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -474,35 +315,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -511,77 +340,48 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSystemNetworkErrors.emit(ils.Metrics())
-	mb.metricSystemNetworkInterfaceStatus.emit(ils.Metrics())
-	mb.metricSystemNetworkIo.emit(ils.Metrics())
-	mb.metricSystemNetworkPacketCount.emit(ils.Metrics())
-	mb.metricSystemNetworkPacketDropped.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSystemNetworkErrorsDataPoint adds a data point to system.network.errors metric.
 func (mb *MetricsBuilder) RecordSystemNetworkErrorsDataPoint(ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue AttributeNetworkIoDirection, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	mb.metricSystemNetworkErrors.recordDataPoint(mb.startTime, ts, val, networkIoDirectionAttributeValue.String(), networkInterfaceDescriptionAttributeValue, networkInterfaceMacAttributeValue, networkInterfaceNameAttributeValue, networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemNetworkInterfaceStatusDataPoint adds a data point to system.network.interface.status metric.
 func (mb *MetricsBuilder) RecordSystemNetworkInterfaceStatusDataPoint(ts pcommon.Timestamp, val int64, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	mb.metricSystemNetworkInterfaceStatus.recordDataPoint(mb.startTime, ts, val, networkInterfaceDescriptionAttributeValue, networkInterfaceMacAttributeValue, networkInterfaceNameAttributeValue, networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemNetworkIoDataPoint adds a data point to system.network.io metric.
 func (mb *MetricsBuilder) RecordSystemNetworkIoDataPoint(ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue AttributeNetworkIoDirection, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	mb.metricSystemNetworkIo.recordDataPoint(mb.startTime, ts, val, networkIoDirectionAttributeValue.String(), networkInterfaceDescriptionAttributeValue, networkInterfaceMacAttributeValue, networkInterfaceNameAttributeValue, networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemNetworkPacketCountDataPoint adds a data point to system.network.packet.count metric.
 func (mb *MetricsBuilder) RecordSystemNetworkPacketCountDataPoint(ts pcommon.Timestamp, val int64, networkPacketTypeAttributeValue AttributeNetworkPacketType, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	mb.metricSystemNetworkPacketCount.recordDataPoint(mb.startTime, ts, val, networkPacketTypeAttributeValue.String(), networkInterfaceDescriptionAttributeValue, networkInterfaceMacAttributeValue, networkInterfaceNameAttributeValue, networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemNetworkPacketDroppedDataPoint adds a data point to system.network.packet.dropped metric.
 func (mb *MetricsBuilder) RecordSystemNetworkPacketDroppedDataPoint(ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue AttributeNetworkIoDirection, networkInterfaceDescriptionAttributeValue string, networkInterfaceMacAttributeValue string, networkInterfaceNameAttributeValue string, networkInterfaceSpeedAttributeValue string) {
-	mb.metricSystemNetworkPacketDropped.recordDataPoint(mb.startTime, ts, val, networkIoDirectionAttributeValue.String(), networkInterfaceDescriptionAttributeValue, networkInterfaceMacAttributeValue, networkInterfaceNameAttributeValue, networkInterfaceSpeedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

@@ -11,11 +11,8 @@ import (
 	"go.opentelemetry.io/collector/consumer/xconsumer"
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/xreceiver"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/receivercreator/internal/metadata"
 )
 
 // This file implements factory for receiver_creator. A receiver_creator can create other receivers at runtime.
@@ -23,66 +20,11 @@ import (
 var receivers = sharedcomponent.NewSharedComponents()
 
 // NewFactory creates a factory for receiver creator.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithTraces(createTracesReceiver, metadata.TracesStability),
-		xreceiver.WithProfiles(createProfilesReceiver, metadata.ProfilesStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Discovery: DiscoveryConfig{
-			DefaultFileLogConfig: userConfigMap{
-				"include_file_path": true,
-				"include_file_name": false,
-				"operators":         []any{map[string]any{"id": "container-parser", "type": "container"}},
-			},
-		},
-		ResourceAttributes: resourceAttributes{
-			observer.PodType: map[string]string{
-				string(conventions.K8SPodNameKey):       "`name`",
-				string(conventions.K8SPodUIDKey):        "`uid`",
-				string(conventions.K8SNamespaceNameKey): "`namespace`",
-			},
-			observer.K8sServiceType: map[string]string{
-				string(conventions.K8SNamespaceNameKey): "`namespace`",
-			},
-			observer.K8sIngressType: map[string]string{
-				string(conventions.K8SNamespaceNameKey): "`namespace`",
-			},
-			observer.PortType: map[string]string{
-				string(conventions.K8SPodNameKey):         "`pod.name`",
-				string(conventions.K8SPodUIDKey):          "`pod.uid`",
-				string(conventions.K8SNamespaceNameKey):   "`pod.namespace`",
-				string(conventions.K8SContainerNameKey):   "`container_name`",
-				string(conventions.ContainerIDKey):        "`container_id`",
-				string(conventions.ContainerImageNameKey): "`container_image`",
-			},
-			observer.PodContainerType: map[string]string{
-				string(conventions.K8SPodNameKey):         "`pod.name`",
-				string(conventions.K8SPodUIDKey):          "`pod.uid`",
-				string(conventions.K8SNamespaceNameKey):   "`pod.namespace`",
-				string(conventions.K8SContainerNameKey):   "`container_name`",
-				string(conventions.ContainerIDKey):        "`container_id`",
-				string(conventions.ContainerImageNameKey): "`container_image`",
-			},
-			observer.ContainerType: map[string]string{
-				string(conventions.ContainerNameKey):      "`name`",
-				string(conventions.ContainerImageNameKey): "`image`",
-			},
-			observer.K8sNodeType: map[string]string{
-				string(conventions.K8SNodeNameKey): "`name`",
-				string(conventions.K8SNodeUIDKey):  "`uid`",
-			},
-			observer.KafkaTopicType: map[string]string{},
-		},
-		receiverTemplates: map[string]receiverTemplate{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsReceiver(
@@ -91,11 +33,8 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		return newReceiverCreator(params, cfg.(*Config))
-	})
-	r.Component.(*receiverCreator).nextLogsConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func createMetricsReceiver(
@@ -104,11 +43,8 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		return newReceiverCreator(params, cfg.(*Config))
-	})
-	r.Component.(*receiverCreator).nextMetricsConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func createTracesReceiver(
@@ -117,11 +53,8 @@ func createTracesReceiver(
 	cfg component.Config,
 	consumer consumer.Traces,
 ) (receiver.Traces, error) {
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		return newReceiverCreator(params, cfg.(*Config))
-	})
-	r.Component.(*receiverCreator).nextTracesConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func createProfilesReceiver(
@@ -130,9 +63,6 @@ func createProfilesReceiver(
 	cfg component.Config,
 	consumer xconsumer.Profiles,
 ) (xreceiver.Profiles, error) {
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		return newReceiverCreator(params, cfg.(*Config))
-	})
-	r.Component.(*receiverCreator).nextProfilesConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(xreceiver.Profiles), nil
 }

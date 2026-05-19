@@ -4,11 +4,8 @@
 package internal // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awslambdareceiver/internal"
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
-	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
@@ -43,12 +40,8 @@ type errorReplayTrigger struct {
 
 // newDefaultErrorTrigger generate a trigger event with default settings
 func newDefaultErrorTrigger() errorReplayTrigger {
-	return errorReplayTrigger{
-		Config: ReplayTriggerConfig{
-			Dryrun:          false,
-			RemoveOnSuccess: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(errorReplayTrigger)
 }
 
 // ReplayTriggerConfig defines the configuration for error replay trigger
@@ -78,85 +71,33 @@ type ErrorReplayTriggerHandler struct {
 }
 
 func NewErrorReplayTriggerHandler(log *zap.Logger, event []byte, bucketName string, s3Service S3Service) (CustomTriggerHandler, error) {
-	decoder := json.NewDecoder(bytes.NewBuffer(event))
-	decoder.DisallowUnknownFields()
-
-	trigger := newDefaultErrorTrigger()
-	err := decoder.Decode(&trigger)
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse the error replay event: %w", err)
-	}
-
-	iterator := newS3ListIterator(s3Service, bucketName, "")
-
-	return &ErrorReplayTriggerHandler{
-		trigger:    trigger,
-		bucket:     bucketName,
-		s3Service:  s3Service,
-		s3Iterator: iterator,
-		logger:     log,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(CustomTriggerHandler), nil
 }
 
-func (m *ErrorReplayTriggerHandler) IsDryRun() bool {
-	return m.trigger.Config.Dryrun
-}
+func (m *ErrorReplayTriggerHandler) IsDryRun() bool { _ = "STUB: not implemented"; return false }
 
 func (m *ErrorReplayTriggerHandler) HasNext(ctx context.Context) bool {
-	return m.s3Iterator.HasNext(ctx)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // GetNext implementation retrieves the S3 content from the error S3 bucket.
 func (m *ErrorReplayTriggerHandler) GetNext(ctx context.Context) ([]byte, error) {
-	s3Entry, err := m.s3Iterator.GetNext(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	m.currentKey = *s3Entry.Key
-
-	object, err := m.s3Service.ReadObject(ctx, m.bucket, *s3Entry.Key)
-	if err != nil {
-		return nil, err
-	}
-
-	var event errorEvent
-	err = json.Unmarshal(object, &event)
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse error event content: %w", err)
-	}
-
-	return event.RequestPayload, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (m *ErrorReplayTriggerHandler) Error() error {
-	return m.s3Iterator.Error()
-}
+func (m *ErrorReplayTriggerHandler) Error() error { _ = "STUB: not implemented"; return nil }
 
 func (m *ErrorReplayTriggerHandler) PostProcess(ctx context.Context) {
-	if m.currentKey == "" {
-		// nothing to do
-		return
-	}
+	_ = "STUB: not implemented"
+	return
 
-	defer func() { m.currentKey = "" }()
-
-	// skip if dry-run mode
-	if m.IsDryRun() {
-		m.logger.Info("Dry-run enabled, skipping object", zap.String("object", m.currentKey))
-		return
-	}
-
-	if !m.trigger.Config.RemoveOnSuccess {
-		m.logger.Info("Removal disabled, skipping object removal", zap.String("object", m.currentKey))
-		return
-	}
-
-	err := m.s3Service.DeleteObject(ctx, m.bucket, m.currentKey)
-	if err != nil {
-		m.logger.Error("Removal failed", zap.String("object", m.currentKey), zap.Error(err))
-	}
+	// nothing to do
 }
+
+// skip if dry-run mode
 
 // s3ListIterator implements Iterator and isolates S3 object listing for consumers
 type s3ListIterator struct {
@@ -173,60 +114,21 @@ type s3ListIterator struct {
 }
 
 func newS3ListIterator(s3Service S3Service, bucket, prefix string) Iterator[*types.Object] {
-	return &s3ListIterator{
-		s3Service: s3Service,
-		bucket:    bucket,
-		prefix:    prefix,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (i *s3ListIterator) HasNext(ctx context.Context) bool {
-	if i.done {
-		return false
-	}
+func (i *s3ListIterator) HasNext(ctx context.Context) bool { _ = "STUB: not implemented"; return false }
 
-	// check for initial fetch
-	if i.latest == nil {
-		var err error
-		i.latest, err = i.s3Service.ListObjects(ctx, i.bucket, "", i.prefix)
-		if err != nil {
-			i.done = true
-			i.err = err
-			return false
-		}
-	}
+// check for initial fetch
 
-	// check for limits and fetch next if available
-	if len(i.latest.Contents) <= i.index {
-		if !*i.latest.IsTruncated {
-			i.done = true
-			return false
-		}
+// check for limits and fetch next if available
 
-		var err error
-		i.latest, err = i.s3Service.ListObjects(ctx, i.bucket, *i.latest.NextContinuationToken, i.prefix)
-		if err != nil {
-			i.done = true
-			i.err = err
-			return false
-		}
-		i.index = 0
-	}
-
-	// set current, advance and return
-	i.currentObj = &i.latest.Contents[i.index]
-	i.index++
-	return true
-}
+// set current, advance and return
 
 func (i *s3ListIterator) GetNext(_ context.Context) (*types.Object, error) {
-	if i.currentObj == nil {
-		return nil, errors.New("payload not available, check HasNext before calling for GetNext")
-	}
-
-	return i.currentObj, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (i *s3ListIterator) Error() error {
-	return i.err
-}
+func (i *s3ListIterator) Error() error { _ = "STUB: not implemented"; return nil }

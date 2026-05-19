@@ -15,134 +15,63 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetHostArch sets provided value as "host.arch" attribute.
-func (rb *ResourceBuilder) SetHostArch(val string) {
-	if rb.config.HostArch.Enabled {
-		rb.res.Attributes().PutStr("host.arch", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostArch(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUCacheL2Size sets provided value as "host.cpu.cache.l2.size" attribute.
-func (rb *ResourceBuilder) SetHostCPUCacheL2Size(val int64) {
-	if rb.config.HostCPUCacheL2Size.Enabled {
-		rb.res.Attributes().PutInt("host.cpu.cache.l2.size", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUCacheL2Size(val int64) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUFamily sets provided value as "host.cpu.family" attribute.
-func (rb *ResourceBuilder) SetHostCPUFamily(val string) {
-	if rb.config.HostCPUFamily.Enabled {
-		rb.res.Attributes().PutStr("host.cpu.family", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUFamily(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUModelID sets provided value as "host.cpu.model.id" attribute.
-func (rb *ResourceBuilder) SetHostCPUModelID(val string) {
-	if rb.config.HostCPUModelID.Enabled {
-		rb.res.Attributes().PutStr("host.cpu.model.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUModelID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUModelName sets provided value as "host.cpu.model.name" attribute.
-func (rb *ResourceBuilder) SetHostCPUModelName(val string) {
-	if rb.config.HostCPUModelName.Enabled {
-		rb.res.Attributes().PutStr("host.cpu.model.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUModelName(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUStepping sets provided value as "host.cpu.stepping" attribute.
-func (rb *ResourceBuilder) SetHostCPUStepping(val string) {
-	if rb.config.HostCPUStepping.Enabled {
-		rb.res.Attributes().PutStr("host.cpu.stepping", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUStepping(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostCPUVendorID sets provided value as "host.cpu.vendor.id" attribute.
-func (rb *ResourceBuilder) SetHostCPUVendorID(val string) {
-	if rb.config.HostCPUVendorID.Enabled {
-		rb.res.Attributes().PutStr("host.cpu.vendor.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostCPUVendorID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostID sets provided value as "host.id" attribute.
-func (rb *ResourceBuilder) SetHostID(val string) {
-	if rb.config.HostID.Enabled {
-		rb.res.Attributes().PutStr("host.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostInterface sets provided value as "host.interface" attribute.
-func (rb *ResourceBuilder) SetHostInterface(val []any) {
-	if rb.config.HostInterface.Enabled {
-		rb.res.Attributes().PutEmptySlice("host.interface").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetHostInterface(val []any) { _ = "STUB: not implemented"; return }
 
 // SetHostIP sets provided value as "host.ip" attribute.
-func (rb *ResourceBuilder) SetHostIP(val []any) {
-	if rb.config.HostIP.Enabled {
-		rb.res.Attributes().PutEmptySlice("host.ip").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetHostIP(val []any) { _ = "STUB: not implemented"; return }
 
 // SetHostMac sets provided value as "host.mac" attribute.
-func (rb *ResourceBuilder) SetHostMac(val []any) {
-	if rb.config.HostMac.Enabled {
-		rb.res.Attributes().PutEmptySlice("host.mac").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetHostMac(val []any) { _ = "STUB: not implemented"; return }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsBuildID sets provided value as "os.build.id" attribute.
-func (rb *ResourceBuilder) SetOsBuildID(val string) {
-	if rb.config.OsBuildID.Enabled {
-		rb.res.Attributes().PutStr("os.build.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsBuildID(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsDescription sets provided value as "os.description" attribute.
-func (rb *ResourceBuilder) SetOsDescription(val string) {
-	if rb.config.OsDescription.Enabled {
-		rb.res.Attributes().PutStr("os.description", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsDescription(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsName sets provided value as "os.name" attribute.
-func (rb *ResourceBuilder) SetOsName(val string) {
-	if rb.config.OsName.Enabled {
-		rb.res.Attributes().PutStr("os.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsName(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsType sets provided value as "os.type" attribute.
-func (rb *ResourceBuilder) SetOsType(val string) {
-	if rb.config.OsType.Enabled {
-		rb.res.Attributes().PutStr("os.type", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsType(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsVersion sets provided value as "os.version" attribute.
-func (rb *ResourceBuilder) SetOsVersion(val string) {
-	if rb.config.OsVersion.Enabled {
-		rb.res.Attributes().PutStr("os.version", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsVersion(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

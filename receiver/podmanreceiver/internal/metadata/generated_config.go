@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type ContainerBlockioIoServiceBytesRecursiveReadMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoServiceBytesRecursiveReadMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type ContainerBlockioIoServiceBytesRecursiveWriteMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoServiceBytesRecursiveWriteMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type ContainerCPUPercentMetricConfig struct {
 }
 
 func (ms *ContainerCPUPercentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -86,34 +57,12 @@ type ContainerCPUUsagePercpuMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsagePercpuMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerCPUUsagePercpuMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerCPUUsagePercpuMetricAttributeKeyCore:
-		default:
-			return fmt.Errorf("metric container.cpu.usage.percpu doesn't have an attribute %v, valid attributes: [core]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -124,16 +73,7 @@ type ContainerCPUUsageSystemMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageSystemMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -144,16 +84,7 @@ type ContainerCPUUsageTotalMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -164,16 +95,7 @@ type ContainerMemoryPercentMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPercentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -184,16 +106,7 @@ type ContainerMemoryUsageLimitMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -204,16 +117,7 @@ type ContainerMemoryUsageTotalMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -224,16 +128,7 @@ type ContainerNetworkIoUsageRxBytesMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageRxBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -244,16 +139,7 @@ type ContainerNetworkIoUsageTxBytesMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageTxBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -272,45 +158,7 @@ type MetricsConfig struct {
 	ContainerNetworkIoUsageTxBytes               ContainerNetworkIoUsageTxBytesMetricConfig               `mapstructure:"container.network.io.usage.tx_bytes"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ContainerBlockioIoServiceBytesRecursiveRead: ContainerBlockioIoServiceBytesRecursiveReadMetricConfig{
-			Enabled: true,
-		},
-		ContainerBlockioIoServiceBytesRecursiveWrite: ContainerBlockioIoServiceBytesRecursiveWriteMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUPercent: ContainerCPUPercentMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUsagePercpu: ContainerCPUUsagePercpuMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerCPUUsagePercpuMetricAttributeKey{ContainerCPUUsagePercpuMetricAttributeKeyCore},
-		},
-		ContainerCPUUsageSystem: ContainerCPUUsageSystemMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUsageTotal: ContainerCPUUsageTotalMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryPercent: ContainerMemoryPercentMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryUsageLimit: ContainerMemoryUsageLimitMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryUsageTotal: ContainerMemoryUsageTotalMetricConfig{
-			Enabled: true,
-		},
-		ContainerNetworkIoUsageRxBytes: ContainerNetworkIoUsageRxBytesMetricConfig{
-			Enabled: true,
-		},
-		ContainerNetworkIoUsageTxBytes: ContainerNetworkIoUsageTxBytesMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -327,14 +175,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -347,20 +188,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ContainerID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerRuntime: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for podman_stats metrics builder.
@@ -370,13 +199,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

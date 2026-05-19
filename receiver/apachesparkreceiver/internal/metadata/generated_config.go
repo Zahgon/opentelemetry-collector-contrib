@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type SparkDriverBlockManagerDiskUsageMetricConfig struct {
 }
 
 func (ms *SparkDriverBlockManagerDiskUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -47,34 +36,12 @@ type SparkDriverBlockManagerMemoryUsageMetricConfig struct {
 }
 
 func (ms *SparkDriverBlockManagerMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverBlockManagerMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverBlockManagerMemoryUsageMetricAttributeKeyLocation, SparkDriverBlockManagerMemoryUsageMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric spark.driver.block_manager.memory.usage doesn't have an attribute %v, valid attributes: [location, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -85,16 +52,7 @@ type SparkDriverCodeGeneratorCompilationAverageTimeMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorCompilationAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -105,16 +63,7 @@ type SparkDriverCodeGeneratorCompilationCountMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorCompilationCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -125,16 +74,7 @@ type SparkDriverCodeGeneratorGeneratedClassAverageSizeMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorGeneratedClassAverageSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -145,16 +85,7 @@ type SparkDriverCodeGeneratorGeneratedClassCountMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorGeneratedClassCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -165,16 +96,7 @@ type SparkDriverCodeGeneratorGeneratedMethodAverageSizeMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorGeneratedMethodAverageSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -185,16 +107,7 @@ type SparkDriverCodeGeneratorGeneratedMethodCountMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorGeneratedMethodCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -205,16 +118,7 @@ type SparkDriverCodeGeneratorSourceCodeAverageSizeMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorSourceCodeAverageSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -225,16 +129,7 @@ type SparkDriverCodeGeneratorSourceCodeOperationsMetricConfig struct {
 }
 
 func (ms *SparkDriverCodeGeneratorSourceCodeOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -245,16 +140,7 @@ type SparkDriverDagSchedulerJobActiveMetricConfig struct {
 }
 
 func (ms *SparkDriverDagSchedulerJobActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -265,16 +151,7 @@ type SparkDriverDagSchedulerJobCountMetricConfig struct {
 }
 
 func (ms *SparkDriverDagSchedulerJobCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -295,34 +172,12 @@ type SparkDriverDagSchedulerStageCountMetricConfig struct {
 }
 
 func (ms *SparkDriverDagSchedulerStageCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverDagSchedulerStageCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverDagSchedulerStageCountMetricAttributeKeySchedulerStatus:
-		default:
-			return fmt.Errorf("metric spark.driver.dag_scheduler.stage.count doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -333,16 +188,7 @@ type SparkDriverDagSchedulerStageFailedMetricConfig struct {
 }
 
 func (ms *SparkDriverDagSchedulerStageFailedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -363,34 +209,12 @@ type SparkDriverExecutorGcOperationsMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorGcOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorGcOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorGcOperationsMetricAttributeKeyGcType:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.gc.operations doesn't have an attribute %v, valid attributes: [gc_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -411,34 +235,12 @@ type SparkDriverExecutorGcTimeMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorGcTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorGcTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorGcTimeMetricAttributeKeyGcType:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.gc.time doesn't have an attribute %v, valid attributes: [gc_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -459,34 +261,12 @@ type SparkDriverExecutorMemoryExecutionMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorMemoryExecutionMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorMemoryExecutionMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorMemoryExecutionMetricAttributeKeyLocation:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.memory.execution doesn't have an attribute %v, valid attributes: [location]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -507,34 +287,12 @@ type SparkDriverExecutorMemoryJvmMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorMemoryJvmMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorMemoryJvmMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorMemoryJvmMetricAttributeKeyLocation:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.memory.jvm doesn't have an attribute %v, valid attributes: [location]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -555,34 +313,12 @@ type SparkDriverExecutorMemoryPoolMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorMemoryPoolMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorMemoryPoolMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorMemoryPoolMetricAttributeKeyPoolMemoryType:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.memory.pool doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -603,34 +339,12 @@ type SparkDriverExecutorMemoryStorageMetricConfig struct {
 }
 
 func (ms *SparkDriverExecutorMemoryStorageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkDriverExecutorMemoryStorageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkDriverExecutorMemoryStorageMetricAttributeKeyLocation:
-		default:
-			return fmt.Errorf("metric spark.driver.executor.memory.storage doesn't have an attribute %v, valid attributes: [location]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -641,16 +355,7 @@ type SparkDriverHiveExternalCatalogFileCacheHitsMetricConfig struct {
 }
 
 func (ms *SparkDriverHiveExternalCatalogFileCacheHitsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -661,16 +366,7 @@ type SparkDriverHiveExternalCatalogFilesDiscoveredMetricConfig struct {
 }
 
 func (ms *SparkDriverHiveExternalCatalogFilesDiscoveredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -681,16 +377,7 @@ type SparkDriverHiveExternalCatalogHiveClientCallsMetricConfig struct {
 }
 
 func (ms *SparkDriverHiveExternalCatalogHiveClientCallsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -701,16 +388,7 @@ type SparkDriverHiveExternalCatalogParallelListingJobsMetricConfig struct {
 }
 
 func (ms *SparkDriverHiveExternalCatalogParallelListingJobsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -721,16 +399,7 @@ type SparkDriverHiveExternalCatalogPartitionsFetchedMetricConfig struct {
 }
 
 func (ms *SparkDriverHiveExternalCatalogPartitionsFetchedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -741,16 +410,7 @@ type SparkDriverJvmCPUTimeMetricConfig struct {
 }
 
 func (ms *SparkDriverJvmCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -761,16 +421,7 @@ type SparkDriverLiveListenerBusDroppedMetricConfig struct {
 }
 
 func (ms *SparkDriverLiveListenerBusDroppedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -781,16 +432,7 @@ type SparkDriverLiveListenerBusPostedMetricConfig struct {
 }
 
 func (ms *SparkDriverLiveListenerBusPostedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -801,16 +443,7 @@ type SparkDriverLiveListenerBusProcessingTimeAverageMetricConfig struct {
 }
 
 func (ms *SparkDriverLiveListenerBusProcessingTimeAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -821,16 +454,7 @@ type SparkDriverLiveListenerBusQueueSizeMetricConfig struct {
 }
 
 func (ms *SparkDriverLiveListenerBusQueueSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -841,16 +465,7 @@ type SparkExecutorDiskUsageMetricConfig struct {
 }
 
 func (ms *SparkExecutorDiskUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -861,16 +476,7 @@ type SparkExecutorGcTimeMetricConfig struct {
 }
 
 func (ms *SparkExecutorGcTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -881,16 +487,7 @@ type SparkExecutorInputSizeMetricConfig struct {
 }
 
 func (ms *SparkExecutorInputSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -901,16 +498,7 @@ type SparkExecutorMemoryUsageMetricConfig struct {
 }
 
 func (ms *SparkExecutorMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -931,34 +519,12 @@ type SparkExecutorShuffleIoSizeMetricConfig struct {
 }
 
 func (ms *SparkExecutorShuffleIoSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkExecutorShuffleIoSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkExecutorShuffleIoSizeMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric spark.executor.shuffle.io.size doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -980,34 +546,12 @@ type SparkExecutorStorageMemoryUsageMetricConfig struct {
 }
 
 func (ms *SparkExecutorStorageMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkExecutorStorageMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkExecutorStorageMemoryUsageMetricAttributeKeyLocation, SparkExecutorStorageMemoryUsageMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric spark.executor.storage_memory.usage doesn't have an attribute %v, valid attributes: [location, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1018,16 +562,7 @@ type SparkExecutorTaskActiveMetricConfig struct {
 }
 
 func (ms *SparkExecutorTaskActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1038,16 +573,7 @@ type SparkExecutorTaskLimitMetricConfig struct {
 }
 
 func (ms *SparkExecutorTaskLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1068,34 +594,12 @@ type SparkExecutorTaskResultMetricConfig struct {
 }
 
 func (ms *SparkExecutorTaskResultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkExecutorTaskResultMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkExecutorTaskResultMetricAttributeKeyExecutorTaskResult:
-		default:
-			return fmt.Errorf("metric spark.executor.task.result doesn't have an attribute %v, valid attributes: [result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1106,16 +610,7 @@ type SparkExecutorTimeMetricConfig struct {
 }
 
 func (ms *SparkExecutorTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1126,16 +621,7 @@ type SparkJobStageActiveMetricConfig struct {
 }
 
 func (ms *SparkJobStageActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1156,36 +642,11 @@ type SparkJobStageResultMetricConfig struct {
 }
 
 func (ms *SparkJobStageResultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkJobStageResultMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkJobStageResultMetricAttributeKeyJobResult:
-		default:
-			return fmt.Errorf("metric spark.job.stage.result doesn't have an attribute %v, valid attributes: [result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkJobStageResultMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkJobTaskActiveMetricConfig provides config for the spark.job.task.active metric.
 type SparkJobTaskActiveMetricConfig struct {
@@ -1194,16 +655,7 @@ type SparkJobTaskActiveMetricConfig struct {
 }
 
 func (ms *SparkJobTaskActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1224,36 +676,11 @@ type SparkJobTaskResultMetricConfig struct {
 }
 
 func (ms *SparkJobTaskResultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkJobTaskResultMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkJobTaskResultMetricAttributeKeyJobResult:
-		default:
-			return fmt.Errorf("metric spark.job.task.result doesn't have an attribute %v, valid attributes: [result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkJobTaskResultMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkStageDiskSpilledMetricConfig provides config for the spark.stage.disk.spilled metric.
 type SparkStageDiskSpilledMetricConfig struct {
@@ -1262,16 +689,7 @@ type SparkStageDiskSpilledMetricConfig struct {
 }
 
 func (ms *SparkStageDiskSpilledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1282,16 +700,7 @@ type SparkStageExecutorCPUTimeMetricConfig struct {
 }
 
 func (ms *SparkStageExecutorCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1302,16 +711,7 @@ type SparkStageExecutorRunTimeMetricConfig struct {
 }
 
 func (ms *SparkStageExecutorRunTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1332,36 +732,11 @@ type SparkStageIoRecordsMetricConfig struct {
 }
 
 func (ms *SparkStageIoRecordsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkStageIoRecordsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageIoRecordsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric spark.stage.io.records doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkStageIoRecordsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkStageIoSizeMetricAttributeKey specifies the key of an attribute for the spark.stage.io.size metric.
 type SparkStageIoSizeMetricAttributeKey string
@@ -1380,36 +755,11 @@ type SparkStageIoSizeMetricConfig struct {
 }
 
 func (ms *SparkStageIoSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkStageIoSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageIoSizeMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric spark.stage.io.size doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkStageIoSizeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkStageJvmGcTimeMetricConfig provides config for the spark.stage.jvm_gc_time metric.
 type SparkStageJvmGcTimeMetricConfig struct {
@@ -1418,16 +768,7 @@ type SparkStageJvmGcTimeMetricConfig struct {
 }
 
 func (ms *SparkStageJvmGcTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1438,16 +779,7 @@ type SparkStageMemoryPeakMetricConfig struct {
 }
 
 func (ms *SparkStageMemoryPeakMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1458,16 +790,7 @@ type SparkStageMemorySpilledMetricConfig struct {
 }
 
 func (ms *SparkStageMemorySpilledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1488,34 +811,12 @@ type SparkStageShuffleBlocksFetchedMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleBlocksFetchedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkStageShuffleBlocksFetchedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageShuffleBlocksFetchedMetricAttributeKeySource:
-		default:
-			return fmt.Errorf("metric spark.stage.shuffle.blocks_fetched doesn't have an attribute %v, valid attributes: [source]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1526,16 +827,7 @@ type SparkStageShuffleFetchWaitTimeMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleFetchWaitTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1546,16 +838,7 @@ type SparkStageShuffleIoDiskMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleIoDiskMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1576,34 +859,12 @@ type SparkStageShuffleIoReadSizeMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleIoReadSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkStageShuffleIoReadSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageShuffleIoReadSizeMetricAttributeKeySource:
-		default:
-			return fmt.Errorf("metric spark.stage.shuffle.io.read.size doesn't have an attribute %v, valid attributes: [source]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1624,34 +885,12 @@ type SparkStageShuffleIoRecordsMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleIoRecordsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SparkStageShuffleIoRecordsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageShuffleIoRecordsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric spark.stage.shuffle.io.records doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1662,16 +901,7 @@ type SparkStageShuffleIoWriteSizeMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleIoWriteSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1682,16 +912,7 @@ type SparkStageShuffleWriteTimeMetricConfig struct {
 }
 
 func (ms *SparkStageShuffleWriteTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1715,36 +936,11 @@ type SparkStageStatusMetricConfig struct {
 }
 
 func (ms *SparkStageStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkStageStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageStatusMetricAttributeKeyStageActive, SparkStageStatusMetricAttributeKeyStageComplete, SparkStageStatusMetricAttributeKeyStagePending, SparkStageStatusMetricAttributeKeyStageFailed:
-		default:
-			return fmt.Errorf("metric spark.stage.status doesn't have an attribute %v, valid attributes: [active, complete, pending, failed]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkStageStatusMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkStageTaskActiveMetricConfig provides config for the spark.stage.task.active metric.
 type SparkStageTaskActiveMetricConfig struct {
@@ -1753,16 +949,7 @@ type SparkStageTaskActiveMetricConfig struct {
 }
 
 func (ms *SparkStageTaskActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1783,36 +970,11 @@ type SparkStageTaskResultMetricConfig struct {
 }
 
 func (ms *SparkStageTaskResultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SparkStageTaskResultMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SparkStageTaskResultMetricAttributeKeyStageTaskResult:
-		default:
-			return fmt.Errorf("metric spark.stage.task.result doesn't have an attribute %v, valid attributes: [result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SparkStageTaskResultMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SparkStageTaskResultSizeMetricConfig provides config for the spark.stage.task.result_size metric.
 type SparkStageTaskResultSizeMetricConfig struct {
@@ -1821,16 +983,7 @@ type SparkStageTaskResultSizeMetricConfig struct {
 }
 
 func (ms *SparkStageTaskResultSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1901,239 +1054,7 @@ type MetricsConfig struct {
 	SparkStageTaskResultSize                           SparkStageTaskResultSizeMetricConfig                           `mapstructure:"spark.stage.task.result_size"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SparkDriverBlockManagerDiskUsage: SparkDriverBlockManagerDiskUsageMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverBlockManagerMemoryUsage: SparkDriverBlockManagerMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverBlockManagerMemoryUsageMetricAttributeKey{SparkDriverBlockManagerMemoryUsageMetricAttributeKeyLocation, SparkDriverBlockManagerMemoryUsageMetricAttributeKeyState},
-		},
-		SparkDriverCodeGeneratorCompilationAverageTime: SparkDriverCodeGeneratorCompilationAverageTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorCompilationCount: SparkDriverCodeGeneratorCompilationCountMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorGeneratedClassAverageSize: SparkDriverCodeGeneratorGeneratedClassAverageSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorGeneratedClassCount: SparkDriverCodeGeneratorGeneratedClassCountMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorGeneratedMethodAverageSize: SparkDriverCodeGeneratorGeneratedMethodAverageSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorGeneratedMethodCount: SparkDriverCodeGeneratorGeneratedMethodCountMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorSourceCodeAverageSize: SparkDriverCodeGeneratorSourceCodeAverageSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverCodeGeneratorSourceCodeOperations: SparkDriverCodeGeneratorSourceCodeOperationsMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverDagSchedulerJobActive: SparkDriverDagSchedulerJobActiveMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverDagSchedulerJobCount: SparkDriverDagSchedulerJobCountMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverDagSchedulerStageCount: SparkDriverDagSchedulerStageCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverDagSchedulerStageCountMetricAttributeKey{SparkDriverDagSchedulerStageCountMetricAttributeKeySchedulerStatus},
-		},
-		SparkDriverDagSchedulerStageFailed: SparkDriverDagSchedulerStageFailedMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverExecutorGcOperations: SparkDriverExecutorGcOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorGcOperationsMetricAttributeKey{SparkDriverExecutorGcOperationsMetricAttributeKeyGcType},
-		},
-		SparkDriverExecutorGcTime: SparkDriverExecutorGcTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorGcTimeMetricAttributeKey{SparkDriverExecutorGcTimeMetricAttributeKeyGcType},
-		},
-		SparkDriverExecutorMemoryExecution: SparkDriverExecutorMemoryExecutionMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorMemoryExecutionMetricAttributeKey{SparkDriverExecutorMemoryExecutionMetricAttributeKeyLocation},
-		},
-		SparkDriverExecutorMemoryJvm: SparkDriverExecutorMemoryJvmMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorMemoryJvmMetricAttributeKey{SparkDriverExecutorMemoryJvmMetricAttributeKeyLocation},
-		},
-		SparkDriverExecutorMemoryPool: SparkDriverExecutorMemoryPoolMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorMemoryPoolMetricAttributeKey{SparkDriverExecutorMemoryPoolMetricAttributeKeyPoolMemoryType},
-		},
-		SparkDriverExecutorMemoryStorage: SparkDriverExecutorMemoryStorageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkDriverExecutorMemoryStorageMetricAttributeKey{SparkDriverExecutorMemoryStorageMetricAttributeKeyLocation},
-		},
-		SparkDriverHiveExternalCatalogFileCacheHits: SparkDriverHiveExternalCatalogFileCacheHitsMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverHiveExternalCatalogFilesDiscovered: SparkDriverHiveExternalCatalogFilesDiscoveredMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverHiveExternalCatalogHiveClientCalls: SparkDriverHiveExternalCatalogHiveClientCallsMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverHiveExternalCatalogParallelListingJobs: SparkDriverHiveExternalCatalogParallelListingJobsMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverHiveExternalCatalogPartitionsFetched: SparkDriverHiveExternalCatalogPartitionsFetchedMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverJvmCPUTime: SparkDriverJvmCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverLiveListenerBusDropped: SparkDriverLiveListenerBusDroppedMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverLiveListenerBusPosted: SparkDriverLiveListenerBusPostedMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverLiveListenerBusProcessingTimeAverage: SparkDriverLiveListenerBusProcessingTimeAverageMetricConfig{
-			Enabled: true,
-		},
-		SparkDriverLiveListenerBusQueueSize: SparkDriverLiveListenerBusQueueSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorDiskUsage: SparkExecutorDiskUsageMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorGcTime: SparkExecutorGcTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorInputSize: SparkExecutorInputSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorMemoryUsage: SparkExecutorMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorShuffleIoSize: SparkExecutorShuffleIoSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkExecutorShuffleIoSizeMetricAttributeKey{SparkExecutorShuffleIoSizeMetricAttributeKeyDirection},
-		},
-		SparkExecutorStorageMemoryUsage: SparkExecutorStorageMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkExecutorStorageMemoryUsageMetricAttributeKey{SparkExecutorStorageMemoryUsageMetricAttributeKeyLocation, SparkExecutorStorageMemoryUsageMetricAttributeKeyState},
-		},
-		SparkExecutorTaskActive: SparkExecutorTaskActiveMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorTaskLimit: SparkExecutorTaskLimitMetricConfig{
-			Enabled: true,
-		},
-		SparkExecutorTaskResult: SparkExecutorTaskResultMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkExecutorTaskResultMetricAttributeKey{SparkExecutorTaskResultMetricAttributeKeyExecutorTaskResult},
-		},
-		SparkExecutorTime: SparkExecutorTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkJobStageActive: SparkJobStageActiveMetricConfig{
-			Enabled: true,
-		},
-		SparkJobStageResult: SparkJobStageResultMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkJobStageResultMetricAttributeKey{SparkJobStageResultMetricAttributeKeyJobResult},
-		},
-		SparkJobTaskActive: SparkJobTaskActiveMetricConfig{
-			Enabled: true,
-		},
-		SparkJobTaskResult: SparkJobTaskResultMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkJobTaskResultMetricAttributeKey{SparkJobTaskResultMetricAttributeKeyJobResult},
-		},
-		SparkStageDiskSpilled: SparkStageDiskSpilledMetricConfig{
-			Enabled: true,
-		},
-		SparkStageExecutorCPUTime: SparkStageExecutorCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageExecutorRunTime: SparkStageExecutorRunTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageIoRecords: SparkStageIoRecordsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageIoRecordsMetricAttributeKey{SparkStageIoRecordsMetricAttributeKeyDirection},
-		},
-		SparkStageIoSize: SparkStageIoSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageIoSizeMetricAttributeKey{SparkStageIoSizeMetricAttributeKeyDirection},
-		},
-		SparkStageJvmGcTime: SparkStageJvmGcTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageMemoryPeak: SparkStageMemoryPeakMetricConfig{
-			Enabled: true,
-		},
-		SparkStageMemorySpilled: SparkStageMemorySpilledMetricConfig{
-			Enabled: true,
-		},
-		SparkStageShuffleBlocksFetched: SparkStageShuffleBlocksFetchedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageShuffleBlocksFetchedMetricAttributeKey{SparkStageShuffleBlocksFetchedMetricAttributeKeySource},
-		},
-		SparkStageShuffleFetchWaitTime: SparkStageShuffleFetchWaitTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageShuffleIoDisk: SparkStageShuffleIoDiskMetricConfig{
-			Enabled: true,
-		},
-		SparkStageShuffleIoReadSize: SparkStageShuffleIoReadSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageShuffleIoReadSizeMetricAttributeKey{SparkStageShuffleIoReadSizeMetricAttributeKeySource},
-		},
-		SparkStageShuffleIoRecords: SparkStageShuffleIoRecordsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageShuffleIoRecordsMetricAttributeKey{SparkStageShuffleIoRecordsMetricAttributeKeyDirection},
-		},
-		SparkStageShuffleIoWriteSize: SparkStageShuffleIoWriteSizeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageShuffleWriteTime: SparkStageShuffleWriteTimeMetricConfig{
-			Enabled: true,
-		},
-		SparkStageStatus: SparkStageStatusMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageStatusMetricAttributeKey{SparkStageStatusMetricAttributeKeyStageActive, SparkStageStatusMetricAttributeKeyStageComplete, SparkStageStatusMetricAttributeKeyStagePending, SparkStageStatusMetricAttributeKeyStageFailed},
-		},
-		SparkStageTaskActive: SparkStageTaskActiveMetricConfig{
-			Enabled: true,
-		},
-		SparkStageTaskResult: SparkStageTaskResultMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SparkStageTaskResultMetricAttributeKey{SparkStageTaskResultMetricAttributeKeyStageTaskResult},
-		},
-		SparkStageTaskResultSize: SparkStageTaskResultSizeMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -2150,14 +1071,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2172,26 +1086,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		SparkApplicationID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SparkApplicationName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SparkExecutorID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SparkJobID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SparkStageAttemptID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		SparkStageID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for apachespark metrics builder.
@@ -2201,13 +1097,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

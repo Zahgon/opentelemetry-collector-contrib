@@ -7,19 +7,14 @@ package diskscraper // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"fmt"
-	"time"
 
 	"github.com/shirou/gopsutil/v4/disk"
-	"github.com/shirou/gopsutil/v4/host"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scrapererror"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/precision"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/diskscraper/internal/metadata"
 )
 
@@ -44,112 +39,53 @@ type diskScraper struct {
 
 // newDiskScraper creates a Disk Scraper
 func newDiskScraper(_ context.Context, settings scraper.Settings, cfg *Config) (*diskScraper, error) {
-	scraper := &diskScraper{settings: settings, config: cfg, bootTime: host.BootTimeWithContext, ioCounters: disk.IOCountersWithContext}
-
-	var err error
-
-	if len(cfg.Include.Devices) > 0 {
-		scraper.includeFS, err = filterset.CreateFilterSet(cfg.Include.Devices, &cfg.Include.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating device include filters: %w", err)
-		}
-	}
-
-	if len(cfg.Exclude.Devices) > 0 {
-		scraper.excludeFS, err = filterset.CreateFilterSet(cfg.Exclude.Devices, &cfg.Exclude.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating device exclude filters: %w", err)
-		}
-	}
-
-	return scraper, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *diskScraper) start(ctx context.Context, _ component.Host) error {
-	bootTime, err := s.bootTime(ctx)
-	if err != nil {
-		return err
-	}
-
-	s.startTime = pcommon.Timestamp(bootTime * 1e9)
-	s.mb = metadata.NewMetricsBuilder(s.config.MetricsBuilderConfig, s.settings, metadata.WithStartTime(s.startTime))
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (s *diskScraper) scrape(ctx context.Context) (pmetric.Metrics, error) {
-	now := pcommon.NewTimestampFromTime(time.Now())
-	ioCounters, err := s.ioCounters(ctx)
-	if err != nil {
-		return pmetric.NewMetrics(), scrapererror.NewPartialScrapeError(err, metricsLen)
-	}
-
-	// filter devices by name
-	ioCounters = s.filterByDevice(ioCounters)
-
-	if len(ioCounters) > 0 {
-		s.recordDiskIOMetric(now, ioCounters)
-		s.recordDiskOperationsMetric(now, ioCounters)
-		s.recordDiskIOTimeMetric(now, ioCounters)
-		s.recordDiskOperationTimeMetric(now, ioCounters)
-		s.recordDiskPendingOperationsMetric(now, ioCounters)
-		s.recordSystemSpecificDataPoints(now, ioCounters)
-	}
-
-	return s.mb.Emit(), nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
+// filter devices by name
+
 func (s *diskScraper) recordDiskIOMetric(now pcommon.Timestamp, ioCounters map[string]disk.IOCountersStat) {
-	for device := range ioCounters {
-		ioCounter := ioCounters[device]
-		s.mb.RecordSystemDiskIoDataPoint(now, int64(ioCounter.ReadBytes), device, metadata.AttributeDirectionRead)
-		s.mb.RecordSystemDiskIoDataPoint(now, int64(ioCounter.WriteBytes), device, metadata.AttributeDirectionWrite)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *diskScraper) recordDiskOperationsMetric(now pcommon.Timestamp, ioCounters map[string]disk.IOCountersStat) {
-	for device := range ioCounters {
-		ioCounter := ioCounters[device]
-		s.mb.RecordSystemDiskOperationsDataPoint(now, int64(ioCounter.ReadCount), device, metadata.AttributeDirectionRead)
-		s.mb.RecordSystemDiskOperationsDataPoint(now, int64(ioCounter.WriteCount), device, metadata.AttributeDirectionWrite)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *diskScraper) recordDiskIOTimeMetric(now pcommon.Timestamp, ioCounters map[string]disk.IOCountersStat) {
-	for device := range ioCounters {
-		ioCounter := ioCounters[device]
-		s.mb.RecordSystemDiskIoTimeDataPoint(now, precision.Scale(ioCounter.IoTime, time.Millisecond), device)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *diskScraper) recordDiskOperationTimeMetric(now pcommon.Timestamp, ioCounters map[string]disk.IOCountersStat) {
-	for device := range ioCounters {
-		ioCounter := ioCounters[device]
-		s.mb.RecordSystemDiskOperationTimeDataPoint(now, precision.Scale(ioCounter.ReadTime, time.Millisecond), device, metadata.AttributeDirectionRead)
-		s.mb.RecordSystemDiskOperationTimeDataPoint(now, precision.Scale(ioCounter.WriteTime, time.Millisecond), device, metadata.AttributeDirectionWrite)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *diskScraper) recordDiskPendingOperationsMetric(now pcommon.Timestamp, ioCounters map[string]disk.IOCountersStat) {
-	for device := range ioCounters {
-		ioCounter := ioCounters[device]
-		s.mb.RecordSystemDiskPendingOperationsDataPoint(now, int64(ioCounter.IopsInProgress), device)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *diskScraper) filterByDevice(ioCounters map[string]disk.IOCountersStat) map[string]disk.IOCountersStat {
-	if s.includeFS == nil && s.excludeFS == nil {
-		return ioCounters
-	}
-
-	for device := range ioCounters {
-		if !s.includeDevice(device) {
-			delete(ioCounters, device)
-		}
-	}
-	return ioCounters
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *diskScraper) includeDevice(deviceName string) bool {
-	return (s.includeFS == nil || s.includeFS.Matches(deviceName)) &&
-		(s.excludeFS == nil || !s.excludeFS.Matches(deviceName))
+	_ = "STUB: not implemented"
+	return false
 }

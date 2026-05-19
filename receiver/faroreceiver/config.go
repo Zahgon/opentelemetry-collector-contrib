@@ -4,8 +4,6 @@
 package faroreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/faroreceiver"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/confmap"
@@ -20,17 +18,6 @@ var (
 	_ confmap.Unmarshaler = (*Config)(nil)
 )
 
-func (cfg *Config) Validate() error {
-	if cfg.NetAddr.Endpoint == "" {
-		return errors.New("must specify endpoint")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *Config) Unmarshal(conf *confmap.Conf) error {
-	if err := conf.Unmarshal(cfg); err != nil {
-		return err
-	}
-
-	return nil
-}
+func (cfg *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }

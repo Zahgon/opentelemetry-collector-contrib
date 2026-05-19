@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"context"
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -14,11 +12,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/connector/grafanacloudconnector")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/connector/grafanacloudconnector")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -40,21 +40,14 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// RegisterGrafanacloudHostCountCallback sets callback for observable GrafanacloudHostCount metric.
+	return
 }
 
-// RegisterGrafanacloudHostCountCallback sets callback for observable GrafanacloudHostCount metric.
 func (builder *TelemetryBuilder) RegisterGrafanacloudHostCountCallback(cb metric.Int64Callback) error {
-	reg, err := builder.meter.RegisterCallback(func(ctx context.Context, o metric.Observer) error {
-		cb(ctx, &observerInt64{inst: builder.GrafanacloudHostCount, obs: o})
-		return nil
-	}, builder.GrafanacloudHostCount)
-	if err != nil {
-		return err
-	}
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	builder.registrations = append(builder.registrations, reg)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -65,44 +58,16 @@ type observerInt64 struct {
 }
 
 func (oi *observerInt64) Observe(value int64, opts ...metric.ObserveOption) {
-	oi.obs.ObserveInt64(oi.inst, value, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.GrafanacloudDatapointCount, err = builder.meter.Int64Counter(
-		"otelcol_grafanacloud_datapoint_count",
-		metric.WithDescription("Number of datapoints sent to Grafana Cloud [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.GrafanacloudFlushCount, err = builder.meter.Int64Counter(
-		"otelcol_grafanacloud_flush_count",
-		metric.WithDescription("Number of metrics flushes [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	builder.GrafanacloudHostCount, err = builder.meter.Int64ObservableGauge(
-		"otelcol_grafanacloud_host_count",
-		metric.WithDescription("Number of unique hosts [Development]"),
-		metric.WithUnit("1"),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

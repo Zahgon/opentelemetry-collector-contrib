@@ -5,9 +5,6 @@ package redactionprocessor // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"encoding"
-	"errors"
-	"fmt"
-	"strings"
 
 	"go.opentelemetry.io/collector/config/configopaque"
 
@@ -90,58 +87,19 @@ type Config struct {
 }
 
 func (u HashFunction) String() string {
-	return string(u)
+	_ = "STUB: not implemented"
+
+	// UnmarshalText unmarshalls text to a HashFunction.
+	return ""
 }
 
-// UnmarshalText unmarshalls text to a HashFunction.
-func (u *HashFunction) UnmarshalText(text []byte) error {
-	if u == nil {
-		return errors.New("cannot unmarshal to a nil *HashFunction")
-	}
-
-	str := strings.ToLower(string(text))
-	switch str {
-	case strings.ToLower(SHA1.String()):
-		*u = SHA1
-		return nil
-	case strings.ToLower(MD5.String()):
-		*u = MD5
-		return nil
-	case strings.ToLower(SHA3.String()):
-		*u = SHA3
-		return nil
-	case strings.ToLower(HMACSHA256.String()):
-		*u = HMACSHA256
-		return nil
-	case strings.ToLower(HMACSHA512.String()):
-		*u = HMACSHA512
-		return nil
-	case strings.ToLower(None.String()):
-		*u = None
-		return nil
-	}
-	return fmt.Errorf("unknown HashFunction %s, allowed functions are %s, %s, %s, %s and %s", str, SHA1, SHA3, MD5, HMACSHA256, HMACSHA512)
-}
+func (u *HashFunction) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 // Validate validates the configuration
 func (cfg *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// Validate HMAC key requirements
-	if cfg.HashFunction == HMACSHA256 || cfg.HashFunction == HMACSHA512 {
-		key := string(cfg.HMACKey)
-		if key == "" {
-			return fmt.Errorf("hmac_key must not be empty when hash_function is %q", cfg.HashFunction)
-		}
-
-		// Enforce minimum key lengths for security
-		minLength := 32
-		if cfg.HashFunction == HMACSHA512 {
-			minLength = 64
-		}
-
-		if len(key) < minLength {
-			return fmt.Errorf("hmac_key must be at least %d bytes long for %q, got %d bytes", minLength, cfg.HashFunction, len(key))
-		}
-	}
-
 	return nil
 }
+
+// Enforce minimum key lengths for security

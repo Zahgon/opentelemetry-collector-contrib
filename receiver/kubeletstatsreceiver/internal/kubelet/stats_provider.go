@@ -4,8 +4,6 @@
 package kubelet // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kubeletstatsreceiver/internal/kubelet"
 
 import (
-	"encoding/json"
-
 	stats "k8s.io/kubelet/pkg/apis/stats/v1alpha1"
 )
 
@@ -15,21 +13,11 @@ type StatsProvider struct {
 	rc RestClient
 }
 
-func NewStatsProvider(rc RestClient) *StatsProvider {
-	return &StatsProvider{rc: rc}
-}
+func NewStatsProvider(rc RestClient) *StatsProvider { _ = "STUB: not implemented"; return nil }
 
 // StatsSummary calls the /stats/summary kubelet endpoint and unmarshals the
 // results into a stats.Summary struct.
 func (p *StatsProvider) StatsSummary() (*stats.Summary, error) {
-	summary, err := p.rc.StatsSummary()
-	if err != nil {
-		return nil, err
-	}
-	var out stats.Summary
-	err = json.Unmarshal(summary, &out)
-	if err != nil {
-		return nil, err
-	}
-	return &out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

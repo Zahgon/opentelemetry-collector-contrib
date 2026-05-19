@@ -16,31 +16,26 @@ type BlockingConsumer struct {
 	block chan struct{}
 }
 
-func NewBlockingConsumer() *BlockingConsumer {
-	return &BlockingConsumer{
-		block: make(chan struct{}),
-	}
-}
+func NewBlockingConsumer() *BlockingConsumer { _ = "STUB: not implemented"; return nil }
 
 func (bc *BlockingConsumer) ConsumeTraces(_ context.Context, _ ptrace.Traces) error {
-	<-bc.block
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (bc *BlockingConsumer) ConsumeMetrics(_ context.Context, _ pmetric.Metrics) error {
-	<-bc.block
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (bc *BlockingConsumer) ConsumeLogs(_ context.Context, _ plog.Logs) error {
-	<-bc.block
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (bc *BlockingConsumer) Unblock() {
-	close(bc.block)
-}
+func (bc *BlockingConsumer) Unblock() { _ = "STUB: not implemented"; return }
 
 func (*BlockingConsumer) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }

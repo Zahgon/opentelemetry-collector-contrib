@@ -42,24 +42,8 @@ type Config struct {
 	metadata.MetricsBuilderConfig `mapstructure:",squash"`
 }
 
-func (c *Config) Unmarshal(conf *confmap.Conf) error {
-	if refreshFrequency := conf.Get("refresh_frequency"); refreshFrequency != nil {
-		metadataConf, err := conf.Sub("metadata")
-		if err != nil {
-			return err
-		}
-		if !metadataConf.IsSet("refresh_interval") {
-			// User has not explicitly set metadata.refresh_interval,
-			// but they have set the (deprecated) refresh_frequency,
-			// so use that.
-			if err := conf.Merge(confmap.NewFromStringMap(map[string]any{
-				"metadata": map[string]any{
-					"refresh_interval": refreshFrequency,
-				},
-			})); err != nil {
-				return err
-			}
-		}
-	}
-	return conf.Unmarshal(c)
-}
+func (c *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
+
+// User has not explicitly set metadata.refresh_interval,
+// but they have set the (deprecated) refresh_frequency,
+// so use that.

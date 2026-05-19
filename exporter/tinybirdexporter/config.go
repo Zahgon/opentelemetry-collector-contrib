@@ -4,9 +4,6 @@
 package tinybirdexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/tinybirdexporter"
 
 import (
-	"errors"
-	"fmt"
-	"net/url"
 	"regexp"
 
 	"go.opentelemetry.io/collector/component"
@@ -25,15 +22,7 @@ type SignalConfig struct {
 	_ struct{}
 }
 
-func (cfg SignalConfig) Validate() error {
-	if cfg.Datasource == "" {
-		return errors.New("datasource cannot be empty")
-	}
-	if !datasourceRegex.MatchString(cfg.Datasource) {
-		return fmt.Errorf("invalid datasource %q: only letters, numbers, and underscores are allowed", cfg.Datasource)
-	}
-	return nil
-}
+func (cfg SignalConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Config defines configuration for the Tinybird exporter.
 type Config struct {
@@ -60,22 +49,4 @@ type metricSignalConfigs struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.ClientConfig.Endpoint == "" {
-		return errMissingEndpoint
-	}
-	u, err := url.Parse(cfg.ClientConfig.Endpoint)
-	if err != nil {
-		return fmt.Errorf("endpoint must be a valid URL: %w", err)
-	}
-	if u.Scheme != "http" && u.Scheme != "https" {
-		return fmt.Errorf("endpoint must have http or https scheme: %q", cfg.ClientConfig.Endpoint)
-	}
-	if u.Host == "" {
-		return fmt.Errorf("endpoint must have a host: %q", cfg.ClientConfig.Endpoint)
-	}
-	if cfg.Token == "" {
-		return errMissingToken
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -17,23 +17,6 @@ type MockClient struct {
 
 // GetStats provides a mock function with given fields: ctx
 func (_m *MockClient) GetStats(ctx context.Context) (*model.Stats, error) {
-	ret := _m.Called(ctx)
-
-	var r0 *model.Stats
-	if rf, ok := ret.Get(0).(func(context.Context) *model.Stats); ok {
-		r0 = rf(ctx)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*model.Stats)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
-		r1 = rf(ctx)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	_ = "STUB: not implemented"
+	return nil, nil
 }

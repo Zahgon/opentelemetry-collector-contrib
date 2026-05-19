@@ -7,12 +7,8 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsfirehosereceiver/internal/metadata"
 )
 
 const (
@@ -21,25 +17,13 @@ const (
 
 // NewFactory creates a receiver factory for awsfirehose. Currently, only
 // available in metrics pipelines.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createDefaultConfig creates a default config with the endpoint set
 // to port 8443 and the record type set to the CloudWatch metric stream.
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultEndpoint
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{
-			NetAddr: netAddr,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createMetricsReceiver implements the CreateMetrics function type.
@@ -49,9 +33,8 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c := cfg.(*Config)
-	handleDeprecatedConfig(c, set.Logger)
-	return newMetricsReceiver(c, set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 // createMetricsReceiver implements the CreateMetricsReceiver function type.
@@ -61,7 +44,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	c := cfg.(*Config)
-	handleDeprecatedConfig(c, set.Logger)
-	return newLogsReceiver(c, set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

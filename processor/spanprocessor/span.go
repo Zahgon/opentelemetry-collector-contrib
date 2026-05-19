@@ -5,16 +5,11 @@ package spanprocessor // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	"context"
-	"fmt"
 	"regexp"
-	"strconv"
-	"strings"
 
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/expr"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterspan"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspan"
 )
 
@@ -35,200 +30,76 @@ type toAttributeRule struct {
 
 // newSpanProcessor returns the span processor.
 func newSpanProcessor(config Config) (*spanProcessor, error) {
-	skipExpr, err := filterspan.NewSkipExpr(&config.MatchConfig)
-	if err != nil {
-		return nil, err
-	}
-
-	sp := &spanProcessor{
-		config:   config,
-		skipExpr: skipExpr,
-	}
-
-	// Compile ToAttributes regexp and extract attributes names.
-	if config.Rename.ToAttributes != nil {
-		for _, pattern := range config.Rename.ToAttributes.Rules {
-			re, err := regexp.Compile(pattern)
-			if err != nil {
-				return nil, fmt.Errorf("invalid regexp pattern %s", pattern)
-			}
-
-			rule := toAttributeRule{
-				re: re,
-				// Subexpression names will become attribute names during extraction.
-				attrNames: re.SubexpNames(),
-			}
-
-			sp.toAttributeRules = append(sp.toAttributeRules, rule)
-		}
-	}
-
-	return sp, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Compile ToAttributes regexp and extract attributes names.
+
+// Subexpression names will become attribute names during extraction.
 
 func (sp *spanProcessor) processTraces(ctx context.Context, td ptrace.Traces) (ptrace.Traces, error) {
-	rss := td.ResourceSpans()
-	for i := 0; i < rss.Len(); i++ {
-		rs := rss.At(i)
-		ilss := rs.ScopeSpans()
-		for j := 0; j < ilss.Len(); j++ {
-			ils := ilss.At(j)
-			spans := ils.Spans()
-			for k := 0; k < spans.Len(); k++ {
-				span := spans.At(k)
-				if sp.skipExpr != nil {
-					tCtx := ottlspan.NewTransformContextPtr(rs, ils, span)
-					skip, err := sp.skipExpr.Eval(ctx, tCtx)
-					tCtx.Close()
-					if err != nil {
-						return td, err
-					}
-					if skip {
-						continue
-					}
-				}
-				sp.processFromAttributes(span)
-				sp.processToAttributes(span)
-				sp.processUpdateStatus(span)
-			}
-		}
-	}
-	return td, nil
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
-func (sp *spanProcessor) processFromAttributes(span ptrace.Span) {
-	if len(sp.config.Rename.FromAttributes) == 0 {
-		// There is FromAttributes rule.
-		return
-	}
+func (sp *spanProcessor) processFromAttributes(span ptrace.Span) { _ = "STUB: not implemented"; return }
 
-	attrs := span.Attributes()
-	if attrs.Len() == 0 {
-		// There are no attributes to create span name from.
-		return
-	}
+// There is FromAttributes rule.
 
-	// Note: There was a separate proposal for creating the string.
-	// With benchmarking, strings.Builder is faster than the proposal.
-	// For full context, refer to this PR comment:
-	// https://go.opentelemetry.io/collector/pull/301#discussion_r318357678
-	var sb strings.Builder
-	for i, key := range sp.config.Rename.FromAttributes {
-		attr, found := attrs.Get(key)
+// There are no attributes to create span name from.
 
-		// If one of the keys isn't found, the span name is not updated.
-		if !found {
-			return
-		}
+// Note: There was a separate proposal for creating the string.
+// With benchmarking, strings.Builder is faster than the proposal.
+// For full context, refer to this PR comment:
+// https://go.opentelemetry.io/collector/pull/301#discussion_r318357678
 
-		// Note: WriteString() always return a nil error so there is no error checking
-		// for this method call.
-		// https://golang.org/src/strings/builder.go?s=3425:3477#L110
+// If one of the keys isn't found, the span name is not updated.
 
-		// Include the separator before appending an attribute value if:
-		// this isn't the first value(ie i == 0) loop through the FromAttributes
-		// and
-		// the separator isn't an empty string.
-		if i > 0 && sp.config.Rename.Separator != "" {
-			sb.WriteString(sp.config.Rename.Separator)
-		}
+// Note: WriteString() always return a nil error so there is no error checking
+// for this method call.
+// https://golang.org/src/strings/builder.go?s=3425:3477#L110
 
-		switch attr.Type() {
-		case pcommon.ValueTypeStr:
-			sb.WriteString(attr.Str())
-		case pcommon.ValueTypeBool:
-			sb.WriteString(strconv.FormatBool(attr.Bool()))
-		case pcommon.ValueTypeDouble:
-			sb.WriteString(strconv.FormatFloat(attr.Double(), 'f', -1, 64))
-		case pcommon.ValueTypeInt:
-			sb.WriteString(strconv.FormatInt(attr.Int(), 10))
-		default:
-			sb.WriteString("<unknown-attribute-type>")
-		}
-	}
-	span.SetName(sb.String())
-}
+// Include the separator before appending an attribute value if:
+// this isn't the first value(ie i == 0) loop through the FromAttributes
+// and
+// the separator isn't an empty string.
 
-func (sp *spanProcessor) processToAttributes(span ptrace.Span) {
-	if span.Name() == "" {
-		// There is no span name to work on.
-		return
-	}
+func (sp *spanProcessor) processToAttributes(span ptrace.Span) { _ = "STUB: not implemented"; return }
 
-	if sp.config.Rename.ToAttributes == nil {
-		// No rules to apply.
-		return
-	}
+// There is no span name to work on.
 
-	// Process rules one by one. Store results of processing in the span
-	// so that each subsequent rule works on the span name that is the output
-	// after processing the previous rule.
-	for _, rule := range sp.toAttributeRules {
-		re := rule.re
-		oldName := span.Name()
+// No rules to apply.
 
-		// Match the regular expression and extract matched subexpressions.
-		submatches := re.FindStringSubmatch(oldName)
-		if submatches == nil {
-			continue
-		}
-		// There is a match. We will also need positions of subexpression matches.
-		submatchIdxPairs := re.FindStringSubmatchIndex(oldName)
+// Process rules one by one. Store results of processing in the span
+// so that each subsequent rule works on the span name that is the output
+// after processing the previous rule.
 
-		// A place to accumulate new span name.
-		var sb strings.Builder
+// Match the regular expression and extract matched subexpressions.
 
-		// Index in the oldName until which we traversed.
-		oldNameIndex := 0
+// There is a match. We will also need positions of subexpression matches.
 
-		attrs := span.Attributes()
+// A place to accumulate new span name.
 
-		// TODO: Pre-allocate len(submatches) space in the attributes.
+// Index in the oldName until which we traversed.
 
-		// Start from index 1, which is the first submatch (index 0 is the entire match).
-		// We will go over submatches and will simultaneously build a new span name,
-		// replacing matched subexpressions by attribute names.
-		for i := 1; i < len(submatches); i++ {
-			attrs.PutStr(rule.attrNames[i], submatches[i])
+// TODO: Pre-allocate len(submatches) space in the attributes.
 
-			// Add part of span name from end of previous match to start of this match
-			// and then add attribute name wrapped in curly brackets.
-			matchStartIndex := submatchIdxPairs[i*2] // start of i'th submatch.
-			sb.WriteString(oldName[oldNameIndex:matchStartIndex] + "{" + rule.attrNames[i] + "}")
+// Start from index 1, which is the first submatch (index 0 is the entire match).
+// We will go over submatches and will simultaneously build a new span name,
+// replacing matched subexpressions by attribute names.
 
-			// Advance the index to the end of current match.
-			oldNameIndex = submatchIdxPairs[i*2+1] // end of i'th submatch.
-		}
-		if oldNameIndex < len(oldName) {
-			// Append the remainder, from the end of last match until end of span name.
-			sb.WriteString(oldName[oldNameIndex:])
-		}
+// Add part of span name from end of previous match to start of this match
+// and then add attribute name wrapped in curly brackets.
+// start of i'th submatch.
 
-		// Set new span name.
-		if !sp.config.Rename.ToAttributes.KeepOriginalName {
-			span.SetName(sb.String())
-		}
+// Advance the index to the end of current match.
+// end of i'th submatch.
 
-		if sp.config.Rename.ToAttributes.BreakAfterMatch {
-			// Stop processing, break after first match is requested.
-			break
-		}
-	}
-}
+// Append the remainder, from the end of last match until end of span name.
 
-func (sp *spanProcessor) processUpdateStatus(span ptrace.Span) {
-	cfg := sp.config.SetStatus
-	if cfg != nil {
-		switch cfg.Code {
-		case statusCodeOk:
-			span.Status().SetCode(ptrace.StatusCodeOk)
-			span.Status().SetMessage("")
-		case statusCodeError:
-			span.Status().SetCode(ptrace.StatusCodeError)
-			span.Status().SetMessage(cfg.Description)
-		case statusCodeUnset:
-			span.Status().SetCode(ptrace.StatusCodeUnset)
-			span.Status().SetMessage("")
-		}
-	}
-}
+// Set new span name.
+
+// Stop processing, break after first match is requested.
+
+func (sp *spanProcessor) processUpdateStatus(span ptrace.Span) { _ = "STUB: not implemented"; return }

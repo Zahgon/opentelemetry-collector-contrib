@@ -13,35 +13,17 @@ type SubsetCluster struct {
 type nodeFactoryFunc func(*as.ClientPolicy, *as.Host, bool) (Node, error)
 
 func NewSubsetCluster(policy *as.ClientPolicy, hosts []*as.Host, authEnabled bool) (*SubsetCluster, error) {
-	return newSubsetCluster(policy, hosts, authEnabled, newConnNode)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func newSubsetCluster(policy *as.ClientPolicy, hosts []*as.Host, authEnabled bool, nodeFact nodeFactoryFunc) (*SubsetCluster, error) {
-	nodes := make([]Node, len(hosts))
-
-	// this is only used with 1 node for now (when collect-cluster-metrics is false)
-	for i := range hosts {
-		n, err := nodeFact(policy, hosts[i], authEnabled)
-		if err != nil {
-			return nil, err
-		}
-
-		nodes[i] = n
-	}
-
-	res := SubsetCluster{
-		nodes: nodes,
-	}
-
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (c *SubsetCluster) Close() {
-	for _, node := range c.nodes {
-		node.Close()
-	}
-}
+// this is only used with 1 node for now (when collect-cluster-metrics is false)
 
-func (c *SubsetCluster) GetNodes() []Node {
-	return c.nodes
-}
+func (c *SubsetCluster) Close() { _ = "STUB: not implemented"; return }
+
+func (c *SubsetCluster) GetNodes() []Node { _ = "STUB: not implemented"; return nil }

@@ -5,18 +5,10 @@ package oidcauthextension // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"crypto"
-	"crypto/ecdsa"
-	"crypto/ed25519"
-	"crypto/rsa"
-	"encoding/json"
-	"fmt"
 	"maps"
-	"os"
-	"path/filepath"
 	"slices"
 
 	"github.com/go-jose/go-jose/v4"
-	"go.uber.org/multierr"
 )
 
 // Config has the configuration for the OIDC Authenticator extension.
@@ -60,47 +52,14 @@ type Config struct {
 	Providers []ProviderCfg `mapstructure:"providers"`
 }
 
-func (cfg *Config) getLegacyProviderConfig() *ProviderCfg {
-	if cfg.IssuerURL != "" ||
-		cfg.Audience != "" ||
-		cfg.IgnoreAudience ||
-		cfg.IssuerCAPath != "" ||
-		cfg.UsernameClaim != "" ||
-		cfg.GroupsClaim != "" {
-		return &ProviderCfg{
-			IssuerURL:      cfg.IssuerURL,
-			Audience:       cfg.Audience,
-			IgnoreAudience: cfg.IgnoreAudience,
-			IssuerCAPath:   cfg.IssuerCAPath,
-			UsernameClaim:  cfg.UsernameClaim,
-			GroupsClaim:    cfg.GroupsClaim,
-		}
-	}
-	return nil
-}
+func (cfg *Config) getLegacyProviderConfig() *ProviderCfg { _ = "STUB: not implemented"; return nil }
 
 // getProviderConfigs returns a slice of ProviderCfg, including the legacy provider configuration
 // if it exists. The legacy configuration is prepended to the list of providers.
 // Prefer this function over accessing the Providers field directly.
-func (cfg *Config) getProviderConfigs() []ProviderCfg {
-	if legacyProvider := cfg.getLegacyProviderConfig(); legacyProvider != nil {
-		return append([]ProviderCfg{*legacyProvider}, cfg.Providers...)
-	}
-	return cfg.Providers
-}
+func (cfg *Config) getProviderConfigs() []ProviderCfg { _ = "STUB: not implemented"; return nil }
 
-func (cfg *Config) Validate() (errs error) {
-	seenIssuers := make(map[string]struct{})
-	for _, provider := range cfg.getProviderConfigs() {
-		if _, exists := seenIssuers[provider.IssuerURL]; exists {
-			errs = multierr.Append(errs, fmt.Errorf("duplicate issuer URL found: %s", provider.IssuerURL))
-			continue
-		}
-		seenIssuers[provider.IssuerURL] = struct{}{}
-		errs = multierr.Append(errs, provider.Validate())
-	}
-	return errs
-}
+func (cfg *Config) Validate() (errs error) { _ = "STUB: not implemented"; return nil }
 
 type ProviderCfg struct {
 	// IssuerURL is the base URL for the OIDC provider.
@@ -135,22 +94,7 @@ type ProviderCfg struct {
 	PublicKeysFile string `mapstructure:"public_keys_file"`
 }
 
-func (p *ProviderCfg) Validate() error {
-	if p.Audience == "" && !p.IgnoreAudience {
-		return errNoAudienceProvided
-	}
-	if p.IssuerURL == "" {
-		return errNoIssuerURL
-	}
-
-	if p.PublicKeysFile != "" {
-		if _, err := parseJWKSFile(p.PublicKeysFile); err != nil {
-			return fmt.Errorf("invalid public_keys_file %q: %w", p.PublicKeysFile, err)
-		}
-	}
-
-	return nil
-}
+func (p *ProviderCfg) Validate() error { _ = "STUB: not implemented"; return nil }
 
 var (
 	supportedAlgorithms = map[string][]jose.SignatureAlgorithm{
@@ -190,54 +134,6 @@ type staticPublicKey struct {
 // the key type if the field is not present). At the moment, only RSA,
 // ECDSA, and ED25519 keys are supported, which is what go-oidc supports.
 func parseJWKSFile(path string) ([]staticPublicKey, error) {
-	path, err := filepath.Abs(path)
-	if err != nil {
-		return nil, fmt.Errorf("failed to get absolute path for %q: %w", path, err)
-	}
-
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("could not read file: %w", err)
-	}
-
-	var jwks jose.JSONWebKeySet
-	if err := json.Unmarshal(data, &jwks); err != nil {
-		return nil, fmt.Errorf("failed to parse JWKS: %w", err)
-	}
-
-	publicKeys := []staticPublicKey{}
-	for idx := range jwks.Keys {
-		jwk := jwks.Keys[idx]
-
-		alg := jose.SignatureAlgorithm(jwk.Algorithm)
-		pk := staticPublicKey{
-			publicKey: jwk.Public().Key,
-		}
-
-		var ktyp string
-		switch pk.publicKey.(type) {
-		case *rsa.PublicKey:
-			ktyp = "rsa"
-		case *ecdsa.PublicKey:
-			ktyp = "ecdsa"
-		case ed25519.PublicKey:
-			ktyp = "ed25519"
-		default:
-			continue
-		}
-
-		if slices.Contains(supportedAlgorithms[ktyp], alg) {
-			pk.supportedAlgorithms = append(pk.supportedAlgorithms, alg)
-		} else {
-			pk.supportedAlgorithms = supportedAlgorithms[ktyp]
-		}
-
-		publicKeys = append(publicKeys, pk)
-	}
-
-	if len(publicKeys) == 0 {
-		return nil, errNoSupportedKeys
-	}
-
-	return publicKeys, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

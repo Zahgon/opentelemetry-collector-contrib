@@ -7,31 +7,18 @@ package tailsamplingprocessor // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/telemetry"
 )
 
 // NewFactory returns a new factory for the Tail Sampling processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		DecisionWait:       30 * time.Second,
-		NumTraces:          50000,
-		SampleOnFirstMatch: false,
-		SamplingStrategy:   samplingStrategyTraceComplete,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -40,10 +27,6 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	tCfg := cfg.(*Config)
-
-	if telemetry.IsRecordPolicyEnabled() {
-		tCfg.Options = append(tCfg.Options, withRecordPolicy())
-	}
-	return newTracesProcessor(ctx, params, nextConsumer, *tCfg)
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }

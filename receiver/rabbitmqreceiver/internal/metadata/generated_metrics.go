@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMessageState.
-func (av AttributeMessageState) String() string {
-	switch av {
-	case AttributeMessageStateReady:
-		return "ready"
-	case AttributeMessageStateUnacknowledged:
-		return "unacknowledged"
-	}
-	return ""
-}
+func (av AttributeMessageState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMessageState is a helper map of string to AttributeMessageState attribute value.
 var MapAttributeMessageState = map[string]AttributeMessageState{
@@ -393,39 +382,22 @@ func (m *metricRabbitmqConsumerCount) init() {
 }
 
 func (m *metricRabbitmqConsumerCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqConsumerCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqConsumerCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqConsumerCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqConsumerCount(cfg RabbitmqConsumerCountMetricConfig) metricRabbitmqConsumerCount {
-	m := metricRabbitmqConsumerCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqConsumerCount)
 }
 
 type metricRabbitmqMessageAcknowledged struct {
@@ -445,39 +417,22 @@ func (m *metricRabbitmqMessageAcknowledged) init() {
 }
 
 func (m *metricRabbitmqMessageAcknowledged) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqMessageAcknowledged) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqMessageAcknowledged) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqMessageAcknowledged) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqMessageAcknowledged(cfg RabbitmqMessageAcknowledgedMetricConfig) metricRabbitmqMessageAcknowledged {
-	m := metricRabbitmqMessageAcknowledged{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqMessageAcknowledged)
 }
 
 type metricRabbitmqMessageCurrent struct {
@@ -500,75 +455,22 @@ func (m *metricRabbitmqMessageCurrent) init() {
 }
 
 func (m *metricRabbitmqMessageCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, messageStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RabbitmqMessageCurrentMetricAttributeKeyMessageState) {
-		dp.Attributes().PutStr("state", messageStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqMessageCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqMessageCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqMessageCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqMessageCurrent(cfg RabbitmqMessageCurrentMetricConfig) metricRabbitmqMessageCurrent {
-	m := metricRabbitmqMessageCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqMessageCurrent)
 }
 
 type metricRabbitmqMessageDelivered struct {
@@ -588,39 +490,22 @@ func (m *metricRabbitmqMessageDelivered) init() {
 }
 
 func (m *metricRabbitmqMessageDelivered) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqMessageDelivered) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqMessageDelivered) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqMessageDelivered) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqMessageDelivered(cfg RabbitmqMessageDeliveredMetricConfig) metricRabbitmqMessageDelivered {
-	m := metricRabbitmqMessageDelivered{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqMessageDelivered)
 }
 
 type metricRabbitmqMessageDropped struct {
@@ -640,39 +525,22 @@ func (m *metricRabbitmqMessageDropped) init() {
 }
 
 func (m *metricRabbitmqMessageDropped) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqMessageDropped) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqMessageDropped) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqMessageDropped) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqMessageDropped(cfg RabbitmqMessageDroppedMetricConfig) metricRabbitmqMessageDropped {
-	m := metricRabbitmqMessageDropped{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqMessageDropped)
 }
 
 type metricRabbitmqMessagePublished struct {
@@ -692,39 +560,22 @@ func (m *metricRabbitmqMessagePublished) init() {
 }
 
 func (m *metricRabbitmqMessagePublished) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqMessagePublished) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqMessagePublished) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqMessagePublished) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqMessagePublished(cfg RabbitmqMessagePublishedMetricConfig) metricRabbitmqMessagePublished {
-	m := metricRabbitmqMessagePublished{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqMessagePublished)
 }
 
 type metricRabbitmqNodeChannelClosed struct {
@@ -744,39 +595,22 @@ func (m *metricRabbitmqNodeChannelClosed) init() {
 }
 
 func (m *metricRabbitmqNodeChannelClosed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeChannelClosed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeChannelClosed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeChannelClosed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeChannelClosed(cfg RabbitmqNodeChannelClosedMetricConfig) metricRabbitmqNodeChannelClosed {
-	m := metricRabbitmqNodeChannelClosed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeChannelClosed)
 }
 
 type metricRabbitmqNodeChannelClosedDetailsRate struct {
@@ -796,39 +630,25 @@ func (m *metricRabbitmqNodeChannelClosedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeChannelClosedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeChannelClosedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeChannelClosedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeChannelClosedDetailsRate(cfg RabbitmqNodeChannelClosedDetailsRateMetricConfig) metricRabbitmqNodeChannelClosedDetailsRate {
-	m := metricRabbitmqNodeChannelClosedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeChannelClosedDetailsRate)
 }
 
 type metricRabbitmqNodeChannelCreated struct {
@@ -848,39 +668,22 @@ func (m *metricRabbitmqNodeChannelCreated) init() {
 }
 
 func (m *metricRabbitmqNodeChannelCreated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeChannelCreated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeChannelCreated) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeChannelCreated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeChannelCreated(cfg RabbitmqNodeChannelCreatedMetricConfig) metricRabbitmqNodeChannelCreated {
-	m := metricRabbitmqNodeChannelCreated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeChannelCreated)
 }
 
 type metricRabbitmqNodeChannelCreatedDetailsRate struct {
@@ -900,39 +703,25 @@ func (m *metricRabbitmqNodeChannelCreatedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeChannelCreatedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeChannelCreatedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeChannelCreatedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeChannelCreatedDetailsRate(cfg RabbitmqNodeChannelCreatedDetailsRateMetricConfig) metricRabbitmqNodeChannelCreatedDetailsRate {
-	m := metricRabbitmqNodeChannelCreatedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeChannelCreatedDetailsRate)
 }
 
 type metricRabbitmqNodeConnectionClosed struct {
@@ -952,39 +741,22 @@ func (m *metricRabbitmqNodeConnectionClosed) init() {
 }
 
 func (m *metricRabbitmqNodeConnectionClosed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeConnectionClosed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeConnectionClosed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeConnectionClosed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeConnectionClosed(cfg RabbitmqNodeConnectionClosedMetricConfig) metricRabbitmqNodeConnectionClosed {
-	m := metricRabbitmqNodeConnectionClosed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeConnectionClosed)
 }
 
 type metricRabbitmqNodeConnectionClosedDetailsRate struct {
@@ -1004,39 +776,25 @@ func (m *metricRabbitmqNodeConnectionClosedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeConnectionClosedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeConnectionClosedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeConnectionClosedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeConnectionClosedDetailsRate(cfg RabbitmqNodeConnectionClosedDetailsRateMetricConfig) metricRabbitmqNodeConnectionClosedDetailsRate {
-	m := metricRabbitmqNodeConnectionClosedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeConnectionClosedDetailsRate)
 }
 
 type metricRabbitmqNodeConnectionCreated struct {
@@ -1056,39 +814,22 @@ func (m *metricRabbitmqNodeConnectionCreated) init() {
 }
 
 func (m *metricRabbitmqNodeConnectionCreated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeConnectionCreated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeConnectionCreated) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeConnectionCreated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeConnectionCreated(cfg RabbitmqNodeConnectionCreatedMetricConfig) metricRabbitmqNodeConnectionCreated {
-	m := metricRabbitmqNodeConnectionCreated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeConnectionCreated)
 }
 
 type metricRabbitmqNodeConnectionCreatedDetailsRate struct {
@@ -1108,39 +849,25 @@ func (m *metricRabbitmqNodeConnectionCreatedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeConnectionCreatedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeConnectionCreatedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeConnectionCreatedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeConnectionCreatedDetailsRate(cfg RabbitmqNodeConnectionCreatedDetailsRateMetricConfig) metricRabbitmqNodeConnectionCreatedDetailsRate {
-	m := metricRabbitmqNodeConnectionCreatedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeConnectionCreatedDetailsRate)
 }
 
 type metricRabbitmqNodeContextSwitches struct {
@@ -1160,39 +887,22 @@ func (m *metricRabbitmqNodeContextSwitches) init() {
 }
 
 func (m *metricRabbitmqNodeContextSwitches) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeContextSwitches) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeContextSwitches) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeContextSwitches) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeContextSwitches(cfg RabbitmqNodeContextSwitchesMetricConfig) metricRabbitmqNodeContextSwitches {
-	m := metricRabbitmqNodeContextSwitches{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeContextSwitches)
 }
 
 type metricRabbitmqNodeContextSwitchesDetailsRate struct {
@@ -1212,39 +922,25 @@ func (m *metricRabbitmqNodeContextSwitchesDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeContextSwitchesDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeContextSwitchesDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeContextSwitchesDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeContextSwitchesDetailsRate(cfg RabbitmqNodeContextSwitchesDetailsRateMetricConfig) metricRabbitmqNodeContextSwitchesDetailsRate {
-	m := metricRabbitmqNodeContextSwitchesDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeContextSwitchesDetailsRate)
 }
 
 type metricRabbitmqNodeDiskFree struct {
@@ -1264,39 +960,22 @@ func (m *metricRabbitmqNodeDiskFree) init() {
 }
 
 func (m *metricRabbitmqNodeDiskFree) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeDiskFree) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeDiskFree) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeDiskFree) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeDiskFree(cfg RabbitmqNodeDiskFreeMetricConfig) metricRabbitmqNodeDiskFree {
-	m := metricRabbitmqNodeDiskFree{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeDiskFree)
 }
 
 type metricRabbitmqNodeDiskFreeAlarm struct {
@@ -1316,39 +995,22 @@ func (m *metricRabbitmqNodeDiskFreeAlarm) init() {
 }
 
 func (m *metricRabbitmqNodeDiskFreeAlarm) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeDiskFreeAlarm) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeDiskFreeAlarm) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeDiskFreeAlarm) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeDiskFreeAlarm(cfg RabbitmqNodeDiskFreeAlarmMetricConfig) metricRabbitmqNodeDiskFreeAlarm {
-	m := metricRabbitmqNodeDiskFreeAlarm{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeDiskFreeAlarm)
 }
 
 type metricRabbitmqNodeDiskFreeDetailsRate struct {
@@ -1368,39 +1030,22 @@ func (m *metricRabbitmqNodeDiskFreeDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeDiskFreeDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeDiskFreeDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeDiskFreeDetailsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeDiskFreeDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeDiskFreeDetailsRate(cfg RabbitmqNodeDiskFreeDetailsRateMetricConfig) metricRabbitmqNodeDiskFreeDetailsRate {
-	m := metricRabbitmqNodeDiskFreeDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeDiskFreeDetailsRate)
 }
 
 type metricRabbitmqNodeDiskFreeLimit struct {
@@ -1420,39 +1065,22 @@ func (m *metricRabbitmqNodeDiskFreeLimit) init() {
 }
 
 func (m *metricRabbitmqNodeDiskFreeLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeDiskFreeLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeDiskFreeLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeDiskFreeLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeDiskFreeLimit(cfg RabbitmqNodeDiskFreeLimitMetricConfig) metricRabbitmqNodeDiskFreeLimit {
-	m := metricRabbitmqNodeDiskFreeLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeDiskFreeLimit)
 }
 
 type metricRabbitmqNodeFdTotal struct {
@@ -1472,39 +1100,22 @@ func (m *metricRabbitmqNodeFdTotal) init() {
 }
 
 func (m *metricRabbitmqNodeFdTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeFdTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeFdTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeFdTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeFdTotal(cfg RabbitmqNodeFdTotalMetricConfig) metricRabbitmqNodeFdTotal {
-	m := metricRabbitmqNodeFdTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeFdTotal)
 }
 
 type metricRabbitmqNodeFdUsed struct {
@@ -1524,39 +1135,22 @@ func (m *metricRabbitmqNodeFdUsed) init() {
 }
 
 func (m *metricRabbitmqNodeFdUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeFdUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeFdUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeFdUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeFdUsed(cfg RabbitmqNodeFdUsedMetricConfig) metricRabbitmqNodeFdUsed {
-	m := metricRabbitmqNodeFdUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeFdUsed)
 }
 
 type metricRabbitmqNodeFdUsedDetailsRate struct {
@@ -1576,39 +1170,22 @@ func (m *metricRabbitmqNodeFdUsedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeFdUsedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeFdUsedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeFdUsedDetailsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeFdUsedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeFdUsedDetailsRate(cfg RabbitmqNodeFdUsedDetailsRateMetricConfig) metricRabbitmqNodeFdUsedDetailsRate {
-	m := metricRabbitmqNodeFdUsedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeFdUsedDetailsRate)
 }
 
 type metricRabbitmqNodeGcBytesReclaimed struct {
@@ -1628,39 +1205,22 @@ func (m *metricRabbitmqNodeGcBytesReclaimed) init() {
 }
 
 func (m *metricRabbitmqNodeGcBytesReclaimed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeGcBytesReclaimed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeGcBytesReclaimed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeGcBytesReclaimed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeGcBytesReclaimed(cfg RabbitmqNodeGcBytesReclaimedMetricConfig) metricRabbitmqNodeGcBytesReclaimed {
-	m := metricRabbitmqNodeGcBytesReclaimed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeGcBytesReclaimed)
 }
 
 type metricRabbitmqNodeGcBytesReclaimedDetailsRate struct {
@@ -1680,39 +1240,25 @@ func (m *metricRabbitmqNodeGcBytesReclaimedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeGcBytesReclaimedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeGcBytesReclaimedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeGcBytesReclaimedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeGcBytesReclaimedDetailsRate(cfg RabbitmqNodeGcBytesReclaimedDetailsRateMetricConfig) metricRabbitmqNodeGcBytesReclaimedDetailsRate {
-	m := metricRabbitmqNodeGcBytesReclaimedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeGcBytesReclaimedDetailsRate)
 }
 
 type metricRabbitmqNodeGcNum struct {
@@ -1732,39 +1278,22 @@ func (m *metricRabbitmqNodeGcNum) init() {
 }
 
 func (m *metricRabbitmqNodeGcNum) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeGcNum) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeGcNum) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeGcNum) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeGcNum(cfg RabbitmqNodeGcNumMetricConfig) metricRabbitmqNodeGcNum {
-	m := metricRabbitmqNodeGcNum{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeGcNum)
 }
 
 type metricRabbitmqNodeGcNumDetailsRate struct {
@@ -1784,39 +1313,22 @@ func (m *metricRabbitmqNodeGcNumDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeGcNumDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeGcNumDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeGcNumDetailsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeGcNumDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeGcNumDetailsRate(cfg RabbitmqNodeGcNumDetailsRateMetricConfig) metricRabbitmqNodeGcNumDetailsRate {
-	m := metricRabbitmqNodeGcNumDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeGcNumDetailsRate)
 }
 
 type metricRabbitmqNodeIoReadAvgTime struct {
@@ -1836,39 +1348,22 @@ func (m *metricRabbitmqNodeIoReadAvgTime) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadAvgTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoReadAvgTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoReadAvgTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadAvgTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadAvgTime(cfg RabbitmqNodeIoReadAvgTimeMetricConfig) metricRabbitmqNodeIoReadAvgTime {
-	m := metricRabbitmqNodeIoReadAvgTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadAvgTime)
 }
 
 type metricRabbitmqNodeIoReadAvgTimeDetailsRate struct {
@@ -1888,39 +1383,25 @@ func (m *metricRabbitmqNodeIoReadAvgTimeDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadAvgTimeDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoReadAvgTimeDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadAvgTimeDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadAvgTimeDetailsRate(cfg RabbitmqNodeIoReadAvgTimeDetailsRateMetricConfig) metricRabbitmqNodeIoReadAvgTimeDetailsRate {
-	m := metricRabbitmqNodeIoReadAvgTimeDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadAvgTimeDetailsRate)
 }
 
 type metricRabbitmqNodeIoReadBytes struct {
@@ -1940,39 +1421,22 @@ func (m *metricRabbitmqNodeIoReadBytes) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadBytes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoReadBytes) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoReadBytes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadBytes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadBytes(cfg RabbitmqNodeIoReadBytesMetricConfig) metricRabbitmqNodeIoReadBytes {
-	m := metricRabbitmqNodeIoReadBytes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadBytes)
 }
 
 type metricRabbitmqNodeIoReadBytesDetailsRate struct {
@@ -1992,39 +1456,25 @@ func (m *metricRabbitmqNodeIoReadBytesDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadBytesDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoReadBytesDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadBytesDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadBytesDetailsRate(cfg RabbitmqNodeIoReadBytesDetailsRateMetricConfig) metricRabbitmqNodeIoReadBytesDetailsRate {
-	m := metricRabbitmqNodeIoReadBytesDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadBytesDetailsRate)
 }
 
 type metricRabbitmqNodeIoReadCount struct {
@@ -2044,39 +1494,22 @@ func (m *metricRabbitmqNodeIoReadCount) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoReadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoReadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadCount(cfg RabbitmqNodeIoReadCountMetricConfig) metricRabbitmqNodeIoReadCount {
-	m := metricRabbitmqNodeIoReadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadCount)
 }
 
 type metricRabbitmqNodeIoReadCountDetailsRate struct {
@@ -2096,39 +1529,25 @@ func (m *metricRabbitmqNodeIoReadCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoReadCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoReadCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReadCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReadCountDetailsRate(cfg RabbitmqNodeIoReadCountDetailsRateMetricConfig) metricRabbitmqNodeIoReadCountDetailsRate {
-	m := metricRabbitmqNodeIoReadCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReadCountDetailsRate)
 }
 
 type metricRabbitmqNodeIoReopenCount struct {
@@ -2148,39 +1567,22 @@ func (m *metricRabbitmqNodeIoReopenCount) init() {
 }
 
 func (m *metricRabbitmqNodeIoReopenCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoReopenCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoReopenCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReopenCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReopenCount(cfg RabbitmqNodeIoReopenCountMetricConfig) metricRabbitmqNodeIoReopenCount {
-	m := metricRabbitmqNodeIoReopenCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReopenCount)
 }
 
 type metricRabbitmqNodeIoReopenCountDetailsRate struct {
@@ -2200,39 +1602,25 @@ func (m *metricRabbitmqNodeIoReopenCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoReopenCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoReopenCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoReopenCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoReopenCountDetailsRate(cfg RabbitmqNodeIoReopenCountDetailsRateMetricConfig) metricRabbitmqNodeIoReopenCountDetailsRate {
-	m := metricRabbitmqNodeIoReopenCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoReopenCountDetailsRate)
 }
 
 type metricRabbitmqNodeIoSeekAvgTime struct {
@@ -2252,39 +1640,22 @@ func (m *metricRabbitmqNodeIoSeekAvgTime) init() {
 }
 
 func (m *metricRabbitmqNodeIoSeekAvgTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoSeekAvgTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoSeekAvgTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSeekAvgTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSeekAvgTime(cfg RabbitmqNodeIoSeekAvgTimeMetricConfig) metricRabbitmqNodeIoSeekAvgTime {
-	m := metricRabbitmqNodeIoSeekAvgTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSeekAvgTime)
 }
 
 type metricRabbitmqNodeIoSeekAvgTimeDetailsRate struct {
@@ -2304,39 +1675,25 @@ func (m *metricRabbitmqNodeIoSeekAvgTimeDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoSeekAvgTimeDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoSeekAvgTimeDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSeekAvgTimeDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSeekAvgTimeDetailsRate(cfg RabbitmqNodeIoSeekAvgTimeDetailsRateMetricConfig) metricRabbitmqNodeIoSeekAvgTimeDetailsRate {
-	m := metricRabbitmqNodeIoSeekAvgTimeDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSeekAvgTimeDetailsRate)
 }
 
 type metricRabbitmqNodeIoSeekCount struct {
@@ -2356,39 +1713,22 @@ func (m *metricRabbitmqNodeIoSeekCount) init() {
 }
 
 func (m *metricRabbitmqNodeIoSeekCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoSeekCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoSeekCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSeekCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSeekCount(cfg RabbitmqNodeIoSeekCountMetricConfig) metricRabbitmqNodeIoSeekCount {
-	m := metricRabbitmqNodeIoSeekCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSeekCount)
 }
 
 type metricRabbitmqNodeIoSeekCountDetailsRate struct {
@@ -2408,39 +1748,25 @@ func (m *metricRabbitmqNodeIoSeekCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoSeekCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoSeekCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSeekCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSeekCountDetailsRate(cfg RabbitmqNodeIoSeekCountDetailsRateMetricConfig) metricRabbitmqNodeIoSeekCountDetailsRate {
-	m := metricRabbitmqNodeIoSeekCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSeekCountDetailsRate)
 }
 
 type metricRabbitmqNodeIoSyncAvgTime struct {
@@ -2460,39 +1786,22 @@ func (m *metricRabbitmqNodeIoSyncAvgTime) init() {
 }
 
 func (m *metricRabbitmqNodeIoSyncAvgTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoSyncAvgTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoSyncAvgTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSyncAvgTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSyncAvgTime(cfg RabbitmqNodeIoSyncAvgTimeMetricConfig) metricRabbitmqNodeIoSyncAvgTime {
-	m := metricRabbitmqNodeIoSyncAvgTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSyncAvgTime)
 }
 
 type metricRabbitmqNodeIoSyncAvgTimeDetailsRate struct {
@@ -2512,39 +1821,25 @@ func (m *metricRabbitmqNodeIoSyncAvgTimeDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoSyncAvgTimeDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoSyncAvgTimeDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSyncAvgTimeDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSyncAvgTimeDetailsRate(cfg RabbitmqNodeIoSyncAvgTimeDetailsRateMetricConfig) metricRabbitmqNodeIoSyncAvgTimeDetailsRate {
-	m := metricRabbitmqNodeIoSyncAvgTimeDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSyncAvgTimeDetailsRate)
 }
 
 type metricRabbitmqNodeIoSyncCount struct {
@@ -2564,39 +1859,22 @@ func (m *metricRabbitmqNodeIoSyncCount) init() {
 }
 
 func (m *metricRabbitmqNodeIoSyncCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoSyncCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoSyncCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSyncCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSyncCount(cfg RabbitmqNodeIoSyncCountMetricConfig) metricRabbitmqNodeIoSyncCount {
-	m := metricRabbitmqNodeIoSyncCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSyncCount)
 }
 
 type metricRabbitmqNodeIoSyncCountDetailsRate struct {
@@ -2616,39 +1894,25 @@ func (m *metricRabbitmqNodeIoSyncCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoSyncCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoSyncCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoSyncCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoSyncCountDetailsRate(cfg RabbitmqNodeIoSyncCountDetailsRateMetricConfig) metricRabbitmqNodeIoSyncCountDetailsRate {
-	m := metricRabbitmqNodeIoSyncCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoSyncCountDetailsRate)
 }
 
 type metricRabbitmqNodeIoWriteAvgTime struct {
@@ -2668,39 +1932,22 @@ func (m *metricRabbitmqNodeIoWriteAvgTime) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteAvgTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoWriteAvgTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoWriteAvgTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteAvgTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteAvgTime(cfg RabbitmqNodeIoWriteAvgTimeMetricConfig) metricRabbitmqNodeIoWriteAvgTime {
-	m := metricRabbitmqNodeIoWriteAvgTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteAvgTime)
 }
 
 type metricRabbitmqNodeIoWriteAvgTimeDetailsRate struct {
@@ -2720,39 +1967,25 @@ func (m *metricRabbitmqNodeIoWriteAvgTimeDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteAvgTimeDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoWriteAvgTimeDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteAvgTimeDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteAvgTimeDetailsRate(cfg RabbitmqNodeIoWriteAvgTimeDetailsRateMetricConfig) metricRabbitmqNodeIoWriteAvgTimeDetailsRate {
-	m := metricRabbitmqNodeIoWriteAvgTimeDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteAvgTimeDetailsRate)
 }
 
 type metricRabbitmqNodeIoWriteBytes struct {
@@ -2772,39 +2005,22 @@ func (m *metricRabbitmqNodeIoWriteBytes) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteBytes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoWriteBytes) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoWriteBytes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteBytes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteBytes(cfg RabbitmqNodeIoWriteBytesMetricConfig) metricRabbitmqNodeIoWriteBytes {
-	m := metricRabbitmqNodeIoWriteBytes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteBytes)
 }
 
 type metricRabbitmqNodeIoWriteBytesDetailsRate struct {
@@ -2824,39 +2040,25 @@ func (m *metricRabbitmqNodeIoWriteBytesDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteBytesDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoWriteBytesDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteBytesDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteBytesDetailsRate(cfg RabbitmqNodeIoWriteBytesDetailsRateMetricConfig) metricRabbitmqNodeIoWriteBytesDetailsRate {
-	m := metricRabbitmqNodeIoWriteBytesDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteBytesDetailsRate)
 }
 
 type metricRabbitmqNodeIoWriteCount struct {
@@ -2876,39 +2078,22 @@ func (m *metricRabbitmqNodeIoWriteCount) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeIoWriteCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeIoWriteCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteCount(cfg RabbitmqNodeIoWriteCountMetricConfig) metricRabbitmqNodeIoWriteCount {
-	m := metricRabbitmqNodeIoWriteCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteCount)
 }
 
 type metricRabbitmqNodeIoWriteCountDetailsRate struct {
@@ -2928,39 +2113,25 @@ func (m *metricRabbitmqNodeIoWriteCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeIoWriteCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeIoWriteCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeIoWriteCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeIoWriteCountDetailsRate(cfg RabbitmqNodeIoWriteCountDetailsRateMetricConfig) metricRabbitmqNodeIoWriteCountDetailsRate {
-	m := metricRabbitmqNodeIoWriteCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeIoWriteCountDetailsRate)
 }
 
 type metricRabbitmqNodeMemAlarm struct {
@@ -2980,39 +2151,22 @@ func (m *metricRabbitmqNodeMemAlarm) init() {
 }
 
 func (m *metricRabbitmqNodeMemAlarm) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMemAlarm) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMemAlarm) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMemAlarm) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMemAlarm(cfg RabbitmqNodeMemAlarmMetricConfig) metricRabbitmqNodeMemAlarm {
-	m := metricRabbitmqNodeMemAlarm{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMemAlarm)
 }
 
 type metricRabbitmqNodeMemLimit struct {
@@ -3032,39 +2186,22 @@ func (m *metricRabbitmqNodeMemLimit) init() {
 }
 
 func (m *metricRabbitmqNodeMemLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMemLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMemLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMemLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMemLimit(cfg RabbitmqNodeMemLimitMetricConfig) metricRabbitmqNodeMemLimit {
-	m := metricRabbitmqNodeMemLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMemLimit)
 }
 
 type metricRabbitmqNodeMemUsed struct {
@@ -3084,39 +2221,22 @@ func (m *metricRabbitmqNodeMemUsed) init() {
 }
 
 func (m *metricRabbitmqNodeMemUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMemUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMemUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMemUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMemUsed(cfg RabbitmqNodeMemUsedMetricConfig) metricRabbitmqNodeMemUsed {
-	m := metricRabbitmqNodeMemUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMemUsed)
 }
 
 type metricRabbitmqNodeMemUsedDetailsRate struct {
@@ -3136,39 +2256,22 @@ func (m *metricRabbitmqNodeMemUsedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeMemUsedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMemUsedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMemUsedDetailsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMemUsedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMemUsedDetailsRate(cfg RabbitmqNodeMemUsedDetailsRateMetricConfig) metricRabbitmqNodeMemUsedDetailsRate {
-	m := metricRabbitmqNodeMemUsedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMemUsedDetailsRate)
 }
 
 type metricRabbitmqNodeMnesiaDiskTxCount struct {
@@ -3188,39 +2291,22 @@ func (m *metricRabbitmqNodeMnesiaDiskTxCount) init() {
 }
 
 func (m *metricRabbitmqNodeMnesiaDiskTxCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMnesiaDiskTxCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMnesiaDiskTxCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMnesiaDiskTxCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMnesiaDiskTxCount(cfg RabbitmqNodeMnesiaDiskTxCountMetricConfig) metricRabbitmqNodeMnesiaDiskTxCount {
-	m := metricRabbitmqNodeMnesiaDiskTxCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMnesiaDiskTxCount)
 }
 
 type metricRabbitmqNodeMnesiaDiskTxCountDetailsRate struct {
@@ -3240,39 +2326,25 @@ func (m *metricRabbitmqNodeMnesiaDiskTxCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeMnesiaDiskTxCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeMnesiaDiskTxCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMnesiaDiskTxCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMnesiaDiskTxCountDetailsRate(cfg RabbitmqNodeMnesiaDiskTxCountDetailsRateMetricConfig) metricRabbitmqNodeMnesiaDiskTxCountDetailsRate {
-	m := metricRabbitmqNodeMnesiaDiskTxCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMnesiaDiskTxCountDetailsRate)
 }
 
 type metricRabbitmqNodeMnesiaRAMTxCount struct {
@@ -3292,39 +2364,22 @@ func (m *metricRabbitmqNodeMnesiaRAMTxCount) init() {
 }
 
 func (m *metricRabbitmqNodeMnesiaRAMTxCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMnesiaRAMTxCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMnesiaRAMTxCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMnesiaRAMTxCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMnesiaRAMTxCount(cfg RabbitmqNodeMnesiaRAMTxCountMetricConfig) metricRabbitmqNodeMnesiaRAMTxCount {
-	m := metricRabbitmqNodeMnesiaRAMTxCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMnesiaRAMTxCount)
 }
 
 type metricRabbitmqNodeMnesiaRAMTxCountDetailsRate struct {
@@ -3344,39 +2399,25 @@ func (m *metricRabbitmqNodeMnesiaRAMTxCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeMnesiaRAMTxCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeMnesiaRAMTxCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMnesiaRAMTxCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMnesiaRAMTxCountDetailsRate(cfg RabbitmqNodeMnesiaRAMTxCountDetailsRateMetricConfig) metricRabbitmqNodeMnesiaRAMTxCountDetailsRate {
-	m := metricRabbitmqNodeMnesiaRAMTxCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMnesiaRAMTxCountDetailsRate)
 }
 
 type metricRabbitmqNodeMsgStoreReadCount struct {
@@ -3396,39 +2437,22 @@ func (m *metricRabbitmqNodeMsgStoreReadCount) init() {
 }
 
 func (m *metricRabbitmqNodeMsgStoreReadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMsgStoreReadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMsgStoreReadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMsgStoreReadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMsgStoreReadCount(cfg RabbitmqNodeMsgStoreReadCountMetricConfig) metricRabbitmqNodeMsgStoreReadCount {
-	m := metricRabbitmqNodeMsgStoreReadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMsgStoreReadCount)
 }
 
 type metricRabbitmqNodeMsgStoreReadCountDetailsRate struct {
@@ -3448,39 +2472,25 @@ func (m *metricRabbitmqNodeMsgStoreReadCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeMsgStoreReadCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeMsgStoreReadCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMsgStoreReadCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMsgStoreReadCountDetailsRate(cfg RabbitmqNodeMsgStoreReadCountDetailsRateMetricConfig) metricRabbitmqNodeMsgStoreReadCountDetailsRate {
-	m := metricRabbitmqNodeMsgStoreReadCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMsgStoreReadCountDetailsRate)
 }
 
 type metricRabbitmqNodeMsgStoreWriteCount struct {
@@ -3500,39 +2510,22 @@ func (m *metricRabbitmqNodeMsgStoreWriteCount) init() {
 }
 
 func (m *metricRabbitmqNodeMsgStoreWriteCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeMsgStoreWriteCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeMsgStoreWriteCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMsgStoreWriteCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMsgStoreWriteCount(cfg RabbitmqNodeMsgStoreWriteCountMetricConfig) metricRabbitmqNodeMsgStoreWriteCount {
-	m := metricRabbitmqNodeMsgStoreWriteCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMsgStoreWriteCount)
 }
 
 type metricRabbitmqNodeMsgStoreWriteCountDetailsRate struct {
@@ -3552,39 +2545,25 @@ func (m *metricRabbitmqNodeMsgStoreWriteCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeMsgStoreWriteCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeMsgStoreWriteCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeMsgStoreWriteCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeMsgStoreWriteCountDetailsRate(cfg RabbitmqNodeMsgStoreWriteCountDetailsRateMetricConfig) metricRabbitmqNodeMsgStoreWriteCountDetailsRate {
-	m := metricRabbitmqNodeMsgStoreWriteCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeMsgStoreWriteCountDetailsRate)
 }
 
 type metricRabbitmqNodeProcTotal struct {
@@ -3604,39 +2583,22 @@ func (m *metricRabbitmqNodeProcTotal) init() {
 }
 
 func (m *metricRabbitmqNodeProcTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeProcTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeProcTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeProcTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeProcTotal(cfg RabbitmqNodeProcTotalMetricConfig) metricRabbitmqNodeProcTotal {
-	m := metricRabbitmqNodeProcTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeProcTotal)
 }
 
 type metricRabbitmqNodeProcUsed struct {
@@ -3656,39 +2618,22 @@ func (m *metricRabbitmqNodeProcUsed) init() {
 }
 
 func (m *metricRabbitmqNodeProcUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeProcUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeProcUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeProcUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeProcUsed(cfg RabbitmqNodeProcUsedMetricConfig) metricRabbitmqNodeProcUsed {
-	m := metricRabbitmqNodeProcUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeProcUsed)
 }
 
 type metricRabbitmqNodeProcUsedDetailsRate struct {
@@ -3708,39 +2653,22 @@ func (m *metricRabbitmqNodeProcUsedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeProcUsedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeProcUsedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeProcUsedDetailsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeProcUsedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeProcUsedDetailsRate(cfg RabbitmqNodeProcUsedDetailsRateMetricConfig) metricRabbitmqNodeProcUsedDetailsRate {
-	m := metricRabbitmqNodeProcUsedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeProcUsedDetailsRate)
 }
 
 type metricRabbitmqNodeProcessors struct {
@@ -3760,39 +2688,22 @@ func (m *metricRabbitmqNodeProcessors) init() {
 }
 
 func (m *metricRabbitmqNodeProcessors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeProcessors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeProcessors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeProcessors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeProcessors(cfg RabbitmqNodeProcessorsMetricConfig) metricRabbitmqNodeProcessors {
-	m := metricRabbitmqNodeProcessors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeProcessors)
 }
 
 type metricRabbitmqNodeQueueCreated struct {
@@ -3812,39 +2723,22 @@ func (m *metricRabbitmqNodeQueueCreated) init() {
 }
 
 func (m *metricRabbitmqNodeQueueCreated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeQueueCreated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeQueueCreated) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueCreated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueCreated(cfg RabbitmqNodeQueueCreatedMetricConfig) metricRabbitmqNodeQueueCreated {
-	m := metricRabbitmqNodeQueueCreated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueCreated)
 }
 
 type metricRabbitmqNodeQueueCreatedDetailsRate struct {
@@ -3864,39 +2758,25 @@ func (m *metricRabbitmqNodeQueueCreatedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeQueueCreatedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueCreatedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueCreatedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueCreatedDetailsRate(cfg RabbitmqNodeQueueCreatedDetailsRateMetricConfig) metricRabbitmqNodeQueueCreatedDetailsRate {
-	m := metricRabbitmqNodeQueueCreatedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueCreatedDetailsRate)
 }
 
 type metricRabbitmqNodeQueueDeclared struct {
@@ -3916,39 +2796,22 @@ func (m *metricRabbitmqNodeQueueDeclared) init() {
 }
 
 func (m *metricRabbitmqNodeQueueDeclared) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeQueueDeclared) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeQueueDeclared) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueDeclared) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueDeclared(cfg RabbitmqNodeQueueDeclaredMetricConfig) metricRabbitmqNodeQueueDeclared {
-	m := metricRabbitmqNodeQueueDeclared{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueDeclared)
 }
 
 type metricRabbitmqNodeQueueDeclaredDetailsRate struct {
@@ -3968,39 +2831,25 @@ func (m *metricRabbitmqNodeQueueDeclaredDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeQueueDeclaredDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueDeclaredDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueDeclaredDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueDeclaredDetailsRate(cfg RabbitmqNodeQueueDeclaredDetailsRateMetricConfig) metricRabbitmqNodeQueueDeclaredDetailsRate {
-	m := metricRabbitmqNodeQueueDeclaredDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueDeclaredDetailsRate)
 }
 
 type metricRabbitmqNodeQueueDeleted struct {
@@ -4020,39 +2869,22 @@ func (m *metricRabbitmqNodeQueueDeleted) init() {
 }
 
 func (m *metricRabbitmqNodeQueueDeleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeQueueDeleted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeQueueDeleted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueDeleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueDeleted(cfg RabbitmqNodeQueueDeletedMetricConfig) metricRabbitmqNodeQueueDeleted {
-	m := metricRabbitmqNodeQueueDeleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueDeleted)
 }
 
 type metricRabbitmqNodeQueueDeletedDetailsRate struct {
@@ -4072,39 +2904,25 @@ func (m *metricRabbitmqNodeQueueDeletedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeQueueDeletedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueDeletedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueDeletedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueDeletedDetailsRate(cfg RabbitmqNodeQueueDeletedDetailsRateMetricConfig) metricRabbitmqNodeQueueDeletedDetailsRate {
-	m := metricRabbitmqNodeQueueDeletedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueDeletedDetailsRate)
 }
 
 type metricRabbitmqNodeQueueIndexReadCount struct {
@@ -4124,39 +2942,22 @@ func (m *metricRabbitmqNodeQueueIndexReadCount) init() {
 }
 
 func (m *metricRabbitmqNodeQueueIndexReadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeQueueIndexReadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeQueueIndexReadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueIndexReadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueIndexReadCount(cfg RabbitmqNodeQueueIndexReadCountMetricConfig) metricRabbitmqNodeQueueIndexReadCount {
-	m := metricRabbitmqNodeQueueIndexReadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueIndexReadCount)
 }
 
 type metricRabbitmqNodeQueueIndexReadCountDetailsRate struct {
@@ -4176,39 +2977,25 @@ func (m *metricRabbitmqNodeQueueIndexReadCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeQueueIndexReadCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueIndexReadCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueIndexReadCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueIndexReadCountDetailsRate(cfg RabbitmqNodeQueueIndexReadCountDetailsRateMetricConfig) metricRabbitmqNodeQueueIndexReadCountDetailsRate {
-	m := metricRabbitmqNodeQueueIndexReadCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueIndexReadCountDetailsRate)
 }
 
 type metricRabbitmqNodeQueueIndexWriteCount struct {
@@ -4228,39 +3015,25 @@ func (m *metricRabbitmqNodeQueueIndexWriteCount) init() {
 }
 
 func (m *metricRabbitmqNodeQueueIndexWriteCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueIndexWriteCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueIndexWriteCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueIndexWriteCount(cfg RabbitmqNodeQueueIndexWriteCountMetricConfig) metricRabbitmqNodeQueueIndexWriteCount {
-	m := metricRabbitmqNodeQueueIndexWriteCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueIndexWriteCount)
 }
 
 type metricRabbitmqNodeQueueIndexWriteCountDetailsRate struct {
@@ -4280,39 +3053,25 @@ func (m *metricRabbitmqNodeQueueIndexWriteCountDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeQueueIndexWriteCountDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeQueueIndexWriteCountDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeQueueIndexWriteCountDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeQueueIndexWriteCountDetailsRate(cfg RabbitmqNodeQueueIndexWriteCountDetailsRateMetricConfig) metricRabbitmqNodeQueueIndexWriteCountDetailsRate {
-	m := metricRabbitmqNodeQueueIndexWriteCountDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeQueueIndexWriteCountDetailsRate)
 }
 
 type metricRabbitmqNodeRunQueue struct {
@@ -4332,39 +3091,22 @@ func (m *metricRabbitmqNodeRunQueue) init() {
 }
 
 func (m *metricRabbitmqNodeRunQueue) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeRunQueue) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeRunQueue) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeRunQueue) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeRunQueue(cfg RabbitmqNodeRunQueueMetricConfig) metricRabbitmqNodeRunQueue {
-	m := metricRabbitmqNodeRunQueue{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeRunQueue)
 }
 
 type metricRabbitmqNodeSocketsTotal struct {
@@ -4384,39 +3126,22 @@ func (m *metricRabbitmqNodeSocketsTotal) init() {
 }
 
 func (m *metricRabbitmqNodeSocketsTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeSocketsTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeSocketsTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeSocketsTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeSocketsTotal(cfg RabbitmqNodeSocketsTotalMetricConfig) metricRabbitmqNodeSocketsTotal {
-	m := metricRabbitmqNodeSocketsTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeSocketsTotal)
 }
 
 type metricRabbitmqNodeSocketsUsed struct {
@@ -4436,39 +3161,22 @@ func (m *metricRabbitmqNodeSocketsUsed) init() {
 }
 
 func (m *metricRabbitmqNodeSocketsUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeSocketsUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeSocketsUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeSocketsUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeSocketsUsed(cfg RabbitmqNodeSocketsUsedMetricConfig) metricRabbitmqNodeSocketsUsed {
-	m := metricRabbitmqNodeSocketsUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeSocketsUsed)
 }
 
 type metricRabbitmqNodeSocketsUsedDetailsRate struct {
@@ -4488,39 +3196,25 @@ func (m *metricRabbitmqNodeSocketsUsedDetailsRate) init() {
 }
 
 func (m *metricRabbitmqNodeSocketsUsedDetailsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRabbitmqNodeSocketsUsedDetailsRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeSocketsUsedDetailsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeSocketsUsedDetailsRate(cfg RabbitmqNodeSocketsUsedDetailsRateMetricConfig) metricRabbitmqNodeSocketsUsedDetailsRate {
-	m := metricRabbitmqNodeSocketsUsedDetailsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeSocketsUsedDetailsRate)
 }
 
 type metricRabbitmqNodeUptime struct {
@@ -4540,39 +3234,22 @@ func (m *metricRabbitmqNodeUptime) init() {
 }
 
 func (m *metricRabbitmqNodeUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRabbitmqNodeUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRabbitmqNodeUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRabbitmqNodeUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRabbitmqNodeUptime(cfg RabbitmqNodeUptimeMetricConfig) metricRabbitmqNodeUptime {
-	m := metricRabbitmqNodeUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRabbitmqNodeUptime)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -4675,139 +3352,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                            mbc,
-		startTime:                                         pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                                     pmetric.NewMetrics(),
-		buildInfo:                                         settings.BuildInfo,
-		metricRabbitmqConsumerCount:                       newMetricRabbitmqConsumerCount(mbc.Metrics.RabbitmqConsumerCount),
-		metricRabbitmqMessageAcknowledged:                 newMetricRabbitmqMessageAcknowledged(mbc.Metrics.RabbitmqMessageAcknowledged),
-		metricRabbitmqMessageCurrent:                      newMetricRabbitmqMessageCurrent(mbc.Metrics.RabbitmqMessageCurrent),
-		metricRabbitmqMessageDelivered:                    newMetricRabbitmqMessageDelivered(mbc.Metrics.RabbitmqMessageDelivered),
-		metricRabbitmqMessageDropped:                      newMetricRabbitmqMessageDropped(mbc.Metrics.RabbitmqMessageDropped),
-		metricRabbitmqMessagePublished:                    newMetricRabbitmqMessagePublished(mbc.Metrics.RabbitmqMessagePublished),
-		metricRabbitmqNodeChannelClosed:                   newMetricRabbitmqNodeChannelClosed(mbc.Metrics.RabbitmqNodeChannelClosed),
-		metricRabbitmqNodeChannelClosedDetailsRate:        newMetricRabbitmqNodeChannelClosedDetailsRate(mbc.Metrics.RabbitmqNodeChannelClosedDetailsRate),
-		metricRabbitmqNodeChannelCreated:                  newMetricRabbitmqNodeChannelCreated(mbc.Metrics.RabbitmqNodeChannelCreated),
-		metricRabbitmqNodeChannelCreatedDetailsRate:       newMetricRabbitmqNodeChannelCreatedDetailsRate(mbc.Metrics.RabbitmqNodeChannelCreatedDetailsRate),
-		metricRabbitmqNodeConnectionClosed:                newMetricRabbitmqNodeConnectionClosed(mbc.Metrics.RabbitmqNodeConnectionClosed),
-		metricRabbitmqNodeConnectionClosedDetailsRate:     newMetricRabbitmqNodeConnectionClosedDetailsRate(mbc.Metrics.RabbitmqNodeConnectionClosedDetailsRate),
-		metricRabbitmqNodeConnectionCreated:               newMetricRabbitmqNodeConnectionCreated(mbc.Metrics.RabbitmqNodeConnectionCreated),
-		metricRabbitmqNodeConnectionCreatedDetailsRate:    newMetricRabbitmqNodeConnectionCreatedDetailsRate(mbc.Metrics.RabbitmqNodeConnectionCreatedDetailsRate),
-		metricRabbitmqNodeContextSwitches:                 newMetricRabbitmqNodeContextSwitches(mbc.Metrics.RabbitmqNodeContextSwitches),
-		metricRabbitmqNodeContextSwitchesDetailsRate:      newMetricRabbitmqNodeContextSwitchesDetailsRate(mbc.Metrics.RabbitmqNodeContextSwitchesDetailsRate),
-		metricRabbitmqNodeDiskFree:                        newMetricRabbitmqNodeDiskFree(mbc.Metrics.RabbitmqNodeDiskFree),
-		metricRabbitmqNodeDiskFreeAlarm:                   newMetricRabbitmqNodeDiskFreeAlarm(mbc.Metrics.RabbitmqNodeDiskFreeAlarm),
-		metricRabbitmqNodeDiskFreeDetailsRate:             newMetricRabbitmqNodeDiskFreeDetailsRate(mbc.Metrics.RabbitmqNodeDiskFreeDetailsRate),
-		metricRabbitmqNodeDiskFreeLimit:                   newMetricRabbitmqNodeDiskFreeLimit(mbc.Metrics.RabbitmqNodeDiskFreeLimit),
-		metricRabbitmqNodeFdTotal:                         newMetricRabbitmqNodeFdTotal(mbc.Metrics.RabbitmqNodeFdTotal),
-		metricRabbitmqNodeFdUsed:                          newMetricRabbitmqNodeFdUsed(mbc.Metrics.RabbitmqNodeFdUsed),
-		metricRabbitmqNodeFdUsedDetailsRate:               newMetricRabbitmqNodeFdUsedDetailsRate(mbc.Metrics.RabbitmqNodeFdUsedDetailsRate),
-		metricRabbitmqNodeGcBytesReclaimed:                newMetricRabbitmqNodeGcBytesReclaimed(mbc.Metrics.RabbitmqNodeGcBytesReclaimed),
-		metricRabbitmqNodeGcBytesReclaimedDetailsRate:     newMetricRabbitmqNodeGcBytesReclaimedDetailsRate(mbc.Metrics.RabbitmqNodeGcBytesReclaimedDetailsRate),
-		metricRabbitmqNodeGcNum:                           newMetricRabbitmqNodeGcNum(mbc.Metrics.RabbitmqNodeGcNum),
-		metricRabbitmqNodeGcNumDetailsRate:                newMetricRabbitmqNodeGcNumDetailsRate(mbc.Metrics.RabbitmqNodeGcNumDetailsRate),
-		metricRabbitmqNodeIoReadAvgTime:                   newMetricRabbitmqNodeIoReadAvgTime(mbc.Metrics.RabbitmqNodeIoReadAvgTime),
-		metricRabbitmqNodeIoReadAvgTimeDetailsRate:        newMetricRabbitmqNodeIoReadAvgTimeDetailsRate(mbc.Metrics.RabbitmqNodeIoReadAvgTimeDetailsRate),
-		metricRabbitmqNodeIoReadBytes:                     newMetricRabbitmqNodeIoReadBytes(mbc.Metrics.RabbitmqNodeIoReadBytes),
-		metricRabbitmqNodeIoReadBytesDetailsRate:          newMetricRabbitmqNodeIoReadBytesDetailsRate(mbc.Metrics.RabbitmqNodeIoReadBytesDetailsRate),
-		metricRabbitmqNodeIoReadCount:                     newMetricRabbitmqNodeIoReadCount(mbc.Metrics.RabbitmqNodeIoReadCount),
-		metricRabbitmqNodeIoReadCountDetailsRate:          newMetricRabbitmqNodeIoReadCountDetailsRate(mbc.Metrics.RabbitmqNodeIoReadCountDetailsRate),
-		metricRabbitmqNodeIoReopenCount:                   newMetricRabbitmqNodeIoReopenCount(mbc.Metrics.RabbitmqNodeIoReopenCount),
-		metricRabbitmqNodeIoReopenCountDetailsRate:        newMetricRabbitmqNodeIoReopenCountDetailsRate(mbc.Metrics.RabbitmqNodeIoReopenCountDetailsRate),
-		metricRabbitmqNodeIoSeekAvgTime:                   newMetricRabbitmqNodeIoSeekAvgTime(mbc.Metrics.RabbitmqNodeIoSeekAvgTime),
-		metricRabbitmqNodeIoSeekAvgTimeDetailsRate:        newMetricRabbitmqNodeIoSeekAvgTimeDetailsRate(mbc.Metrics.RabbitmqNodeIoSeekAvgTimeDetailsRate),
-		metricRabbitmqNodeIoSeekCount:                     newMetricRabbitmqNodeIoSeekCount(mbc.Metrics.RabbitmqNodeIoSeekCount),
-		metricRabbitmqNodeIoSeekCountDetailsRate:          newMetricRabbitmqNodeIoSeekCountDetailsRate(mbc.Metrics.RabbitmqNodeIoSeekCountDetailsRate),
-		metricRabbitmqNodeIoSyncAvgTime:                   newMetricRabbitmqNodeIoSyncAvgTime(mbc.Metrics.RabbitmqNodeIoSyncAvgTime),
-		metricRabbitmqNodeIoSyncAvgTimeDetailsRate:        newMetricRabbitmqNodeIoSyncAvgTimeDetailsRate(mbc.Metrics.RabbitmqNodeIoSyncAvgTimeDetailsRate),
-		metricRabbitmqNodeIoSyncCount:                     newMetricRabbitmqNodeIoSyncCount(mbc.Metrics.RabbitmqNodeIoSyncCount),
-		metricRabbitmqNodeIoSyncCountDetailsRate:          newMetricRabbitmqNodeIoSyncCountDetailsRate(mbc.Metrics.RabbitmqNodeIoSyncCountDetailsRate),
-		metricRabbitmqNodeIoWriteAvgTime:                  newMetricRabbitmqNodeIoWriteAvgTime(mbc.Metrics.RabbitmqNodeIoWriteAvgTime),
-		metricRabbitmqNodeIoWriteAvgTimeDetailsRate:       newMetricRabbitmqNodeIoWriteAvgTimeDetailsRate(mbc.Metrics.RabbitmqNodeIoWriteAvgTimeDetailsRate),
-		metricRabbitmqNodeIoWriteBytes:                    newMetricRabbitmqNodeIoWriteBytes(mbc.Metrics.RabbitmqNodeIoWriteBytes),
-		metricRabbitmqNodeIoWriteBytesDetailsRate:         newMetricRabbitmqNodeIoWriteBytesDetailsRate(mbc.Metrics.RabbitmqNodeIoWriteBytesDetailsRate),
-		metricRabbitmqNodeIoWriteCount:                    newMetricRabbitmqNodeIoWriteCount(mbc.Metrics.RabbitmqNodeIoWriteCount),
-		metricRabbitmqNodeIoWriteCountDetailsRate:         newMetricRabbitmqNodeIoWriteCountDetailsRate(mbc.Metrics.RabbitmqNodeIoWriteCountDetailsRate),
-		metricRabbitmqNodeMemAlarm:                        newMetricRabbitmqNodeMemAlarm(mbc.Metrics.RabbitmqNodeMemAlarm),
-		metricRabbitmqNodeMemLimit:                        newMetricRabbitmqNodeMemLimit(mbc.Metrics.RabbitmqNodeMemLimit),
-		metricRabbitmqNodeMemUsed:                         newMetricRabbitmqNodeMemUsed(mbc.Metrics.RabbitmqNodeMemUsed),
-		metricRabbitmqNodeMemUsedDetailsRate:              newMetricRabbitmqNodeMemUsedDetailsRate(mbc.Metrics.RabbitmqNodeMemUsedDetailsRate),
-		metricRabbitmqNodeMnesiaDiskTxCount:               newMetricRabbitmqNodeMnesiaDiskTxCount(mbc.Metrics.RabbitmqNodeMnesiaDiskTxCount),
-		metricRabbitmqNodeMnesiaDiskTxCountDetailsRate:    newMetricRabbitmqNodeMnesiaDiskTxCountDetailsRate(mbc.Metrics.RabbitmqNodeMnesiaDiskTxCountDetailsRate),
-		metricRabbitmqNodeMnesiaRAMTxCount:                newMetricRabbitmqNodeMnesiaRAMTxCount(mbc.Metrics.RabbitmqNodeMnesiaRAMTxCount),
-		metricRabbitmqNodeMnesiaRAMTxCountDetailsRate:     newMetricRabbitmqNodeMnesiaRAMTxCountDetailsRate(mbc.Metrics.RabbitmqNodeMnesiaRAMTxCountDetailsRate),
-		metricRabbitmqNodeMsgStoreReadCount:               newMetricRabbitmqNodeMsgStoreReadCount(mbc.Metrics.RabbitmqNodeMsgStoreReadCount),
-		metricRabbitmqNodeMsgStoreReadCountDetailsRate:    newMetricRabbitmqNodeMsgStoreReadCountDetailsRate(mbc.Metrics.RabbitmqNodeMsgStoreReadCountDetailsRate),
-		metricRabbitmqNodeMsgStoreWriteCount:              newMetricRabbitmqNodeMsgStoreWriteCount(mbc.Metrics.RabbitmqNodeMsgStoreWriteCount),
-		metricRabbitmqNodeMsgStoreWriteCountDetailsRate:   newMetricRabbitmqNodeMsgStoreWriteCountDetailsRate(mbc.Metrics.RabbitmqNodeMsgStoreWriteCountDetailsRate),
-		metricRabbitmqNodeProcTotal:                       newMetricRabbitmqNodeProcTotal(mbc.Metrics.RabbitmqNodeProcTotal),
-		metricRabbitmqNodeProcUsed:                        newMetricRabbitmqNodeProcUsed(mbc.Metrics.RabbitmqNodeProcUsed),
-		metricRabbitmqNodeProcUsedDetailsRate:             newMetricRabbitmqNodeProcUsedDetailsRate(mbc.Metrics.RabbitmqNodeProcUsedDetailsRate),
-		metricRabbitmqNodeProcessors:                      newMetricRabbitmqNodeProcessors(mbc.Metrics.RabbitmqNodeProcessors),
-		metricRabbitmqNodeQueueCreated:                    newMetricRabbitmqNodeQueueCreated(mbc.Metrics.RabbitmqNodeQueueCreated),
-		metricRabbitmqNodeQueueCreatedDetailsRate:         newMetricRabbitmqNodeQueueCreatedDetailsRate(mbc.Metrics.RabbitmqNodeQueueCreatedDetailsRate),
-		metricRabbitmqNodeQueueDeclared:                   newMetricRabbitmqNodeQueueDeclared(mbc.Metrics.RabbitmqNodeQueueDeclared),
-		metricRabbitmqNodeQueueDeclaredDetailsRate:        newMetricRabbitmqNodeQueueDeclaredDetailsRate(mbc.Metrics.RabbitmqNodeQueueDeclaredDetailsRate),
-		metricRabbitmqNodeQueueDeleted:                    newMetricRabbitmqNodeQueueDeleted(mbc.Metrics.RabbitmqNodeQueueDeleted),
-		metricRabbitmqNodeQueueDeletedDetailsRate:         newMetricRabbitmqNodeQueueDeletedDetailsRate(mbc.Metrics.RabbitmqNodeQueueDeletedDetailsRate),
-		metricRabbitmqNodeQueueIndexReadCount:             newMetricRabbitmqNodeQueueIndexReadCount(mbc.Metrics.RabbitmqNodeQueueIndexReadCount),
-		metricRabbitmqNodeQueueIndexReadCountDetailsRate:  newMetricRabbitmqNodeQueueIndexReadCountDetailsRate(mbc.Metrics.RabbitmqNodeQueueIndexReadCountDetailsRate),
-		metricRabbitmqNodeQueueIndexWriteCount:            newMetricRabbitmqNodeQueueIndexWriteCount(mbc.Metrics.RabbitmqNodeQueueIndexWriteCount),
-		metricRabbitmqNodeQueueIndexWriteCountDetailsRate: newMetricRabbitmqNodeQueueIndexWriteCountDetailsRate(mbc.Metrics.RabbitmqNodeQueueIndexWriteCountDetailsRate),
-		metricRabbitmqNodeRunQueue:                        newMetricRabbitmqNodeRunQueue(mbc.Metrics.RabbitmqNodeRunQueue),
-		metricRabbitmqNodeSocketsTotal:                    newMetricRabbitmqNodeSocketsTotal(mbc.Metrics.RabbitmqNodeSocketsTotal),
-		metricRabbitmqNodeSocketsUsed:                     newMetricRabbitmqNodeSocketsUsed(mbc.Metrics.RabbitmqNodeSocketsUsed),
-		metricRabbitmqNodeSocketsUsedDetailsRate:          newMetricRabbitmqNodeSocketsUsedDetailsRate(mbc.Metrics.RabbitmqNodeSocketsUsedDetailsRate),
-		metricRabbitmqNodeUptime:                          newMetricRabbitmqNodeUptime(mbc.Metrics.RabbitmqNodeUptime),
-		resourceAttributeIncludeFilter:                    make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                    make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.RabbitmqNodeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["rabbitmq.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqNodeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.RabbitmqNodeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["rabbitmq.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqNodeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.RabbitmqQueueName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["rabbitmq.queue.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqQueueName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.RabbitmqQueueName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["rabbitmq.queue.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqQueueName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.RabbitmqVhostName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["rabbitmq.vhost.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqVhostName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.RabbitmqVhostName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["rabbitmq.vhost.name"] = filter.CreateFilter(mbc.ResourceAttributes.RabbitmqVhostName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -4818,35 +3388,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -4855,527 +3413,498 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricRabbitmqConsumerCount.emit(ils.Metrics())
-	mb.metricRabbitmqMessageAcknowledged.emit(ils.Metrics())
-	mb.metricRabbitmqMessageCurrent.emit(ils.Metrics())
-	mb.metricRabbitmqMessageDelivered.emit(ils.Metrics())
-	mb.metricRabbitmqMessageDropped.emit(ils.Metrics())
-	mb.metricRabbitmqMessagePublished.emit(ils.Metrics())
-	mb.metricRabbitmqNodeChannelClosed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeChannelClosedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeChannelCreated.emit(ils.Metrics())
-	mb.metricRabbitmqNodeChannelCreatedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeConnectionClosed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeConnectionClosedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeConnectionCreated.emit(ils.Metrics())
-	mb.metricRabbitmqNodeConnectionCreatedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeContextSwitches.emit(ils.Metrics())
-	mb.metricRabbitmqNodeContextSwitchesDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeDiskFree.emit(ils.Metrics())
-	mb.metricRabbitmqNodeDiskFreeAlarm.emit(ils.Metrics())
-	mb.metricRabbitmqNodeDiskFreeDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeDiskFreeLimit.emit(ils.Metrics())
-	mb.metricRabbitmqNodeFdTotal.emit(ils.Metrics())
-	mb.metricRabbitmqNodeFdUsed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeFdUsedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeGcBytesReclaimed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeGcBytesReclaimedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeGcNum.emit(ils.Metrics())
-	mb.metricRabbitmqNodeGcNumDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadAvgTime.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadAvgTimeDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadBytes.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadBytesDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReadCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReopenCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoReopenCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSeekAvgTime.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSeekAvgTimeDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSeekCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSeekCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSyncAvgTime.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSyncAvgTimeDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSyncCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoSyncCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteAvgTime.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteAvgTimeDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteBytes.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteBytesDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeIoWriteCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMemAlarm.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMemLimit.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMemUsed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMemUsedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMnesiaDiskTxCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMnesiaDiskTxCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMnesiaRAMTxCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMnesiaRAMTxCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMsgStoreReadCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMsgStoreReadCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMsgStoreWriteCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeMsgStoreWriteCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeProcTotal.emit(ils.Metrics())
-	mb.metricRabbitmqNodeProcUsed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeProcUsedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeProcessors.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueCreated.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueCreatedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueDeclared.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueDeclaredDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueDeleted.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueDeletedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueIndexReadCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueIndexReadCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueIndexWriteCount.emit(ils.Metrics())
-	mb.metricRabbitmqNodeQueueIndexWriteCountDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeRunQueue.emit(ils.Metrics())
-	mb.metricRabbitmqNodeSocketsTotal.emit(ils.Metrics())
-	mb.metricRabbitmqNodeSocketsUsed.emit(ils.Metrics())
-	mb.metricRabbitmqNodeSocketsUsedDetailsRate.emit(ils.Metrics())
-	mb.metricRabbitmqNodeUptime.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordRabbitmqConsumerCountDataPoint adds a data point to rabbitmq.consumer.count metric.
 func (mb *MetricsBuilder) RecordRabbitmqConsumerCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqConsumerCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqMessageAcknowledgedDataPoint adds a data point to rabbitmq.message.acknowledged metric.
 func (mb *MetricsBuilder) RecordRabbitmqMessageAcknowledgedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqMessageAcknowledged.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqMessageCurrentDataPoint adds a data point to rabbitmq.message.current metric.
 func (mb *MetricsBuilder) RecordRabbitmqMessageCurrentDataPoint(ts pcommon.Timestamp, val int64, messageStateAttributeValue AttributeMessageState) {
-	mb.metricRabbitmqMessageCurrent.recordDataPoint(mb.startTime, ts, val, messageStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqMessageDeliveredDataPoint adds a data point to rabbitmq.message.delivered metric.
 func (mb *MetricsBuilder) RecordRabbitmqMessageDeliveredDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqMessageDelivered.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqMessageDroppedDataPoint adds a data point to rabbitmq.message.dropped metric.
 func (mb *MetricsBuilder) RecordRabbitmqMessageDroppedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqMessageDropped.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqMessagePublishedDataPoint adds a data point to rabbitmq.message.published metric.
 func (mb *MetricsBuilder) RecordRabbitmqMessagePublishedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqMessagePublished.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeChannelClosedDataPoint adds a data point to rabbitmq.node.channel_closed metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeChannelClosedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeChannelClosed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeChannelClosedDetailsRateDataPoint adds a data point to rabbitmq.node.channel_closed_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeChannelClosedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeChannelClosedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeChannelCreatedDataPoint adds a data point to rabbitmq.node.channel_created metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeChannelCreatedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeChannelCreated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeChannelCreatedDetailsRateDataPoint adds a data point to rabbitmq.node.channel_created_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeChannelCreatedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeChannelCreatedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeConnectionClosedDataPoint adds a data point to rabbitmq.node.connection_closed metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeConnectionClosedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeConnectionClosed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeConnectionClosedDetailsRateDataPoint adds a data point to rabbitmq.node.connection_closed_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeConnectionClosedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeConnectionClosedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeConnectionCreatedDataPoint adds a data point to rabbitmq.node.connection_created metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeConnectionCreatedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeConnectionCreated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeConnectionCreatedDetailsRateDataPoint adds a data point to rabbitmq.node.connection_created_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeConnectionCreatedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeConnectionCreatedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeContextSwitchesDataPoint adds a data point to rabbitmq.node.context_switches metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeContextSwitchesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeContextSwitches.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeContextSwitchesDetailsRateDataPoint adds a data point to rabbitmq.node.context_switches_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeContextSwitchesDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeContextSwitchesDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeDiskFreeDataPoint adds a data point to rabbitmq.node.disk_free metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeDiskFreeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeDiskFree.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeDiskFreeAlarmDataPoint adds a data point to rabbitmq.node.disk_free_alarm metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeDiskFreeAlarmDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeDiskFreeAlarm.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeDiskFreeDetailsRateDataPoint adds a data point to rabbitmq.node.disk_free_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeDiskFreeDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeDiskFreeDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeDiskFreeLimitDataPoint adds a data point to rabbitmq.node.disk_free_limit metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeDiskFreeLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeDiskFreeLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeFdTotalDataPoint adds a data point to rabbitmq.node.fd_total metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeFdTotalDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeFdTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeFdUsedDataPoint adds a data point to rabbitmq.node.fd_used metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeFdUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeFdUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeFdUsedDetailsRateDataPoint adds a data point to rabbitmq.node.fd_used_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeFdUsedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeFdUsedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeGcBytesReclaimedDataPoint adds a data point to rabbitmq.node.gc_bytes_reclaimed metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeGcBytesReclaimedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeGcBytesReclaimed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeGcBytesReclaimedDetailsRateDataPoint adds a data point to rabbitmq.node.gc_bytes_reclaimed_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeGcBytesReclaimedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeGcBytesReclaimedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeGcNumDataPoint adds a data point to rabbitmq.node.gc_num metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeGcNumDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeGcNum.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeGcNumDetailsRateDataPoint adds a data point to rabbitmq.node.gc_num_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeGcNumDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeGcNumDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadAvgTimeDataPoint adds a data point to rabbitmq.node.io_read_avg_time metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadAvgTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoReadAvgTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadAvgTimeDetailsRateDataPoint adds a data point to rabbitmq.node.io_read_avg_time_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadAvgTimeDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoReadAvgTimeDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadBytesDataPoint adds a data point to rabbitmq.node.io_read_bytes metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadBytesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoReadBytes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadBytesDetailsRateDataPoint adds a data point to rabbitmq.node.io_read_bytes_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadBytesDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoReadBytesDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadCountDataPoint adds a data point to rabbitmq.node.io_read_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoReadCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReadCountDetailsRateDataPoint adds a data point to rabbitmq.node.io_read_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReadCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoReadCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReopenCountDataPoint adds a data point to rabbitmq.node.io_reopen_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReopenCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoReopenCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoReopenCountDetailsRateDataPoint adds a data point to rabbitmq.node.io_reopen_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoReopenCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoReopenCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSeekAvgTimeDataPoint adds a data point to rabbitmq.node.io_seek_avg_time metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSeekAvgTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSeekAvgTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSeekAvgTimeDetailsRateDataPoint adds a data point to rabbitmq.node.io_seek_avg_time_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSeekAvgTimeDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSeekAvgTimeDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSeekCountDataPoint adds a data point to rabbitmq.node.io_seek_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSeekCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoSeekCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSeekCountDetailsRateDataPoint adds a data point to rabbitmq.node.io_seek_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSeekCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSeekCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSyncAvgTimeDataPoint adds a data point to rabbitmq.node.io_sync_avg_time metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSyncAvgTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSyncAvgTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSyncAvgTimeDetailsRateDataPoint adds a data point to rabbitmq.node.io_sync_avg_time_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSyncAvgTimeDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSyncAvgTimeDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSyncCountDataPoint adds a data point to rabbitmq.node.io_sync_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSyncCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoSyncCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoSyncCountDetailsRateDataPoint adds a data point to rabbitmq.node.io_sync_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoSyncCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoSyncCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteAvgTimeDataPoint adds a data point to rabbitmq.node.io_write_avg_time metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteAvgTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoWriteAvgTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteAvgTimeDetailsRateDataPoint adds a data point to rabbitmq.node.io_write_avg_time_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteAvgTimeDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoWriteAvgTimeDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteBytesDataPoint adds a data point to rabbitmq.node.io_write_bytes metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteBytesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoWriteBytes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteBytesDetailsRateDataPoint adds a data point to rabbitmq.node.io_write_bytes_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteBytesDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoWriteBytesDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteCountDataPoint adds a data point to rabbitmq.node.io_write_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeIoWriteCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeIoWriteCountDetailsRateDataPoint adds a data point to rabbitmq.node.io_write_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeIoWriteCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeIoWriteCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMemAlarmDataPoint adds a data point to rabbitmq.node.mem_alarm metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMemAlarmDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMemAlarm.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMemLimitDataPoint adds a data point to rabbitmq.node.mem_limit metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMemLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMemLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMemUsedDataPoint adds a data point to rabbitmq.node.mem_used metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMemUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMemUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMemUsedDetailsRateDataPoint adds a data point to rabbitmq.node.mem_used_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMemUsedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeMemUsedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMnesiaDiskTxCountDataPoint adds a data point to rabbitmq.node.mnesia_disk_tx_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMnesiaDiskTxCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMnesiaDiskTxCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMnesiaDiskTxCountDetailsRateDataPoint adds a data point to rabbitmq.node.mnesia_disk_tx_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMnesiaDiskTxCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeMnesiaDiskTxCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMnesiaRAMTxCountDataPoint adds a data point to rabbitmq.node.mnesia_ram_tx_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMnesiaRAMTxCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMnesiaRAMTxCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMnesiaRAMTxCountDetailsRateDataPoint adds a data point to rabbitmq.node.mnesia_ram_tx_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMnesiaRAMTxCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeMnesiaRAMTxCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMsgStoreReadCountDataPoint adds a data point to rabbitmq.node.msg_store_read_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMsgStoreReadCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMsgStoreReadCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMsgStoreReadCountDetailsRateDataPoint adds a data point to rabbitmq.node.msg_store_read_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMsgStoreReadCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeMsgStoreReadCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMsgStoreWriteCountDataPoint adds a data point to rabbitmq.node.msg_store_write_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMsgStoreWriteCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeMsgStoreWriteCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeMsgStoreWriteCountDetailsRateDataPoint adds a data point to rabbitmq.node.msg_store_write_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeMsgStoreWriteCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeMsgStoreWriteCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeProcTotalDataPoint adds a data point to rabbitmq.node.proc_total metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeProcTotalDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeProcTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeProcUsedDataPoint adds a data point to rabbitmq.node.proc_used metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeProcUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeProcUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeProcUsedDetailsRateDataPoint adds a data point to rabbitmq.node.proc_used_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeProcUsedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeProcUsedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeProcessorsDataPoint adds a data point to rabbitmq.node.processors metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeProcessorsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeProcessors.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueCreatedDataPoint adds a data point to rabbitmq.node.queue_created metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueCreatedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeQueueCreated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueCreatedDetailsRateDataPoint adds a data point to rabbitmq.node.queue_created_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueCreatedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeQueueCreatedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueDeclaredDataPoint adds a data point to rabbitmq.node.queue_declared metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueDeclaredDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeQueueDeclared.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueDeclaredDetailsRateDataPoint adds a data point to rabbitmq.node.queue_declared_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueDeclaredDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeQueueDeclaredDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueDeletedDataPoint adds a data point to rabbitmq.node.queue_deleted metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueDeletedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeQueueDeleted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueDeletedDetailsRateDataPoint adds a data point to rabbitmq.node.queue_deleted_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueDeletedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeQueueDeletedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueIndexReadCountDataPoint adds a data point to rabbitmq.node.queue_index_read_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueIndexReadCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeQueueIndexReadCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueIndexReadCountDetailsRateDataPoint adds a data point to rabbitmq.node.queue_index_read_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueIndexReadCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeQueueIndexReadCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueIndexWriteCountDataPoint adds a data point to rabbitmq.node.queue_index_write_count metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueIndexWriteCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeQueueIndexWriteCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeQueueIndexWriteCountDetailsRateDataPoint adds a data point to rabbitmq.node.queue_index_write_count_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeQueueIndexWriteCountDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeQueueIndexWriteCountDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeRunQueueDataPoint adds a data point to rabbitmq.node.run_queue metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeRunQueueDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeRunQueue.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeSocketsTotalDataPoint adds a data point to rabbitmq.node.sockets_total metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeSocketsTotalDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeSocketsTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeSocketsUsedDataPoint adds a data point to rabbitmq.node.sockets_used metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeSocketsUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeSocketsUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeSocketsUsedDetailsRateDataPoint adds a data point to rabbitmq.node.sockets_used_details.rate metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeSocketsUsedDetailsRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRabbitmqNodeSocketsUsedDetailsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRabbitmqNodeUptimeDataPoint adds a data point to rabbitmq.node.uptime metric.
 func (mb *MetricsBuilder) RecordRabbitmqNodeUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRabbitmqNodeUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

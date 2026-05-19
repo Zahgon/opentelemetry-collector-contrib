@@ -3,14 +3,6 @@
 
 package internal
 
-import (
-	"fmt"
-	"os"
-	"path/filepath"
-
-	"gopkg.in/yaml.v3"
-)
-
 const (
 	SettingsFileName = ".schemagen.yaml"
 )
@@ -35,30 +27,4 @@ type (
 	}
 )
 
-func ReadSettingsFile() (*Settings, bool) {
-	dir, err := os.Getwd()
-	if err != nil {
-		return nil, false
-	}
-
-	for {
-		candidate := filepath.Join(dir, SettingsFileName)
-		if data, err := os.ReadFile(candidate); err == nil {
-			var s Settings
-			if err := yaml.Unmarshal(data, &s); err == nil {
-				fmt.Println("Settings file read from: ", candidate)
-				return &s, true
-			}
-			fmt.Println("Warning: failed to parse config file:", candidate)
-			return nil, false
-		}
-
-		parent := filepath.Dir(dir)
-		if parent == dir {
-			break
-		}
-		dir = parent
-	}
-
-	return nil, false
-}
+func ReadSettingsFile() (*Settings, bool) { _ = "STUB: not implemented"; return nil, false }

@@ -24,5 +24,6 @@ func createMetricsReceiver(
 	_ component.Config,
 	_ consumer.Metrics,
 ) (receiver.Metrics, error) {
-	return nil, errReceiverNotSupported
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

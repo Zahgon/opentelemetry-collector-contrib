@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetAerospikeNamespace sets provided value as "aerospike.namespace" attribute.
-func (rb *ResourceBuilder) SetAerospikeNamespace(val string) {
-	if rb.config.AerospikeNamespace.Enabled {
-		rb.res.Attributes().PutStr("aerospike.namespace", val)
-	}
-}
+func (rb *ResourceBuilder) SetAerospikeNamespace(val string) { _ = "STUB: not implemented"; return }
 
 // SetAerospikeNodeName sets provided value as "aerospike.node.name" attribute.
-func (rb *ResourceBuilder) SetAerospikeNodeName(val string) {
-	if rb.config.AerospikeNodeName.Enabled {
-		rb.res.Attributes().PutStr("aerospike.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetAerospikeNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

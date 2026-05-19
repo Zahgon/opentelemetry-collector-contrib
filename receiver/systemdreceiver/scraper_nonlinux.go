@@ -20,17 +20,18 @@ type systemdScraper struct {
 }
 
 func (*systemdScraper) start(_ context.Context, _ component.Host) error {
-	return errNonLinux
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (*systemdScraper) shutdown(_ context.Context) error {
-	return errNonLinux
-}
+func (*systemdScraper) shutdown(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (s *systemdScraper) scrape(_ context.Context) (pmetric.Metrics, error) {
-	return s.mb.Emit(), errNonLinux
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func newScraper(conf *Config, settings receiver.Settings) *systemdScraper {
-	return &systemdScraper{mb: metadata.NewMetricsBuilder(conf.MetricsBuilderConfig, settings)}
+	_ = "STUB: not implemented"
+	return nil
 }

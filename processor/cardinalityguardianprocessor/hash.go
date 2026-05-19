@@ -4,10 +4,6 @@
 package cardinalityguardianprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/cardinalityguardianprocessor"
 
 import (
-	"encoding/binary"
-	"math"
-
-	"github.com/cespare/xxhash/v2"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
@@ -35,40 +31,10 @@ const (
 // This processor does not reuse aggregateutil.dataPointHashKey: it hashes a
 // whole pcommon.Map via AsRaw + json.Marshal per call, which would regress
 // the shouldDrop hot path (one call per attribute per data point).
-func hashAttrValue(v pcommon.Value) uint64 {
-	switch v.Type() {
-	case pcommon.ValueTypeStr:
-		return xxhash.Sum64String(v.Str()) ^ tagStr
-	case pcommon.ValueTypeBool:
-		if v.Bool() {
-			return tagBool ^ 1
-		}
-		return tagBool
-	case pcommon.ValueTypeInt:
-		var buf [8]byte
-		binary.LittleEndian.PutUint64(buf[:], uint64(v.Int()))
-		return xxhash.Sum64(buf[:]) ^ tagInt
-	case pcommon.ValueTypeDouble:
-		var buf [8]byte
-		binary.LittleEndian.PutUint64(buf[:], math.Float64bits(v.Double()))
-		return xxhash.Sum64(buf[:]) ^ tagDouble
-	case pcommon.ValueTypeBytes:
-		return xxhash.Sum64(v.Bytes().AsRaw()) ^ tagBytes
-	case pcommon.ValueTypeMap:
-		return xxhash.Sum64String(v.AsString()) ^ tagMap
-	case pcommon.ValueTypeSlice:
-		return xxhash.Sum64String(v.AsString()) ^ tagSlice
-	case pcommon.ValueTypeEmpty:
-		return tagEmpty
-	}
-	return 0
-}
+func hashAttrValue(v pcommon.Value) uint64 { _ = "STUB: not implemented"; return 0 }
 
 // pairHashMix combines two 64-bit hashes non-linearly so that XOR-combining
 // the result across pairs stays order-independent but does not cancel under
 // cross-pair value swaps. The constant 0x9E3779B97F4A7C15 is the 64-bit
 // golden-ratio fraction used by xxhash, boost::hash_combine, and Go's runtime.
-func pairHashMix(a, b uint64) uint64 {
-	a ^= b + 0x9E3779B97F4A7C15 + (a << 6) + (a >> 2)
-	return a
-}
+func pairHashMix(a, b uint64) uint64 { _ = "STUB: not implemented"; return 0 }

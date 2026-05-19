@@ -5,11 +5,8 @@ package sshcheckreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"errors"
-	"net"
-	"strings"
 
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sshcheckreceiver/internal/configssh"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sshcheckreceiver/internal/metadata"
@@ -34,26 +31,6 @@ type Config struct {
 }
 
 // SFTPEnabled tells whether SFTP metrics are Enabled in MetricsSettings.
-func (c Config) SFTPEnabled() bool {
-	return (c.CheckSFTP || c.MetricsBuilderConfig.Metrics.SshcheckSftpDuration.Enabled || c.MetricsBuilderConfig.Metrics.SshcheckSftpStatus.Enabled)
-}
+func (c Config) SFTPEnabled() bool { _ = "STUB: not implemented"; return false }
 
-func (c Config) Validate() (err error) {
-	if c.Endpoint == "" {
-		err = multierr.Append(err, errMissingEndpoint)
-	} else if strings.Contains(c.Endpoint, " ") {
-		err = multierr.Append(err, errInvalidEndpoint)
-	} else if _, _, splitErr := net.SplitHostPort(c.Endpoint); splitErr != nil {
-		err = multierr.Append(splitErr, errInvalidEndpoint)
-	}
-
-	if c.Username == "" {
-		err = multierr.Append(err, errMissingUsername)
-	}
-
-	if c.Password == "" && c.KeyFile == "" {
-		err = multierr.Append(err, errMissingPasswordAndKeyFile)
-	}
-
-	return err
-}
+func (c Config) Validate() (err error) { _ = "STUB: not implemented"; return nil }

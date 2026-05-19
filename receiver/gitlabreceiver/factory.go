@@ -9,23 +9,12 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/gitlabreceiver/internal/metadata"
 )
 
 func createTracesReceiver(_ context.Context, params receiver.Settings, cfg component.Config, consumer consumer.Traces) (receiver.Traces, error) {
+	_ = "STUB: not implemented"
 	// check that the configuration is valid
-	conf, ok := cfg.(*Config)
-	if !ok {
-		return nil, errConfigNotValid
-	}
-
-	return newTracesReceiver(params, conf, consumer)
+	return *new(receiver.Traces), nil
 }
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(createTracesReceiver, component.StabilityLevelDevelopment))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }

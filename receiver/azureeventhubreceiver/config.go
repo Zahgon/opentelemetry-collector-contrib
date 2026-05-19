@@ -5,9 +5,7 @@ package azureeventhubreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"errors"
-	"fmt"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/messaging/azeventhubs/v2"
 	"go.opentelemetry.io/collector/component"
 )
 
@@ -85,50 +83,6 @@ type TimeFormat struct {
 }
 
 // Validate config
-func (config *Config) Validate() error {
-	if config.Auth != nil {
-		if config.EventHub.Name == "" {
-			return errors.New("event_hub.name is required when using auth")
-		}
-		if config.EventHub.Namespace == "" {
-			return errors.New("event_hub.namespace is required when using auth")
-		}
-	} else {
-		if config.Connection == "" {
-			return errMissingConnection
-		}
-		if _, err := azeventhubs.ParseConnectionString(config.Connection); err != nil {
-			return err
-		}
-	}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	switch logFormat(config.Format) {
-	case defaultLogFormat, rawLogFormat, azureLogFormat: // valid
-	default:
-		return fmt.Errorf("invalid format; must be one of %#v", validFormats)
-	}
-
-	if config.Partition == "" && config.Offset != "" {
-		return errors.New("cannot use 'offset' without 'partition'")
-	}
-
-	if config.BlobCheckpointStore != nil {
-		if config.BlobCheckpointStore.ContainerName == "" {
-			return errors.New("blob_checkpoint_store.container_name is required")
-		}
-		if config.Auth == nil && config.BlobCheckpointStore.Connection == "" {
-			return errors.New("blob_checkpoint_store.connection is required when not using auth")
-		}
-		if config.Auth != nil && config.BlobCheckpointStore.StorageAccountURL == "" {
-			return errors.New("blob_checkpoint_store.storage_account_url is required when using auth")
-		}
-		if config.Partition != "" || config.Offset != "" {
-			return errors.New("blob_checkpoint_store is mutually exclusive with partition and offset")
-		}
-		if config.StorageID != nil {
-			return errors.New("blob_checkpoint_store is mutually exclusive with storage")
-		}
-	}
-
-	return nil
-}
+// valid

@@ -13,13 +13,9 @@ type MockCfgMgr struct {
 	GetSamplingStrategyFunc func(ctx context.Context, serviceName string) (*api_v2.SamplingStrategyResponse, error)
 }
 
-func (*MockCfgMgr) Close() error {
-	return nil
-}
+func (*MockCfgMgr) Close() error { _ = "STUB: not implemented"; return nil }
 
 func (m *MockCfgMgr) GetSamplingStrategy(ctx context.Context, serviceName string) (*api_v2.SamplingStrategyResponse, error) {
-	if m.GetSamplingStrategyFunc != nil {
-		return m.GetSamplingStrategyFunc(ctx, serviceName)
-	}
-	return &api_v2.SamplingStrategyResponse{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

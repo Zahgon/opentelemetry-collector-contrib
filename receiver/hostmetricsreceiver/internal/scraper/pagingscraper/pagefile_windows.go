@@ -8,7 +8,6 @@ package pagingscraper // import "github.com/open-telemetry/opentelemetry-collect
 import (
 	"sync"
 	"syscall"
-	"unsafe"
 
 	"golang.org/x/sys/windows"
 )
@@ -40,11 +39,9 @@ type systemInfo struct {
 	wProcessorRevision          uint16
 }
 
-func getPageSize() uint64 {
-	var sysInfo systemInfo
-	procGetNativeSystemInfo.Call(uintptr(unsafe.Pointer(&sysInfo))) //nolint:errcheck
-	return uint64(sysInfo.dwPageSize)
-}
+func getPageSize() uint64 { _ = "STUB: not implemented"; return 0 }
+
+//nolint:errcheck
 
 // system type as defined in https://docs.microsoft.com/en-us/windows/win32/api/psapi/ns-psapi-enum_page_file_information
 type enumPageFileInformation struct {
@@ -55,34 +52,15 @@ type enumPageFileInformation struct {
 	peakUsage  uint64 //nolint:unused
 }
 
-func getPageFileStats() ([]*pageFileStats, error) {
-	pageSizeOnce.Do(func() { pageSize = getPageSize() })
+func getPageFileStats() ([]*pageFileStats, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	// the following system call invokes the supplied callback function once for each page file before returning
-	// see https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumpagefilesw
-	var pageFiles []*pageFileStats
-	result, _, _ := procEnumPageFilesW.Call(windows.NewCallback(pEnumPageFileCallbackW), uintptr(unsafe.Pointer(&pageFiles)))
-	if result == 0 {
-		return nil, windows.GetLastError()
-	}
-
-	return pageFiles, nil
-}
+// the following system call invokes the supplied callback function once for each page file before returning
+// see https://docs.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-enumpagefilesw
 
 // system callback as defined in https://docs.microsoft.com/en-us/windows/win32/api/psapi/nc-psapi-penum_page_file_callbackw
 func pEnumPageFileCallbackW(pageFiles *[]*pageFileStats, enumPageFileInfo *enumPageFileInformation, lpFilenamePtr *[syscall.MAX_LONG_PATH]uint16) *bool {
-	pageFileName := syscall.UTF16ToString((*lpFilenamePtr)[:])
-
-	pfData := &pageFileStats{
-		deviceName: pageFileName,
-		usedBytes:  enumPageFileInfo.totalInUse * pageSize,
-		freeBytes:  (enumPageFileInfo.totalSize - enumPageFileInfo.totalInUse) * pageSize,
-		totalBytes: enumPageFileInfo.totalSize * pageSize,
-	}
-
-	*pageFiles = append(*pageFiles, pfData)
-
-	// return true to continue enumerating page files
-	ret := true
-	return &ret
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// return true to continue enumerating page files

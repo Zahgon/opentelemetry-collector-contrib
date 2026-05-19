@@ -15,11 +15,7 @@
 package exponent // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/expohisto/mapping/exponent"
 
 import (
-	"errors"
-	"math"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/expohisto/mapping"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/expohisto/mapping/internal"
 )
 
 const (
@@ -55,13 +51,8 @@ var prebuiltMappings = [-MinScale + 1]exponentMapping{
 
 // NewMapping constructs an exponential mapping function, used for scales <= 0.
 func NewMapping(scale int32) (mapping.Mapping, error) {
-	if scale > MaxScale {
-		return nil, errors.New("exponent mapping requires scale <= 0")
-	}
-	if scale < MinScale {
-		return nil, errors.New("scale too low")
-	}
-	return &prebuiltMappings[scale-MinScale], nil
+	_ = "STUB: not implemented"
+	return *new(mapping.Mapping), nil
 }
 
 // minNormalLowerBoundaryIndex is the largest index such that
@@ -69,16 +60,11 @@ func NewMapping(scale int32) (mapping.Mapping, error) {
 // histogram bucket with this index covers the range (base**index,
 // base**(index+1)], including MinValue.  This is the smallest
 // valid index that contains at least one normal value.
-func (e *exponentMapping) minNormalLowerBoundaryIndex() int32 {
-	idx := internal.MinNormalExponent >> e.shift
-	if e.shift < 2 {
-		// For scales -1 and 0 the minimum value 2**-1022 is a
-		// power-of-two multiple, meaning base**index ==
-		// MinValue. Subtract 1 so that base**(index+1) == MinValue
-		idx--
-	}
-	return idx
-}
+func (e *exponentMapping) minNormalLowerBoundaryIndex() int32 { _ = "STUB: not implemented"; return 0 }
+
+// For scales -1 and 0 the minimum value 2**-1022 is a
+// power-of-two multiple, meaning base**index ==
+// MinValue. Subtract 1 so that base**(index+1) == MinValue
 
 // maxNormalLowerBoundaryIndex is the index such that base**index
 // equals the largest representable boundary.  A histogram bucket with this
@@ -86,43 +72,28 @@ func (e *exponentMapping) minNormalLowerBoundaryIndex() int32 {
 // MaxValue; note that this bucket is incomplete, since the upper
 // boundary cannot be represented.  One greater than this index
 // corresponds with the bucket containing values > 0x1p1024.
-func (e *exponentMapping) maxNormalLowerBoundaryIndex() int32 {
-	return internal.MaxNormalExponent >> e.shift
-}
+func (e *exponentMapping) maxNormalLowerBoundaryIndex() int32 { _ = "STUB: not implemented"; return 0 }
 
 // MapToIndex implements mapping.Mapping.
 func (e *exponentMapping) MapToIndex(value float64) int32 {
+	_ = "STUB: not implemented"
 	// Note: we can assume not a 0, Inf, or NaN; positive sign bit.
-	if value < internal.MinValue {
-		return e.minNormalLowerBoundaryIndex()
-	}
-
-	// Extract the raw exponent.
-	rawExp := internal.GetNormalBase2(value)
-
-	// In case the value is an exact power of two, compute a
-	// correction of -1:
-	correction := int32((internal.GetSignificand(value) - 1) >> internal.SignificandWidth)
-
-	// Note: bit-shifting does the right thing for negative
-	// exponents, e.g., -1 >> 1 == -1.
-	return (rawExp + correction) >> e.shift
+	return 0
 }
+
+// Extract the raw exponent.
+
+// In case the value is an exact power of two, compute a
+// correction of -1:
+
+// Note: bit-shifting does the right thing for negative
+// exponents, e.g., -1 >> 1 == -1.
 
 // LowerBoundary implements mapping.Mapping.
 func (e *exponentMapping) LowerBoundary(index int32) (float64, error) {
-	if minIdx := e.minNormalLowerBoundaryIndex(); index < minIdx {
-		return 0, mapping.ErrUnderflow
-	}
-
-	if maxIdx := e.maxNormalLowerBoundaryIndex(); index > maxIdx {
-		return 0, mapping.ErrOverflow
-	}
-
-	return math.Ldexp(1, int(index<<e.shift)), nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // Scale implements mapping.Mapping.
-func (e *exponentMapping) Scale() int32 {
-	return -int32(e.shift)
-}
+func (e *exponentMapping) Scale() int32 { _ = "STUB: not implemented"; return 0 }

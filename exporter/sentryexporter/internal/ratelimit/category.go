@@ -3,13 +3,6 @@
 
 package ratelimit // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sentryexporter/internal/ratelimit"
 
-import (
-	"strings"
-
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
-)
-
 // Reference:
 // https://github.com/getsentry/relay/blob/0424a2e017d193a93918053c90cdae9472d164bf/relay-common/src/constants.rs#L116-L127
 
@@ -34,22 +27,6 @@ var knownCategories = map[Category]struct{}{
 }
 
 // String returns the category formatted for debugging.
-func (c Category) String() string {
-	switch c {
-	case CategoryAll:
-		return "CategoryAll"
-	case CategoryTransaction:
-		return "CategoryTransaction"
-	case CategoryLog:
-		return "CategoryLog"
-	default:
-		// For unknown categories, use the original formatting logic
-		caser := cases.Title(language.English)
-		var rv strings.Builder
-		rv.WriteString("Category")
-		for w := range strings.FieldsSeq(string(c)) {
-			rv.WriteString(caser.String(w))
-		}
-		return rv.String()
-	}
-}
+func (c Category) String() string { _ = "STUB: not implemented"; return "" }
+
+// For unknown categories, use the original formatting logic

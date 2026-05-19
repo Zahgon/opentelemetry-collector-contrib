@@ -4,8 +4,6 @@
 package internal // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusreceiver/internal"
 
 import (
-	"strings"
-
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/prometheus/scrape"
 )
@@ -46,32 +44,18 @@ var internalMetricMetadata = map[string]*scrape.MetricMetadata{
 }
 
 func metadataForMetric(metricName string, mc scrape.MetricMetadataStore) (*scrape.MetricMetadata, string) {
-	if metadata, ok := internalMetricMetadata[metricName]; ok {
-		return metadata, metricName
-	}
-	if metadata, ok := mc.GetMetadata(metricName); ok {
-		return &metadata, metricName
-	}
-	// If we didn't find metadata with the original name,
-	// try with suffixes trimmed, in-case it is a "merged" metric type.
-	normalizedName := normalizeMetricName(metricName)
-	if metadata, ok := mc.GetMetadata(normalizedName); ok {
-		if metadata.Type == model.MetricTypeCounter {
-			// NB (eriksywu): see https://github.com/prometheus/prometheus/issues/14823
-			if strings.HasSuffix(metricName, metricSuffixCreated) {
-				return &metadata, normalizedName + metricSuffixTotal
-			}
-			// END NB (eriksywu)
-			return &metadata, metricName
-		}
-		return &metadata, normalizedName
-	}
-	// Otherwise, the metric is unknown
-	return &scrape.MetricMetadata{
-		MetricFamily: metricName,
-		Type:         model.MetricTypeUnknown,
-	}, metricName
+	_ = "STUB: not implemented"
+	return nil, ""
 }
+
+// If we didn't find metadata with the original name,
+// try with suffixes trimmed, in-case it is a "merged" metric type.
+
+// NB (eriksywu): see https://github.com/prometheus/prometheus/issues/14823
+
+// END NB (eriksywu)
+
+// Otherwise, the metric is unknown
 
 // isCounterCreatedLine determines whether a metric is a _created line for a counter appended by an om-text parser
 // these assumptions are made
@@ -79,27 +63,22 @@ func metadataForMetric(metricName string, mc scrape.MetricMetadataStore) (*scrap
 // 2. the omptextarser stores metadata of every om text line using the counter's normalized name (i.e foo_counter_total => foo_counter, foo_counter_created => foo_counter)
 // 3. the promtextparser stores metadata without normalization of metric name
 func isCounterCreatedLine(metricName, normalizedMetricName string, mc scrape.MetricMetadataStore) bool {
-	if !strings.HasSuffix(metricName, metricSuffixCreated) {
-		return false
-	}
-	md, ok := mc.GetMetadata(normalizedMetricName)
-	return ok && md.Type == model.MetricTypeCounter
+	_ = "STUB: not implemented"
+	return false
 }
 
 type emptyMetadataStore struct{}
 
 func (emptyMetadataStore) ListMetadata() []scrape.MetricMetadata {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (emptyMetadataStore) GetMetadata(string) (scrape.MetricMetadata, bool) {
-	return scrape.MetricMetadata{}, false
+	_ = "STUB: not implemented"
+	return *new(scrape.MetricMetadata), false
 }
 
-func (emptyMetadataStore) SizeMetadata() int {
-	return 0
-}
+func (emptyMetadataStore) SizeMetadata() int { _ = "STUB: not implemented"; return 0 }
 
-func (emptyMetadataStore) LengthMetadata() int {
-	return 0
-}
+func (emptyMetadataStore) LengthMetadata() int { _ = "STUB: not implemented"; return 0 }

@@ -8,23 +8,16 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/awscloudwatchmetricstreamsencodingextension/internal/metadata"
 )
 
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(_ context.Context, settings extension.Settings, cfg component.Config) (extension.Extension, error) {
-	return newExtension(cfg.(*Config), settings)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

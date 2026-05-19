@@ -25,199 +25,87 @@ type sidEnrichingConsumer struct {
 
 // newSIDEnrichingConsumer creates a new SID enriching consumer wrapper
 func newSIDEnrichingConsumer(next consumer.Logs, cache sidcache.Cache, logger *zap.Logger) *sidEnrichingConsumer {
-	return &sidEnrichingConsumer{
-		next:     next,
-		sidCache: cache,
-		logger:   logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Capabilities returns the consumer capabilities
 func (s *sidEnrichingConsumer) Capabilities() consumer.Capabilities {
-	return s.next.Capabilities()
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 // ConsumeLogs enriches logs with SID resolution before passing to the next consumer
 func (s *sidEnrichingConsumer) ConsumeLogs(ctx context.Context, logs plog.Logs) error {
-	if s.sidCache == nil {
-		// SID resolution disabled, pass through
-		return s.next.ConsumeLogs(ctx, logs)
-	}
+	_ = "STUB: not implemented"
+	return nil
 
-	// Iterate through all log records and enrich them
-	for i := 0; i < logs.ResourceLogs().Len(); i++ {
-		resourceLogs := logs.ResourceLogs().At(i)
-		for j := 0; j < resourceLogs.ScopeLogs().Len(); j++ {
-			scopeLogs := resourceLogs.ScopeLogs().At(j)
-			for k := 0; k < scopeLogs.LogRecords().Len(); k++ {
-				logRecord := scopeLogs.LogRecords().At(k)
-				s.enrichLogRecord(logRecord)
-			}
-		}
-	}
-
-	return s.next.ConsumeLogs(ctx, logs)
+	// SID resolution disabled, pass through
 }
+
+// Iterate through all log records and enrich them
 
 // enrichLogRecord enriches a single log record with SID resolution
 func (s *sidEnrichingConsumer) enrichLogRecord(record plog.LogRecord) {
-	body := record.Body()
-	if body.Type() != pcommon.ValueTypeMap {
-		return
-	}
-
-	bodyMap := body.Map()
-
-	// Enrich security.user_id field
-	s.enrichSecurityField(bodyMap)
-
-	// Enrich SID fields in event_data
-	s.enrichEventDataFields(bodyMap)
+	_ = "STUB: not implemented"
+	return
 }
+
+// Enrich security.user_id field
+
+// Enrich SID fields in event_data
 
 // enrichSecurityField enriches the security.user_id field
 func (s *sidEnrichingConsumer) enrichSecurityField(bodyMap pcommon.Map) {
-	securityVal, ok := bodyMap.Get("security")
-	if !ok || securityVal.Type() != pcommon.ValueTypeMap {
-		return
-	}
-
-	securityMap := securityVal.Map()
-	userIDVal, ok := securityMap.Get("user_id")
-	if !ok || userIDVal.Type() != pcommon.ValueTypeStr {
-		return
-	}
-
-	sid := userIDVal.Str()
-	if sid == "" {
-		return
-	}
-
-	// Resolve SID
-	resolved, err := s.sidCache.Resolve(sid)
-	if err != nil {
-		s.logger.Debug("Failed to resolve SID in security field",
-			zap.String("sid", sid),
-			zap.Error(err))
-		return
-	}
-
-	// Add resolved fields
-	securityMap.PutStr("user_name", resolved.AccountName)
-	securityMap.PutStr("domain", resolved.Domain)
-	securityMap.PutStr("account", resolved.Username)
-	securityMap.PutStr("account_type", resolved.AccountType)
+	_ = "STUB: not implemented"
+	return
 }
+
+// Resolve SID
+
+// Add resolved fields
 
 // enrichEventDataFields enriches SID fields within event_data
 func (s *sidEnrichingConsumer) enrichEventDataFields(bodyMap pcommon.Map) {
-	eventDataVal, ok := bodyMap.Get("event_data")
-	if !ok || eventDataVal.Type() != pcommon.ValueTypeMap {
-		return
-	}
-
-	eventDataMap := eventDataVal.Map()
-
-	// Check if event_data has a "data" array (old format)
-	dataVal, hasDataArray := eventDataMap.Get("data")
-	if hasDataArray && dataVal.Type() == pcommon.ValueTypeSlice {
-		s.enrichEventDataArray(dataVal.Slice())
-		return
-	}
-
-	// Otherwise, treat event_data as a flat map and enrich fields directly
-	s.enrichEventDataMap(eventDataMap)
+	_ = "STUB: not implemented"
+	return
 }
+
+// Check if event_data has a "data" array (old format)
+
+// Otherwise, treat event_data as a flat map and enrich fields directly
 
 // tryResolveSID checks whether a key/value pair represents a SID field and resolves it.
 // Returns the resolved SID or nil if the field is not a SID, is empty, or resolution fails.
 func (s *sidEnrichingConsumer) tryResolveSID(key string, value pcommon.Value) *sidcache.ResolvedSID {
-	if !sidcache.IsSIDField(key) {
-		return nil
-	}
-
-	if value.Type() != pcommon.ValueTypeStr {
-		return nil
-	}
-
-	sid := value.Str()
-	if sid == "" {
-		return nil
-	}
-
-	resolved, err := s.sidCache.Resolve(sid)
-	if err != nil {
-		s.logger.Debug("Failed to resolve SID in event_data",
-			zap.String("field", key),
-			zap.String("sid", sid),
-			zap.Error(err))
-		return nil
-	}
-
-	return resolved
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // enrichEventDataArray enriches SID fields in the event_data.data array format
 func (s *sidEnrichingConsumer) enrichEventDataArray(dataSlice pcommon.Slice) {
+	_ = "STUB: not implemented"
 	// Track which SIDs we've seen to add companion fields after the original
-	sidsToEnrich := make(map[string]*sidcache.ResolvedSID)
-
-	// First pass: identify SID fields and resolve them
-	for i := 0; i < dataSlice.Len(); i++ {
-		item := dataSlice.At(i)
-		if item.Type() != pcommon.ValueTypeMap {
-			continue
-		}
-
-		item.Map().Range(func(key string, value pcommon.Value) bool {
-			if resolved := s.tryResolveSID(key, value); resolved != nil {
-				sidsToEnrich[key] = resolved
-			}
-			return true
-		})
-	}
-
-	// Second pass: add companion fields for each resolved SID
-	for fieldName, resolved := range sidsToEnrich {
-		// Add {field}_Resolved
-		newItem := dataSlice.AppendEmpty()
-		newItemMap := newItem.SetEmptyMap()
-		newItemMap.PutStr(fieldName+"_Resolved", resolved.AccountName)
-
-		// Add {field}_Domain
-		newItem = dataSlice.AppendEmpty()
-		newItemMap = newItem.SetEmptyMap()
-		newItemMap.PutStr(fieldName+"_Domain", resolved.Domain)
-
-		// Add {field}_Account
-		newItem = dataSlice.AppendEmpty()
-		newItemMap = newItem.SetEmptyMap()
-		newItemMap.PutStr(fieldName+"_Account", resolved.Username)
-
-		// Add {field}_Type
-		newItem = dataSlice.AppendEmpty()
-		newItemMap = newItem.SetEmptyMap()
-		newItemMap.PutStr(fieldName+"_Type", resolved.AccountType)
-	}
+	return
 }
+
+// First pass: identify SID fields and resolve them
+
+// Second pass: add companion fields for each resolved SID
+
+// Add {field}_Resolved
+
+// Add {field}_Domain
+
+// Add {field}_Account
+
+// Add {field}_Type
 
 // enrichEventDataMap enriches SID fields in a flat event_data map
 func (s *sidEnrichingConsumer) enrichEventDataMap(eventDataMap pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Track SIDs to enrich (we'll add fields after iteration to avoid modifying during range)
-	sidsToEnrich := make(map[string]*sidcache.ResolvedSID)
-
-	eventDataMap.Range(func(key string, value pcommon.Value) bool {
-		if resolved := s.tryResolveSID(key, value); resolved != nil {
-			sidsToEnrich[key] = resolved
-		}
-		return true
-	})
-
-	// Add companion fields for each resolved SID
-	for fieldName, resolved := range sidsToEnrich {
-		eventDataMap.PutStr(fieldName+"_Resolved", resolved.AccountName)
-		eventDataMap.PutStr(fieldName+"_Domain", resolved.Domain)
-		eventDataMap.PutStr(fieldName+"_Account", resolved.Username)
-		eventDataMap.PutStr(fieldName+"_Type", resolved.AccountType)
-	}
+	return
 }
+
+// Add companion fields for each resolved SID

@@ -4,10 +4,6 @@
 package ottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 
 import (
-	"encoding/hex"
-	"fmt"
-	"strings"
-
 	"github.com/alecthomas/participle/v2/lexer"
 )
 
@@ -19,19 +15,7 @@ type parsedStatement struct {
 	WhereClause *booleanExpression `parser:"( 'where' @@ )?"`
 }
 
-func (p *parsedStatement) checkForCustomError() error {
-	validator := &grammarCustomErrorsVisitor{}
-	if p.Converter != nil {
-		validator.add(fmt.Errorf("editor names must start with a lowercase letter but got '%v'", p.Converter.Function))
-	}
-
-	p.Editor.accept(validator)
-	if p.WhereClause != nil {
-		p.WhereClause.accept(validator)
-	}
-
-	return validator.join()
-}
+func (p *parsedStatement) checkForCustomError() error { _ = "STUB: not implemented"; return nil }
 
 type constExpr struct {
 	Boolean   *boolean   `parser:"( @Boolean"`
@@ -48,17 +32,7 @@ type booleanValue struct {
 	SubExpr    *booleanExpression `parser:"| '(' @@ ')' )"`
 }
 
-func (b *booleanValue) accept(v grammarVisitor) {
-	if b.Comparison != nil {
-		b.Comparison.accept(v)
-	}
-	if b.ConstExpr != nil && b.ConstExpr.Converter != nil {
-		b.ConstExpr.Converter.accept(v)
-	}
-	if b.SubExpr != nil {
-		b.SubExpr.accept(v)
-	}
-}
+func (b *booleanValue) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // opAndBooleanValue represents the right side of an AND boolean expression.
 type opAndBooleanValue struct {
@@ -66,11 +40,7 @@ type opAndBooleanValue struct {
 	Value    *booleanValue `parser:"@@"`
 }
 
-func (b *opAndBooleanValue) accept(v grammarVisitor) {
-	if b.Value != nil {
-		b.Value.accept(v)
-	}
-}
+func (b *opAndBooleanValue) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // term represents an arbitrary number of boolean values joined by AND.
 type term struct {
@@ -78,16 +48,7 @@ type term struct {
 	Right []*opAndBooleanValue `parser:"@@*"`
 }
 
-func (b *term) accept(v grammarVisitor) {
-	if b.Left != nil {
-		b.Left.accept(v)
-	}
-	for _, r := range b.Right {
-		if r != nil {
-			r.accept(v)
-		}
-	}
-}
+func (b *term) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // opOrTerm represents the right side of an OR boolean expression.
 type opOrTerm struct {
@@ -95,11 +56,7 @@ type opOrTerm struct {
 	Term     *term  `parser:"@@"`
 }
 
-func (b *opOrTerm) accept(v grammarVisitor) {
-	if b.Term != nil {
-		b.Term.accept(v)
-	}
-}
+func (b *opOrTerm) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // booleanExpression represents a true/false decision expressed
 // as an arbitrary number of terms separated by OR.
@@ -108,22 +65,9 @@ type booleanExpression struct {
 	Right []*opOrTerm `parser:"@@*"`
 }
 
-func (b *booleanExpression) checkForCustomError() error {
-	validator := &grammarCustomErrorsVisitor{}
-	b.accept(validator)
-	return validator.join()
-}
+func (b *booleanExpression) checkForCustomError() error { _ = "STUB: not implemented"; return nil }
 
-func (b *booleanExpression) accept(v grammarVisitor) {
-	if b.Left != nil {
-		b.Left.accept(v)
-	}
-	for _, r := range b.Right {
-		if r != nil {
-			r.accept(v)
-		}
-	}
-}
+func (b *booleanExpression) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // compareOp is the type of a comparison operator.
 type compareOp int
@@ -149,34 +93,10 @@ var compareOpTable = map[string]compareOp{
 }
 
 // Capture is how the parser converts an operator string to a compareOp.
-func (c *compareOp) Capture(values []string) error {
-	op, ok := compareOpTable[values[0]]
-	if !ok {
-		return fmt.Errorf("'%s' is not a valid operator", values[0])
-	}
-	*c = op
-	return nil
-}
+func (c *compareOp) Capture(values []string) error { _ = "STUB: not implemented"; return nil }
 
 // String() for compareOp gives us more legible test results and error messages.
-func (c *compareOp) String() string {
-	switch *c {
-	case eq:
-		return "eq"
-	case ne:
-		return "ne"
-	case lt:
-		return "lt"
-	case lte:
-		return "lte"
-	case gte:
-		return "gte"
-	case gt:
-		return "gt"
-	default:
-		return "UNKNOWN OP!"
-	}
-}
+func (c *compareOp) String() string { _ = "STUB: not implemented"; return "" }
 
 // comparison represents an optional boolean condition.
 type comparison struct {
@@ -185,10 +105,7 @@ type comparison struct {
 	Right value     `parser:"@@"`
 }
 
-func (c *comparison) accept(v grammarVisitor) {
-	c.Left.accept(v)
-	c.Right.accept(v)
-}
+func (c *comparison) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // editor represents the function call of a statement.
 type editor struct {
@@ -198,12 +115,7 @@ type editor struct {
 	Keys []key `parser:"( @@ )*"`
 }
 
-func (i *editor) accept(v grammarVisitor) {
-	v.visitEditor(i)
-	for _, arg := range i.Arguments {
-		arg.accept(v)
-	}
-}
+func (i *editor) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // converter represents a converter function call.
 type converter struct {
@@ -212,14 +124,7 @@ type converter struct {
 	Keys      []key      `parser:"( @@ )*"`
 }
 
-func (c *converter) accept(v grammarVisitor) {
-	v.visitConverter(c)
-	if c.Arguments != nil {
-		for _, a := range c.Arguments {
-			a.accept(v)
-		}
-	}
-}
+func (c *converter) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type argument struct {
 	Name         string  `parser:"(@(Lowercase(Uppercase | Lowercase)*) Equal)?"`
@@ -228,11 +133,13 @@ type argument struct {
 }
 
 func (a *argument) accept(v grammarVisitor) {
-	a.Value.accept(v)
+	_ = "STUB: not implemented"
+
+	// value represents a part of a parsed statement which is resolved to a value of some sort. This can be a telemetry path
+	// mathExpression, function call, or literal.
+	return
 }
 
-// value represents a part of a parsed statement which is resolved to a value of some sort. This can be a telemetry path
-// mathExpression, function call, or literal.
 type value struct {
 	IsNil          *isNil           `parser:"( @Nil"`
 	Literal        *mathExprLiteral `parser:"| @@ (?! OpAddSub | OpMultDiv)"`
@@ -245,29 +152,9 @@ type value struct {
 	List           *list            `parser:"| @@)"`
 }
 
-func (v *value) checkForCustomError() error {
-	validator := &grammarCustomErrorsVisitor{}
-	v.accept(validator)
-	return validator.join()
-}
+func (v *value) checkForCustomError() error { _ = "STUB: not implemented"; return nil }
 
-func (v *value) accept(vis grammarVisitor) {
-	vis.visitValue(v)
-	if v.Literal != nil {
-		v.Literal.accept(vis)
-	}
-	if v.MathExpression != nil {
-		v.MathExpression.accept(vis)
-	}
-	if v.Map != nil {
-		v.Map.accept(vis)
-	}
-	if v.List != nil {
-		for _, i := range v.List.Values {
-			i.accept(vis)
-		}
-	}
-}
+func (v *value) accept(vis grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // path represents a telemetry path mathExpression.
 type path struct {
@@ -276,12 +163,7 @@ type path struct {
 	Fields  []field `parser:"@@ ( '.' @@ )*"`
 }
 
-func (p *path) accept(v grammarVisitor) {
-	v.visitPath(p)
-	for _, field := range p.Fields {
-		field.accept(v)
-	}
-}
+func (p *path) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 // field is an item within a path.
 type field struct {
@@ -289,11 +171,7 @@ type field struct {
 	Keys []key  `parser:"( @@ )*"`
 }
 
-func (f *field) accept(v grammarVisitor) {
-	for _, key := range f.Keys {
-		key.accept(v)
-	}
-}
+func (f *field) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type key struct {
 	String         *string          `parser:"'[' (@String "`
@@ -302,14 +180,7 @@ type key struct {
 	Expression     *mathExprLiteral `parser:"| @@ ) ']'"`
 }
 
-func (k *key) accept(v grammarVisitor) {
-	if k.MathExpression != nil {
-		k.MathExpression.accept(v)
-	}
-	if k.Expression != nil {
-		k.Expression.accept(v)
-	}
-}
+func (k *key) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type list struct {
 	Values []value `parser:"'[' (@@)* (',' @@)* ']'"`
@@ -319,13 +190,7 @@ type mapValue struct {
 	Values []mapItem `parser:"'{' (@@ ','?)* '}'"`
 }
 
-func (m *mapValue) accept(v grammarVisitor) {
-	for _, i := range m.Values {
-		if i.Value != nil {
-			i.Value.accept(v)
-		}
-	}
-}
+func (m *mapValue) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type mapItem struct {
 	Key   *string `parser:"@String ':'"`
@@ -335,31 +200,17 @@ type mapItem struct {
 // byteSlice type for capturing byte slices
 type byteSlice []byte
 
-func (b *byteSlice) Capture(values []string) error {
-	rawStr := values[0][2:]
-	newBytes, err := hex.DecodeString(rawStr)
-	if err != nil {
-		return err
-	}
-	*b = newBytes
-	return nil
-}
+func (b *byteSlice) Capture(values []string) error { _ = "STUB: not implemented"; return nil }
 
 // boolean Type for capturing booleans, see:
 // https://github.com/alecthomas/participle#capturing-boolean-value
 type boolean bool
 
-func (b *boolean) Capture(values []string) error {
-	*b = values[0] == "true"
-	return nil
-}
+func (b *boolean) Capture(values []string) error { _ = "STUB: not implemented"; return nil }
 
 type isNil bool
 
-func (n *isNil) Capture(_ []string) error {
-	*n = true
-	return nil
-}
+func (n *isNil) Capture(_ []string) error { _ = "STUB: not implemented"; return nil }
 
 type mathExprLiteral struct {
 	// If editor is matched then error
@@ -370,18 +221,7 @@ type mathExprLiteral struct {
 	Path      *path      `parser:"| @@ )"`
 }
 
-func (m *mathExprLiteral) accept(v grammarVisitor) {
-	v.visitMathExprLiteral(m)
-	if m.Path != nil {
-		m.Path.accept(v)
-	}
-	if m.Editor != nil {
-		m.Editor.accept(v)
-	}
-	if m.Converter != nil {
-		m.Converter.accept(v)
-	}
-}
+func (m *mathExprLiteral) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type mathValue struct {
 	UnaryOp       *mathOp          `parser:"@OpAddSub?"`
@@ -389,70 +229,35 @@ type mathValue struct {
 	SubExpression *mathExpression  `parser:"| '(' @@ ')' )"`
 }
 
-func (m *mathValue) accept(v grammarVisitor) {
-	if m.Literal != nil {
-		m.Literal.accept(v)
-	}
-	if m.SubExpression != nil {
-		m.SubExpression.accept(v)
-	}
-}
+func (m *mathValue) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type opMultDivValue struct {
 	Operator mathOp     `parser:"@OpMultDiv"`
 	Value    *mathValue `parser:"@@"`
 }
 
-func (m *opMultDivValue) accept(v grammarVisitor) {
-	if m.Value != nil {
-		m.Value.accept(v)
-	}
-}
+func (m *opMultDivValue) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type addSubTerm struct {
 	Left  *mathValue        `parser:"@@"`
 	Right []*opMultDivValue `parser:"@@*"`
 }
 
-func (m *addSubTerm) accept(v grammarVisitor) {
-	if m.Left != nil {
-		m.Left.accept(v)
-	}
-	for _, r := range m.Right {
-		if r != nil {
-			r.accept(v)
-		}
-	}
-}
+func (m *addSubTerm) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type opAddSubTerm struct {
 	Operator mathOp      `parser:"@OpAddSub"`
 	Term     *addSubTerm `parser:"@@"`
 }
 
-func (r *opAddSubTerm) accept(v grammarVisitor) {
-	if r.Term != nil {
-		r.Term.accept(v)
-	}
-}
+func (r *opAddSubTerm) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type mathExpression struct {
 	Left  *addSubTerm     `parser:"@@"`
 	Right []*opAddSubTerm `parser:"@@*"`
 }
 
-func (m *mathExpression) accept(v grammarVisitor) {
-	if m.Left != nil {
-		m.Left.accept(v)
-	}
-	if m.Right != nil {
-		for _, r := range m.Right {
-			if r != nil {
-				r.accept(v)
-			}
-		}
-	}
-}
+func (m *mathExpression) accept(v grammarVisitor) { _ = "STUB: not implemented"; return }
 
 type mathOp int
 
@@ -470,61 +275,16 @@ var mathOpTable = map[string]mathOp{
 	"/": div,
 }
 
-func (m *mathOp) Capture(values []string) error {
-	op, ok := mathOpTable[values[0]]
-	if !ok {
-		return fmt.Errorf("'%s' is not a valid operator", values[0])
-	}
-	*m = op
-	return nil
-}
+func (m *mathOp) Capture(values []string) error { _ = "STUB: not implemented"; return nil }
 
-func (m *mathOp) String() string {
-	switch *m {
-	case add:
-		return "+"
-	case sub:
-		return "-"
-	case mult:
-		return "*"
-	case div:
-		return "/"
-	default:
-		return "UNKNOWN OP!"
-	}
-}
+func (m *mathOp) String() string { _ = "STUB: not implemented"; return "" }
 
 type enumSymbol string
 
 // buildLexer constructs a SimpleLexer definition.
 // Note that the ordering of these rules matters.
 // It's in a separate function so it can be easily tested alone (see lexer_test.go).
-func buildLexer() *lexer.StatefulDefinition {
-	return lexer.MustSimple([]lexer.SimpleRule{
-		{Name: `Bytes`, Pattern: `0x[a-fA-F0-9]+`},
-		{Name: `Float`, Pattern: `(\d+\.\d*|\d*\.\d+)([eE][-+]?\d+)?`},
-		{Name: `Int`, Pattern: `\d+`},
-		{Name: `String`, Pattern: `"(\\.|[^\\"])*"`},
-		{Name: `Nil`, Pattern: `\b(nil)\b`},
-		{Name: `OpNot`, Pattern: `\b(not)\b`},
-		{Name: `OpOr`, Pattern: `\b(or)\b`},
-		{Name: `OpAnd`, Pattern: `\b(and)\b`},
-		{Name: `OpComparison`, Pattern: `==|!=|>=|<=|>|<`},
-		{Name: `OpAddSub`, Pattern: `\+|\-`},
-		{Name: `OpMultDiv`, Pattern: `\/|\*`},
-		{Name: `Boolean`, Pattern: `\b(true|false)\b`},
-		{Name: `Equal`, Pattern: `=`},
-		{Name: `LParen`, Pattern: `\(`},
-		{Name: `RParen`, Pattern: `\)`},
-		{Name: `LBrace`, Pattern: `\{`},
-		{Name: `RBrace`, Pattern: `\}`},
-		{Name: `Colon`, Pattern: `\:`},
-		{Name: `Punct`, Pattern: `[,.\[\]]`},
-		{Name: `Uppercase`, Pattern: `[A-Z][A-Z0-9_]*`},
-		{Name: `Lowercase`, Pattern: `[a-z][a-z0-9_]*`},
-		{Name: "whitespace", Pattern: `\s+`},
-	})
-}
+func buildLexer() *lexer.StatefulDefinition { _ = "STUB: not implemented"; return nil }
 
 // grammarCustomError represents a grammar error in which the statement has a valid syntax
 // according to the grammar's definition, but is still logically invalid.
@@ -533,28 +293,15 @@ type grammarCustomError struct {
 }
 
 // Error returns all errors messages separate by semicolons.
-func (e *grammarCustomError) Error() string {
-	switch len(e.errs) {
-	case 0:
-		return ""
-	case 1:
-		return e.errs[0].Error()
-	default:
-		var b strings.Builder
-		b.WriteString(e.errs[0].Error())
-		for _, err := range e.errs[1:] {
-			b.WriteString("; ")
-			b.WriteString(err.Error())
-		}
-		return b.String()
-	}
-}
+func (e *grammarCustomError) Error() string { _ = "STUB: not implemented"; return "" }
 
 func (e *grammarCustomError) Unwrap() []error {
-	return e.errs
+	_ = "STUB: not implemented"
+
+	// grammarVisitor allows accessing the grammar AST nodes using the visitor pattern.
+	return nil
 }
 
-// grammarVisitor allows accessing the grammar AST nodes using the visitor pattern.
 type grammarVisitor interface {
 	visitPath(v *path)
 	visitEditor(v *editor)
@@ -568,31 +315,19 @@ type grammarCustomErrorsVisitor struct {
 	errs []error
 }
 
-func (g *grammarCustomErrorsVisitor) add(err error) {
-	g.errs = append(g.errs, err)
-}
+func (g *grammarCustomErrorsVisitor) add(err error) { _ = "STUB: not implemented"; return }
 
-func (g *grammarCustomErrorsVisitor) join() error {
-	if len(g.errs) == 0 {
-		return nil
-	}
-	return &grammarCustomError{errs: g.errs}
-}
+func (g *grammarCustomErrorsVisitor) join() error { _ = "STUB: not implemented"; return nil }
 
-func (*grammarCustomErrorsVisitor) visitPath(*path) {}
+func (*grammarCustomErrorsVisitor) visitPath(*path) { _ = "STUB: not implemented"; return }
 
-func (*grammarCustomErrorsVisitor) visitValue(*value) {}
+func (*grammarCustomErrorsVisitor) visitValue(*value) { _ = "STUB: not implemented"; return }
 
-func (*grammarCustomErrorsVisitor) visitConverter(*converter) {}
+func (*grammarCustomErrorsVisitor) visitConverter(*converter) { _ = "STUB: not implemented"; return }
 
-func (g *grammarCustomErrorsVisitor) visitEditor(v *editor) {
-	if v.Keys != nil {
-		g.add(fmt.Errorf("only paths and converters may be indexed, not editors, but got %s%s", v.Function, buildOriginalKeysText(v.Keys)))
-	}
-}
+func (g *grammarCustomErrorsVisitor) visitEditor(v *editor) { _ = "STUB: not implemented"; return }
 
 func (g *grammarCustomErrorsVisitor) visitMathExprLiteral(v *mathExprLiteral) {
-	if v.Editor != nil {
-		g.add(fmt.Errorf("converter names must start with an uppercase letter but got '%v'", v.Editor.Function))
-	}
+	_ = "STUB: not implemented"
+	return
 }

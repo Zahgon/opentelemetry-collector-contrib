@@ -6,10 +6,10 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottllog"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 )
 
 func LogFunctions() map[string]ottl.Factory[*ottllog.TransformContext] {
+	_ = "STUB: not implemented"
 	// No logs-only functions yet.
-	return ottlfuncs.StandardFuncs[*ottllog.TransformContext]()
+	return nil
 }

@@ -4,11 +4,8 @@
 package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/ecsobserver"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	ecstypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
 	"go.uber.org/zap"
 )
@@ -23,49 +20,19 @@ type TaskDefinitionConfig struct {
 	ContainerNamePattern string `mapstructure:"container_name_pattern" yaml:"container_name_pattern"`
 }
 
-func (t *TaskDefinitionConfig) validate() error {
-	_, err := t.newMatcher(matcherOptions{})
-	return err
-}
+func (t *TaskDefinitionConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 func (t *TaskDefinitionConfig) newMatcher(opts matcherOptions) (targetMatcher, error) {
-	if t.ArnPattern == "" {
-		return nil, errors.New("arn_pattern is empty")
-	}
-
-	arnRegex, err := regexp.Compile(t.ArnPattern)
-	if err != nil {
-		return nil, fmt.Errorf("invalid arn pattern %w", err)
-	}
-	var containerRegex *regexp.Regexp
-	if t.ContainerNamePattern != "" {
-		containerRegex, err = regexp.Compile(t.ContainerNamePattern)
-		if err != nil {
-			return nil, fmt.Errorf("invalid container name pattern %w", err)
-		}
-	}
-	expSetting, err := t.newExportSetting()
-	if err != nil {
-		return nil, err
-	}
-	return &taskDefinitionMatcher{
-		logger:             opts.Logger,
-		cfg:                *t,
-		arnRegex:           arnRegex,
-		containerNameRegex: containerRegex,
-		exportSetting:      expSetting,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(targetMatcher), nil
 }
 
 func taskDefinitionConfigsToMatchers(cfgs []TaskDefinitionConfig) []matcherConfig {
-	matchers := make([]matcherConfig, len(cfgs))
-	for i, cfg := range cfgs {
-		// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
-		copied := cfg
-		matchers[i] = &copied
-	}
-	return matchers
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
 
 type taskDefinitionMatcher struct {
 	logger *zap.Logger
@@ -78,14 +45,14 @@ type taskDefinitionMatcher struct {
 }
 
 func (*taskDefinitionMatcher) matcherType() matcherType {
-	return matcherTypeTaskDefinition
+	_ = "STUB: not implemented"
+	return *new(matcherType)
 }
 
 func (m *taskDefinitionMatcher) matchTargets(t *taskAnnotated, c ecstypes.ContainerDefinition) ([]matchedTarget, error) {
+	_ = "STUB: not implemented"
 	// Check arn
-	if !m.arnRegex.MatchString(aws.ToString(t.Task.TaskDefinitionArn)) {
-		return nil, errNotMatched
-	}
-	// The rest is same as ServiceMatcher
-	return matchContainerByName(m.containerNameRegex, m.exportSetting, c)
+	return nil, nil
 }
+
+// The rest is same as ServiceMatcher

@@ -10,8 +10,6 @@ import (
 )
 
 func recordIntDataPoint(mb *metadata.MetricsBuilder, recordDataPoint metadata.RecordIntDataPointFunc, value *uint64, currentTime pcommon.Timestamp) {
-	if value == nil || recordDataPoint == nil {
-		return
-	}
-	recordDataPoint(mb, currentTime, int64(*value))
+	_ = "STUB: not implemented"
+	return
 }

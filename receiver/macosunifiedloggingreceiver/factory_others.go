@@ -7,21 +7,13 @@ package macosunifiedloggingreceiver // import "github.com/open-telemetry/opentel
 
 import (
 	"context"
-	"errors"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/macosunifiedloggingreceiver/internal/metadata"
 )
 
-func newFactoryAdapter() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiverOthers, metadata.LogsStability))
-}
+func newFactoryAdapter() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createLogsReceiverOthers(
 	_ context.Context,
@@ -29,5 +21,6 @@ func createLogsReceiverOthers(
 	_ component.Config,
 	_ consumer.Logs,
 ) (receiver.Logs, error) {
-	return nil, errors.New("macosunifiedloggingreceiver receiver is only supported on macOS")
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

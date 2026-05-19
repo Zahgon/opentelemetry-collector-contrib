@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type SshcheckDurationMetricConfig struct {
 }
 
 func (ms *SshcheckDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -46,36 +35,11 @@ type SshcheckErrorMetricConfig struct {
 }
 
 func (ms *SshcheckErrorMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SshcheckErrorMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SshcheckErrorMetricAttributeKeyErrorMessage:
-		default:
-			return fmt.Errorf("metric sshcheck.error doesn't have an attribute %v, valid attributes: [error.message]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SshcheckErrorMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SshcheckSftpDurationMetricConfig provides config for the sshcheck.sftp_duration metric.
 type SshcheckSftpDurationMetricConfig struct {
@@ -84,16 +48,7 @@ type SshcheckSftpDurationMetricConfig struct {
 }
 
 func (ms *SshcheckSftpDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -114,36 +69,11 @@ type SshcheckSftpErrorMetricConfig struct {
 }
 
 func (ms *SshcheckSftpErrorMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SshcheckSftpErrorMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SshcheckSftpErrorMetricAttributeKeyErrorMessage:
-		default:
-			return fmt.Errorf("metric sshcheck.sftp_error doesn't have an attribute %v, valid attributes: [error.message]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SshcheckSftpErrorMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SshcheckSftpStatusMetricConfig provides config for the sshcheck.sftp_status metric.
 type SshcheckSftpStatusMetricConfig struct {
@@ -152,16 +82,7 @@ type SshcheckSftpStatusMetricConfig struct {
 }
 
 func (ms *SshcheckSftpStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -172,16 +93,7 @@ type SshcheckStatusMetricConfig struct {
 }
 
 func (ms *SshcheckStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -195,32 +107,7 @@ type MetricsConfig struct {
 	SshcheckStatus       SshcheckStatusMetricConfig       `mapstructure:"sshcheck.status"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SshcheckDuration: SshcheckDurationMetricConfig{
-			Enabled: true,
-		},
-		SshcheckError: SshcheckErrorMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SshcheckErrorMetricAttributeKey{SshcheckErrorMetricAttributeKeyErrorMessage},
-		},
-		SshcheckSftpDuration: SshcheckSftpDurationMetricConfig{
-			Enabled: false,
-		},
-		SshcheckSftpError: SshcheckSftpErrorMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SshcheckSftpErrorMetricAttributeKey{SshcheckSftpErrorMetricAttributeKeyErrorMessage},
-		},
-		SshcheckSftpStatus: SshcheckSftpStatusMetricConfig{
-			Enabled: false,
-		},
-		SshcheckStatus: SshcheckStatusMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -237,14 +124,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -254,11 +134,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		SSHEndpoint: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for ssh_check metrics builder.
@@ -268,13 +145,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

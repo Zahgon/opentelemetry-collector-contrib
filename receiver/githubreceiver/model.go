@@ -4,14 +4,8 @@
 package githubreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
-	"unicode"
-
 	"github.com/google/go-github/v86/github"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 // model.go contains custom attributes that complement the standardized attributes
@@ -101,162 +95,48 @@ const (
 // GitHub event type and an error if one occurs. The attributes are associated
 // with the originally provided resource.
 func (gtr *githubTracesReceiver) getWorkflowRunAttrs(resource pcommon.Resource, e *github.WorkflowRunEvent) error {
-	attrs := resource.Attributes()
-	var err error
-
-	svc, err := gtr.getServiceName(e.GetRepo().CustomProperties["service_name"], e.GetRepo().GetName())
-	if err != nil {
-		err = errors.New("failed to get service.name")
-	}
-
-	attrs.PutStr(string(conventions.ServiceNameKey), svc)
-
-	// Add all custom properties from the repository as resource attributes
-	addCustomPropertiesToAttrs(attrs, e.GetRepo().CustomProperties)
-
-	// VCS Attributes
-	attrs.PutStr(AttributeVCSRepositoryName, e.GetRepo().GetName())
-	attrs.PutStr("vcs.provider.name", "github")
-	attrs.PutStr(AttributeVCSRefHead, e.GetWorkflowRun().GetHeadBranch())
-	attrs.PutStr("vcs.ref.type", "branch")
-	attrs.PutStr(AttributeVCSRefHeadRevision, e.GetWorkflowRun().GetHeadSHA())
-	attrs.PutStr(AttributeVCSRefHeadRevisionAuthorName, e.GetWorkflowRun().GetHeadCommit().GetCommitter().GetName())
-	attrs.PutStr(AttributeVCSRefHeadRevisionAuthorEmail, e.GetWorkflowRun().GetHeadCommit().GetCommitter().GetEmail())
-
-	// CICD Attributes
-	attrs.PutStr(string(conventions.CICDPipelineNameKey), e.GetWorkflowRun().GetName())
-	attrs.PutStr(AttributeCICDPipelineRunSenderLogin, e.GetSender().GetLogin())
-	attrs.PutStr(AttributeCICDPipelineRunURLFull, e.GetWorkflowRun().GetHTMLURL())
-	attrs.PutInt(string(conventions.CICDPipelineRunIDKey), e.GetWorkflowRun().GetID())
-	switch status := strings.ToLower(e.GetWorkflowRun().GetConclusion()); status {
-	case "success":
-		attrs.PutStr(AttributeCICDPipelineRunStatus, AttributeCICDPipelineRunStatusSuccess)
-	case "failure":
-		attrs.PutStr(AttributeCICDPipelineRunStatus, AttributeCICDPipelineRunStatusFailure)
-	case "skipped":
-		attrs.PutStr(AttributeCICDPipelineRunStatus, AttributeCICDPipelineRunStatusSkip)
-	case "cancelled":
-		attrs.PutStr(AttributeCICDPipelineRunStatus, AttributeCICDPipelineRunStatusCancellation)
-	// Default sets to whatever is provided by the event. GitHub provides the
-	// following additional values: neutral, timed_out, action_required, stale,
-	// startup_failure, and null.
-	default:
-		attrs.PutStr(AttributeCICDPipelineRunStatus, status)
-	}
-
-	if e.GetWorkflowRun().GetPreviousAttemptURL() != "" {
-		htmlURL := replaceAPIURL(e.GetWorkflowRun().GetPreviousAttemptURL())
-		attrs.PutStr(AttributeCICDPipelinePreviousAttemptURLFull, htmlURL)
-	}
-
-	// Determine if there are any referenced (shared) workflows listed in the
-	// Workflow Run event and generate the templated attributes for them.
-	if len(e.GetWorkflowRun().ReferencedWorkflows) > 0 {
-		for _, w := range e.GetWorkflowRun().ReferencedWorkflows {
-			var name string
-			name, err = splitRefWorkflowPath(w.GetPath())
-			if err != nil {
-				return err
-			}
-
-			template := AttributeGitHubReferenceWorkflow + "." + name
-			pathAttr := template + ".path"
-			revAttr := template + ".revision"
-			versionAttr := template + ".version"
-
-			attrs.PutStr(pathAttr, w.GetPath())
-			attrs.PutStr(revAttr, w.GetSHA())
-			attrs.PutStr(versionAttr, w.GetRef())
-		}
-	}
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Add all custom properties from the repository as resource attributes
+
+// VCS Attributes
+
+// CICD Attributes
+
+// Default sets to whatever is provided by the event. GitHub provides the
+// following additional values: neutral, timed_out, action_required, stale,
+// startup_failure, and null.
+
+// Determine if there are any referenced (shared) workflows listed in the
+// Workflow Run event and generate the templated attributes for them.
 
 // getWorkflowJobAttrs returns a pcommon.Map of attributes for the Workflow Job
 // GitHub event type and an error if one occurs. The attributes are associated
 // with the originally provided resource.
 func (gtr *githubTracesReceiver) getWorkflowJobAttrs(resource pcommon.Resource, e *github.WorkflowJobEvent) error {
-	attrs := resource.Attributes()
-	var err error
-
-	svc, err := gtr.getServiceName(e.GetRepo().CustomProperties["service_name"], e.GetRepo().GetName())
-	if err != nil {
-		err = errors.New("failed to get service.name")
-	}
-
-	attrs.PutStr(string(conventions.ServiceNameKey), svc)
-
-	// Add all custom properties from the repository as resource attributes
-	addCustomPropertiesToAttrs(attrs, e.GetRepo().CustomProperties)
-
-	// VCS Attributes
-	attrs.PutStr(AttributeVCSRepositoryName, e.GetRepo().GetName())
-	attrs.PutStr("vcs.provider.name", "github")
-	attrs.PutStr(AttributeVCSRefHead, e.GetWorkflowJob().GetHeadBranch())
-	attrs.PutStr("vcs.ref.type", "branch")
-	attrs.PutStr(AttributeVCSRefHeadRevision, e.GetWorkflowJob().GetHeadSHA())
-
-	// CICD Worker (GitHub Runner) Attributes
-	attrs.PutInt(AttributeCICDPipelineWorkerID, e.GetWorkflowJob().GetRunnerID())
-	attrs.PutInt(AttributeCICDPipelineWorkerGroupID, e.GetWorkflowJob().GetRunnerGroupID())
-	attrs.PutStr(AttributeCICDPipelineWorkerName, e.GetWorkflowJob().GetRunnerName())
-	attrs.PutStr(AttributeCICDPipelineWorkerGroupName, e.GetWorkflowJob().GetRunnerGroupName())
-	attrs.PutStr(AttributeCICDPipelineWorkerNodeID, e.GetWorkflowJob().GetNodeID())
-
-	if len(e.GetWorkflowJob().Labels) > 0 {
-		labels := attrs.PutEmptySlice(AttributeCICDPipelineWorkerLabels)
-		labels.EnsureCapacity(len(e.GetWorkflowJob().Labels))
-		for _, label := range e.GetWorkflowJob().Labels {
-			l := strings.ToLower(label)
-			labels.AppendEmpty().SetStr(l)
-		}
-	}
-
-	// CICD Attributes
-	attrs.PutStr(string(conventions.CICDPipelineNameKey), e.GetWorkflowJob().GetName())
-	attrs.PutStr(AttributeCICDPipelineTaskRunSenderLogin, e.GetSender().GetLogin())
-	attrs.PutStr(string(conventions.CICDPipelineTaskRunURLFullKey), e.GetWorkflowJob().GetHTMLURL())
-	attrs.PutInt(string(conventions.CICDPipelineTaskRunIDKey), e.GetWorkflowJob().GetID())
-	switch status := strings.ToLower(e.GetWorkflowJob().GetConclusion()); status {
-	case "success":
-		attrs.PutStr(AttributeCICDPipelineTaskRunStatus, AttributeCICDPipelineTaskRunStatusSuccess)
-	case "failure":
-		attrs.PutStr(AttributeCICDPipelineTaskRunStatus, AttributeCICDPipelineTaskRunStatusFailure)
-	case "skipped":
-		attrs.PutStr(AttributeCICDPipelineTaskRunStatus, AttributeCICDPipelineTaskRunStatusSkip)
-	case "cancelled":
-		attrs.PutStr(AttributeCICDPipelineTaskRunStatus, AttributeCICDPipelineTaskRunStatusCancellation)
-	// Default sets to whatever is provided by the event. GitHub provides the
-	// following additional values: neutral, timed_out, action_required, stale,
-	// and null.
-	default:
-		attrs.PutStr(AttributeCICDPipelineRunStatus, status)
-	}
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Add all custom properties from the repository as resource attributes
+
+// VCS Attributes
+
+// CICD Worker (GitHub Runner) Attributes
+
+// CICD Attributes
+
+// Default sets to whatever is provided by the event. GitHub provides the
+// following additional values: neutral, timed_out, action_required, stale,
+// and null.
 
 // splitRefWorkflowPath splits the reference workflow path into just the file
 // name normalized to lowercase without the file type.
 func splitRefWorkflowPath(path string) (fileName string, err error) {
-	parts := strings.Split(path, "@")
-	if len(parts) != 2 {
-		return "", errors.New("invalid reference workflow path")
-	}
-
-	parts = strings.Split(parts[0], "/")
-	if len(parts) == 0 {
-		return "", errors.New("invalid reference workflow path")
-	}
-
-	last := parts[len(parts)-1]
-	parts = strings.Split(last, ".")
-	if len(parts) == 0 {
-		return "", errors.New("invalid reference workflow path")
-	}
-
-	return strings.ToLower(parts[0]), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // getServiceName returns a generated service.name resource attribute derived
@@ -268,110 +148,60 @@ func splitRefWorkflowPath(path string) (fileName string, err error) {
 // according to the semantic conventions for service.name and an error.
 // https://opentelemetry.io/docs/specs/semconv/attributes-registry/service/#service-attributes
 func (gtr *githubTracesReceiver) getServiceName(customProps any, repoName string) (string, error) {
-	switch {
-	case gtr.cfg.WebHook.ServiceName != "":
-		formatted := formatString(gtr.cfg.WebHook.ServiceName)
-		return formatted, nil
-	// customProps would be an index map[string]interface{} passed in but should
-	// only be non-nil if the index of `service_name` exists
-	case customProps != nil:
-		formatted := formatString(customProps.(string))
-		return formatted, nil
-	case repoName != "":
-		formatted := formatString(repoName)
-		return formatted, nil
-	default:
-		// This should never happen, but in the event it does, unknown_service
-		// and an error will be returned to abide by semantic conventions.
-		return "unknown_service", errors.New("unable to generate service.name resource attribute")
-	}
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// customProps would be an index map[string]interface{} passed in but should
+// only be non-nil if the index of `service_name` exists
+
+// This should never happen, but in the event it does, unknown_service
+// and an error will be returned to abide by semantic conventions.
 
 // addCustomPropertiesToAttrs adds all custom properties from the repository as resource attributes
 // with the prefix AttributeGitHubCustomProperty. Keys are converted to snake_case to follow
 // resource attribute naming convention.
 func addCustomPropertiesToAttrs(attrs pcommon.Map, customProps map[string]any) {
-	if len(customProps) == 0 {
-		return
-	}
-
-	for key, value := range customProps {
-		// Skip service_name as it's already handled separately
-		if key == "service_name" {
-			continue
-		}
-
-		// Convert key to snake_case
-		snakeCaseKey := toSnakeCase(key)
-
-		// Use dot notation for keys, following resource attribute naming convention
-		attrKey := fmt.Sprintf("%s.%s", AttributeGitHubRepositoryCustomProperty, snakeCaseKey)
-
-		// Handle different value types
-		switch v := value.(type) {
-		case string:
-			attrs.PutStr(attrKey, v)
-		case int:
-			attrs.PutInt(attrKey, int64(v))
-		case int64:
-			attrs.PutInt(attrKey, v)
-		case float64:
-			attrs.PutDouble(attrKey, v)
-		case bool:
-			attrs.PutBool(attrKey, v)
-		default:
-			// For any other types, convert to string
-			attrs.PutStr(attrKey, fmt.Sprintf("%v", v))
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Skip service_name as it's already handled separately
+
+// Convert key to snake_case
+
+// Use dot notation for keys, following resource attribute naming convention
+
+// Handle different value types
+
+// For any other types, convert to string
 
 // formatString formats a string to lowercase and replaces underscores with
 // hyphens.
-func formatString(input string) string {
-	return strings.ToLower(strings.ReplaceAll(input, "_", "-"))
-}
+func formatString(input string) string { _ = "STUB: not implemented"; return "" }
 
 // replaceAPIURL replaces a GitHub API URL with the HTML URL version.
 func replaceAPIURL(apiURL string) (htmlURL string) {
+	_ = "STUB: not implemented"
 	// TODO: Support enterpise server configuration with custom domain.
-	return strings.Replace(apiURL, "api.github.com/repos", "github.com", 1)
+	return ""
 }
 
 // toSnakeCase converts a string to snake_case format.
 // It handles all GitHub supported characters for custom property names: a-z, A-Z, 0-9, _, -, $, #.
 // This function ensures that the resulting string follows snake_case convention.
 func toSnakeCase(s string) string {
+	_ = "STUB: not implemented"
 	// Replace hyphens, spaces, and dots with underscores
-	s = strings.ReplaceAll(s, "-", "_")
-	s = strings.ReplaceAll(s, " ", "_")
-	s = strings.ReplaceAll(s, ".", "_")
-
-	// Replace special characters with underscores
-	s = strings.ReplaceAll(s, "$", "_dollar_")
-	s = strings.ReplaceAll(s, "#", "_hash_")
-
-	// Handle camelCase and PascalCase
-	var result strings.Builder
-	for i, r := range s {
-		if i > 0 && unicode.IsUpper(r) {
-			// If current char is uppercase and previous char is lowercase or a digit,
-			// or if current char is uppercase and next char is lowercase,
-			// add an underscore before the current char
-			prevIsLower := i > 0 && (unicode.IsLower(rune(s[i-1])) || unicode.IsDigit(rune(s[i-1])))
-			nextIsLower := i < len(s)-1 && unicode.IsLower(rune(s[i+1]))
-			if prevIsLower || nextIsLower {
-				result.WriteRune('_')
-			}
-		}
-		result.WriteRune(unicode.ToLower(r))
-	}
-
-	// Replace multiple consecutive underscores with a single one
-	output := result.String()
-	for strings.Contains(output, "__") {
-		output = strings.ReplaceAll(output, "__", "_")
-	}
-
-	return output
+	return ""
 }
+
+// Replace special characters with underscores
+
+// Handle camelCase and PascalCase
+
+// If current char is uppercase and previous char is lowercase or a digit,
+// or if current char is uppercase and next char is lowercase,
+// add an underscore before the current char
+
+// Replace multiple consecutive underscores with a single one

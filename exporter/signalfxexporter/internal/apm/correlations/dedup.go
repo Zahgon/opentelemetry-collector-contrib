@@ -6,7 +6,6 @@ package correlations // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"container/list"
-	"net/http"
 )
 
 // deduplicator deduplicates requests and cancels pending conflicting requests and deduplicates
@@ -20,144 +19,46 @@ type deduplicator struct {
 	pendingDeleteKeys map[Correlation]*list.Element
 }
 
-func (d *deduplicator) purgeCreates() {
-	elem := d.pendingCreates.Front()
-	for {
-		if elem == nil {
-			return
-		}
-		if elem.Value.(*request).ctx.Err() != nil {
-			toDelete := elem
-			elem = elem.Next()
-			d.pendingCreates.Remove(toDelete)
-			delete(d.pendingCreateKeys, *toDelete.Value.(*request).Correlation)
-		} else {
-			elem = elem.Next()
-		}
-	}
-}
+func (d *deduplicator) purgeCreates() { _ = "STUB: not implemented"; return }
 
-func (d *deduplicator) purgeDeletes() {
-	elem := d.pendingDeletes.Front()
-	for {
-		if elem == nil {
-			return
-		}
-		if elem.Value.(*request).ctx.Err() != nil {
-			toDelete := elem
-			elem = elem.Next()
-			d.pendingDeletes.Remove(toDelete)
-			delete(d.pendingDeleteKeys, *toDelete.Value.(*request).Correlation)
-		} else {
-			elem = elem.Next()
-		}
-	}
-}
+func (d *deduplicator) purgeDeletes() { _ = "STUB: not implemented"; return }
 
-func (d *deduplicator) purge() {
-	d.purgeCreates()
-	d.purgeDeletes()
-}
+func (d *deduplicator) purge() { _ = "STUB: not implemented"; return }
 
-func (d *deduplicator) evictPendingDelete() {
-	elem := d.pendingDeletes.Back()
-	if elem != nil {
-		req, ok := elem.Value.(*request)
-		if ok {
-			req.cancel()
-			d.pendingDeletes.Remove(elem)
-			delete(d.pendingDeleteKeys, *req.Correlation)
-		}
-	}
-}
+func (d *deduplicator) evictPendingDelete() { _ = "STUB: not implemented"; return }
 
-func (d *deduplicator) evictPendingCreate() {
-	elem := d.pendingCreates.Back()
-	if elem != nil {
-		req, ok := elem.Value.(*request)
-		if ok {
-			req.cancel()
-			d.pendingCreates.Remove(elem)
-			delete(d.pendingCreateKeys, *req.Correlation)
-		}
-	}
-}
+func (d *deduplicator) evictPendingCreate() { _ = "STUB: not implemented"; return }
 
 func (d *deduplicator) dedupCorrelate(r *request) bool {
+	_ = "STUB: not implemented"
 	// look for duplicate pending creates
-	pendingCreate, ok := d.pendingCreateKeys[*r.Correlation]
-	if ok && pendingCreate.Value.(*request).ctx.Err() == nil {
-		// return true if there is a context for the key and the context has not expired
-		return true
-	}
-
-	// make room if necessary
-	if len(d.pendingCreateKeys) >= d.maxSize {
-		d.evictPendingCreate()
-	}
-
-	// insert the request into the pendingCreates
-	elem := d.pendingCreates.PushFront(r)
-	d.pendingCreateKeys[*r.Correlation] = elem
-
-	// cancel any pending delete operations
-	deleteElem, pendingDelete := d.pendingDeleteKeys[*r.Correlation]
-	if pendingDelete {
-		deleteElem.Value.(*request).cancel()
-		d.pendingDeletes.Remove(deleteElem)
-		delete(d.pendingDeleteKeys, *deleteElem.Value.(*request).Correlation)
-	}
-
 	return false
 }
+
+// return true if there is a context for the key and the context has not expired
+
+// make room if necessary
+
+// insert the request into the pendingCreates
+
+// cancel any pending delete operations
 
 func (d *deduplicator) dedupDelete(r *request) bool {
+	_ = "STUB: not implemented"
 	// look for duplicate pending creates
-	pendingDelete, ok := d.pendingDeleteKeys[*r.Correlation]
-	if ok && pendingDelete.Value.(*request).ctx.Err() == nil {
-		// return true if there is a context for the key and the context has not expired
-		return true
-	}
-
-	// make room if necessary
-	if len(d.pendingDeleteKeys) >= d.maxSize {
-		d.evictPendingDelete()
-	}
-
-	// insert the request into the pendingDeletes
-	elem := d.pendingDeletes.PushFront(r)
-	d.pendingDeleteKeys[*r.Correlation] = elem
-
-	// cancel any pending create operations
-	createElem, pendingCreate := d.pendingCreateKeys[*r.Correlation]
-	if pendingCreate {
-		createElem.Value.(*request).cancel()
-		d.pendingCreates.Remove(createElem)
-		delete(d.pendingCreateKeys, *createElem.Value.(*request).Correlation)
-	}
-
 	return false
 }
 
+// return true if there is a context for the key and the context has not expired
+
+// make room if necessary
+
+// insert the request into the pendingDeletes
+
+// cancel any pending create operations
+
 // isDup returns true if the request is a duplicate
-func (d *deduplicator) isDup(r *request) (isDup bool) {
-	switch r.operation {
-	case http.MethodPut:
-		return d.dedupCorrelate(r)
-	case http.MethodDelete:
-		return d.dedupDelete(r)
-	default:
-		return isDup
-	}
-}
+func (d *deduplicator) isDup(r *request) (isDup bool) { _ = "STUB: not implemented"; return false }
 
 // newDeduplicator returns a new instance
-func newDeduplicator(size int) *deduplicator {
-	return &deduplicator{
-		maxSize:           size,
-		pendingCreates:    list.New(),
-		pendingCreateKeys: make(map[Correlation]*list.Element),
-		pendingDeletes:    list.New(),
-		pendingDeleteKeys: make(map[Correlation]*list.Element),
-	}
-}
+func newDeduplicator(size int) *deduplicator { _ = "STUB: not implemented"; return nil }

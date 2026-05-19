@@ -4,7 +4,6 @@
 package exceptionsconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/exceptionsconnector"
 
 import (
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil"
@@ -23,16 +22,6 @@ const (
 )
 
 func newDimensions(cfgDims []Dimension) []pdatautil.Dimension {
-	if len(cfgDims) == 0 {
-		return nil
-	}
-	dims := make([]pdatautil.Dimension, len(cfgDims))
-	for i := range cfgDims {
-		dims[i].Name = cfgDims[i].Name
-		if cfgDims[i].Default != nil {
-			val := pcommon.NewValueStr(*cfgDims[i].Default)
-			dims[i].Value = &val
-		}
-	}
-	return dims
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -9,18 +9,9 @@ import (
 
 type obfuscator obfuscate.Obfuscator
 
-func newObfuscator() *obfuscator {
-	return (*obfuscator)(obfuscate.NewObfuscator(obfuscate.Config{
-		SQL: obfuscate.SQLConfig{
-			DBMS: "oracle",
-		},
-	}))
-}
+func newObfuscator() *obfuscator { _ = "STUB: not implemented"; return nil }
 
 func (o *obfuscator) obfuscateSQLString(sql string) (string, error) {
-	obfuscatedQuery, err := (*obfuscate.Obfuscator)(o).ObfuscateSQLString(sql)
-	if err != nil {
-		return "", err
-	}
-	return obfuscatedQuery.Query, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

@@ -10,7 +10,6 @@ import (
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/otel/trace"
 )
 
 type eventDbServerQuerySample struct {
@@ -19,53 +18,16 @@ type eventDbServerQuerySample struct {
 }
 
 func (e *eventDbServerQuerySample) recordEvent(ctx context.Context, timestamp pcommon.Timestamp, dbSystemNameAttributeValue string, mysqlThreadsThreadIDAttributeValue int64, userNameAttributeValue string, dbNamespaceAttributeValue string, mysqlThreadsProcesslistCommandAttributeValue string, mysqlThreadsProcesslistStateAttributeValue string, dbQueryTextAttributeValue string, mysqlEventsStatementsCurrentDigestAttributeValue string, mysqlQueryPlanAttributeValue string, mysqlQueryPlanHashAttributeValue string, mysqlEventIDAttributeValue int64, mysqlWaitTypeAttributeValue string, mysqlSessionStatusAttributeValue string, mysqlSessionIDAttributeValue int64, mysqlEventsStatementsCurrentTimerWaitAttributeValue float64, mysqlEventsWaitsCurrentTimerWaitAttributeValue float64, clientAddressAttributeValue string, clientPortAttributeValue int64, networkPeerAddressAttributeValue string, networkPeerPortAttributeValue int64) {
-	if !e.config.Enabled {
-		return
-	}
-	dp := e.data.AppendEmpty()
-	dp.SetEventName("db.server.query_sample")
-	dp.SetTimestamp(timestamp)
-
-	if span := trace.SpanContextFromContext(ctx); span.IsValid() {
-		dp.SetTraceID(pcommon.TraceID(span.TraceID()))
-		dp.SetSpanID(pcommon.SpanID(span.SpanID()))
-	}
-	dp.Attributes().PutStr("db.system.name", dbSystemNameAttributeValue)
-	dp.Attributes().PutInt("mysql.threads.thread_id", mysqlThreadsThreadIDAttributeValue)
-	dp.Attributes().PutStr("user.name", userNameAttributeValue)
-	dp.Attributes().PutStr("db.namespace", dbNamespaceAttributeValue)
-	dp.Attributes().PutStr("mysql.threads.processlist_command", mysqlThreadsProcesslistCommandAttributeValue)
-	dp.Attributes().PutStr("mysql.threads.processlist_state", mysqlThreadsProcesslistStateAttributeValue)
-	dp.Attributes().PutStr("db.query.text", dbQueryTextAttributeValue)
-	dp.Attributes().PutStr("mysql.events_statements_current.digest", mysqlEventsStatementsCurrentDigestAttributeValue)
-	dp.Attributes().PutStr("mysql.query_plan", mysqlQueryPlanAttributeValue)
-	dp.Attributes().PutStr("mysql.query_plan.hash", mysqlQueryPlanHashAttributeValue)
-	dp.Attributes().PutInt("mysql.event_id", mysqlEventIDAttributeValue)
-	dp.Attributes().PutStr("mysql.wait_type", mysqlWaitTypeAttributeValue)
-	dp.Attributes().PutStr("mysql.session.status", mysqlSessionStatusAttributeValue)
-	dp.Attributes().PutInt("mysql.session.id", mysqlSessionIDAttributeValue)
-	dp.Attributes().PutDouble("mysql.events_statements_current.timer_wait", mysqlEventsStatementsCurrentTimerWaitAttributeValue)
-	dp.Attributes().PutDouble("mysql.events_waits_current.timer_wait", mysqlEventsWaitsCurrentTimerWaitAttributeValue)
-	dp.Attributes().PutStr("client.address", clientAddressAttributeValue)
-	dp.Attributes().PutInt("client.port", clientPortAttributeValue)
-	dp.Attributes().PutStr("network.peer.address", networkPeerAddressAttributeValue)
-	dp.Attributes().PutInt("network.peer.port", networkPeerPortAttributeValue)
-
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded event data to a events slice and prepares it for recording another set of log records.
-func (e *eventDbServerQuerySample) emit(lrs plog.LogRecordSlice) {
-	if e.config.Enabled && e.data.Len() > 0 {
-		e.data.MoveAndAppendTo(lrs)
-	}
-}
+func (e *eventDbServerQuerySample) emit(lrs plog.LogRecordSlice) { _ = "STUB: not implemented"; return }
 
 func newEventDbServerQuerySample(cfg EventConfig) eventDbServerQuerySample {
-	e := eventDbServerQuerySample{config: cfg}
-	if cfg.Enabled {
-		e.data = plog.NewLogRecordSlice()
-	}
-	return e
+	_ = "STUB: not implemented"
+	return *new(eventDbServerQuerySample)
 }
 
 type eventDbServerTopQuery struct {
@@ -74,40 +36,16 @@ type eventDbServerTopQuery struct {
 }
 
 func (e *eventDbServerTopQuery) recordEvent(ctx context.Context, timestamp pcommon.Timestamp, dbSystemNameAttributeValue string, dbQueryTextAttributeValue string, mysqlQueryPlanAttributeValue string, mysqlQueryPlanHashAttributeValue string, mysqlEventsStatementsSummaryByDigestDigestAttributeValue string, mysqlEventsStatementsSummaryByDigestCountStarAttributeValue int64, mysqlEventsStatementsSummaryByDigestSumTimerWaitAttributeValue float64) {
-	if !e.config.Enabled {
-		return
-	}
-	dp := e.data.AppendEmpty()
-	dp.SetEventName("db.server.top_query")
-	dp.SetTimestamp(timestamp)
-
-	if span := trace.SpanContextFromContext(ctx); span.IsValid() {
-		dp.SetTraceID(pcommon.TraceID(span.TraceID()))
-		dp.SetSpanID(pcommon.SpanID(span.SpanID()))
-	}
-	dp.Attributes().PutStr("db.system.name", dbSystemNameAttributeValue)
-	dp.Attributes().PutStr("db.query.text", dbQueryTextAttributeValue)
-	dp.Attributes().PutStr("mysql.query_plan", mysqlQueryPlanAttributeValue)
-	dp.Attributes().PutStr("mysql.query_plan.hash", mysqlQueryPlanHashAttributeValue)
-	dp.Attributes().PutStr("mysql.events_statements_summary_by_digest.digest", mysqlEventsStatementsSummaryByDigestDigestAttributeValue)
-	dp.Attributes().PutInt("mysql.events_statements_summary_by_digest.count_star", mysqlEventsStatementsSummaryByDigestCountStarAttributeValue)
-	dp.Attributes().PutDouble("mysql.events_statements_summary_by_digest.sum_timer_wait", mysqlEventsStatementsSummaryByDigestSumTimerWaitAttributeValue)
-
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded event data to a events slice and prepares it for recording another set of log records.
-func (e *eventDbServerTopQuery) emit(lrs plog.LogRecordSlice) {
-	if e.config.Enabled && e.data.Len() > 0 {
-		e.data.MoveAndAppendTo(lrs)
-	}
-}
+func (e *eventDbServerTopQuery) emit(lrs plog.LogRecordSlice) { _ = "STUB: not implemented"; return }
 
 func newEventDbServerTopQuery(cfg EventConfig) eventDbServerTopQuery {
-	e := eventDbServerTopQuery{config: cfg}
-	if cfg.Enabled {
-		e.data = plog.NewLogRecordSlice()
-	}
-	return e
+	_ = "STUB: not implemented"
+	return *new(eventDbServerTopQuery)
 }
 
 // LogsBuilder provides an interface for scrapers to report logs while taking care of all the transformations
@@ -129,30 +67,12 @@ type LogBuilderOption interface {
 }
 
 func NewLogsBuilder(lbc LogsBuilderConfig, settings receiver.Settings) *LogsBuilder {
-	lb := &LogsBuilder{
-		config:                         lbc,
-		logsBuffer:                     plog.NewLogs(),
-		logRecordsBuffer:               plog.NewLogRecordSlice(),
-		buildInfo:                      settings.BuildInfo,
-		eventDbServerQuerySample:       newEventDbServerQuerySample(lbc.Events.DbServerQuerySample),
-		eventDbServerTopQuery:          newEventDbServerTopQuery(lbc.Events.DbServerTopQuery),
-		resourceAttributeIncludeFilter: make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter: make(map[string]filter.Filter),
-	}
-	if lbc.ResourceAttributes.MysqlInstanceEndpoint.EventsInclude != nil {
-		lb.resourceAttributeIncludeFilter["mysql.instance.endpoint"] = filter.CreateFilter(lbc.ResourceAttributes.MysqlInstanceEndpoint.EventsInclude)
-	}
-	if lbc.ResourceAttributes.MysqlInstanceEndpoint.EventsExclude != nil {
-		lb.resourceAttributeExcludeFilter["mysql.instance.endpoint"] = filter.CreateFilter(lbc.ResourceAttributes.MysqlInstanceEndpoint.EventsExclude)
-	}
-
-	return lb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted logs.
-func (lb *LogsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(lb.config.ResourceAttributes)
-}
+func (lb *LogsBuilder) NewResourceBuilder() *ResourceBuilder { _ = "STUB: not implemented"; return nil }
 
 // ResourceLogsOption applies changes to provided resource logs.
 type ResourceLogsOption interface {
@@ -162,21 +82,20 @@ type ResourceLogsOption interface {
 type resourceLogsOptionFunc func(plog.ResourceLogs)
 
 func (rlof resourceLogsOptionFunc) apply(rl plog.ResourceLogs) {
-	rlof(rl)
+	_ = "STUB: not implemented"
+
+	// WithLogsResource sets the provided resource on the emitted ResourceLogs.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithLogsResource sets the provided resource on the emitted ResourceLogs.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithLogsResource(res pcommon.Resource) ResourceLogsOption {
-	return resourceLogsOptionFunc(func(rl plog.ResourceLogs) {
-		res.CopyTo(rl.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceLogsOption)
 }
 
 // AppendLogRecord adds a log record to the logs builder.
-func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) {
-	lr.MoveTo(lb.logRecordsBuffer.AppendEmpty())
-}
+func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) { _ = "STUB: not implemented"; return }
 
 // EmitForResource saves all the generated logs under a new resource and updates the internal state to be ready for
 // recording another set of log records as part of another resource. This function can be helpful when one scraper
@@ -184,54 +103,26 @@ func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceLogsOption arguments.
 func (lb *LogsBuilder) EmitForResource(options ...ResourceLogsOption) {
-	rl := plog.NewResourceLogs()
-	ils := rl.ScopeLogs().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(lb.buildInfo.Version)
-	lb.eventDbServerQuerySample.emit(ils.LogRecords())
-	lb.eventDbServerTopQuery.emit(ils.LogRecords())
-
-	for _, op := range options {
-		op.apply(rl)
-	}
-
-	if lb.logRecordsBuffer.Len() > 0 {
-		lb.logRecordsBuffer.MoveAndAppendTo(ils.LogRecords())
-		lb.logRecordsBuffer = plog.NewLogRecordSlice()
-	}
-
-	for attr, filter := range lb.resourceAttributeIncludeFilter {
-		if val, ok := rl.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range lb.resourceAttributeExcludeFilter {
-		if val, ok := rl.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.LogRecords().Len() > 0 {
-		rl.MoveTo(lb.logsBuffer.ResourceLogs().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the logs accumulated by the logs builder and updates the internal state to be ready for
 // recording another set of logs. This function will be responsible for applying all the transformations required to
 // produce logs representation defined in metadata and user config.
 func (lb *LogsBuilder) Emit(options ...ResourceLogsOption) plog.Logs {
-	lb.EmitForResource(options...)
-	logs := lb.logsBuffer
-	lb.logsBuffer = plog.NewLogs()
-	return logs
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }
 
 // RecordDbServerQuerySampleEvent adds a log record of db.server.query_sample event.
 func (lb *LogsBuilder) RecordDbServerQuerySampleEvent(ctx context.Context, timestamp pcommon.Timestamp, dbSystemNameAttributeValue AttributeDbSystemName, mysqlThreadsThreadIDAttributeValue int64, userNameAttributeValue string, dbNamespaceAttributeValue string, mysqlThreadsProcesslistCommandAttributeValue string, mysqlThreadsProcesslistStateAttributeValue string, dbQueryTextAttributeValue string, mysqlEventsStatementsCurrentDigestAttributeValue string, mysqlQueryPlanAttributeValue string, mysqlQueryPlanHashAttributeValue string, mysqlEventIDAttributeValue int64, mysqlWaitTypeAttributeValue string, mysqlSessionStatusAttributeValue string, mysqlSessionIDAttributeValue int64, mysqlEventsStatementsCurrentTimerWaitAttributeValue float64, mysqlEventsWaitsCurrentTimerWaitAttributeValue float64, clientAddressAttributeValue string, clientPortAttributeValue int64, networkPeerAddressAttributeValue string, networkPeerPortAttributeValue int64) {
-	lb.eventDbServerQuerySample.recordEvent(ctx, timestamp, dbSystemNameAttributeValue.String(), mysqlThreadsThreadIDAttributeValue, userNameAttributeValue, dbNamespaceAttributeValue, mysqlThreadsProcesslistCommandAttributeValue, mysqlThreadsProcesslistStateAttributeValue, dbQueryTextAttributeValue, mysqlEventsStatementsCurrentDigestAttributeValue, mysqlQueryPlanAttributeValue, mysqlQueryPlanHashAttributeValue, mysqlEventIDAttributeValue, mysqlWaitTypeAttributeValue, mysqlSessionStatusAttributeValue, mysqlSessionIDAttributeValue, mysqlEventsStatementsCurrentTimerWaitAttributeValue, mysqlEventsWaitsCurrentTimerWaitAttributeValue, clientAddressAttributeValue, clientPortAttributeValue, networkPeerAddressAttributeValue, networkPeerPortAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordDbServerTopQueryEvent adds a log record of db.server.top_query event.
 func (lb *LogsBuilder) RecordDbServerTopQueryEvent(ctx context.Context, timestamp pcommon.Timestamp, dbSystemNameAttributeValue AttributeDbSystemName, dbQueryTextAttributeValue string, mysqlQueryPlanAttributeValue string, mysqlQueryPlanHashAttributeValue string, mysqlEventsStatementsSummaryByDigestDigestAttributeValue string, mysqlEventsStatementsSummaryByDigestCountStarAttributeValue int64, mysqlEventsStatementsSummaryByDigestSumTimerWaitAttributeValue float64) {
-	lb.eventDbServerTopQuery.recordEvent(ctx, timestamp, dbSystemNameAttributeValue.String(), dbQueryTextAttributeValue, mysqlQueryPlanAttributeValue, mysqlQueryPlanHashAttributeValue, mysqlEventsStatementsSummaryByDigestDigestAttributeValue, mysqlEventsStatementsSummaryByDigestCountStarAttributeValue, mysqlEventsStatementsSummaryByDigestSumTimerWaitAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }

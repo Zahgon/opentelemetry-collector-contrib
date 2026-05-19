@@ -4,7 +4,6 @@
 package metrics // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/metrics"
 
 import (
-	"errors"
 	"sync"
 	"time"
 
@@ -21,16 +20,13 @@ const (
 type CalculateFunc func(prev *MetricValue, val any, timestamp time.Time) (any, bool)
 
 func NewFloat64DeltaCalculator() MetricCalculator {
-	return NewMetricCalculator(calculateDelta)
+	_ = "STUB: not implemented"
+	return *new(MetricCalculator)
 }
 
 func calculateDelta(prev *MetricValue, val any, _ time.Time) (any, bool) {
-	var deltaValue float64
-	if prev == nil {
-		return deltaValue, false
-	}
-	deltaValue = val.(float64) - prev.RawValue.(float64)
-	return deltaValue, true
+	_ = "STUB: not implemented"
+	return *new(any), false
 }
 
 // MetricCalculator is a calculator used to adjust metric values based on its previous record.
@@ -46,10 +42,8 @@ type MetricCalculator struct {
 
 // NewMetricCalculator Creates a metric calculator that enforces a five-minute time to live on cache entries.
 func NewMetricCalculator(calculateFunc CalculateFunc) MetricCalculator {
-	return MetricCalculator{
-		cache:         NewMapWithExpiry(cleanInterval),
-		calculateFunc: calculateFunc,
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricCalculator)
 }
 
 // Calculate accepts a new metric value identified by metric key (consists of metric metadata and labels),
@@ -57,33 +51,14 @@ func NewMetricCalculator(calculateFunc CalculateFunc) MetricCalculator {
 // and delegates the calculation with value and timestamp back to CalculateFunc for the result. Returns
 // true if the calculation is executed successfully.
 func (rm *MetricCalculator) Calculate(mKey Key, value any, timestamp time.Time) (any, bool) {
-	cacheStore := rm.cache
-
-	var result any
-	var done bool
-
-	rm.lock.Lock()
-	defer rm.lock.Unlock()
-
-	// need to also lock cache to avoid the cleanup from removing entries while they are being processed.
-	// This is only likely to happen when data points come in close to expiration date.
-	rm.cache.Lock()
-	defer rm.cache.Unlock()
-
-	prev, exists := cacheStore.Get(mKey)
-	result, done = rm.calculateFunc(prev, value, timestamp)
-	if !exists || done {
-		cacheStore.Set(mKey, MetricValue{
-			RawValue:  value,
-			Timestamp: timestamp,
-		})
-	}
-	return result, done
+	_ = "STUB: not implemented"
+	return *new(any), false
 }
 
-func (rm *MetricCalculator) Shutdown() error {
-	return rm.cache.Shutdown()
-}
+// need to also lock cache to avoid the cleanup from removing entries while they are being processed.
+// This is only likely to happen when data points come in close to expiration date.
+
+func (rm *MetricCalculator) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
 type Key struct {
 	MetricMetadata any
@@ -91,17 +66,8 @@ type Key struct {
 }
 
 func NewKey(metricMetadata any, labels map[string]string) Key {
-	kvs := make([]attribute.KeyValue, 0, len(labels))
-	for k, v := range labels {
-		kvs = append(kvs, attribute.String(k, v))
-	}
-	set := attribute.NewSet(kvs...)
-
-	dedupSortedLabels := set.Equivalent()
-	return Key{
-		MetricMetadata: metricMetadata,
-		MetricLabels:   dedupSortedLabels,
-	}
+	_ = "STUB: not implemented"
+	return *new(Key)
 }
 
 type MetricValue struct {
@@ -119,20 +85,18 @@ type realTicker struct {
 	ticker *time.Ticker
 }
 
-func newRealTicker(d time.Duration) Ticker {
-	return &realTicker{ticker: time.NewTicker(d)}
-}
+func newRealTicker(d time.Duration) Ticker { _ = "STUB: not implemented"; return *new(Ticker) }
 
-func (r *realTicker) C() <-chan time.Time {
-	return r.ticker.C
-}
+func (r *realTicker) C() <-chan time.Time { _ = "STUB: not implemented"; return nil }
 
 func (r *realTicker) Stop() {
-	r.ticker.Stop()
+	_ = "STUB: not implemented"
+
+	// MapWithExpiry act like a map which provides a method to clean up expired entries.
+	// MapWithExpiry is not thread safe and locks must be managed by the owner of the Map by the use of Lock() and Unlock()
+	return
 }
 
-// MapWithExpiry act like a map which provides a method to clean up expired entries.
-// MapWithExpiry is not thread safe and locks must be managed by the owner of the Map by the use of Lock() and Unlock()
 type MapWithExpiry struct {
 	lock      *sync.Mutex
 	ttl       time.Duration
@@ -143,69 +107,23 @@ type MapWithExpiry struct {
 
 // NewMapWithExpiry automatically starts a sweeper to enforce the maps TTL. ShutDown() must be called to ensure that these
 // go routines are properly cleaned up ShutDown() must be called.
-func NewMapWithExpiry(ttl time.Duration) *MapWithExpiry {
-	m := &MapWithExpiry{
-		lock:      &sync.Mutex{},
-		ttl:       ttl,
-		entries:   make(map[any]*MetricValue),
-		doneChan:  make(chan struct{}, 1000),
-		newTicker: newRealTicker,
-	}
-	go m.sweep(m.CleanUp)
-	return m
-}
+func NewMapWithExpiry(ttl time.Duration) *MapWithExpiry { _ = "STUB: not implemented"; return nil }
 
 func (m *MapWithExpiry) Get(key Key) (*MetricValue, bool) {
-	v, ok := m.entries[key]
-	return v, ok
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
-func (m *MapWithExpiry) Set(key Key, value MetricValue) {
-	m.entries[key] = &value
-}
+func (m *MapWithExpiry) Set(key Key, value MetricValue) { _ = "STUB: not implemented"; return }
 
-func (m *MapWithExpiry) sweep(removeFunc func(time2 time.Time)) {
-	ticker := m.newTicker(m.ttl)
+func (m *MapWithExpiry) sweep(removeFunc func(time2 time.Time)) { _ = "STUB: not implemented"; return }
 
-	for {
-		select {
-		case currentTime := <-ticker.C():
-			m.lock.Lock()
-			removeFunc(currentTime)
-			m.lock.Unlock()
-		case <-m.doneChan:
-			ticker.Stop()
-			return
-		}
-	}
-}
+func (m *MapWithExpiry) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
-func (m *MapWithExpiry) Shutdown() error {
-	select {
-	case <-m.doneChan:
-		return errors.New("shutdown called on an already closed channel")
-	default:
-		close(m.doneChan)
-	}
-	return nil
-}
+func (m *MapWithExpiry) CleanUp(now time.Time) { _ = "STUB: not implemented"; return }
 
-func (m *MapWithExpiry) CleanUp(now time.Time) {
-	for k, v := range m.entries {
-		if now.Sub(v.Timestamp) >= m.ttl {
-			delete(m.entries, k)
-		}
-	}
-}
+func (m *MapWithExpiry) Size() int { _ = "STUB: not implemented"; return 0 }
 
-func (m *MapWithExpiry) Size() int {
-	return len(m.entries)
-}
+func (m *MapWithExpiry) Lock() { _ = "STUB: not implemented"; return }
 
-func (m *MapWithExpiry) Lock() {
-	m.lock.Lock()
-}
-
-func (m *MapWithExpiry) Unlock() {
-	m.lock.Unlock()
-}
+func (m *MapWithExpiry) Unlock() { _ = "STUB: not implemented"; return }

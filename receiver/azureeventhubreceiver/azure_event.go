@@ -13,23 +13,8 @@ type azureEvent struct {
 	AzEventData *azeventhubs.ReceivedEventData
 }
 
-func (a *azureEvent) EnqueueTime() *time.Time {
-	if a.AzEventData != nil {
-		return a.AzEventData.EnqueuedTime
-	}
-	return nil
-}
+func (a *azureEvent) EnqueueTime() *time.Time { _ = "STUB: not implemented"; return nil }
 
-func (a *azureEvent) Properties() map[string]any {
-	if a.AzEventData != nil {
-		return a.AzEventData.Properties
-	}
-	return nil
-}
+func (a *azureEvent) Properties() map[string]any { _ = "STUB: not implemented"; return nil }
 
-func (a *azureEvent) Data() []byte {
-	if a.AzEventData != nil {
-		return a.AzEventData.Body
-	}
-	return nil
-}
+func (a *azureEvent) Data() []byte { _ = "STUB: not implemented"; return nil }

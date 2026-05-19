@@ -26,15 +26,12 @@ type pdataLogsMarshaler struct {
 // the standard OTLP marshalers in the plog package, or with encoding
 // extensions.
 func NewPdataLogsMarshaler(m plog.Marshaler) LogsMarshaler {
-	return pdataLogsMarshaler{marshaler: m}
+	_ = "STUB: not implemented"
+	return *new(LogsMarshaler)
 }
 
 func (p pdataLogsMarshaler) MarshalLogs(ld plog.Logs, yield func(key, value []byte)) error {
-	bts, err := p.marshaler.MarshalLogs(ld)
-	if err != nil {
-		return err
-	}
-	yield(nil, bts)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -47,15 +44,12 @@ type pdataMetricsMarshaler struct {
 // with the standard OTLP marshalers in the pmetric package, or with
 // encoding extensions.
 func NewPdataMetricsMarshaler(m pmetric.Marshaler) MetricsMarshaler {
-	return pdataMetricsMarshaler{marshaler: m}
+	_ = "STUB: not implemented"
+	return *new(MetricsMarshaler)
 }
 
 func (p pdataMetricsMarshaler) MarshalMetrics(ld pmetric.Metrics, yield func(key, value []byte)) error {
-	bts, err := p.marshaler.MarshalMetrics(ld)
-	if err != nil {
-		return err
-	}
-	yield(nil, bts)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -68,15 +62,12 @@ type pdataTracesMarshaler struct {
 // with the standard OTLP marshalers in the ptrace package, or with
 // encoding extensions.
 func NewPdataTracesMarshaler(m ptrace.Marshaler) TracesMarshaler {
-	return pdataTracesMarshaler{marshaler: m}
+	_ = "STUB: not implemented"
+	return *new(TracesMarshaler)
 }
 
 func (p pdataTracesMarshaler) MarshalTraces(td ptrace.Traces, yield func(key, value []byte)) error {
-	bts, err := p.marshaler.MarshalTraces(td)
-	if err != nil {
-		return err
-	}
-	yield(nil, bts)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -89,14 +80,11 @@ type pdataProfilesMarshaler struct {
 // the standard OTLP marshalers in the pprofile package, or with encoding
 // extensions.
 func NewPdataProfilesMarshaler(m pprofile.Marshaler) ProfilesMarshaler {
-	return pdataProfilesMarshaler{marshaler: m}
+	_ = "STUB: not implemented"
+	return *new(ProfilesMarshaler)
 }
 
 func (p pdataProfilesMarshaler) MarshalProfiles(ld pprofile.Profiles, yield func(key, value []byte)) error {
-	bts, err := p.marshaler.MarshalProfiles(ld)
-	if err != nil {
-		return err
-	}
-	yield(nil, bts)
+	_ = "STUB: not implemented"
 	return nil
 }

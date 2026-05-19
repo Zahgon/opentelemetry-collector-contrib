@@ -17,17 +17,10 @@ func init() {
 }
 
 // NewConfig creates a new trace parser config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new trace parser config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-		TraceParser:       helper.NewTraceParser(),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a trace parser operator.
 type Config struct {
@@ -37,17 +30,6 @@ type Config struct {
 
 // Build will build a trace parser operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := c.Validate(); err != nil {
-		return nil, err
-	}
-
-	return &Parser{
-		TransformerOperator: transformerOperator,
-		TraceParser:         c.TraceParser,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

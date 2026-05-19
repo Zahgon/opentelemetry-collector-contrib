@@ -40,64 +40,22 @@ type ec2MetadataOption func(*ec2Metadata)
 func newEC2Metadata(ctx context.Context, cfg aws.Config, refreshInterval time.Duration,
 	instanceIDReadyC, instanceIPReadyC chan bool, logger *zap.Logger, options ...ec2MetadataOption,
 ) ec2MetadataProvider {
-	emd := &ec2Metadata{
-		client:           imds.NewFromConfig(cfg),
-		refreshInterval:  refreshInterval,
-		instanceIDReadyC: instanceIDReadyC,
-		instanceIPReadyC: instanceIPReadyC,
-		logger:           logger,
-	}
-
-	for _, opt := range options {
-		opt(emd)
-	}
-
-	shouldRefresh := func() bool {
-		// stop the refresh once we get instance ID and type successfully
-		return emd.instanceID == "" || emd.instanceType == "" || emd.instanceIP == ""
-	}
-
-	go RefreshUntil(ctx, emd.refresh, emd.refreshInterval, shouldRefresh, 0)
-
-	return emd
+	_ = "STUB: not implemented"
+	return *new(ec2MetadataProvider)
 }
 
-func (emd *ec2Metadata) refresh(ctx context.Context) {
-	emd.logger.Info("Fetch instance id and type from ec2 metadata")
+// stop the refresh once we get instance ID and type successfully
 
-	resp, err := emd.client.GetInstanceIdentityDocument(ctx, &imds.GetInstanceIdentityDocumentInput{})
-	if err != nil {
-		emd.logger.Error("Failed to get ec2 metadata", zap.Error(err))
-		return
-	}
+func (emd *ec2Metadata) refresh(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	emd.instanceID = resp.InstanceID
-	emd.instanceType = resp.InstanceType
-	emd.region = resp.Region
-	emd.instanceIP = resp.PrivateIP
+// notify ec2tags and ebsvolume that the instance id is ready
 
-	// notify ec2tags and ebsvolume that the instance id is ready
-	if emd.instanceID != "" {
-		close(emd.instanceIDReadyC)
-	}
-	// notify ecsinfo that the instance id is ready
-	if emd.instanceIP != "" {
-		close(emd.instanceIPReadyC)
-	}
-}
+// notify ecsinfo that the instance id is ready
 
-func (emd *ec2Metadata) getInstanceID() string {
-	return emd.instanceID
-}
+func (emd *ec2Metadata) getInstanceID() string { _ = "STUB: not implemented"; return "" }
 
-func (emd *ec2Metadata) getInstanceType() string {
-	return emd.instanceType
-}
+func (emd *ec2Metadata) getInstanceType() string { _ = "STUB: not implemented"; return "" }
 
-func (emd *ec2Metadata) getRegion() string {
-	return emd.region
-}
+func (emd *ec2Metadata) getRegion() string { _ = "STUB: not implemented"; return "" }
 
-func (emd *ec2Metadata) getInstanceIP() string {
-	return emd.instanceIP
-}
+func (emd *ec2Metadata) getInstanceIP() string { _ = "STUB: not implemented"; return "" }

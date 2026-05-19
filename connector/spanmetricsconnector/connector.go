@@ -6,13 +6,11 @@ package spanmetricsconnector // import "github.com/open-telemetry/opentelemetry-
 import (
 	"bytes"
 	"context"
-	"slices"
 	"sync"
 	"time"
 
 	"github.com/hashicorp/golang-lru/v2/simplelru"
 	"github.com/jonboulle/clockwork"
-	"github.com/lightstep/go-expohisto/structure"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -22,11 +20,8 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/cache"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/metrics"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/traceutil"
 	utilattri "github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil"
 )
 
 const (
@@ -105,283 +100,82 @@ type resourceMetrics struct {
 }
 
 func newDimensions(cfgDims []Dimension) []utilattri.Dimension {
-	if len(cfgDims) == 0 {
-		return nil
-	}
-	dims := make([]utilattri.Dimension, len(cfgDims))
-	for i := range cfgDims {
-		dims[i].Name = cfgDims[i].Name
-		if cfgDims[i].Default != nil {
-			val := pcommon.NewValueStr(*cfgDims[i].Default)
-			dims[i].Value = &val
-		}
-	}
-	return dims
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newConnector(logger *zap.Logger, config component.Config, clock clockwork.Clock, instanceID string) (*connectorImp, error) {
-	logger.Info("Building spanmetrics connector")
-	cfg := config.(*Config)
-	if cfg.DimensionsCacheSize != 0 {
-		logger.Warn("DimensionsCacheSize is deprecated, please use AggregationCardinalityLimit instead.")
-	}
-
-	resourceMetricsCache, err := cache.NewCache[resourceKey, *resourceMetrics](cfg.ResourceMetricsCacheSize)
-	if err != nil {
-		return nil, err
-	}
-
-	resourceMetricsKeyAttributes := make(map[string]struct{}, len(cfg.ResourceMetricsKeyAttributes))
-	var s struct{}
-	for _, attr := range cfg.ResourceMetricsKeyAttributes {
-		resourceMetricsKeyAttributes[attr] = s
-	}
-
-	var lastDeltaTimestamps *simplelru.LRU[metrics.Key, pcommon.Timestamp]
-	if cfg.GetAggregationTemporality() == pmetric.AggregationTemporalityDelta {
-		lastDeltaTimestamps, err = simplelru.NewLRU(cfg.GetDeltaTimestampCacheSize(), func(k metrics.Key, _ pcommon.Timestamp) {
-			logger.Info("Evicting cached delta timestamp", zap.String("key", string(k)))
-		})
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return &connectorImp{
-		logger:                       logger,
-		config:                       *cfg,
-		resourceMetrics:              resourceMetricsCache,
-		resourceMetricsKeyAttributes: resourceMetricsKeyAttributes,
-		dimensions:                   newDimensions(cfg.Dimensions),
-		keyBuf:                       bytes.NewBuffer(make([]byte, 0, 1024)),
-		lastDeltaTimestamps:          lastDeltaTimestamps,
-		clock:                        clock,
-		ticker:                       clock.NewTicker(cfg.MetricsFlushInterval),
-		done:                         make(chan struct{}),
-		eDimensions:                  newDimensions(cfg.Events.Dimensions),
-		callsDimensions:              newDimensions(cfg.CallsDimensions),
-		durationDimensions:           newDimensions(cfg.Histogram.Dimensions),
-		events:                       cfg.Events,
-		instanceID:                   instanceID,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func initHistogramMetrics(cfg Config) metrics.HistogramMetrics {
-	if cfg.Histogram.Disable {
-		return nil
-	}
-	if cfg.Histogram.Exponential.HasValue() {
-		maxSize := structure.DefaultMaxSize
-		if expConfig := cfg.Histogram.Exponential.Get(); expConfig != nil && expConfig.MaxSize != 0 {
-			maxSize = expConfig.MaxSize
-		}
-		return metrics.NewExponentialHistogramMetrics(maxSize, cfg.Exemplars.MaxPerDataPoint, cfg.AggregationCardinalityLimit)
-	}
-
-	var bounds []float64
-	if cfg.Histogram.Explicit.HasValue() {
-		if expConfig := cfg.Histogram.Explicit.Get(); expConfig != nil && expConfig.Buckets != nil {
-			bounds = durationsToUnits(expConfig.Buckets, unitDivider(cfg.Histogram.Unit))
-		}
-	} else {
-		switch cfg.Histogram.Unit {
-		case metrics.Milliseconds:
-			bounds = defaultHistogramBucketsMs
-		case metrics.Seconds:
-			bounds = make([]float64, len(defaultHistogramBucketsMs))
-			for i, v := range defaultHistogramBucketsMs {
-				bounds[i] = v / float64(time.Second.Milliseconds())
-			}
-		}
-	}
-
-	return metrics.NewExplicitHistogramMetrics(bounds, cfg.Exemplars.MaxPerDataPoint, cfg.AggregationCardinalityLimit)
+	_ = "STUB: not implemented"
+	return *new(metrics.HistogramMetrics)
 }
 
 // unitDivider returns a unit divider to convert nanoseconds to milliseconds or seconds.
-func unitDivider(u metrics.Unit) int64 {
-	return map[metrics.Unit]int64{
-		metrics.Seconds:      time.Second.Nanoseconds(),
-		metrics.Milliseconds: time.Millisecond.Nanoseconds(),
-	}[u]
-}
+func unitDivider(u metrics.Unit) int64 { _ = "STUB: not implemented"; return 0 }
 
 func durationsToUnits(vs []time.Duration, unitDivider int64) []float64 {
-	vsm := make([]float64, len(vs))
-	for i, v := range vs {
-		vsm[i] = float64(v.Nanoseconds()) / float64(unitDivider)
-	}
-	return vsm
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start implements the component.Component interface.
 func (p *connectorImp) Start(ctx context.Context, _ component.Host) error {
-	p.logger.Info("Starting spanmetrics connector")
-
-	p.started = true
-	go func() {
-		for {
-			select {
-			case <-p.done:
-				return
-			case <-p.ticker.Chan():
-				p.exportMetrics(ctx)
-			}
-		}
-	}()
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Shutdown implements the component.Component interface.
-func (p *connectorImp) Shutdown(context.Context) error {
-	p.shutdownOnce.Do(func() {
-		p.logger.Info("Shutting down spanmetrics connector")
-		if p.started {
-			p.logger.Info("Stopping ticker")
-			p.ticker.Stop()
-			p.done <- struct{}{}
-			p.started = false
-		}
-	})
-	return nil
-}
+func (p *connectorImp) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // Capabilities implements the consumer interface.
 func (*connectorImp) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 // ConsumeTraces implements the consumer.Traces interface.
 // It aggregates the trace data to generate metrics.
 func (p *connectorImp) ConsumeTraces(_ context.Context, traces ptrace.Traces) error {
-	p.lock.Lock()
-	p.aggregateMetrics(traces)
-	p.lock.Unlock()
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (p *connectorImp) exportMetrics(ctx context.Context) {
-	p.lock.Lock()
+func (p *connectorImp) exportMetrics(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	m := p.buildMetrics()
-	p.resetState()
-
-	// This component no longer needs to read the metrics once built, so it is safe to unlock.
-	p.lock.Unlock()
-
-	if err := p.metricsConsumer.ConsumeMetrics(ctx, m); err != nil {
-		p.logger.Error("Failed ConsumeMetrics", zap.Error(err))
-		return
-	}
-}
+// This component no longer needs to read the metrics once built, so it is safe to unlock.
 
 // buildMetrics collects the computed raw metrics data and builds OTLP metrics.
 func (p *connectorImp) buildMetrics() pmetric.Metrics {
-	m := pmetric.NewMetrics()
-	timestamp := pcommon.NewTimestampFromTime(p.clock.Now())
-
-	p.resourceMetrics.ForEach(func(_ resourceKey, rawMetrics *resourceMetrics) {
-		rm := m.ResourceMetrics().AppendEmpty()
-		if !metadata.ConnectorSpanmetricsExcludeResourceMetricsFeatureGate.IsEnabled() || p.config.AddResourceAttributes {
-			rawMetrics.attributes.CopyTo(rm.Resource().Attributes())
-		}
-
-		sm := rm.ScopeMetrics().AppendEmpty()
-		sm.Scope().SetName("spanmetricsconnector")
-
-		/**
-		 * To represent an uninterrupted stream of metrics as per the spec, the (StartTimestamp, Timestamp)'s of successive data points should be:
-		 * - For cumulative metrics: (T1, T2), (T1, T3), (T1, T4) ...
-		 * - For delta metrics: (T1, T2), (T2, T3), (T3, T4) ...
-		 */
-		deltaMetricKeys := make(map[metrics.Key]bool)
-		timeStampGenerator := func(mk metrics.Key, startTime pcommon.Timestamp) pcommon.Timestamp {
-			if p.config.GetAggregationTemporality() == pmetric.AggregationTemporalityDelta {
-				if lastTimestamp, ok := p.lastDeltaTimestamps.Get(mk); ok {
-					startTime = lastTimestamp
-				}
-				// Collect lastDeltaTimestamps keys that need to be updated. Metrics can share the same key, so defer the update.
-				deltaMetricKeys[mk] = true
-			}
-			return startTime
-		}
-
-		metricsNamespace := p.config.Namespace
-		if metadata.ConnectorSpanmetricsLegacyMetricNamesFeatureGate.IsEnabled() && metricsNamespace == DefaultNamespace {
-			metricsNamespace = ""
-		}
-
-		sums := rawMetrics.sums
-		metric := sm.Metrics().AppendEmpty()
-		metric.SetName(buildMetricName(metricsNamespace, metricNameCalls))
-		sums.BuildMetrics(metric, timestamp, timeStampGenerator, p.config.GetAggregationTemporality())
-
-		if !p.config.Histogram.Disable {
-			histograms := rawMetrics.histograms
-			metric = sm.Metrics().AppendEmpty()
-			metric.SetName(buildMetricName(metricsNamespace, metricNameDuration))
-			metric.SetUnit(p.config.Histogram.Unit.String())
-			histograms.BuildMetrics(metric, timestamp, timeStampGenerator, p.config.GetAggregationTemporality())
-		}
-
-		events := rawMetrics.events
-		if p.events.Enabled {
-			metric = sm.Metrics().AppendEmpty()
-			metric.SetName(buildMetricName(metricsNamespace, metricNameEvents))
-			events.BuildMetrics(metric, timestamp, timeStampGenerator, p.config.GetAggregationTemporality())
-		}
-
-		for mk := range deltaMetricKeys {
-			// For delta metrics, cache the current data point's timestamp, which will be the start timestamp for the next data points in the series
-			p.lastDeltaTimestamps.Add(mk, timestamp)
-		}
-	})
-
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
+
+/**
+ * To represent an uninterrupted stream of metrics as per the spec, the (StartTimestamp, Timestamp)'s of successive data points should be:
+ * - For cumulative metrics: (T1, T2), (T1, T3), (T1, T4) ...
+ * - For delta metrics: (T1, T2), (T2, T3), (T3, T4) ...
+ */
+
+// Collect lastDeltaTimestamps keys that need to be updated. Metrics can share the same key, so defer the update.
+
+// For delta metrics, cache the current data point's timestamp, which will be the start timestamp for the next data points in the series
 
 func (p *connectorImp) resetState() {
+	_ = "STUB: not implemented"
 	// If delta metrics, reset accumulated data
-	if p.config.GetAggregationTemporality() == pmetric.AggregationTemporalityDelta {
-		p.resourceMetrics.Purge()
-	} else {
-		p.resourceMetrics.RemoveEvictedItems()
-
-		// If none of these features are enabled then we can skip the remaining operations.
-		// Enabling either of these features requires to go over resource metrics and do operation on each.
-		if p.config.Histogram.Disable && p.config.MetricsExpiration == 0 && p.config.SeriesExpiration == 0 && !p.config.Exemplars.Enabled {
-			return
-		}
-
-		now := p.clock.Now()
-		p.resourceMetrics.ForEach(func(k resourceKey, m *resourceMetrics) {
-			// Exemplars are only relevant to this batch of traces, so must be cleared within the lock
-			if p.config.Exemplars.Enabled {
-				m.sums.ClearExemplars()
-				m.events.ClearExemplars()
-				if !p.config.Histogram.Disable {
-					m.histograms.ClearExemplars()
-				}
-			}
-
-			if p.config.SeriesExpiration > 0 {
-				m.sums.ExpireSeries(p.config.SeriesExpiration, now)
-				m.events.ExpireSeries(p.config.SeriesExpiration, now)
-				if !p.config.Histogram.Disable {
-					m.histograms.ExpireSeries(p.config.SeriesExpiration, now)
-				}
-			}
-
-			// If metrics expiration is configured, remove metrics that haven't been seen for longer than the expiration period.
-			if p.config.MetricsExpiration > 0 {
-				if now.Sub(m.lastSeen) >= p.config.MetricsExpiration {
-					p.resourceMetrics.Remove(k)
-				}
-			}
-		})
-	}
+	return
 }
+
+// If none of these features are enabled then we can skip the remaining operations.
+// Enabling either of these features requires to go over resource metrics and do operation on each.
+
+// Exemplars are only relevant to this batch of traces, so must be cleared within the lock
+
+// If metrics expiration is configured, remove metrics that haven't been seen for longer than the expiration period.
 
 // aggregateMetrics aggregates the raw metrics from the input trace data.
 //
@@ -389,153 +183,39 @@ func (p *connectorImp) resetState() {
 // Each metric is identified by a key that is built from the service name
 // and span metadata such as name, kind, status_code and any additional
 // dimensions the user has configured.
-func (p *connectorImp) aggregateMetrics(traces ptrace.Traces) {
-	startTimestamp := pcommon.NewTimestampFromTime(p.clock.Now())
-	lastSeen := p.clock.Now()
+func (p *connectorImp) aggregateMetrics(traces ptrace.Traces) { _ = "STUB: not implemented"; return }
 
-	// Local cache for adjusted count - no synchronization needed.
-	// Consecutive spans from the same trace share identical tracestates.
-	adjustedCountCache := metrics.NewAdjustedCountCache()
+// Local cache for adjusted count - no synchronization needed.
+// Consecutive spans from the same trace share identical tracestates.
 
-	for i := 0; i < traces.ResourceSpans().Len(); i++ {
-		rspans := traces.ResourceSpans().At(i)
-		resourceAttr := rspans.Resource().Attributes()
-		serviceAttr, ok := resourceAttr.Get(string(conventions.ServiceNameKey))
-		if !ok {
-			continue
-		}
+// Protect against end timestamps before start timestamps. Assume 0 duration.
 
-		rm := p.getOrCreateResourceMetrics(resourceAttr)
-		sums := rm.sums
-		histograms := rm.histograms
-		events := rm.events
+// aggregate sums metrics
 
-		unitDivider := unitDivider(p.config.Histogram.Unit)
-		serviceName := serviceAttr.Str()
-		ilsSlice := rspans.ScopeSpans()
-		for j := 0; j < ilsSlice.Len(); j++ {
-			ils := ilsSlice.At(j)
-			spans := ils.Spans()
-			for k := 0; k < spans.Len(); k++ {
-				span := spans.At(k)
-				// Protect against end timestamps before start timestamps. Assume 0 duration.
-				duration := float64(0)
-				startTime := span.StartTimestamp()
-				endTime := span.EndTimestamp()
-				if endTime > startTime {
-					duration = float64(endTime-startTime) / float64(unitDivider)
-				}
+// aggregate histogram metrics
 
-				adjustedCount, isAdjusted := metrics.GetStochasticAdjustedCountWithCache(&span, &adjustedCountCache)
-				callsDimensions := p.dimensions
-				callsDimensions = append(callsDimensions, p.callsDimensions...)
-				key := p.buildKey(serviceName, span, callsDimensions, resourceAttr, isAdjusted)
-				attributesFun := func() pcommon.Map {
-					return p.buildAttributes(serviceName, span, resourceAttr, callsDimensions, ils.Scope(), isAdjusted)
-				}
+// aggregate events metrics
 
-				// aggregate sums metrics
-				s, limitReached := sums.GetOrCreate(key, attributesFun, startTimestamp, lastSeen)
-				if !limitReached && p.config.Exemplars.Enabled && !span.TraceID().IsEmpty() {
-					s.AddExemplar(span.TraceID(), span.SpanID(), duration)
-				}
-
-				s.Add(adjustedCount)
-
-				// aggregate histogram metrics
-				if !p.config.Histogram.Disable {
-					durationDimensions := p.dimensions
-					durationDimensions = append(durationDimensions, p.durationDimensions...)
-					durationKey := p.buildKey(serviceName, span, durationDimensions, resourceAttr, isAdjusted)
-					attributesFun = func() pcommon.Map {
-						return p.buildAttributes(serviceName, span, resourceAttr, durationDimensions, ils.Scope(), isAdjusted)
-					}
-					h, durationLimitReached := histograms.GetOrCreate(durationKey, attributesFun, startTimestamp, lastSeen)
-					if !durationLimitReached && p.config.Exemplars.Enabled && !span.TraceID().IsEmpty() {
-						p.addExemplar(span, duration, h)
-					}
-					h.ObserveN(duration, adjustedCount)
-				}
-
-				// aggregate events metrics
-				if p.events.Enabled {
-					for l := 0; l < span.Events().Len(); l++ {
-						event := span.Events().At(l)
-						eDimensions := p.dimensions
-						eDimensions = append(eDimensions, p.eDimensions...)
-
-						rscAndEventAttrs := pcommon.NewMap()
-
-						rscAndEventAttrs.EnsureCapacity(resourceAttr.Len() + event.Attributes().Len())
-						resourceAttr.CopyTo(rscAndEventAttrs)
-						// We cannot use event.Attributes().CopyTo(rscAdnEventAttrs) because it overrides the existing keys.
-						event.Attributes().Range(func(k string, v pcommon.Value) bool {
-							v.CopyTo(rscAndEventAttrs.PutEmpty(k))
-							return true
-						})
-
-						eKey := p.buildKey(serviceName, span, eDimensions, rscAndEventAttrs, isAdjusted)
-						attributesFun = func() pcommon.Map {
-							return p.buildAttributes(serviceName, span, rscAndEventAttrs, eDimensions, ils.Scope(), isAdjusted)
-						}
-						e, eventLimitReached := events.GetOrCreate(eKey, attributesFun, startTimestamp, lastSeen)
-						if !eventLimitReached && p.config.Exemplars.Enabled && !span.TraceID().IsEmpty() {
-							e.AddExemplar(span.TraceID(), span.SpanID(), duration)
-						}
-						e.Add(adjustedCount)
-					}
-				}
-			}
-		}
-	}
-}
+// We cannot use event.Attributes().CopyTo(rscAdnEventAttrs) because it overrides the existing keys.
 
 func (p *connectorImp) addExemplar(span ptrace.Span, duration float64, h metrics.Histogram) {
-	if !p.config.Exemplars.Enabled {
-		return
-	}
-	if span.TraceID().IsEmpty() {
-		return
-	}
-
-	h.AddExemplar(span.TraceID(), span.SpanID(), duration)
+	_ = "STUB: not implemented"
+	return
 }
 
 type resourceKey [16]byte
 
 func (p *connectorImp) createResourceKey(attr pcommon.Map) resourceKey {
-	if len(p.resourceMetricsKeyAttributes) == 0 {
-		return pdatautil.MapHash(attr)
-	}
-	m := pcommon.NewMap()
-	attr.CopyTo(m)
-	m.RemoveIf(func(k string, _ pcommon.Value) bool {
-		_, ok := p.resourceMetricsKeyAttributes[k]
-		return !ok
-	})
-	return pdatautil.MapHash(m)
+	_ = "STUB: not implemented"
+	return *new(resourceKey)
 }
 
 func (p *connectorImp) getOrCreateResourceMetrics(attr pcommon.Map) *resourceMetrics {
-	key := p.createResourceKey(attr)
-	v, ok := p.resourceMetrics.Get(key)
-	if !ok {
-		v = &resourceMetrics{
-			histograms: initHistogramMetrics(p.config),
-			sums:       metrics.NewSumMetrics(p.config.Exemplars.MaxPerDataPoint, p.config.AggregationCardinalityLimit),
-			events:     metrics.NewSumMetrics(p.config.Exemplars.MaxPerDataPoint, p.config.AggregationCardinalityLimit),
-			attributes: attr,
-		}
-		p.resourceMetrics.Add(key, v)
-	}
-
-	// If expiration is enabled, track the last seen time.
-	if p.config.MetricsExpiration > 0 {
-		v.lastSeen = p.clock.Now()
-	}
-
-	return v
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// If expiration is enabled, track the last seen time.
 
 func (p *connectorImp) buildAttributes(
 	serviceName string,
@@ -545,73 +225,18 @@ func (p *connectorImp) buildAttributes(
 	instrumentationScope pcommon.InstrumentationScope,
 	isAdjustedCount bool,
 ) pcommon.Map {
-	attr := pcommon.NewMap()
-	capacity := 5 + len(dimensions)
-	if p.config.EnableMetricsSamplingMethod {
-		capacity++
-	}
-	attr.EnsureCapacity(capacity)
-	if !slices.Contains(p.config.ExcludeDimensions, serviceNameKey) {
-		attr.PutStr(serviceNameKey, serviceName)
-	}
-	if !slices.Contains(p.config.ExcludeDimensions, spanNameKey) {
-		attr.PutStr(spanNameKey, span.Name())
-	}
-	if !slices.Contains(p.config.ExcludeDimensions, spanKindKey) {
-		attr.PutStr(spanKindKey, traceutil.SpanKindStr(span.Kind()))
-	}
-	if metadata.SpanmetricsStatusCodeConventionUseOtelPrefixFeatureGate.IsEnabled() {
-		if !slices.Contains(p.config.ExcludeDimensions, otelStatusCodeKey) {
-			if span.Status().Code() == ptrace.StatusCodeError {
-				attr.PutStr(otelStatusCodeKey, "ERROR")
-			} else if span.Status().Code() == ptrace.StatusCodeOk {
-				attr.PutStr(otelStatusCodeKey, "OK")
-			}
-		}
-	} else {
-		if !slices.Contains(p.config.ExcludeDimensions, statusCodeKey) {
-			attr.PutStr(statusCodeKey, traceutil.StatusCodeStr(span.Status().Code()))
-		}
-	}
-	if metadata.ConnectorSpanmetricsIncludeCollectorInstanceIDFeatureGate.IsEnabled() {
-		if !slices.Contains(p.config.ExcludeDimensions, collectorInstanceKey) {
-			attr.PutStr(collectorInstanceKey, p.instanceID)
-		}
-	}
-
-	if slices.Contains(p.config.IncludeInstrumentationScope, instrumentationScope.Name()) && instrumentationScope.Name() != "" {
-		attr.PutStr(instrumentationScopeNameKey, instrumentationScope.Name())
-		if instrumentationScope.Version() != "" {
-			attr.PutStr(instrumentationScopeVersionKey, instrumentationScope.Version())
-		}
-	}
-
-	if p.config.EnableMetricsSamplingMethod {
-		if isAdjustedCount {
-			attr.PutStr(metricAttrSamplingMethod, "extrapolated")
-		} else {
-			attr.PutStr(metricAttrSamplingMethod, "counted")
-		}
-	}
-
-	addResourceAttributes(&attr, dimensions, span, resourceAttrs)
-
-	return attr
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 func addResourceAttributes(attrs *pcommon.Map, dimensions []utilattri.Dimension, span ptrace.Span, resourceAttrs pcommon.Map) {
-	for _, d := range dimensions {
-		if v, ok := utilattri.GetDimensionValue(d, span.Attributes(), resourceAttrs); ok {
-			v.CopyTo(attrs.PutEmpty(d.Name))
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func concatDimensionValue(dest *bytes.Buffer, value string, prefixSep bool) {
-	if prefixSep {
-		dest.WriteString(metricKeySeparator)
-	}
-	dest.WriteString(value)
+	_ = "STUB: not implemented"
+	return
 }
 
 // buildKey builds the metric key from the service name and span metadata such as name, kind, status_code and
@@ -623,48 +248,9 @@ func concatDimensionValue(dest *bytes.Buffer, value string, prefixSep bool) {
 //
 // The metric key is a simple concatenation of dimension values, delimited by a null character.
 func (p *connectorImp) buildKey(serviceName string, span ptrace.Span, optionalDims []utilattri.Dimension, resourceOrEventAttrs pcommon.Map, isAdjusted bool) metrics.Key {
-	p.keyBuf.Reset()
-
-	if !slices.Contains(p.config.ExcludeDimensions, serviceNameKey) {
-		concatDimensionValue(p.keyBuf, serviceName, false)
-	}
-	if !slices.Contains(p.config.ExcludeDimensions, spanNameKey) {
-		concatDimensionValue(p.keyBuf, span.Name(), true)
-	}
-	if !slices.Contains(p.config.ExcludeDimensions, spanKindKey) {
-		concatDimensionValue(p.keyBuf, traceutil.SpanKindStr(span.Kind()), true)
-	}
-	if metadata.SpanmetricsStatusCodeConventionUseOtelPrefixFeatureGate.IsEnabled() {
-		if !slices.Contains(p.config.ExcludeDimensions, otelStatusCodeKey) {
-			concatDimensionValue(p.keyBuf, traceutil.StatusCodeStr(span.Status().Code()), true)
-		}
-	} else {
-		if !slices.Contains(p.config.ExcludeDimensions, statusCodeKey) {
-			concatDimensionValue(p.keyBuf, traceutil.StatusCodeStr(span.Status().Code()), true)
-		}
-	}
-
-	for _, d := range optionalDims {
-		if v, ok := utilattri.GetDimensionValue(d, span.Attributes(), resourceOrEventAttrs); ok {
-			concatDimensionValue(p.keyBuf, v.AsString(), true)
-		}
-	}
-
-	if p.config.EnableMetricsSamplingMethod {
-		if isAdjusted {
-			concatDimensionValue(p.keyBuf, "extrapolated", true)
-		} else {
-			concatDimensionValue(p.keyBuf, "counted", true)
-		}
-	}
-
-	return metrics.Key(p.keyBuf.String())
+	_ = "STUB: not implemented"
+	return *new(metrics.Key)
 }
 
 // buildMetricName builds the namespace prefix for the metric name.
-func buildMetricName(namespace, name string) string {
-	if namespace != "" {
-		return namespace + "." + name
-	}
-	return name
-}
+func buildMetricName(namespace, name string) string { _ = "STUB: not implemented"; return "" }

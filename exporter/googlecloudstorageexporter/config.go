@@ -5,9 +5,7 @@ package googlecloudstorageexporter // import "github.com/open-telemetry/opentele
 
 import (
 	"errors"
-	"fmt"
 
-	"github.com/lestrrat-go/strftime"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/confmap/xconfmap"
@@ -84,39 +82,12 @@ type partitionConfig struct {
 var _ xconfmap.Validator = (*Config)(nil)
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Bucket: bucketConfig{
-			ReuseIfExists: false,
-			FilePrefix:    "logs",
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func (c *bucketConfig) Validate() error {
-	if c.Name == "" {
-		return errNameRequired
-	}
+func (c *bucketConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	compression := c.Compression
-	if compression.IsCompressed() {
-		if compression != configcompression.TypeGzip && compression != configcompression.TypeZstd {
-			return fmt.Errorf(
-				"%w %q, valid values are %q and %q",
-				errUnknownCompression, compression,
-				configcompression.TypeGzip, configcompression.TypeZstd)
-		}
-	}
+func (c *partitionConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	return nil
-}
-
-func (c *partitionConfig) Validate() error {
-	if _, err := strftime.New(c.Format); err != nil {
-		return fmt.Errorf("%w: %w", errFormatInvalid, err)
-	}
-	return nil
-}
-
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }

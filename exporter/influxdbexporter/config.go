@@ -4,16 +4,11 @@
 package influxdbexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/influxdbexporter"
 
 import (
-	"fmt"
-	"slices"
-	"strings"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"golang.org/x/exp/maps"
 )
 
 // V1Compatibility is used to specify if the exporter should use the v1.X InfluxDB API schema.
@@ -81,41 +76,6 @@ type Config struct {
 	Precision string `mapstructure:"precision"`
 }
 
-func (cfg *Config) Validate() error {
-	spanDimensions := make(map[string]struct{}, len(cfg.SpanDimensions))
-	duplicateSpanDimensions := make(map[string]struct{})
-	for _, k := range cfg.SpanDimensions {
-		if _, found := spanDimensions[k]; found {
-			duplicateSpanDimensions[k] = struct{}{}
-		} else {
-			spanDimensions[k] = struct{}{}
-		}
-	}
-	if len(duplicateSpanDimensions) > 0 {
-		return fmt.Errorf("duplicate span dimension(s) configured: %s",
-			strings.Join(maps.Keys(duplicateSpanDimensions), ","))
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	logRecordDimensions := make(map[string]struct{}, len(cfg.LogRecordDimensions))
-	duplicateLogRecordDimensions := make(map[string]struct{})
-	for _, k := range cfg.LogRecordDimensions {
-		if _, found := logRecordDimensions[k]; found {
-			duplicateLogRecordDimensions[k] = struct{}{}
-		} else {
-			logRecordDimensions[k] = struct{}{}
-		}
-	}
-	if len(duplicateLogRecordDimensions) > 0 {
-		return fmt.Errorf("duplicate log record dimension(s) configured: %s",
-			strings.Join(maps.Keys(duplicateLogRecordDimensions), ","))
-	}
-
-	// Validate precision
-	validPrecisions := []string{"ns", "ms", "s", "us"}
-	if !slices.Contains(validPrecisions, cfg.Precision) {
-		return fmt.Errorf("invalid precision %q, must be one of: %s",
-			cfg.Precision, strings.Join(validPrecisions, ", "))
-	}
-
-	return nil
-}
+// Validate precision

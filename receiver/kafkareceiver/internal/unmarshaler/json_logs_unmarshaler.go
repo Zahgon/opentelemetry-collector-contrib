@@ -3,10 +3,6 @@
 
 package unmarshaler // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver/internal/unmarshaler"
 import (
-	"time"
-
-	json "github.com/goccy/go-json"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 )
 
@@ -15,22 +11,13 @@ var _ plog.Unmarshaler = JSONLogsUnmarshaler{}
 type JSONLogsUnmarshaler struct{}
 
 func (JSONLogsUnmarshaler) UnmarshalLogs(buf []byte) (plog.Logs, error) {
+	_ = "STUB: not implemented"
 	// create a new Logs struct to be populated with log data and returned
-	p := plog.NewLogs()
-
-	// get json logs from the buffer
-	jsonVal := map[string]any{}
-	if err := json.Unmarshal(buf, &jsonVal); err != nil {
-		return p, err
-	}
-
-	// create a new log record
-	logRecords := p.ResourceLogs().AppendEmpty().ScopeLogs().AppendEmpty().LogRecords().AppendEmpty()
-	logRecords.SetObservedTimestamp(pcommon.NewTimestampFromTime(time.Now()))
-
-	// Set the unmarshaled jsonVal as the body of the log record
-	if err := logRecords.Body().SetEmptyMap().FromRaw(jsonVal); err != nil {
-		return p, err
-	}
-	return p, nil
+	return *new(plog.Logs), nil
 }
+
+// get json logs from the buffer
+
+// create a new log record
+
+// Set the unmarshaled jsonVal as the body of the log record

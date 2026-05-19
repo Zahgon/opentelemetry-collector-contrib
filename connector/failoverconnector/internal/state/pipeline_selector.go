@@ -4,9 +4,7 @@
 package state // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/failoverconnector/internal/state"
 
 import (
-	"context"
 	"sync"
-	"time"
 )
 
 type PipelineSelector struct {
@@ -21,96 +19,33 @@ type PipelineSelector struct {
 }
 
 // HandleError is called when an error is returned on a healthy pipeline
-func (p *PipelineSelector) HandleError(idx int) {
-	if idx != p.currentPipeline {
-		return
-	}
-	p.NextStableLevel()
-	p.TryEnableRetry()
-}
+func (p *PipelineSelector) HandleError(idx int) { _ = "STUB: not implemented"; return }
 
 // NextStableLevel increments the level to the next in the priority list
-func (p *PipelineSelector) NextStableLevel() {
-	p.lock.Lock()
-	defer p.lock.Unlock()
-	p.currentPipeline++
-}
+func (p *PipelineSelector) NextStableLevel() { _ = "STUB: not implemented"; return }
 
 // TryEnableRetry checks if a retry is already in effect and if not starts the retry goroutine
-func (p *PipelineSelector) TryEnableRetry() {
-	select {
-	case <-p.retryEnabledToken:
-		p.LaunchRetry()
-	default:
-	}
-}
+func (p *PipelineSelector) TryEnableRetry() { _ = "STUB: not implemented"; return }
 
 // LaunchRetry invokes the goroutine responsible for notifying the failover component to retry
-func (p *PipelineSelector) LaunchRetry() {
-	ctx, cancel := context.WithCancel(context.Background())
-	p.retryCancel.UpdateFn(cancel)
-
-	go func() {
-		ticker := time.NewTicker(p.constants.RetryInterval)
-		defer func() {
-			ticker.Stop()
-			p.returnRetryToken()
-		}()
-		for {
-			select {
-			case <-ticker.C:
-				select {
-				case p.retryChan <- struct{}{}:
-				default:
-				}
-			case <-ctx.Done():
-				return
-			case <-p.done:
-				return
-			}
-		}
-	}()
-}
+func (p *PipelineSelector) LaunchRetry() { _ = "STUB: not implemented"; return }
 
 // returnRetryToken returns the token back to the buffered channel allowing the next retry function to consume the token
-func (p *PipelineSelector) returnRetryToken() {
-	p.retryEnabledToken <- struct{}{}
-}
+func (p *PipelineSelector) returnRetryToken() { _ = "STUB: not implemented"; return }
 
 // CurrentLevel returns the current healthy pipeline level
-func (p *PipelineSelector) CurrentPipeline() int {
-	p.lock.RLock()
-	defer p.lock.RUnlock()
-	return p.currentPipeline
-}
+func (p *PipelineSelector) CurrentPipeline() int { _ = "STUB: not implemented"; return 0 }
 
 // ResetHealthyPipeline resets a pipeline level that was successfully retries back to healthy/active
 func (p *PipelineSelector) ResetHealthyPipeline(pipelineIndex int) {
-	p.lock.Lock()
-	defer p.lock.Unlock()
-	if pipelineIndex == 0 {
-		p.retryCancel.Cancel()
-	}
-	p.currentPipeline = pipelineIndex
+	_ = "STUB: not implemented"
+	return
 }
 
 func NewPipelineSelector(retryChan chan<- struct{}, done chan struct{}, consts PSConstants) *PipelineSelector {
-	retryEnabledToken := make(chan struct{}, 1)
-	retryEnabledToken <- struct{}{}
-
-	ps := &PipelineSelector{
-		currentPipeline:   0,
-		constants:         consts,
-		retryEnabledToken: retryEnabledToken,
-		retryChan:         retryChan,
-		done:              done,
-	}
-	return ps
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // For Testing
-func (p *PipelineSelector) TestSetCurrentPipeline(idx int) {
-	p.lock.Lock()
-	defer p.lock.Unlock()
-	p.currentPipeline = idx
-}
+func (p *PipelineSelector) TestSetCurrentPipeline(idx int) { _ = "STUB: not implemented"; return }

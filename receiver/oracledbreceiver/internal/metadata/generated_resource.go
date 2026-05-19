@@ -15,36 +15,21 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetOracledbInstanceName sets provided value as "oracledb.instance.name" attribute.
-func (rb *ResourceBuilder) SetOracledbInstanceName(val string) {
-	if rb.config.OracledbInstanceName.Enabled {
-		rb.res.Attributes().PutStr("oracledb.instance.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetOracledbInstanceName(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceInstanceID sets provided value as "service.instance.id" attribute.
-func (rb *ResourceBuilder) SetServiceInstanceID(val string) {
-	if rb.config.ServiceInstanceID.Enabled {
-		rb.res.Attributes().PutStr("service.instance.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceInstanceID(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

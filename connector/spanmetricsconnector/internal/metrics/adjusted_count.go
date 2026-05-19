@@ -4,14 +4,11 @@
 package metrics // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/metrics"
 
 import (
-	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
 
 	"go.opentelemetry.io/collector/pdata/ptrace"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling"
 )
 
 // AdjustedCountCache is a simple single-entry cache for adjusted count results.
@@ -28,18 +25,16 @@ type AdjustedCountCache struct {
 // NewAdjustedCountCache creates a cache initialized with correct defaults.
 // The zero-value tracestate ("") maps to count=1, isAdjusted=false.
 func NewAdjustedCountCache() AdjustedCountCache {
-	return AdjustedCountCache{
-		tracestate: "",
-		count:      1,
-		isAdjusted: false,
-	}
+	_ = "STUB: not implemented"
+	return *new(AdjustedCountCache)
 }
 
 // GetStochasticAdjustedCount returns the stochastic-rounded adjusted count for the span.
 // The second return value indicates whether the count is adjusted (i.e., the span has
 // a valid tracestate with a sampling threshold). When false, the count will be 1, meaning it only represents the span itself.
 func GetStochasticAdjustedCount(span *ptrace.Span) (uint64, bool) {
-	return GetStochasticAdjustedCountWithCache(span, nil)
+	_ = "STUB: not implemented"
+	return 0, false
 }
 
 // GetStochasticAdjustedCountWithCache is like GetStochasticAdjustedCount but accepts
@@ -48,48 +43,20 @@ func GetStochasticAdjustedCount(span *ptrace.Span) (uint64, bool) {
 // Pass nil to disable caching.
 // This method is thread-compatible.
 func GetStochasticAdjustedCountWithCache(span *ptrace.Span, cache *AdjustedCountCache) (uint64, bool) {
-	tracestate := span.TraceState().AsRaw()
-
-	if tracestate == "" {
-		return 1, false
-	}
-
-	// Check cache first
-	if cache != nil && tracestate == cache.tracestate {
-		return cache.count, cache.isAdjusted
-	}
-
-	// Compute the adjusted count
-	count, isAdjusted := computeAdjustedCount(tracestate)
-
-	// Update cache
-	if cache != nil {
-		cache.tracestate = tracestate
-		cache.count = count
-		cache.isAdjusted = isAdjusted
-	}
-
-	return count, isAdjusted
+	_ = "STUB: not implemented"
+	return 0, false
 }
+
+// Check cache first
+
+// Compute the adjusted count
+
+// Update cache
 
 // computeAdjustedCount does the actual coputation without caching.
 func computeAdjustedCount(tracestate string) (uint64, bool) {
-	if !strings.Contains(tracestate, "ot=") {
-		return 1, false
-	}
-	w3cTraceState, err := sampling.NewW3CTraceState(tracestate)
-	if err != nil {
-		return 1, false
-	}
-	threshold, exists := w3cTraceState.OTelValue().TValueThreshold()
-	if !exists {
-		return 1, false
-	}
-	denominator := sampling.MaxAdjustedCount - threshold.Unsigned()
-	if denominator == 0 {
-		return 1, false
-	}
-	return stochasticDiv(sampling.MaxAdjustedCount, denominator), true
+	_ = "STUB: not implemented"
+	return 0, false
 }
 
 // xorshift64star is a very fast PRNG using xor and shift widely used in many programming languages.
@@ -97,25 +64,16 @@ func computeAdjustedCount(tracestate string) (uint64, bool) {
 // See: https://en.wikipedia.org/wiki/Xorshift
 type xorshift64star uint64
 
-func (r *xorshift64star) next() uint64 {
-	x := *r
-	x ^= x << 12
-	x ^= x >> 25
-	x ^= x << 27
-	*r = x
-	return uint64(x) * 0x2545F4914F6CDD1D // The "Scrambler"
-}
+func (r *xorshift64star) next() uint64 { _ = "STUB: not implemented"; return 0 }
+
+// The "Scrambler"
 
 // SetRNGSeedSourceForTest sets a custom seed source for testing purposes.
 // This allows tests to get deterministic results from stochastic rounding.
-func SetRNGSeedSourceForTest(seedSourceFunc func() uint64) {
-	seedSource = seedSourceFunc
-}
+func SetRNGSeedSourceForTest(seedSourceFunc func() uint64) { _ = "STUB: not implemented"; return }
 
 // ResetRNGSeedSourceForTest resets the seed source to the default.
-func ResetRNGSeedSourceForTest() {
-	seedSource = defaultSeedSource
-}
+func ResetRNGSeedSourceForTest() { _ = "STUB: not implemented"; return }
 
 var defaultSeedSource = func() uint64 {
 	return uint64(time.Now().UnixNano())
@@ -145,20 +103,9 @@ var prngPool = sync.Pool{
 // the remainder, ensuring an unbiased estimate over many calls.
 // When the denominator is 0, the behavior is undefined.
 func stochasticDiv(numerator, denominator uint64) uint64 {
-	if denominator == 0 { // although the behavior is undefined, we return 0 to avoid panics.
-		return 0
-	}
-	quotient := numerator / denominator
-	remainder := numerator % denominator
-	if remainder == 0 {
-		return quotient
-	}
-	rng := prngPool.Get().(*xorshift64star)
-	defer prngPool.Put(rng)
-
-	// Round up with probability remainder/denominator
-	if rng.next()%denominator < remainder {
-		quotient++
-	}
-	return quotient
+	_ = "STUB: not implemented"
+	// although the behavior is undefined, we return 0 to avoid panics.
+	return 0
 }
+
+// Round up with probability remainder/denominator

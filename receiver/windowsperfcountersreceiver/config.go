@@ -4,12 +4,7 @@
 package windowsperfcountersreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowsperfcountersreceiver"
 
 import (
-	"errors"
-	"fmt"
-	"slices"
-
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 )
 
 // Config defines configuration for WindowsPerfCounters receiver.
@@ -54,68 +49,4 @@ type MetricRep struct {
 	Attributes map[string]string `mapstructure:"attributes"`
 }
 
-func (c *Config) Validate() error {
-	var errs error
-
-	if c.CollectionInterval <= 0 {
-		errs = multierr.Append(errs, errors.New("collection_interval must be a positive duration"))
-	}
-
-	if len(c.PerfCounters) == 0 {
-		errs = multierr.Append(errs, errors.New("must specify at least one perf counter"))
-	}
-
-	for name, metric := range c.MetricMetaData {
-		if metric.Unit == "" {
-			metric.Unit = "1"
-		}
-
-		if (metric.Sum != SumMetric{}) {
-			if (metric.Gauge != GaugeMetric{}) {
-				errs = multierr.Append(errs, fmt.Errorf("metric %q provides both a sum config and a gauge config", name))
-			}
-
-			if metric.Sum.Aggregation != "cumulative" && metric.Sum.Aggregation != "delta" {
-				errs = multierr.Append(errs, fmt.Errorf("sum metric %q includes an invalid aggregation", name))
-			}
-		}
-	}
-
-	var perfCounterMissingObjectName bool
-	for _, pc := range c.PerfCounters {
-		if pc.Object == "" {
-			perfCounterMissingObjectName = true
-			continue
-		}
-
-		if len(pc.Counters) == 0 {
-			errs = multierr.Append(errs, fmt.Errorf("perf counter for object %q does not specify any counters", pc.Object))
-		}
-
-		for _, counter := range pc.Counters {
-			if counter.MetricRep.Name == "" {
-				continue
-			}
-
-			foundMatchingMetric := false
-			for name := range c.MetricMetaData {
-				if counter.MetricRep.Name == name {
-					foundMatchingMetric = true
-				}
-			}
-			if !foundMatchingMetric {
-				errs = multierr.Append(errs, fmt.Errorf("perf counter for object %q includes an undefined metric", pc.Object))
-			}
-		}
-
-		if slices.Contains(pc.Instances, "") {
-			errs = multierr.Append(errs, fmt.Errorf("perf counter for object %q includes an empty instance", pc.Object))
-		}
-	}
-
-	if perfCounterMissingObjectName {
-		errs = multierr.Append(errs, errors.New("must specify object name for all perf counters"))
-	}
-
-	return errs
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

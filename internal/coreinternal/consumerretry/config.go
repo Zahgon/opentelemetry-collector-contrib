@@ -23,11 +23,4 @@ type Config struct {
 }
 
 // NewDefaultConfig returns the default Config.
-func NewDefaultConfig() Config {
-	return Config{
-		Enabled:         false,
-		InitialInterval: 1 * time.Second,
-		MaxInterval:     30 * time.Second,
-		MaxElapsedTime:  5 * time.Minute,
-	}
-}
+func NewDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

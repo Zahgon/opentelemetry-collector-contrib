@@ -17,16 +17,16 @@ var _ Reporter = (*MockReporter)(nil)
 
 // NewMockReporter returns a new instance of a MockReporter.
 func NewMockReporter(expectedOnMetricsProcessedCalls int) *MockReporter {
-	m := MockReporter{}
-	m.wgMetricsProcessed.Add(expectedOnMetricsProcessedCalls)
-	return &m
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*MockReporter) OnDebugf(string, ...any) {
+	_ = "STUB: not implemented"
+
+	// WaitAllOnMetricsProcessedCalls blocks until the number of expected calls
+	// specified at creation of the reporter is completed.
+	return
 }
 
-// WaitAllOnMetricsProcessedCalls blocks until the number of expected calls
-// specified at creation of the reporter is completed.
-func (m *MockReporter) WaitAllOnMetricsProcessedCalls() {
-	m.wgMetricsProcessed.Wait()
-}
+func (m *MockReporter) WaitAllOnMetricsProcessedCalls() { _ = "STUB: not implemented"; return }

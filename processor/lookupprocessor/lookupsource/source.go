@@ -57,12 +57,8 @@ func NewSource(
 	start StartFunc,
 	shutdown ShutdownFunc,
 ) Source {
-	return &sourceImpl{
-		lookupFn:   lookup,
-		typeFn:     typeFunc,
-		startFn:    start,
-		shutdownFn: shutdown,
-	}
+	_ = "STUB: not implemented"
+	return *new(Source)
 }
 
 type sourceImpl struct {
@@ -73,29 +69,15 @@ type sourceImpl struct {
 }
 
 func (s *sourceImpl) Lookup(ctx context.Context, key string) (any, bool, error) {
-	if s.lookupFn == nil {
-		return nil, false, nil
-	}
-	return s.lookupFn(ctx, key)
+	_ = "STUB: not implemented"
+	return *new(any), false, nil
 }
 
-func (s *sourceImpl) Type() string {
-	if s.typeFn == nil {
-		return "unknown"
-	}
-	return s.typeFn()
-}
+func (s *sourceImpl) Type() string { _ = "STUB: not implemented"; return "" }
 
 func (s *sourceImpl) Start(ctx context.Context, host component.Host) error {
-	if s.startFn == nil {
-		return nil
-	}
-	return s.startFn(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *sourceImpl) Shutdown(ctx context.Context) error {
-	if s.shutdownFn == nil {
-		return nil
-	}
-	return s.shutdownFn(ctx)
-}
+func (s *sourceImpl) Shutdown(ctx context.Context) error { _ = "STUB: not implemented"; return nil }

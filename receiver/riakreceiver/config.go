@@ -5,13 +5,10 @@ package riakreceiver // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/riakreceiver/internal/metadata"
 )
@@ -36,21 +33,4 @@ type Config struct {
 }
 
 // Validate validates the configuration by checking for missing or invalid fields
-func (cfg *Config) Validate() error {
-	var err error
-	if cfg.Username == "" {
-		err = multierr.Append(err, errMissingUsername)
-	}
-
-	if cfg.Password == "" {
-		err = multierr.Append(err, errMissingPassword)
-	}
-
-	_, parseErr := url.Parse(cfg.Endpoint)
-	if parseErr != nil {
-		wrappedErr := fmt.Errorf("%s: %w", errInvalidEndpoint.Error(), parseErr)
-		err = multierr.Append(err, wrappedErr)
-	}
-
-	return err
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

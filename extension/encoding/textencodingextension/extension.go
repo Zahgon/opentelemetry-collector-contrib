@@ -6,13 +6,11 @@ package textencodingextension // import "github.com/open-telemetry/opentelemetry
 import (
 	"context"
 	"io"
-	"regexp"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/plog"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/textutils"
 )
 
 var (
@@ -27,43 +25,23 @@ type textExtension struct {
 }
 
 func (e *textExtension) UnmarshalLogs(buf []byte) (plog.Logs, error) {
-	return e.textEncoder.UnmarshalLogs(buf)
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
 func (e *textExtension) MarshalLogs(ld plog.Logs) ([]byte, error) {
-	return e.textEncoder.MarshalLogs(ld)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (e *textExtension) NewLogsDecoder(reader io.Reader, options ...encoding.DecoderOption) (encoding.LogsDecoder, error) {
-	return e.textEncoder.NewLogsDecoder(reader, options...)
+	_ = "STUB: not implemented"
+	return *new(encoding.LogsDecoder), nil
 }
 
 func (e *textExtension) Start(_ context.Context, _ component.Host) error {
-	enc, err := textutils.LookupEncoding(e.config.Encoding)
-	if err != nil {
-		return err
-	}
-
-	var unmarshallingSeparator *regexp.Regexp
-
-	if e.config.UnmarshalingSeparator != "" {
-		unmarshallingSeparator, err = regexp.Compile(e.config.UnmarshalingSeparator)
-		if err != nil {
-			return err
-		}
-	} else {
-		unmarshallingSeparator = nil
-	}
-
-	e.textEncoder = &textLogCodec{
-		decoder:               enc.NewDecoder(),
-		marshalingSeparator:   e.config.MarshalingSeparator,
-		unmarshalingSeparator: unmarshallingSeparator,
-	}
-
-	return err
-}
-
-func (*textExtension) Shutdown(context.Context) error {
+	_ = "STUB: not implemented"
 	return nil
 }
+
+func (*textExtension) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }

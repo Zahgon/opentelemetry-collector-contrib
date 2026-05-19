@@ -35,41 +35,25 @@ type ResourceSpec struct {
 
 // isSpecified returns true if any part of ResourceSpec is specified,
 // i.e. has non-zero value.
-func (rs *ResourceSpec) isSpecified() bool {
-	return rs != nil && (rs.ExpectedMaxCPU != 0 || rs.ExpectedMaxRAM != 0)
-}
+func (rs *ResourceSpec) isSpecified() bool { _ = "STUB: not implemented"; return false }
 
 // TestCaseOption defines a TestCase option.
 type TestCaseOption func(t *TestCase)
 
 // WithSkipResults disables writing out results file for a TestCase.
-func WithSkipResults() TestCaseOption {
-	return func(tc *TestCase) {
-		tc.skipResults = true
-	}
-}
+func WithSkipResults() TestCaseOption { _ = "STUB: not implemented"; return *new(TestCaseOption) }
 
 // WithResourceLimits sets expected limits for resource consumption.
 // Error is signaled if consumption during ResourceCheckPeriod exceeds the limits.
 // Limits are modified only for non-zero fields of resourceSpec, all zero-value fields
 // of resourceSpec are ignored and their previous values remain in effect.
 func WithResourceLimits(resourceSpec ResourceSpec) TestCaseOption {
-	return func(tc *TestCase) {
-		if resourceSpec.ExpectedMaxCPU > 0 {
-			tc.resourceSpec.ExpectedMaxCPU = resourceSpec.ExpectedMaxCPU
-		}
-		if resourceSpec.ExpectedMaxRAM > 0 {
-			tc.resourceSpec.ExpectedMaxRAM = resourceSpec.ExpectedMaxRAM
-		}
-		if resourceSpec.ResourceCheckPeriod > 0 {
-			tc.resourceSpec.ResourceCheckPeriod = resourceSpec.ResourceCheckPeriod
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(TestCaseOption)
 }
 
 // WithDecision enables our mock backend to behave sporadically
 func WithDecisionFunc(decision decisionFunc) TestCaseOption {
-	return func(tc *TestCase) {
-		tc.decision = decision
-	}
+	_ = "STUB: not implemented"
+	return *new(TestCaseOption)
 }

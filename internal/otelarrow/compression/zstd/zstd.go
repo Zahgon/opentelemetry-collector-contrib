@@ -4,11 +4,7 @@
 package zstd // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/otelarrow/compression/zstd"
 
 import (
-	"bytes"
-	"errors"
-	"fmt"
 	"io"
-	"runtime"
 	"sync"
 
 	zstdlib "github.com/klauspost/compress/zstd"
@@ -113,56 +109,24 @@ var staticInstances = &instance{
 	byLevel: map[Level]*combined{},
 }
 
-func (g *Gen) generation() Gen {
-	return *g
-}
+func (g *Gen) generation() Gen { _ = "STUB: not implemented"; return *new(Gen) }
 
-func DefaultEncoderConfig() EncoderConfig {
-	return EncoderConfig{
-		Level:       DefaultLevel, // Determines other defaults
-		Concurrency: 1,            // Avoids extra CPU/memory
-	}
-}
+func DefaultEncoderConfig() EncoderConfig { _ = "STUB: not implemented"; return *new(EncoderConfig) }
 
-func DefaultDecoderConfig() DecoderConfig {
-	return DecoderConfig{
-		Concurrency:      1,   // Avoids extra CPU/memory
-		MemoryLimitMiB:   128, // More conservative than library default
-		MaxWindowSizeMiB: 32,  // Corresponds w/ "best" level default
-	}
-}
+// Determines other defaults
+// Avoids extra CPU/memory
 
-func validate(level Level, f func() error) error {
-	if level > MaxLevel {
-		return fmt.Errorf("level out of range [0,10]: %d", level)
-	}
-	if level < MinLevel {
-		return fmt.Errorf("level out of range [0,10]: %d", level)
-	}
-	return f()
-}
+func DefaultDecoderConfig() DecoderConfig { _ = "STUB: not implemented"; return *new(DecoderConfig) }
 
-func (cfg EncoderConfig) Validate() error {
-	return validate(cfg.Level, func() error {
-		var buf bytes.Buffer
-		test, err := zstdlib.NewWriter(&buf, cfg.options()...)
-		if test != nil {
-			test.Close()
-		}
-		return err
-	})
-}
+// Avoids extra CPU/memory
+// More conservative than library default
+// Corresponds w/ "best" level default
 
-func (cfg DecoderConfig) Validate() error {
-	return validate(MinLevel, func() error {
-		var buf bytes.Buffer
-		test, err := zstdlib.NewReader(&buf, cfg.options()...)
-		if test != nil {
-			test.Close()
-		}
-		return err
-	})
-}
+func validate(level Level, f func() error) error { _ = "STUB: not implemented"; return nil }
+
+func (cfg EncoderConfig) Validate() error { _ = "STUB: not implemented"; return nil }
+
+func (cfg DecoderConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func init() {
 	staticInstances.lock.Lock()
@@ -170,154 +134,45 @@ func init() {
 	resetLibrary()
 }
 
-func resetLibrary() {
-	for level := MinLevel; level <= MaxLevel; level++ {
-		var combi combined
-		combi.enc.cfg = DefaultEncoderConfig()
-		combi.dec.cfg = DefaultDecoderConfig()
-		combi.enc.cfg.Level = level
-		encoding.RegisterCompressor(&combi)
-		staticInstances.byLevel[level] = &combi
-	}
-}
+func resetLibrary() { _ = "STUB: not implemented"; return }
 
-func SetEncoderConfig(cfg EncoderConfig) error {
-	if err := cfg.Validate(); err != nil {
-		return err
-	}
+func SetEncoderConfig(cfg EncoderConfig) error { _ = "STUB: not implemented"; return nil }
 
-	updateOne := func(enc *encoder) {
-		enc.lock.Lock()
-		defer enc.lock.Unlock()
-		enc.cfg = cfg
-		enc.pool.Reset()
-	}
+func SetDecoderConfig(cfg DecoderConfig) error { _ = "STUB: not implemented"; return nil }
 
-	staticInstances.lock.Lock()
-	defer staticInstances.lock.Unlock()
+func (cfg EncoderConfig) options() (opts []zstdlib.EOption) { _ = "STUB: not implemented"; return nil }
 
-	updateOne(&staticInstances.byLevel[cfg.Level].enc)
-	return nil
-}
+func (e *encoder) getConfig() EncoderConfig { _ = "STUB: not implemented"; return *new(EncoderConfig) }
 
-func SetDecoderConfig(cfg DecoderConfig) error {
-	if err := cfg.Validate(); err != nil {
-		return err
-	}
-	updateOne := func(dec *decoder) {
-		dec.lock.Lock()
-		defer dec.lock.Unlock()
-		dec.cfg = cfg
-		dec.pool.Reset()
-	}
-
-	staticInstances.lock.Lock()
-	defer staticInstances.lock.Unlock()
-
-	for level := MinLevel; level <= MaxLevel; level++ {
-		updateOne(&staticInstances.byLevel[level].dec)
-	}
-	return nil
-}
-
-func (cfg EncoderConfig) options() (opts []zstdlib.EOption) {
-	opts = append(opts, zstdlib.WithEncoderLevel(zstdlib.EncoderLevelFromZstd(int(cfg.Level))))
-
-	if cfg.Concurrency != 0 {
-		opts = append(opts, zstdlib.WithEncoderConcurrency(int(cfg.Concurrency)))
-	}
-	if cfg.WindowSizeMiB != 0 {
-		opts = append(opts, zstdlib.WithWindowSize(int(cfg.WindowSizeMiB<<20)))
-	}
-
-	return opts
-}
-
-func (e *encoder) getConfig() EncoderConfig {
-	e.lock.Lock()
-	defer e.lock.Unlock()
-	return e.cfg
-}
-
-func (cfg EncoderConfig) Name() string {
-	return fmt.Sprint(NamePrefix, cfg.Level)
-}
+func (cfg EncoderConfig) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (cfg EncoderConfig) CallOption() grpc.CallOption {
-	if cfg.Level < MinLevel || cfg.Level > MaxLevel {
-		return grpc.UseCompressor(EncoderConfig{Level: DefaultLevel}.Name())
-	}
-	return grpc.UseCompressor(cfg.Name())
+	_ = "STUB: not implemented"
+	return *new(grpc.CallOption)
 }
 
-func (cfg DecoderConfig) options() (opts []zstdlib.DOption) {
-	if cfg.Concurrency != 0 {
-		opts = append(opts, zstdlib.WithDecoderConcurrency(int(cfg.Concurrency)))
-	}
-	if cfg.MaxWindowSizeMiB != 0 {
-		opts = append(opts, zstdlib.WithDecoderMaxWindow(uint64(cfg.MaxWindowSizeMiB)<<20))
-	}
-	if cfg.MemoryLimitMiB != 0 {
-		opts = append(opts, zstdlib.WithDecoderMaxMemory(uint64(cfg.MemoryLimitMiB)<<20))
-	}
+func (cfg DecoderConfig) options() (opts []zstdlib.DOption) { _ = "STUB: not implemented"; return nil }
 
-	return opts
-}
-
-func (d *decoder) getConfig() DecoderConfig {
-	d.lock.Lock()
-	defer d.lock.Unlock()
-	return d.cfg
-}
+func (d *decoder) getConfig() DecoderConfig { _ = "STUB: not implemented"; return *new(DecoderConfig) }
 
 func (c *combined) Compress(w io.Writer) (io.WriteCloser, error) {
-	z, gen := c.enc.pool.Get()
-	if z == nil {
-		encoder, err := zstdlib.NewWriter(w, c.enc.getConfig().options()...)
-		if err != nil {
-			return nil, err
-		}
-		z = &writer{Encoder: encoder, pool: &c.enc.pool, Gen: gen}
-	} else {
-		z.Reset(w)
-	}
-	return z, nil
+	_ = "STUB: not implemented"
+	return *new(io.WriteCloser), nil
 }
 
-func (w *writer) Close() error {
-	defer w.pool.Put(w)
-	return w.Encoder.Close()
-}
+func (w *writer) Close() error { _ = "STUB: not implemented"; return nil }
 
 func (c *combined) Decompress(r io.Reader) (io.Reader, error) {
-	z, gen := c.dec.pool.Get()
-	if z == nil {
-		decoder, err := zstdlib.NewReader(r, c.dec.getConfig().options()...)
-		if err != nil {
-			return nil, err
-		}
-		z = &reader{Decoder: decoder, pool: &c.dec.pool, Gen: gen}
-
-		// zstd decoders need to be closed when they are evicted from
-		// the freelist. Note that the finalizer is attached to the
-		// reader object, not to the decoder, because zstd maintains
-		// background references to the decoder that prevent it from
-		// being GC'ed.
-		runtime.SetFinalizer(z, (*reader).Close)
-	} else if err := z.Reset(r); err != nil {
-		return nil, err
-	}
-	return z, nil
+	_ = "STUB: not implemented"
+	return *new(io.Reader), nil
 }
 
-func (r *reader) Read(p []byte) (n int, err error) {
-	n, err = r.Decoder.Read(p)
-	if errors.Is(err, io.EOF) {
-		r.pool.Put(r)
-	}
-	return n, err
-}
+// zstd decoders need to be closed when they are evicted from
+// the freelist. Note that the finalizer is attached to the
+// reader object, not to the decoder, because zstd maintains
+// background references to the decoder that prevent it from
+// being GC'ed.
 
-func (c *combined) Name() string {
-	return c.enc.cfg.Name()
-}
+func (r *reader) Read(p []byte) (n int, err error) { _ = "STUB: not implemented"; return 0, nil }
+
+func (c *combined) Name() string { _ = "STUB: not implemented"; return "" }

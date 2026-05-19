@@ -5,14 +5,10 @@ package ecsinfo // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
 	"sync"
 	"time"
 
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awscontainerinsightreceiver/internal/host"
 )
 
 type ecsTaskInfoProvider interface {
@@ -47,73 +43,23 @@ type taskInfo struct {
 func newECSTaskInfo(ctx context.Context, ecsTaskEndpointProvider hostIPProvider,
 	refreshInterval time.Duration, logger *zap.Logger, httpClient doer, readyC chan bool,
 ) ecsTaskInfoProvider {
-	ti := &taskInfo{
-		logger:                  logger,
-		httpClient:              httpClient,
-		refreshInterval:         refreshInterval,
-		ecsTaskEndpointProvider: ecsTaskEndpointProvider,
-		readyC:                  readyC,
-	}
-
-	shouldRefresh := func() bool {
-		// keep refreshing to update task info and running task number
-		return true
-	}
-	go host.RefreshUntil(ctx, ti.refresh, ti.refreshInterval, shouldRefresh, 0)
-	return ti
+	_ = "STUB: not implemented"
+	return *new(ecsTaskInfoProvider)
 }
+
+// keep refreshing to update task info and running task number
 
 func (ti *taskInfo) getTasksInfo(ctx context.Context) (ecsTasksInfo *ECSTasksInfo) {
-	ecsTasksInfo = &ECSTasksInfo{}
-	resp, err := request(ctx, ti.getECSAgentTaskInfoEndpoint(), ti.httpClient)
-	if err != nil {
-		ti.logger.Warn("Failed to call ecsagent taskinfo endpoint, error: ", zap.Error(err))
-		return ecsTasksInfo
-	}
-
-	err = json.Unmarshal(resp, ecsTasksInfo)
-	if err != nil {
-		ti.logger.Warn("Unable to parse resp from ecsagent taskinfo endpoint, error:", zap.Error(err))
-		ti.logger.Debug("D! resp content is %s" + string(resp))
-	}
-	return ecsTasksInfo
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (ti *taskInfo) refresh(ctx context.Context) {
-	ecsTasksInfo := ti.getTasksInfo(ctx)
-	runningTaskCount := int64(0)
-	var tasks []ECSTask
-	for _, task := range ecsTasksInfo.Tasks {
-		if task.KnownStatus != taskStatusRunning {
-			continue
-		}
-		tasks = append(tasks, task)
-		runningTaskCount++
-	}
+func (ti *taskInfo) refresh(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	ti.Lock()
-	defer ti.Unlock()
-	ti.runningTaskCount = runningTaskCount
-	ti.runningTasksInfo = tasks
+// notify cgroups that the task info is ready
 
-	// notify cgroups that the task info is ready
-	if len(ti.runningTasksInfo) != 0 && ti.runningTaskCount != 0 && !isClosed(ti.readyC) {
-		close(ti.readyC)
-	}
-}
+func (ti *taskInfo) getRunningTaskCount() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (ti *taskInfo) getRunningTaskCount() int64 {
-	ti.RLock()
-	defer ti.RUnlock()
-	return ti.runningTaskCount
-}
+func (ti *taskInfo) getRunningTasksInfo() []ECSTask { _ = "STUB: not implemented"; return nil }
 
-func (ti *taskInfo) getRunningTasksInfo() []ECSTask {
-	ti.RLock()
-	defer ti.RUnlock()
-	return ti.runningTasksInfo
-}
-
-func (ti *taskInfo) getECSAgentTaskInfoEndpoint() string {
-	return fmt.Sprintf(ecsAgentTaskInfoEndpoint, ti.ecsTaskEndpointProvider.GetInstanceIP())
-}
+func (ti *taskInfo) getECSAgentTaskInfoEndpoint() string { _ = "STUB: not implemented"; return "" }

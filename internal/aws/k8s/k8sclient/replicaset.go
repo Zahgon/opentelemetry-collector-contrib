@@ -4,16 +4,10 @@
 package k8sclient // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/k8s/k8sclient"
 
 import (
-	"context"
-	"fmt"
 	"sync"
 	"time"
 
 	"go.uber.org/zap"
-	appsv1 "k8s.io/api/apps/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
 )
@@ -30,18 +24,17 @@ type ReplicaSetClient interface {
 type noOpReplicaSetClient struct{}
 
 func (*noOpReplicaSetClient) ReplicaSetToDeployment() map[string]string {
-	return map[string]string{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (*noOpReplicaSetClient) shutdown() {
-}
+func (*noOpReplicaSetClient) shutdown() { _ = "STUB: not implemented"; return }
 
 type replicaSetClientOption func(*replicaSetClient)
 
 func replicaSetSyncCheckerOption(checker initialSyncChecker) replicaSetClientOption {
-	return func(r *replicaSetClient) {
-		r.syncChecker = checker
-	}
+	_ = "STUB: not implemented"
+	return *new(replicaSetClientOption)
 }
 
 type replicaSetClient struct {
@@ -57,108 +50,27 @@ type replicaSetClient struct {
 }
 
 func (c *replicaSetClient) ReplicaSetToDeployment() map[string]string {
-	if c.store.GetResetRefreshStatus() {
-		c.refresh()
-	}
-	c.mu.RLock()
-	defer c.mu.RUnlock()
-	return c.replicaSetToDeploymentMap
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *replicaSetClient) refresh() {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-
-	objsList := c.store.List()
-
-	tmpMap := make(map[string]string)
-	for _, obj := range objsList {
-		replicaSet := obj.(*replicaSetInfo)
-		for _, owner := range replicaSet.owners {
-			if owner.kind == deployment && owner.name != "" {
-				tmpMap[replicaSet.name] = owner.name
-				break
-			}
-		}
-	}
-
-	lastRefreshTime := time.Now()
-
-	for k, v := range c.cachedReplicaSetMap {
-		if lastRefreshTime.Sub(v) > cacheTTL {
-			delete(c.replicaSetToDeploymentMap, k)
-			delete(c.cachedReplicaSetMap, k)
-		}
-	}
-
-	for k, v := range tmpMap {
-		c.replicaSetToDeploymentMap[k] = v
-		c.cachedReplicaSetMap[k] = lastRefreshTime
-	}
-}
+func (c *replicaSetClient) refresh() { _ = "STUB: not implemented"; return }
 
 func newReplicaSetClient(clientSet kubernetes.Interface, logger *zap.Logger, options ...replicaSetClientOption) (*replicaSetClient, error) {
-	c := &replicaSetClient{
-		stopChan:                  make(chan struct{}),
-		cachedReplicaSetMap:       make(map[string]time.Time),
-		replicaSetToDeploymentMap: make(map[string]string),
-	}
-
-	for _, option := range options {
-		option(c)
-	}
-
-	ctx := context.Background()
-	if _, err := clientSet.AppsV1().ReplicaSets(metav1.NamespaceAll).List(ctx, metav1.ListOptions{}); err != nil {
-		return nil, fmt.Errorf("cannot list ReplicaSet. err: %w", err)
-	}
-
-	c.stopChan = make(chan struct{})
-
-	c.store = NewObjStore(transformFuncReplicaSet, logger)
-
-	lw := createReplicaSetListWatch(clientSet, metav1.NamespaceAll)
-	reflector := cache.NewReflector(lw, &appsv1.ReplicaSet{}, c.store, 0)
-	go reflector.Run(c.stopChan)
-
-	if c.syncChecker != nil {
-		// check the init sync for potential connection issue
-		c.syncChecker.Check(reflector, "ReplicaSet initial sync timeout")
-	}
-
-	return c, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (c *replicaSetClient) shutdown() {
-	c.mu.Lock()
-	defer c.mu.Unlock()
+// check the init sync for potential connection issue
 
-	close(c.stopChan)
-	c.stopped = true
-}
+func (c *replicaSetClient) shutdown() { _ = "STUB: not implemented"; return }
 
 func transformFuncReplicaSet(obj any) (any, error) {
-	replicaSet, ok := obj.(*appsv1.ReplicaSet)
-	if !ok {
-		return nil, fmt.Errorf("input obj %v is not ReplicaSet type", obj)
-	}
-	info := new(replicaSetInfo)
-	info.name = replicaSet.Name
-	info.owners = []*replicaSetOwner{}
-	for _, owner := range replicaSet.OwnerReferences {
-		info.owners = append(info.owners, &replicaSetOwner{kind: owner.Kind, name: owner.Name})
-	}
-	return info, nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 func createReplicaSetListWatch(client kubernetes.Interface, ns string) cache.ListerWatcher {
-	ctx := context.Background()
-	return &cache.ListWatch{
-		ListFunc: func(opts metav1.ListOptions) (runtime.Object, error) {
-			return client.AppsV1().ReplicaSets(ns).List(ctx, opts)
-		},
-		WatchFunc: func(opts metav1.ListOptions) (watch.Interface, error) {
-			return client.AppsV1().ReplicaSets(ns).Watch(ctx, opts)
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(cache.ListerWatcher)
 }

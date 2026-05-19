@@ -4,13 +4,9 @@
 package awss3receiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awss3receiver"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.uber.org/multierr"
 )
 
 // S3DownloaderConfig contains aws s3 downloader related config to controls things
@@ -79,84 +75,29 @@ const (
 )
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		S3Downloader: S3DownloaderConfig{
-			Region:                         "us-east-1",
-			S3PartitionFormat:              s3PartitionFormatDefault,
-			FilePrefixIncludeTelemetryType: true,
-			EndpointPartitionID:            "aws",
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func (c Config) Validate() error {
-	var errs error
-	if c.S3Downloader.S3Bucket == "" {
-		errs = multierr.Append(errs, errors.New("bucket is required"))
-	}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	// Check for valid time-based configuration
-	hasStartTime := c.StartTime != ""
-	hasEndTime := c.EndTime != ""
-	hasSQS := c.SQS != nil
+// Check for valid time-based configuration
 
-	if !hasStartTime && !hasEndTime && !hasSQS {
-		errs = multierr.Append(errs, errors.New("either starttime/endtime or sqs configuration must be provided"))
-	}
+// If one of StartTime/EndTime is specified, the other must also be specified
 
-	// If one of StartTime/EndTime is specified, the other must also be specified
-	if hasStartTime && !hasEndTime {
-		errs = multierr.Append(errs, errors.New("when starttime is specified, endtime is required"))
-	}
-	if !hasStartTime && hasEndTime {
-		errs = multierr.Append(errs, errors.New("when endtime is specified, starttime is required"))
-	}
+// StartTime and SQS cannot be specified together
 
-	// StartTime and SQS cannot be specified together
-	if hasStartTime && hasSQS {
-		errs = multierr.Append(errs, errors.New("starttime/endtime and sqs configuration cannot be used together"))
-	}
+// Validate StartTime format if specified
 
-	// Validate StartTime format if specified
-	if hasStartTime {
-		if _, err := parseTime(c.StartTime, "starttime"); err != nil {
-			errs = multierr.Append(errs, err)
-		}
-	}
-	// Validate EndTime format if specified
-	if hasEndTime {
-		if _, err := parseTime(c.EndTime, "endtime"); err != nil {
-			errs = multierr.Append(errs, err)
-		}
-	}
+// Validate EndTime format if specified
 
-	// Validate SQS notifications if configured
-	if c.SQS != nil {
-		if c.SQS.QueueURL == "" {
-			errs = multierr.Append(errs, errors.New("sqs.queue_url is required"))
-		}
-		if c.SQS.Region == "" {
-			errs = multierr.Append(errs, errors.New("sqs.region is required"))
-		}
-		// Validate wait time seconds
-		if c.SQS.WaitTimeSeconds != nil && (*c.SQS.WaitTimeSeconds < 0 || *c.SQS.WaitTimeSeconds > 20) {
-			errs = multierr.Append(errs, errors.New("sqs.wait_time_seconds must be between 0 and 20"))
-		}
-		// Validate max number of messages
-		if c.SQS.MaxNumberOfMessages != nil && (*c.SQS.MaxNumberOfMessages < 1 || *c.SQS.MaxNumberOfMessages > 10) {
-			errs = multierr.Append(errs, errors.New("sqs.max_number_of_messages must be between 1 and 10"))
-		}
-	}
-	return errs
-}
+// Validate SQS notifications if configured
+
+// Validate wait time seconds
+
+// Validate max number of messages
 
 func parseTime(timeStr, configName string) (time.Time, error) {
-	layouts := []string{time.RFC3339, "2006-01-02 15:04", time.DateOnly}
-
-	for _, layout := range layouts {
-		if t, err := time.Parse(layout, timeStr); err == nil {
-			return t, nil
-		}
-	}
-	return time.Time{}, fmt.Errorf("unable to parse %s (%s), accepted formats: %s", configName, timeStr, strings.Join(layouts, ", "))
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }

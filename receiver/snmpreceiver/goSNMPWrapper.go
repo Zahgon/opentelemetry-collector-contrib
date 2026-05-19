@@ -105,115 +105,129 @@ type otelGoSNMPWrapper struct {
 }
 
 // newGoSNMPWrapper creates a new goSNMPWrapper using gosnmp
-func newGoSNMPWrapper() goSNMPWrapper {
-	return &otelGoSNMPWrapper{
-		gosnmp.GoSNMP{
-			MaxOids: gosnmp.Default.MaxOids,
-		},
-	}
-}
+func newGoSNMPWrapper() goSNMPWrapper { _ = "STUB: not implemented"; return *new(goSNMPWrapper) }
 
 // Close closes the GoSNMP connection
-func (w *otelGoSNMPWrapper) Close() error {
-	return w.Conn.Close()
-}
+func (w *otelGoSNMPWrapper) Close() error { _ = "STUB: not implemented"; return nil }
 
 // GetTransport gets the Transport
 func (w *otelGoSNMPWrapper) GetTransport() string {
-	return w.Transport
+	_ = "STUB: not implemented"
+
+	// SetTransport sets the Transport
+	return ""
 }
 
-// SetTransport sets the Transport
-func (w *otelGoSNMPWrapper) SetTransport(transport string) {
-	w.Transport = transport
-}
+func (w *otelGoSNMPWrapper) SetTransport(transport string) { _ = "STUB: not implemented"; return }
 
 // GetTarget gets the Target
 func (w *otelGoSNMPWrapper) GetTarget() string {
-	return w.Target
+	_ = "STUB: not implemented"
+
+	// SetTarget sets the Target
+	return ""
 }
 
-// SetTarget sets the Target
 func (w *otelGoSNMPWrapper) SetTarget(target string) {
-	w.Target = target
+	_ = "STUB: not implemented"
+
+	// GetPort gets the Port
+	return
 }
 
-// GetPort gets the Port
 func (w *otelGoSNMPWrapper) GetPort() uint16 {
-	return w.Port
+	_ = "STUB: not implemented"
+
+	// SetPort sets the Port
+	return 0
 }
 
-// SetPort sets the Port
 func (w *otelGoSNMPWrapper) SetPort(port uint16) {
-	w.Port = port
+	_ = "STUB: not implemented"
+
+	// GetCommunity gets the Community
+	return
 }
 
-// GetCommunity gets the Community
 func (w *otelGoSNMPWrapper) GetCommunity() string {
-	return w.Community
+	_ = "STUB: not implemented"
+
+	// SetCommunity sets the Community
+	return ""
 }
 
-// SetCommunity sets the Community
-func (w *otelGoSNMPWrapper) SetCommunity(community string) {
-	w.Community = community
-}
+func (w *otelGoSNMPWrapper) SetCommunity(community string) { _ = "STUB: not implemented"; return }
 
 // GetVersion gets the Version
 func (w *otelGoSNMPWrapper) GetVersion() gosnmp.SnmpVersion {
-	return w.Version
+	_ = "STUB: not implemented"
+
+	// SetVersion sets the Version
+	return *new(gosnmp.SnmpVersion)
 }
 
-// SetVersion sets the Version
 func (w *otelGoSNMPWrapper) SetVersion(version gosnmp.SnmpVersion) {
-	w.Version = version
+	_ = "STUB: not implemented"
+	return
+
+	// GetTimeout gets the Timeout
 }
 
-// GetTimeout gets the Timeout
 func (w *otelGoSNMPWrapper) GetTimeout() time.Duration {
-	return w.Timeout
+	_ = "STUB: not implemented"
+
+	// SetTimeout sets the Timeout
+	return *new(time.Duration)
 }
 
-// SetTimeout sets the Timeout
-func (w *otelGoSNMPWrapper) SetTimeout(timeout time.Duration) {
-	w.Timeout = timeout
-}
+func (w *otelGoSNMPWrapper) SetTimeout(timeout time.Duration) { _ = "STUB: not implemented"; return }
 
 // GetMaxOids gets the MaxOids
 func (w *otelGoSNMPWrapper) GetMaxOids() int {
-	return w.MaxOids
+	_ = "STUB: not implemented"
+
+	// SetMaxOids sets the MaxOids
+	return 0
 }
 
-// SetMaxOids sets the MaxOids
-func (w *otelGoSNMPWrapper) SetMaxOids(maxOids int) {
-	w.MaxOids = maxOids
-}
+func (w *otelGoSNMPWrapper) SetMaxOids(maxOids int) { _ = "STUB: not implemented"; return }
 
 // GetMsgFlags gets the MsgFlags
 func (w *otelGoSNMPWrapper) GetMsgFlags() gosnmp.SnmpV3MsgFlags {
-	return w.MsgFlags
+	_ = "STUB: not implemented"
+
+	// SetMsgFlags sets the MsgFlags
+	return *new(gosnmp.SnmpV3MsgFlags)
 }
 
-// SetMsgFlags sets the MsgFlags
 func (w *otelGoSNMPWrapper) SetMsgFlags(msgFlags gosnmp.SnmpV3MsgFlags) {
-	w.MsgFlags = msgFlags
+	_ = "STUB: not implemented"
+	return
+
+	// GetSecurityModel gets the SecurityModel
 }
 
-// GetSecurityModel gets the SecurityModel
 func (w *otelGoSNMPWrapper) GetSecurityModel() gosnmp.SnmpV3SecurityModel {
-	return w.SecurityModel
+	_ = "STUB: not implemented"
+	return *
+
+	// SetSecurityModel sets the SecurityModel
+	new(gosnmp.SnmpV3SecurityModel)
 }
 
-// SetSecurityModel sets the SecurityModel
 func (w *otelGoSNMPWrapper) SetSecurityModel(securityModel gosnmp.SnmpV3SecurityModel) {
-	w.SecurityModel = securityModel
+	_ = "STUB: not implemented"
+	return
 }
 
 // GetSecurityParameters gets the SecurityParameters
 func (w *otelGoSNMPWrapper) GetSecurityParameters() gosnmp.SnmpV3SecurityParameters {
-	return w.SecurityParameters
+	_ = "STUB: not implemented"
+	return *new(gosnmp.SnmpV3SecurityParameters)
 }
 
 // SetSecurityParameters sets the SecurityParameters
 func (w *otelGoSNMPWrapper) SetSecurityParameters(securityParameters gosnmp.SnmpV3SecurityParameters) {
-	w.SecurityParameters = securityParameters
+	_ = "STUB: not implemented"
+	return
 }

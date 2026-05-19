@@ -11,7 +11,6 @@ package grpcmock
 
 import (
 	context "context"
-	reflect "reflect"
 
 	gomock "go.uber.org/mock/gomock"
 )
@@ -29,46 +28,37 @@ type MockPerRPCCredentialsMockRecorder struct {
 
 // NewMockPerRPCCredentials creates a new mock instance.
 func NewMockPerRPCCredentials(ctrl *gomock.Controller) *MockPerRPCCredentials {
-	mock := &MockPerRPCCredentials{ctrl: ctrl}
-	mock.recorder = &MockPerRPCCredentialsMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockPerRPCCredentials) EXPECT() *MockPerRPCCredentialsMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// GetRequestMetadata mocks base method.
+	return nil
 }
 
-// GetRequestMetadata mocks base method.
 func (m *MockPerRPCCredentials) GetRequestMetadata(arg0 context.Context, arg1 ...string) (map[string]string, error) {
-	m.ctrl.T.Helper()
-	varargs := []any{arg0}
-	for _, a := range arg1 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetRequestMetadata", varargs...)
-	ret0, _ := ret[0].(map[string]string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRequestMetadata indicates an expected call of GetRequestMetadata.
 func (mr *MockPerRPCCredentialsMockRecorder) GetRequestMetadata(arg0 any, arg1 ...any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]any{arg0}, arg1...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRequestMetadata", reflect.TypeOf((*MockPerRPCCredentials)(nil).GetRequestMetadata), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RequireTransportSecurity mocks base method.
 func (m *MockPerRPCCredentials) RequireTransportSecurity() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RequireTransportSecurity")
-	ret0, _ := ret[0].(bool)
-	return ret0
+	_ = "STUB: not implemented"
+	return false
 }
 
 // RequireTransportSecurity indicates an expected call of RequireTransportSecurity.
 func (mr *MockPerRPCCredentialsMockRecorder) RequireTransportSecurity() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RequireTransportSecurity", reflect.TypeOf((*MockPerRPCCredentials)(nil).RequireTransportSecurity))
+	_ = "STUB: not implemented"
+	return nil
 }

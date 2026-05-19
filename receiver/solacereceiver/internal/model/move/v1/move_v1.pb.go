@@ -7,7 +7,6 @@
 package v1
 
 import (
-	reflect "reflect"
 	sync "sync"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -102,184 +101,76 @@ type SpanData struct {
 	DestinationPartitionNumber *uint32 `protobuf:"varint,18,opt,name=destination_partition_number,json=destinationPartitionNumber,proto3,oneof" json:"destination_partition_number,omitempty"`
 }
 
-func (x *SpanData) Reset() {
-	*x = SpanData{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_move_v1_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData) ProtoMessage() {}
+func (*SpanData) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData) ProtoReflect() protoreflect.Message {
-	mi := &file_move_v1_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData.ProtoReflect.Descriptor instead.
-func (*SpanData) Descriptor() ([]byte, []int) {
-	return file_move_v1_proto_rawDescGZIP(), []int{0}
-}
+func (*SpanData) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *SpanData) GetTraceId() []byte {
-	if x != nil {
-		return x.TraceId
-	}
-	return nil
-}
+func (x *SpanData) GetTraceId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetSpanId() []byte {
-	if x != nil {
-		return x.SpanId
-	}
-	return nil
-}
+func (x *SpanData) GetSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetParentSpanId() []byte {
-	if x != nil {
-		return x.ParentSpanId
-	}
-	return nil
-}
+func (x *SpanData) GetParentSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetStartTimeUnixNano() int64 {
-	if x != nil {
-		return x.StartTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData) GetStartTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetEndTimeUnixNano() int64 {
-	if x != nil {
-		return x.EndTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData) GetEndTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (m *SpanData) GetSource() isSpanData_Source {
-	if m != nil {
-		return m.Source
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_Source)
 }
 
-func (x *SpanData) GetSourceQueueName() string {
-	if x, ok := x.GetSource().(*SpanData_SourceQueueName); ok {
-		return x.SourceQueueName
-	}
-	return ""
-}
+func (x *SpanData) GetSourceQueueName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetSourceTopicEndpointName() string {
-	if x, ok := x.GetSource().(*SpanData_SourceTopicEndpointName); ok {
-		return x.SourceTopicEndpointName
-	}
-	return ""
-}
+func (x *SpanData) GetSourceTopicEndpointName() string { _ = "STUB: not implemented"; return "" }
 
 func (m *SpanData) GetDestination() isSpanData_Destination {
-	if m != nil {
-		return m.Destination
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_Destination)
 }
 
-func (x *SpanData) GetDestinationQueueName() string {
-	if x, ok := x.GetDestination().(*SpanData_DestinationQueueName); ok {
-		return x.DestinationQueueName
-	}
-	return ""
-}
+func (x *SpanData) GetDestinationQueueName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetDestinationTopicEndpointName() string {
-	if x, ok := x.GetDestination().(*SpanData_DestinationTopicEndpointName); ok {
-		return x.DestinationTopicEndpointName
-	}
-	return ""
-}
+func (x *SpanData) GetDestinationTopicEndpointName() string { _ = "STUB: not implemented"; return "" }
 
 func (m *SpanData) GetTypeInfo() isSpanData_TypeInfo {
-	if m != nil {
-		return m.TypeInfo
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_TypeInfo)
 }
 
 func (x *SpanData) GetMaxRedeliveriesInfo() *MaxRedeliveriesInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_MaxRedeliveriesInfo); ok {
-		return x.MaxRedeliveriesInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData) GetTtlExpiredInfo() *TtlExpiredInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_TtlExpiredInfo); ok {
-		return x.TtlExpiredInfo
-	}
-	return nil
-}
+func (x *SpanData) GetTtlExpiredInfo() *TtlExpiredInfo { _ = "STUB: not implemented"; return nil }
 
 func (x *SpanData) GetRejectedOutcomeInfo() *RejectedOutcomeInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_RejectedOutcomeInfo); ok {
-		return x.RejectedOutcomeInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData) GetRouterName() string {
-	if x != nil {
-		return x.RouterName
-	}
-	return ""
-}
+func (x *SpanData) GetRouterName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetMessageVpnName() string {
-	if x != nil && x.MessageVpnName != nil {
-		return *x.MessageVpnName
-	}
-	return ""
-}
+func (x *SpanData) GetMessageVpnName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetSolosVersion() string {
-	if x != nil {
-		return x.SolosVersion
-	}
-	return ""
-}
+func (x *SpanData) GetSolosVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetReplicationGroupMessageId() []byte {
-	if x != nil {
-		return x.ReplicationGroupMessageId
-	}
-	return nil
-}
+func (x *SpanData) GetReplicationGroupMessageId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetSourcePartitionNumber() uint32 {
-	if x != nil && x.SourcePartitionNumber != nil {
-		return *x.SourcePartitionNumber
-	}
-	return 0
-}
+func (x *SpanData) GetSourcePartitionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetDestinationPartitionNumber() uint32 {
-	if x != nil && x.DestinationPartitionNumber != nil {
-		return *x.DestinationPartitionNumber
-	}
-	return 0
-}
+func (x *SpanData) GetDestinationPartitionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
 type isSpanData_Source interface {
 	isSpanData_Source()
@@ -293,9 +184,9 @@ type SpanData_SourceTopicEndpointName struct {
 	SourceTopicEndpointName string `protobuf:"bytes,7,opt,name=source_topic_endpoint_name,json=sourceTopicEndpointName,proto3,oneof"`
 }
 
-func (*SpanData_SourceQueueName) isSpanData_Source() {}
+func (*SpanData_SourceQueueName) isSpanData_Source() { _ = "STUB: not implemented"; return }
 
-func (*SpanData_SourceTopicEndpointName) isSpanData_Source() {}
+func (*SpanData_SourceTopicEndpointName) isSpanData_Source() { _ = "STUB: not implemented"; return }
 
 type isSpanData_Destination interface {
 	isSpanData_Destination()
@@ -309,9 +200,12 @@ type SpanData_DestinationTopicEndpointName struct {
 	DestinationTopicEndpointName string `protobuf:"bytes,9,opt,name=destination_topic_endpoint_name,json=destinationTopicEndpointName,proto3,oneof"`
 }
 
-func (*SpanData_DestinationQueueName) isSpanData_Destination() {}
+func (*SpanData_DestinationQueueName) isSpanData_Destination() { _ = "STUB: not implemented"; return }
 
-func (*SpanData_DestinationTopicEndpointName) isSpanData_Destination() {}
+func (*SpanData_DestinationTopicEndpointName) isSpanData_Destination() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type isSpanData_TypeInfo interface {
 	isSpanData_TypeInfo()
@@ -329,50 +223,39 @@ type SpanData_RejectedOutcomeInfo struct {
 	RejectedOutcomeInfo *RejectedOutcomeInfo `protobuf:"bytes,12,opt,name=rejected_outcome_info,json=rejectedOutcomeInfo,proto3,oneof"`
 }
 
-func (*SpanData_MaxRedeliveriesInfo) isSpanData_TypeInfo() {}
+func (*SpanData_MaxRedeliveriesInfo) isSpanData_TypeInfo() { _ = "STUB: not implemented"; return }
 
-func (*SpanData_TtlExpiredInfo) isSpanData_TypeInfo() {}
+func (*SpanData_TtlExpiredInfo) isSpanData_TypeInfo() { _ = "STUB: not implemented"; return }
 
-func (*SpanData_RejectedOutcomeInfo) isSpanData_TypeInfo() {}
+func (*SpanData_RejectedOutcomeInfo) isSpanData_TypeInfo() {
+	_ = "STUB: not implemented"
 
-// The presence of this message implies the reason for the span is that a
-// message exceeded the maximum number of redeliveries.
+	// The presence of this message implies the reason for the span is that a
+	// message exceeded the maximum number of redeliveries.
+	return
+}
+
 type MaxRedeliveriesInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *MaxRedeliveriesInfo) Reset() {
-	*x = MaxRedeliveriesInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_move_v1_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *MaxRedeliveriesInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *MaxRedeliveriesInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *MaxRedeliveriesInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*MaxRedeliveriesInfo) ProtoMessage() {}
+func (*MaxRedeliveriesInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *MaxRedeliveriesInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_move_v1_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use MaxRedeliveriesInfo.ProtoReflect.Descriptor instead.
 func (*MaxRedeliveriesInfo) Descriptor() ([]byte, []int) {
-	return file_move_v1_proto_rawDescGZIP(), []int{1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the span is that the
@@ -383,37 +266,19 @@ type TtlExpiredInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *TtlExpiredInfo) Reset() {
-	*x = TtlExpiredInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_move_v1_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *TtlExpiredInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TtlExpiredInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TtlExpiredInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TtlExpiredInfo) ProtoMessage() {}
+func (*TtlExpiredInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TtlExpiredInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_move_v1_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TtlExpiredInfo.ProtoReflect.Descriptor instead.
-func (*TtlExpiredInfo) Descriptor() ([]byte, []int) {
-	return file_move_v1_proto_rawDescGZIP(), []int{2}
-}
+func (*TtlExpiredInfo) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 // The presence of this message implies the reason for the span is that a
 // consuming client settled the message with an outcome of "rejected".
@@ -423,36 +288,21 @@ type RejectedOutcomeInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *RejectedOutcomeInfo) Reset() {
-	*x = RejectedOutcomeInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_move_v1_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *RejectedOutcomeInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *RejectedOutcomeInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *RejectedOutcomeInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*RejectedOutcomeInfo) ProtoMessage() {}
+func (*RejectedOutcomeInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *RejectedOutcomeInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_move_v1_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use RejectedOutcomeInfo.ProtoReflect.Descriptor instead.
 func (*RejectedOutcomeInfo) Descriptor() ([]byte, []int) {
-	return file_move_v1_proto_rawDescGZIP(), []int{3}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 var File_move_v1_proto protoreflect.FileDescriptor
@@ -553,12 +403,7 @@ var (
 	file_move_v1_proto_rawDescData = file_move_v1_proto_rawDesc
 )
 
-func file_move_v1_proto_rawDescGZIP() []byte {
-	file_move_v1_proto_rawDescOnce.Do(func() {
-		file_move_v1_proto_rawDescData = protoimpl.X.CompressGZIP(file_move_v1_proto_rawDescData)
-	})
-	return file_move_v1_proto_rawDescData
-}
+func file_move_v1_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_move_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_move_v1_proto_goTypes = []interface{}{
@@ -578,86 +423,5 @@ var file_move_v1_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_move_v1_proto_init() }
-func file_move_v1_proto_init() {
-	if File_move_v1_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_move_v1_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_move_v1_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*MaxRedeliveriesInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_move_v1_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TtlExpiredInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_move_v1_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*RejectedOutcomeInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	file_move_v1_proto_msgTypes[0].OneofWrappers = []interface{}{
-		(*SpanData_SourceQueueName)(nil),
-		(*SpanData_SourceTopicEndpointName)(nil),
-		(*SpanData_DestinationQueueName)(nil),
-		(*SpanData_DestinationTopicEndpointName)(nil),
-		(*SpanData_MaxRedeliveriesInfo)(nil),
-		(*SpanData_TtlExpiredInfo)(nil),
-		(*SpanData_RejectedOutcomeInfo)(nil),
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_move_v1_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   4,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_move_v1_proto_goTypes,
-		DependencyIndexes: file_move_v1_proto_depIdxs,
-		MessageInfos:      file_move_v1_proto_msgTypes,
-	}.Build()
-	File_move_v1_proto = out.File
-	file_move_v1_proto_rawDesc = nil
-	file_move_v1_proto_goTypes = nil
-	file_move_v1_proto_depIdxs = nil
-}
+func init()                    { file_move_v1_proto_init() }
+func file_move_v1_proto_init() { _ = "STUB: not implemented"; return }

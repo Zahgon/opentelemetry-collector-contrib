@@ -4,7 +4,6 @@
 package googlecloudpubsubreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudpubsubreceiver"
 
 import (
-	"fmt"
 	"regexp"
 	"time"
 
@@ -60,23 +59,8 @@ type FlowControlConfig struct {
 }
 
 func (fcc *FlowControlConfig) getInternalConfig() *internal.FlowControlConfig {
-	return &internal.FlowControlConfig{
-		TriggerAckBatchDuration: fcc.TriggerAckBatchDuration,
-		StreamAckDeadline:       fcc.StreamAckDeadline,
-		MaxOutstandingMessages:  fcc.MaxOutstandingMessages,
-		MaxOutstandingBytes:     fcc.MaxOutstandingBytes,
-	}
-}
-
-func (config *Config) validate() error {
-	if !subscriptionMatcher.MatchString(config.Subscription) {
-		return fmt.Errorf("subscription '%s' is not a valid format, use 'projects/<project_id>/subscriptions/<name>'", config.Subscription)
-	}
-	switch config.Compression {
-	case "":
-	case "gzip":
-	default:
-		return fmt.Errorf("compression %v is not supported.  supported compression formats include [gzip]", config.Compression)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
+
+func (config *Config) validate() error { _ = "STUB: not implemented"; return nil }

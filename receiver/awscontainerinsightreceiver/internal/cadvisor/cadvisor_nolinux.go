@@ -33,27 +33,30 @@ type Option func(*Cadvisor)
 
 // WithDecorator constructs an option for configuring the metric decorator
 func WithDecorator(_ any) Option {
-	return func(*Cadvisor) {
-		// do nothing
-	}
+	_ = "STUB: not implemented"
+	return *
+
+	// do nothing
+	new(Option)
 }
 
 func WithECSInfoCreator(_ any) Option {
-	return func(*Cadvisor) {
-		// do nothing
-	}
+	_ = "STUB: not implemented"
+	return *
+
+	// do nothing
+	new(Option)
 }
 
 // New is a dummy function to construct a dummy Cadvisor struct for windows
 func New(_ string, _ HostInfo, _ *zap.Logger, _ ...Option) (*Cadvisor, error) {
-	return &Cadvisor{}, nil
+	_ = "STUB: not implemented"
+	return nil,
+
+		// GetMetrics is a dummy function that always returns empty metrics for windows
+		nil
 }
 
-// GetMetrics is a dummy function that always returns empty metrics for windows
-func (*Cadvisor) GetMetrics() []pmetric.Metrics {
-	return []pmetric.Metrics{}
-}
+func (*Cadvisor) GetMetrics() []pmetric.Metrics { _ = "STUB: not implemented"; return nil }
 
-func (*Cadvisor) Shutdown() error {
-	return nil
-}
+func (*Cadvisor) Shutdown() error { _ = "STUB: not implemented"; return nil }

@@ -5,11 +5,6 @@ package sqlquery // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"errors"
-	"fmt"
-	"reflect"
-	"time"
-
-	"go.uber.org/multierr"
 )
 
 var ErrNullValueWarning = errors.New("NULL value")
@@ -19,49 +14,17 @@ type rowScanner struct {
 	scanTarget []any
 }
 
-func newRowScanner(colTypes []colType) *rowScanner {
-	rs := &rowScanner{
-		cols: map[string]func() (string, error){},
-	}
-	for _, sqlType := range colTypes {
-		colName := sqlType.Name()
-		var v any
-		rs.cols[colName] = func() (string, error) {
-			if v == nil {
-				return "", ErrNullValueWarning
-			}
-			format := "%v"
-			if t, isTime := v.(time.Time); isTime {
-				return t.Format(time.RFC3339Nano), nil
-			}
-			if reflect.TypeOf(v).Kind() == reflect.Slice {
-				// The Postgres driver returns a []uint8 (ascii string) for decimal and numeric types,
-				// which we want to render as strings. e.g. "4.1" instead of "[52, 46, 49]".
-				// Other slice types get the same treatment.
-				format = "%s"
-			}
-			// turn whatever we got from the database driver into a string
-			return fmt.Sprintf(format, v), nil
-		}
-		rs.scanTarget = append(rs.scanTarget, &v)
-	}
-	return rs
-}
+func newRowScanner(colTypes []colType) *rowScanner { _ = "STUB: not implemented"; return nil }
 
-func (rs *rowScanner) scan(sqlRows rows) error {
-	return sqlRows.Scan(rs.scanTarget...)
-}
+// The Postgres driver returns a []uint8 (ascii string) for decimal and numeric types,
+// which we want to render as strings. e.g. "4.1" instead of "[52, 46, 49]".
+// Other slice types get the same treatment.
+
+// turn whatever we got from the database driver into a string
+
+func (rs *rowScanner) scan(sqlRows rows) error { _ = "STUB: not implemented"; return nil }
 
 func (rs *rowScanner) toStringMap() (StringMap, error) {
-	out := StringMap{}
-	var errs error
-	for k, f := range rs.cols {
-		s, err := f()
-		if err != nil {
-			errs = multierr.Append(errs, fmt.Errorf("column %q: %w", k, err))
-		} else {
-			out[k] = s
-		}
-	}
-	return out, errs
+	_ = "STUB: not implemented"
+	return *new(StringMap), nil
 }

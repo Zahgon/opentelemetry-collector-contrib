@@ -4,8 +4,6 @@
 package cache // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/cache"
 
 import (
-	"encoding/binary"
-
 	lru "github.com/hashicorp/golang-lru/v2"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
@@ -25,21 +23,18 @@ var _ Cache = (*lruDecisionCache)(nil)
 // The size parameter indicates the amount of keys the cache will hold before it
 // starts evicting the least recently used key.
 func NewLRUDecisionCache(size int) (Cache, error) {
-	c, err := lru.New[uint64, DecisionMetadata](size)
-	if err != nil {
-		return nil, err
-	}
-	return &lruDecisionCache{cache: c}, nil
+	_ = "STUB: not implemented"
+	return *new(Cache), nil
 }
 
 func (c *lruDecisionCache) Get(id pcommon.TraceID) (DecisionMetadata, bool) {
-	return c.cache.Get(rightHalfTraceID(id))
+	_ = "STUB: not implemented"
+	return *new(DecisionMetadata), false
 }
 
 func (c *lruDecisionCache) Put(id pcommon.TraceID, metadata DecisionMetadata) {
-	_ = c.cache.Add(rightHalfTraceID(id), metadata)
+	_ = "STUB: not implemented"
+	return
 }
 
-func rightHalfTraceID(id pcommon.TraceID) uint64 {
-	return binary.LittleEndian.Uint64(id[8:])
-}
+func rightHalfTraceID(id pcommon.TraceID) uint64 { _ = "STUB: not implemented"; return 0 }

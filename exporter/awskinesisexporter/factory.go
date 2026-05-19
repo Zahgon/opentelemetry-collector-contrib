@@ -9,13 +9,7 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/metadata"
 )
 
 const (
@@ -24,83 +18,24 @@ const (
 )
 
 // NewFactory creates a factory for Kinesis exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithTraces(newTracesExporter, metadata.TracesStability),
-		exporter.WithMetrics(newMetricsExporter, metadata.MetricsStability),
-		exporter.WithLogs(newLogsExporter, metadata.LogsStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		TimeoutSettings: exporterhelper.NewDefaultTimeoutConfig(),
-		BackOffConfig:   configretry.NewDefaultBackOffConfig(),
-		QueueSettings:   configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		Encoding: Encoding{
-			Name:        defaultEncoding,
-			Compression: defaultCompression,
-		},
-		AWS: AWSConfig{
-			Region: "us-west-2",
-		},
-		MaxRecordsPerBatch: batch.MaxBatchedRecords,
-		MaxRecordSize:      batch.MaxRecordSize,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func newTracesExporter(ctx context.Context, params exporter.Settings, conf component.Config) (exporter.Traces, error) {
-	exp, err := createExporter(ctx, conf, params.Logger)
-	if err != nil {
-		return nil, err
-	}
-	c := conf.(*Config)
-	return exporterhelper.NewTraces(
-		ctx,
-		params,
-		conf,
-		exp.consumeTraces,
-		exporterhelper.WithStart(exp.start),
-		exporterhelper.WithTimeout(c.TimeoutSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-		exporterhelper.WithQueue(c.QueueSettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
 func newMetricsExporter(ctx context.Context, params exporter.Settings, conf component.Config) (exporter.Metrics, error) {
-	exp, err := createExporter(ctx, conf, params.Logger)
-	if err != nil {
-		return nil, err
-	}
-	c := conf.(*Config)
-	return exporterhelper.NewMetrics(
-		ctx,
-		params,
-		c,
-		exp.consumeMetrics,
-		exporterhelper.WithStart(exp.start),
-		exporterhelper.WithTimeout(c.TimeoutSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-		exporterhelper.WithQueue(c.QueueSettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func newLogsExporter(ctx context.Context, params exporter.Settings, conf component.Config) (exporter.Logs, error) {
-	exp, err := createExporter(ctx, conf, params.Logger)
-	if err != nil {
-		return nil, err
-	}
-	c := conf.(*Config)
-	return exporterhelper.NewLogs(
-		ctx,
-		params,
-		c,
-		exp.consumeLogs,
-		exporterhelper.WithStart(exp.start),
-		exporterhelper.WithTimeout(c.TimeoutSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-		exporterhelper.WithQueue(c.QueueSettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }

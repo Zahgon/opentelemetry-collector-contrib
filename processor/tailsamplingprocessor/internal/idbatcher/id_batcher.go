@@ -7,7 +7,6 @@ package idbatcher // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"errors"
-	"math"
 	"sync"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -73,99 +72,34 @@ type batcher struct {
 // batchChannelSize to receive new items. New batches will be created with capacity set to
 // newBatchesInitialCapacity.
 func New(numBatches, newBatchesInitialCapacity uint64) (Batcher, error) {
-	if numBatches < 1 {
-		return nil, ErrInvalidNumBatches
-	}
-	if newBatchesInitialCapacity == 0 {
-		// Always allocate a small map rather than sending a size hint of 0.
-		// As the batcher runs it will allocate based on previous batch sizes.
-		newBatchesInitialCapacity = 10
-	}
-
-	batcher := &batcher{
-		batches:                   make([]Batch, numBatches),
-		currentBatch:              make(Batch, newBatchesInitialCapacity),
-		newBatchesInitialCapacity: newBatchesInitialCapacity,
-		lastBatchID:               math.MaxUint64,
-	}
-
-	return batcher, nil
+	_ = "STUB: not implemented"
+	return *new(Batcher), nil
 }
 
-func (b *batcher) AddToCurrentBatch(id pcommon.TraceID) uint64 {
-	b.mux.Lock()
-	defer b.mux.Unlock()
+// Always allocate a small map rather than sending a size hint of 0.
+// As the batcher runs it will allocate based on previous batch sizes.
 
-	b.currentBatch[id] = struct{}{}
-	return b.takeID + uint64(len(b.batches))
-}
+func (b *batcher) AddToCurrentBatch(id pcommon.TraceID) uint64 { _ = "STUB: not implemented"; return 0 }
 
 func (b *batcher) MoveToEarlierBatch(id pcommon.TraceID, traceCurrentBatch, batchesFromNow uint64) uint64 {
-	b.mux.Lock()
-	defer b.mux.Unlock()
-
-	proposedBatch := b.takeID + batchesFromNow
-	// Only move the batch if it is earlier.
-	if proposedBatch >= traceCurrentBatch {
-		return traceCurrentBatch
-	}
-
-	// Check if the trace's batch is the batch currently being added to.
-	currentBatchID := b.takeID + uint64(len(b.batches))
-	if traceCurrentBatch == currentBatchID {
-		delete(b.currentBatch, id)
-	} else {
-		currentIdx := traceCurrentBatch % uint64(len(b.batches))
-		delete(b.batches[currentIdx], id)
-	}
-
-	proposedIdx := proposedBatch % uint64(len(b.batches))
-	if b.batches[proposedIdx] == nil {
-		b.batches[proposedIdx] = make(Batch, b.newBatchesInitialCapacity)
-	}
-	b.batches[proposedIdx][id] = struct{}{}
-	return proposedBatch
+	_ = "STUB: not implemented"
+	return 0
 }
+
+// Only move the batch if it is earlier.
+
+// Check if the trace's batch is the batch currently being added to.
 
 func (b *batcher) RemoveFromBatch(id pcommon.TraceID, batch uint64) {
-	b.mux.Lock()
-	defer b.mux.Unlock()
-
-	currentBatchID := b.takeID + uint64(len(b.batches))
-	if batch == currentBatchID {
-		delete(b.currentBatch, id)
-	} else if batch >= b.takeID && batch < currentBatchID {
-		delete(b.batches[batch%uint64(len(b.batches))], id)
-	}
-	// Nothing to remove if we are outside of the batch range.
+	_ = "STUB: not implemented"
+	return
 }
+
+// Nothing to remove if we are outside of the batch range.
 
 func (b *batcher) CloseCurrentAndTakeFirstBatch() (Batch, bool) {
-	b.mux.Lock()
-	defer b.mux.Unlock()
-
-	if b.takeID < b.lastBatchID {
-		takeIdx := b.takeID % uint64(len(b.batches))
-		readBatch := b.batches[takeIdx]
-
-		if !b.stopped {
-			nextBatch := make(Batch, max(b.newBatchesInitialCapacity, uint64(len(readBatch))))
-			b.batches[takeIdx] = b.currentBatch
-			b.currentBatch = nextBatch
-		}
-		b.takeID++
-		return readBatch, true
-	}
-
-	readBatch := b.currentBatch
-	b.currentBatch = nil
-	return readBatch, false
+	_ = "STUB: not implemented"
+	return *new(Batch), false
 }
 
-func (b *batcher) Stop() {
-	b.mux.Lock()
-	defer b.mux.Unlock()
-
-	b.stopped = true
-	b.lastBatchID = b.takeID + uint64(len(b.batches))
-}
+func (b *batcher) Stop() { _ = "STUB: not implemented"; return }

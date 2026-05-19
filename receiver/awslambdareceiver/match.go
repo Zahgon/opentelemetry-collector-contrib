@@ -21,22 +21,12 @@ const catchAllPattern = "*"
 //	) => true
 //	matchPrefixWithWildcard([]string{"any", "path"}, []string{"*"}) => true
 func matchPrefixWithWildcard(targetParts, patternParts []string) bool {
+	_ = "STUB: not implemented"
 	// Target must have at least as many segments as the pattern.
-	if len(targetParts) < len(patternParts) {
-		return false
-	}
-
-	for i, p := range patternParts {
-		if p == "*" {
-			continue // wildcard matches any single segment
-		}
-		if p != targetParts[i] {
-			return false
-		}
-	}
-
-	return true
+	return false
 }
+
+// wildcard matches any single segment
 
 // comparePatternSpecificity compares two pre-split patterns by specificity.
 // Returns negative if a is more specific, positive if b is more specific, 0 if equal.
@@ -44,34 +34,17 @@ func matchPrefixWithWildcard(targetParts, patternParts []string) bool {
 // Rules (evaluated left-to-right per segment):
 //   - Exact segment beats "*" at the same position.
 //   - Longer pattern (more segments) beats a shorter one.
-func comparePatternSpecificity(partsA, partsB []string) int {
-	minLen := min(len(partsA), len(partsB))
+func comparePatternSpecificity(partsA, partsB []string) int { _ = "STUB: not implemented"; return 0 }
 
-	for i := range minLen {
-		aSpec := segmentSpecificity(partsA[i])
-		bSpec := segmentSpecificity(partsB[i])
-		if aSpec != bSpec {
-			// Higher score = more specific = should sort earlier.
-			return bSpec - aSpec
-		}
-	}
+// Higher score = more specific = should sort earlier.
 
-	// Longer pattern is more specific.
-	return len(partsB) - len(partsA)
-}
+// Longer pattern is more specific.
 
 // segmentSpecificity returns a specificity score for a single pattern segment.
 // Higher score = more specific.
 //   - 1: exact literal
 //   - 0: wildcard "*"
-func segmentSpecificity(segment string) int {
-	if segment == "*" {
-		return 0
-	}
-	return 1
-}
+func segmentSpecificity(segment string) int { _ = "STUB: not implemented"; return 0 }
 
 // isCatchAllPattern returns true if the pattern is the bare catch-all "*".
-func isCatchAllPattern(pattern string) bool {
-	return pattern == catchAllPattern
-}
+func isCatchAllPattern(pattern string) bool { _ = "STUB: not implemented"; return false }

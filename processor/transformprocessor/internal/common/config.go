@@ -4,9 +4,6 @@
 package common // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor/internal/common"
 
 import (
-	"fmt"
-	"strings"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 )
 
@@ -25,16 +22,7 @@ const (
 	Profile   ContextID = "profile"
 )
 
-func (c *ContextID) UnmarshalText(text []byte) error {
-	str := ContextID(strings.ToLower(string(text)))
-	switch str {
-	case Resource, Scope, Span, SpanEvent, Metric, DataPoint, Log, Profile:
-		*c = str
-		return nil
-	default:
-		return fmt.Errorf("unknown context %v", str)
-	}
-}
+func (c *ContextID) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 type ContextStatements struct {
 	Context    ContextID `mapstructure:"context"`
@@ -45,14 +33,9 @@ type ContextStatements struct {
 	ErrorMode ottl.ErrorMode `mapstructure:"error_mode"`
 }
 
-func (c ContextStatements) GetStatements() []string {
-	return c.Statements
-}
+func (c ContextStatements) GetStatements() []string { _ = "STUB: not implemented"; return nil }
 
 func toContextStatements(statements any) (*ContextStatements, error) {
-	contextStatements, ok := statements.(ContextStatements)
-	if !ok {
-		return nil, fmt.Errorf("invalid context statements type, expected: common.ContextStatements, got: %T", statements)
-	}
-	return &contextStatements, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

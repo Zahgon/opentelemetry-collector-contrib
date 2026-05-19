@@ -8,8 +8,6 @@ package hostmetadata // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
-	"strconv"
 	"time"
 
 	"github.com/shirou/gopsutil/v4/cpu"
@@ -38,62 +36,27 @@ type hostCPU struct {
 }
 
 // toStringMap returns the hostCPU as a string map
-func (c *hostCPU) toStringMap() map[string]string {
-	return map[string]string{
-		"host_physical_cpus": strconv.Itoa(c.HostPhysicalCPUs),
-		"host_cpu_cores":     strconv.FormatInt(c.HostCPUCores, 10),
-		"host_cpu_model":     c.HostCPUModel,
-		"host_logical_cpus":  strconv.Itoa(c.HostLogicalCPUs),
-		"host_processor":     c.HostProcessor,
-		"host_machine":       c.HostMachine,
-	}
-}
+func (c *hostCPU) toStringMap() map[string]string { _ = "STUB: not implemented"; return nil }
 
 // getCPU - adds information about the host cpu to the supplied map
 func getCPU(ctx context.Context) (info *hostCPU, err error) {
-	info = &hostCPU{}
-
-	var cpus []cpu.InfoStat
-
-	// On Windows this can sometimes take longer than the default timeout (10 seconds).
-	ctx, cancel := context.WithTimeout(ctx, cpuStatsTimeout)
-	defer cancel()
-
-	// get cpu infoStats
-	cpus, err = cpuInfo(ctx)
-	if err != nil {
-		return info, err
-	}
-
-	// get physical cpu stats
-	info.HostPhysicalCPUs, err = cpuCounts(ctx, false)
-	if err != nil {
-		return info, err
-	}
-
-	// get logical cpu stats
-	info.HostLogicalCPUs, err = cpuCounts(ctx, true)
-	if err != nil {
-		return info, err
-	}
-
-	// Count physical CPU cores by tracking unique {PhysicalID, CoreID} pairs.
-	physicalCores := make(map[string]bool)
-	for i := range cpus {
-		k := fmt.Sprintf("%s,%s", cpus[i].PhysicalID, cpus[i].CoreID)
-		if !physicalCores[k] {
-			physicalCores[k] = true
-			info.HostCPUCores++
-		}
-		// TODO: This is not ideal... if there are different processors
-		// we will only report one of the models... This is unlikely to happen,
-		// but it could
-		info.HostCPUModel = cpus[i].ModelName
-	}
-
-	err = fillPlatformSpecificCPUData(info)
-	return info, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// On Windows this can sometimes take longer than the default timeout (10 seconds).
+
+// get cpu infoStats
+
+// get physical cpu stats
+
+// get logical cpu stats
+
+// Count physical CPU cores by tracking unique {PhysicalID, CoreID} pairs.
+
+// TODO: This is not ideal... if there are different processors
+// we will only report one of the models... This is unlikely to happen,
+// but it could
 
 // hostOS is a struct containing information about the host os
 type hostOS struct {
@@ -105,31 +68,15 @@ type hostOS struct {
 }
 
 // toStringMap returns a map of key/value metadata about the host os
-func (o *hostOS) toStringMap() map[string]string {
-	return map[string]string{
-		"host_kernel_name":    o.HostKernelName,
-		"host_kernel_release": o.HostKernelRelease,
-		"host_kernel_version": o.HostKernelVersion,
-		"host_os_name":        o.HostOSName,
-		"host_linux_version":  o.HostLinuxVersion,
-	}
-}
+func (o *hostOS) toStringMap() map[string]string { _ = "STUB: not implemented"; return nil }
 
 // getOS returns a struct with information about the host os
 func getOS(ctx context.Context) (info *hostOS, err error) {
-	info = &hostOS{}
-	hInfo, err := hostInfo(ctx)
-	if err != nil {
-		return info, err
-	}
-
-	info.HostOSName = hInfo.Platform
-	info.HostKernelName = hInfo.OS
-	// in gopsutil KernelVersion returns what we would expect for Kernel Release
-	info.HostKernelRelease = hInfo.KernelVersion
-	err = fillPlatformSpecificOSData(ctx, info)
-	return info, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// in gopsutil KernelVersion returns what we would expect for Kernel Release
 
 // Memory stores memory collected from the host
 type Memory struct {
@@ -138,22 +85,9 @@ type Memory struct {
 
 // toStringMap returns a map of key/value metadata about the host memory
 // where memory sizes are reported in Kb
-func (m *Memory) toStringMap() map[string]string {
-	return map[string]string{
-		"host_mem_total": strconv.Itoa(bytesToKilobytes(m.Total)),
-	}
-}
+func (m *Memory) toStringMap() map[string]string { _ = "STUB: not implemented"; return nil }
 
 // getMemory returns the amount of memory on the host as datatype.USize
-func getMemory(ctx context.Context) (*Memory, error) {
-	m := &Memory{}
-	memoryStat, err := memVirtualMemory(ctx)
-	if err == nil {
-		m.Total = int(memoryStat.Total)
-	}
-	return m, err
-}
+func getMemory(ctx context.Context) (*Memory, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func bytesToKilobytes(b int) int {
-	return b / 1024
-}
+func bytesToKilobytes(b int) int { _ = "STUB: not implemented"; return 0 }

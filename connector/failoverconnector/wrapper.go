@@ -29,106 +29,91 @@ type wrappedLogsConnector struct {
 }
 
 func (w *wrappedTracesConnector) ConsumeTraces(ctx context.Context, td ptrace.Traces) error {
-	return w.consumer.ConsumeTraces(ctx, td)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedTracesConnector) Capabilities() consumer.Capabilities {
-	return w.consumer.Capabilities()
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (w *wrappedTracesConnector) Start(ctx context.Context, host component.Host) error {
-	if starter, ok := w.consumer.(component.Component); ok {
-		return starter.Start(ctx, host)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (w *wrappedMetricsConnector) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	return w.consumer.ConsumeMetrics(ctx, md)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedMetricsConnector) Capabilities() consumer.Capabilities {
-	return w.consumer.Capabilities()
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (w *wrappedMetricsConnector) Start(ctx context.Context, host component.Host) error {
-	if starter, ok := w.consumer.(component.Component); ok {
-		return starter.Start(ctx, host)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (w *wrappedLogsConnector) ConsumeLogs(ctx context.Context, ld plog.Logs) error {
-	return w.consumer.ConsumeLogs(ctx, ld)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedLogsConnector) Capabilities() consumer.Capabilities {
-	return w.consumer.Capabilities()
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (w *wrappedLogsConnector) Start(ctx context.Context, host component.Host) error {
-	if starter, ok := w.consumer.(component.Component); ok {
-		return starter.Start(ctx, host)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (w *wrappedTracesConnector) GetFailoverRouter() *tracesRouter {
-	return w.failoverCore.failover
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedMetricsConnector) GetFailoverRouter() *metricsRouter {
-	return w.failoverCore.failover
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedLogsConnector) GetFailoverRouter() *logsRouter {
-	return w.failoverCore.failover
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedTracesConnector) Shutdown(ctx context.Context) error {
-	var err error
-	if shutdowner, ok := w.consumer.(interface{ Shutdown(context.Context) error }); ok {
-		err = shutdowner.Shutdown(ctx)
-	}
-	w.failoverCore.failover.Shutdown()
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedMetricsConnector) Shutdown(ctx context.Context) error {
-	var err error
-	if shutdowner, ok := w.consumer.(interface{ Shutdown(context.Context) error }); ok {
-		err = shutdowner.Shutdown(ctx)
-	}
-	w.failoverCore.failover.Shutdown()
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (w *wrappedLogsConnector) Shutdown(ctx context.Context) error {
-	var err error
-	if shutdowner, ok := w.consumer.(interface{ Shutdown(context.Context) error }); ok {
-		err = shutdowner.Shutdown(ctx)
-	}
-	w.failoverCore.failover.Shutdown()
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newWrappedTracesConnector(consumer consumer.Traces, failoverCore *tracesFailover) *wrappedTracesConnector {
-	return &wrappedTracesConnector{
-		consumer:     consumer,
-		failoverCore: failoverCore,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newWrappedMetricsConnector(consumer consumer.Metrics, failoverCore *metricsFailover) *wrappedMetricsConnector {
-	return &wrappedMetricsConnector{
-		consumer:     consumer,
-		failoverCore: failoverCore,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newWrappedLogsConnector(consumer consumer.Logs, failoverCore *logsFailover) *wrappedLogsConnector {
-	return &wrappedLogsConnector{
-		consumer:     consumer,
-		failoverCore: failoverCore,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

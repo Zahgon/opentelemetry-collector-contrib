@@ -5,16 +5,10 @@ package solacereceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/pipeline"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/solacereceiver/internal/metadata"
 )
 
 const (
@@ -25,30 +19,12 @@ const (
 )
 
 // NewFactory creates a factory for Solace receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(createTracesReceiver, metadata.TracesStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createDefaultConfig creates the default configuration for receiver.
 func createDefaultConfig() component.Config {
-	return &Config{
-		Broker:     []string{defaultHost},
-		MaxUnacked: defaultMaxUnacked,
-		Auth:       Authentication{},
-		TLS: configtls.ClientConfig{
-			InsecureSkipVerify: false,
-			Insecure:           false,
-		},
-		Flow: FlowControl{
-			DelayedRetry: configoptional.Some(FlowControlDelayedRetry{
-				Delay: 10 * time.Millisecond,
-			}),
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // CreateTraces creates a trace receiver based on provided config. Component is not shared
@@ -58,10 +34,8 @@ func createTracesReceiver(
 	receiverConfig component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	cfg, ok := receiverConfig.(*Config)
-	if !ok {
-		return nil, pipeline.ErrSignalNotSupported
-	}
-	// pass cfg, params and next consumer through
-	return newTracesReceiver(cfg, params, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
+
+// pass cfg, params and next consumer through

@@ -4,17 +4,8 @@
 package datasenders // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datasenders"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
-	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/exporter/exportertest"
-	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/zipkinexporter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -27,40 +18,16 @@ type zipkinDataSender struct {
 // NewZipkinDataSender creates a new Zipkin exporter sender that will send
 // to the specified port after Start is called.
 func NewZipkinDataSender(host string, port int) testbed.TraceDataSender {
-	return &zipkinDataSender{
-		DataSenderBase: testbed.DataSenderBase{
-			Port: port,
-			Host: host,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(testbed.TraceDataSender)
 }
 
-func (zs *zipkinDataSender) Start() error {
-	factory := zipkinexporter.NewFactory()
-	cfg := factory.CreateDefaultConfig().(*zipkinexporter.Config)
-	cfg.Endpoint = fmt.Sprintf("http://%s/api/v2/spans", zs.GetEndpoint())
-	// Disable retries, we should push data and if error just log it.
-	cfg.Enabled = false
-	// Disable sending queue, we should push data from the caller goroutine.
-	cfg.QueueSettings = configoptional.None[exporterhelper.QueueBatchConfig]()
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
+func (zs *zipkinDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
-	exp, err := factory.CreateTraces(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
+// Disable retries, we should push data and if error just log it.
 
-	zs.Traces = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+// Disable sending queue, we should push data from the caller goroutine.
 
-func (zs *zipkinDataSender) GenConfigYAMLStr() string {
-	return fmt.Sprintf(`
-  zipkin:
-    endpoint: %s`, zs.GetEndpoint())
-}
+func (zs *zipkinDataSender) GenConfigYAMLStr() string { _ = "STUB: not implemented"; return "" }
 
-func (*zipkinDataSender) ProtocolName() string {
-	return "zipkin"
-}
+func (*zipkinDataSender) ProtocolName() string { _ = "STUB: not implemented"; return "" }

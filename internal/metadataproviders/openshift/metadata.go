@@ -6,11 +6,7 @@ package openshift // import "github.com/open-telemetry/opentelemetry-collector-c
 import (
 	"context"
 	"crypto/tls"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"strings"
 )
 
 // Provider gets cluster metadata from Openshift.
@@ -22,19 +18,8 @@ type Provider interface {
 
 // NewProvider creates a new metadata provider.
 func NewProvider(address, token string, tlsCfg *tls.Config) Provider {
-	cl := &http.Client{}
-
-	if tlsCfg != nil {
-		transport := http.DefaultTransport.(*http.Transport).Clone()
-		transport.TLSClientConfig = tlsCfg
-		cl.Transport = transport
-	}
-
-	return &openshiftProvider{
-		address: address,
-		token:   token,
-		client:  cl,
-	}
+	_ = "STUB: not implemented"
+	return *new(Provider)
 }
 
 type openshiftProvider struct {
@@ -44,91 +29,26 @@ type openshiftProvider struct {
 }
 
 func (o *openshiftProvider) makeOCPRequest(ctx context.Context, endpoint, target string) (*http.Request, error) {
-	addr := fmt.Sprintf("%s/apis/config.openshift.io/v1/%s/%s/status", o.address, endpoint, target)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, addr, http.NoBody)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", o.token))
-	return req, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // OpenShiftClusterVersion requests the ClusterVersion from the openshift api.
 func (o *openshiftProvider) OpenShiftClusterVersion(ctx context.Context) (string, error) {
-	req, err := o.makeOCPRequest(ctx, "clusterversions", "version")
-	if err != nil {
-		return "", err
-	}
-	resp, err := o.client.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("OpenShift API returned status %s", resp.Status)
-	}
-	res := ocpClusterVersionAPIResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(&res); err != nil {
-		return "", err
-	}
-	return res.Status.Desired.Version, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // ClusterVersion requests Infrastructure details from the openshift api.
 func (o *openshiftProvider) Infrastructure(ctx context.Context) (*InfrastructureAPIResponse, error) {
-	req, err := o.makeOCPRequest(ctx, "infrastructures", "cluster")
-	if err != nil {
-		return nil, err
-	}
-	resp, err := o.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("OpenShift API returned status %s", resp.Status)
-	}
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	res := &InfrastructureAPIResponse{}
-	if err := json.Unmarshal(data, res); err != nil {
-		return nil, fmt.Errorf("unable to unmarshal response, err: %w, response: %s",
-			err, string(data),
-		)
-	}
-
-	return res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // K8SClusterVersion requests the ClusterVersion from the kubernetes api.
 func (o *openshiftProvider) K8SClusterVersion(ctx context.Context) (string, error) {
-	addr := fmt.Sprintf("%s/version", o.address)
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, addr, http.NoBody)
-	if err != nil {
-		return "", err
-	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", o.token))
-
-	resp, err := o.client.Do(req)
-	if err != nil {
-		return "", err
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("Kubernetes API returned status %s", resp.Status)
-	}
-	res := k8sClusterVersionAPIResponse{}
-	if err := json.NewDecoder(resp.Body).Decode(&res); err != nil {
-		return "", err
-	}
-	version := res.GitVersion
-	if strings.Contains(version, "+") {
-		version = strings.Split(version, "+")[0]
-	}
-	return version, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type ocpClusterVersionAPIResponse struct {

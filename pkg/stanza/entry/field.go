@@ -3,13 +3,6 @@
 
 package entry // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-	"strings"
-)
-
 const (
 	AttributesPrefix = "attributes"
 	ResourcePrefix   = "resource"
@@ -41,95 +34,36 @@ type FieldInterface interface {
 }
 
 // UnmarshalJSON will unmarshal a field from JSON
-func (f *Field) UnmarshalJSON(raw []byte) error {
-	var s string
-	err := json.Unmarshal(raw, &s)
-	if err != nil {
-		return err
-	}
-	*f, err = NewField(s)
-	return err
-}
+func (f *Field) UnmarshalJSON(raw []byte) error { _ = "STUB: not implemented"; return nil }
 
 // UnmarshalJSON will unmarshal a field from JSON
-func (r *RootableField) UnmarshalJSON(raw []byte) error {
-	var s string
-	err := json.Unmarshal(raw, &s)
-	if err != nil {
-		return err
-	}
-	field, err := newField(s, true)
-	*r = RootableField{Field: field}
-	return err
-}
+func (r *RootableField) UnmarshalJSON(raw []byte) error { _ = "STUB: not implemented"; return nil }
 
 // UnmarshalYAML will unmarshal a field from YAML
 func (f *Field) UnmarshalYAML(unmarshal func(any) error) error {
-	var s string
-	err := unmarshal(&s)
-	if err != nil {
-		return err
-	}
-	*f, err = NewField(s)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UnmarshalYAML will unmarshal a field from YAML
 func (r *RootableField) UnmarshalYAML(unmarshal func(any) error) error {
-	var s string
-	err := unmarshal(&s)
-	if err != nil {
-		return err
-	}
-	field, err := newField(s, true)
-	*r = RootableField{Field: field}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UnmarshalText will unmarshal a field from text
-func (f *Field) UnmarshalText(text []byte) error {
-	field, err := NewField(string(text))
-	*f = field
-	return err
-}
+func (f *Field) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 // UnmarshalText will unmarshal a field from text
-func (r *RootableField) UnmarshalText(text []byte) error {
-	field, err := newField(string(text), true)
-	*r = RootableField{Field: field}
-	return err
-}
+func (r *RootableField) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
-func (f *Field) IsEmpty() bool {
-	return *f == Field{}
-}
+func (f *Field) IsEmpty() bool { _ = "STUB: not implemented"; return false }
 
-func NewField(s string) (Field, error) {
-	return newField(s, false)
-}
+func NewField(s string) (Field, error) { _ = "STUB: not implemented"; return *new(Field), nil }
 
 func newField(s string, rootable bool) (Field, error) {
-	keys, err := fromJSONDot(s)
-	if err != nil {
-		return Field{}, fmt.Errorf("splitting field: %w", err)
-	}
-
-	switch keys[0] {
-	case AttributesPrefix:
-		if !rootable && len(keys) == 1 {
-			return Field{}, errors.New("attributes cannot be referenced without subfield")
-		}
-		return NewAttributeField(keys[1:]...), nil
-	case ResourcePrefix:
-		if !rootable && len(keys) == 1 {
-			return Field{}, errors.New("resource cannot be referenced without subfield")
-		}
-		return NewResourceField(keys[1:]...), nil
-	case BodyPrefix:
-		return NewBodyField(keys[1:]...), nil
-	default:
-		return Field{}, errors.New("unrecognized prefix")
-	}
+	_ = "STUB: not implemented"
+	return *new(Field), nil
 }
 
 type splitState uint
@@ -149,129 +83,16 @@ const (
 	InUnbracketedToken
 )
 
-func fromJSONDot(s string) ([]string, error) {
-	fields := make([]string, 0, 1)
+func fromJSONDot(s string) ([]string, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	state := Begin
-	var quoteChar rune
-	var tokenStart int
-
-	for i, c := range s {
-		switch state {
-		case Begin:
-			if c == '[' {
-				state = InBracket
-				continue
-			}
-			tokenStart = i
-			state = InUnbracketedToken
-		case InBracket:
-			if c != '\'' && c != '"' {
-				return nil, errors.New("strings in brackets must be surrounded by quotes")
-			}
-			state = InQuote
-			quoteChar = c
-			tokenStart = i + 1
-		case InQuote:
-			if c == quoteChar {
-				fields = append(fields, s[tokenStart:i])
-				state = OutQuote
-			}
-		case OutQuote:
-			if c != ']' {
-				return nil, errors.New("found characters between closed quote and closing bracket")
-			}
-			state = OutBracket
-		case OutBracket:
-			switch c {
-			case '.':
-				state = InUnbracketedToken
-				tokenStart = i + 1
-			case '[':
-				state = InBracket
-			default:
-				return nil, errors.New("bracketed access must be followed by a dot or another bracketed access")
-			}
-		case InUnbracketedToken:
-			switch c {
-			case '.':
-				fields = append(fields, s[tokenStart:i])
-				tokenStart = i + 1
-			case '[':
-				fields = append(fields, s[tokenStart:i])
-				state = InBracket
-			}
-		}
-	}
-
-	switch state {
-	case InBracket, OutQuote:
-		return nil, errors.New("found unclosed left bracket")
-	case InQuote:
-		if quoteChar == '"' {
-			return nil, errors.New("found unclosed double quote")
-		}
-		return nil, errors.New("found unclosed single quote")
-	case InUnbracketedToken:
-		fields = append(fields, s[tokenStart:])
-	case Begin, OutBracket:
-		// shouldn't be possible
-	}
-
-	if len(fields) == 0 {
-		return nil, errors.New("fields size is 0")
-	}
-
-	return fields, nil
-}
+// shouldn't be possible
 
 // toJSONDot returns the JSON dot notation for a field.
-func toJSONDot(prefix string, keys []string) string {
-	if len(keys) == 0 {
-		return prefix
-	}
-
-	containsDots := false
-	for _, key := range keys {
-		if strings.Contains(key, ".") {
-			containsDots = true
-		}
-	}
-
-	var b strings.Builder
-	b.WriteString(prefix)
-	if containsDots {
-		for _, key := range keys {
-			b.WriteString(`['`)
-			b.WriteString(key)
-			b.WriteString(`']`)
-		}
-	} else {
-		b.WriteString(".")
-		for i, key := range keys {
-			if i != 0 {
-				b.WriteString(".")
-			}
-			b.WriteString(key)
-		}
-	}
-
-	return b.String()
-}
+func toJSONDot(prefix string, keys []string) string { _ = "STUB: not implemented"; return "" }
 
 // getNestedMap will get a nested map assigned to a key.
 // If the map does not exist, it will create and return it.
 func getNestedMap(currentMap map[string]any, key string) map[string]any {
-	currentValue, ok := currentMap[key]
-	if !ok {
-		currentMap[key] = map[string]any{}
-	}
-
-	nextMap, ok := currentValue.(map[string]any)
-	if !ok {
-		nextMap = map[string]any{}
-		currentMap[key] = nextMap
-	}
-
-	return nextMap
+	_ = "STUB: not implemented"
+	return nil
 }

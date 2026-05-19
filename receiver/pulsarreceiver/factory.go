@@ -11,8 +11,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/pulsarreceiver/internal/metadata"
 )
 
 const (
@@ -30,48 +28,26 @@ type FactoryOption func(factory *pulsarReceiverFactory)
 
 // withTracesUnmarshalers adds Unmarshalers.
 func withTracesUnmarshalers(tracesUnmarshalers ...TracesUnmarshaler) FactoryOption {
-	return func(factory *pulsarReceiverFactory) {
-		for _, unmarshaler := range tracesUnmarshalers {
-			factory.tracesUnmarshalers[unmarshaler.Encoding()] = unmarshaler
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(FactoryOption)
 }
 
 // withMetricsUnmarshalers adds MetricsUnmarshalers.
 func withMetricsUnmarshalers(metricsUnmarshalers ...MetricsUnmarshaler) FactoryOption {
-	return func(factory *pulsarReceiverFactory) {
-		for _, unmarshaler := range metricsUnmarshalers {
-			factory.metricsUnmarshalers[unmarshaler.Encoding()] = unmarshaler
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(FactoryOption)
 }
 
 // withLogsUnmarshalers adds LogsUnmarshalers.
 func withLogsUnmarshalers(logsUnmarshalers ...LogsUnmarshaler) FactoryOption {
-	return func(factory *pulsarReceiverFactory) {
-		for _, unmarshaler := range logsUnmarshalers {
-			factory.logsUnmarshalers[unmarshaler.Encoding()] = unmarshaler
-		}
-	}
+	_ = "STUB: not implemented"
+	return *new(FactoryOption)
 }
 
 // NewFactory creates Pulsar receiver factory.
 func NewFactory(options ...FactoryOption) receiver.Factory {
-	f := &pulsarReceiverFactory{
-		tracesUnmarshalers:  defaultTracesUnmarshalers(),
-		metricsUnmarshalers: defaultMetricsUnmarshalers(),
-		logsUnmarshalers:    defaultLogsUnmarshalers(),
-	}
-	for _, o := range options {
-		o(f)
-	}
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(f.createTracesReceiver, metadata.TracesStability),
-		receiver.WithMetrics(f.createMetricsReceiver, metadata.MetricsStability),
-		receiver.WithLogs(f.createLogsReceiver, metadata.LogsStability),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Factory)
 }
 
 type pulsarReceiverFactory struct {
@@ -86,15 +62,8 @@ func (f *pulsarReceiverFactory) createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	c := *(cfg.(*Config))
-	if c.Topic == "" {
-		c.Topic = defaultTraceTopic
-	}
-	r, err := newTracesReceiver(c, set, f.tracesUnmarshalers, nextConsumer)
-	if err != nil {
-		return nil, err
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func (f *pulsarReceiverFactory) createMetricsReceiver(
@@ -103,15 +72,8 @@ func (f *pulsarReceiverFactory) createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c := *(cfg.(*Config))
-	if c.Topic == "" {
-		c.Topic = defaultMetricsTopic
-	}
-	r, err := newMetricsReceiver(c, set, f.metricsUnmarshalers, nextConsumer)
-	if err != nil {
-		return nil, err
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func (f *pulsarReceiverFactory) createLogsReceiver(
@@ -120,22 +82,11 @@ func (f *pulsarReceiverFactory) createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	c := *(cfg.(*Config))
-	if c.Topic == "" {
-		c.Topic = defaultLogsTopic
-	}
-	r, err := newLogsReceiver(c, set, f.logsUnmarshalers, nextConsumer)
-	if err != nil {
-		return nil, err
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Encoding:     defaultEncoding,
-		ConsumerName: defaultConsumerName,
-		Subscription: defaultSubscription,
-		Endpoint:     defaultServiceURL,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

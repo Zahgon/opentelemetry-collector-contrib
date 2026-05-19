@@ -5,22 +5,11 @@ package internal // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
-func getServiceName(resAttr pcommon.Map) string {
-	if v, ok := resAttr.Get(string(conventions.ServiceNameKey)); ok {
-		return v.AsString()
-	}
-
-	return ""
-}
+func getServiceName(resAttr pcommon.Map) string { _ = "STUB: not implemented"; return "" }
 
 func convertAttributes(attributes pcommon.Map) map[string]string {
-	attrs := make(map[string]string, attributes.Len())
-	attributes.Range(func(k string, v pcommon.Value) bool {
-		attrs[k] = v.AsString()
-		return true
-	})
-	return attrs
+	_ = "STUB: not implemented"
+	return nil
 }

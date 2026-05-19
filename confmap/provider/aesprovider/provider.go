@@ -7,13 +7,6 @@ package aesprovider // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"crypto/aes"
-	"crypto/cipher"
-	"encoding/base64"
-	"errors"
-	"fmt"
-	"os"
-	"strings"
 
 	"go.opentelemetry.io/collector/confmap"
 	"go.uber.org/zap"
@@ -32,78 +25,24 @@ type provider struct {
 
 // NewFactory creates a new provider factory
 func NewFactory() confmap.ProviderFactory {
-	return confmap.NewProviderFactory(
-		func(settings confmap.ProviderSettings) confmap.Provider {
-			return &provider{
-				logger: settings.Logger,
-			}
-		})
+	_ = "STUB: not implemented"
+	return *new(confmap.ProviderFactory)
 }
 
-func (*provider) Scheme() string {
-	return schemaName
-}
+func (*provider) Scheme() string { _ = "STUB: not implemented"; return "" }
 
-func (*provider) Shutdown(context.Context) error {
-	return nil
-}
+func (*provider) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (p *provider) Retrieve(_ context.Context, uri string, _ confmap.WatcherFunc) (*confmap.Retrieved, error) {
-	if !strings.HasPrefix(uri, schemaName+":") {
-		return nil, fmt.Errorf("%q uri is not supported by %q provider", uri, schemaName)
-	}
-
-	if p.key == nil {
-		// base64 decode env var
-		base64Key, ok := os.LookupEnv(keyEnvVar)
-		if !ok {
-			return nil, fmt.Errorf("env var %q not set, required for %q provider", keyEnvVar, schemaName)
-		}
-		key, err := base64.StdEncoding.DecodeString(base64Key)
-		if err != nil {
-			return nil, fmt.Errorf("%q provider uri failed to base64 decode key: %w", schemaName, err)
-		}
-		p.key = key
-	}
-
-	// Remove schemaName
-	cipherText := strings.Replace(uri, schemaName+":", "", 1)
-
-	clearText, err := p.decrypt(cipherText)
-	if err != nil {
-		return nil, fmt.Errorf("%q provider failed to decrypt value: %w", schemaName, err)
-	}
-
-	return confmap.NewRetrieved(clearText)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// base64 decode env var
+
+// Remove schemaName
+
 func (p *provider) decrypt(cipherText string) (string, error) {
-	cipherBytes, err := base64.StdEncoding.DecodeString(cipherText)
-	if err != nil {
-		return "", err
-	}
-
-	block, err := aes.NewCipher(p.key)
-	if err != nil {
-		return "", err
-	}
-
-	aesGCM, err := cipher.NewGCM(block)
-	if err != nil {
-		return "", err
-	}
-
-	nonceSize := aesGCM.NonceSize()
-	if len(cipherBytes) < nonceSize {
-		return "", errors.New("ciphertext too short")
-	}
-
-	nonce, cipherBytes := cipherBytes[:nonceSize], cipherBytes[nonceSize:]
-
-	clearBytes, err := aesGCM.Open(nil, nonce, cipherBytes, nil)
-	if err != nil {
-		return "", err
-	}
-
-	return string(clearBytes), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

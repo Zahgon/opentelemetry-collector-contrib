@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionSent:
-		return "sent"
-	case AttributeDirectionReceived:
-		return "received"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -61,25 +50,7 @@ const (
 )
 
 // String returns the string representation of the AttributeRequest.
-func (av AttributeRequest) String() string {
-	switch av {
-	case AttributeRequestDelete:
-		return "delete"
-	case AttributeRequestGet:
-		return "get"
-	case AttributeRequestHead:
-		return "head"
-	case AttributeRequestOptions:
-		return "options"
-	case AttributeRequestPost:
-		return "post"
-	case AttributeRequestPut:
-		return "put"
-	case AttributeRequestTrace:
-		return "trace"
-	}
-	return ""
-}
+func (av AttributeRequest) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeRequest is a helper map of string to AttributeRequest attribute value.
 var MapAttributeRequest = map[string]AttributeRequest{
@@ -173,39 +144,22 @@ func (m *metricIisApplicationPoolState) init() {
 }
 
 func (m *metricIisApplicationPoolState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisApplicationPoolState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricIisApplicationPoolState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisApplicationPoolState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisApplicationPoolState(cfg IisApplicationPoolStateMetricConfig) metricIisApplicationPoolState {
-	m := metricIisApplicationPoolState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisApplicationPoolState)
 }
 
 type metricIisApplicationPoolUptime struct {
@@ -223,39 +177,22 @@ func (m *metricIisApplicationPoolUptime) init() {
 }
 
 func (m *metricIisApplicationPoolUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisApplicationPoolUptime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricIisApplicationPoolUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisApplicationPoolUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisApplicationPoolUptime(cfg IisApplicationPoolUptimeMetricConfig) metricIisApplicationPoolUptime {
-	m := metricIisApplicationPoolUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisApplicationPoolUptime)
 }
 
 type metricIisConnectionActive struct {
@@ -275,39 +212,22 @@ func (m *metricIisConnectionActive) init() {
 }
 
 func (m *metricIisConnectionActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisConnectionActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisConnectionActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisConnectionActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisConnectionActive(cfg IisConnectionActiveMetricConfig) metricIisConnectionActive {
-	m := metricIisConnectionActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisConnectionActive)
 }
 
 type metricIisConnectionAnonymous struct {
@@ -327,39 +247,22 @@ func (m *metricIisConnectionAnonymous) init() {
 }
 
 func (m *metricIisConnectionAnonymous) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisConnectionAnonymous) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisConnectionAnonymous) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisConnectionAnonymous) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisConnectionAnonymous(cfg IisConnectionAnonymousMetricConfig) metricIisConnectionAnonymous {
-	m := metricIisConnectionAnonymous{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisConnectionAnonymous)
 }
 
 type metricIisConnectionAttemptCount struct {
@@ -379,39 +282,22 @@ func (m *metricIisConnectionAttemptCount) init() {
 }
 
 func (m *metricIisConnectionAttemptCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisConnectionAttemptCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisConnectionAttemptCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisConnectionAttemptCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisConnectionAttemptCount(cfg IisConnectionAttemptCountMetricConfig) metricIisConnectionAttemptCount {
-	m := metricIisConnectionAttemptCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisConnectionAttemptCount)
 }
 
 type metricIisNetworkBlocked struct {
@@ -431,39 +317,22 @@ func (m *metricIisNetworkBlocked) init() {
 }
 
 func (m *metricIisNetworkBlocked) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisNetworkBlocked) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisNetworkBlocked) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisNetworkBlocked) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisNetworkBlocked(cfg IisNetworkBlockedMetricConfig) metricIisNetworkBlocked {
-	m := metricIisNetworkBlocked{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisNetworkBlocked)
 }
 
 type metricIisNetworkFileCount struct {
@@ -486,75 +355,22 @@ func (m *metricIisNetworkFileCount) init() {
 }
 
 func (m *metricIisNetworkFileCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, IisNetworkFileCountMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisNetworkFileCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisNetworkFileCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisNetworkFileCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisNetworkFileCount(cfg IisNetworkFileCountMetricConfig) metricIisNetworkFileCount {
-	m := metricIisNetworkFileCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisNetworkFileCount)
 }
 
 type metricIisNetworkIo struct {
@@ -577,75 +393,19 @@ func (m *metricIisNetworkIo) init() {
 }
 
 func (m *metricIisNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, IisNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricIisNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricIisNetworkIo) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricIisNetworkIo(cfg IisNetworkIoMetricConfig) metricIisNetworkIo {
-	m := metricIisNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisNetworkIo)
 }
 
 type metricIisRequestCount struct {
@@ -668,75 +428,22 @@ func (m *metricIisRequestCount) init() {
 }
 
 func (m *metricIisRequestCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, requestAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, IisRequestCountMetricAttributeKeyRequest) {
-		dp.Attributes().PutStr("request", requestAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisRequestCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisRequestCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisRequestCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisRequestCount(cfg IisRequestCountMetricConfig) metricIisRequestCount {
-	m := metricIisRequestCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisRequestCount)
 }
 
 type metricIisRequestQueueAgeMax struct {
@@ -754,39 +461,22 @@ func (m *metricIisRequestQueueAgeMax) init() {
 }
 
 func (m *metricIisRequestQueueAgeMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisRequestQueueAgeMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricIisRequestQueueAgeMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisRequestQueueAgeMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisRequestQueueAgeMax(cfg IisRequestQueueAgeMaxMetricConfig) metricIisRequestQueueAgeMax {
-	m := metricIisRequestQueueAgeMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisRequestQueueAgeMax)
 }
 
 type metricIisRequestQueueCount struct {
@@ -806,39 +496,22 @@ func (m *metricIisRequestQueueCount) init() {
 }
 
 func (m *metricIisRequestQueueCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisRequestQueueCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisRequestQueueCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisRequestQueueCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisRequestQueueCount(cfg IisRequestQueueCountMetricConfig) metricIisRequestQueueCount {
-	m := metricIisRequestQueueCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisRequestQueueCount)
 }
 
 type metricIisRequestRejected struct {
@@ -858,39 +531,22 @@ func (m *metricIisRequestRejected) init() {
 }
 
 func (m *metricIisRequestRejected) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisRequestRejected) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisRequestRejected) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisRequestRejected) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisRequestRejected(cfg IisRequestRejectedMetricConfig) metricIisRequestRejected {
-	m := metricIisRequestRejected{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisRequestRejected)
 }
 
 type metricIisThreadActive struct {
@@ -910,39 +566,22 @@ func (m *metricIisThreadActive) init() {
 }
 
 func (m *metricIisThreadActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisThreadActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricIisThreadActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricIisThreadActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricIisThreadActive(cfg IisThreadActiveMetricConfig) metricIisThreadActive {
-	m := metricIisThreadActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisThreadActive)
 }
 
 type metricIisUptime struct {
@@ -960,39 +599,19 @@ func (m *metricIisUptime) init() {
 }
 
 func (m *metricIisUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricIisUptime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricIisUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricIisUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricIisUptime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricIisUptime(cfg IisUptimeMetricConfig) metricIisUptime {
-	m := metricIisUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricIisUptime)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1029,67 +648,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                          mbc,
-		startTime:                       pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                   pmetric.NewMetrics(),
-		buildInfo:                       settings.BuildInfo,
-		metricIisApplicationPoolState:   newMetricIisApplicationPoolState(mbc.Metrics.IisApplicationPoolState),
-		metricIisApplicationPoolUptime:  newMetricIisApplicationPoolUptime(mbc.Metrics.IisApplicationPoolUptime),
-		metricIisConnectionActive:       newMetricIisConnectionActive(mbc.Metrics.IisConnectionActive),
-		metricIisConnectionAnonymous:    newMetricIisConnectionAnonymous(mbc.Metrics.IisConnectionAnonymous),
-		metricIisConnectionAttemptCount: newMetricIisConnectionAttemptCount(mbc.Metrics.IisConnectionAttemptCount),
-		metricIisNetworkBlocked:         newMetricIisNetworkBlocked(mbc.Metrics.IisNetworkBlocked),
-		metricIisNetworkFileCount:       newMetricIisNetworkFileCount(mbc.Metrics.IisNetworkFileCount),
-		metricIisNetworkIo:              newMetricIisNetworkIo(mbc.Metrics.IisNetworkIo),
-		metricIisRequestCount:           newMetricIisRequestCount(mbc.Metrics.IisRequestCount),
-		metricIisRequestQueueAgeMax:     newMetricIisRequestQueueAgeMax(mbc.Metrics.IisRequestQueueAgeMax),
-		metricIisRequestQueueCount:      newMetricIisRequestQueueCount(mbc.Metrics.IisRequestQueueCount),
-		metricIisRequestRejected:        newMetricIisRequestRejected(mbc.Metrics.IisRequestRejected),
-		metricIisThreadActive:           newMetricIisThreadActive(mbc.Metrics.IisThreadActive),
-		metricIisUptime:                 newMetricIisUptime(mbc.Metrics.IisUptime),
-		resourceAttributeIncludeFilter:  make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:  make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.IisApplicationPool.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["iis.application_pool"] = filter.CreateFilter(mbc.ResourceAttributes.IisApplicationPool.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.IisApplicationPool.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["iis.application_pool"] = filter.CreateFilter(mbc.ResourceAttributes.IisApplicationPool.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.IisSite.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["iis.site"] = filter.CreateFilter(mbc.ResourceAttributes.IisSite.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.IisSite.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["iis.site"] = filter.CreateFilter(mbc.ResourceAttributes.IisSite.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1100,35 +684,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1137,131 +709,102 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricIisApplicationPoolState.emit(ils.Metrics())
-	mb.metricIisApplicationPoolUptime.emit(ils.Metrics())
-	mb.metricIisConnectionActive.emit(ils.Metrics())
-	mb.metricIisConnectionAnonymous.emit(ils.Metrics())
-	mb.metricIisConnectionAttemptCount.emit(ils.Metrics())
-	mb.metricIisNetworkBlocked.emit(ils.Metrics())
-	mb.metricIisNetworkFileCount.emit(ils.Metrics())
-	mb.metricIisNetworkIo.emit(ils.Metrics())
-	mb.metricIisRequestCount.emit(ils.Metrics())
-	mb.metricIisRequestQueueAgeMax.emit(ils.Metrics())
-	mb.metricIisRequestQueueCount.emit(ils.Metrics())
-	mb.metricIisRequestRejected.emit(ils.Metrics())
-	mb.metricIisThreadActive.emit(ils.Metrics())
-	mb.metricIisUptime.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordIisApplicationPoolStateDataPoint adds a data point to iis.application_pool.state metric.
 func (mb *MetricsBuilder) RecordIisApplicationPoolStateDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisApplicationPoolState.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisApplicationPoolUptimeDataPoint adds a data point to iis.application_pool.uptime metric.
 func (mb *MetricsBuilder) RecordIisApplicationPoolUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisApplicationPoolUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisConnectionActiveDataPoint adds a data point to iis.connection.active metric.
 func (mb *MetricsBuilder) RecordIisConnectionActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisConnectionActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisConnectionAnonymousDataPoint adds a data point to iis.connection.anonymous metric.
 func (mb *MetricsBuilder) RecordIisConnectionAnonymousDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisConnectionAnonymous.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisConnectionAttemptCountDataPoint adds a data point to iis.connection.attempt.count metric.
 func (mb *MetricsBuilder) RecordIisConnectionAttemptCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisConnectionAttemptCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisNetworkBlockedDataPoint adds a data point to iis.network.blocked metric.
 func (mb *MetricsBuilder) RecordIisNetworkBlockedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisNetworkBlocked.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisNetworkFileCountDataPoint adds a data point to iis.network.file.count metric.
 func (mb *MetricsBuilder) RecordIisNetworkFileCountDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricIisNetworkFileCount.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisNetworkIoDataPoint adds a data point to iis.network.io metric.
 func (mb *MetricsBuilder) RecordIisNetworkIoDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricIisNetworkIo.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisRequestCountDataPoint adds a data point to iis.request.count metric.
 func (mb *MetricsBuilder) RecordIisRequestCountDataPoint(ts pcommon.Timestamp, val int64, requestAttributeValue AttributeRequest) {
-	mb.metricIisRequestCount.recordDataPoint(mb.startTime, ts, val, requestAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisRequestQueueAgeMaxDataPoint adds a data point to iis.request.queue.age.max metric.
 func (mb *MetricsBuilder) RecordIisRequestQueueAgeMaxDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisRequestQueueAgeMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisRequestQueueCountDataPoint adds a data point to iis.request.queue.count metric.
 func (mb *MetricsBuilder) RecordIisRequestQueueCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisRequestQueueCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisRequestRejectedDataPoint adds a data point to iis.request.rejected metric.
 func (mb *MetricsBuilder) RecordIisRequestRejectedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisRequestRejected.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisThreadActiveDataPoint adds a data point to iis.thread.active metric.
 func (mb *MetricsBuilder) RecordIisThreadActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisThreadActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordIisUptimeDataPoint adds a data point to iis.uptime metric.
 func (mb *MetricsBuilder) RecordIisUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricIisUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

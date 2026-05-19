@@ -15,64 +15,33 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetServerAddress sets provided value as "server.address" attribute.
-func (rb *ResourceBuilder) SetServerAddress(val string) {
-	if rb.config.ServerAddress.Enabled {
-		rb.res.Attributes().PutStr("server.address", val)
-	}
-}
+func (rb *ResourceBuilder) SetServerAddress(val string) { _ = "STUB: not implemented"; return }
 
 // SetServerPort sets provided value as "server.port" attribute.
-func (rb *ResourceBuilder) SetServerPort(val int64) {
-	if rb.config.ServerPort.Enabled {
-		rb.res.Attributes().PutInt("server.port", val)
-	}
-}
+func (rb *ResourceBuilder) SetServerPort(val int64) { _ = "STUB: not implemented"; return }
 
 // SetServiceInstanceID sets provided value as "service.instance.id" attribute.
-func (rb *ResourceBuilder) SetServiceInstanceID(val string) {
-	if rb.config.ServiceInstanceID.Enabled {
-		rb.res.Attributes().PutStr("service.instance.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceInstanceID(val string) { _ = "STUB: not implemented"; return }
 
 // SetSqlserverComputerName sets provided value as "sqlserver.computer.name" attribute.
-func (rb *ResourceBuilder) SetSqlserverComputerName(val string) {
-	if rb.config.SqlserverComputerName.Enabled {
-		rb.res.Attributes().PutStr("sqlserver.computer.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetSqlserverComputerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetSqlserverDatabaseName sets provided value as "sqlserver.database.name" attribute.
-func (rb *ResourceBuilder) SetSqlserverDatabaseName(val string) {
-	if rb.config.SqlserverDatabaseName.Enabled {
-		rb.res.Attributes().PutStr("sqlserver.database.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetSqlserverDatabaseName(val string) { _ = "STUB: not implemented"; return }
 
 // SetSqlserverInstanceName sets provided value as "sqlserver.instance.name" attribute.
-func (rb *ResourceBuilder) SetSqlserverInstanceName(val string) {
-	if rb.config.SqlserverInstanceName.Enabled {
-		rb.res.Attributes().PutStr("sqlserver.instance.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetSqlserverInstanceName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

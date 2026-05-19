@@ -4,8 +4,6 @@
 package googlecloudexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlecloudexporter"
 
 import (
-	"fmt"
-
 	"github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/collector"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
@@ -20,9 +18,4 @@ type Config struct {
 	QueueSettings   configoptional.Optional[exporterhelper.QueueBatchConfig] `mapstructure:"sending_queue"`
 }
 
-func (cfg *Config) Validate() error {
-	if err := collector.ValidateConfig(cfg.Config); err != nil {
-		return fmt.Errorf("googlecloud exporter settings are invalid :%w", err)
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

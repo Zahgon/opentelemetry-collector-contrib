@@ -4,11 +4,6 @@
 package logicmonitorexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/logicmonitorexporter"
 
 import (
-	"errors"
-	"fmt"
-	"net/url"
-	"strings"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
@@ -46,16 +41,7 @@ const (
 	Or  MappingOperation = "or"
 )
 
-func (mop *MappingOperation) UnmarshalText(in []byte) error {
-	switch op := MappingOperation(strings.ToLower(string(in))); op {
-	case And, Or:
-		*mop = op
-		return nil
-
-	default:
-		return fmt.Errorf("unsupported mapping operation %q", op)
-	}
-}
+func (mop *MappingOperation) UnmarshalText(in []byte) error { _ = "STUB: not implemented"; return nil }
 
 // LogsConfig defines the logs exporter specific configuration options
 type LogsConfig struct {
@@ -65,14 +51,4 @@ type LogsConfig struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if c.Endpoint == "" {
-		return errors.New("endpoint should not be empty")
-	}
-
-	u, err := url.Parse(c.Endpoint)
-	if err != nil || u.Scheme == "" || u.Host == "" {
-		return errors.New("endpoint must be valid")
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

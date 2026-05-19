@@ -6,22 +6,12 @@ package iisreceiver // import "github.com/open-telemetry/opentelemetry-collector
 import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/iisreceiver/internal/metadata"
 )
 
 // NewFactory creates a factory for iis receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ControllerConfig:     scraperhelper.NewDefaultControllerConfig(),
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

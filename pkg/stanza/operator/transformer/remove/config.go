@@ -21,16 +21,10 @@ func init() {
 }
 
 // NewConfig creates a new remove operator config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new remove operator config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a remove operator
 type Config struct {
@@ -41,17 +35,6 @@ type Config struct {
 
 // Build will build a Remove operator from the supplied configuration
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.Field.IsEmpty() {
-		return nil, errMissingField
-	}
-
-	return &Transformer{
-		TransformerOperator: transformerOperator,
-		Field:               c.Field,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

@@ -4,20 +4,12 @@
 package prometheusremotewritereceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver"
 
 import (
-	"encoding/hex"
-	"time"
-
 	"github.com/prometheus/prometheus/model/labels"
 	writev2 "github.com/prometheus/prometheus/prompb/io/prometheus/write/v2"
-	"github.com/prometheus/prometheus/schema"
 	promremote "github.com/prometheus/prometheus/storage/remote"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
-	"go.uber.org/zap/zapcore"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/exp/metrics/identity"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus"
 )
 
 // collectExemplars extracts Prometheus exemplars from a writev2 request and
@@ -39,74 +31,13 @@ func collectExemplars(
 	settings receiver.Settings,
 	stats *promremote.WriteResponseStats,
 ) map[uint64]pmetric.ExemplarSlice {
-	result := make(map[uint64]pmetric.ExemplarSlice)
-	builder := labels.NewScratchBuilder(0)
-	stats.Exemplars = 0
-	for i := range req.Timeseries {
-		ts := &req.Timeseries[i]
-		if len(ts.Exemplars) == 0 {
-			continue
-		}
-
-		ls, err := ts.ToLabels(&builder, req.Symbols)
-		if err != nil {
-			settings.Logger.Warn("failed to extract labels from request symbols", zapcore.Field{Key: "error", Type: zapcore.ErrorType, Interface: err})
-			continue
-		}
-
-		metadata := schema.NewMetadataFromLabels(ls)
-		if metadata.Name == "" {
-			settings.Logger.Warn("missing metric name in labels")
-			continue
-		}
-
-		scopeName, scopeVersion := extractScopeFromLabels(settings, ls)
-
-		key := exemplarKey{
-			ScopeName:    scopeName,
-			ScopeVersion: scopeVersion,
-			MetricName:   metadata.Name,
-			MetricType:   ts.Metadata.Type,
-		}
-
-		slice, ok := result[key.hash()]
-		if !ok {
-			slice = pmetric.NewExemplarSlice()
-		}
-
-		for _, ex := range ts.Exemplars {
-			promExemplar, err := ex.ToExemplar(&builder, req.Symbols)
-			if err != nil {
-				settings.Logger.Warn("error converting exemplar label refs", zapcore.Field{Key: "error", Type: zapcore.ErrorType, Interface: err})
-				continue
-			}
-
-			exemplar := slice.AppendEmpty()
-			exemplar.SetTimestamp(pcommon.Timestamp(ex.Timestamp * int64(time.Millisecond)))
-			exemplar.SetDoubleValue(ex.Value)
-
-			setTraceAndSpan(exemplar, promExemplar.Labels)
-			copyExemplarAttributes(exemplar.FilteredAttributes(), promExemplar.Labels)
-			stats.Exemplars++
-		}
-
-		result[key.hash()] = slice
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func extractScopeFromLabels(settings receiver.Settings, ls labels.Labels) (string, string) {
-	name := settings.BuildInfo.Description
-	version := settings.BuildInfo.Version
-
-	if sName := ls.Get("otel_scope_name"); sName != "" {
-		name = sName
-	}
-	if sVersion := ls.Get("otel_scope_version"); sVersion != "" {
-		version = sVersion
-	}
-	return name, version
+	_ = "STUB: not implemented"
+	return "", ""
 }
 
 // setTraceAndSpan extracts trace ID and span ID from exemplar labels
@@ -115,20 +46,8 @@ func extractScopeFromLabels(settings receiver.Settings, ls labels.Labels) (strin
 // The function expects hexadecimal-encoded IDs using Prometheus
 // exemplar label keys and silently ignores invalid values.
 func setTraceAndSpan(exemplar pmetric.Exemplar, labels labels.Labels) {
-	if tid := labels.Get(prometheus.ExemplarTraceIDKey); tid != "" {
-		var t [16]byte
-		if b, err := hex.DecodeString(tid); err == nil {
-			copy(t[:], b)
-			exemplar.SetTraceID(pcommon.TraceID(t))
-		}
-	}
-	if sid := labels.Get(prometheus.ExemplarSpanIDKey); sid != "" {
-		var s [8]byte
-		if b, err := hex.DecodeString(sid); err == nil {
-			copy(s[:], b)
-			exemplar.SetSpanID(pcommon.SpanID(s))
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // copyExemplarAttributes copies all labels into the destination attribute map
@@ -136,12 +55,8 @@ func setTraceAndSpan(exemplar pmetric.Exemplar, labels labels.Labels) {
 //
 // The destination map is typically the exemplar's filtered attributes.
 func copyExemplarAttributes(dest pcommon.Map, labels labels.Labels) {
-	for k, v := range labels.Map() {
-		if k == prometheus.ExemplarTraceIDKey || k == prometheus.ExemplarSpanIDKey {
-			continue
-		}
-		dest.PutStr(k, v)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 type exemplarKey struct {
@@ -155,14 +70,4 @@ type exemplarKey struct {
 // hash collisions between different field boundary combinations (e.g. "ab"+"c" vs "a"+"bc").
 var sep = []byte{0xff}
 
-func (k exemplarKey) hash() uint64 {
-	h := identity.Resource{}.Hash()
-	h.Write([]byte(k.ScopeName))
-	h.Write(sep)
-	h.Write([]byte(k.ScopeVersion))
-	h.Write(sep)
-	h.Write([]byte(k.MetricName))
-	h.Write(sep)
-	h.Write([]byte(k.MetricType.String()))
-	return h.Sum64()
-}
+func (k exemplarKey) hash() uint64 { _ = "STUB: not implemented"; return 0 }

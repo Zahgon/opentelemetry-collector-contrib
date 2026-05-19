@@ -6,8 +6,6 @@
 package pulsarreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/pulsarreceiver"
 
 import (
-	"errors"
-
 	"github.com/apache/pulsar-client-go/pulsar"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -76,80 +74,19 @@ type OAuth2 struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks the receiver configuration is valid
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func (cfg *Config) auth() pulsar.Authentication {
-	authentication := cfg.Authentication
-	if authentication.TLS.HasValue() {
-		tls := authentication.TLS.Get()
-		return pulsar.NewAuthenticationTLS(tls.CertFile, tls.KeyFile)
-	}
-	if authentication.Token.HasValue() {
-		token := authentication.Token.Get()
-		return pulsar.NewAuthenticationToken(string(token.Token))
-	}
-	if authentication.OAuth2.HasValue() {
-		oauth2 := authentication.OAuth2.Get()
-		return pulsar.NewAuthenticationOAuth2(map[string]string{
-			"type":       "client_credentials",
-			"issuerUrl":  oauth2.IssuerURL,
-			"clientId":   oauth2.ClientID,
-			"audience":   oauth2.Audience,
-			"scope":      oauth2.Scope,
-			"privateKey": oauth2.PrivateKey,
-		})
-	}
-	if authentication.Athenz.HasValue() {
-		athenz := authentication.Athenz.Get()
-		return pulsar.NewAuthenticationAthenz(map[string]string{
-			"providerDomain":  athenz.ProviderDomain,
-			"tenantDomain":    athenz.TenantDomain,
-			"tenantService":   athenz.TenantService,
-			"privateKey":      string(athenz.PrivateKey),
-			"keyId":           athenz.KeyID,
-			"principalHeader": athenz.PrincipalHeader,
-			"ztsUrl":          athenz.ZtsURL,
-		})
-	}
-
-	return nil
+	_ = "STUB: not implemented"
+	return *new(pulsar.Authentication)
 }
 
 func (cfg *Config) clientOptions() pulsar.ClientOptions {
-	url := cfg.Endpoint
-	if url == "" {
-		url = defaultServiceURL
-	}
-	options := pulsar.ClientOptions{
-		URL: url,
-	}
-
-	options.TLSAllowInsecureConnection = cfg.TLSAllowInsecureConnection
-	if cfg.TLSTrustCertsFilePath != "" {
-		options.TLSTrustCertsFilePath = cfg.TLSTrustCertsFilePath
-	}
-
-	auth := cfg.auth()
-	options.Authentication = auth
-	return options
+	_ = "STUB: not implemented"
+	return *new(pulsar.ClientOptions)
 }
 
 func (cfg *Config) consumerOptions() (pulsar.ConsumerOptions, error) {
-	options := pulsar.ConsumerOptions{
-		Type:             pulsar.Failover,
-		Topic:            cfg.Topic,
-		SubscriptionName: cfg.Subscription,
-	}
-
-	if cfg.ConsumerName != "" {
-		options.Name = cfg.ConsumerName
-	}
-
-	if options.SubscriptionName == "" || options.Topic == "" {
-		return options, errors.New("topic and subscription is required")
-	}
-
-	return options, nil
+	_ = "STUB: not implemented"
+	return *new(pulsar.ConsumerOptions), nil
 }

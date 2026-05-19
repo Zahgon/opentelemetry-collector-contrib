@@ -4,12 +4,6 @@
 package translation // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/translation"
 
 import (
-	"fmt"
-	"slices"
-	"sort"
-	"strings"
-
-	"github.com/gogo/protobuf/proto"
 	sfxpb "github.com/signalfx/com_signalfx_metrics_protobuf/model"
 	"go.uber.org/zap"
 )
@@ -196,296 +190,37 @@ type MetricTranslator struct {
 }
 
 func NewMetricTranslator(rules []Rule, ttl int64, done chan struct{}) (*MetricTranslator, error) {
-	err := validateTranslationRules(rules)
-	if err != nil {
-		return nil, err
-	}
-
-	return &MetricTranslator{
-		rules:           rules,
-		deltaTranslator: newDeltaTranslator(ttl, done),
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func validateTranslationRules(rules []Rule) error {
-	for i := range rules {
-		tr := &rules[i]
-		switch tr.Action {
-		case ActionRenameMetrics:
-			if tr.Mapping == nil {
-				return fmt.Errorf("field \"mapping\" is required for %q translation rule", tr.Action)
-			}
-			if tr.CopyDimensions != nil {
-				for k, v := range tr.CopyDimensions {
-					if k == "" || v == "" {
-						return fmt.Errorf("mapping \"copy_dimensions\" for %q translation rule must not contain empty string keys or values", tr.Action)
-					}
-				}
-			}
-		case ActionMultiplyInt:
-			if tr.ScaleFactorsInt == nil {
-				return fmt.Errorf("field \"scale_factors_int\" is required for %q translation rule", tr.Action)
-			}
-		case ActionDivideInt:
-			if tr.ScaleFactorsInt == nil {
-				return fmt.Errorf("field \"scale_factors_int\" is required for %q translation rule", tr.Action)
-			}
-			for k, v := range tr.ScaleFactorsInt {
-				if v == 0 {
-					return fmt.Errorf("\"scale_factors_int\" for %q translation rule has 0 value for %q metric", tr.Action, k)
-				}
-			}
-		case ActionMultiplyFloat:
-			if tr.ScaleFactorsFloat == nil {
-				return fmt.Errorf("field \"scale_factors_float\" is required for %q translation rule", tr.Action)
-			}
-		case ActionCopyMetrics:
-			if tr.Mapping == nil {
-				return fmt.Errorf("field \"mapping\" is required for %q translation rule", tr.Action)
-			}
-			if tr.DimensionKey != "" && len(tr.DimensionValues) == 0 {
-				return fmt.Errorf(
-					"\"dimension_values_filer\" has to be provided if \"dimension_key\" is set for %q translation rule",
-					tr.Action)
-			}
-		case ActionSplitMetric:
-			if tr.MetricName == "" || tr.DimensionKey == "" || tr.Mapping == nil {
-				return fmt.Errorf(
-					"fields \"metric_name\", \"dimension_key\", and \"mapping\" are required for %q translation rule",
-					tr.Action)
-			}
-		case ActionConvertValues:
-			if tr.TypesMapping == nil {
-				return fmt.Errorf("field \"types_mapping\" are required for %q translation rule", tr.Action)
-			}
-			for k, v := range tr.TypesMapping {
-				if v != MetricValueTypeInt && v != MetricValueTypeDouble {
-					return fmt.Errorf("invalid value type %q set for metric %q in \"types_mapping\"", v, k)
-				}
-			}
-		case ActionAggregateMetric:
-			if tr.MetricName == "" || tr.AggregationMethod == "" || len(tr.WithoutDimensions) == 0 {
-				return fmt.Errorf("fields \"metric_name\", \"without_dimensions\", and \"aggregation_method\" "+
-					"are required for %q translation rule", tr.Action)
-			}
-			if tr.AggregationMethod != AggregationMethodCount &&
-				tr.AggregationMethod != AggregationMethodSum &&
-				tr.AggregationMethod != AggregationMethodAvg {
-				return fmt.Errorf("invalid \"aggregation_method\": %q provided for %q translation rule",
-					tr.AggregationMethod, tr.Action)
-			}
-		case ActionCalculateNewMetric:
-			if tr.MetricName == "" || tr.Operand1Metric == "" || tr.Operand2Metric == "" || tr.Operator == "" {
-				return fmt.Errorf(`fields "metric_name", "operand1_metric", "operand2_metric", and "operator" are `+
-					"required for %q translation rule", tr.Action)
-			}
-			if tr.Operator != MetricOperatorDivision {
-				return fmt.Errorf("invalid operator %q for %q translation rule", tr.Operator, tr.Action)
-			}
-		case ActionDropMetrics:
-			if len(tr.MetricNames) == 0 {
-				return fmt.Errorf(`field "metric_names" is required for %q translation rule`, tr.Action)
-			}
-		case ActionDeltaMetric:
-			if len(tr.Mapping) == 0 {
-				return fmt.Errorf(`field "mapping" is required for %q translation rule`, tr.Action)
-			}
-		default:
-			return fmt.Errorf("unknown \"action\" value: %q", tr.Action)
-		}
-	}
-	return nil
-}
+func validateTranslationRules(rules []Rule) error { _ = "STUB: not implemented"; return nil }
 
-func (mp *MetricTranslator) Start() {
-	if mp.deltaTranslator != nil {
-		mp.deltaTranslator.start()
-	}
-}
+func (mp *MetricTranslator) Start() { _ = "STUB: not implemented"; return }
 
 // TranslateDataPoints transforms datapoints to a format compatible with signalfx backend
 // sfxDataPoints represents one metric converted to signalfx protobuf datapoints
 func (mp *MetricTranslator) TranslateDataPoints(logger *zap.Logger, sfxDataPoints []*sfxpb.DataPoint) []*sfxpb.DataPoint {
-	processedDataPoints := sfxDataPoints
-
-	for i := range mp.rules {
-		tr := &mp.rules[i]
-		switch tr.Action {
-		case ActionRenameMetrics:
-			var additionalDimensions []*sfxpb.Dimension
-			if tr.AddDimensions != nil {
-				for k, v := range tr.AddDimensions {
-					additionalDimensions = append(additionalDimensions, &sfxpb.Dimension{Key: k, Value: v})
-				}
-			}
-
-			for _, dp := range processedDataPoints {
-				if newKey, ok := tr.Mapping[dp.Metric]; ok {
-					dp.Metric = newKey
-					if tr.CopyDimensions != nil {
-						for _, d := range dp.Dimensions {
-							if k, ok := tr.CopyDimensions[d.Key]; ok {
-								dp.Dimensions = append(dp.Dimensions, &sfxpb.Dimension{Key: k, Value: d.Value})
-							}
-						}
-					}
-					if len(additionalDimensions) > 0 {
-						dp.Dimensions = append(dp.Dimensions, additionalDimensions...)
-					}
-				}
-			}
-		case ActionMultiplyInt:
-			for _, dp := range processedDataPoints {
-				if multiplier, ok := tr.ScaleFactorsInt[dp.Metric]; ok {
-					v := dp.GetValue().IntValue
-					if v != nil {
-						*v *= multiplier
-					}
-				}
-			}
-		case ActionDivideInt:
-			for _, dp := range processedDataPoints {
-				if divisor, ok := tr.ScaleFactorsInt[dp.Metric]; ok {
-					v := dp.GetValue().IntValue
-					if v != nil {
-						*v /= divisor
-					}
-				}
-			}
-		case ActionMultiplyFloat:
-			for _, dp := range processedDataPoints {
-				if multiplier, ok := tr.ScaleFactorsFloat[dp.Metric]; ok {
-					v := dp.GetValue().DoubleValue
-					if v != nil {
-						*v *= multiplier
-					}
-				}
-			}
-		case ActionCopyMetrics:
-			for _, dp := range processedDataPoints {
-				if newMetric, ok := tr.Mapping[dp.Metric]; ok {
-					newDataPoint := copyMetric(tr, dp, newMetric)
-					if newDataPoint != nil {
-						processedDataPoints = append(processedDataPoints, newDataPoint)
-					}
-				}
-			}
-		case ActionSplitMetric:
-			for _, dp := range processedDataPoints {
-				if tr.MetricName == dp.Metric {
-					splitMetric(dp, tr.DimensionKey, tr.Mapping)
-				}
-			}
-		case ActionConvertValues:
-			for _, dp := range processedDataPoints {
-				if newType, ok := tr.TypesMapping[dp.Metric]; ok {
-					convertMetricValue(logger, dp, newType)
-				}
-			}
-		case ActionCalculateNewMetric:
-			pairs := calcNewMetricInputPairs(processedDataPoints, tr)
-			for _, pair := range pairs {
-				newPt := calculateNewMetric(logger, pair[0], pair[1], tr)
-				if newPt == nil {
-					continue
-				}
-				processedDataPoints = append(processedDataPoints, newPt)
-			}
-
-		case ActionAggregateMetric:
-			// NOTE: Based on the usage of TranslateDataPoints we can assume that the datapoints batch []*sfxpb.DataPoint
-			// represents only one metric and all the datapoints can be aggregated together.
-			var dpsToAggregate []*sfxpb.DataPoint
-			var otherDps []*sfxpb.DataPoint
-			for i, dp := range processedDataPoints {
-				if dp.Metric == tr.MetricName {
-					if dpsToAggregate == nil {
-						dpsToAggregate = make([]*sfxpb.DataPoint, 0, len(processedDataPoints)-i)
-					}
-					dpsToAggregate = append(dpsToAggregate, dp)
-				} else {
-					if otherDps == nil {
-						otherDps = make([]*sfxpb.DataPoint, 0, len(processedDataPoints)-i)
-					}
-					// This slice can contain additional datapoints from a different metric
-					// for example copied in a translation step before
-					otherDps = append(otherDps, dp)
-				}
-			}
-			aggregatedDps := aggregateDatapoints(dpsToAggregate, tr.WithoutDimensions, tr.AggregationMethod)
-			processedDataPoints = otherDps
-			processedDataPoints = append(processedDataPoints, aggregatedDps...)
-
-		case ActionDropMetrics:
-			resultSliceLen := 0
-			for i, dp := range processedDataPoints {
-				if match := tr.MetricNames[dp.Metric]; !match {
-					if resultSliceLen < i {
-						processedDataPoints[resultSliceLen] = dp
-					}
-					resultSliceLen++
-				}
-			}
-			processedDataPoints = processedDataPoints[:resultSliceLen]
-
-		case ActionDeltaMetric:
-			processedDataPoints = mp.deltaTranslator.translate(processedDataPoints, tr)
-		}
-	}
-
-	return processedDataPoints
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (mp *MetricTranslator) Shutdown() {
-	if mp.deltaTranslator != nil {
-		mp.deltaTranslator.shutdown()
-	}
-}
+// NOTE: Based on the usage of TranslateDataPoints we can assume that the datapoints batch []*sfxpb.DataPoint
+// represents only one metric and all the datapoints can be aggregated together.
+
+// This slice can contain additional datapoints from a different metric
+// for example copied in a translation step before
+
+func (mp *MetricTranslator) Shutdown() { _ = "STUB: not implemented"; return }
 
 func calcNewMetricInputPairs(processedDataPoints []*sfxpb.DataPoint, tr *Rule) [][2]*sfxpb.DataPoint {
-	var operand1Pts, operand2Pts []*sfxpb.DataPoint
-	for _, dp := range processedDataPoints {
-		switch dp.Metric {
-		case tr.Operand1Metric:
-			operand1Pts = append(operand1Pts, dp)
-		case tr.Operand2Metric:
-			operand2Pts = append(operand2Pts, dp)
-		}
-	}
-	var out [][2]*sfxpb.DataPoint
-	for _, o1 := range operand1Pts {
-		for _, o2 := range operand2Pts {
-			if dimensionsEqual(o1.Dimensions, o2.Dimensions) {
-				pair := [2]*sfxpb.DataPoint{o1, o2}
-				out = append(out, pair)
-			}
-		}
-	}
-	return out
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func dimensionsEqual(d1, d2 []*sfxpb.Dimension) bool {
-	if d1 == nil && d2 == nil {
-		return true
-	}
-	if len(d1) != len(d2) {
-		return false
-	}
-	// avoid allocating a map
-	for _, dim1 := range d1 {
-		matched := false
-		for _, dim2 := range d2 {
-			if dim1.Key == dim2.Key && dim1.Value == dim2.Value {
-				matched = true
-				break
-			}
-		}
-		if !matched {
-			return false
-		}
-	}
-	return true
-}
+func dimensionsEqual(d1, d2 []*sfxpb.Dimension) bool { _ = "STUB: not implemented"; return false }
+
+// avoid allocating a map
 
 func calculateNewMetric(
 	logger *zap.Logger,
@@ -493,68 +228,17 @@ func calculateNewMetric(
 	operand2 *sfxpb.DataPoint,
 	tr *Rule,
 ) *sfxpb.DataPoint {
-	v1 := ptToFloatVal(operand1)
-	if v1 == nil {
-		logger.Warn(
-			"calculate_new_metric: operand1 has no numeric value",
-			zap.String("tr.Operand1Metric", tr.Operand1Metric),
-			zap.String("tr.MetricName", tr.MetricName),
-		)
-		return nil
-	}
-
-	v2 := ptToFloatVal(operand2)
-	if v2 == nil {
-		logger.Warn(
-			"calculate_new_metric: operand2 has no numeric value",
-			zap.String("tr.Operand2Metric", tr.Operand1Metric),
-			zap.String("tr.MetricName", tr.MetricName),
-		)
-		return nil
-	}
-
-	if tr.Operator == MetricOperatorDivision && *v2 == 0 {
-		// We can get here if, for example, in the denominator we get multiple
-		// datapoints that have the same counter value, which will yield a delta of
-		// zero.
-		logger.Debug(
-			"calculate_new_metric: attempt to divide by zero, skipping",
-			zap.String("tr.Operand2Metric", tr.Operand2Metric),
-			zap.String("tr.MetricName", tr.MetricName),
-		)
-		return nil
-	}
-
-	newPt := proto.Clone(operand1).(*sfxpb.DataPoint)
-	newPt.Metric = tr.MetricName
-	var newPtVal float64
-	switch tr.Operator {
-	// only supporting divide operator for now
-	case MetricOperatorDivision:
-		newPtVal = *v1 / *v2
-	default:
-		logger.Warn("calculate_new_metric: unsupported operator", zap.String("operator", string(tr.Operator)))
-		return nil
-	}
-	newPt.Value = sfxpb.Datum{DoubleValue: &newPtVal}
-	return newPt
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func ptToFloatVal(pt *sfxpb.DataPoint) *float64 {
-	if pt == nil {
-		return nil
-	}
-	var f float64
-	switch {
-	case pt.Value.IntValue != nil:
-		f = float64(*pt.Value.IntValue)
-	case pt.Value.DoubleValue != nil:
-		f = *pt.Value.DoubleValue
-	default:
-		return nil
-	}
-	return &f
-}
+// We can get here if, for example, in the denominator we get multiple
+// datapoints that have the same counter value, which will yield a delta of
+// zero.
+
+// only supporting divide operator for now
+
+func ptToFloatVal(pt *sfxpb.DataPoint) *float64 { _ = "STUB: not implemented"; return nil }
 
 // aggregateDatapoints aggregates datapoints assuming that they have
 // the same Timestamp, MetricType, Metric and Source fields.
@@ -563,170 +247,50 @@ func aggregateDatapoints(
 	withoutDimensions []string,
 	aggregation AggregationMethod,
 ) []*sfxpb.DataPoint {
-	if len(dps) == 0 {
-		return nil
-	}
-
-	// group datapoints by dimension values
-	dimValuesToDps := make(map[string][]*sfxpb.DataPoint, len(dps))
-	for i, dp := range dps {
-		aggregationKey := stringifyDimensions(dp.Dimensions, withoutDimensions)
-		if _, ok := dimValuesToDps[aggregationKey]; !ok {
-			// set slice capacity to the possible maximum = len(dps)-i to avoid reallocations
-			dimValuesToDps[aggregationKey] = make([]*sfxpb.DataPoint, 0, len(dps)-i)
-		}
-		dimValuesToDps[aggregationKey] = append(dimValuesToDps[aggregationKey], dp)
-	}
-
-	// Get aggregated results
-	result := make([]*sfxpb.DataPoint, 0, len(dimValuesToDps))
-	for _, dps := range dimValuesToDps {
-		dp := proto.Clone(dps[0]).(*sfxpb.DataPoint)
-		dp.Dimensions = filterDimensions(dp.Dimensions, withoutDimensions)
-		switch aggregation {
-		case AggregationMethodCount:
-			gauge := sfxpb.MetricType_GAUGE
-			dp.MetricType = &gauge
-			value := int64(len(dps))
-			dp.Value = sfxpb.Datum{
-				IntValue: &value,
-			}
-		case AggregationMethodSum:
-			var intValue int64
-			var floatValue float64
-			value := sfxpb.Datum{}
-			for _, dp := range dps {
-				if dp.Value.IntValue != nil {
-					intValue += *dp.Value.IntValue
-					value.IntValue = &intValue
-				}
-				if dp.Value.DoubleValue != nil {
-					floatValue += *dp.Value.DoubleValue
-					value.DoubleValue = &floatValue
-				}
-			}
-			dp.Value = value
-		case AggregationMethodAvg:
-			var mean float64
-			for _, dp := range dps {
-				if dp.Value.IntValue != nil {
-					mean += float64(*dp.Value.IntValue)
-				}
-				if dp.Value.DoubleValue != nil {
-					mean += *dp.Value.DoubleValue
-				}
-			}
-			mean /= float64(len(dps))
-			dp.Value = sfxpb.Datum{
-				DoubleValue: &mean,
-			}
-		}
-		result = append(result, dp)
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// group datapoints by dimension values
+
+// set slice capacity to the possible maximum = len(dps)-i to avoid reallocations
+
+// Get aggregated results
 
 // stringifyDimensions turns the passed-in `dimensions` into a string while
 // ignoring the passed-in `exclusions`. The result has the following form:
 // dim1:val1//dim2:val2. Order is deterministic so this function can be used to
 // generate map keys.
 func stringifyDimensions(dimensions []*sfxpb.Dimension, exclusions []string) string {
-	const aggregationKeyDelimiter = "//"
-	aggregationKeyParts := make([]string, 0, len(dimensions))
-	for _, d := range dimensions {
-		if !slices.Contains(exclusions, d.Key) {
-			aggregationKeyParts = append(aggregationKeyParts, fmt.Sprintf("%s:%s", d.Key, d.Value))
-		}
-	}
-	sort.Strings(aggregationKeyParts)
-	return strings.Join(aggregationKeyParts, aggregationKeyDelimiter)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // filterDimensions returns list of dimension excluding withoutDimensions
 func filterDimensions(dimensions []*sfxpb.Dimension, withoutDimensions []string) []*sfxpb.Dimension {
-	if len(dimensions) == 0 || len(dimensions)-len(withoutDimensions) <= 0 {
-		return nil
-	}
-	result := make([]*sfxpb.Dimension, 0, len(dimensions)-len(withoutDimensions))
-	for _, d := range dimensions {
-		if !slices.Contains(withoutDimensions, d.Key) {
-			result = append(result, d)
-		}
-	}
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // splitMetric renames a metric with "dimension key" == dimensionKey to mapping["dimension value"],
 // datapoint not changed if not dimension found equal to dimensionKey:mapping->key.
 func splitMetric(dp *sfxpb.DataPoint, dimensionKey string, mapping map[string]string) {
-	if len(dp.Dimensions) == 0 {
-		return
-	}
-
-	dimensions := make([]*sfxpb.Dimension, 0, len(dp.Dimensions)-1)
-	var match bool
-	for i, d := range dp.Dimensions {
-		if dimensionKey == d.Key {
-			if newName, ok := mapping[d.Value]; ok {
-				// The dimension value matches the mapping, proceeding
-				dp.Metric = newName
-				match = true
-				continue
-			}
-			// The dimension value doesn't match the mapping, keep the datapoint as is
-			return
-		}
-
-		// No dimension key found for the specified dimensionKey, keep the datapoint as is
-		if i == len(dp.Dimensions)-1 && !match {
-			return
-		}
-
-		dimensions = append(dimensions, d)
-	}
-
-	dp.Dimensions = dimensions
+	_ = "STUB: not implemented"
+	return
 }
 
+// The dimension value matches the mapping, proceeding
+
+// The dimension value doesn't match the mapping, keep the datapoint as is
+
+// No dimension key found for the specified dimensionKey, keep the datapoint as is
+
 func convertMetricValue(logger *zap.Logger, dp *sfxpb.DataPoint, newType MetricValueType) {
-	switch newType {
-	case MetricValueTypeInt:
-		val := dp.GetValue().DoubleValue
-		if val == nil {
-			logger.Debug("only datapoint of \"double\" type can be converted to int",
-				zap.String("metric", dp.Metric))
-			return
-		}
-		intVal := int64(*val)
-		dp.Value = sfxpb.Datum{IntValue: &intVal}
-	case MetricValueTypeDouble:
-		val := dp.GetValue().IntValue
-		if val == nil {
-			logger.Debug("only datapoint of \"int\" type can be converted to double",
-				zap.String("metric", dp.Metric))
-			return
-		}
-		floatVal := float64(*val)
-		dp.Value = sfxpb.Datum{DoubleValue: &floatVal}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func copyMetric(tr *Rule, dp *sfxpb.DataPoint, newMetricName string) *sfxpb.DataPoint {
-	if tr.DimensionKey != "" {
-		var match bool
-		for _, d := range dp.Dimensions {
-			if d.Key == tr.DimensionKey {
-				match = tr.DimensionValues[d.Value]
-				break
-			}
-		}
-		if !match {
-			return nil
-		}
-	}
-
-	newDataPoint := proto.Clone(dp).(*sfxpb.DataPoint)
-	newDataPoint.Metric = newMetricName
-	return newDataPoint
+	_ = "STUB: not implemented"
+	return nil
 }

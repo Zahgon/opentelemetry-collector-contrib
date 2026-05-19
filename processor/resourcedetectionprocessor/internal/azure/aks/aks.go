@@ -5,12 +5,9 @@ package aks // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"os"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/azure"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal"
@@ -32,40 +29,18 @@ type Detector struct {
 
 // NewDetector creates a new AKS detector
 func NewDetector(_ processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-	return &Detector{provider: azure.NewProvider(), resourceAttributes: cfg.ResourceAttributes}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 func (d *Detector) Detect(ctx context.Context) (resource pcommon.Resource, schemaURL string, err error) {
-	res := pcommon.NewResource()
-
-	if !onK8s() {
-		return res, "", nil
-	}
-
-	m, err := d.provider.Metadata(ctx)
-	// If we can't get a response from the metadata endpoint, we're not running in Azure
-	if err != nil {
-		return res, "", nil
-	}
-
-	attrs := res.Attributes()
-	if d.resourceAttributes.CloudProvider.Enabled {
-		attrs.PutStr(string(conventions.CloudProviderKey), conventions.CloudProviderAzure.Value.AsString())
-	}
-	if d.resourceAttributes.CloudPlatform.Enabled {
-		attrs.PutStr(string(conventions.CloudPlatformKey), conventions.CloudPlatformAzureAKS.Value.AsString())
-	}
-	if d.resourceAttributes.K8sClusterName.Enabled {
-		attrs.PutStr(string(conventions.K8SClusterNameKey), parseClusterName(m.ResourceGroupName))
-	}
-
-	return res, conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
 
-func onK8s() bool {
-	return os.Getenv(kubernetesServiceHostEnvVar) != ""
-}
+// If we can't get a response from the metadata endpoint, we're not running in Azure
+
+func onK8s() bool { _ = "STUB: not implemented"; return false }
 
 // parseClusterName parses the cluster name from the infrastructure
 // resource group name. AKS IMDS returns the resource group name in
@@ -93,12 +68,7 @@ func onK8s() bool {
 // because Azure will not allow the user to create multiple AKS clusters with the same
 // infrastructure resource group name.
 func parseClusterName(resourceGroup string) string {
+	_ = "STUB: not implemented"
 	// Code inspired by https://github.com/open-telemetry/opentelemetry-collector-contrib/blob/main/exporter/datadogexporter/internal/hostmetadata/internal/azure/provider.go#L36
-	splitAll := strings.Split(resourceGroup, "_")
-
-	if len(splitAll) == 4 && strings.EqualFold(splitAll[0], "mc") {
-		return splitAll[len(splitAll)-2]
-	}
-
-	return resourceGroup
+	return ""
 }

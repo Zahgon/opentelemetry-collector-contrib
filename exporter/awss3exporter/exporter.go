@@ -5,7 +5,6 @@ package awss3exporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -32,89 +31,36 @@ func newS3Exporter(
 	signalType string,
 	params exporter.Settings,
 ) *s3Exporter {
-	s3Exporter := &s3Exporter{
-		config:     config,
-		signalType: signalType,
-		logger:     params.Logger,
-	}
-	return s3Exporter
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *s3Exporter) getUploadOpts(res pcommon.Resource) *upload.UploadOptions {
-	s3Prefix := ""
-	s3Bucket := ""
-	if s3PrefixKey := e.config.ResourceAttrsToS3.S3Prefix; s3PrefixKey != "" {
-		if value, ok := res.Attributes().Get(s3PrefixKey); ok {
-			s3Prefix = value.AsString()
-		}
-	}
-	if s3BucketKey := e.config.ResourceAttrsToS3.S3Bucket; s3BucketKey != "" {
-		if value, ok := res.Attributes().Get(s3BucketKey); ok {
-			s3Bucket = value.AsString()
-		}
-	}
-	uploadOpts := &upload.UploadOptions{
-		OverrideBucket: s3Bucket,
-		OverridePrefix: s3Prefix,
-	}
-	return uploadOpts
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *s3Exporter) start(ctx context.Context, host component.Host) error {
-	var m marshaler
-	var err error
-	if e.config.Encoding != nil {
-		if m, err = newMarshalerFromEncoding(e.config.Encoding, e.config.EncodingFileExtension, host, e.logger); err != nil {
-			return err
-		}
-	} else {
-		if m, err = newMarshaler(e.config.MarshalerName, e.logger); err != nil {
-			return fmt.Errorf("unknown marshaler %q", e.config.MarshalerName)
-		}
-	}
-
-	e.marshaler = m
-
-	up, err := newUploadManager(ctx, e.config, e.logger, e.signalType, m.format(), m.compressed())
-	if err != nil {
-		return err
-	}
-	e.uploader = up
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*s3Exporter) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (e *s3Exporter) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	buf, err := e.marshaler.MarshalMetrics(md)
-	if err != nil {
-		return err
-	}
-
-	uploadOpts := e.getUploadOpts(md.ResourceMetrics().At(0).Resource())
-	return e.uploader.Upload(ctx, buf, uploadOpts)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *s3Exporter) ConsumeLogs(ctx context.Context, logs plog.Logs) error {
-	buf, err := e.marshaler.MarshalLogs(logs)
-	if err != nil {
-		return err
-	}
-
-	uploadOpts := e.getUploadOpts(logs.ResourceLogs().At(0).Resource())
-
-	return e.uploader.Upload(ctx, buf, uploadOpts)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *s3Exporter) ConsumeTraces(ctx context.Context, traces ptrace.Traces) error {
-	buf, err := e.marshaler.MarshalTraces(traces)
-	if err != nil {
-		return err
-	}
-
-	uploadOpts := e.getUploadOpts(traces.ResourceSpans().At(0).Resource())
-
-	return e.uploader.Upload(ctx, buf, uploadOpts)
+	_ = "STUB: not implemented"
+	return nil
 }

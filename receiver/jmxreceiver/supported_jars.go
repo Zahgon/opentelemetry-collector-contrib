@@ -3,8 +3,6 @@
 
 package jmxreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jmxreceiver"
 
-import "fmt"
-
 type supportedJar struct {
 	jar             string
 	version         string
@@ -18,18 +16,7 @@ var MetricsGathererHash = "n/a"
 var ScraperHash = "n/a"
 
 // Support for SSL properties passed via property file will be available starting in v1.14.0
-func oldFormatProperties(c *Config, j supportedJar) error {
-	if c.KeystorePassword != "" ||
-		c.KeystorePath != "" ||
-		c.KeystoreType != "" ||
-		c.TruststorePassword != "" ||
-		c.TruststorePath != "" ||
-		c.TruststoreType != "" {
-		return fmt.Errorf("version %s of the JMX Metrics Gatherer does not support SSL parameters (Keystore & Truststore) "+
-			"from the jmxreceiver. Update to the latest JMX Metrics Gatherer if you would like SSL support", j.version)
-	}
-	return nil
-}
+func oldFormatProperties(c *Config, j supportedJar) error { _ = "STUB: not implemented"; return nil }
 
 var jmxScraperVersions = map[string]supportedJar{
 	"aca7937cee3fc0f669553d594c0b80bb9ff6417c42902c0414ddcea9753c7171": {
@@ -244,24 +231,7 @@ func init() {
 	initSupportedJars()
 }
 
-func initSupportedJars() {
-	if MetricsGathererHash != "n/a" {
-		jmxMetricsGathererVersions = map[string]supportedJar{
-			MetricsGathererHash: {
-				version: "custom",
-				jar:     "JMX metrics gatherer",
-			},
-		}
-	}
-	if ScraperHash != "n/a" {
-		jmxScraperVersions = map[string]supportedJar{
-			ScraperHash: {
-				version: "custom",
-				jar:     "JMX scraper",
-			},
-		}
-	}
-}
+func initSupportedJars() { _ = "STUB: not implemented"; return }
 
 var wildflyJarVersions = map[string]supportedJar{
 	"637d78e6c2275178623012e75e407b7e36856e26f05bd8eebc68a79628eaf6e4": {

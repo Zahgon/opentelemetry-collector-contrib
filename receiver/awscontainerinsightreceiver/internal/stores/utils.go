@@ -5,14 +5,9 @@ package stores // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"encoding/json"
-	"strings"
 	"time"
 
 	corev1 "k8s.io/api/core/v1"
-
-	ci "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/containerinsight"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/k8s/k8sutil"
 )
 
 const (
@@ -22,153 +17,48 @@ const (
 	cronJobAllowedString       = "0123456789"
 )
 
-func createPodKeyFromMetaData(pod *corev1.Pod) string {
-	namespace := pod.Namespace
-	podName := pod.Name
-	return k8sutil.CreatePodKey(namespace, podName)
-}
+func createPodKeyFromMetaData(pod *corev1.Pod) string { _ = "STUB: not implemented"; return "" }
 
-func createPodKeyFromMetric(metric CIMetric) string {
-	namespace := metric.GetTag(ci.K8sNamespace)
-	podName := metric.GetTag(ci.K8sPodNameKey)
-	return k8sutil.CreatePodKey(namespace, podName)
-}
+func createPodKeyFromMetric(metric CIMetric) string { _ = "STUB: not implemented"; return "" }
 
-func createContainerKeyFromMetric(metric CIMetric) string {
-	namespace := metric.GetTag(ci.K8sNamespace)
-	podName := metric.GetTag(ci.K8sPodNameKey)
-	containerName := metric.GetTag(ci.ContainerNamekey)
-	return k8sutil.CreateContainerKey(namespace, podName, containerName)
-}
+func createContainerKeyFromMetric(metric CIMetric) string { _ = "STUB: not implemented"; return "" }
 
 // get the deployment name by stripping the last dash following some rules
 // return empty if it is not following the rule
-func parseDeploymentFromReplicaSet(name string) string {
-	lastDash := strings.LastIndexAny(name, "-")
-	if lastDash == -1 {
-		// No dash
-		return ""
-	}
-	suffix := name[lastDash+1:]
-	if len(suffix) < 3 {
-		// Invalid suffix if it is less than 3
-		return ""
-	}
+func parseDeploymentFromReplicaSet(name string) string { _ = "STUB: not implemented"; return "" }
 
-	if !stringInRuneset(suffix, kubeAllowedStringAlphaNums) {
-		// Invalid suffix
-		return ""
-	}
+// No dash
 
-	return name[:lastDash]
-}
+// Invalid suffix if it is less than 3
+
+// Invalid suffix
 
 // get the cronJob name by stripping the last dash following some rules
 // return empty if it is not following the rule
-func parseCronJobFromJob(name string) string {
-	lastDash := strings.LastIndexAny(name, "-")
-	if lastDash == -1 {
-		// No dash
-		return ""
-	}
-	suffix := name[lastDash+1:]
-	if len(suffix) != 10 {
-		// Invalid suffix if it is not 10 rune
-		return ""
-	}
+func parseCronJobFromJob(name string) string { _ = "STUB: not implemented"; return "" }
 
-	if !stringInRuneset(suffix, cronJobAllowedString) {
-		// Invalid suffix
-		return ""
-	}
+// No dash
 
-	return name[:lastDash]
-}
+// Invalid suffix if it is not 10 rune
 
-func stringInRuneset(name, subset string) bool {
-	for _, r := range name {
-		if !strings.ContainsRune(subset, r) {
-			// Found an unexpected rune in suffix
-			return false
-		}
-	}
-	return true
-}
+// Invalid suffix
 
-func TagMetricSource(metric CIMetric) {
-	metricType := metric.GetTag(ci.MetricType)
-	if metricType == "" {
-		return
-	}
+func stringInRuneset(name, subset string) bool { _ = "STUB: not implemented"; return false }
 
-	var sources []string
-	switch metricType {
-	case ci.TypeNode:
-		sources = append(sources, []string{"cadvisor", "/proc", "pod", "calculated"}...)
-	case ci.TypeNodeFS:
-		sources = append(sources, []string{"cadvisor", "calculated"}...)
-	case ci.TypeNodeNet:
-		sources = append(sources, []string{"cadvisor", "calculated"}...)
-	case ci.TypeNodeDiskIO:
-		sources = append(sources, []string{"cadvisor"}...)
-	case ci.TypePod:
-		sources = append(sources, []string{"cadvisor", "pod", "calculated"}...)
-	case ci.TypePodNet:
-		sources = append(sources, []string{"cadvisor", "calculated"}...)
-	case ci.TypeContainer:
-		sources = append(sources, []string{"cadvisor", "pod", "calculated"}...)
-	case ci.TypeContainerFS:
-		sources = append(sources, []string{"cadvisor", "calculated"}...)
-	case ci.TypeContainerDiskIO:
-		sources = append(sources, []string{"cadvisor"}...)
-	}
+// Found an unexpected rune in suffix
 
-	if len(sources) > 0 {
-		sourcesInfo, err := json.Marshal(sources)
-		if err != nil {
-			return
-		}
-		metric.AddTag(ci.SourcesKey, string(sourcesInfo))
-	}
-}
+func TagMetricSource(metric CIMetric) { _ = "STUB: not implemented"; return }
 
 func AddKubernetesInfo(metric CIMetric, kubernetesBlob map[string]any) {
-	needMoveToKubernetes := map[string]string{
-		ci.ContainerNamekey: "container_name", ci.K8sPodNameKey: "pod_name",
-		ci.PodIDKey: "pod_id",
-	}
-
-	needCopyToKubernetes := map[string]string{ci.K8sNamespace: "namespace_name", ci.TypeService: "service_name", ci.NodeNameKey: "host"}
-
-	for k, v := range needMoveToKubernetes {
-		if attVal := metric.GetTag(k); attVal != "" {
-			kubernetesBlob[v] = attVal
-			metric.RemoveTag(k)
-		}
-	}
-	for k, v := range needCopyToKubernetes {
-		if attVal := metric.GetTag(k); attVal != "" {
-			kubernetesBlob[v] = attVal
-		}
-	}
-
-	if len(kubernetesBlob) > 0 {
-		kubernetesInfo, err := json.Marshal(kubernetesBlob)
-		if err != nil {
-			return
-		}
-		metric.AddTag(ci.Kubernetes, string(kubernetesInfo))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func refreshWithTimeout(parentContext context.Context, refresh func(), timeout time.Duration) {
-	ctx, cancel := context.WithTimeout(parentContext, timeout)
-	// spawn a goroutine to process the actual refresh
-	go func(cancel func()) {
-		refresh()
-		cancel()
-	}(cancel)
-	// block until either refresh() has executed or the timeout expires
-	<-ctx.Done()
-	cancel()
+	_ = "STUB: not implemented"
+	return
 }
+
+// spawn a goroutine to process the actual refresh
+
+// block until either refresh() has executed or the timeout expires

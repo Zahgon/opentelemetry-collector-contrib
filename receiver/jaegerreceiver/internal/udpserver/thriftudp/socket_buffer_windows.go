@@ -9,6 +9,4 @@ import (
 )
 
 // Not supported on windows, so windows version just returns nil
-func setSocketBuffer(_ *net.UDPConn, _ int) error {
-	return nil
-}
+func setSocketBuffer(_ *net.UDPConn, _ int) error { _ = "STUB: not implemented"; return nil }

@@ -12,8 +12,6 @@ import (
 
 // MetricsData generates OTLP metrics from endpoint raw data
 func MetricsData(containerStatsMap map[string]*ContainerStats, metadata ecsutil.TaskMetadata, logger *zap.Logger) []pmetric.Metrics {
-	acc := &metricDataAccumulator{}
-	acc.getMetricsData(containerStatsMap, metadata, logger)
-
-	return acc.mds
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -4,8 +4,6 @@
 package googlecloudmonitoringreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudmonitoringreceiver"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
@@ -34,32 +32,6 @@ type MetricConfig struct {
 	MetricDescriptorFilter string `mapstructure:"metric_descriptor_filter"`
 }
 
-func (config *Config) Validate() error {
-	if config.CollectionInterval < minCollectionInterval {
-		return fmt.Errorf("\"collection_interval\" must be not lower than the collection interval: %v, current value is %v", minCollectionInterval, config.CollectionInterval)
-	}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if len(config.MetricsList) == 0 {
-		return errors.New("missing required field \"metrics_list\" or its value is empty")
-	}
-
-	for _, metric := range config.MetricsList {
-		if err := metric.Validate(); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (metric MetricConfig) Validate() error {
-	if metric.MetricName != "" && metric.MetricDescriptorFilter != "" {
-		return errors.New("fields \"metric_name\" and \"metric_descriptor_filter\" cannot both have value")
-	}
-
-	if metric.MetricName == "" && metric.MetricDescriptorFilter == "" {
-		return errors.New("fields \"metric_name\" and \"metric_descriptor_filter\" cannot both be empty")
-	}
-
-	return nil
-}
+func (metric MetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }

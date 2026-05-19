@@ -22,61 +22,42 @@ type concurrentMapImpl[V any] struct {
 }
 
 func newConcurrentMapImpl[V any]() concurrentMetricsBuilderMap[V] {
-	return &concurrentMapImpl[V]{m: cmap.New[V]()}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (c *concurrentMapImpl[V]) Get(key string) (V, bool) {
-	return c.m.Get(key)
+	_ = "STUB: not implemented"
+	return *new(V), false
 }
 
-func (c *concurrentMapImpl[V]) Set(key string, value V) {
-	c.m.Set(key, value)
-}
+func (c *concurrentMapImpl[V]) Set(key string, value V) { _ = "STUB: not implemented"; return }
 
-func (c *concurrentMapImpl[V]) Clear() {
-	c.m.Clear()
-}
+func (c *concurrentMapImpl[V]) Clear() { _ = "STUB: not implemented"; return }
 
 func (c *concurrentMapImpl[V]) Range(f func(string, V)) {
-	c.m.IterCb(f)
-}
+	_ = "STUB: not implemented"
 
-// Implementation with sync.Map
+	// Implementation with sync.Map
+	return
+}
 
 type syncMapImpl[V any] struct {
 	m sync.Map
 }
 
-func newSyncMapImpl[V any]() concurrentMetricsBuilderMap[V] {
-	return &syncMapImpl[V]{}
-}
+func newSyncMapImpl[V any]() concurrentMetricsBuilderMap[V] { _ = "STUB: not implemented"; return nil }
 
 func (s *syncMapImpl[V]) Get(key string) (V, bool) {
-	v, ok := s.m.Load(key)
-	if !ok {
-		var zero V
-		return zero, false
-	}
-	return v.(V), true
+	_ = "STUB: not implemented"
+	return *new(V), false
 }
 
-func (s *syncMapImpl[V]) Set(key string, value V) {
-	s.m.Store(key, value)
-}
+func (s *syncMapImpl[V]) Set(key string, value V) { _ = "STUB: not implemented"; return }
 
-func (s *syncMapImpl[V]) Clear() {
-	s.m.Range(func(k, _ any) bool {
-		s.m.Delete(k)
-		return true
-	})
-}
+func (s *syncMapImpl[V]) Clear() { _ = "STUB: not implemented"; return }
 
-func (s *syncMapImpl[V]) Range(f func(string, V)) {
-	s.m.Range(func(k, v any) bool {
-		f(k.(string), v.(V))
-		return true
-	})
-}
+func (s *syncMapImpl[V]) Range(f func(string, V)) { _ = "STUB: not implemented"; return }
 
 // Implementation with classic map and mutex
 
@@ -85,33 +66,15 @@ type mutexMapImpl[V any] struct {
 	mutex sync.RWMutex
 }
 
-func newMutexMapImpl[V any]() concurrentMetricsBuilderMap[V] {
-	return &mutexMapImpl[V]{m: make(map[string]V)}
-}
+func newMutexMapImpl[V any]() concurrentMetricsBuilderMap[V] { _ = "STUB: not implemented"; return nil }
 
 func (mm *mutexMapImpl[V]) Get(key string) (V, bool) {
-	mm.mutex.RLock()
-	defer mm.mutex.RUnlock()
-	v, ok := mm.m[key]
-	return v, ok
+	_ = "STUB: not implemented"
+	return *new(V), false
 }
 
-func (mm *mutexMapImpl[V]) Set(key string, value V) {
-	mm.mutex.Lock()
-	defer mm.mutex.Unlock()
-	mm.m[key] = value
-}
+func (mm *mutexMapImpl[V]) Set(key string, value V) { _ = "STUB: not implemented"; return }
 
-func (mm *mutexMapImpl[V]) Clear() {
-	mm.mutex.Lock()
-	defer mm.mutex.Unlock()
-	mm.m = make(map[string]V)
-}
+func (mm *mutexMapImpl[V]) Clear() { _ = "STUB: not implemented"; return }
 
-func (mm *mutexMapImpl[V]) Range(f func(string, V)) {
-	mm.mutex.RLock()
-	defer mm.mutex.RUnlock()
-	for k, v := range mm.m {
-		f(k, v)
-	}
-}
+func (mm *mutexMapImpl[V]) Range(f func(string, V)) { _ = "STUB: not implemented"; return }

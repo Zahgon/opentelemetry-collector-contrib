@@ -6,7 +6,6 @@
 package pulsarexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/pulsarexporter"
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/apache/pulsar-client-go/pulsar"
@@ -100,83 +99,21 @@ type Producer struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func (cfg *Config) auth() pulsar.Authentication {
-	authentication := cfg.Authentication
-	if authentication.TLS.HasValue() {
-		tlsCfg := authentication.TLS.Get()
-		return pulsar.NewAuthenticationTLS(tlsCfg.CertFile, tlsCfg.KeyFile)
-	}
-	if authentication.Token.HasValue() {
-		tokenCfg := authentication.Token.Get()
-		return pulsar.NewAuthenticationToken(string(tokenCfg.Token))
-	}
-	if authentication.OAuth2.HasValue() {
-		oauth2Cfg := authentication.OAuth2.Get()
-		return pulsar.NewAuthenticationOAuth2(map[string]string{
-			"type":       "client_credentials",
-			"issuerUrl":  oauth2Cfg.IssuerURL,
-			"clientId":   oauth2Cfg.ClientID,
-			"audience":   oauth2Cfg.Audience,
-			"scope":      oauth2Cfg.Scope,
-			"privateKey": oauth2Cfg.PrivateKey,
-		})
-	}
-	if authentication.Athenz.HasValue() {
-		athenzCfg := authentication.Athenz.Get()
-		return pulsar.NewAuthenticationAthenz(map[string]string{
-			"providerDomain":  athenzCfg.ProviderDomain,
-			"tenantDomain":    athenzCfg.TenantDomain,
-			"tenantService":   athenzCfg.TenantService,
-			"privateKey":      string(athenzCfg.PrivateKey),
-			"keyId":           athenzCfg.KeyID,
-			"principalHeader": athenzCfg.PrincipalHeader,
-			"ztsUrl":          athenzCfg.ZtsURL,
-		})
-	}
-
-	return nil
+	_ = "STUB: not implemented"
+	return *new(pulsar.Authentication)
 }
 
 func (cfg *Config) clientOptions() pulsar.ClientOptions {
-	options := pulsar.ClientOptions{
-		URL:                     cfg.Endpoint,
-		ConnectionTimeout:       cfg.ConnectionTimeout,
-		OperationTimeout:        cfg.OperationTimeout,
-		MaxConnectionsPerBroker: cfg.MaxConnectionsPerBroker,
-	}
-
-	options.TLSAllowInsecureConnection = cfg.TLSAllowInsecureConnection
-	if cfg.TLSTrustCertsFilePath != "" {
-		options.TLSTrustCertsFilePath = cfg.TLSTrustCertsFilePath
-	}
-
-	options.Authentication = cfg.auth()
-
-	return options
+	_ = "STUB: not implemented"
+	return *new(pulsar.ClientOptions)
 }
 
 func (cfg *Config) getProducerOptions() pulsar.ProducerOptions {
-	producerOptions := pulsar.ProducerOptions{
-		Topic:                           cfg.Topic,
-		SendTimeout:                     cfg.TimeoutSettings.Timeout,
-		BatcherBuilderType:              cfg.Producer.BatcherBuilderType.ToPulsar(),
-		BatchingMaxMessages:             cfg.Producer.BatchingMaxMessages,
-		BatchingMaxPublishDelay:         cfg.Producer.BatchingMaxPublishDelay,
-		BatchingMaxSize:                 cfg.Producer.BatchingMaxSize,
-		CompressionLevel:                cfg.Producer.CompressionLevel.ToPulsar(),
-		CompressionType:                 cfg.Producer.CompressionType.ToPulsar(),
-		DisableBatching:                 cfg.Producer.DisableBatching,
-		DisableBlockIfQueueFull:         cfg.Producer.DisableBlockIfQueueFull,
-		HashingScheme:                   cfg.Producer.HashingScheme.ToPulsar(),
-		MaxPendingMessages:              cfg.Producer.MaxPendingMessages,
-		MaxReconnectToBroker:            cfg.Producer.MaxReconnectToBroker,
-		PartitionsAutoDiscoveryInterval: cfg.Producer.PartitionsAutoDiscoveryInterval,
-	}
-	return producerOptions
+	_ = "STUB: not implemented"
+	return *new(pulsar.ProducerOptions)
 }
 
 type BatchBuilderType string
@@ -186,25 +123,11 @@ const (
 	KeyBasedBatchBuilder BatchBuilderType = "key_based"
 )
 
-func (c *BatchBuilderType) UnmarshalText(text []byte) error {
-	switch read := BatchBuilderType(text); read {
-	case DefaultBatchBuilder, KeyBasedBatchBuilder:
-		*c = read
-		return nil
-	default:
-		return fmt.Errorf("producer.compressionType should be one of 'none', 'lz4', 'zlib', or 'zstd'. configured value %v", string(read))
-	}
-}
+func (c *BatchBuilderType) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 func (c *BatchBuilderType) ToPulsar() pulsar.BatcherBuilderType {
-	switch *c {
-	case DefaultBatchBuilder:
-		return pulsar.DefaultBatchBuilder
-	case KeyBasedBatchBuilder:
-		return pulsar.KeyBasedBatchBuilder
-	default:
-		return pulsar.DefaultBatchBuilder
-	}
+	_ = "STUB: not implemented"
+	return *new(pulsar.BatcherBuilderType)
 }
 
 type CompressionType string
@@ -216,29 +139,11 @@ const (
 	ZStd CompressionType = "zstd"
 )
 
-func (c *CompressionType) UnmarshalText(text []byte) error {
-	switch read := CompressionType(text); read {
-	case None, LZ4, ZLib, ZStd:
-		*c = read
-		return nil
-	default:
-		return fmt.Errorf("producer.compressionType should be one of 'none', 'lz4', 'zlib', or 'zstd'. configured value %v", string(read))
-	}
-}
+func (c *CompressionType) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 func (c *CompressionType) ToPulsar() pulsar.CompressionType {
-	switch *c {
-	case None:
-		return pulsar.NoCompression
-	case LZ4:
-		return pulsar.LZ4
-	case ZLib:
-		return pulsar.ZLib
-	case ZStd:
-		return pulsar.ZSTD
-	default:
-		return pulsar.NoCompression
-	}
+	_ = "STUB: not implemented"
+	return *new(pulsar.CompressionType)
 }
 
 type CompressionLevel string
@@ -249,27 +154,11 @@ const (
 	Better  CompressionLevel = "better"
 )
 
-func (c *CompressionLevel) UnmarshalText(text []byte) error {
-	switch read := CompressionLevel(text); read {
-	case Default, Faster, Better:
-		*c = read
-		return nil
-	default:
-		return fmt.Errorf("producer.compressionLevel should be one of 'default', 'faster', or 'better'. configured value %v", read)
-	}
-}
+func (c *CompressionLevel) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 func (c *CompressionLevel) ToPulsar() pulsar.CompressionLevel {
-	switch *c {
-	case Default:
-		return pulsar.Default
-	case Faster:
-		return pulsar.Faster
-	case Better:
-		return pulsar.Better
-	default:
-		return pulsar.Default
-	}
+	_ = "STUB: not implemented"
+	return *new(pulsar.CompressionLevel)
 }
 
 type HashingScheme string
@@ -279,23 +168,9 @@ const (
 	Murmur3_32Hash HashingScheme = "murmur3_32hash"
 )
 
-func (c *HashingScheme) UnmarshalText(text []byte) error {
-	switch read := HashingScheme(text); read {
-	case JavaStringHash, Murmur3_32Hash:
-		*c = read
-		return nil
-	default:
-		return fmt.Errorf("producer.hashingScheme should be one of 'java_string_hash' or 'murmur3_32hash'. configured value %v", read)
-	}
-}
+func (c *HashingScheme) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 func (c *HashingScheme) ToPulsar() pulsar.HashingScheme {
-	switch *c {
-	case JavaStringHash:
-		return pulsar.JavaStringHash
-	case Murmur3_32Hash:
-		return pulsar.Murmur3_32Hash
-	default:
-		return pulsar.JavaStringHash
-	}
+	_ = "STUB: not implemented"
+	return *new(pulsar.HashingScheme)
 }

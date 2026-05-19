@@ -5,7 +5,6 @@ package consul // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/hashicorp/consul/api"
 )
@@ -27,51 +26,11 @@ type Metadata struct {
 }
 
 func NewProvider(client *api.Client, allowedLabels map[string]any) Provider {
-	return &consulMetadataImpl{consulClient: client, allowedLabels: allowedLabels}
+	_ = "STUB: not implemented"
+	return *new(Provider)
 }
 
 func (d *consulMetadataImpl) Metadata(_ context.Context) (*Metadata, error) {
-	var metadata Metadata
-	self, err := d.consulClient.Agent().Self()
-	if err != nil {
-		return nil, fmt.Errorf("failed to get local agent information: %w", err)
-	}
-
-	config := self["Config"]
-	if config == nil {
-		return nil, fmt.Errorf("failed getting consul agent configuration. was 'Config' returned by consul?. resp: %+v", self)
-	}
-
-	hostname, ok := config["NodeName"].(string)
-	if !ok {
-		return nil, fmt.Errorf("failed getting consul hostname. was 'NodeName' returned by consul? resp: %+v", config)
-	}
-	metadata.Hostname = hostname
-
-	datacenter, ok := config["Datacenter"].(string)
-	if !ok {
-		return nil, fmt.Errorf("failed getting consul datacenter. was 'Datacenter' returned by consul? resp: %+v", config)
-	}
-	metadata.Datacenter = datacenter
-
-	nodeID, ok := config["NodeID"].(string)
-	if !ok {
-		return nil, fmt.Errorf("failed getting node ID. was 'NodeID' returned by consul? resp: %+v", config)
-	}
-	metadata.NodeID = nodeID
-
-	meta := self["Meta"]
-	if meta == nil {
-		return &metadata, nil
-	}
-
-	metaMap := make(map[string]string)
-	for k, v := range meta {
-		if _, ok := d.allowedLabels[k]; ok {
-			metaMap[k] = v.(string)
-		}
-	}
-	metadata.HostMetadata = metaMap
-
-	return &metadata, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

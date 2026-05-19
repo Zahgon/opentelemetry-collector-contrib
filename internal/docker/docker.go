@@ -5,16 +5,9 @@ package docker // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"io"
-	"net/http"
-	"strings"
 	"sync"
 	"time"
 
-	cerrdefs "github.com/containerd/errdefs"
 	ctypes "github.com/moby/moby/api/types/container"
 	docker "github.com/moby/moby/client"
 	"go.uber.org/zap"
@@ -52,115 +45,27 @@ type Client struct {
 }
 
 func NewDockerClient(config *Config, logger *zap.Logger, opts ...docker.Opt) (*Client, error) {
-	clientOpts := []docker.Opt{
-		docker.WithHost(config.Endpoint),
-		docker.WithHTTPHeaders(map[string]string{"User-Agent": userAgent}),
-	}
-
-	if config.DockerAPIVersion != "" {
-		version, err := NewAPIVersion(config.DockerAPIVersion)
-		if err != nil {
-			return nil, err
-		}
-		clientOpts = append(clientOpts, docker.WithAPIVersion(version))
-		logger.Debug("Using explicitly configured Docker API version", zap.String("version", version))
-	}
-
-	// Configure TLS transport when a TLS config is provided.
-	if config.TLS.HasValue() && !config.TLS.Get().Insecure {
-		tlsCfg, err := config.TLS.Get().LoadTLSConfig(context.Background())
-		if err != nil {
-			return nil, fmt.Errorf("could not load docker client TLS config: %w", err)
-		}
-		transport := &http.Transport{TLSClientConfig: tlsCfg}
-		clientOpts = append(clientOpts, docker.WithHTTPClient(&http.Client{Transport: transport}))
-	} else if isTCPEndpoint(config.Endpoint) {
-		// Unauthenticated TCP connections to the Docker daemon were deprecated in Docker v26.0
-		// and enforcement began in v27.0. Configure the 'tls' block to secure this connection.
-		// See: https://docs.docker.com/engine/deprecated/#unauthenticated-tcp-connections
-		logger.Warn(
-			"Unauthenticated TCP connection to Docker daemon is deprecated since Docker v26.0. "+
-				"Configure the 'tls' option to use a secure connection.",
-			zap.String("endpoint", config.Endpoint),
-		)
-	}
-
-	// Append any additional opts passed by caller
-	clientOpts = append(clientOpts, opts...)
-
-	client, err := docker.New(clientOpts...)
-	if err != nil {
-		return nil, fmt.Errorf("could not create docker client: %w", err)
-	}
-
-	excludedImageMatcher, err := newStringMatcher(config.ExcludedImages)
-	if err != nil {
-		return nil, fmt.Errorf("could not determine docker client excluded images: %w", err)
-	}
-
-	dc := &Client{
-		client:                 client,
-		config:                 config,
-		logger:                 logger,
-		containers:             make(map[string]Container),
-		containersLock:         sync.Mutex{},
-		excludedImageMatcher:   excludedImageMatcher,
-		streamContainerCancels: make(map[string]context.CancelFunc),
-	}
-
-	dc.streamErrorGroup = &errgroup.Group{}
-	dc.streamClientCtx, dc.streamClientCancel = context.WithCancel(context.Background())
-
-	return dc, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Configure TLS transport when a TLS config is provided.
+
+// Unauthenticated TCP connections to the Docker daemon were deprecated in Docker v26.0
+// and enforcement began in v27.0. Configure the 'tls' block to secure this connection.
+// See: https://docs.docker.com/engine/deprecated/#unauthenticated-tcp-connections
+
+// Append any additional opts passed by caller
 
 // Containers provides a snapshot of the currently monitored containers.
-func (dc *Client) Containers() []Container {
-	dc.containersLock.Lock()
-	defer dc.containersLock.Unlock()
-	containers := make([]Container, 0, len(dc.containers))
-	for _, container := range dc.containers {
-		containers = append(containers, container)
-	}
-	return containers
-}
+func (dc *Client) Containers() []Container { _ = "STUB: not implemented"; return nil }
 
 // LoadContainerList will load the initial running container maps for
 // inspection and establishing which containers warrant stat gathering calls
 // by the receiver.
 func (dc *Client) LoadContainerList(ctx context.Context) error {
+	_ = "STUB: not implemented"
 	// Build initial container maps before starting loop
-	filters := make(docker.Filters)
-	filters.Add("status", "running")
-	options := docker.ContainerListOptions{
-		Filters: filters,
-	}
-
-	listCtx, cancel := context.WithTimeout(ctx, dc.config.Timeout)
-	result, err := dc.client.ContainerList(listCtx, options)
-	defer cancel()
-	if err != nil {
-		return err
-	}
-
-	wg := sync.WaitGroup{}
-	for i := range result.Items {
-		c := &result.Items[i]
-		wg.Add(1)
-		go func(container *ctypes.Summary) {
-			if !dc.shouldBeExcluded(container.Image) {
-				dc.InspectAndPersistContainer(ctx, container.ID)
-			} else {
-				dc.logger.Debug(
-					"Not monitoring container per ExcludedImages",
-					zap.String("image", container.Image),
-					zap.String("id", container.ID),
-				)
-			}
-			wg.Done()
-		}(c)
-	}
-	wg.Wait()
 	return nil
 }
 
@@ -170,20 +75,8 @@ func (dc *Client) FetchContainerStatsAsJSON(
 	ctx context.Context,
 	container Container,
 ) (*ctypes.StatsResponse, error) {
-	statsCtx, cancel := context.WithTimeout(ctx, dc.config.Timeout)
-	defer cancel()
-
-	containerStats, err := dc.FetchContainerStats(statsCtx, container)
-	if err != nil {
-		return nil, err
-	}
-
-	statsJSON, err := dc.toStatsJSON(containerStats, &container)
-	if err != nil {
-		return nil, err
-	}
-
-	return statsJSON, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // FetchContainerStats will query the desired container stats
@@ -192,49 +85,21 @@ func (dc *Client) FetchContainerStats(
 	ctx context.Context,
 	container Container,
 ) (docker.ContainerStatsResult, error) {
-	dc.logger.Debug("Fetching container stats.", zap.String("id", container.ID))
-	containerStats, err := dc.client.ContainerStats(ctx, container.ID, docker.ContainerStatsOptions{})
-	if err != nil {
-		if cerrdefs.IsNotFound(err) {
-			dc.logger.Debug(
-				"Daemon reported container doesn't exist. Will no longer monitor.",
-				zap.String("id", container.ID),
-			)
-			dc.RemoveContainer(container.ID)
-		} else {
-			dc.logger.Warn(
-				"Could not fetch docker containerStats for container",
-				zap.String("id", container.ID),
-				zap.Error(err),
-			)
-		}
-	}
-
-	return containerStats, err
+	_ = "STUB: not implemented"
+	return *new(docker.ContainerStatsResult), nil
 }
 
 func (dc *Client) toStatsJSON(
 	containerStats docker.ContainerStatsResult,
 	container *Container,
 ) (*ctypes.StatsResponse, error) {
-	var statsJSON ctypes.StatsResponse
-	err := json.NewDecoder(containerStats.Body).Decode(&statsJSON)
-	containerStats.Body.Close()
-	if err != nil {
-		// EOF means there aren't any containerStats, perhaps because the container has been removed.
-		if errors.Is(err, io.EOF) {
-			// It isn't indicative of actual error.
-			return nil, err
-		}
-		dc.logger.Error(
-			"Could not parse docker containerStats for container id",
-			zap.String("id", container.ID),
-			zap.Error(err),
-		)
-		return nil, err
-	}
-	return &statsJSON, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// EOF means there aren't any containerStats, perhaps because the container has been removed.
+
+// It isn't indicative of actual error.
 
 // cachedStats pairs a stats snapshot with the time it was received.
 type cachedStats struct {
@@ -247,246 +112,68 @@ type cachedStats struct {
 // cached entry is older than maxAge (pass 0 to disable expiry).
 // Only populated when stream_stats is enabled.
 func (dc *Client) LatestContainerStats(containerID string, maxAge time.Duration) (*ctypes.StatsResponse, bool) {
-	val, ok := dc.streamLatestStats.Load(containerID)
-	if !ok {
-		return nil, false
-	}
-	cs := val.(*cachedStats)
-	if maxAge > 0 && time.Since(cs.recorded) > maxAge {
-		return nil, false
-	}
-	return cs.stats, true
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 // startContainerStream opens a persistent streaming stats connection for the container
 // and continuously updates the cached latest stats in the background.
 // Cancels any existing stream for that container first.
-func (dc *Client) startContainerStream(containerID string) {
-	dc.streamContainerCancelsLock.Lock()
-	if cancel, ok := dc.streamContainerCancels[containerID]; ok {
-		cancel()
-	}
-	streamCtx, cancel := context.WithCancel(dc.streamClientCtx)
-	dc.streamContainerCancels[containerID] = cancel
-	dc.streamContainerCancelsLock.Unlock()
-
-	dc.streamErrorGroup.Go(func() error {
-		return dc.runStatsStream(streamCtx, containerID)
-	})
-}
+func (dc *Client) startContainerStream(containerID string) { _ = "STUB: not implemented"; return }
 
 // runStatsStream opens a Docker stats stream and keeps the latest stats updated.
 // Reconnects automatically on transient errors. Stops when ctx is cancelled.
 func (dc *Client) runStatsStream(ctx context.Context, containerID string) error {
-	for {
-		resp, err := dc.client.ContainerStats(ctx, containerID, docker.ContainerStatsOptions{Stream: true})
-		if err != nil {
-			if errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded) {
-				return nil
-			}
-			if cerrdefs.IsNotFound(err) {
-				dc.logger.Debug(
-					"Daemon reported container doesn't exist. Stopping stats stream.",
-					zap.String("id", containerID),
-				)
-				dc.RemoveContainer(containerID)
-				return nil
-			}
-			dc.logger.Warn(
-				"Could not open stats stream for container, retrying",
-				zap.String("id", containerID),
-				zap.Error(err),
-			)
-			select {
-			case <-time.After(3 * time.Second):
-			case <-ctx.Done():
-				return nil
-			}
-			continue
-		}
-
-		decoder := json.NewDecoder(resp.Body)
-		for {
-			var stats ctypes.StatsResponse
-			if err := decoder.Decode(&stats); err != nil {
-				resp.Body.Close()
-
-				if !errors.Is(err, io.EOF) {
-					dc.logger.Warn(
-						"Error reading stats stream, reconnecting",
-						zap.String("id", containerID),
-						zap.Error(err),
-					)
-				}
-				break
-			}
-			dc.streamLatestStats.Store(containerID, &cachedStats{stats: &stats, recorded: time.Now()})
-		}
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Events exposes the underlying Docker clients Events channel.
 // Caller should close the events channel by canceling the context.
 // If an error occurs, processing stops and caller must reinvoke this method.
 func (dc *Client) Events(ctx context.Context, options docker.EventsListOptions) docker.EventsResult {
-	return dc.client.Events(ctx, options)
+	_ = "STUB: not implemented"
+	return *new(docker.EventsResult)
 }
 
-func (dc *Client) ContainerEventLoop(ctx context.Context) {
-	filters := make(docker.Filters)
-	filters.Add("type", "container")
-	filters.Add("event", "destroy", "die", "pause", "rename", "stop", "start", "unpause", "update")
-	lastTime := time.Now()
+func (dc *Client) ContainerEventLoop(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-EVENT_LOOP:
-	for {
-		options := docker.EventsListOptions{
-			Filters: filters,
-			Since:   lastTime.Format(time.RFC3339Nano),
-		}
-		result := dc.Events(ctx, options)
+// We are only interested when the context hasn't been canceled since requests made
+// with a closed context are guaranteed to fail.
 
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case event := <-result.Messages:
-				switch event.Action {
-				case "destroy":
-					dc.logger.Debug("Docker container was destroyed:", zap.String("id", event.Actor.ID))
-					dc.RemoveContainer(event.Actor.ID)
-				default:
-					dc.logger.Debug(
-						"Docker container update:",
-						zap.String("id", event.Actor.ID),
-						zap.Any("action", event.Action),
-					)
-
-					dc.InspectAndPersistContainer(ctx, event.Actor.ID)
-				}
-
-				if event.TimeNano > lastTime.UnixNano() {
-					lastTime = time.Unix(0, event.TimeNano)
-				}
-
-			case err := <-result.Err:
-				// We are only interested when the context hasn't been canceled since requests made
-				// with a closed context are guaranteed to fail.
-				if ctx.Err() == nil {
-					dc.logger.Error("Error watching docker container events", zap.Error(err))
-					// Either decoding or connection error has occurred, so we should resume the event loop after
-					// waiting a moment.  In cases of extended daemon unavailability this will retry until
-					// collector teardown or background context is closed.
-					select {
-					case <-time.After(3 * time.Second):
-						continue EVENT_LOOP
-					case <-ctx.Done():
-						return
-					}
-				}
-			}
-		}
-	}
-}
+// Either decoding or connection error has occurred, so we should resume the event loop after
+// waiting a moment.  In cases of extended daemon unavailability this will retry until
+// collector teardown or background context is closed.
 
 // InspectAndPersistContainer queries inspect api and returns *InspectResponse and true when container should be queried for stats,
 // nil and false otherwise. Persists the container in the cache if container is
 // running and not excluded.
 func (dc *Client) InspectAndPersistContainer(ctx context.Context, cid string) (*ctypes.InspectResponse, bool) {
-	if container, ok := dc.inspectedContainerIsOfInterest(ctx, cid); ok {
-		dc.persistContainer(container)
-		return container, ok
-	}
+	_ = "STUB: not implemented"
 	return nil, false
 }
 
 // Queries inspect api and returns *InspectResponse and true when container should be queried for stats,
 // nil and false otherwise.
 func (dc *Client) inspectedContainerIsOfInterest(ctx context.Context, cid string) (*ctypes.InspectResponse, bool) {
-	inspectCtx, cancel := context.WithTimeout(ctx, dc.config.Timeout)
-	result, err := dc.client.ContainerInspect(inspectCtx, cid, docker.ContainerInspectOptions{})
-	defer cancel()
-	if err != nil {
-		dc.logger.Error(
-			"Could not inspect updated container",
-			zap.String("id", cid),
-			zap.Error(err),
-		)
-	} else if !dc.shouldBeExcluded(result.Container.Config.Image) {
-		return &result.Container, true
-	}
+	_ = "STUB: not implemented"
 	return nil, false
 }
 
 func (dc *Client) persistContainer(containerJSON *ctypes.InspectResponse) {
-	if containerJSON == nil {
-		return
-	}
-
-	cid := containerJSON.ID
-	if !containerJSON.State.Running || containerJSON.State.Paused {
-		dc.logger.Debug("Docker container not running.  Will not persist.", zap.String("id", cid))
-		dc.RemoveContainer(cid)
-		return
-	}
-
-	dc.logger.Debug("Monitoring Docker container", zap.String("id", cid))
-	dc.containersLock.Lock()
-	dc.containers[cid] = Container{
-		InspectResponse: containerJSON,
-		EnvMap:          ContainerEnvToMap(containerJSON.Config.Env),
-	}
-	dc.containersLock.Unlock()
-
-	if dc.config.StreamStats {
-		dc.startContainerStream(cid)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (dc *Client) RemoveContainer(cid string) {
-	if dc.config.StreamStats {
-		dc.streamContainerCancelsLock.Lock()
-		if cancel, ok := dc.streamContainerCancels[cid]; ok {
-			cancel()
-			delete(dc.streamContainerCancels, cid)
-		}
-		dc.streamContainerCancelsLock.Unlock()
-
-		dc.streamLatestStats.Delete(cid)
-	}
-
-	dc.containersLock.Lock()
-	delete(dc.containers, cid)
-	dc.containersLock.Unlock()
-
-	dc.logger.Debug("Removed container from stores.", zap.String("id", cid))
-}
+func (dc *Client) RemoveContainer(cid string) { _ = "STUB: not implemented"; return }
 
 // Close shuts down the client and waits for all background streams to finish.
-func (dc *Client) Close() error {
-	dc.streamClientCancel()
-	return dc.streamErrorGroup.Wait()
-}
+func (dc *Client) Close() error { _ = "STUB: not implemented"; return nil }
 
-func (dc *Client) shouldBeExcluded(image string) bool {
-	return dc.excludedImageMatcher != nil && dc.excludedImageMatcher.matches(image)
-}
+func (dc *Client) shouldBeExcluded(image string) bool { _ = "STUB: not implemented"; return false }
 
 // isTCPEndpoint reports whether the endpoint uses a plain TCP or HTTP scheme,
 // meaning the connection is not secured by a Unix socket, named pipe, or TLS.
-func isTCPEndpoint(endpoint string) bool {
-	lower := strings.ToLower(endpoint)
-	return strings.HasPrefix(lower, "tcp://") || strings.HasPrefix(lower, "http://")
-}
+func isTCPEndpoint(endpoint string) bool { _ = "STUB: not implemented"; return false }
 
-func ContainerEnvToMap(env []string) map[string]string {
-	out := make(map[string]string, len(env))
-	for _, v := range env {
-		parts := strings.Split(v, "=")
-		if len(parts) < 2 || strings.TrimSpace(parts[1]) == "" {
-			continue
-		}
-		out[parts[0]] = parts[1]
-	}
-	return out
-}
+func ContainerEnvToMap(env []string) map[string]string { _ = "STUB: not implemented"; return nil }

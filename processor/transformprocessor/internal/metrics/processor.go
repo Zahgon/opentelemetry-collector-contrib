@@ -8,7 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pmetric"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
@@ -23,38 +22,11 @@ type Processor struct {
 }
 
 func NewProcessor(contextStatements []common.ContextStatements, errorMode ottl.ErrorMode, settings component.TelemetrySettings, metricFunctions map[string]ottl.Factory[*ottlmetric.TransformContext], dataPointFunctions map[string]ottl.Factory[*ottldatapoint.TransformContext]) (*Processor, error) {
-	pc, err := common.NewMetricParserCollection(settings, common.WithMetricParser(metricFunctions), common.WithDataPointParser(dataPointFunctions), common.WithMetricErrorMode(errorMode))
-	if err != nil {
-		return nil, err
-	}
-
-	contexts := make([]common.MetricsConsumer, len(contextStatements))
-	var errors error
-	for i, cs := range contextStatements {
-		context, err := pc.ParseContextStatements(cs)
-		if err != nil {
-			errors = multierr.Append(errors, err)
-		}
-		contexts[i] = context
-	}
-
-	if errors != nil {
-		return nil, errors
-	}
-
-	return &Processor{
-		contexts: contexts,
-		logger:   settings.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (p *Processor) ProcessMetrics(ctx context.Context, md pmetric.Metrics) (pmetric.Metrics, error) {
-	for _, c := range p.contexts {
-		err := c.ConsumeMetrics(ctx, md)
-		if err != nil {
-			p.logger.Error("failed processing metrics", zap.Error(err))
-			return md, err
-		}
-	}
-	return md, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }

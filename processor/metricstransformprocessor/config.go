@@ -4,8 +4,6 @@
 package metricstransformprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricstransformprocessor"
 
 import (
-	"slices"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/aggregateutil"
 )
 
@@ -171,9 +169,7 @@ const (
 
 var actions = []ConfigAction{Insert, Update, Combine, Group}
 
-func (ca ConfigAction) isValid() bool {
-	return slices.Contains(actions, ca)
-}
+func (ca ConfigAction) isValid() bool { _ = "STUB: not implemented"; return false }
 
 // operationAction is the enum to capture the types of actions to perform for an operation.
 type operationAction string
@@ -213,9 +209,7 @@ const (
 
 var operationActions = []operationAction{addLabel, updateLabel, deleteLabelValue, toggleScalarDataType, scaleValue, aggregateLabels, aggregateLabelValues}
 
-func (oa operationAction) isValid() bool {
-	return slices.Contains(operationActions, oa)
-}
+func (oa operationAction) isValid() bool { _ = "STUB: not implemented"; return false }
 
 // matchType is the enum to capture the two types of matching metric(s) that should have operations applied to them.
 type matchType string
@@ -230,9 +224,7 @@ const (
 
 var matchTypes = []matchType{strictMatchType, regexpMatchType}
 
-func (mt matchType) isValid() bool {
-	return slices.Contains(matchTypes, mt)
-}
+func (mt matchType) isValid() bool { _ = "STUB: not implemented"; return false }
 
 // submatchCase is the enum to capture the two types of case changes to apply to submatches.
 type submatchCase string
@@ -247,6 +239,4 @@ const (
 
 var submatchCases = []submatchCase{lower, upper}
 
-func (sc submatchCase) isValid() bool {
-	return slices.Contains(submatchCases, sc)
-}
+func (sc submatchCase) isValid() bool { _ = "STUB: not implemented"; return false }

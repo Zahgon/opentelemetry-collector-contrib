@@ -4,9 +4,6 @@
 package healthcheckextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension"
 
 import (
-	"errors"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/healthcheck"
 )
 
@@ -16,17 +13,7 @@ type Config struct {
 }
 
 // Validate checks if the extension configuration is valid, including feature gate checks.
-func (c *Config) Validate() error {
-	if !metadata.ExtensionHealthcheckUseComponentStatusFeatureGate.IsEnabled() && (c.HTTPConfig != nil || c.GRPCConfig != nil) {
-		return errors.New(
-			"v2 healthcheck configuration (http/grpc fields) detected but feature gate is disabled. " +
-				"Either remove the v2 config fields or enable the feature gate with: " +
-				"--feature-gates=+extension.healthcheck.useComponentStatus",
-		)
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Type alias for backward compatibility
 type ResponseBodySettings = healthcheck.ResponseBodyConfig

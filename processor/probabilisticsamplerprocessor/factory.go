@@ -11,8 +11,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/probabilisticsamplerprocessor/internal/metadata"
 )
 
 // The default precision is 4 hex digits, slightly more the original
@@ -20,21 +18,11 @@ import (
 const defaultPrecision = 4
 
 // NewFactory returns a new factory for the Probabilistic sampler processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability),
-		processor.WithLogs(createLogsProcessor, metadata.LogsStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		AttributeSource:   defaultAttributeSource,
-		FailClosed:        true,
-		Mode:              modeUnset,
-		SamplingPrecision: defaultPrecision,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createTracesProcessor creates a trace processor based on this config.
@@ -44,7 +32,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	return newTracesProcessor(ctx, set, cfg.(*Config), nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 // createLogsProcessor creates a log processor based on this config.
@@ -54,5 +43,6 @@ func createLogsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (processor.Logs, error) {
-	return newLogsProcessor(ctx, set, nextConsumer, cfg.(*Config))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }

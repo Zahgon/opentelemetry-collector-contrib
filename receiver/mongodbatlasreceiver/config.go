@@ -6,8 +6,6 @@ package mongodbatlasreceiver // import "github.com/open-telemetry/opentelemetry-
 import (
 	"errors"
 	"fmt"
-	"net"
-	"net/url"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -16,7 +14,6 @@ import (
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/mongodbatlasreceiver/internal/metadata"
 )
@@ -89,9 +86,7 @@ type AccessLogsConfig struct {
 	AuthResult   *bool         `mapstructure:"auth_result"`
 }
 
-func (alc *AccessLogsConfig) IsEnabled() bool {
-	return alc.Enabled == nil || *alc.Enabled
-}
+func (alc *AccessLogsConfig) IsEnabled() bool { _ = "STUB: not implemented"; return false }
 
 type ProjectConfig struct {
 	Name            string   `mapstructure:"name"`
@@ -109,17 +104,7 @@ type OrgConfig struct {
 	_ struct{}
 }
 
-func (pc *ProjectConfig) populateIncludesAndExcludes() {
-	pc.includesByClusterName = map[string]struct{}{}
-	for _, inclusion := range pc.IncludeClusters {
-		pc.includesByClusterName[inclusion] = struct{}{}
-	}
-
-	pc.excludesByClusterName = map[string]struct{}{}
-	for _, exclusion := range pc.ExcludeClusters {
-		pc.excludesByClusterName[exclusion] = struct{}{}
-	}
-}
+func (pc *ProjectConfig) populateIncludesAndExcludes() { _ = "STUB: not implemented"; return }
 
 var (
 	// Alerts Receiver Errors
@@ -142,139 +127,23 @@ var (
 	errConfigEmptyEndpoint = errors.New("baseurl must not be empty")
 )
 
-func (c *Config) Validate() error {
-	var errs error
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if err := validateEndpoint(c.BaseURL); err != nil {
-		return fmt.Errorf("invalid base_url %q: %w", c.BaseURL, err)
-	}
-
-	for _, project := range c.Projects {
-		if len(project.ExcludeClusters) != 0 && len(project.IncludeClusters) != 0 {
-			errs = multierr.Append(errs, errClusterConfig)
-		}
-	}
-
-	errs = multierr.Append(errs, c.Alerts.validate())
-	errs = multierr.Append(errs, c.Logs.validate())
-	if c.Events.HasValue() {
-		errs = multierr.Append(errs, c.Events.Get().validate())
-	}
-
-	return errs
-}
-
-func (l *LogConfig) validate() error {
-	if !l.Enabled {
-		return nil
-	}
-
-	var errs error
-	if len(l.Projects) == 0 {
-		errs = multierr.Append(errs, errNoProjects)
-	}
-
-	for _, project := range l.Projects {
-		if len(project.ExcludeClusters) != 0 && len(project.IncludeClusters) != 0 {
-			errs = multierr.Append(errs, errClusterConfig)
-		}
-
-		if project.AccessLogs != nil && project.AccessLogs.IsEnabled() {
-			if project.AccessLogs.PageSize > 20000 {
-				errs = multierr.Append(errs, errMaxPageSize)
-			}
-		}
-	}
-
-	return errs
-}
+func (l *LogConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 func (a *AlertConfig) validate() error {
-	if !a.Enabled {
-		// No need to further validate, receiving alerts is disabled.
-		return nil
-	}
+	_ = "STUB: not implemented"
 
-	switch a.Mode {
-	case alertModePoll:
-		return a.validatePollConfig()
-	case alertModeListen:
-		return a.validateListenConfig()
-	default:
-		return errNoModeRecognized
-	}
-}
-
-func (a AlertConfig) validatePollConfig() error {
-	if len(a.Projects) == 0 {
-		return errNoProjects
-	}
-
-	// based off API limits https://www.mongodb.com/docs/atlas/reference/api/alerts-get-all-alerts/
-	if 0 >= a.PageSize || a.PageSize > 500 {
-		return errPageSizeIncorrect
-	}
-
-	var errs error
-	for _, project := range a.Projects {
-		if len(project.ExcludeClusters) != 0 && len(project.IncludeClusters) != 0 {
-			errs = multierr.Append(errs, errClusterConfig)
-		}
-	}
-
-	return errs
-}
-
-func (a AlertConfig) validateListenConfig() error {
-	if a.Endpoint == "" {
-		return errNoEndpoint
-	}
-
-	var errs error
-	_, _, err := net.SplitHostPort(a.Endpoint)
-	if err != nil {
-		errs = multierr.Append(errs, fmt.Errorf("failed to split endpoint into 'host:port' pair: %w", err))
-	}
-
-	if a.Secret == "" {
-		errs = multierr.Append(errs, errNoSecret)
-	}
-
-	if a.TLS != nil {
-		if a.TLS.CertFile == "" {
-			errs = multierr.Append(errs, errNoCert)
-		}
-
-		if a.TLS.KeyFile == "" {
-			errs = multierr.Append(errs, errNoKey)
-		}
-	}
-	return errs
-}
-
-func (e EventsConfig) validate() error {
-	if len(e.Projects) == 0 && len(e.Organizations) == 0 {
-		return errNoEvents
-	}
+	// No need to further validate, receiving alerts is disabled.
 	return nil
 }
 
-func validateEndpoint(endpoint string) error {
-	if endpoint == "" {
-		return errConfigEmptyEndpoint
-	}
+func (a AlertConfig) validatePollConfig() error { _ = "STUB: not implemented"; return nil }
 
-	u, err := url.Parse(endpoint)
-	if err != nil {
-		return err
-	}
-	switch u.Scheme {
-	case "http", "https":
-	default:
-		return fmt.Errorf(`invalid scheme %q, expected "http" or "https"`, u.Scheme)
-	}
-	if u.Host == "" {
-		return errors.New("host must not be empty")
-	}
-	return nil
-}
+// based off API limits https://www.mongodb.com/docs/atlas/reference/api/alerts-get-all-alerts/
+
+func (a AlertConfig) validateListenConfig() error { _ = "STUB: not implemented"; return nil }
+
+func (e EventsConfig) validate() error { _ = "STUB: not implemented"; return nil }
+
+func validateEndpoint(endpoint string) error { _ = "STUB: not implemented"; return nil }

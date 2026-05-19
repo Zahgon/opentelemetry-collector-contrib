@@ -47,38 +47,24 @@ type PodIdentifierAttribute struct {
 type PodIdentifier [PodIdentifierMaxLength]PodIdentifierAttribute
 
 // IsNotEmpty checks if PodIdentifier is empty or not
-func (p *PodIdentifier) IsNotEmpty() bool {
-	return p[0].Source.From != ""
-}
+func (p *PodIdentifier) IsNotEmpty() bool { _ = "STUB: not implemented"; return false }
 
 // PodIdentifierAttributeFromSource builds PodIdentifierAttribute using AssociationSource and value
 func PodIdentifierAttributeFromSource(source AssociationSource, value string) PodIdentifierAttribute {
-	return PodIdentifierAttribute{
-		Source: source,
-		Value:  value,
-	}
+	_ = "STUB: not implemented"
+	return *new(PodIdentifierAttribute)
 }
 
 // PodIdentifierAttributeFromSource builds PodIdentifierAttribute for connection with given value
 func PodIdentifierAttributeFromConnection(value string) PodIdentifierAttribute {
-	return PodIdentifierAttributeFromSource(
-		AssociationSource{
-			From: ConnectionSource,
-			Name: "",
-		},
-		value,
-	)
+	_ = "STUB: not implemented"
+	return *new(PodIdentifierAttribute)
 }
 
 // PodIdentifierAttributeFromSource builds PodIdentifierAttribute for given resource_attribute name and value
 func PodIdentifierAttributeFromResourceAttribute(key, value string) PodIdentifierAttribute {
-	return PodIdentifierAttributeFromSource(
-		AssociationSource{
-			From: ResourceSource,
-			Name: key,
-		},
-		value,
-	)
+	_ = "STUB: not implemented"
+	return *new(PodIdentifierAttribute)
 }
 
 // TODO: move this to config with default values
@@ -260,28 +246,7 @@ type ExtractionRules struct {
 }
 
 // IncludesOwnerMetadata determines whether the ExtractionRules include metadata about Pod Owners
-func (rules *ExtractionRules) IncludesOwnerMetadata() bool {
-	rulesNeedingOwnerMetadata := []bool{
-		rules.CronJobName,
-		rules.CronJobUID,
-		rules.DeploymentName,
-		rules.DeploymentUID,
-		rules.DaemonSetUID,
-		rules.DaemonSetName,
-		rules.JobName,
-		rules.JobUID,
-		rules.ReplicaSetID,
-		rules.ReplicaSetName,
-		rules.StatefulSetUID,
-		rules.StatefulSetName,
-	}
-	for _, ruleEnabled := range rulesNeedingOwnerMetadata {
-		if ruleEnabled {
-			return true
-		}
-	}
-	return rules.ServiceName
-}
+func (rules *ExtractionRules) IncludesOwnerMetadata() bool { _ = "STUB: not implemented"; return false }
 
 // FieldExtractionRule is used to specify which fields to extract from pod fields
 // and inject into spans as attributes.
@@ -309,85 +274,52 @@ type FieldExtractionRule struct {
 }
 
 func (r *FieldExtractionRule) extractFromPodMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
+	_ = "STUB: not implemented"
 	// By default if the From field is not set for labels and annotations we want to extract them from pod
-	if r.From == MetadataFromPod || r.From == "" {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	return
 }
 
 func (r *FieldExtractionRule) extractFromNamespaceMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromNamespace {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromNodeMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromNode {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromDeploymentMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromDeployment {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromStatefulSetMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromStatefulSet {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromDaemonSetMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromDaemonSet {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromJobMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.From == MetadataFromJob {
-		r.extractFromMetadata(metadata, tags, attrFunc)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (r *FieldExtractionRule) extractFromMetadata(metadata, tags map[string]string, attrFunc AttributesFunction) {
-	if r.KeyRegex != nil {
-		for k, v := range metadata {
-			if r.KeyRegex.MatchString(k) && v != "" {
-				var name string
-				if r.HasKeyRegexReference && r.Name != "" {
-					var result []byte
-					name = string(r.KeyRegex.ExpandString(result, r.Name, k, r.KeyRegex.FindStringSubmatchIndex(k)))
-					tags[name] = v
-				} else {
-					kv := attrFunc(k, v)
-					tags[string(kv.Key)] = kv.Value.AsString()
-				}
-			}
-		}
-	} else if v, ok := metadata[r.Key]; ok {
-		// Use attrFunc to determine attribute name if no custom name was specified
-		name := r.Name
-		if name == "" {
-			kv := attrFunc(r.Key, v)
-			name = string(kv.Key)
-		}
-		tags[name] = r.extractField(v)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
+// Use attrFunc to determine attribute name if no custom name was specified
+
 func (r *FieldExtractionRule) extractField(v string) string {
+	_ = "STUB: not implemented"
 	// Check if a subset of the field should be extracted with a regular expression
 	// instead of the whole field.
-	if r.Regex == nil {
-		return v
-	}
-
-	matches := r.Regex.FindStringSubmatch(v)
-	if len(matches) == 2 {
-		return matches[1]
-	}
 	return ""
 }
 
@@ -461,10 +393,6 @@ type CronJob struct {
 }
 
 func OtelAnnotations() FieldExtractionRule {
-	return FieldExtractionRule{
-		Name:                 "$1",
-		KeyRegex:             regexp.MustCompile(`^resource\.opentelemetry\.io/(.+)$`),
-		HasKeyRegexReference: true,
-		From:                 MetadataFromPod,
-	}
+	_ = "STUB: not implemented"
+	return *new(FieldExtractionRule)
 }

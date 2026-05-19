@@ -4,8 +4,6 @@
 package k8sobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/k8sobserver"
 
 import (
-	"errors"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 )
 
@@ -43,9 +41,4 @@ type Config struct {
 }
 
 // Validate checks if the extension configuration is valid
-func (cfg *Config) Validate() error {
-	if !cfg.ObservePods && !cfg.ObserveNodes && !cfg.ObserveServices && !cfg.ObserveIngresses {
-		return errors.New("one of observe_pods, observe_nodes, observe_services and observe_ingresses must be true")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

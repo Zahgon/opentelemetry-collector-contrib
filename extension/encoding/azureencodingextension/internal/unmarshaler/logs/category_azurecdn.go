@@ -5,12 +5,8 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"encoding/json"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // Non-SemConv attributes that are used for common Azure Log Record fields
@@ -83,55 +79,17 @@ type azureHTTPAccessLog struct {
 }
 
 func (r *azureHTTPAccessLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPRequestSizeKey), r.Properties.RequestBytes)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseSizeKey), r.Properties.ResponseBytes)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ClientPortKey), r.Properties.ClientPort)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.Properties.HTTPStatusCode)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureTimeToFirstByte, r.Properties.TimeToFirstByte)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureRequestDuration, r.Properties.TimeTaken)
-	unmarshaler.AttrPutURLParsed(attrs, r.Properties.RequestURI)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.AzureServiceRequestIDKey), r.Properties.TrackingReference)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HTTPRequestMethodKey), r.Properties.HTTPMethod)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolVersionKey), r.Properties.HTTPVersion)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolNameKey), strings.ToLower(r.Properties.RequestProtocol))
-	if r.Properties.SNI != "" && r.Properties.SNI != naValue {
-		unmarshaler.AttrPutStrIf(attrs, attributeTLSServerName, r.Properties.SNI)
-	}
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOriginalKey), r.Properties.UserAgent)
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ClientAddressKey), string(conventions.ClientPortKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkPeerAddressKey), r.Properties.SocketIP)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzurePop, r.Properties.Pop)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureCacheStatus, r.Properties.CacheStatus)
-	attrPutTLSProtoIf(attrs, r.Properties.SecurityProtocol)
-	if r.Properties.ErrorInfo != noError {
-		unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionTypeKey), r.Properties.ErrorInfo)
-	}
-	if r.Properties.Result != "" && r.Properties.Result != naValue {
-		body.SetStr(r.Properties.Result)
-	}
-	// Fields from FrontDoorAccessLog only
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.TLSCurveKey), r.Properties.SecurityCurves)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.TLSCipherKey), r.Properties.SecurityCipher)
-	if r.Properties.BackendHostname != nil {
-		// "BackendHostname" is the field represents the hostname of the backend, used in AzureCdnAccessLog
-		unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ServerAddressKey), string(conventions.ServerPortKey), *r.Properties.BackendHostname)
-	} else {
-		// "OriginIP" is the field represents the origin server IP, used in FrontDoorAccessLog
-		unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ServerAddressKey), string(conventions.ServerPortKey), r.Properties.OriginIP)
-	}
-	// "Endpoint" is the domain name of the Azure Front Door edge endpoint
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkLocalAddressKey), r.Properties.Endpoint)
-	// "HostName" is the the host name in the request from client,
-	// this is actually a "Host" HTTP header value
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeHTTPHeaderHost, r.Properties.HostName)
-
-	if r.Properties.IsReceivedFromClient != nil {
-		direction := "transmit"
-		if *r.Properties.IsReceivedFromClient {
-			direction = "receive"
-		}
-		attrs.PutStr(string(conventions.NetworkIODirectionKey), direction)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Fields from FrontDoorAccessLog only
+
+// "BackendHostname" is the field represents the hostname of the backend, used in AzureCdnAccessLog
+
+// "OriginIP" is the field represents the origin server IP, used in FrontDoorAccessLog
+
+// "Endpoint" is the domain name of the Azure Front Door edge endpoint
+
+// "HostName" is the the host name in the request from client,
+// this is actually a "Host" HTTP header value

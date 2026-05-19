@@ -9,24 +9,14 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/coralogixprocessor/internal/metadata"
 )
 
 // NewFactory returns a new factory for the Span processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, component.StabilityLevelDevelopment))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		TransactionsConfig: TransactionsConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -35,15 +25,6 @@ func createTracesProcessor(
 	baseCfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	coralogixCfg := baseCfg.(*Config)
-
-	coralogixProcessor, err := newCoralogixProcessor(ctx,
-		params,
-		coralogixCfg,
-		nextConsumer)
-	if err != nil {
-		return nil, err
-	}
-
-	return coralogixProcessor, nil
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }

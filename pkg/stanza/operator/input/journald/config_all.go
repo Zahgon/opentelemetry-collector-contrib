@@ -10,19 +10,10 @@ import (
 const operatorType = "journald_input"
 
 // NewConfig creates a new input config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new input config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		InputConfig:    helper.NewInputConfig(operatorID, operatorType),
-		StartAt:        "end",
-		Priority:       "info",
-		JournalctlPath: "journalctl",
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a journald input operator
 type Config struct {

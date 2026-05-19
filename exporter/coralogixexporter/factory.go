@@ -7,106 +7,31 @@ package coralogixexporter // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"errors"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configcompression"
-	"go.opentelemetry.io/collector/config/configgrpc"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
-	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/exporter/exporterhelper/xexporterhelper"
 	"go.opentelemetry.io/collector/exporter/xexporter"
-	"google.golang.org/grpc/encoding/gzip"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/coralogixexporter/internal/metadata"
 )
 
 // NewFactory by Coralogix
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithTraces(createTraceExporter, metadata.TracesStability),
-		xexporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithProfiles(createProfilesExporter, metadata.ProfilesStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		QueueSettings:   configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		BackOffConfig:   configretry.NewDefaultBackOffConfig(),
-		TimeoutSettings: exporterhelper.NewDefaultTimeoutConfig(),
-		DomainSettings: TransportConfig{
-			ClientConfig: configgrpc.ClientConfig{
-				Compression: configcompression.TypeGzip,
-			},
-			AcceptEncoding: gzip.Name,
-		},
-		// Traces GRPC client
-		Traces: TransportConfig{
-			ClientConfig: configgrpc.ClientConfig{
-				Endpoint:    "https://",
-				Compression: configcompression.TypeGzip,
-			},
-			AcceptEncoding: gzip.Name,
-		},
-		Metrics: TransportConfig{
-			ClientConfig: configgrpc.ClientConfig{
-				Endpoint: "https://",
-				// Default to gzip compression
-				Compression:     configcompression.TypeGzip,
-				WriteBufferSize: 512 * 1024,
-			},
-			AcceptEncoding: gzip.Name,
-		},
-		Logs: TransportConfig{
-			ClientConfig: configgrpc.ClientConfig{
-				Endpoint:    "https://",
-				Compression: configcompression.TypeGzip,
-			},
-			AcceptEncoding: gzip.Name,
-		},
-		PrivateKey: "",
-		AppName:    "",
-		RateLimiter: RateLimiterConfig{
-			Enabled:   true,
-			Threshold: 10,
-			Duration:  time.Minute,
-		},
-		Protocol: grpcProtocol,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// Traces GRPC client
+
+// Default to gzip compression
 
 func createTraceExporter(
 	ctx context.Context,
 	set exporter.Settings,
 	config component.Config,
 ) (exporter.Traces, error) {
-	cfg := config.(*Config)
-
-	exporter, err := newTracesExporter(cfg, set)
-	if err != nil {
-		return nil, err
-	}
-
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		config,
-		exporter.pushTraces,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithStart(exporter.start),
-		exporterhelper.WithShutdown(exporter.shutdown),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
 func createMetricsExporter(
@@ -114,25 +39,8 @@ func createMetricsExporter(
 	set exporter.Settings,
 	config component.Config,
 ) (exporter.Metrics, error) {
-	cfg := config.(*Config)
-
-	oce, err := newMetricsExporter(cfg, set)
-	if err != nil {
-		return nil, err
-	}
-
-	return exporterhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		oce.pushMetrics,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithStart(oce.start),
-		exporterhelper.WithShutdown(oce.shutdown),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createLogsExporter(
@@ -140,25 +48,8 @@ func createLogsExporter(
 	set exporter.Settings,
 	config component.Config,
 ) (exporter.Logs, error) {
-	cfg := config.(*Config)
-
-	oce, err := newLogsExporter(cfg, set)
-	if err != nil {
-		return nil, err
-	}
-
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		oce.pushLogs,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithStart(oce.start),
-		exporterhelper.WithShutdown(oce.shutdown),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func createProfilesExporter(
@@ -166,28 +57,9 @@ func createProfilesExporter(
 	set exporter.Settings,
 	config component.Config,
 ) (xexporter.Profiles, error) {
-	cfg := config.(*Config)
+	_ = "STUB: not implemented"
+	return *
 
 	// Validate that HTTP protocol is not used with profiles
-	if cfg.Protocol == "http" {
-		return nil, errors.New("profiles signal is not supported with HTTP protocol, use gRPC protocol (default) instead")
-	}
-
-	oce, err := newProfilesExporter(cfg, set)
-	if err != nil {
-		return nil, err
-	}
-
-	return xexporterhelper.NewProfiles(
-		ctx,
-		set,
-		cfg,
-		oce.pushProfiles,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithStart(oce.start),
-		exporterhelper.WithShutdown(oce.shutdown),
-	)
+	new(xexporter.Profiles), nil
 }

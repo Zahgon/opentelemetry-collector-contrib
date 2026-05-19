@@ -4,11 +4,8 @@
 package statsdreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/statsdreceiver"
 
 import (
-	"context"
-
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/statsdreceiver/internal/metadata"
@@ -29,40 +26,12 @@ var (
 )
 
 func newReporter(set receiver.Settings) (*reporter, error) {
-	telemetryBuilder, err := metadata.NewTelemetryBuilder(set.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-	return &reporter{
-		logger:           set.Logger,
-		sugaredLogger:    set.Logger.Sugar(),
-		receiverAttr:     attribute.String("receiver", set.ID.String()),
-		telemetryBuilder: telemetryBuilder,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (r *reporter) OnDebugf(template string, args ...any) {
-	if r.logger.Check(zap.DebugLevel, "debug") != nil {
-		r.sugaredLogger.Debugf(template, args...)
-	}
-}
+func (r *reporter) OnDebugf(template string, args ...any) { _ = "STUB: not implemented"; return }
 
-func (r *reporter) RecordParseFailure() {
-	r.telemetryBuilder.ReceiverReceivedStatsdMetrics.Add(
-		context.Background(),
-		1,
-		metric.WithAttributes(
-			r.receiverAttr,
-			parseFailureAttr),
-	)
-}
+func (r *reporter) RecordParseFailure() { _ = "STUB: not implemented"; return }
 
-func (r *reporter) RecordParseSuccess(count int64) {
-	r.telemetryBuilder.ReceiverReceivedStatsdMetrics.Add(
-		context.Background(),
-		count,
-		metric.WithAttributes(
-			r.receiverAttr,
-			parseSuccessAttr),
-	)
-}
+func (r *reporter) RecordParseSuccess(count int64) { _ = "STUB: not implemented"; return }

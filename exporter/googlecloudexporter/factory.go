@@ -9,15 +9,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/collector"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlecloudexporter/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlecloudexporter/internal/resourcemapping"
 )
 
 const (
@@ -25,23 +18,12 @@ const (
 )
 
 // NewFactory creates a factory for the googlecloud exporter
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 // createDefaultConfig creates the default configuration for exporter.
 func createDefaultConfig() component.Config {
-	return &Config{
-		TimeoutSettings: exporterhelper.TimeoutConfig{Timeout: defaultTimeout},
-		QueueSettings:   configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		Config:          collector.DefaultConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(
@@ -49,28 +31,12 @@ func createLogsExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	eCfg := cfg.(*Config)
-	if metadata.ExporterGooglecloudCustomMonitoredResourcesFeatureGate.IsEnabled() {
-		eCfg.LogConfig.MapMonitoredResource = resourcemapping.CustomLoggingMonitoredResourceMapping
-	}
-	logsExporter, err := collector.NewGoogleCloudLogsExporter(ctx, eCfg.Config, params, eCfg.TimeoutSettings.Timeout)
-	if err != nil {
-		return nil, err
-	}
-	return exporterhelper.NewLogs(
-		ctx,
-		params,
-		cfg,
-		logsExporter.PushLogs,
-		exporterhelper.WithStart(logsExporter.Start),
-		exporterhelper.WithShutdown(logsExporter.Shutdown),
-		// Disable exporterhelper Timeout, since we are using a custom mechanism
-		// within exporter itself
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(eCfg.QueueSettings),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
+
+// Disable exporterhelper Timeout, since we are using a custom mechanism
+// within exporter itself
 
 // createTracesExporter creates a trace exporter based on this config.
 func createTracesExporter(
@@ -78,25 +44,12 @@ func createTracesExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	eCfg := cfg.(*Config)
-	tExp, err := collector.NewGoogleCloudTracesExporter(ctx, eCfg.Config, params, eCfg.TimeoutSettings.Timeout)
-	if err != nil {
-		return nil, err
-	}
-	return exporterhelper.NewTraces(
-		ctx,
-		params,
-		cfg,
-		tExp.PushTraces,
-		exporterhelper.WithStart(tExp.Start),
-		exporterhelper.WithShutdown(tExp.Shutdown),
-		// Disable exporterhelper Timeout, since we are using a custom mechanism
-		// within exporter itself
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(eCfg.QueueSettings),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
+
+// Disable exporterhelper Timeout, since we are using a custom mechanism
+// within exporter itself
 
 // createMetricsExporter creates a metrics exporter based on this config.
 func createMetricsExporter(
@@ -104,25 +57,9 @@ func createMetricsExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Metrics, error) {
-	eCfg := cfg.(*Config)
-	if metadata.ExporterGooglecloudCustomMonitoredResourcesFeatureGate.IsEnabled() {
-		eCfg.MetricConfig.MapMonitoredResource = resourcemapping.CustomMetricMonitoredResourceMapping
-	}
-	mExp, err := collector.NewGoogleCloudMetricsExporter(ctx, eCfg.Config, params, eCfg.TimeoutSettings.Timeout)
-	if err != nil {
-		return nil, err
-	}
-	return exporterhelper.NewMetrics(
-		ctx,
-		params,
-		cfg,
-		mExp.PushMetrics,
-		exporterhelper.WithStart(mExp.Start),
-		exporterhelper.WithShutdown(mExp.Shutdown),
-		// Disable exporterhelper Timeout, since we are using a custom mechanism
-		// within exporter itself
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(eCfg.QueueSettings),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
+
+// Disable exporterhelper Timeout, since we are using a custom mechanism
+// within exporter itself

@@ -7,9 +7,6 @@ import (
 	"encoding/json"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -121,54 +118,24 @@ type azureApplicationGatewayAccessLog struct {
 
 // Override GetResource to add ServiceInstanceID from Properties
 func (r *azureApplicationGatewayAccessLog) GetResource() logsResourceAttributes {
-	res := r.azureLogRecordBase.GetResource()
-	res.ServiceInstanceID = r.Properties.InstanceID
-
-	return res
+	_ = "STUB: not implemented"
+	return *new(logsResourceAttributes)
 }
 
 func (r *azureApplicationGatewayAccessLog) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Put common attributes first
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAGWListenerName, r.ListenerName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAGWRuleName, r.RuleName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAGWBackendPoolName, r.BackendPoolName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAGWBackendSettingName, r.BackendSettingName)
+	return
 }
+
+// Then put custom top-level attributes
 
 func (r *azureApplicationGatewayAccessLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ClientAddressKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ClientPortKey), r.Properties.ClientPort)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HTTPRequestMethodKey), r.Properties.HTTPMethod)
-	// requestUri is not an absolute URL, so we cannot use unmarshaler.AttrPutURLParsed here
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLOriginalKey), r.Properties.OriginalRequestURIWithArgs)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLPathKey), r.Properties.RequestURI)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLQueryKey), r.Properties.RequestQuery)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOriginalKey), r.Properties.UserAgent)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.Properties.HTTPStatusCode)
-	attrPutHTTPProtoIf(attrs, r.Properties.HTTPVersion)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPRequestSizeKey), r.Properties.ReceivedBytes)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseSizeKey), r.Properties.SentBytes)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureRequestDuration, r.Properties.TimeTaken)
-	unmarshaler.AttrPutStrIf(attrs, attributeTLSEnabled, r.Properties.SSLEnabled)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.Host)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderHost, r.Properties.OriginalHost)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.TLSCipherKey), r.Properties.SSLCipher)
-	attrPutTLSProtoIf(attrs, r.Properties.SSLProtocol)
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ServerAddressKey), string(conventions.ServerPortKey), r.Properties.ServerRouted)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWBackendStatusCode, convertStringToJSONNumber(r.Properties.ServerStatus))
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.NetworkLocalPortKey), convertStringToJSONNumber(r.Properties.UpstreamSourcePort))
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureAGWBackendLatency, convertStringToJSONNumber(r.Properties.ServerResponseLatency))
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureAGWLatency, r.Properties.ClientResponseTime)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureFirewallLatency, convertStringToJSONNumber(r.Properties.WAFEvaluationTime))
-	unmarshaler.AttrPutStrIf(attrs, attributeSecurityRuleRulesetModeKey, r.Properties.WAFMode)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.AzureServiceRequestIDKey), r.Properties.TransactionID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ErrorTypeKey), r.Properties.ErrorInfo)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// requestUri is not an absolute URL, so we cannot use unmarshaler.AttrPutURLParsed here
 
 // See https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/web-application-firewall/ag/web-application-firewall-logs.md
 type azureApplicationGatewayPerformanceLog struct {
@@ -187,22 +154,14 @@ type azureApplicationGatewayPerformanceLog struct {
 
 // Override GetResource to add ServiceInstanceID from Properties
 func (r *azureApplicationGatewayPerformanceLog) GetResource() logsResourceAttributes {
-	res := r.azureLogRecordBase.GetResource()
-	res.ServiceInstanceID = r.Properties.InstanceID
-
-	return res
+	_ = "STUB: not implemented"
+	return *new(logsResourceAttributes)
 }
 
 // addApplicationGatewayAccessLogsProperties parses the Azure Resource Log record and adds
 // the relevant attributes to the OpenTelemetry Log Record Attributes and/or Log Body
 func (r *azureApplicationGatewayPerformanceLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWHostHealthyCount, r.Properties.HealthyHostCount)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWHostUnhealthyCount, r.Properties.UnHealthyHostCount)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWRequestCount, r.Properties.RequestCount)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWBackendLatency, r.Properties.Latency)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWFailedRequestCount, r.Properties.FailedRequestCount)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureAGWThroughput, r.Properties.Throughput)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -233,31 +192,13 @@ type azureApplicationGatewayFirewallLog struct {
 
 // Override GetResource to add ServiceInstanceID from Properties
 func (r *azureApplicationGatewayFirewallLog) GetResource() logsResourceAttributes {
-	res := r.azureLogRecordBase.GetResource()
-	res.ServiceInstanceID = r.Properties.InstanceID
-
-	return res
+	_ = "STUB: not implemented"
+	return *new(logsResourceAttributes)
 }
 
 func (r *azureApplicationGatewayFirewallLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ClientAddressKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ClientPortKey), r.Properties.ClientPort)
-	// requestUri is not an absolute URL, so we cannot use unmarshaler.AttrPutURLParsed here
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLOriginalKey), r.Properties.RequestURI)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleCategoryKey), r.Properties.RuleSetType)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleVersionKey), r.Properties.RuleSetVersion)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleUUIDKey), r.Properties.RuleID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleRulesetNameKey), r.Properties.RuleGroup)
-	unmarshaler.AttrPutStrIf(attrs, attributeSecurityRuleActionKey, r.Properties.Action)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFirewallSite, r.Properties.Site)
-	unmarshaler.AttrPutMapIf(attrs, attributeAzureFirewallEventDetails, r.Properties.Details)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.HostName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.AzureServiceRequestIDKey), r.Properties.TransactionID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFirewallPolicyID, r.Properties.PolicyID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFirewallPolicyScope, r.Properties.PolicyScope)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFirewallPolicyScopeName, r.Properties.PolicyScopeName)
-
-	body.SetStr(r.Properties.Message)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// requestUri is not an absolute URL, so we cannot use unmarshaler.AttrPutURLParsed here

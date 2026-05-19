@@ -4,7 +4,6 @@
 package http // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/healthcheck/internal/http"
 
 import (
-	"encoding/json"
 	"net/http"
 	"time"
 
@@ -36,31 +35,18 @@ type responder interface {
 type responderFunc func(*status.AggregateStatus, http.ResponseWriter) error
 
 func (f responderFunc) respond(st *status.AggregateStatus, w http.ResponseWriter) error {
-	return f(st, w)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func respondWithJSON(code int, content any, w http.ResponseWriter) error {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-
-	body, mErr := json.Marshal(content)
-	if mErr != nil {
-		body, _ = json.Marshal(&serializationErr{ErrorMessage: mErr.Error()})
-	}
-	_, wErr := w.Write(body)
-	return wErr
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultResponder(startTimestamp *time.Time, includeAttributes bool) responderFunc {
-	return func(st *status.AggregateStatus, w http.ResponseWriter) error {
-		code := responseCodes[st.Status()]
-		sst := toSerializableStatus(st, &serializationOptions{
-			includeStartTime:  true,
-			startTimestamp:    startTimestamp,
-			includeAttributes: includeAttributes,
-		})
-		return respondWithJSON(code, sst, w)
-	}
+	_ = "STUB: not implemented"
+	return *new(responderFunc)
 }
 
 func componentHealthResponder(
@@ -68,38 +54,8 @@ func componentHealthResponder(
 	config *common.ComponentHealthConfig,
 	includeAttributes bool,
 ) responderFunc {
-	healthyFunc := func(now *time.Time) func(status.Event) bool {
-		return func(ev status.Event) bool {
-			if ev.Status() == componentstatus.StatusPermanentError {
-				return !config.IncludePermanent
-			}
-
-			if ev.Status() == componentstatus.StatusRecoverableError && config.IncludeRecoverable {
-				return now.Before(ev.Timestamp().Add(config.RecoveryDuration))
-			}
-
-			return ev.Status() != componentstatus.StatusFatalError
-		}
-	}
-	return func(st *status.AggregateStatus, w http.ResponseWriter) error {
-		now := time.Now()
-		sst := toSerializableStatus(
-			st,
-			&serializationOptions{
-				includeStartTime:  true,
-				startTimestamp:    startTimestamp,
-				healthyFunc:       healthyFunc(&now),
-				includeAttributes: includeAttributes,
-			},
-		)
-
-		code := responseCodes[st.Status()]
-		if !sst.Healthy {
-			code = http.StatusInternalServerError
-		}
-
-		return respondWithJSON(code, sst, w)
-	}
+	_ = "STUB: not implemented"
+	return *new(responderFunc)
 }
 
 // Below are responders ported from the original healthcheck extension. We will
@@ -120,39 +76,11 @@ var legacyResponseCodes = map[componentstatus.Status]int{
 }
 
 func legacyDefaultResponder(startTimestamp *time.Time) responderFunc {
-	type healthCheckResponse struct {
-		StatusMsg string    `json:"status"`
-		UpSince   time.Time `json:"upSince"`
-		Uptime    string    `json:"uptime"`
-	}
-
-	codeToMsgMap := map[int]string{
-		http.StatusOK:                 "Server available",
-		http.StatusServiceUnavailable: "Server not available",
-	}
-
-	return func(st *status.AggregateStatus, w http.ResponseWriter) error {
-		code := legacyResponseCodes[st.Status()]
-		resp := healthCheckResponse{
-			StatusMsg: codeToMsgMap[code],
-		}
-		if code == http.StatusOK {
-			resp.UpSince = *startTimestamp
-			resp.Uptime = time.Since(*startTimestamp).String()
-		}
-		return respondWithJSON(code, resp, w)
-	}
+	_ = "STUB: not implemented"
+	return *new(responderFunc)
 }
 
 func legacyCustomResponder(config *ResponseBodyConfig) responderFunc {
-	codeToMsgMap := map[int][]byte{
-		http.StatusOK:                 []byte(config.Healthy),
-		http.StatusServiceUnavailable: []byte(config.Unhealthy),
-	}
-	return func(st *status.AggregateStatus, w http.ResponseWriter) error {
-		code := legacyResponseCodes[st.Status()]
-		w.WriteHeader(code)
-		_, err := w.Write(codeToMsgMap[code])
-		return err
-	}
+	_ = "STUB: not implemented"
+	return *new(responderFunc)
 }

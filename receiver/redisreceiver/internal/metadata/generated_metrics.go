@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeClusterState.
-func (av AttributeClusterState) String() string {
-	switch av {
-	case AttributeClusterStateOk:
-		return "ok"
-	case AttributeClusterStateFail:
-		return "fail"
-	}
-	return ""
-}
+func (av AttributeClusterState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeClusterState is a helper map of string to AttributeClusterState attribute value.
 var MapAttributeClusterState = map[string]AttributeClusterState{
@@ -57,17 +46,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMode.
-func (av AttributeMode) String() string {
-	switch av {
-	case AttributeModeCluster:
-		return "cluster"
-	case AttributeModeSentinel:
-		return "sentinel"
-	case AttributeModeStandalone:
-		return "standalone"
-	}
-	return ""
-}
+func (av AttributeMode) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMode is a helper map of string to AttributeMode attribute value.
 var MapAttributeMode = map[string]AttributeMode{
@@ -87,17 +66,7 @@ const (
 )
 
 // String returns the string representation of the AttributePercentile.
-func (av AttributePercentile) String() string {
-	switch av {
-	case AttributePercentileP50:
-		return "p50"
-	case AttributePercentileP99:
-		return "p99"
-	case AttributePercentileP999:
-		return "p99.9"
-	}
-	return ""
-}
+func (av AttributePercentile) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributePercentile is a helper map of string to AttributePercentile attribute value.
 var MapAttributePercentile = map[string]AttributePercentile{
@@ -116,15 +85,7 @@ const (
 )
 
 // String returns the string representation of the AttributeRole.
-func (av AttributeRole) String() string {
-	switch av {
-	case AttributeRoleReplica:
-		return "replica"
-	case AttributeRolePrimary:
-		return "primary"
-	}
-	return ""
-}
+func (av AttributeRole) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeRole is a helper map of string to AttributeRole attribute value.
 var MapAttributeRole = map[string]AttributeRole{
@@ -146,23 +107,7 @@ const (
 )
 
 // String returns the string representation of the AttributeState.
-func (av AttributeState) String() string {
-	switch av {
-	case AttributeStateSys:
-		return "sys"
-	case AttributeStateSysChildren:
-		return "sys_children"
-	case AttributeStateSysMainThread:
-		return "sys_main_thread"
-	case AttributeStateUser:
-		return "user"
-	case AttributeStateUserChildren:
-		return "user_children"
-	case AttributeStateUserMainThread:
-		return "user_main_thread"
-	}
-	return ""
-}
+func (av AttributeState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeState is a helper map of string to AttributeState attribute value.
 var MapAttributeState = map[string]AttributeState{
@@ -433,39 +378,22 @@ func (m *metricRedisClientsBlocked) init() {
 }
 
 func (m *metricRedisClientsBlocked) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClientsBlocked) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisClientsBlocked) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClientsBlocked) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClientsBlocked(cfg RedisClientsBlockedMetricConfig) metricRedisClientsBlocked {
-	m := metricRedisClientsBlocked{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClientsBlocked)
 }
 
 type metricRedisClientsConnected struct {
@@ -485,39 +413,22 @@ func (m *metricRedisClientsConnected) init() {
 }
 
 func (m *metricRedisClientsConnected) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClientsConnected) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisClientsConnected) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClientsConnected) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClientsConnected(cfg RedisClientsConnectedMetricConfig) metricRedisClientsConnected {
-	m := metricRedisClientsConnected{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClientsConnected)
 }
 
 type metricRedisClientsMaxInputBuffer struct {
@@ -535,39 +446,22 @@ func (m *metricRedisClientsMaxInputBuffer) init() {
 }
 
 func (m *metricRedisClientsMaxInputBuffer) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClientsMaxInputBuffer) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClientsMaxInputBuffer) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClientsMaxInputBuffer) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClientsMaxInputBuffer(cfg RedisClientsMaxInputBufferMetricConfig) metricRedisClientsMaxInputBuffer {
-	m := metricRedisClientsMaxInputBuffer{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClientsMaxInputBuffer)
 }
 
 type metricRedisClientsMaxOutputBuffer struct {
@@ -585,39 +479,22 @@ func (m *metricRedisClientsMaxOutputBuffer) init() {
 }
 
 func (m *metricRedisClientsMaxOutputBuffer) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClientsMaxOutputBuffer) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClientsMaxOutputBuffer) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClientsMaxOutputBuffer) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClientsMaxOutputBuffer(cfg RedisClientsMaxOutputBufferMetricConfig) metricRedisClientsMaxOutputBuffer {
-	m := metricRedisClientsMaxOutputBuffer{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClientsMaxOutputBuffer)
 }
 
 type metricRedisClusterClusterEnabled struct {
@@ -635,39 +512,22 @@ func (m *metricRedisClusterClusterEnabled) init() {
 }
 
 func (m *metricRedisClusterClusterEnabled) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterClusterEnabled) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterClusterEnabled) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterClusterEnabled) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterClusterEnabled(cfg RedisClusterClusterEnabledMetricConfig) metricRedisClusterClusterEnabled {
-	m := metricRedisClusterClusterEnabled{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterClusterEnabled)
 }
 
 type metricRedisClusterKnownNodes struct {
@@ -685,39 +545,22 @@ func (m *metricRedisClusterKnownNodes) init() {
 }
 
 func (m *metricRedisClusterKnownNodes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterKnownNodes) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterKnownNodes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterKnownNodes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterKnownNodes(cfg RedisClusterKnownNodesMetricConfig) metricRedisClusterKnownNodes {
-	m := metricRedisClusterKnownNodes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterKnownNodes)
 }
 
 type metricRedisClusterLinksBufferLimitExceededCount struct {
@@ -737,39 +580,25 @@ func (m *metricRedisClusterLinksBufferLimitExceededCount) init() {
 }
 
 func (m *metricRedisClusterLinksBufferLimitExceededCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRedisClusterLinksBufferLimitExceededCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterLinksBufferLimitExceededCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterLinksBufferLimitExceededCount(cfg RedisClusterLinksBufferLimitExceededCountMetricConfig) metricRedisClusterLinksBufferLimitExceededCount {
-	m := metricRedisClusterLinksBufferLimitExceededCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterLinksBufferLimitExceededCount)
 }
 
 type metricRedisClusterNodeCount struct {
@@ -787,39 +616,22 @@ func (m *metricRedisClusterNodeCount) init() {
 }
 
 func (m *metricRedisClusterNodeCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterNodeCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterNodeCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterNodeCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterNodeCount(cfg RedisClusterNodeCountMetricConfig) metricRedisClusterNodeCount {
-	m := metricRedisClusterNodeCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterNodeCount)
 }
 
 type metricRedisClusterNodeUptime struct {
@@ -837,39 +649,22 @@ func (m *metricRedisClusterNodeUptime) init() {
 }
 
 func (m *metricRedisClusterNodeUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterNodeUptime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterNodeUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterNodeUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterNodeUptime(cfg RedisClusterNodeUptimeMetricConfig) metricRedisClusterNodeUptime {
-	m := metricRedisClusterNodeUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterNodeUptime)
 }
 
 type metricRedisClusterSlotsAssigned struct {
@@ -887,39 +682,22 @@ func (m *metricRedisClusterSlotsAssigned) init() {
 }
 
 func (m *metricRedisClusterSlotsAssigned) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterSlotsAssigned) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterSlotsAssigned) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterSlotsAssigned) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterSlotsAssigned(cfg RedisClusterSlotsAssignedMetricConfig) metricRedisClusterSlotsAssigned {
-	m := metricRedisClusterSlotsAssigned{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterSlotsAssigned)
 }
 
 type metricRedisClusterSlotsFail struct {
@@ -937,39 +715,22 @@ func (m *metricRedisClusterSlotsFail) init() {
 }
 
 func (m *metricRedisClusterSlotsFail) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterSlotsFail) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterSlotsFail) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterSlotsFail) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterSlotsFail(cfg RedisClusterSlotsFailMetricConfig) metricRedisClusterSlotsFail {
-	m := metricRedisClusterSlotsFail{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterSlotsFail)
 }
 
 type metricRedisClusterSlotsOk struct {
@@ -987,39 +748,22 @@ func (m *metricRedisClusterSlotsOk) init() {
 }
 
 func (m *metricRedisClusterSlotsOk) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterSlotsOk) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterSlotsOk) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterSlotsOk) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterSlotsOk(cfg RedisClusterSlotsOkMetricConfig) metricRedisClusterSlotsOk {
-	m := metricRedisClusterSlotsOk{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterSlotsOk)
 }
 
 type metricRedisClusterSlotsPfail struct {
@@ -1037,39 +781,22 @@ func (m *metricRedisClusterSlotsPfail) init() {
 }
 
 func (m *metricRedisClusterSlotsPfail) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterSlotsPfail) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterSlotsPfail) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterSlotsPfail) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterSlotsPfail(cfg RedisClusterSlotsPfailMetricConfig) metricRedisClusterSlotsPfail {
-	m := metricRedisClusterSlotsPfail{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterSlotsPfail)
 }
 
 type metricRedisClusterState struct {
@@ -1090,75 +817,22 @@ func (m *metricRedisClusterState) init() {
 }
 
 func (m *metricRedisClusterState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, clusterStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisClusterStateMetricAttributeKeyClusterState) {
-		dp.Attributes().PutStr("cluster_state", clusterStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterState(cfg RedisClusterStateMetricConfig) metricRedisClusterState {
-	m := metricRedisClusterState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterState)
 }
 
 type metricRedisClusterStatsMessagesReceived struct {
@@ -1178,39 +852,25 @@ func (m *metricRedisClusterStatsMessagesReceived) init() {
 }
 
 func (m *metricRedisClusterStatsMessagesReceived) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRedisClusterStatsMessagesReceived) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterStatsMessagesReceived) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterStatsMessagesReceived(cfg RedisClusterStatsMessagesReceivedMetricConfig) metricRedisClusterStatsMessagesReceived {
-	m := metricRedisClusterStatsMessagesReceived{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterStatsMessagesReceived)
 }
 
 type metricRedisClusterStatsMessagesSent struct {
@@ -1230,39 +890,22 @@ func (m *metricRedisClusterStatsMessagesSent) init() {
 }
 
 func (m *metricRedisClusterStatsMessagesSent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterStatsMessagesSent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterStatsMessagesSent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterStatsMessagesSent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterStatsMessagesSent(cfg RedisClusterStatsMessagesSentMetricConfig) metricRedisClusterStatsMessagesSent {
-	m := metricRedisClusterStatsMessagesSent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterStatsMessagesSent)
 }
 
 type metricRedisClusterUptime struct {
@@ -1280,39 +923,22 @@ func (m *metricRedisClusterUptime) init() {
 }
 
 func (m *metricRedisClusterUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisClusterUptime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisClusterUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisClusterUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisClusterUptime(cfg RedisClusterUptimeMetricConfig) metricRedisClusterUptime {
-	m := metricRedisClusterUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisClusterUptime)
 }
 
 type metricRedisCmdCalls struct {
@@ -1335,75 +961,19 @@ func (m *metricRedisCmdCalls) init() {
 }
 
 func (m *metricRedisCmdCalls) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cmdAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisCmdCallsMetricAttributeKeyCmd) {
-		dp.Attributes().PutStr("cmd", cmdAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCmdCalls) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisCmdCalls) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisCmdCalls) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisCmdCalls) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisCmdCalls(cfg RedisCmdCallsMetricConfig) metricRedisCmdCalls {
-	m := metricRedisCmdCalls{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCmdCalls)
 }
 
 type metricRedisCmdLatency struct {
@@ -1424,78 +994,22 @@ func (m *metricRedisCmdLatency) init() {
 }
 
 func (m *metricRedisCmdLatency) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cmdAttributeValue string, percentileAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisCmdLatencyMetricAttributeKeyCmd) {
-		dp.Attributes().PutStr("cmd", cmdAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, RedisCmdLatencyMetricAttributeKeyPercentile) {
-		dp.Attributes().PutStr("percentile", percentileAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCmdLatency) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisCmdLatency) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisCmdLatency) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisCmdLatency(cfg RedisCmdLatencyMetricConfig) metricRedisCmdLatency {
-	m := metricRedisCmdLatency{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCmdLatency)
 }
 
 type metricRedisCmdUsec struct {
@@ -1518,75 +1032,19 @@ func (m *metricRedisCmdUsec) init() {
 }
 
 func (m *metricRedisCmdUsec) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cmdAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisCmdUsecMetricAttributeKeyCmd) {
-		dp.Attributes().PutStr("cmd", cmdAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCmdUsec) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisCmdUsec) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisCmdUsec) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisCmdUsec) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisCmdUsec(cfg RedisCmdUsecMetricConfig) metricRedisCmdUsec {
-	m := metricRedisCmdUsec{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCmdUsec)
 }
 
 type metricRedisCommands struct {
@@ -1604,39 +1062,19 @@ func (m *metricRedisCommands) init() {
 }
 
 func (m *metricRedisCommands) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCommands) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisCommands) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisCommands) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisCommands) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisCommands(cfg RedisCommandsMetricConfig) metricRedisCommands {
-	m := metricRedisCommands{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCommands)
 }
 
 type metricRedisCommandsProcessed struct {
@@ -1656,39 +1094,22 @@ func (m *metricRedisCommandsProcessed) init() {
 }
 
 func (m *metricRedisCommandsProcessed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCommandsProcessed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisCommandsProcessed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisCommandsProcessed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisCommandsProcessed(cfg RedisCommandsProcessedMetricConfig) metricRedisCommandsProcessed {
-	m := metricRedisCommandsProcessed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCommandsProcessed)
 }
 
 type metricRedisConnectionsReceived struct {
@@ -1708,39 +1129,22 @@ func (m *metricRedisConnectionsReceived) init() {
 }
 
 func (m *metricRedisConnectionsReceived) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisConnectionsReceived) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisConnectionsReceived) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisConnectionsReceived) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisConnectionsReceived(cfg RedisConnectionsReceivedMetricConfig) metricRedisConnectionsReceived {
-	m := metricRedisConnectionsReceived{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisConnectionsReceived)
 }
 
 type metricRedisConnectionsRejected struct {
@@ -1760,39 +1164,22 @@ func (m *metricRedisConnectionsRejected) init() {
 }
 
 func (m *metricRedisConnectionsRejected) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisConnectionsRejected) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisConnectionsRejected) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisConnectionsRejected) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisConnectionsRejected(cfg RedisConnectionsRejectedMetricConfig) metricRedisConnectionsRejected {
-	m := metricRedisConnectionsRejected{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisConnectionsRejected)
 }
 
 type metricRedisCPUTime struct {
@@ -1815,75 +1202,19 @@ func (m *metricRedisCPUTime) init() {
 }
 
 func (m *metricRedisCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisCPUTimeMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisCPUTime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisCPUTime(cfg RedisCPUTimeMetricConfig) metricRedisCPUTime {
-	m := metricRedisCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisCPUTime)
 }
 
 type metricRedisDbAvgTTL struct {
@@ -1904,75 +1235,19 @@ func (m *metricRedisDbAvgTTL) init() {
 }
 
 func (m *metricRedisDbAvgTTL) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisDbAvgTTLMetricAttributeKeyDb) {
-		dp.Attributes().PutStr("db", dbAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisDbAvgTTL) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisDbAvgTTL) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisDbAvgTTL) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisDbAvgTTL) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisDbAvgTTL(cfg RedisDbAvgTTLMetricConfig) metricRedisDbAvgTTL {
-	m := metricRedisDbAvgTTL{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisDbAvgTTL)
 }
 
 type metricRedisDbExpires struct {
@@ -1993,75 +1268,19 @@ func (m *metricRedisDbExpires) init() {
 }
 
 func (m *metricRedisDbExpires) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisDbExpiresMetricAttributeKeyDb) {
-		dp.Attributes().PutStr("db", dbAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisDbExpires) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisDbExpires) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisDbExpires) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisDbExpires) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisDbExpires(cfg RedisDbExpiresMetricConfig) metricRedisDbExpires {
-	m := metricRedisDbExpires{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisDbExpires)
 }
 
 type metricRedisDbKeys struct {
@@ -2082,75 +1301,19 @@ func (m *metricRedisDbKeys) init() {
 }
 
 func (m *metricRedisDbKeys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisDbKeysMetricAttributeKeyDb) {
-		dp.Attributes().PutStr("db", dbAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisDbKeys) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisDbKeys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisDbKeys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisDbKeys) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisDbKeys(cfg RedisDbKeysMetricConfig) metricRedisDbKeys {
-	m := metricRedisDbKeys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisDbKeys)
 }
 
 type metricRedisKeysEvicted struct {
@@ -2170,39 +1333,22 @@ func (m *metricRedisKeysEvicted) init() {
 }
 
 func (m *metricRedisKeysEvicted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisKeysEvicted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisKeysEvicted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisKeysEvicted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisKeysEvicted(cfg RedisKeysEvictedMetricConfig) metricRedisKeysEvicted {
-	m := metricRedisKeysEvicted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisKeysEvicted)
 }
 
 type metricRedisKeysExpired struct {
@@ -2222,39 +1368,22 @@ func (m *metricRedisKeysExpired) init() {
 }
 
 func (m *metricRedisKeysExpired) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisKeysExpired) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisKeysExpired) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisKeysExpired) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisKeysExpired(cfg RedisKeysExpiredMetricConfig) metricRedisKeysExpired {
-	m := metricRedisKeysExpired{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisKeysExpired)
 }
 
 type metricRedisKeyspaceHits struct {
@@ -2274,39 +1403,22 @@ func (m *metricRedisKeyspaceHits) init() {
 }
 
 func (m *metricRedisKeyspaceHits) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisKeyspaceHits) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisKeyspaceHits) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisKeyspaceHits) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisKeyspaceHits(cfg RedisKeyspaceHitsMetricConfig) metricRedisKeyspaceHits {
-	m := metricRedisKeyspaceHits{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisKeyspaceHits)
 }
 
 type metricRedisKeyspaceMisses struct {
@@ -2326,39 +1438,22 @@ func (m *metricRedisKeyspaceMisses) init() {
 }
 
 func (m *metricRedisKeyspaceMisses) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisKeyspaceMisses) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisKeyspaceMisses) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisKeyspaceMisses) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisKeyspaceMisses(cfg RedisKeyspaceMissesMetricConfig) metricRedisKeyspaceMisses {
-	m := metricRedisKeyspaceMisses{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisKeyspaceMisses)
 }
 
 type metricRedisLatestFork struct {
@@ -2376,39 +1471,22 @@ func (m *metricRedisLatestFork) init() {
 }
 
 func (m *metricRedisLatestFork) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisLatestFork) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisLatestFork) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisLatestFork) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisLatestFork(cfg RedisLatestForkMetricConfig) metricRedisLatestFork {
-	m := metricRedisLatestFork{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisLatestFork)
 }
 
 type metricRedisMaxmemory struct {
@@ -2426,39 +1504,19 @@ func (m *metricRedisMaxmemory) init() {
 }
 
 func (m *metricRedisMaxmemory) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMaxmemory) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMaxmemory) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisMaxmemory) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisMaxmemory) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisMaxmemory(cfg RedisMaxmemoryMetricConfig) metricRedisMaxmemory {
-	m := metricRedisMaxmemory{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMaxmemory)
 }
 
 type metricRedisMemoryFragmentationRatio struct {
@@ -2476,39 +1534,22 @@ func (m *metricRedisMemoryFragmentationRatio) init() {
 }
 
 func (m *metricRedisMemoryFragmentationRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryFragmentationRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryFragmentationRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisMemoryFragmentationRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisMemoryFragmentationRatio(cfg RedisMemoryFragmentationRatioMetricConfig) metricRedisMemoryFragmentationRatio {
-	m := metricRedisMemoryFragmentationRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryFragmentationRatio)
 }
 
 type metricRedisMemoryLua struct {
@@ -2526,39 +1567,19 @@ func (m *metricRedisMemoryLua) init() {
 }
 
 func (m *metricRedisMemoryLua) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryLua) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryLua) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisMemoryLua) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisMemoryLua) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisMemoryLua(cfg RedisMemoryLuaMetricConfig) metricRedisMemoryLua {
-	m := metricRedisMemoryLua{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryLua)
 }
 
 type metricRedisMemoryPeak struct {
@@ -2576,39 +1597,22 @@ func (m *metricRedisMemoryPeak) init() {
 }
 
 func (m *metricRedisMemoryPeak) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryPeak) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryPeak) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisMemoryPeak) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisMemoryPeak(cfg RedisMemoryPeakMetricConfig) metricRedisMemoryPeak {
-	m := metricRedisMemoryPeak{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryPeak)
 }
 
 type metricRedisMemoryRss struct {
@@ -2626,39 +1630,19 @@ func (m *metricRedisMemoryRss) init() {
 }
 
 func (m *metricRedisMemoryRss) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryRss) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryRss) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisMemoryRss) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisMemoryRss) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisMemoryRss(cfg RedisMemoryRssMetricConfig) metricRedisMemoryRss {
-	m := metricRedisMemoryRss{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryRss)
 }
 
 type metricRedisMemoryUsed struct {
@@ -2676,39 +1660,22 @@ func (m *metricRedisMemoryUsed) init() {
 }
 
 func (m *metricRedisMemoryUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisMemoryUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisMemoryUsed(cfg RedisMemoryUsedMetricConfig) metricRedisMemoryUsed {
-	m := metricRedisMemoryUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryUsed)
 }
 
 type metricRedisMemoryUsedMemoryOverhead struct {
@@ -2728,39 +1695,22 @@ func (m *metricRedisMemoryUsedMemoryOverhead) init() {
 }
 
 func (m *metricRedisMemoryUsedMemoryOverhead) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryUsedMemoryOverhead) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryUsedMemoryOverhead) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisMemoryUsedMemoryOverhead) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisMemoryUsedMemoryOverhead(cfg RedisMemoryUsedMemoryOverheadMetricConfig) metricRedisMemoryUsedMemoryOverhead {
-	m := metricRedisMemoryUsedMemoryOverhead{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryUsedMemoryOverhead)
 }
 
 type metricRedisMemoryUsedMemoryStartup struct {
@@ -2780,39 +1730,22 @@ func (m *metricRedisMemoryUsedMemoryStartup) init() {
 }
 
 func (m *metricRedisMemoryUsedMemoryStartup) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMemoryUsedMemoryStartup) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisMemoryUsedMemoryStartup) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisMemoryUsedMemoryStartup) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisMemoryUsedMemoryStartup(cfg RedisMemoryUsedMemoryStartupMetricConfig) metricRedisMemoryUsedMemoryStartup {
-	m := metricRedisMemoryUsedMemoryStartup{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMemoryUsedMemoryStartup)
 }
 
 type metricRedisMode struct {
@@ -2833,75 +1766,19 @@ func (m *metricRedisMode) init() {
 }
 
 func (m *metricRedisMode) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, modeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisModeMetricAttributeKeyMode) {
-		dp.Attributes().PutStr("mode", modeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisMode) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisMode) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisMode) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisMode) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisMode(cfg RedisModeMetricConfig) metricRedisMode {
-	m := metricRedisMode{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisMode)
 }
 
 type metricRedisNetInput struct {
@@ -2921,39 +1798,19 @@ func (m *metricRedisNetInput) init() {
 }
 
 func (m *metricRedisNetInput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisNetInput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisNetInput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisNetInput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisNetInput) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisNetInput(cfg RedisNetInputMetricConfig) metricRedisNetInput {
-	m := metricRedisNetInput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisNetInput)
 }
 
 type metricRedisNetOutput struct {
@@ -2973,39 +1830,19 @@ func (m *metricRedisNetOutput) init() {
 }
 
 func (m *metricRedisNetOutput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisNetOutput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisNetOutput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisNetOutput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisNetOutput) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisNetOutput(cfg RedisNetOutputMetricConfig) metricRedisNetOutput {
-	m := metricRedisNetOutput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisNetOutput)
 }
 
 type metricRedisRdbChangesSinceLastSave struct {
@@ -3025,39 +1862,22 @@ func (m *metricRedisRdbChangesSinceLastSave) init() {
 }
 
 func (m *metricRedisRdbChangesSinceLastSave) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisRdbChangesSinceLastSave) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisRdbChangesSinceLastSave) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisRdbChangesSinceLastSave) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisRdbChangesSinceLastSave(cfg RedisRdbChangesSinceLastSaveMetricConfig) metricRedisRdbChangesSinceLastSave {
-	m := metricRedisRdbChangesSinceLastSave{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisRdbChangesSinceLastSave)
 }
 
 type metricRedisReplicationBacklogFirstByteOffset struct {
@@ -3075,39 +1895,25 @@ func (m *metricRedisReplicationBacklogFirstByteOffset) init() {
 }
 
 func (m *metricRedisReplicationBacklogFirstByteOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRedisReplicationBacklogFirstByteOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisReplicationBacklogFirstByteOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisReplicationBacklogFirstByteOffset(cfg RedisReplicationBacklogFirstByteOffsetMetricConfig) metricRedisReplicationBacklogFirstByteOffset {
-	m := metricRedisReplicationBacklogFirstByteOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisReplicationBacklogFirstByteOffset)
 }
 
 type metricRedisReplicationOffset struct {
@@ -3125,39 +1931,22 @@ func (m *metricRedisReplicationOffset) init() {
 }
 
 func (m *metricRedisReplicationOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisReplicationOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisReplicationOffset) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisReplicationOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisReplicationOffset(cfg RedisReplicationOffsetMetricConfig) metricRedisReplicationOffset {
-	m := metricRedisReplicationOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisReplicationOffset)
 }
 
 type metricRedisReplicationReplicaOffset struct {
@@ -3175,39 +1964,22 @@ func (m *metricRedisReplicationReplicaOffset) init() {
 }
 
 func (m *metricRedisReplicationReplicaOffset) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisReplicationReplicaOffset) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisReplicationReplicaOffset) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisReplicationReplicaOffset) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisReplicationReplicaOffset(cfg RedisReplicationReplicaOffsetMetricConfig) metricRedisReplicationReplicaOffset {
-	m := metricRedisReplicationReplicaOffset{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisReplicationReplicaOffset)
 }
 
 type metricRedisRole struct {
@@ -3230,75 +2002,19 @@ func (m *metricRedisRole) init() {
 }
 
 func (m *metricRedisRole) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, roleAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, RedisRoleMetricAttributeKeyRole) {
-		dp.Attributes().PutStr("role", roleAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisRole) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisRole) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisRole) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisRole) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisRole(cfg RedisRoleMetricConfig) metricRedisRole {
-	m := metricRedisRole{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisRole)
 }
 
 type metricRedisSentinelMasters struct {
@@ -3316,39 +2032,22 @@ func (m *metricRedisSentinelMasters) init() {
 }
 
 func (m *metricRedisSentinelMasters) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSentinelMasters) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisSentinelMasters) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelMasters) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelMasters(cfg RedisSentinelMastersMetricConfig) metricRedisSentinelMasters {
-	m := metricRedisSentinelMasters{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelMasters)
 }
 
 type metricRedisSentinelRunningScripts struct {
@@ -3366,39 +2065,22 @@ func (m *metricRedisSentinelRunningScripts) init() {
 }
 
 func (m *metricRedisSentinelRunningScripts) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSentinelRunningScripts) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisSentinelRunningScripts) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelRunningScripts) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelRunningScripts(cfg RedisSentinelRunningScriptsMetricConfig) metricRedisSentinelRunningScripts {
-	m := metricRedisSentinelRunningScripts{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelRunningScripts)
 }
 
 type metricRedisSentinelScriptsQueueLength struct {
@@ -3416,39 +2098,22 @@ func (m *metricRedisSentinelScriptsQueueLength) init() {
 }
 
 func (m *metricRedisSentinelScriptsQueueLength) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSentinelScriptsQueueLength) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisSentinelScriptsQueueLength) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelScriptsQueueLength) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelScriptsQueueLength(cfg RedisSentinelScriptsQueueLengthMetricConfig) metricRedisSentinelScriptsQueueLength {
-	m := metricRedisSentinelScriptsQueueLength{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelScriptsQueueLength)
 }
 
 type metricRedisSentinelSimulateFailureFlags struct {
@@ -3466,39 +2131,25 @@ func (m *metricRedisSentinelSimulateFailureFlags) init() {
 }
 
 func (m *metricRedisSentinelSimulateFailureFlags) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricRedisSentinelSimulateFailureFlags) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelSimulateFailureFlags) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelSimulateFailureFlags(cfg RedisSentinelSimulateFailureFlagsMetricConfig) metricRedisSentinelSimulateFailureFlags {
-	m := metricRedisSentinelSimulateFailureFlags{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelSimulateFailureFlags)
 }
 
 type metricRedisSentinelTiltSinceSeconds struct {
@@ -3516,39 +2167,22 @@ func (m *metricRedisSentinelTiltSinceSeconds) init() {
 }
 
 func (m *metricRedisSentinelTiltSinceSeconds) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSentinelTiltSinceSeconds) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricRedisSentinelTiltSinceSeconds) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelTiltSinceSeconds) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelTiltSinceSeconds(cfg RedisSentinelTiltSinceSecondsMetricConfig) metricRedisSentinelTiltSinceSeconds {
-	m := metricRedisSentinelTiltSinceSeconds{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelTiltSinceSeconds)
 }
 
 type metricRedisSentinelTotalTilt struct {
@@ -3568,39 +2202,22 @@ func (m *metricRedisSentinelTotalTilt) init() {
 }
 
 func (m *metricRedisSentinelTotalTilt) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSentinelTotalTilt) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisSentinelTotalTilt) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSentinelTotalTilt) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSentinelTotalTilt(cfg RedisSentinelTotalTiltMetricConfig) metricRedisSentinelTotalTilt {
-	m := metricRedisSentinelTotalTilt{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSentinelTotalTilt)
 }
 
 type metricRedisSlavesConnected struct {
@@ -3620,39 +2237,22 @@ func (m *metricRedisSlavesConnected) init() {
 }
 
 func (m *metricRedisSlavesConnected) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisSlavesConnected) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisSlavesConnected) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisSlavesConnected) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisSlavesConnected(cfg RedisSlavesConnectedMetricConfig) metricRedisSlavesConnected {
-	m := metricRedisSlavesConnected{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisSlavesConnected)
 }
 
 type metricRedisTrackingTotalKeys struct {
@@ -3672,39 +2272,22 @@ func (m *metricRedisTrackingTotalKeys) init() {
 }
 
 func (m *metricRedisTrackingTotalKeys) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisTrackingTotalKeys) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisTrackingTotalKeys) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricRedisTrackingTotalKeys) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricRedisTrackingTotalKeys(cfg RedisTrackingTotalKeysMetricConfig) metricRedisTrackingTotalKeys {
-	m := metricRedisTrackingTotalKeys{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisTrackingTotalKeys)
 }
 
 type metricRedisUptime struct {
@@ -3724,39 +2307,19 @@ func (m *metricRedisUptime) init() {
 }
 
 func (m *metricRedisUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricRedisUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricRedisUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricRedisUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricRedisUptime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricRedisUptime(cfg RedisUptimeMetricConfig) metricRedisUptime {
-	m := metricRedisUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricRedisUptime)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -3837,117 +2400,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                            mbc,
-		startTime:                         pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                     pmetric.NewMetrics(),
-		buildInfo:                         settings.BuildInfo,
-		metricRedisClientsBlocked:         newMetricRedisClientsBlocked(mbc.Metrics.RedisClientsBlocked),
-		metricRedisClientsConnected:       newMetricRedisClientsConnected(mbc.Metrics.RedisClientsConnected),
-		metricRedisClientsMaxInputBuffer:  newMetricRedisClientsMaxInputBuffer(mbc.Metrics.RedisClientsMaxInputBuffer),
-		metricRedisClientsMaxOutputBuffer: newMetricRedisClientsMaxOutputBuffer(mbc.Metrics.RedisClientsMaxOutputBuffer),
-		metricRedisClusterClusterEnabled:  newMetricRedisClusterClusterEnabled(mbc.Metrics.RedisClusterClusterEnabled),
-		metricRedisClusterKnownNodes:      newMetricRedisClusterKnownNodes(mbc.Metrics.RedisClusterKnownNodes),
-		metricRedisClusterLinksBufferLimitExceededCount: newMetricRedisClusterLinksBufferLimitExceededCount(mbc.Metrics.RedisClusterLinksBufferLimitExceededCount),
-		metricRedisClusterNodeCount:                     newMetricRedisClusterNodeCount(mbc.Metrics.RedisClusterNodeCount),
-		metricRedisClusterNodeUptime:                    newMetricRedisClusterNodeUptime(mbc.Metrics.RedisClusterNodeUptime),
-		metricRedisClusterSlotsAssigned:                 newMetricRedisClusterSlotsAssigned(mbc.Metrics.RedisClusterSlotsAssigned),
-		metricRedisClusterSlotsFail:                     newMetricRedisClusterSlotsFail(mbc.Metrics.RedisClusterSlotsFail),
-		metricRedisClusterSlotsOk:                       newMetricRedisClusterSlotsOk(mbc.Metrics.RedisClusterSlotsOk),
-		metricRedisClusterSlotsPfail:                    newMetricRedisClusterSlotsPfail(mbc.Metrics.RedisClusterSlotsPfail),
-		metricRedisClusterState:                         newMetricRedisClusterState(mbc.Metrics.RedisClusterState),
-		metricRedisClusterStatsMessagesReceived:         newMetricRedisClusterStatsMessagesReceived(mbc.Metrics.RedisClusterStatsMessagesReceived),
-		metricRedisClusterStatsMessagesSent:             newMetricRedisClusterStatsMessagesSent(mbc.Metrics.RedisClusterStatsMessagesSent),
-		metricRedisClusterUptime:                        newMetricRedisClusterUptime(mbc.Metrics.RedisClusterUptime),
-		metricRedisCmdCalls:                             newMetricRedisCmdCalls(mbc.Metrics.RedisCmdCalls),
-		metricRedisCmdLatency:                           newMetricRedisCmdLatency(mbc.Metrics.RedisCmdLatency),
-		metricRedisCmdUsec:                              newMetricRedisCmdUsec(mbc.Metrics.RedisCmdUsec),
-		metricRedisCommands:                             newMetricRedisCommands(mbc.Metrics.RedisCommands),
-		metricRedisCommandsProcessed:                    newMetricRedisCommandsProcessed(mbc.Metrics.RedisCommandsProcessed),
-		metricRedisConnectionsReceived:                  newMetricRedisConnectionsReceived(mbc.Metrics.RedisConnectionsReceived),
-		metricRedisConnectionsRejected:                  newMetricRedisConnectionsRejected(mbc.Metrics.RedisConnectionsRejected),
-		metricRedisCPUTime:                              newMetricRedisCPUTime(mbc.Metrics.RedisCPUTime),
-		metricRedisDbAvgTTL:                             newMetricRedisDbAvgTTL(mbc.Metrics.RedisDbAvgTTL),
-		metricRedisDbExpires:                            newMetricRedisDbExpires(mbc.Metrics.RedisDbExpires),
-		metricRedisDbKeys:                               newMetricRedisDbKeys(mbc.Metrics.RedisDbKeys),
-		metricRedisKeysEvicted:                          newMetricRedisKeysEvicted(mbc.Metrics.RedisKeysEvicted),
-		metricRedisKeysExpired:                          newMetricRedisKeysExpired(mbc.Metrics.RedisKeysExpired),
-		metricRedisKeyspaceHits:                         newMetricRedisKeyspaceHits(mbc.Metrics.RedisKeyspaceHits),
-		metricRedisKeyspaceMisses:                       newMetricRedisKeyspaceMisses(mbc.Metrics.RedisKeyspaceMisses),
-		metricRedisLatestFork:                           newMetricRedisLatestFork(mbc.Metrics.RedisLatestFork),
-		metricRedisMaxmemory:                            newMetricRedisMaxmemory(mbc.Metrics.RedisMaxmemory),
-		metricRedisMemoryFragmentationRatio:             newMetricRedisMemoryFragmentationRatio(mbc.Metrics.RedisMemoryFragmentationRatio),
-		metricRedisMemoryLua:                            newMetricRedisMemoryLua(mbc.Metrics.RedisMemoryLua),
-		metricRedisMemoryPeak:                           newMetricRedisMemoryPeak(mbc.Metrics.RedisMemoryPeak),
-		metricRedisMemoryRss:                            newMetricRedisMemoryRss(mbc.Metrics.RedisMemoryRss),
-		metricRedisMemoryUsed:                           newMetricRedisMemoryUsed(mbc.Metrics.RedisMemoryUsed),
-		metricRedisMemoryUsedMemoryOverhead:             newMetricRedisMemoryUsedMemoryOverhead(mbc.Metrics.RedisMemoryUsedMemoryOverhead),
-		metricRedisMemoryUsedMemoryStartup:              newMetricRedisMemoryUsedMemoryStartup(mbc.Metrics.RedisMemoryUsedMemoryStartup),
-		metricRedisMode:                                 newMetricRedisMode(mbc.Metrics.RedisMode),
-		metricRedisNetInput:                             newMetricRedisNetInput(mbc.Metrics.RedisNetInput),
-		metricRedisNetOutput:                            newMetricRedisNetOutput(mbc.Metrics.RedisNetOutput),
-		metricRedisRdbChangesSinceLastSave:              newMetricRedisRdbChangesSinceLastSave(mbc.Metrics.RedisRdbChangesSinceLastSave),
-		metricRedisReplicationBacklogFirstByteOffset:    newMetricRedisReplicationBacklogFirstByteOffset(mbc.Metrics.RedisReplicationBacklogFirstByteOffset),
-		metricRedisReplicationOffset:                    newMetricRedisReplicationOffset(mbc.Metrics.RedisReplicationOffset),
-		metricRedisReplicationReplicaOffset:             newMetricRedisReplicationReplicaOffset(mbc.Metrics.RedisReplicationReplicaOffset),
-		metricRedisRole:                                 newMetricRedisRole(mbc.Metrics.RedisRole),
-		metricRedisSentinelMasters:                      newMetricRedisSentinelMasters(mbc.Metrics.RedisSentinelMasters),
-		metricRedisSentinelRunningScripts:               newMetricRedisSentinelRunningScripts(mbc.Metrics.RedisSentinelRunningScripts),
-		metricRedisSentinelScriptsQueueLength:           newMetricRedisSentinelScriptsQueueLength(mbc.Metrics.RedisSentinelScriptsQueueLength),
-		metricRedisSentinelSimulateFailureFlags:         newMetricRedisSentinelSimulateFailureFlags(mbc.Metrics.RedisSentinelSimulateFailureFlags),
-		metricRedisSentinelTiltSinceSeconds:             newMetricRedisSentinelTiltSinceSeconds(mbc.Metrics.RedisSentinelTiltSinceSeconds),
-		metricRedisSentinelTotalTilt:                    newMetricRedisSentinelTotalTilt(mbc.Metrics.RedisSentinelTotalTilt),
-		metricRedisSlavesConnected:                      newMetricRedisSlavesConnected(mbc.Metrics.RedisSlavesConnected),
-		metricRedisTrackingTotalKeys:                    newMetricRedisTrackingTotalKeys(mbc.Metrics.RedisTrackingTotalKeys),
-		metricRedisUptime:                               newMetricRedisUptime(mbc.Metrics.RedisUptime),
-		resourceAttributeIncludeFilter:                  make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                  make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.RedisVersion.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["redis.version"] = filter.CreateFilter(mbc.ResourceAttributes.RedisVersion.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.RedisVersion.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["redis.version"] = filter.CreateFilter(mbc.ResourceAttributes.RedisVersion.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServerAddress.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["server.address"] = filter.CreateFilter(mbc.ResourceAttributes.ServerAddress.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServerAddress.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["server.address"] = filter.CreateFilter(mbc.ResourceAttributes.ServerAddress.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ServerPort.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["server.port"] = filter.CreateFilter(mbc.ResourceAttributes.ServerPort.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ServerPort.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["server.port"] = filter.CreateFilter(mbc.ResourceAttributes.ServerPort.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -3958,35 +2436,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -3995,395 +2461,366 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricRedisClientsBlocked.emit(ils.Metrics())
-	mb.metricRedisClientsConnected.emit(ils.Metrics())
-	mb.metricRedisClientsMaxInputBuffer.emit(ils.Metrics())
-	mb.metricRedisClientsMaxOutputBuffer.emit(ils.Metrics())
-	mb.metricRedisClusterClusterEnabled.emit(ils.Metrics())
-	mb.metricRedisClusterKnownNodes.emit(ils.Metrics())
-	mb.metricRedisClusterLinksBufferLimitExceededCount.emit(ils.Metrics())
-	mb.metricRedisClusterNodeCount.emit(ils.Metrics())
-	mb.metricRedisClusterNodeUptime.emit(ils.Metrics())
-	mb.metricRedisClusterSlotsAssigned.emit(ils.Metrics())
-	mb.metricRedisClusterSlotsFail.emit(ils.Metrics())
-	mb.metricRedisClusterSlotsOk.emit(ils.Metrics())
-	mb.metricRedisClusterSlotsPfail.emit(ils.Metrics())
-	mb.metricRedisClusterState.emit(ils.Metrics())
-	mb.metricRedisClusterStatsMessagesReceived.emit(ils.Metrics())
-	mb.metricRedisClusterStatsMessagesSent.emit(ils.Metrics())
-	mb.metricRedisClusterUptime.emit(ils.Metrics())
-	mb.metricRedisCmdCalls.emit(ils.Metrics())
-	mb.metricRedisCmdLatency.emit(ils.Metrics())
-	mb.metricRedisCmdUsec.emit(ils.Metrics())
-	mb.metricRedisCommands.emit(ils.Metrics())
-	mb.metricRedisCommandsProcessed.emit(ils.Metrics())
-	mb.metricRedisConnectionsReceived.emit(ils.Metrics())
-	mb.metricRedisConnectionsRejected.emit(ils.Metrics())
-	mb.metricRedisCPUTime.emit(ils.Metrics())
-	mb.metricRedisDbAvgTTL.emit(ils.Metrics())
-	mb.metricRedisDbExpires.emit(ils.Metrics())
-	mb.metricRedisDbKeys.emit(ils.Metrics())
-	mb.metricRedisKeysEvicted.emit(ils.Metrics())
-	mb.metricRedisKeysExpired.emit(ils.Metrics())
-	mb.metricRedisKeyspaceHits.emit(ils.Metrics())
-	mb.metricRedisKeyspaceMisses.emit(ils.Metrics())
-	mb.metricRedisLatestFork.emit(ils.Metrics())
-	mb.metricRedisMaxmemory.emit(ils.Metrics())
-	mb.metricRedisMemoryFragmentationRatio.emit(ils.Metrics())
-	mb.metricRedisMemoryLua.emit(ils.Metrics())
-	mb.metricRedisMemoryPeak.emit(ils.Metrics())
-	mb.metricRedisMemoryRss.emit(ils.Metrics())
-	mb.metricRedisMemoryUsed.emit(ils.Metrics())
-	mb.metricRedisMemoryUsedMemoryOverhead.emit(ils.Metrics())
-	mb.metricRedisMemoryUsedMemoryStartup.emit(ils.Metrics())
-	mb.metricRedisMode.emit(ils.Metrics())
-	mb.metricRedisNetInput.emit(ils.Metrics())
-	mb.metricRedisNetOutput.emit(ils.Metrics())
-	mb.metricRedisRdbChangesSinceLastSave.emit(ils.Metrics())
-	mb.metricRedisReplicationBacklogFirstByteOffset.emit(ils.Metrics())
-	mb.metricRedisReplicationOffset.emit(ils.Metrics())
-	mb.metricRedisReplicationReplicaOffset.emit(ils.Metrics())
-	mb.metricRedisRole.emit(ils.Metrics())
-	mb.metricRedisSentinelMasters.emit(ils.Metrics())
-	mb.metricRedisSentinelRunningScripts.emit(ils.Metrics())
-	mb.metricRedisSentinelScriptsQueueLength.emit(ils.Metrics())
-	mb.metricRedisSentinelSimulateFailureFlags.emit(ils.Metrics())
-	mb.metricRedisSentinelTiltSinceSeconds.emit(ils.Metrics())
-	mb.metricRedisSentinelTotalTilt.emit(ils.Metrics())
-	mb.metricRedisSlavesConnected.emit(ils.Metrics())
-	mb.metricRedisTrackingTotalKeys.emit(ils.Metrics())
-	mb.metricRedisUptime.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordRedisClientsBlockedDataPoint adds a data point to redis.clients.blocked metric.
 func (mb *MetricsBuilder) RecordRedisClientsBlockedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClientsBlocked.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClientsConnectedDataPoint adds a data point to redis.clients.connected metric.
 func (mb *MetricsBuilder) RecordRedisClientsConnectedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClientsConnected.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClientsMaxInputBufferDataPoint adds a data point to redis.clients.max_input_buffer metric.
 func (mb *MetricsBuilder) RecordRedisClientsMaxInputBufferDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClientsMaxInputBuffer.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClientsMaxOutputBufferDataPoint adds a data point to redis.clients.max_output_buffer metric.
 func (mb *MetricsBuilder) RecordRedisClientsMaxOutputBufferDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClientsMaxOutputBuffer.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterClusterEnabledDataPoint adds a data point to redis.cluster.cluster_enabled metric.
 func (mb *MetricsBuilder) RecordRedisClusterClusterEnabledDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterClusterEnabled.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterKnownNodesDataPoint adds a data point to redis.cluster.known_nodes metric.
 func (mb *MetricsBuilder) RecordRedisClusterKnownNodesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterKnownNodes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterLinksBufferLimitExceededCountDataPoint adds a data point to redis.cluster.links_buffer_limit_exceeded.count metric.
 func (mb *MetricsBuilder) RecordRedisClusterLinksBufferLimitExceededCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterLinksBufferLimitExceededCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterNodeCountDataPoint adds a data point to redis.cluster.node.count metric.
 func (mb *MetricsBuilder) RecordRedisClusterNodeCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterNodeCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterNodeUptimeDataPoint adds a data point to redis.cluster.node.uptime metric.
 func (mb *MetricsBuilder) RecordRedisClusterNodeUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterNodeUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterSlotsAssignedDataPoint adds a data point to redis.cluster.slots_assigned metric.
 func (mb *MetricsBuilder) RecordRedisClusterSlotsAssignedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterSlotsAssigned.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterSlotsFailDataPoint adds a data point to redis.cluster.slots_fail metric.
 func (mb *MetricsBuilder) RecordRedisClusterSlotsFailDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterSlotsFail.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterSlotsOkDataPoint adds a data point to redis.cluster.slots_ok metric.
 func (mb *MetricsBuilder) RecordRedisClusterSlotsOkDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterSlotsOk.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterSlotsPfailDataPoint adds a data point to redis.cluster.slots_pfail metric.
 func (mb *MetricsBuilder) RecordRedisClusterSlotsPfailDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterSlotsPfail.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterStateDataPoint adds a data point to redis.cluster.state metric.
 func (mb *MetricsBuilder) RecordRedisClusterStateDataPoint(ts pcommon.Timestamp, val int64, clusterStateAttributeValue AttributeClusterState) {
-	mb.metricRedisClusterState.recordDataPoint(mb.startTime, ts, val, clusterStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterStatsMessagesReceivedDataPoint adds a data point to redis.cluster.stats_messages_received metric.
 func (mb *MetricsBuilder) RecordRedisClusterStatsMessagesReceivedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterStatsMessagesReceived.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterStatsMessagesSentDataPoint adds a data point to redis.cluster.stats_messages_sent metric.
 func (mb *MetricsBuilder) RecordRedisClusterStatsMessagesSentDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterStatsMessagesSent.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisClusterUptimeDataPoint adds a data point to redis.cluster.uptime metric.
 func (mb *MetricsBuilder) RecordRedisClusterUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisClusterUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCmdCallsDataPoint adds a data point to redis.cmd.calls metric.
 func (mb *MetricsBuilder) RecordRedisCmdCallsDataPoint(ts pcommon.Timestamp, val int64, cmdAttributeValue string) {
-	mb.metricRedisCmdCalls.recordDataPoint(mb.startTime, ts, val, cmdAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCmdLatencyDataPoint adds a data point to redis.cmd.latency metric.
 func (mb *MetricsBuilder) RecordRedisCmdLatencyDataPoint(ts pcommon.Timestamp, val float64, cmdAttributeValue string, percentileAttributeValue AttributePercentile) {
-	mb.metricRedisCmdLatency.recordDataPoint(mb.startTime, ts, val, cmdAttributeValue, percentileAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCmdUsecDataPoint adds a data point to redis.cmd.usec metric.
 func (mb *MetricsBuilder) RecordRedisCmdUsecDataPoint(ts pcommon.Timestamp, val int64, cmdAttributeValue string) {
-	mb.metricRedisCmdUsec.recordDataPoint(mb.startTime, ts, val, cmdAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCommandsDataPoint adds a data point to redis.commands metric.
 func (mb *MetricsBuilder) RecordRedisCommandsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisCommands.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCommandsProcessedDataPoint adds a data point to redis.commands.processed metric.
 func (mb *MetricsBuilder) RecordRedisCommandsProcessedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisCommandsProcessed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisConnectionsReceivedDataPoint adds a data point to redis.connections.received metric.
 func (mb *MetricsBuilder) RecordRedisConnectionsReceivedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisConnectionsReceived.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisConnectionsRejectedDataPoint adds a data point to redis.connections.rejected metric.
 func (mb *MetricsBuilder) RecordRedisConnectionsRejectedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisConnectionsRejected.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisCPUTimeDataPoint adds a data point to redis.cpu.time metric.
 func (mb *MetricsBuilder) RecordRedisCPUTimeDataPoint(ts pcommon.Timestamp, val float64, stateAttributeValue AttributeState) {
-	mb.metricRedisCPUTime.recordDataPoint(mb.startTime, ts, val, stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisDbAvgTTLDataPoint adds a data point to redis.db.avg_ttl metric.
 func (mb *MetricsBuilder) RecordRedisDbAvgTTLDataPoint(ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	mb.metricRedisDbAvgTTL.recordDataPoint(mb.startTime, ts, val, dbAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisDbExpiresDataPoint adds a data point to redis.db.expires metric.
 func (mb *MetricsBuilder) RecordRedisDbExpiresDataPoint(ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	mb.metricRedisDbExpires.recordDataPoint(mb.startTime, ts, val, dbAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisDbKeysDataPoint adds a data point to redis.db.keys metric.
 func (mb *MetricsBuilder) RecordRedisDbKeysDataPoint(ts pcommon.Timestamp, val int64, dbAttributeValue string) {
-	mb.metricRedisDbKeys.recordDataPoint(mb.startTime, ts, val, dbAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisKeysEvictedDataPoint adds a data point to redis.keys.evicted metric.
 func (mb *MetricsBuilder) RecordRedisKeysEvictedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisKeysEvicted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisKeysExpiredDataPoint adds a data point to redis.keys.expired metric.
 func (mb *MetricsBuilder) RecordRedisKeysExpiredDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisKeysExpired.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisKeyspaceHitsDataPoint adds a data point to redis.keyspace.hits metric.
 func (mb *MetricsBuilder) RecordRedisKeyspaceHitsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisKeyspaceHits.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisKeyspaceMissesDataPoint adds a data point to redis.keyspace.misses metric.
 func (mb *MetricsBuilder) RecordRedisKeyspaceMissesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisKeyspaceMisses.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisLatestForkDataPoint adds a data point to redis.latest_fork metric.
 func (mb *MetricsBuilder) RecordRedisLatestForkDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisLatestFork.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMaxmemoryDataPoint adds a data point to redis.maxmemory metric.
 func (mb *MetricsBuilder) RecordRedisMaxmemoryDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMaxmemory.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryFragmentationRatioDataPoint adds a data point to redis.memory.fragmentation_ratio metric.
 func (mb *MetricsBuilder) RecordRedisMemoryFragmentationRatioDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricRedisMemoryFragmentationRatio.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryLuaDataPoint adds a data point to redis.memory.lua metric.
 func (mb *MetricsBuilder) RecordRedisMemoryLuaDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryLua.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryPeakDataPoint adds a data point to redis.memory.peak metric.
 func (mb *MetricsBuilder) RecordRedisMemoryPeakDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryPeak.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryRssDataPoint adds a data point to redis.memory.rss metric.
 func (mb *MetricsBuilder) RecordRedisMemoryRssDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryRss.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryUsedDataPoint adds a data point to redis.memory.used metric.
 func (mb *MetricsBuilder) RecordRedisMemoryUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryUsedMemoryOverheadDataPoint adds a data point to redis.memory.used_memory_overhead metric.
 func (mb *MetricsBuilder) RecordRedisMemoryUsedMemoryOverheadDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryUsedMemoryOverhead.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisMemoryUsedMemoryStartupDataPoint adds a data point to redis.memory.used_memory_startup metric.
 func (mb *MetricsBuilder) RecordRedisMemoryUsedMemoryStartupDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisMemoryUsedMemoryStartup.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisModeDataPoint adds a data point to redis.mode metric.
 func (mb *MetricsBuilder) RecordRedisModeDataPoint(ts pcommon.Timestamp, val int64, modeAttributeValue AttributeMode) {
-	mb.metricRedisMode.recordDataPoint(mb.startTime, ts, val, modeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisNetInputDataPoint adds a data point to redis.net.input metric.
 func (mb *MetricsBuilder) RecordRedisNetInputDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisNetInput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisNetOutputDataPoint adds a data point to redis.net.output metric.
 func (mb *MetricsBuilder) RecordRedisNetOutputDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisNetOutput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisRdbChangesSinceLastSaveDataPoint adds a data point to redis.rdb.changes_since_last_save metric.
 func (mb *MetricsBuilder) RecordRedisRdbChangesSinceLastSaveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisRdbChangesSinceLastSave.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisReplicationBacklogFirstByteOffsetDataPoint adds a data point to redis.replication.backlog_first_byte_offset metric.
 func (mb *MetricsBuilder) RecordRedisReplicationBacklogFirstByteOffsetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisReplicationBacklogFirstByteOffset.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisReplicationOffsetDataPoint adds a data point to redis.replication.offset metric.
 func (mb *MetricsBuilder) RecordRedisReplicationOffsetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisReplicationOffset.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisReplicationReplicaOffsetDataPoint adds a data point to redis.replication.replica_offset metric.
 func (mb *MetricsBuilder) RecordRedisReplicationReplicaOffsetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisReplicationReplicaOffset.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisRoleDataPoint adds a data point to redis.role metric.
 func (mb *MetricsBuilder) RecordRedisRoleDataPoint(ts pcommon.Timestamp, val int64, roleAttributeValue AttributeRole) {
-	mb.metricRedisRole.recordDataPoint(mb.startTime, ts, val, roleAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelMastersDataPoint adds a data point to redis.sentinel.masters metric.
 func (mb *MetricsBuilder) RecordRedisSentinelMastersDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelMasters.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelRunningScriptsDataPoint adds a data point to redis.sentinel.running_scripts metric.
 func (mb *MetricsBuilder) RecordRedisSentinelRunningScriptsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelRunningScripts.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelScriptsQueueLengthDataPoint adds a data point to redis.sentinel.scripts_queue_length metric.
 func (mb *MetricsBuilder) RecordRedisSentinelScriptsQueueLengthDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelScriptsQueueLength.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelSimulateFailureFlagsDataPoint adds a data point to redis.sentinel.simulate_failure_flags metric.
 func (mb *MetricsBuilder) RecordRedisSentinelSimulateFailureFlagsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelSimulateFailureFlags.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelTiltSinceSecondsDataPoint adds a data point to redis.sentinel.tilt_since_seconds metric.
 func (mb *MetricsBuilder) RecordRedisSentinelTiltSinceSecondsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelTiltSinceSeconds.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSentinelTotalTiltDataPoint adds a data point to redis.sentinel.total_tilt metric.
 func (mb *MetricsBuilder) RecordRedisSentinelTotalTiltDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSentinelTotalTilt.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisSlavesConnectedDataPoint adds a data point to redis.slaves.connected metric.
 func (mb *MetricsBuilder) RecordRedisSlavesConnectedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisSlavesConnected.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisTrackingTotalKeysDataPoint adds a data point to redis.tracking_total_keys metric.
 func (mb *MetricsBuilder) RecordRedisTrackingTotalKeysDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisTrackingTotalKeys.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordRedisUptimeDataPoint adds a data point to redis.uptime metric.
 func (mb *MetricsBuilder) RecordRedisUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricRedisUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

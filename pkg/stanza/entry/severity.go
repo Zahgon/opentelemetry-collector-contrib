@@ -3,10 +3,6 @@
 
 package entry // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 
-import (
-	"strconv"
-)
-
 // Severity indicates the seriousness of a log entry
 type Severity int
 
@@ -80,9 +76,4 @@ var sevText = map[Severity]string{
 }
 
 // ToString converts a severity to a string
-func (s Severity) String() string {
-	if str, ok := sevText[s]; ok {
-		return str
-	}
-	return strconv.Itoa(int(s))
-}
+func (s Severity) String() string { _ = "STUB: not implemented"; return "" }

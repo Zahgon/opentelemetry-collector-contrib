@@ -18,30 +18,23 @@ type Store struct {
 }
 
 // NewStore creates a new Store.
-func NewStore() *Store {
-	return &Store{
-		stores: make(map[schema.GroupVersionKind]map[string]cache.Store),
-	}
-}
+func NewStore() *Store { _ = "STUB: not implemented"; return nil }
 
 // Get returns a cache.Store for a given GroupVersionKind.
 func (ms *Store) Get(gvk schema.GroupVersionKind) map[string]cache.Store {
-	return ms.stores[gvk]
+	_ = "STUB: not implemented"
+	return nil
+
+	// Setup tracks metadata of services, jobs and replicasets.
 }
 
-// Setup tracks metadata of services, jobs and replicasets.
 func (ms *Store) Setup(gvk schema.GroupVersionKind, namespace string, store cache.Store) {
-	if _, ok := ms.stores[gvk]; !ok {
-		ms.stores[gvk] = make(map[string]cache.Store)
-	}
-	ms.stores[gvk][namespace] = store
+	_ = "STUB: not implemented"
+	return
 }
 
 // ForEach iterates over all objects in a given cache.Store.
 func (ms *Store) ForEach(gvk schema.GroupVersionKind, f func(o any)) {
-	for _, store := range ms.stores[gvk] {
-		for _, obj := range store.List() {
-			f(obj)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }

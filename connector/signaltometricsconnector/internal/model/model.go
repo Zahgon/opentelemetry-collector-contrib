@@ -5,10 +5,6 @@ package model // import "github.com/open-telemetry/opentelemetry-collector-contr
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"slices"
-	"sort"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -35,22 +31,7 @@ func (h *ExplicitHistogram[K]) fromConfig(
 	pc *ottl.ParserCollection[*ottl.ValueExpression[K]],
 	contextName string,
 ) error {
-	if mi == nil {
-		return nil
-	}
-
-	var err error
-	h.Buckets = mi.Buckets
-	if mi.Count != "" {
-		h.Count, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Count}), true)
-		if err != nil {
-			return fmt.Errorf("failed to parse count OTTL expression for explicit histogram: %w", err)
-		}
-	}
-	h.Value, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Value}), true)
-	if err != nil {
-		return fmt.Errorf("failed to parse value statement for explicit histogram: %w", err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -65,22 +46,7 @@ func (h *ExponentialHistogram[K]) fromConfig(
 	pc *ottl.ParserCollection[*ottl.ValueExpression[K]],
 	contextName string,
 ) error {
-	if mi == nil {
-		return nil
-	}
-
-	var err error
-	h.MaxSize = mi.MaxSize
-	if mi.Count != "" {
-		h.Count, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Count}), true)
-		if err != nil {
-			return fmt.Errorf("failed to parse count OTTL expression for exponential histogram: %w", err)
-		}
-	}
-	h.Value, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Value}), true)
-	if err != nil {
-		return fmt.Errorf("failed to parse value OTTL expression for exponential histogram: %w", err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -94,16 +60,7 @@ func (s *Sum[K]) fromConfig(
 	pc *ottl.ParserCollection[*ottl.ValueExpression[K]],
 	contextName string,
 ) error {
-	if mi == nil {
-		return nil
-	}
-
-	var err error
-	s.Value, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Value}), true)
-	if err != nil {
-		return fmt.Errorf("failed to parse value OTTL expression for sum: %w", err)
-	}
-	s.IsMonotonic = mi.IsMonotonic
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,15 +73,7 @@ func (s *Gauge[K]) fromConfig(
 	pc *ottl.ParserCollection[*ottl.ValueExpression[K]],
 	contextName string,
 ) error {
-	if mi == nil {
-		return nil
-	}
-
-	var err error
-	s.Value, err = pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{mi.Value}), true)
-	if err != nil {
-		return fmt.Errorf("failed to parse value OTTL expression for gauge: %w", err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -183,54 +132,12 @@ func (md *MetricDef[K]) FromMetricInfo(
 	contextName string,
 	conditions *ottl.ConditionSequence[K],
 ) error {
-	md.Key.Name = mi.Name
-	md.Key.Unit = mi.Unit
-	md.Key.Description = mi.Description
-
-	var err error
-	md.includeResourceAttributes, err = parseAttributeEntries(mi.IncludeResourceAttributes, pc, contextName)
-	if err != nil {
-		return fmt.Errorf("failed to parse include resource attribute config: %w", err)
-	}
-	md.attributes, err = parseAttributeEntries(mi.Attributes, pc, contextName)
-	if err != nil {
-		return fmt.Errorf("failed to parse attribute config: %w", err)
-	}
-	// Detect whether any entries use keys_expression and pre-build
-	// sorted static attribute lists for the fast path.
-	md.hasExprResAttrs, md.sortedStaticResAttrs = buildStaticAttrs(md.includeResourceAttributes)
-	md.hasExprAttrs, md.sortedStaticAttrs = buildStaticAttrs(md.attributes)
-	md.Conditions = conditions
-	if mi.Histogram.HasValue() {
-		md.Key.Type = pmetric.MetricTypeHistogram
-		md.ExplicitHistogram = new(ExplicitHistogram[K])
-		if err := md.ExplicitHistogram.fromConfig(mi.Histogram.Get(), pc, contextName); err != nil {
-			return fmt.Errorf("failed to parse histogram config: %w", err)
-		}
-	}
-	if mi.ExponentialHistogram.HasValue() {
-		md.Key.Type = pmetric.MetricTypeExponentialHistogram
-		md.ExponentialHistogram = new(ExponentialHistogram[K])
-		if err := md.ExponentialHistogram.fromConfig(mi.ExponentialHistogram.Get(), pc, contextName); err != nil {
-			return fmt.Errorf("failed to parse histogram config: %w", err)
-		}
-	}
-	if mi.Sum.HasValue() {
-		md.Key.Type = pmetric.MetricTypeSum
-		md.Sum = new(Sum[K])
-		if err := md.Sum.fromConfig(mi.Sum.Get(), pc, contextName); err != nil {
-			return fmt.Errorf("failed to parse sum config: %w", err)
-		}
-	}
-	if mi.Gauge.HasValue() {
-		md.Key.Type = pmetric.MetricTypeGauge
-		md.Gauge = new(Gauge[K])
-		if err := md.Gauge.fromConfig(mi.Gauge.Get(), pc, contextName); err != nil {
-			return fmt.Errorf("failed to parse gauge config: %w", err)
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Detect whether any entries use keys_expression and pre-build
+// sorted static attribute lists for the fast path.
 
 // ResolveIncludeResourceAttributes evaluates OTTL expressions in
 // include_resource_attributes and returns a flat, ordered list of
@@ -238,10 +145,8 @@ func (md *MetricDef[K]) FromMetricInfo(
 // configured, the pre-built sortedStaticResAttrs is returned directly
 // without allocation or OTTL evaluation.
 func (md *MetricDef[K]) ResolveIncludeResourceAttributes(ctx context.Context, tCtx K) ([]AttributeKeyValue, error) {
-	if !md.hasExprResAttrs {
-		return md.sortedStaticResAttrs, nil
-	}
-	return resolveEntries(ctx, tCtx, md.includeResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ResolveAttributes evaluates OTTL expressions in attributes and
@@ -250,10 +155,8 @@ func (md *MetricDef[K]) ResolveIncludeResourceAttributes(ctx context.Context, tC
 // sortedStaticAttrs is returned directly without allocation or OTTL
 // evaluation.
 func (md *MetricDef[K]) ResolveAttributes(ctx context.Context, tCtx K) ([]AttributeKeyValue, error) {
-	if !md.hasExprAttrs {
-		return md.sortedStaticAttrs, nil
-	}
-	return resolveEntries(ctx, tCtx, md.attributes)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // MatchAttributes checks if all required static key attributes are
@@ -265,15 +168,8 @@ func (md *MetricDef[K]) ResolveAttributes(ctx context.Context, tCtx K) ([]Attrib
 // there is a possibility of attributes resolving, so MatchAttributes
 // will not reject the entity on that basis.
 func (md *MetricDef[K]) MatchAttributes(attrs pcommon.Map) bool {
-	for _, filter := range md.attributes {
-		if filter.Expression != nil || filter.DefaultValue.Type() != pcommon.ValueTypeEmpty || filter.Optional {
-			continue
-		}
-		if _, ok := attrs.Get(filter.Key); !ok {
-			return false
-		}
-	}
-	return true
+	_ = "STUB: not implemented"
+	return false
 }
 
 // ComputeAttributesHash returns a 128-bit hash that identifies the
@@ -281,23 +177,8 @@ func (md *MetricDef[K]) MatchAttributes(attrs pcommon.Map) bool {
 // alphabetically by key (guaranteed by both resolveEntries and the
 // pre-sorted sortedStaticAttrs).
 func (*MetricDef[K]) ComputeAttributesHash(attrs pcommon.Map, resolved []AttributeKeyValue) [16]byte {
-	hb := attrHashBufPool.Get().(*attrHashBuf)
-	hb.buf = hb.buf[:0]
-	for _, kv := range resolved {
-		v, ok := attrs.Get(kv.Key)
-		if ok {
-			hb.buf = append(hb.buf, kv.Key...)
-			hb.buf = append(hb.buf, 0)
-			hb.buf = appendAttrValue(hb.buf, v)
-		} else if kv.DefaultValue.Type() != pcommon.ValueTypeEmpty {
-			hb.buf = append(hb.buf, kv.Key...)
-			hb.buf = append(hb.buf, 0)
-			hb.buf = appendAttrValue(hb.buf, kv.DefaultValue)
-		}
-	}
-	id := hb.sum128()
-	attrHashBufPool.Put(hb)
-	return id
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // FilterResourceAttributes builds a pcommon.Map from the resolved
@@ -308,36 +189,24 @@ func (md *MetricDef[K]) FilterResourceAttributes(
 	resolved []AttributeKeyValue,
 	collectorInfo CollectorInstanceInfo,
 ) pcommon.Map {
-	if len(md.includeResourceAttributes) == 0 {
-		filteredAttributes := pcommon.NewMap()
-		filteredAttributes.EnsureCapacity(attrs.Len() + collectorInfo.Size())
-		attrs.CopyTo(filteredAttributes)
-		collectorInfo.Copy(filteredAttributes)
-		return filteredAttributes
-	}
-
-	filteredAttributes := filterByResolved(attrs, resolved, collectorInfo.Size())
-	collectorInfo.Copy(filteredAttributes)
-	return filteredAttributes
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 // FilterAttributes builds a pcommon.Map from the resolved attributes
 // list. Entries are applied in order so later entries override earlier
 // ones for the same key.
 func (*MetricDef[K]) FilterAttributes(attrs pcommon.Map, resolved []AttributeKeyValue) pcommon.Map {
-	return filterByResolved(attrs, resolved, 0)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 // filterByResolved creates a pcommon.Map by iterating the resolved
 // AttributeKeyValue list in order. Later entries with the same key
 // override earlier ones.
 func filterByResolved(attrs pcommon.Map, resolved []AttributeKeyValue, extraCapacity int) pcommon.Map {
-	dst := pcommon.NewMap()
-	dst.EnsureCapacity(len(resolved) + extraCapacity)
-	for _, kv := range resolved {
-		copyAttribute(kv.Key, kv.DefaultValue, attrs, dst)
-	}
-	return dst
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 // resolveEntries evaluates OTTL expressions in entries and returns a
@@ -348,64 +217,16 @@ func filterByResolved(attrs pcommon.Map, resolved []AttributeKeyValue, extraCapa
 // safe because dedup guarantees unique keys and pcommon.Map is
 // order-independent.
 func resolveEntries[K any](ctx context.Context, tCtx K, entries []attributeEntry[K]) ([]AttributeKeyValue, error) {
-	seen := make(map[string]struct{}, len(entries))
-	resolved := make([]AttributeKeyValue, 0, len(entries))
-	for _, entry := range slices.Backward(entries) {
-		if entry.Expression != nil {
-			keys, err := evalKeysExpression(ctx, tCtx, entry)
-			if err != nil {
-				return nil, err
-			}
-			for _, key := range slices.Backward(keys) {
-				if _, ok := seen[key]; ok {
-					continue
-				}
-				seen[key] = struct{}{}
-				resolved = append(resolved, AttributeKeyValue{
-					Key:          key,
-					Optional:     entry.Optional,
-					DefaultValue: entry.DefaultValue,
-				})
-			}
-			continue
-		}
-		if _, ok := seen[entry.Key]; ok {
-			continue
-		}
-		seen[entry.Key] = struct{}{}
-		resolved = append(resolved, AttributeKeyValue{
-			Key:          entry.Key,
-			Optional:     entry.Optional,
-			DefaultValue: entry.DefaultValue,
-		})
-	}
-	sort.Slice(resolved, func(i, j int) bool {
-		return resolved[i].Key < resolved[j].Key
-	})
-	return resolved, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // buildStaticAttrs checks if any entries have OTTL expressions and
 // builds a pre-sorted list of static-key AttributeKeyValue entries.
 // Returns (hasExpr, sortedStaticAttrs).
 func buildStaticAttrs[K any](entries []attributeEntry[K]) (bool, []AttributeKeyValue) {
-	hasExpr := false
-	static := make([]AttributeKeyValue, 0, len(entries))
-	for _, entry := range entries {
-		if entry.Expression != nil {
-			hasExpr = true
-			continue
-		}
-		static = append(static, AttributeKeyValue{
-			Key:          entry.Key,
-			Optional:     entry.Optional,
-			DefaultValue: entry.DefaultValue,
-		})
-	}
-	sort.Slice(static, func(i, j int) bool {
-		return static[i].Key < static[j].Key
-	})
-	return hasExpr, static
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func parseAttributeEntries[K any](
@@ -413,36 +234,8 @@ func parseAttributeEntries[K any](
 	pc *ottl.ParserCollection[*ottl.ValueExpression[K]],
 	contextName string,
 ) ([]attributeEntry[K], error) {
-	var errs []error
-	entries := make([]attributeEntry[K], 0, len(cfgs))
-	for _, attr := range cfgs {
-		val := pcommon.NewValueEmpty()
-		if err := val.FromRaw(attr.DefaultValue); err != nil {
-			errs = append(errs, err)
-			continue
-		}
-		entry := attributeEntry[K]{
-			Optional:     attr.Optional,
-			DefaultValue: val,
-		}
-		if attr.KeysExpression != "" {
-			expr, err := pc.ParseValueExpressionsWithContext(contextName, ottl.NewValueExpressionsGetter([]string{attr.KeysExpression}), true)
-			if err != nil {
-				errs = append(errs, fmt.Errorf(
-					"failed to parse keys_expression %q: %w", attr.KeysExpression, err,
-				))
-				continue
-			}
-			entry.Expression = expr
-		} else {
-			entry.Key = attr.Key
-		}
-		entries = append(entries, entry)
-	}
-	if len(errs) > 0 {
-		return nil, errors.Join(errs...)
-	}
-	return entries, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // evalKeysExpression evaluates the OTTL expression and returns the
@@ -453,45 +246,13 @@ func evalKeysExpression[K any](
 	tCtx K,
 	entry attributeEntry[K],
 ) ([]string, error) {
-	result, err := entry.Expression.Eval(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to evaluate keys_expression: %w", err)
-	}
-	if result == nil {
-		return nil, nil
-	}
-	keys, err := extractStringSlice(result)
-	if err != nil {
-		return nil, fmt.Errorf("keys_expression must return a list of strings: %w", err)
-	}
-	return keys, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func copyAttribute(key string, defaultValue pcommon.Value, src, dst pcommon.Map) {
-	if attr, ok := src.Get(key); ok {
-		attr.CopyTo(dst.PutEmpty(key))
-		return
-	}
-	if defaultValue.Type() != pcommon.ValueTypeEmpty {
-		defaultValue.CopyTo(dst.PutEmpty(key))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func extractStringSlice(val any) ([]string, error) {
-	switch v := val.(type) {
-	case pcommon.Slice:
-		keys := make([]string, 0, v.Len())
-		for i := 0; i < v.Len(); i++ {
-			elem := v.At(i)
-			if elem.Type() != pcommon.ValueTypeStr {
-				return nil, fmt.Errorf("expected string element at index %d, got %s", i, elem.Type())
-			}
-			keys = append(keys, elem.Str())
-		}
-		return keys, nil
-	case []string:
-		return v, nil
-	default:
-		return nil, fmt.Errorf("unsupported type %T, expected pcommon.Slice or []string", val)
-	}
-}
+func extractStringSlice(val any) ([]string, error) { _ = "STUB: not implemented"; return nil, nil }

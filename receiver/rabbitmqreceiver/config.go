@@ -5,8 +5,6 @@ package rabbitmqreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -35,21 +33,4 @@ type Config struct {
 }
 
 // Validate validates the configuration by checking for missing or invalid fields
-func (cfg *Config) Validate() error {
-	var err []error
-	if cfg.Username == "" {
-		err = append(err, errMissingUsername)
-	}
-
-	if cfg.Password == "" {
-		err = append(err, errMissingPassword)
-	}
-
-	_, parseErr := url.Parse(cfg.Endpoint)
-	if parseErr != nil {
-		wrappedErr := fmt.Errorf("%s: %w", errInvalidEndpoint.Error(), parseErr)
-		err = append(err, wrappedErr)
-	}
-
-	return errors.Join(err...)
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -4,8 +4,6 @@
 package logstransformprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/logstransformprocessor"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
@@ -19,9 +17,4 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (cfg *Config) Validate() error {
-	if len(cfg.Operators) == 0 {
-		return errors.New("no operators were configured for this logs transform processor")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -5,9 +5,6 @@
 package payload // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension/internal/payload"
 
 import (
-	"encoding/json"
-	"errors"
-
 	"github.com/DataDog/datadog-agent/pkg/serializer/marshaler"
 )
 
@@ -79,13 +76,14 @@ type OtelCollectorPayload struct {
 
 // MarshalJSON serializes a OtelCollectorPayload to JSON
 func (p *OtelCollectorPayload) MarshalJSON() ([]byte, error) {
-	type collectorPayloadAlias OtelCollectorPayload
-	return json.Marshal((*collectorPayloadAlias)(p))
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // SplitPayload implements marshaler.AbstractMarshaler#SplitPayload.
 func (*OtelCollectorPayload) SplitPayload(int) ([]marshaler.AbstractMarshaler, error) {
-	return nil, errors.New(payloadSplitErr)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PrepareOtelCollectorMetadata takes metadata from various config values and prepares an OtelCollector payload
@@ -103,20 +101,6 @@ func PrepareOtelCollectorMetadata(
 	gatewayService string,
 	gatewayDestination string,
 ) OtelCollector {
-	return OtelCollector{
-		HostKey:                     "",
-		Hostname:                    hostname,
-		HostnameSource:              hostnameSource,
-		CollectorID:                 hostname + "-" + extensionUUID,
-		CollectorVersion:            version,
-		ConfigSite:                  site,
-		APIKeyUUID:                  "",
-		BuildInfo:                   buildInfo,
-		FullConfiguration:           fullConfig,
-		CollectorDeploymentType:     deploymentType,
-		CollectorInstallationMethod: installationMethod,
-		GatewayService:              gatewayService,
-		GatewayDestination:          gatewayDestination,
-		TTL:                         ttl,
-	}
+	_ = "STUB: not implemented"
+	return *new(OtelCollector)
 }

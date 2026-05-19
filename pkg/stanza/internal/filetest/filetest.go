@@ -4,46 +4,21 @@
 package filetest // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/internal/filetest"
 
 import (
-	"math/rand/v2"
 	"os"
-	"path/filepath"
 	"testing"
-
-	"github.com/stretchr/testify/require"
 )
 
-func OpenFile(tb testing.TB, path string) *os.File {
-	file, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR, 0o600)
-	require.NoError(tb, err)
-	tb.Cleanup(func() { _ = file.Close() })
-	return file
-}
+func OpenFile(tb testing.TB, path string) *os.File { _ = "STUB: not implemented"; return nil }
 
-func OpenTemp(tb testing.TB, tempDir string) *os.File {
-	return OpenTempWithPattern(tb, tempDir, "")
-}
+func OpenTemp(tb testing.TB, tempDir string) *os.File { _ = "STUB: not implemented"; return nil }
 
-func ReopenTemp(tb testing.TB, name string) *os.File {
-	return OpenTempWithPattern(tb, filepath.Dir(name), filepath.Base(name))
-}
+func ReopenTemp(tb testing.TB, name string) *os.File { _ = "STUB: not implemented"; return nil }
 
 func OpenTempWithPattern(tb testing.TB, tempDir, pattern string) *os.File {
-	file, err := os.CreateTemp(tempDir, pattern)
-	require.NoError(tb, err)
-	tb.Cleanup(func() { _ = file.Close() })
-	return file
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func WriteString(tb testing.TB, file *os.File, s string) {
-	_, err := file.WriteString(s)
-	require.NoError(tb, err)
-}
+func WriteString(tb testing.TB, file *os.File, s string) { _ = "STUB: not implemented"; return }
 
-func TokenWithLength(length int) []byte {
-	charset := "abcdefghijklmnopqrstuvwxyz"
-	b := make([]byte, length)
-	for i := range b {
-		b[i] = charset[rand.IntN(len(charset))]
-	}
-	return b
-}
+func TokenWithLength(length int) []byte { _ = "STUB: not implemented"; return nil }

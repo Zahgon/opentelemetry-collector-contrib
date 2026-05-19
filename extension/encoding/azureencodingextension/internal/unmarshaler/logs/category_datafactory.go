@@ -5,14 +5,8 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventionsv139 "go.opentelemetry.io/otel/semconv/v1.39.0"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -124,45 +118,16 @@ type azureDataFactoryBaseLog struct {
 }
 
 func (r *azureDataFactoryBaseLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// Process Annotations slice
-	if len(r.Properties.Annotations) > 0 {
-		annotations := attrs.PutEmptySlice(attributeDataFactoryAnnotations)
-		annotations.EnsureCapacity(len(r.Properties.Annotations))
-		for _, annotation := range r.Properties.Annotations {
-			annotations.AppendEmpty().SetStr(annotation)
-		}
-	}
-	// Process Predecessors slice of maps
-	if len(r.Properties.Predecessors) > 0 {
-		predecessors := attrs.PutEmptySlice(attributeDataFactoryPredecessors)
-		predecessors.EnsureCapacity(len(r.Properties.Predecessors))
-		for _, predecessor := range r.Properties.Predecessors {
-			item := predecessors.AppendEmpty()
-			if err := item.FromRaw(predecessor); err != nil {
-				// Failed to add - put string representation of the attrValue
-				item.SetStr(fmt.Sprintf("%v", predecessor))
-			}
-		}
-	}
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactoryUserProperties, r.Properties.UserProperties)
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactoryInput, r.Properties.Input)
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactoryOutput, r.Properties.Output)
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactoryParameters, r.Properties.Parameters)
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactorySystemParameters, r.Properties.SystemParameters)
-	unmarshaler.AttrPutMapIf(attrs, attributeDataFactoryTags, r.Properties.Tags)
-	// Errors
-	if !metadata.ExtensionAzureencodingDontEmitV0LogConventionsFeatureGate.IsEnabled() {
-		unmarshaler.AttrPutStrIf(attrs, string(conventionsv139.ErrorMessageKey), r.Properties.Error.Message)
-	}
-	if metadata.ExtensionAzureencodingEmitV1LogConventionsFeatureGate.IsEnabled() {
-		unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionMessageKey), r.Properties.Error.Message)
-	}
-	unmarshaler.AttrPutStrIf(attrs, attributeErrorCode, r.Properties.Error.Code)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ErrorTypeKey), r.Properties.Error.FailureType)
-	unmarshaler.AttrPutStrIf(attrs, attributeErrorTarget, r.Properties.Error.Target)
-
 	return nil
 }
+
+// Process Predecessors slice of maps
+
+// Failed to add - put string representation of the attrValue
+
+// Errors
 
 // See https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/data-factory/monitor-data-factory-reference.md#activity-run-log-attributes
 type azureDataFactoryActivityRunsLog struct {
@@ -176,19 +141,14 @@ type azureDataFactoryActivityRunsLog struct {
 }
 
 func (r *azureDataFactoryActivityRunsLog) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Put common attributes first
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryActivityStartTime, r.StartTime)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryActivityEndTime, r.EndTime)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryActivityRunID, r.ActivityRunID)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryActivityName, r.ActivityName)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineRunID, r.PipelineRunID)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineName, r.PipelineName)
+	return
 }
+
+// Then put custom top-level attributes
+
+// Then put custom top-level attributes
 
 // See https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/data-factory/monitor-data-factory-reference.md#pipeline-run-log-attributes
 type azureDataFactoryPipelineRunsLog struct {
@@ -201,18 +161,14 @@ type azureDataFactoryPipelineRunsLog struct {
 }
 
 func (r *azureDataFactoryPipelineRunsLog) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Put common attributes first
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineStartTime, r.StartTime)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineEndTime, r.EndTime)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineRunID, r.PipelineRunID)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineName, r.PipelineName)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineState, r.Status)
+	return
 }
+
+// Then put custom top-level attributes
+
+// Then put custom top-level attributes
 
 // See https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/data-factory/monitor-data-factory-reference.md#pipeline-run-log-attributes
 type azureDataFactoryTriggerRunsLog struct {
@@ -227,17 +183,11 @@ type azureDataFactoryTriggerRunsLog struct {
 }
 
 func (r *azureDataFactoryTriggerRunsLog) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Put common attributes first
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerStartTime, r.StartTime)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerEndTime, r.EndTime)
-
-	// Then put custom top-level attributes
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerRunID, r.TriggerID)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerName, r.TriggerName)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerType, r.TriggerType)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryTriggerEventPayload, r.TriggerEvent)
-	unmarshaler.AttrPutStrIf(attrs, attributeDataFactoryPipelineState, r.Status)
+	return
 }
+
+// Then put custom top-level attributes
+
+// Then put custom top-level attributes

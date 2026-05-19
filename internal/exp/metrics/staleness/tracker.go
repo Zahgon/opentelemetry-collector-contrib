@@ -13,28 +13,11 @@ type Tracker struct {
 	pq PriorityQueue
 }
 
-func NewTracker() Tracker {
-	return Tracker{pq: NewPriorityQueue()}
-}
+func NewTracker() Tracker { _ = "STUB: not implemented"; return *new(Tracker) }
 
-func (tr Tracker) Refresh(ts time.Time, ids ...identity.Stream) {
-	for i := range ids {
-		tr.pq.Update(ids[i], ts)
-	}
-}
+func (tr Tracker) Refresh(ts time.Time, ids ...identity.Stream) { _ = "STUB: not implemented"; return }
 
 func (tr Tracker) Collect(maxDuration time.Duration) []identity.Stream {
-	now := time.Now()
-
-	var ids []identity.Stream
-	for tr.pq.Len() > 0 {
-		_, ts := tr.pq.Peek()
-		if now.Sub(ts) < maxDuration {
-			break
-		}
-		id, _ := tr.pq.Pop()
-		ids = append(ids, id)
-	}
-
-	return ids
+	_ = "STUB: not implemented"
+	return nil
 }

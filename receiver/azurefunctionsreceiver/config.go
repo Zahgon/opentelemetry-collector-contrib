@@ -4,9 +4,6 @@
 package azurefunctionsreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azurefunctionsreceiver"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
 )
@@ -46,39 +43,7 @@ type LogsEncodingConfig struct {
 }
 
 // hasAnyBinding reports whether at least one trigger has at least one binding.
-func (t *TriggersConfig) hasAnyBinding() bool {
-	return t.EventHub != nil && len(t.EventHub.Logs) > 0
-}
+func (t *TriggersConfig) hasAnyBinding() bool { _ = "STUB: not implemented"; return false }
 
 // Validate checks if the receiver configuration is valid.
-func (cfg *Config) Validate() error {
-	var errs []error
-	if cfg.HTTP == nil || cfg.HTTP.NetAddr.Endpoint == "" {
-		errs = append(errs, errors.New("missing http server settings"))
-	}
-
-	if cfg.Triggers == nil {
-		errs = append(errs, errors.New("missing triggers configuration"))
-	} else if !cfg.Triggers.hasAnyBinding() {
-		errs = append(errs, errors.New("at least one configured trigger with at least one binding is required"))
-	}
-
-	if cfg.Triggers != nil && cfg.Triggers.EventHub != nil {
-		eh := cfg.Triggers.EventHub
-		seen := make(map[string]struct{}, len(eh.Logs))
-		for i, log := range eh.Logs {
-			if log.Name == "" {
-				errs = append(errs, fmt.Errorf("triggers.event_hub.logs[%d].name must be set", i))
-			} else if _, ok := seen[log.Name]; ok {
-				errs = append(errs, fmt.Errorf("triggers.event_hub.logs: duplicate binding name %q", log.Name))
-			} else {
-				seen[log.Name] = struct{}{}
-			}
-			if log.Encoding.String() == "" {
-				errs = append(errs, fmt.Errorf("triggers.event_hub.logs[%d].encoding must be set", i))
-			}
-		}
-	}
-
-	return errors.Join(errs...)
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

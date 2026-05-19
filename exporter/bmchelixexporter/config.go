@@ -4,8 +4,6 @@
 package bmchelixexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/bmchelixexporter"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -28,16 +26,4 @@ type Config struct {
 }
 
 // validate the configuration
-func (c *Config) Validate() error {
-	if c.Endpoint == "" {
-		return errors.New("endpoint is required")
-	}
-	if c.APIKey == "" {
-		return errors.New("api key is required")
-	}
-	if c.Timeout <= 0 {
-		return errors.New("timeout must be a positive integer")
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

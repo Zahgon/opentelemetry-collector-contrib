@@ -5,26 +5,15 @@ package k8sconfig // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"net"
-	"net/http"
-	"os"
 	"time"
 
 	quotaclientset "github.com/openshift/client-go/quota/clientset/versioned"
-	api_v1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/fields"
-	"k8s.io/apimachinery/pkg/runtime"
 	k8sruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 	k8s "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/metadata"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/cache"
-	"k8s.io/client-go/tools/clientcmd"
 )
 
 func init() {
@@ -87,99 +76,23 @@ type APIConfig struct {
 }
 
 // Validate validates the K8s API config
-func (c APIConfig) Validate() error {
-	if !authTypes[c.AuthType] {
-		return fmt.Errorf("invalid authType for kubernetes: %v", c.AuthType)
-	}
-
-	if c.KubeAPIQPS < 0 {
-		return errors.New("kube_api_qps must be greater than 0")
-	}
-
-	if c.KubeAPIBurst < 0 {
-		return errors.New("kube_api_burst must be greater than 0")
-	}
-
-	return nil
-}
+func (c APIConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // CreateRestConfig creates an Kubernetes API config from user configuration.
 func CreateRestConfig(apiConf APIConfig) (*rest.Config, error) {
-	var authConf *rest.Config
-	var err error
-
-	authType := apiConf.AuthType
-
-	var k8sHost string
-	if authType != AuthTypeKubeConfig {
-		host, port := os.Getenv("KUBERNETES_SERVICE_HOST"), os.Getenv("KUBERNETES_SERVICE_PORT")
-		if host == "" || port == "" {
-			return nil, errors.New("unable to load k8s config, KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT must be defined")
-		}
-		k8sHost = "https://" + net.JoinHostPort(host, port)
-	}
-
-	switch authType {
-	case AuthTypeKubeConfig:
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		configOverrides := &clientcmd.ConfigOverrides{}
-		if apiConf.Context != "" {
-			configOverrides.CurrentContext = apiConf.Context
-		}
-		authConf, err = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(
-			loadingRules, configOverrides).ClientConfig()
-		if err != nil {
-			return nil, fmt.Errorf("error connecting to k8s with auth_type=%s: %w", AuthTypeKubeConfig, err)
-		}
-	case AuthTypeNone:
-		authConf = &rest.Config{
-			Host: k8sHost,
-		}
-		authConf.Insecure = true
-	case AuthTypeServiceAccount:
-		// This should work for most clusters but other auth types can be added
-		authConf, err = rest.InClusterConfig()
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	authConf.WrapTransport = func(rt http.RoundTripper) http.RoundTripper {
-		// Don't use system proxy settings since the API is local to the
-		// cluster
-		if t, ok := rt.(*http.Transport); ok {
-			t.Proxy = nil
-		}
-		return rt
-	}
-
-	if apiConf.KubeAPIQPS > 0 {
-		authConf.QPS = apiConf.KubeAPIQPS
-	}
-	if apiConf.KubeAPIBurst > 0 {
-		authConf.Burst = apiConf.KubeAPIBurst
-	}
-
-	return authConf, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// This should work for most clusters but other auth types can be added
+
+// Don't use system proxy settings since the API is local to the
+// cluster
 
 // MakeClient can take configuration if needed for other types of auth
 func MakeClient(apiConf APIConfig) (k8s.Interface, error) {
-	if err := apiConf.Validate(); err != nil {
-		return nil, err
-	}
-
-	authConf, err := CreateRestConfig(apiConf)
-	if err != nil {
-		return nil, err
-	}
-
-	client, err := k8s.NewForConfig(authConf)
-	if err != nil {
-		return nil, err
-	}
-
-	return client, nil
+	_ = "STUB: not implemented"
+	return *new(k8s.Interface), nil
 }
 
 // ClientBundle groups the two Kubernetes clients:
@@ -200,85 +113,24 @@ type ClientBundle struct {
 // metadata client (metadata/fake) to avoid network calls, while
 // typed resources can use kubernetes/fake.
 func MakeClientBundle(apiConf APIConfig) (ClientBundle, error) {
-	if err := apiConf.Validate(); err != nil {
-		return ClientBundle{}, err
-	}
-
-	rc, err := CreateRestConfig(apiConf)
-	if err != nil {
-		return ClientBundle{}, err
-	}
-
-	kc, err := k8s.NewForConfig(rc)
-	if err != nil {
-		return ClientBundle{}, err
-	}
-
-	mc, err := metadata.NewForConfig(rc)
-	if err != nil {
-		return ClientBundle{}, err
-	}
-
-	return ClientBundle{K8s: kc, Meta: mc}, nil
+	_ = "STUB: not implemented"
+	return *new(ClientBundle), nil
 }
 
 // MakeDynamicClient can take configuration if needed for other types of auth
 func MakeDynamicClient(apiConf APIConfig) (dynamic.Interface, error) {
-	if err := apiConf.Validate(); err != nil {
-		return nil, err
-	}
-
-	authConf, err := CreateRestConfig(apiConf)
-	if err != nil {
-		return nil, err
-	}
-
-	client, err := dynamic.NewForConfig(authConf)
-	if err != nil {
-		return nil, err
-	}
-
-	return client, nil
+	_ = "STUB: not implemented"
+	return *new(dynamic.Interface), nil
 }
 
 // MakeOpenShiftQuotaClient can take configuration if needed for other types of auth
 // and return an OpenShift quota API client
 func MakeOpenShiftQuotaClient(apiConf APIConfig) (quotaclientset.Interface, error) {
-	if err := apiConf.Validate(); err != nil {
-		return nil, err
-	}
-
-	authConf, err := CreateRestConfig(apiConf)
-	if err != nil {
-		return nil, err
-	}
-
-	client, err := quotaclientset.NewForConfig(authConf)
-	if err != nil {
-		return nil, err
-	}
-
-	return client, nil
+	_ = "STUB: not implemented"
+	return *new(quotaclientset.Interface), nil
 }
 
 func NewNodeSharedInformer(client k8s.Interface, nodeName string, watchSyncPeriod time.Duration) cache.SharedInformer {
-	informer := cache.NewSharedInformer(
-		&cache.ListWatch{
-			ListFunc: func(opts metav1.ListOptions) (runtime.Object, error) {
-				if nodeName != "" {
-					opts.FieldSelector = fields.OneTermEqualSelector("metadata.name", nodeName).String()
-				}
-				return client.CoreV1().Nodes().List(context.Background(), opts)
-			},
-			WatchFunc: func(opts metav1.ListOptions) (watch.Interface, error) {
-				if nodeName != "" {
-					opts.FieldSelector = fields.OneTermEqualSelector("metadata.name", nodeName).String()
-				}
-				return client.CoreV1().Nodes().Watch(context.Background(), opts)
-			},
-		},
-		&api_v1.Node{},
-		watchSyncPeriod,
-	)
-	return informer
+	_ = "STUB: not implemented"
+	return *new(cache.SharedInformer)
 }

@@ -8,19 +8,13 @@ import (
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/receiver"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/consumerretry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/syslog"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/tcp"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/udp"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/syslogreceiver/internal/metadata"
 )
 
 // NewFactory creates a factory for syslog receiver
-func NewFactory() receiver.Factory {
-	return adapter.NewFactory(ReceiverType{}, metadata.LogsStability)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // ReceiverType implements adapter.LogReceiverType
 // to create a syslog receiver
@@ -28,23 +22,22 @@ type ReceiverType struct{}
 
 // Type is the receiver type
 func (ReceiverType) Type() component.Type {
-	return metadata.Type
+	_ = "STUB: not implemented"
+	return *
+
+	// CreateDefaultConfig creates a config with type and version
+	new(component.Type)
 }
 
-// CreateDefaultConfig creates a config with type and version
 func (ReceiverType) CreateDefaultConfig() component.Config {
-	return &SysLogConfig{
-		BaseConfig: adapter.BaseConfig{
-			Operators:      []operator.Config{},
-			RetryOnFailure: consumerretry.NewDefaultConfig(),
-		},
-		InputConfig: *syslog.NewConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // BaseConfig gets the base config from config, for now
 func (ReceiverType) BaseConfig(cfg component.Config) adapter.BaseConfig {
-	return cfg.(*SysLogConfig).BaseConfig
+	_ = "STUB: not implemented"
+	return *new(adapter.BaseConfig)
 }
 
 // SysLogConfig defines configuration for the syslog receiver
@@ -58,20 +51,13 @@ type SysLogConfig struct {
 
 // InputConfig unmarshals the input operator
 func (ReceiverType) InputConfig(cfg component.Config) operator.Config {
-	return operator.NewConfig(&cfg.(*SysLogConfig).InputConfig)
+	_ = "STUB: not implemented"
+	return *new(operator.Config)
 }
 
 func (cfg *SysLogConfig) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		// Nothing to do if there is no config given.
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 
-	if componentParser.IsSet("tcp") {
-		cfg.InputConfig.TCP = &tcp.NewConfig().BaseConfig
-	} else if componentParser.IsSet("udp") {
-		cfg.InputConfig.UDP = &udp.NewConfig().BaseConfig
-	}
-
-	return componentParser.Unmarshal(cfg)
+	// Nothing to do if there is no config given.
 }

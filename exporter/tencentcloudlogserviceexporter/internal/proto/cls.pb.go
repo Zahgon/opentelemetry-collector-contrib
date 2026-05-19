@@ -7,7 +7,6 @@
 package proto
 
 import (
-	reflect "reflect"
 	sync "sync"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -30,51 +29,23 @@ type Log struct {
 	Contents []*Log_Content `protobuf:"bytes,2,rep,name=contents" json:"contents,omitempty"`
 }
 
-func (x *Log) Reset() {
-	*x = Log{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cls_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *Log) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Log) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Log) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Log) ProtoMessage() {}
+func (*Log) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Log) ProtoReflect() protoreflect.Message {
-	mi := &file_cls_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Log.ProtoReflect.Descriptor instead.
-func (*Log) Descriptor() ([]byte, []int) {
-	return file_cls_proto_rawDescGZIP(), []int{0}
-}
+func (*Log) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Log) GetTime() int64 {
-	if x != nil && x.Time != nil {
-		return *x.Time
-	}
-	return 0
-}
+func (x *Log) GetTime() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Log) GetContents() []*Log_Content {
-	if x != nil {
-		return x.Contents
-	}
-	return nil
-}
+func (x *Log) GetContents() []*Log_Content { _ = "STUB: not implemented"; return nil }
 
 type LogTag struct {
 	state         protoimpl.MessageState
@@ -85,51 +56,23 @@ type LogTag struct {
 	Value *string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
 }
 
-func (x *LogTag) Reset() {
-	*x = LogTag{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cls_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *LogTag) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *LogTag) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *LogTag) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*LogTag) ProtoMessage() {}
+func (*LogTag) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *LogTag) ProtoReflect() protoreflect.Message {
-	mi := &file_cls_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use LogTag.ProtoReflect.Descriptor instead.
-func (*LogTag) Descriptor() ([]byte, []int) {
-	return file_cls_proto_rawDescGZIP(), []int{1}
-}
+func (*LogTag) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *LogTag) GetKey() string {
-	if x != nil && x.Key != nil {
-		return *x.Key
-	}
-	return ""
-}
+func (x *LogTag) GetKey() string { _ = "STUB: not implemented"; return "" }
 
-func (x *LogTag) GetValue() string {
-	if x != nil && x.Value != nil {
-		return *x.Value
-	}
-	return ""
-}
+func (x *LogTag) GetValue() string { _ = "STUB: not implemented"; return "" }
 
 type LogGroup struct {
 	state         protoimpl.MessageState
@@ -143,72 +86,29 @@ type LogGroup struct {
 	LogTags     []*LogTag `protobuf:"bytes,5,rep,name=logTags" json:"logTags,omitempty"`
 }
 
-func (x *LogGroup) Reset() {
-	*x = LogGroup{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cls_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *LogGroup) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *LogGroup) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *LogGroup) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*LogGroup) ProtoMessage() {}
+func (*LogGroup) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *LogGroup) ProtoReflect() protoreflect.Message {
-	mi := &file_cls_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use LogGroup.ProtoReflect.Descriptor instead.
-func (*LogGroup) Descriptor() ([]byte, []int) {
-	return file_cls_proto_rawDescGZIP(), []int{2}
-}
+func (*LogGroup) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *LogGroup) GetLogs() []*Log {
-	if x != nil {
-		return x.Logs
-	}
-	return nil
-}
+func (x *LogGroup) GetLogs() []*Log { _ = "STUB: not implemented"; return nil }
 
-func (x *LogGroup) GetContextFlow() string {
-	if x != nil && x.ContextFlow != nil {
-		return *x.ContextFlow
-	}
-	return ""
-}
+func (x *LogGroup) GetContextFlow() string { _ = "STUB: not implemented"; return "" }
 
-func (x *LogGroup) GetFilename() string {
-	if x != nil && x.Filename != nil {
-		return *x.Filename
-	}
-	return ""
-}
+func (x *LogGroup) GetFilename() string { _ = "STUB: not implemented"; return "" }
 
-func (x *LogGroup) GetSource() string {
-	if x != nil && x.Source != nil {
-		return *x.Source
-	}
-	return ""
-}
+func (x *LogGroup) GetSource() string { _ = "STUB: not implemented"; return "" }
 
-func (x *LogGroup) GetLogTags() []*LogTag {
-	if x != nil {
-		return x.LogTags
-	}
-	return nil
-}
+func (x *LogGroup) GetLogTags() []*LogTag { _ = "STUB: not implemented"; return nil }
 
 type LogGroupList struct {
 	state         protoimpl.MessageState
@@ -218,44 +118,21 @@ type LogGroupList struct {
 	LogGroupList []*LogGroup `protobuf:"bytes,1,rep,name=logGroupList" json:"logGroupList,omitempty"`
 }
 
-func (x *LogGroupList) Reset() {
-	*x = LogGroupList{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cls_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *LogGroupList) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *LogGroupList) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *LogGroupList) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*LogGroupList) ProtoMessage() {}
+func (*LogGroupList) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *LogGroupList) ProtoReflect() protoreflect.Message {
-	mi := &file_cls_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use LogGroupList.ProtoReflect.Descriptor instead.
-func (*LogGroupList) Descriptor() ([]byte, []int) {
-	return file_cls_proto_rawDescGZIP(), []int{3}
-}
+func (*LogGroupList) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *LogGroupList) GetLogGroupList() []*LogGroup {
-	if x != nil {
-		return x.LogGroupList
-	}
-	return nil
-}
+func (x *LogGroupList) GetLogGroupList() []*LogGroup { _ = "STUB: not implemented"; return nil }
 
 type Log_Content struct {
 	state         protoimpl.MessageState
@@ -266,51 +143,23 @@ type Log_Content struct {
 	Value *string `protobuf:"bytes,2,req,name=value" json:"value,omitempty"`
 }
 
-func (x *Log_Content) Reset() {
-	*x = Log_Content{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_cls_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *Log_Content) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Log_Content) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Log_Content) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Log_Content) ProtoMessage() {}
+func (*Log_Content) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Log_Content) ProtoReflect() protoreflect.Message {
-	mi := &file_cls_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Log_Content.ProtoReflect.Descriptor instead.
-func (*Log_Content) Descriptor() ([]byte, []int) {
-	return file_cls_proto_rawDescGZIP(), []int{0, 0}
-}
+func (*Log_Content) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Log_Content) GetKey() string {
-	if x != nil && x.Key != nil {
-		return *x.Key
-	}
-	return ""
-}
+func (x *Log_Content) GetKey() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Log_Content) GetValue() string {
-	if x != nil && x.Value != nil {
-		return *x.Value
-	}
-	return ""
-}
+func (x *Log_Content) GetValue() string { _ = "STUB: not implemented"; return "" }
 
 var File_cls_proto protoreflect.FileDescriptor
 
@@ -348,12 +197,7 @@ var (
 	file_cls_proto_rawDescData = file_cls_proto_rawDesc
 )
 
-func file_cls_proto_rawDescGZIP() []byte {
-	file_cls_proto_rawDescOnce.Do(func() {
-		file_cls_proto_rawDescData = protoimpl.X.CompressGZIP(file_cls_proto_rawDescData)
-	})
-	return file_cls_proto_rawDescData
-}
+func file_cls_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_cls_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_cls_proto_goTypes = []any{
@@ -375,89 +219,5 @@ var file_cls_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_cls_proto_init() }
-func file_cls_proto_init() {
-	if File_cls_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_cls_proto_msgTypes[0].Exporter = func(v any, i int) any {
-			switch v := v.(*Log); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_cls_proto_msgTypes[1].Exporter = func(v any, i int) any {
-			switch v := v.(*LogTag); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_cls_proto_msgTypes[2].Exporter = func(v any, i int) any {
-			switch v := v.(*LogGroup); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_cls_proto_msgTypes[3].Exporter = func(v any, i int) any {
-			switch v := v.(*LogGroupList); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_cls_proto_msgTypes[4].Exporter = func(v any, i int) any {
-			switch v := v.(*Log_Content); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_cls_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   5,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_cls_proto_goTypes,
-		DependencyIndexes: file_cls_proto_depIdxs,
-		MessageInfos:      file_cls_proto_msgTypes,
-	}.Build()
-	File_cls_proto = out.File
-	file_cls_proto_rawDesc = nil
-	file_cls_proto_goTypes = nil
-	file_cls_proto_depIdxs = nil
-}
+func init()                { file_cls_proto_init() }
+func file_cls_proto_init() { _ = "STUB: not implemented"; return }

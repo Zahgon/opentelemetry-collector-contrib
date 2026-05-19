@@ -12,5 +12,6 @@ type StaticSource struct {
 }
 
 func (ts *StaticSource) Get(_ context.Context) (string, error) {
-	return ts.Value, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

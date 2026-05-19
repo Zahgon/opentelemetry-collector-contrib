@@ -4,10 +4,6 @@
 package metricstestutil // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/metricstestutil"
 
 import (
-	"fmt"
-	"reflect"
-	"strings"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -21,39 +17,21 @@ type MetricDiff struct {
 	Msg           string
 }
 
-func (mf MetricDiff) String() string {
-	return fmt.Sprintf("{msg='%v' expected=[%v] actual=[%v]}\n", mf.Msg, mf.ExpectedValue, mf.ActualValue)
-}
+func (mf MetricDiff) String() string { _ = "STUB: not implemented"; return "" }
 
 func DiffMetrics(diffs []*MetricDiff, expected, actual pmetric.Metrics) []*MetricDiff {
-	return append(diffs, diffMetricData(expected, actual)...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffRMSlices(sent, recd []pmetric.ResourceMetrics) []*MetricDiff {
-	var diffs []*MetricDiff
-	if len(sent) != len(recd) {
-		return []*MetricDiff{{
-			ExpectedValue: len(sent),
-			ActualValue:   len(recd),
-			Msg:           "Sent vs received ResourceMetrics not equal length",
-		}}
-	}
-	for i := range sent {
-		sentRM := sent[i]
-		recdRM := recd[i]
-		diffs = diffRMs(diffs, sentRM, recdRM)
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffRMs(diffs []*MetricDiff, expected, actual pmetric.ResourceMetrics) []*MetricDiff {
-	diffs = diffResource(diffs, expected.Resource(), actual.Resource())
-	diffs = diffILMSlice(
-		diffs,
-		expected.ScopeMetrics(),
-		actual.ScopeMetrics(),
-	)
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffILMSlice(
@@ -61,15 +39,8 @@ func diffILMSlice(
 	expected pmetric.ScopeMetricsSlice,
 	actual pmetric.ScopeMetricsSlice,
 ) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, actual.Len(), expected.Len(), "ScopeMetricsSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		diffs = diffILM(diffs, expected.At(i), actual.At(i))
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffILM(
@@ -77,72 +48,41 @@ func diffILM(
 	expected pmetric.ScopeMetrics,
 	actual pmetric.ScopeMetrics,
 ) []*MetricDiff {
-	return diffMetrics(diffs, expected.Metrics(), actual.Metrics())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffMetrics(diffs []*MetricDiff, expected, actual pmetric.MetricSlice) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, actual.Len(), expected.Len(), "MetricSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		diffs = DiffMetric(diffs, expected.At(i), actual.At(i))
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffMetricData(expected, actual pmetric.Metrics) []*MetricDiff {
-	expectedRMSlice := expected.ResourceMetrics()
-	actualRMSlice := actual.ResourceMetrics()
-	return diffRMSlices(toSlice(expectedRMSlice), toSlice(actualRMSlice))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func toSlice(s pmetric.ResourceMetricsSlice) (out []pmetric.ResourceMetrics) {
-	for i := 0; i < s.Len(); i++ {
-		out = append(out, s.At(i))
-	}
-	return out
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DiffMetric(diffs []*MetricDiff, expected, actual pmetric.Metric) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffMetricDescriptor(diffs, expected, actual)
-	if mismatch {
-		return diffs
-	}
-	//exhaustive:enforce
-	switch actual.Type() {
-	case pmetric.MetricTypeGauge:
-		diffs = diffNumberPts(diffs, expected.Gauge().DataPoints(), actual.Gauge().DataPoints())
-	case pmetric.MetricTypeSum:
-		diffs = diff(diffs, expected.Sum().IsMonotonic(), actual.Sum().IsMonotonic(), "Sum IsMonotonic")
-		diffs = diff(diffs, expected.Sum().AggregationTemporality(), actual.Sum().AggregationTemporality(), "Sum AggregationTemporality")
-		diffs = diffNumberPts(diffs, expected.Sum().DataPoints(), actual.Sum().DataPoints())
-	case pmetric.MetricTypeHistogram:
-		diffs = diff(diffs, expected.Histogram().AggregationTemporality(), actual.Histogram().AggregationTemporality(), "Histogram AggregationTemporality")
-		diffs = diffHistogramPts(diffs, expected.Histogram().DataPoints(), actual.Histogram().DataPoints())
-	case pmetric.MetricTypeExponentialHistogram:
-		diffs = diff(diffs, expected.ExponentialHistogram().AggregationTemporality(), actual.ExponentialHistogram().AggregationTemporality(), "ExponentialHistogram AggregationTemporality")
-		diffs = diffExponentialHistogramPts(diffs, expected.ExponentialHistogram().DataPoints(), actual.ExponentialHistogram().DataPoints())
-	case pmetric.MetricTypeSummary:
-		// Note: Summary data points are not currently handled
-		panic("unsupported test case for summary data")
-	default:
-		panic("unsupported test case")
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
+
+//exhaustive:enforce
+
+// Note: Summary data points are not currently handled
 
 func diffMetricDescriptor(
 	diffs []*MetricDiff,
 	expected pmetric.Metric,
 	actual pmetric.Metric,
 ) ([]*MetricDiff, bool) {
-	diffs = diff(diffs, expected.Name(), actual.Name(), "Metric Name")
-	diffs = diff(diffs, expected.Description(), actual.Description(), "Metric Description")
-	diffs = diff(diffs, expected.Unit(), actual.Unit(), "Metric Unit")
-	return diffValues(diffs, expected.Type(), actual.Type(), "Metric Type")
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 func diffNumberPts(
@@ -150,29 +90,8 @@ func diffNumberPts(
 	expected pmetric.NumberDataPointSlice,
 	actual pmetric.NumberDataPointSlice,
 ) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, expected.Len(), actual.Len(), "NumberDataPointSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		exPt := expected.At(i)
-		acPt := actual.At(i)
-
-		diffs = diffMetricAttrs(diffs, exPt.Attributes(), acPt.Attributes())
-		diffs, mismatch = diffValues(diffs, exPt.ValueType(), acPt.ValueType(), "NumberDataPoint Value Type")
-		if mismatch {
-			return diffs
-		}
-		switch exPt.ValueType() {
-		case pmetric.NumberDataPointValueTypeInt:
-			diffs = diff(diffs, exPt.IntValue(), acPt.IntValue(), "NumberDataPoint Value")
-		case pmetric.NumberDataPointValueTypeDouble:
-			diffs = diff(diffs, exPt.DoubleValue(), acPt.DoubleValue(), "NumberDataPoint Value")
-		}
-		diffExemplars(diffs, exPt.Exemplars(), acPt.Exemplars())
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffHistogramPts(
@@ -180,15 +99,8 @@ func diffHistogramPts(
 	expected pmetric.HistogramDataPointSlice,
 	actual pmetric.HistogramDataPointSlice,
 ) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, expected.Len(), actual.Len(), "HistogramDataPointSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		diffs = diffHistogramPt(diffs, expected.At(i), actual.At(i))
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffHistogramPt(
@@ -196,42 +108,19 @@ func diffHistogramPt(
 	expected pmetric.HistogramDataPoint,
 	actual pmetric.HistogramDataPoint,
 ) []*MetricDiff {
-	diffs = diffMetricAttrs(diffs, expected.Attributes(), actual.Attributes())
-	diffs = diff(diffs, expected.Count(), actual.Count(), "HistogramDataPoint Count")
-	diffs = diff(diffs, expected.Sum(), actual.Sum(), "HistogramDataPoint Sum")
-	// TODO: HasSum, Min, HasMin, Max, HasMax are not covered in tests.
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, expected.BucketCounts().Len(), actual.BucketCounts().Len(), "HistogramDataPoint BucketCounts len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.BucketCounts().Len(); i++ {
-		diffs = diff(diffs, expected.BucketCounts().At(i), actual.BucketCounts().At(i), "HistogramDataPoint BucketCounts")
-	}
-	diffs, mismatch = diffValues(diffs, expected.ExplicitBounds().Len(), actual.ExplicitBounds().Len(), "HistogramDataPoint ExplicitBounds len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.ExplicitBounds().Len(); i++ {
-		diffs = diff(diffs, expected.ExplicitBounds().At(i), actual.ExplicitBounds().At(i), "HistogramDataPoint ExplicitBounds")
-	}
-	return diffExemplars(diffs, expected.Exemplars(), actual.Exemplars())
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// TODO: HasSum, Min, HasMin, Max, HasMax are not covered in tests.
 
 func diffExponentialHistogramPts(
 	diffs []*MetricDiff,
 	expected pmetric.ExponentialHistogramDataPointSlice,
 	actual pmetric.ExponentialHistogramDataPointSlice,
 ) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, expected.Len(), actual.Len(), "ExponentialHistogramDataPointSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		diffs = diffExponentialHistogramPt(diffs, expected.At(i), actual.At(i))
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffExponentialHistogramPt(
@@ -239,21 +128,8 @@ func diffExponentialHistogramPt(
 	expected pmetric.ExponentialHistogramDataPoint,
 	actual pmetric.ExponentialHistogramDataPoint,
 ) []*MetricDiff {
-	diffs = diffMetricAttrs(diffs, expected.Attributes(), actual.Attributes())
-	diffs = diff(diffs, expected.Count(), actual.Count(), "ExponentialHistogramDataPoint Count")
-	diffs = diff(diffs, expected.HasSum(), actual.HasSum(), "ExponentialHistogramDataPoint HasSum")
-	diffs = diff(diffs, expected.HasMin(), actual.HasMin(), "ExponentialHistogramDataPoint HasMin")
-	diffs = diff(diffs, expected.HasMax(), actual.HasMax(), "ExponentialHistogramDataPoint HasMax")
-	diffs = diff(diffs, expected.Sum(), actual.Sum(), "ExponentialHistogramDataPoint Sum")
-	diffs = diff(diffs, expected.Min(), actual.Min(), "ExponentialHistogramDataPoint Min")
-	diffs = diff(diffs, expected.Max(), actual.Max(), "ExponentialHistogramDataPoint Max")
-	diffs = diff(diffs, expected.ZeroCount(), actual.ZeroCount(), "ExponentialHistogramDataPoint ZeroCount")
-	diffs = diff(diffs, expected.Scale(), actual.Scale(), "ExponentialHistogramDataPoint Scale")
-
-	diffs = diffExponentialHistogramPtBuckets(diffs, expected.Positive(), actual.Positive())
-	diffs = diffExponentialHistogramPtBuckets(diffs, expected.Negative(), actual.Negative())
-
-	return diffExemplars(diffs, expected.Exemplars(), actual.Exemplars())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffExponentialHistogramPtBuckets(
@@ -261,17 +137,8 @@ func diffExponentialHistogramPtBuckets(
 	expected pmetric.ExponentialHistogramDataPointBuckets,
 	actual pmetric.ExponentialHistogramDataPointBuckets,
 ) []*MetricDiff {
-	diffs = diff(diffs, expected.Offset(), actual.Offset(), "ExponentialHistogramDataPoint Buckets Offset")
-	exC := expected.BucketCounts()
-	acC := actual.BucketCounts()
-	diffs, mod := diffValues(diffs, exC.Len(), acC.Len(), "ExponentialHistogramDataPoint Buckets Len")
-	if mod {
-		return diffs
-	}
-	for i := 0; i < exC.Len(); i++ {
-		diffs = diff(diffs, exC.At(i), acC.At(i), fmt.Sprintf("ExponentialHistogramDataPoint Buckets Count[%d]", i))
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffExemplars(
@@ -279,52 +146,28 @@ func diffExemplars(
 	expected pmetric.ExemplarSlice,
 	actual pmetric.ExemplarSlice,
 ) []*MetricDiff {
-	var mismatch bool
-	diffs, mismatch = diffValues(diffs, expected.Len(), actual.Len(), "ExemplarSlice len")
-	if mismatch {
-		return diffs
-	}
-	for i := 0; i < expected.Len(); i++ {
-		diffs = diff(diffs, expected.At(i).ValueType(), actual.At(i).ValueType(), "Exemplar Value Type")
-		switch expected.At(i).ValueType() {
-		case pmetric.ExemplarValueTypeInt:
-			diffs = diff(diffs, expected.At(i).IntValue(), actual.At(i).IntValue(), "Exemplar Value")
-		case pmetric.ExemplarValueTypeDouble:
-			diffs = diff(diffs, expected.At(i).DoubleValue(), actual.At(i).DoubleValue(), "Exemplar Value")
-		}
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffResource(diffs []*MetricDiff, expected, actual pcommon.Resource) []*MetricDiff {
-	return diffResourceAttrs(diffs, expected.Attributes(), actual.Attributes())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffResourceAttrs(diffs []*MetricDiff, expected, actual pcommon.Map) []*MetricDiff {
-	if !reflect.DeepEqual(expected.AsRaw(), actual.AsRaw()) {
-		diffs = append(diffs, &MetricDiff{
-			ExpectedValue: attrMapToString(expected),
-			ActualValue:   attrMapToString(actual),
-			Msg:           "Resource attributes",
-		})
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffMetricAttrs(diffs []*MetricDiff, expected, actual pcommon.Map) []*MetricDiff {
-	if !reflect.DeepEqual(expected.AsRaw(), actual.AsRaw()) {
-		diffs = append(diffs, &MetricDiff{
-			ExpectedValue: attrMapToString(expected),
-			ActualValue:   attrMapToString(actual),
-			Msg:           "Metric attributes",
-		})
-	}
-	return diffs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diff(diffs []*MetricDiff, expected, actual any, msg string) []*MetricDiff {
-	out, _ := diffValues(diffs, expected, actual, msg)
-	return out
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func diffValues(
@@ -333,24 +176,8 @@ func diffValues(
 	actual any,
 	msg string,
 ) ([]*MetricDiff, bool) {
-	if !reflect.DeepEqual(expected, actual) {
-		return append(diffs, &MetricDiff{
-			Msg:           msg,
-			ExpectedValue: expected,
-			ActualValue:   actual,
-		}), true
-	}
-	return diffs, false
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
-func attrMapToString(m pcommon.Map) string {
-	var out strings.Builder
-	for k, v := range m.All() {
-		out.WriteString("[")
-		out.WriteString(k)
-		out.WriteString("=")
-		out.WriteString(v.AsString())
-		out.WriteString("]")
-	}
-	return out.String()
-}
+func attrMapToString(m pcommon.Map) string { _ = "STUB: not implemented"; return "" }

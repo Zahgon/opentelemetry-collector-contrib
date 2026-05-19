@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -15,16 +13,7 @@ type MemcachedBytesMetricConfig struct {
 }
 
 func (ms *MemcachedBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -45,36 +34,11 @@ type MemcachedCommandsMetricConfig struct {
 }
 
 func (ms *MemcachedCommandsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MemcachedCommandsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MemcachedCommandsMetricAttributeKeyCommand:
-		default:
-			return fmt.Errorf("metric memcached.commands doesn't have an attribute %v, valid attributes: [command]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MemcachedCommandsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MemcachedConnectionsCurrentMetricConfig provides config for the memcached.connections.current metric.
 type MemcachedConnectionsCurrentMetricConfig struct {
@@ -83,16 +47,7 @@ type MemcachedConnectionsCurrentMetricConfig struct {
 }
 
 func (ms *MemcachedConnectionsCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -103,16 +58,7 @@ type MemcachedConnectionsTotalMetricConfig struct {
 }
 
 func (ms *MemcachedConnectionsTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -133,36 +79,11 @@ type MemcachedCPUUsageMetricConfig struct {
 }
 
 func (ms *MemcachedCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MemcachedCPUUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MemcachedCPUUsageMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric memcached.cpu.usage doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MemcachedCPUUsageMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MemcachedCurrentItemsMetricConfig provides config for the memcached.current_items metric.
 type MemcachedCurrentItemsMetricConfig struct {
@@ -171,16 +92,7 @@ type MemcachedCurrentItemsMetricConfig struct {
 }
 
 func (ms *MemcachedCurrentItemsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -191,16 +103,7 @@ type MemcachedEvictionsMetricConfig struct {
 }
 
 func (ms *MemcachedEvictionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -221,36 +124,11 @@ type MemcachedNetworkMetricConfig struct {
 }
 
 func (ms *MemcachedNetworkMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MemcachedNetworkMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MemcachedNetworkMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric memcached.network doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MemcachedNetworkMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MemcachedOperationHitRatioMetricAttributeKey specifies the key of an attribute for the memcached.operation_hit_ratio metric.
 type MemcachedOperationHitRatioMetricAttributeKey string
@@ -269,34 +147,12 @@ type MemcachedOperationHitRatioMetricConfig struct {
 }
 
 func (ms *MemcachedOperationHitRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MemcachedOperationHitRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MemcachedOperationHitRatioMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric memcached.operation_hit_ratio doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -318,36 +174,11 @@ type MemcachedOperationsMetricConfig struct {
 }
 
 func (ms *MemcachedOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MemcachedOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MemcachedOperationsMetricAttributeKeyType, MemcachedOperationsMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric memcached.operations doesn't have an attribute %v, valid attributes: [type, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MemcachedOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MemcachedThreadsMetricConfig provides config for the memcached.threads metric.
 type MemcachedThreadsMetricConfig struct {
@@ -356,16 +187,7 @@ type MemcachedThreadsMetricConfig struct {
 }
 
 func (ms *MemcachedThreadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -384,53 +206,7 @@ type MetricsConfig struct {
 	MemcachedThreads            MemcachedThreadsMetricConfig            `mapstructure:"memcached.threads"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		MemcachedBytes: MemcachedBytesMetricConfig{
-			Enabled: true,
-		},
-		MemcachedCommands: MemcachedCommandsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MemcachedCommandsMetricAttributeKey{MemcachedCommandsMetricAttributeKeyCommand},
-		},
-		MemcachedConnectionsCurrent: MemcachedConnectionsCurrentMetricConfig{
-			Enabled: true,
-		},
-		MemcachedConnectionsTotal: MemcachedConnectionsTotalMetricConfig{
-			Enabled: true,
-		},
-		MemcachedCPUUsage: MemcachedCPUUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MemcachedCPUUsageMetricAttributeKey{MemcachedCPUUsageMetricAttributeKeyState},
-		},
-		MemcachedCurrentItems: MemcachedCurrentItemsMetricConfig{
-			Enabled: true,
-		},
-		MemcachedEvictions: MemcachedEvictionsMetricConfig{
-			Enabled: true,
-		},
-		MemcachedNetwork: MemcachedNetworkMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MemcachedNetworkMetricAttributeKey{MemcachedNetworkMetricAttributeKeyDirection},
-		},
-		MemcachedOperationHitRatio: MemcachedOperationHitRatioMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MemcachedOperationHitRatioMetricAttributeKey{MemcachedOperationHitRatioMetricAttributeKeyOperation},
-		},
-		MemcachedOperations: MemcachedOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MemcachedOperationsMetricAttributeKey{MemcachedOperationsMetricAttributeKeyType, MemcachedOperationsMetricAttributeKeyOperation},
-		},
-		MemcachedThreads: MemcachedThreadsMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for memcached metrics builder.
 type MetricsBuilderConfig struct {
@@ -438,12 +214,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

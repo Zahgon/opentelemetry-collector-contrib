@@ -5,7 +5,6 @@ package fileset // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"errors"
-	"slices"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/internal/fingerprint"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/internal/reader"
@@ -26,50 +25,30 @@ type Fileset[T Matchable] struct {
 	readers []T
 }
 
-func New[T Matchable](capacity int) *Fileset[T] {
-	return &Fileset[T]{readers: make([]T, 0, capacity)}
-}
+func New[T Matchable](capacity int) *Fileset[T] { _ = "STUB: not implemented"; return nil }
 
-func (set *Fileset[T]) Len() int {
-	return len(set.readers)
-}
+func (set *Fileset[T]) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (set *Fileset[T]) Get() []T {
-	return set.readers
-}
+func (set *Fileset[T]) Get() []T { _ = "STUB: not implemented"; return nil }
 
 func (set *Fileset[T]) Pop() (T, error) {
+	_ = "STUB: not implemented"
 	// return first element from the array and remove it
-	var val T
-	if len(set.readers) == 0 {
-		return val, errFilesetEmpty
-	}
-	r := set.readers[0]
-	set.readers = slices.Delete(set.readers, 0, 1)
-	return r, nil
+	return *new(T), nil
 }
 
 func (set *Fileset[T]) Add(readers ...T) {
+	_ = "STUB: not implemented"
 	// add open readers
-	set.readers = append(set.readers, readers...)
+	return
 }
 
 func (set *Fileset[T]) Match(fp *fingerprint.Fingerprint, cmp func(a, b *fingerprint.Fingerprint) bool) T {
-	var val T
-	for idx, r := range set.readers {
-		if cmp(fp, r.GetFingerprint()) {
-			set.readers = append(set.readers[:idx], set.readers[idx+1:]...)
-			return r
-		}
-	}
-	return val
+	_ = "STUB: not implemented"
+	return *new(T)
 }
 
 // comparators
-func StartsWith(a, b *fingerprint.Fingerprint) bool {
-	return a.StartsWith(b)
-}
+func StartsWith(a, b *fingerprint.Fingerprint) bool { _ = "STUB: not implemented"; return false }
 
-func Equal(a, b *fingerprint.Fingerprint) bool {
-	return a.Equal(b)
-}
+func Equal(a, b *fingerprint.Fingerprint) bool { _ = "STUB: not implemented"; return false }

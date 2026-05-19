@@ -15,43 +15,24 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetHaproxyAddr sets provided value as "haproxy.addr" attribute.
-func (rb *ResourceBuilder) SetHaproxyAddr(val string) {
-	if rb.config.HaproxyAddr.Enabled {
-		rb.res.Attributes().PutStr("haproxy.addr", val)
-	}
-}
+func (rb *ResourceBuilder) SetHaproxyAddr(val string) { _ = "STUB: not implemented"; return }
 
 // SetHaproxyProxyName sets provided value as "haproxy.proxy_name" attribute.
-func (rb *ResourceBuilder) SetHaproxyProxyName(val string) {
-	if rb.config.HaproxyProxyName.Enabled {
-		rb.res.Attributes().PutStr("haproxy.proxy_name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHaproxyProxyName(val string) { _ = "STUB: not implemented"; return }
 
 // SetHaproxyServerState sets provided value as "haproxy.server.state" attribute.
-func (rb *ResourceBuilder) SetHaproxyServerState(val string) {
-	if rb.config.HaproxyServerState.Enabled {
-		rb.res.Attributes().PutStr("haproxy.server.state", val)
-	}
-}
+func (rb *ResourceBuilder) SetHaproxyServerState(val string) { _ = "STUB: not implemented"; return }
 
 // SetHaproxyServiceName sets provided value as "haproxy.service_name" attribute.
-func (rb *ResourceBuilder) SetHaproxyServiceName(val string) {
-	if rb.config.HaproxyServiceName.Enabled {
-		rb.res.Attributes().PutStr("haproxy.service_name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHaproxyServiceName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

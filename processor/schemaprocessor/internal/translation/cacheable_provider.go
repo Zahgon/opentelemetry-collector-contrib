@@ -5,7 +5,6 @@ package translation // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"fmt"
 	"sync"
 	"time"
 
@@ -39,63 +38,24 @@ type CacheableProvider struct {
 // The cooldown parameter is the time to wait before retrying a failed call.
 // The limit parameter is the number of failed calls to allow before setting the cooldown period.
 func NewCacheableProvider(provider Provider, cooldown time.Duration, limit int, telemetryBuilder *metadata.TelemetryBuilder) Provider {
-	return &CacheableProvider{
-		provider:         provider,
-		cache:            cache.New(cache.NoExpiration, cache.NoExpiration),
-		cooldown:         cooldown,
-		limit:            limit,
-		telemetryBuilder: telemetryBuilder,
-	}
+	_ = "STUB: not implemented"
+	return *new(Provider)
 }
 
 func (p *CacheableProvider) Retrieve(ctx context.Context, key string) (string, error) {
+	_ = "STUB: not implemented"
 	// Check if the key is in the cache.
-	if value, found := p.cache.Get(key); found {
-		p.telemetryBuilder.ProcessorSchemaCacheHits.Add(ctx, 1)
-		return value.(string), nil
-	}
-
-	p.mu.Lock()
-
-	// Check if the key is in the cache again in case it was added while waiting for the lock.
-	if value, found := p.cache.Get(key); found {
-		p.mu.Unlock()
-		p.telemetryBuilder.ProcessorSchemaCacheHits.Add(ctx, 1)
-		return value.(string), nil
-	}
-
-	// Check if the function is currently rate-limited
-	if time.Now().Before(p.resetTime) {
-		lastErr := p.lastErr
-		p.mu.Unlock()
-		return "", fmt.Errorf("rate limited, last error: %w", lastErr)
-	}
-
-	// After the cooldown expires, allow one retry but keep the count so the
-	// next failure triggers a new cooldown immediately.
-	if p.callcount >= p.limit {
-		p.callcount = p.limit - 1
-	}
-	p.callcount++
-
-	// Release the lock before the HTTP call so other goroutines are not blocked
-	// for the duration of the network request.
-	p.mu.Unlock()
-
-	p.telemetryBuilder.ProcessorSchemaCacheMisses.Add(ctx, 1)
-	v, err := p.provider.Retrieve(ctx, key)
-
-	p.mu.Lock()
-	defer p.mu.Unlock()
-	if err != nil {
-		p.lastErr = err
-		// If the call limit is reached, set the cooldown period
-		if p.callcount >= p.limit {
-			p.resetTime = time.Now().Add(p.cooldown)
-		}
-		return "", err
-	}
-	p.callcount = 0
-	p.cache.Set(key, v, cache.NoExpiration)
-	return v, nil
+	return "", nil
 }
+
+// Check if the key is in the cache again in case it was added while waiting for the lock.
+
+// Check if the function is currently rate-limited
+
+// After the cooldown expires, allow one retry but keep the count so the
+// next failure triggers a new cooldown immediately.
+
+// Release the lock before the HTTP call so other goroutines are not blocked
+// for the duration of the network request.
+
+// If the call limit is reached, set the cooldown period

@@ -13,15 +13,11 @@ type BufferPool struct {
 	pool *sync.Pool
 }
 
-func NewBufferPool() *BufferPool {
-	return &BufferPool{pool: &sync.Pool{New: func() any { return &bytes.Buffer{} }}}
-}
+func NewBufferPool() *BufferPool { _ = "STUB: not implemented"; return nil }
 
 func (w *BufferPool) NewPooledBuffer() PooledBuffer {
-	return PooledBuffer{
-		Buffer: w.pool.Get().(*bytes.Buffer),
-		pool:   w.pool,
-	}
+	_ = "STUB: not implemented"
+	return *new(PooledBuffer)
 }
 
 type PooledBuffer struct {
@@ -29,12 +25,9 @@ type PooledBuffer struct {
 	pool   *sync.Pool
 }
 
-func (p PooledBuffer) Recycle() {
-	p.Buffer.Reset()
-	p.pool.Put(p.Buffer)
-}
+func (p PooledBuffer) Recycle() { _ = "STUB: not implemented"; return }
 
 func (p PooledBuffer) WriteTo(w io.Writer) (n int64, err error) {
-	defer p.Recycle()
-	return p.Buffer.WriteTo(w)
+	_ = "STUB: not implemented"
+	return 0, nil
 }

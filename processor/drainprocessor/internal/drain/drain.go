@@ -10,9 +10,6 @@
 package drain // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/drainprocessor/internal/drain"
 
 import (
-	"encoding/json"
-	"math"
-
 	drain3 "github.com/jaeyo/go-drain3/pkg/drain3"
 )
 
@@ -37,65 +34,40 @@ type Drain struct {
 }
 
 // NewDrain constructs a Drain instance from the provided Config.
-func NewDrain(cfg Config) (*Drain, error) {
-	maxClusters := cfg.MaxClusters
-	if maxClusters <= 0 {
-		// go-drain3 uses an LRU which requires a positive size; use MaxInt32 as
-		// "effectively unlimited" — the LRU doesn't pre-allocate so this is safe.
-		maxClusters = math.MaxInt32
-	}
+func NewDrain(cfg Config) (*Drain, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	inner, err := drain3.NewDrain(
-		drain3.WithDepth(int64(cfg.Depth)),
-		drain3.WithSimTh(cfg.SimThreshold),
-		drain3.WithMaxChildren(int64(cfg.MaxChildren)),
-		drain3.WithMaxCluster(maxClusters),
-		drain3.WithExtraDelimiter(cfg.ExtraDelimiters),
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &Drain{inner: inner}, nil
-}
+// go-drain3 uses an LRU which requires a positive size; use MaxInt32 as
+// "effectively unlimited" — the LRU doesn't pre-allocate so this is safe.
 
 // Train feeds line to the Drain tree, updating or creating a cluster.
 // Returns the derived template string.
 // An error is returned only on internal go-drain3 failures; callers should
 // log a warning and skip annotation rather than failing the pipeline.
 func (d *Drain) Train(line string) (templateStr string, err error) {
-	cluster, _, err := d.inner.AddLogMessage(line)
-	if err != nil {
-		return "", err
-	}
-	if cluster == nil {
-		// go-drain3 returned no cluster without an error; treat as unannotatable.
-		return "", nil
-	}
-	return cluster.GetTemplate(), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// go-drain3 returned no cluster without an error; treat as unannotatable.
 
 // Match searches the existing tree for a cluster matching line without
 // creating new clusters. Returns ok=false if no cluster matches.
 func (d *Drain) Match(line string) (templateStr string, ok bool) {
-	cluster, err := d.inner.Match(line, drain3.SearchStrategyFallback)
-	if err != nil || cluster == nil {
-		return "", false
-	}
-	return cluster.GetTemplate(), true
+	_ = "STUB: not implemented"
+	return "", false
 }
 
 // ClusterCount returns the number of clusters currently tracked in the tree.
 // Must be called with the caller's mutex held if concurrent access is possible.
-func (d *Drain) ClusterCount() int {
-	return len(d.inner.GetClusters())
-}
+func (d *Drain) ClusterCount() int { _ = "STUB: not implemented"; return 0 }
 
 // Snapshot serializes the current tree state to JSON.
 func (d *Drain) Snapshot() ([]byte, error) {
-	return json.Marshal(d.inner)
+	_ = "STUB: not implemented"
+	return nil,
+
+		// Load restores tree state from a previously captured Snapshot.
+		nil
 }
 
-// Load restores tree state from a previously captured Snapshot.
-func (d *Drain) Load(data []byte) error {
-	return json.Unmarshal(data, d.inner)
-}
+func (d *Drain) Load(data []byte) error { _ = "STUB: not implemented"; return nil }

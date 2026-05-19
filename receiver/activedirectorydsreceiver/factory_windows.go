@@ -12,8 +12,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/activedirectorydsreceiver/internal/metadata"
 )
@@ -26,25 +24,6 @@ func createMetricsReceiver(
 	rConf component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c, ok := rConf.(*Config)
-	if !ok {
-		return nil, errConfigNotActiveDirectory
-	}
-
-	adds := newActiveDirectoryDSScraper(c.MetricsBuilderConfig, params)
-	s, err := scraper.NewMetrics(
-		adds.scrape,
-		scraper.WithStart(adds.start),
-		scraper.WithShutdown(adds.shutdown),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(
-		&c.ControllerConfig,
-		params,
-		consumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

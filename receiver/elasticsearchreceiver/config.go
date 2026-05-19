@@ -5,8 +5,6 @@ package elasticsearchreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -48,41 +46,9 @@ type Config struct {
 }
 
 // Validate validates the given config, returning an error specifying any issues with the config.
-func (cfg *Config) Validate() error {
-	var combinedErr error
-	if err := invalidCredentials(cfg.Username, string(cfg.Password)); err != nil {
-		combinedErr = err
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.Endpoint == "" {
-		return errors.Join(combinedErr, errEmptyEndpoint)
-	}
-
-	u, err := url.Parse(cfg.Endpoint)
-	if err != nil {
-		return errors.Join(
-			combinedErr,
-			fmt.Errorf("invalid endpoint '%s': %w", cfg.Endpoint, err),
-		)
-	}
-
-	switch u.Scheme {
-	case "http", "https": // ok
-	default:
-		return errors.Join(combinedErr, errEndpointBadScheme)
-	}
-
-	return combinedErr
-}
+// ok
 
 // invalidCredentials returns true if only one username or password is not empty.
-func invalidCredentials(username, password string) error {
-	if username == "" && password != "" {
-		return errUsernameNotSpecified
-	}
-
-	if password == "" && username != "" {
-		return errPasswordNotSpecified
-	}
-	return nil
-}
+func invalidCredentials(username, password string) error { _ = "STUB: not implemented"; return nil }

@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -61,99 +54,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ContainerID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerImageName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageRepoDigests: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerImageTag: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageTags: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sClusterUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sContainerName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sCronjobName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sCronjobUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sDaemonsetName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sDaemonsetUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sDeploymentName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sDeploymentUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sJobName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sJobUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sNamespaceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sPodHostname: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sPodIP: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sPodName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodStartTime: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sReplicasetName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sReplicasetUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sStatefulsetName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sStatefulsetUID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServiceName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServiceNamespace: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServiceVersion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

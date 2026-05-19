@@ -4,14 +4,8 @@
 package marshaler // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter/internal/marshaler"
 
 import (
-	"bytes"
-
-	"github.com/gogo/protobuf/jsonpb"
 	jaegerproto "github.com/jaegertracing/jaeger-idl/model/v1"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	"go.uber.org/multierr"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger"
 )
 
 var (
@@ -24,40 +18,30 @@ type JaegerProtoSpanMarshaler struct{}
 type JaegerJSONSpanMarshaler struct{}
 
 func (JaegerProtoSpanMarshaler) MarshalTraces(traces ptrace.Traces, yield func(key, value []byte)) error {
-	return marshalJaeger(traces, yield, marshalJaegerSpanProto)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (JaegerJSONSpanMarshaler) MarshalTraces(traces ptrace.Traces, yield func(key, value []byte)) error {
-	return marshalJaeger(traces, yield, marshalJaegerSpanJSON)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func marshalJaeger(traces ptrace.Traces, yield func(key, value []byte), marshal marshalJaegerSpanFunc) error {
-	batches := jaeger.ProtoFromTraces(traces)
-	var errs error
-	for _, batch := range batches {
-		for _, span := range batch.Spans {
-			span.Process = batch.Process
-			bts, err := marshal(span)
-			// continue to process spans that can be serialized
-			if err != nil {
-				errs = multierr.Append(errs, err)
-				continue
-			}
-			yield([]byte(span.TraceID.String()), bts)
-		}
-	}
-	return errs
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// continue to process spans that can be serialized
 
 type marshalJaegerSpanFunc func(*jaegerproto.Span) ([]byte, error)
 
 func marshalJaegerSpanProto(span *jaegerproto.Span) ([]byte, error) {
-	return span.Marshal()
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func marshalJaegerSpanJSON(span *jaegerproto.Span) ([]byte, error) {
-	var m jsonpb.Marshaler
-	out := new(bytes.Buffer)
-	err := m.Marshal(out, span)
-	return out.Bytes(), err
+	_ = "STUB: not implemented"
+	return nil, nil
 }

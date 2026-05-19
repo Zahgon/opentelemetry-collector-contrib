@@ -6,8 +6,6 @@ package logdedupprocessor // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -51,98 +49,27 @@ type Config struct {
 
 // createDefaultConfig returns the default config for the processor.
 func createDefaultConfig() component.Config {
-	return &Config{
-		LogCountAttribute: defaultLogCountAttribute,
-		Interval:          defaultInterval,
-		Timezone:          defaultTimezone,
-		ExcludeFields:     []string{},
-		IncludeFields:     []string{},
-		Conditions:        []string{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // Validate validates the configuration
-func (c Config) Validate() error {
-	if c.Interval <= 0 {
-		return errInvalidInterval
-	}
-
-	if c.LogCountAttribute == "" {
-		return errInvalidLogCountAttribute
-	}
-
-	_, err := time.LoadLocation(c.Timezone)
-	if err != nil {
-		return fmt.Errorf("timezone is invalid: %w", err)
-	}
-
-	if len(c.ExcludeFields) > 0 && len(c.IncludeFields) > 0 {
-		return errors.New("cannot define both exclude_fields and include_fields")
-	}
-
-	err = c.validateExcludeFields()
-	if err != nil {
-		return err
-	}
-
-	err = c.validateIncludeFields()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // validateExcludeFields validates that all the exclude fields
-func (c Config) validateExcludeFields() error {
-	knownExcludeFields := make(map[string]struct{})
+func (c Config) validateExcludeFields() error { _ = "STUB: not implemented"; return nil }
 
-	for _, field := range c.ExcludeFields {
-		// Special check to make sure the entire body is not excluded
-		if field == bodyField {
-			return errCannotExcludeBody
-		}
+// Special check to make sure the entire body is not excluded
 
-		// Split and ensure the field starts with `body` or `attributes`
-		parts := strings.Split(field, fieldDelimiter)
-		if parts[0] != bodyField && parts[0] != attributeField {
-			return fmt.Errorf("an excludefield must start with %s or %s", bodyField, attributeField)
-		}
+// Split and ensure the field starts with `body` or `attributes`
 
-		// If a field is valid make sure we haven't already seen it
-		if _, ok := knownExcludeFields[field]; ok {
-			return fmt.Errorf("duplicate exclude_field %s", field)
-		}
-
-		knownExcludeFields[field] = struct{}{}
-	}
-
-	return nil
-}
+// If a field is valid make sure we haven't already seen it
 
 // validateIncludeFields validates that all the exclude fields
-func (c Config) validateIncludeFields() error {
-	knownFields := make(map[string]struct{})
+func (c Config) validateIncludeFields() error { _ = "STUB: not implemented"; return nil }
 
-	for _, field := range c.IncludeFields {
-		// Special check to make sure the entire body is not included
-		if field == bodyField {
-			return errCannotIncludeBody
-		}
+// Special check to make sure the entire body is not included
 
-		// Split and ensure the field starts with `body` or `attributes`
-		parts := strings.Split(field, fieldDelimiter)
-		if parts[0] != bodyField && parts[0] != attributeField {
-			return fmt.Errorf("an include_fields must start with %s or %s", bodyField, attributeField)
-		}
+// Split and ensure the field starts with `body` or `attributes`
 
-		// If a field is valid make sure we haven't already seen it
-		if _, ok := knownFields[field]; ok {
-			return fmt.Errorf("duplicate include_fields %s", field)
-		}
-
-		knownFields[field] = struct{}{}
-	}
-
-	return nil
-}
+// If a field is valid make sure we haven't already seen it

@@ -4,8 +4,6 @@
 package keyvalue // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/parser/keyvalue"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
@@ -19,17 +17,10 @@ func init() {
 }
 
 // NewConfig creates a new key value parser config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new key value parser config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		ParserConfig: helper.NewParserConfig(operatorID, operatorType),
-		Delimiter:    "=",
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a key value parser operator.
 type Config struct {
@@ -41,27 +32,6 @@ type Config struct {
 
 // Build will build a key value parser operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	parserOperator, err := c.ParserConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.Delimiter == "" {
-		return nil, errors.New("delimiter is a required parameter")
-	}
-
-	pairDelimiter := " "
-	if c.PairDelimiter != "" {
-		pairDelimiter = c.PairDelimiter
-	}
-
-	if c.Delimiter == pairDelimiter {
-		return nil, errors.New("delimiter and pair_delimiter cannot be the same value")
-	}
-
-	return &Parser{
-		ParserOperator: parserOperator,
-		delimiter:      c.Delimiter,
-		pairDelimiter:  pairDelimiter,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

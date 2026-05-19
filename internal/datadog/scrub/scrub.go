@@ -28,13 +28,9 @@ type scrubbedError struct {
 	scrubbed string
 }
 
-func (s *scrubbedError) Error() string {
-	return s.scrubbed
-}
+func (s *scrubbedError) Error() string { _ = "STUB: not implemented"; return "" }
 
-func (s *scrubbedError) Unwrap() error {
-	return s.err
-}
+func (s *scrubbedError) Unwrap() error { _ = "STUB: not implemented"; return nil }
 
 var _ Scrubber = (*scrubber)(nil)
 
@@ -43,46 +39,19 @@ type scrubber struct {
 	replacers []replacer
 }
 
-func NewScrubber() Scrubber {
-	return &scrubber{
-		replacers: []replacer{
-			// API key as URL parameter (api_key=<API KEY> or apikey=<API KEY>).
-			// Any alphanumeric string gets censored, even if not 32 characters long.
-			{
-				Regex: regexp.MustCompile(`(api_?key=)\b[a-zA-Z0-9]+([a-zA-Z0-9]{5})\b`),
-				Repl:  `$1***************************$2`,
-			},
-			// Application key as URL parameter (api_key=<API KEY> or apikey=<API KEY>).
-			// Any alphanumeric string gets censored, even if not 40 characters long.
-			{
-				Regex: regexp.MustCompile(`(ap(?:p|plication)_?key=)\b[a-zA-Z0-9]+([a-zA-Z0-9]{5})\b`),
-				Repl:  `$1***********************************$2`,
-			},
-			// API key in any place (32 character long alphanumeric ASCII string).
-			{
-				Regex: regexp.MustCompile(`\b[a-fA-F0-9]{27}([a-fA-F0-9]{5})\b`),
-				Repl:  `***************************$1`,
-			},
-			// Application key in any place (40 character long alphanumeric ASCII string).
-			{
-				Regex: regexp.MustCompile(`\b[a-fA-F0-9]{35}([a-fA-F0-9]{5})\b`),
-				Repl:  `***********************************$1`,
-			},
-		},
-	}
-}
+func NewScrubber() Scrubber { _ = "STUB: not implemented"; return *new(Scrubber) }
 
-func (s *scrubber) Scrub(err error) error {
-	if err == nil {
-		return nil
-	}
-	return &scrubbedError{err, s.scrubStr(err.Error())}
-}
+// API key as URL parameter (api_key=<API KEY> or apikey=<API KEY>).
+// Any alphanumeric string gets censored, even if not 32 characters long.
+
+// Application key as URL parameter (api_key=<API KEY> or apikey=<API KEY>).
+// Any alphanumeric string gets censored, even if not 40 characters long.
+
+// API key in any place (32 character long alphanumeric ASCII string).
+
+// Application key in any place (40 character long alphanumeric ASCII string).
+
+func (s *scrubber) Scrub(err error) error { _ = "STUB: not implemented"; return nil }
 
 // Scrub sensitive details from a string.
-func (s *scrubber) scrubStr(data string) string {
-	for _, repl := range s.replacers {
-		data = repl.Regex.ReplaceAllString(data, repl.Repl)
-	}
-	return data
-}
+func (s *scrubber) scrubStr(data string) string { _ = "STUB: not implemented"; return "" }

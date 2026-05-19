@@ -4,14 +4,8 @@
 package googlecloudpubsubpushreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudpubsubpushreceiver"
 
 import (
-	"errors"
-	"fmt"
-	"net"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configtls"
 )
 
 var _ component.Config = (*Config)(nil)
@@ -29,27 +23,9 @@ const defaultEndpoint = "0.0.0.0:8080"
 
 // createDefaultConfig creates the default configuration for the receiver.
 func createDefaultConfig() component.Config {
-	serverConfig := confighttp.NewDefaultServerConfig()
-	serverConfig.NetAddr.Endpoint = defaultEndpoint
-	serverConfig.TLS = configoptional.None[configtls.ServerConfig]()
-
-	return &Config{
-		ServerConfig: serverConfig,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // Validate checks if the receiver configuration is valid.
-func (c *Config) Validate() error {
-	var errs []error
-
-	if c.Encoding == nil || *c.Encoding == (component.ID{}) {
-		errs = append(errs, errors.New("encoding must be set"))
-	}
-
-	_, _, err := net.SplitHostPort(c.NetAddr.Endpoint)
-	if err != nil {
-		errs = append(errs, fmt.Errorf("misformatted endpoint: %w", err))
-	}
-
-	return errors.Join(errs...)
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

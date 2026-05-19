@@ -4,11 +4,7 @@
 package clickhouseexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter"
 
 import (
-	"context"
 	"errors"
-	"fmt"
-	"net/url"
-	"strings"
 	"time"
 
 	"github.com/ClickHouse/clickhouse-go/v2"
@@ -19,7 +15,6 @@ import (
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter/internal"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter/internal/metrics"
 )
 
@@ -113,207 +108,48 @@ var (
 )
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		collectorVersion: "unknown",
-
-		TimeoutSettings:  exporterhelper.NewDefaultTimeoutConfig(),
-		QueueSettings:    configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		BackOffConfig:    configretry.NewDefaultBackOffConfig(),
-		ConnectionParams: map[string]string{},
-		Database:         defaultDatabase,
-		LogsTableName:    "otel_logs",
-		TracesTableName:  "otel_traces",
-		TTL:              0,
-		CreateSchema:     true,
-		AsyncInsert:      true,
-		MetricsTables: MetricTablesConfig{
-			Gauge:                metrics.MetricTypeConfig{Name: defaultMetricTableName + defaultGaugeSuffix},
-			Sum:                  metrics.MetricTypeConfig{Name: defaultMetricTableName + defaultSumSuffix},
-			Summary:              metrics.MetricTypeConfig{Name: defaultMetricTableName + defaultSummarySuffix},
-			Histogram:            metrics.MetricTypeConfig{Name: defaultMetricTableName + defaultHistogramSuffix},
-			ExponentialHistogram: metrics.MetricTypeConfig{Name: defaultMetricTableName + defaultExpHistogramSuffix},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // Validate the ClickHouse server configuration.
-func (cfg *Config) Validate() (err error) {
-	if cfg.Endpoint == "" {
-		err = errors.Join(err, errConfigNoEndpoint)
-	}
+func (cfg *Config) Validate() (err error) { _ = "STUB: not implemented"; return nil }
 
-	dsn, e := cfg.buildDSN()
-	if e != nil {
-		err = errors.Join(err, e)
-	}
+// Validate DSN with clickhouse driver.
+// Last chance to catch invalid config.
 
-	cfg.buildMetricTableNames()
+func (cfg *Config) buildDSN() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
-	// Validate DSN with clickhouse driver.
-	// Last chance to catch invalid config.
-	if _, e := clickhouse.ParseDSN(dsn); e != nil {
-		err = errors.Join(err, e)
-	}
+// Add connection params to query params.
 
-	return err
-}
+// Enable TLS if scheme is https. This flag is necessary to support https connections.
 
-func (cfg *Config) buildDSN() (string, error) {
-	dsnURL, err := url.Parse(cfg.Endpoint)
-	if err != nil {
-		return "", fmt.Errorf("%w: %s", errConfigInvalidEndpoint, err.Error())
-	}
+// Use async_insert from config if not specified in DSN.
 
-	queryParams := dsnURL.Query()
-
-	// Add connection params to query params.
-	for k, v := range cfg.ConnectionParams {
-		queryParams.Set(k, v)
-	}
-
-	// Enable TLS if scheme is https. This flag is necessary to support https connections.
-	if dsnURL.Scheme == "https" {
-		queryParams.Set("secure", "true")
-	}
-
-	// Use async_insert from config if not specified in DSN.
-	if !queryParams.Has("async_insert") {
-		queryParams.Set("async_insert", fmt.Sprintf("%t", cfg.AsyncInsert))
-	}
-
-	if !queryParams.Has("compress") && (cfg.Compress == "" || cfg.Compress == "true") {
-		queryParams.Set("compress", "lz4")
-	} else if !queryParams.Has("compress") {
-		queryParams.Set("compress", cfg.Compress)
-	}
-
-	productInfo := queryParams.Get("client_info_product")
-	collectorProductInfo := fmt.Sprintf("%s/%s", "otelcol", cfg.collectorVersion)
-	if productInfo == "" {
-		productInfo = collectorProductInfo
-	} else {
-		productInfo = fmt.Sprintf("%s,%s", productInfo, collectorProductInfo)
-	}
-	queryParams.Set("client_info_product", productInfo)
-
-	// Override username and password if specified in config.
-	if cfg.Username != "" {
-		dsnURL.User = url.UserPassword(cfg.Username, string(cfg.Password))
-	}
-
-	dsnURL.RawQuery = queryParams.Encode()
-
-	return dsnURL.String(), nil
-}
+// Override username and password if specified in config.
 
 func (cfg *Config) buildClickHouseOptions() (*clickhouse.Options, error) {
-	dsn, err := cfg.buildDSN()
-	if err != nil {
-		return nil, fmt.Errorf("failed to build DSN from config: %w", err)
-	}
-
-	opt, err := clickhouse.ParseDSN(dsn)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse DSN: %w", err)
-	}
-
-	// Load TLS config if any TLS-related field is set (not just cert/key).
-	if cfg.TLS.CertFile != "" ||
-		cfg.TLS.KeyFile != "" ||
-		cfg.TLS.CAFile != "" ||
-		cfg.TLS.ServerName != "" ||
-		cfg.TLS.Insecure ||
-		cfg.TLS.InsecureSkipVerify {
-		opt.TLS, err = cfg.TLS.LoadTLSConfig(context.Background())
-		if err != nil {
-			return nil, fmt.Errorf("failed to load TLS config: %w", err)
-		}
-	}
-
-	return opt, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Load TLS config if any TLS-related field is set (not just cert/key).
 
 // shouldCreateSchema returns true if the exporter should run the DDL for creating database/tables.
-func (cfg *Config) shouldCreateSchema() bool {
-	return cfg.CreateSchema
-}
+func (cfg *Config) shouldCreateSchema() bool { _ = "STUB: not implemented"; return false }
 
-func (cfg *Config) buildMetricTableNames() {
-	tableName := defaultMetricTableName
+func (cfg *Config) buildMetricTableNames() { _ = "STUB: not implemented"; return }
 
-	if cfg.MetricsTableName != "" && !cfg.areMetricTableNamesSet() {
-		tableName = cfg.MetricsTableName
-	}
-
-	if cfg.MetricsTables.Gauge.Name == "" {
-		cfg.MetricsTables.Gauge.Name = tableName + defaultGaugeSuffix
-	}
-	if cfg.MetricsTables.Sum.Name == "" {
-		cfg.MetricsTables.Sum.Name = tableName + defaultSumSuffix
-	}
-	if cfg.MetricsTables.Summary.Name == "" {
-		cfg.MetricsTables.Summary.Name = tableName + defaultSummarySuffix
-	}
-	if cfg.MetricsTables.Histogram.Name == "" {
-		cfg.MetricsTables.Histogram.Name = tableName + defaultHistogramSuffix
-	}
-	if cfg.MetricsTables.ExponentialHistogram.Name == "" {
-		cfg.MetricsTables.ExponentialHistogram.Name = tableName + defaultExpHistogramSuffix
-	}
-}
-
-func (cfg *Config) areMetricTableNamesSet() bool {
-	return cfg.MetricsTables.Gauge.Name != "" ||
-		cfg.MetricsTables.Sum.Name != "" ||
-		cfg.MetricsTables.Summary.Name != "" ||
-		cfg.MetricsTables.Histogram.Name != "" ||
-		cfg.MetricsTables.ExponentialHistogram.Name != ""
-}
+func (cfg *Config) areMetricTableNamesSet() bool { _ = "STUB: not implemented"; return false }
 
 // tableEngineString generates the ENGINE string.
-func (cfg *Config) tableEngineString() string {
-	engine := cfg.TableEngine.Name
-	params := cfg.TableEngine.Params
-
-	if cfg.TableEngine.Name == "" {
-		engine = defaultTableEngineName
-		params = ""
-	}
-
-	return fmt.Sprintf("%s(%s)", engine, params)
-}
+func (cfg *Config) tableEngineString() string { _ = "STUB: not implemented"; return "" }
 
 // database returns the preferred database for creating tables and inserting data.
 // The config option takes precedence over the DSN's settings.
 // Falls back to default if neither are set.
 // Assumes config has passed Validate.
-func (cfg *Config) database() string {
-	if cfg.Database != "" && cfg.Database != defaultDatabase {
-		return cfg.Database
-	}
-
-	dsn, err := cfg.buildDSN()
-	if err != nil {
-		return ""
-	}
-
-	dsnDB, err := internal.DatabaseFromDSN(dsn)
-	if err != nil {
-		return ""
-	}
-
-	if dsnDB != "" && dsnDB != defaultDatabase {
-		return dsnDB
-	}
-
-	return defaultDatabase
-}
+func (cfg *Config) database() string { _ = "STUB: not implemented"; return "" }
 
 // clusterString generates the ON CLUSTER string. Returns empty string if not set.
-func (cfg *Config) clusterString() string {
-	if cfg.ClusterName == "" {
-		return ""
-	}
-	escaped := strings.ReplaceAll(cfg.ClusterName, "`", "``")
-	return fmt.Sprintf("ON CLUSTER `%s`", escaped)
-}
+func (cfg *Config) clusterString() string { _ = "STUB: not implemented"; return "" }

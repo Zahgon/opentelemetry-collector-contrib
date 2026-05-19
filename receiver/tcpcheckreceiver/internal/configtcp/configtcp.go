@@ -4,7 +4,6 @@
 package configtcp // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tcpcheckreceiver/internal/configtcp"
 
 import (
-	"context"
 	"net"
 	"time"
 
@@ -24,21 +23,9 @@ type Client struct {
 }
 
 // Dial starts a TCP session.
-func (c *Client) Dial() (err error) {
-	c.Conn, err = c.TCPAddrConfig.Dial(context.Background())
-	if err != nil {
-		return err
-	}
-	return nil
-}
+func (c *Client) Dial() (err error) { _ = "STUB: not implemented"; return nil }
 
 func (tcs *TCPClientSettings) ToClient(component.Host, component.TelemetrySettings) (*Client, error) {
-	return &Client{
-		TCPAddrConfig: confignet.TCPAddrConfig{
-			Endpoint: tcs.Endpoint,
-			DialerConfig: confignet.DialerConfig{
-				Timeout: tcs.Timeout,
-			},
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -22,34 +22,18 @@ func NewAnd(
 	logger *zap.Logger,
 	subpolicies []samplingpolicy.Evaluator,
 ) samplingpolicy.Evaluator {
-	return &And{
-		subpolicies: subpolicies,
-		logger:      logger,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 func (c *And) Evaluate(ctx context.Context, traceID pcommon.TraceID, trace *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
+	_ = "STUB: not implemented"
 	// The policy iterates over all sub-policies and returns Sampled if all sub-policies returned a Sampled Decision.
 	// If any subpolicy returns NotSampled or InvertNotSampled, it returns NotSampled Decision.
-	for _, sub := range c.subpolicies {
-		decision, err := sub.Evaluate(ctx, traceID, trace)
-		if err != nil {
-			return samplingpolicy.Unspecified, err
-		}
-		//nolint:staticcheck // SA1019: Use of inverted decisions until they are fully removed.
-		if decision == samplingpolicy.NotSampled || decision == samplingpolicy.InvertNotSampled {
-			return samplingpolicy.NotSampled, nil
-		}
-	}
-	return samplingpolicy.Sampled, nil
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (c *And) IsStateful() bool {
-	for _, sub := range c.subpolicies {
-		if sub.IsStateful() {
-			return true
-		}
-	}
-	return false
-}
+//nolint:staticcheck // SA1019: Use of inverted decisions until they are fully removed.
+
+func (c *And) IsStateful() bool { _ = "STUB: not implemented"; return false }

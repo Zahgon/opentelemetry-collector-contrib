@@ -5,11 +5,9 @@ package azuremonitorreceiver // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azuremonitorreceiver/internal/metadata"
 )
@@ -289,53 +287,6 @@ const (
 const defaultMaximumResourcesPerBatch = 50
 
 // Validate validates the configuration by checking for missing or invalid fields
-func (c Config) Validate() (err error) {
-	if len(c.SubscriptionIDs) == 0 && !c.DiscoverSubscriptions {
-		err = multierr.Append(err, errMissingSubscriptionIDs)
-	}
+func (c Config) Validate() (err error) { _ = "STUB: not implemented"; return nil }
 
-	if c.Authentication == nil {
-		// only matters if there is no auth specified
-		switch c.Credentials {
-		case servicePrincipal:
-			if c.TenantID == "" {
-				err = multierr.Append(err, errMissingTenantID)
-			}
-
-			if c.ClientID == "" {
-				err = multierr.Append(err, errMissingClientID)
-			}
-
-			if c.ClientSecret == "" {
-				err = multierr.Append(err, errMissingClientSecret)
-			}
-		case workloadIdentity:
-			if c.TenantID == "" {
-				err = multierr.Append(err, errMissingTenantID)
-			}
-
-			if c.ClientID == "" {
-				err = multierr.Append(err, errMissingClientID)
-			}
-
-			if c.FederatedTokenFile == "" {
-				err = multierr.Append(err, errMissingFedTokenFile)
-			}
-
-		case managedIdentity:
-		case defaultCredentials:
-		default:
-			return fmt.Errorf("credentials %q is not supported. supported authentications include [%v,%v,%v,%v]", c.Credentials, servicePrincipal, workloadIdentity, managedIdentity, defaultCredentials)
-		}
-	}
-
-	if c.Cloud != azureCloud && c.Cloud != azureGovernmentCloud && c.Cloud != azureChinaCloud {
-		err = multierr.Append(err, errInvalidCloud)
-	}
-
-	if c.UseBatchAPI && c.MaximumResourcesPerBatch < 0 {
-		err = multierr.Append(err, errInvalidMaxResPerBatch)
-	}
-
-	return err
-}
+// only matters if there is no auth specified

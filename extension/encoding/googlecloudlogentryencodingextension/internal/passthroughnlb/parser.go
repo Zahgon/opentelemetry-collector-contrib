@@ -6,14 +6,9 @@ package passthroughnlb // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -71,72 +66,13 @@ type connection struct {
 
 // ParsePayloadIntoAttributes unmarshals the provided payload into the supplied attribute map.
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log loadBalancerLog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("%w: %w", errUnmarshalPayload, err)
-	}
-
-	if log.Type != externalLoadBalancerLogType && log.Type != internalLoadBalancerLogType {
-		return fmt.Errorf("%w: %q, expected %q or %q", errUnexpectedLogType, log.Type, externalLoadBalancerLogType, internalLoadBalancerLogType)
-	}
-
-	handleTimestamps(log.StartTime, log.EndTime, attr)
-
-	if err := handleConnection(log.Connection, attr); err != nil {
-		return err
-	}
-
-	if err := shared.AddStrAsInt(gcpPassthroughNLBBytesReceived, log.BytesReceived, attr); err != nil {
-		return fmt.Errorf("%w: %w", errBytesReceived, err)
-	}
-
-	if err := shared.AddStrAsInt(gcpPassthroughNLBBytesSent, log.BytesSent, attr); err != nil {
-		return fmt.Errorf("%w: %w", errBytesSent, err)
-	}
-
-	if err := shared.AddStrAsInt(gcpPassthroughNLBPacketsReceived, log.PacketsReceived, attr); err != nil {
-		return fmt.Errorf("%w: %w", errPacketsReceived, err)
-	}
-
-	if err := shared.AddStrAsInt(gcpPassthroughNLBPacketsSent, log.PacketsSent, attr); err != nil {
-		return fmt.Errorf("%w: %w", errPacketsSent, err)
-	}
-
-	if err := shared.PutDurationAsSeconds(gcpPassthroughNLBRTT, log.RTT, attr); err != nil {
-		return fmt.Errorf("%w: %w", errRTT, err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func handleConnection(conn *connection, attr pcommon.Map) error {
-	if conn == nil {
-		return nil
-	}
-
-	shared.PutStr(string(conventions.ClientAddressKey), conn.ClientIP, attr)
-	shared.PutInt(string(conventions.ClientPortKey), conn.ClientPort, attr)
-	shared.PutInt(string(conventions.ServerPortKey), conn.ServerPort, attr)
-
-	if conn.Protocol != nil {
-		if protoName, ok := shared.ProtocolName(uint32(*conn.Protocol)); ok {
-			attr.PutStr(string(conventions.NetworkTransportKey), protoName)
-		}
-	}
-
-	if _, err := shared.PutStrIfNotPresent(string(conventions.ServerAddressKey), conn.ServerIP, attr); err != nil {
-		return fmt.Errorf("%w: %w", errServerAddress, err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func handleTimestamps(start, end *time.Time, attr pcommon.Map) {
-	if start != nil {
-		attr.PutStr(gcpPassthroughNLBPacketsStartTime, start.Format(time.RFC3339Nano))
-	}
-
-	if end != nil {
-		attr.PutStr(gcpPassthroughNLBPacketsEndTime, end.Format(time.RFC3339Nano))
-	}
-}
+func handleTimestamps(start, end *time.Time, attr pcommon.Map) { _ = "STUB: not implemented"; return }

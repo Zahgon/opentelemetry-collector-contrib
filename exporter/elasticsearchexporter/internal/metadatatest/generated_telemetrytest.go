@@ -5,145 +5,53 @@ package metadatatest
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exportertest"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata/metricdatatest"
 )
 
 func NewSettings(tt *componenttest.Telemetry) exporter.Settings {
-	set := exportertest.NewNopSettings(exportertest.NopType)
-	set.ID = component.NewID(component.MustNewType("elasticsearch"))
-	set.TelemetrySettings = tt.NewTelemetrySettings()
-	return set
+	_ = "STUB: not implemented"
+	return *new(exporter.Settings)
 }
 
 func AssertEqualElasticsearchBulkRequestsCount(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.bulk_requests.count",
-		Description: "Count of the completed bulk requests. [Alpha]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.bulk_requests.count")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchBulkRequestsLatency(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.HistogramDataPoint[float64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.bulk_requests.latency",
-		Description: "Latency of Elasticsearch bulk operations in seconds. [Alpha]",
-		Unit:        "s",
-		Data: metricdata.Histogram[float64]{
-			Temporality: metricdata.CumulativeTemporality,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.bulk_requests.latency")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchDocsProcessed(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.docs.processed",
-		Description: "Count of documents flushed to Elasticsearch. [Alpha]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.docs.processed")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchDocsReceived(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.docs.received",
-		Description: "Count of Elasticsearch documents successfully received to be buffered. [Alpha]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.docs.received")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchDocsRetried(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.docs.retried",
-		Description: "Count of document retries. [Alpha]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.docs.retried")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchDocsRetriedHTTPRequest(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.docs.retried_http_request",
-		Description: "Count of documents retried due to HTTP request-level failures. [Alpha]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.docs.retried_http_request")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchFlushedBytes(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.flushed.bytes",
-		Description: "Number of bytes flushed by the indexer. [Alpha]",
-		Unit:        "By",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.flushed.bytes")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualElasticsearchFlushedUncompressedBytes(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol.elasticsearch.flushed.uncompressed_bytes",
-		Description: "Number of uncompressed bytes flushed by the indexer. [Alpha]",
-		Unit:        "By",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol.elasticsearch.flushed.uncompressed_bytes")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }

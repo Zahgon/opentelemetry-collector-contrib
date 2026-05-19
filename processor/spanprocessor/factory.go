@@ -10,9 +10,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/spanprocessor/internal/metadata"
 )
 
 const (
@@ -36,15 +33,11 @@ var (
 )
 
 // NewFactory returns a new factory for the Span processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -53,33 +46,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
+	_ = "STUB: not implemented"
 	// 'from_attributes' or 'to_attributes' under 'name' has to be set for the span
 	// processor to be valid. If not set and not enforced, the processor would do no work.
-	oCfg := cfg.(*Config)
-	if len(oCfg.Rename.FromAttributes) == 0 &&
-		(oCfg.Rename.ToAttributes == nil || len(oCfg.Rename.ToAttributes.Rules) == 0) &&
-		oCfg.SetStatus == nil {
-		return nil, errMissingRequiredField
-	}
-
-	if oCfg.SetStatus != nil {
-		if oCfg.SetStatus.Code != statusCodeUnset && oCfg.SetStatus.Code != statusCodeError && oCfg.SetStatus.Code != statusCodeOk {
-			return nil, errIncorrectStatusCode
-		}
-		if oCfg.SetStatus.Description != "" && oCfg.SetStatus.Code != statusCodeError {
-			return nil, errIncorrectStatusDescription
-		}
-	}
-
-	sp, err := newSpanProcessor(*oCfg)
-	if err != nil {
-		return nil, err
-	}
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		sp.processTraces,
-		processorhelper.WithCapabilities(processorCapabilities))
+	return *new(processor.Traces), nil
 }

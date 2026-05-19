@@ -8,28 +8,15 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/k8sobserver/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 )
 
 // NewFactory should be called to create a factory with default values.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 // CreateDefaultConfig creates the default configuration for the extension.
 func createDefaultConfig() component.Config {
-	return &Config{
-		APIConfig:    k8sconfig.APIConfig{AuthType: k8sconfig.AuthTypeServiceAccount},
-		ObservePods:  true,
-		ObserveNodes: false,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // CreateExtension creates the extension based on this config.
@@ -38,5 +25,6 @@ func createExtension(
 	params extension.Settings,
 	cfg component.Config,
 ) (extension.Extension, error) {
-	return newObserver(cfg.(*Config), params)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

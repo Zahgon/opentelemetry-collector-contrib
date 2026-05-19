@@ -12,12 +12,8 @@ import (
 
 // NewPayload returns an empty gohai payload since windows/arm64 is not supported.
 func NewPayload(logger *zap.Logger) gohai.Payload {
-	payload := gohai.NewEmpty()
-	payload.Gohai.Gohai = newGohai(logger)
-	return payload
+	_ = "STUB: not implemented"
+	return *new(gohai.Payload)
 }
 
-func newGohai(logger *zap.Logger) *gohai.Gohai {
-	logger.Info("Using noop gohai implementation for windows/arm64 since it is not supported")
-	return new(gohai.Gohai)
-}
+func newGohai(logger *zap.Logger) *gohai.Gohai { _ = "STUB: not implemented"; return nil }

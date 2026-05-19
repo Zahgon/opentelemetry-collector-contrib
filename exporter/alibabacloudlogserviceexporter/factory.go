@@ -10,23 +10,15 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/alibabacloudlogserviceexporter/internal/metadata"
 )
 
 // NewFactory creates a factory for AlibabaCloud LogService exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability))
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 // CreateDefaultConfig creates the default configuration for exporter.
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -34,7 +26,8 @@ func createTracesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	return newTracesExporter(set, cfg)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
 func createMetricsExporter(
@@ -42,7 +35,8 @@ func createMetricsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exp exporter.Metrics, err error) {
-	return newMetricsExporter(set, cfg)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createLogsExporter(
@@ -50,5 +44,6 @@ func createLogsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exp exporter.Logs, err error) {
-	return newLogsExporter(set, cfg)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }

@@ -29,44 +29,39 @@ func NewFakeInformer(
 	labelSelector labels.Selector,
 	fieldSelector fields.Selector,
 ) cache.SharedInformer {
-	return &FakeInformer{
-		FakeController: &FakeController{},
-		namespace:      namespace,
-		labelSelector:  labelSelector,
-		fieldSelector:  fieldSelector,
-	}
+	_ = "STUB: not implemented"
+	return *new(cache.SharedInformer)
 }
 
 func (f *FakeInformer) AddEventHandler(handler cache.ResourceEventHandler) (cache.ResourceEventHandlerRegistration, error) {
-	return f.AddEventHandlerWithResyncPeriod(handler, time.Second)
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (f *FakeInformer) AddEventHandlerWithResyncPeriod(_ cache.ResourceEventHandler, _ time.Duration) (cache.ResourceEventHandlerRegistration, error) {
-	return f, nil
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (f *FakeInformer) AddEventHandlerWithOptions(cache.ResourceEventHandler, cache.HandlerOptions) (cache.ResourceEventHandlerRegistration, error) {
-	return f, nil
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (*FakeInformer) RemoveEventHandler(cache.ResourceEventHandlerRegistration) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*FakeInformer) IsStopped() bool {
-	return false
-}
+func (*FakeInformer) IsStopped() bool { _ = "STUB: not implemented"; return false }
 
-func (*FakeInformer) SetTransform(cache.TransformFunc) error {
-	return nil
-}
+func (*FakeInformer) SetTransform(cache.TransformFunc) error { _ = "STUB: not implemented"; return nil }
 
-func (*FakeInformer) GetStore() cache.Store {
-	return cache.NewStore(func(_ any) (string, error) { return "", nil })
-}
+func (*FakeInformer) GetStore() cache.Store { _ = "STUB: not implemented"; return *new(cache.Store) }
 
 func (f *FakeInformer) GetController() cache.Controller {
-	return f.FakeController
+	_ = "STUB: not implemented"
+	return *new(cache.Controller)
 }
 
 type FakeNamespaceInformer struct {
@@ -76,22 +71,28 @@ type FakeNamespaceInformer struct {
 func NewFakeNamespaceInformer(
 	_ clientmeta.Interface,
 ) cache.SharedInformer {
-	return &FakeInformer{
-		FakeController: &FakeController{},
-	}
+	_ = "STUB: not implemented"
+	return *new(cache.SharedInformer)
 }
 
-func (*FakeNamespaceInformer) AddEventHandler(cache.ResourceEventHandler) {}
+func (*FakeNamespaceInformer) AddEventHandler(cache.ResourceEventHandler) {
+	_ = "STUB: not implemented"
+	return
+}
 
 func (*FakeNamespaceInformer) AddEventHandlerWithResyncPeriod(cache.ResourceEventHandler, time.Duration) {
+	_ = "STUB: not implemented"
+	return
 }
 
 func (*FakeNamespaceInformer) GetStore() cache.Store {
-	return cache.NewStore(func(any) (string, error) { return "", nil })
+	_ = "STUB: not implemented"
+	return *new(cache.Store)
 }
 
 func (f *FakeNamespaceInformer) GetController() cache.Controller {
-	return f.FakeController
+	_ = "STUB: not implemented"
+	return *new(cache.Controller)
 }
 
 type FakeReplicaSetInformer struct {
@@ -102,26 +103,33 @@ func NewFakeReplicaSetInformer(
 	_ clientmeta.Interface,
 	_ string,
 ) cache.SharedInformer {
-	return &FakeInformer{
-		FakeController: &FakeController{},
-	}
+	_ = "STUB: not implemented"
+	return *new(cache.SharedInformer)
 }
 
-func (*FakeReplicaSetInformer) AddEventHandler(cache.ResourceEventHandler) {}
+func (*FakeReplicaSetInformer) AddEventHandler(cache.ResourceEventHandler) {
+	_ = "STUB: not implemented"
+	return
+}
 
 func (*FakeReplicaSetInformer) AddEventHandlerWithResyncPeriod(cache.ResourceEventHandler, time.Duration) {
+	_ = "STUB: not implemented"
+	return
 }
 
 func (*FakeReplicaSetInformer) SetTransform(cache.TransformFunc) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*FakeReplicaSetInformer) GetStore() cache.Store {
-	return cache.NewStore(func(any) (string, error) { return "", nil })
+	_ = "STUB: not implemented"
+	return *new(cache.Store)
 }
 
 func (f *FakeReplicaSetInformer) GetController() cache.Controller {
-	return f.FakeController
+	_ = "STUB: not implemented"
+	return *new(cache.Controller)
 }
 
 type FakeController struct {
@@ -129,36 +137,23 @@ type FakeController struct {
 	stopped bool
 }
 
-func (*FakeController) HasSynced() bool {
-	return true
-}
+func (*FakeController) HasSynced() bool { _ = "STUB: not implemented"; return false }
 
-func (c *FakeController) Run(stopCh <-chan struct{}) {
-	<-stopCh
-	c.Lock()
-	c.stopped = true
-	c.Unlock()
-}
+func (c *FakeController) Run(stopCh <-chan struct{}) { _ = "STUB: not implemented"; return }
 
-func (c *FakeController) RunWithContext(ctx context.Context) {
-	c.Run(ctx.Done())
-}
+func (c *FakeController) RunWithContext(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-func (c *FakeController) HasStopped() bool {
-	c.Lock()
-	defer c.Unlock()
-	return c.stopped
-}
+func (c *FakeController) HasStopped() bool { _ = "STUB: not implemented"; return false }
 
-func (*FakeController) LastSyncResourceVersion() string {
-	return ""
-}
+func (*FakeController) LastSyncResourceVersion() string { _ = "STUB: not implemented"; return "" }
 
 func (*FakeInformer) SetWatchErrorHandler(cache.WatchErrorHandler) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*FakeInformer) SetWatchErrorHandlerWithContext(cache.WatchErrorHandlerWithContext) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -169,70 +164,59 @@ type NoOpInformer struct {
 func NewNoOpInformer(
 	_ clientmeta.Interface,
 ) cache.SharedInformer {
-	return &NoOpInformer{
-		NoOpController: &NoOpController{},
-	}
+	_ = "STUB: not implemented"
+	return *new(cache.SharedInformer)
 }
 
 func (f *NoOpInformer) AddEventHandler(handler cache.ResourceEventHandler) (cache.ResourceEventHandlerRegistration, error) {
-	return f.AddEventHandlerWithResyncPeriod(handler, time.Second)
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (f *NoOpInformer) AddEventHandlerWithResyncPeriod(cache.ResourceEventHandler, time.Duration) (cache.ResourceEventHandlerRegistration, error) {
-	return f, nil
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (f *NoOpInformer) AddEventHandlerWithOptions(cache.ResourceEventHandler, cache.HandlerOptions) (cache.ResourceEventHandlerRegistration, error) {
-	return f, nil
+	_ = "STUB: not implemented"
+	return *new(cache.ResourceEventHandlerRegistration), nil
 }
 
 func (*NoOpInformer) RemoveEventHandler(cache.ResourceEventHandlerRegistration) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*NoOpInformer) SetTransform(cache.TransformFunc) error {
-	return nil
-}
+func (*NoOpInformer) SetTransform(cache.TransformFunc) error { _ = "STUB: not implemented"; return nil }
 
-func (*NoOpInformer) GetStore() cache.Store {
-	return cache.NewStore(func(any) (string, error) { return "", nil })
-}
+func (*NoOpInformer) GetStore() cache.Store { _ = "STUB: not implemented"; return *new(cache.Store) }
 
 func (f *NoOpInformer) GetController() cache.Controller {
-	return f.NoOpController
+	_ = "STUB: not implemented"
+	return *new(cache.Controller)
 }
 
 type NoOpController struct {
 	hasStopped bool
 }
 
-func (c *NoOpController) Run(stopCh <-chan struct{}) {
-	go func() {
-		<-stopCh
-		c.hasStopped = true
-	}()
-}
+func (c *NoOpController) Run(stopCh <-chan struct{}) { _ = "STUB: not implemented"; return }
 
-func (c *NoOpController) RunWithContext(ctx context.Context) {
-	c.Run(ctx.Done())
-}
+func (c *NoOpController) RunWithContext(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-func (c *NoOpController) IsStopped() bool {
-	return c.hasStopped
-}
+func (c *NoOpController) IsStopped() bool { _ = "STUB: not implemented"; return false }
 
-func (*NoOpController) HasSynced() bool {
-	return true
-}
+func (*NoOpController) HasSynced() bool { _ = "STUB: not implemented"; return false }
 
-func (*NoOpController) LastSyncResourceVersion() string {
-	return ""
-}
+func (*NoOpController) LastSyncResourceVersion() string { _ = "STUB: not implemented"; return "" }
 
 func (*NoOpController) SetWatchErrorHandler(cache.WatchErrorHandler) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*NoOpController) SetWatchErrorHandlerWithContext(cache.WatchErrorHandlerWithContext) error {
+	_ = "STUB: not implemented"
 	return nil
 }

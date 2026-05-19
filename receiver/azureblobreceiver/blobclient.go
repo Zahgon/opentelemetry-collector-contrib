@@ -26,62 +26,26 @@ type azureBlobClient struct {
 var _ blobClient = (*azureBlobClient)(nil)
 
 func (bc *azureBlobClient) listBlobs(ctx context.Context, containerName string) ([]string, error) {
-	var blobs []string
-	pager := bc.serviceClient.NewListBlobsFlatPager(containerName, nil)
-	for pager.More() {
-		page, err := pager.NextPage(ctx)
-		if err != nil {
-			return nil, err
-		}
-		for _, blob := range page.Segment.BlobItems {
-			if blob.Name != nil {
-				blobs = append(blobs, *blob.Name)
-			}
-		}
-	}
-	return blobs, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (bc *azureBlobClient) readBlob(ctx context.Context, containerName, blobName string) (*bytes.Buffer, error) {
-	get, err := bc.serviceClient.DownloadStream(ctx, containerName, blobName, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	downloadedData := &bytes.Buffer{}
-	retryReader := get.NewRetryReader(ctx, &azblob.RetryReaderOptions{})
-	defer retryReader.Close()
-
-	_, err = downloadedData.ReadFrom(retryReader)
-
-	return downloadedData, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (bc *azureBlobClient) deleteBlob(ctx context.Context, containerName, blobName string) error {
-	_, err := bc.serviceClient.DeleteBlob(ctx, containerName, blobName, nil)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newBlobClientFromConnectionString(connectionString string, logger *zap.Logger) (*azureBlobClient, error) {
-	serviceClient, err := azblob.NewClientFromConnectionString(connectionString, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return &azureBlobClient{
-		serviceClient,
-		logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func newBlobClientFromCredential(storageAccountURL string, cred azcore.TokenCredential, logger *zap.Logger) (*azureBlobClient, error) {
-	serviceClient, err := azblob.NewClient(storageAccountURL, cred, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return &azureBlobClient{
-		serviceClient,
-		logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

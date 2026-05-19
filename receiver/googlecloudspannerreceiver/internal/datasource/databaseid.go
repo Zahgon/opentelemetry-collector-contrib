@@ -3,8 +3,6 @@
 
 package datasource // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/datasource"
 
-import "fmt"
-
 type DatabaseID struct {
 	projectID    string
 	instanceID   string
@@ -13,26 +11,14 @@ type DatabaseID struct {
 }
 
 func NewDatabaseID(projectID, instanceID, databaseName string) *DatabaseID {
-	return &DatabaseID{
-		projectID:    projectID,
-		instanceID:   instanceID,
-		databaseName: databaseName,
-		id:           fmt.Sprintf("projects/%v/instances/%v/databases/%v", projectID, instanceID, databaseName),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (databaseID *DatabaseID) ProjectID() string {
-	return databaseID.projectID
-}
+func (databaseID *DatabaseID) ProjectID() string { _ = "STUB: not implemented"; return "" }
 
-func (databaseID *DatabaseID) InstanceID() string {
-	return databaseID.instanceID
-}
+func (databaseID *DatabaseID) InstanceID() string { _ = "STUB: not implemented"; return "" }
 
-func (databaseID *DatabaseID) DatabaseName() string {
-	return databaseID.databaseName
-}
+func (databaseID *DatabaseID) DatabaseName() string { _ = "STUB: not implemented"; return "" }
 
-func (databaseID *DatabaseID) ID() string {
-	return databaseID.id
-}
+func (databaseID *DatabaseID) ID() string { _ = "STUB: not implemented"; return "" }

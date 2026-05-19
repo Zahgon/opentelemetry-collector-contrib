@@ -4,13 +4,9 @@
 package datareceivers // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datareceivers"
 
 import (
-	"context"
-
-	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/datadogreceiver"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -23,36 +19,21 @@ type datadogDataReceiver struct {
 // NewDataDogDataReceiver creates a new DD DataReceiver that will listen on the specified port after Start
 // is called.
 func NewDataDogDataReceiver() testbed.DataReceiver {
-	return &datadogDataReceiver{DataReceiverBase: testbed.DataReceiverBase{}}
+	_ = "STUB: not implemented"
+	return *new(testbed.DataReceiver)
 }
 
 func (dd *datadogDataReceiver) Start(tc consumer.Traces, _ consumer.Metrics, _ consumer.Logs) error {
-	factory := datadogreceiver.NewFactory()
-	cfg := factory.CreateDefaultConfig().(*datadogreceiver.Config)
-	cfg.NetAddr.Endpoint = "0.0.0.0:8126"
-
-	set := receiver.Settings{}
-	var err error
-	dd.receiver, err = factory.CreateTraces(context.Background(), set, cfg, tc)
-	if err != nil {
-		return err
-	}
-
-	return dd.receiver.Start(context.Background(), componenttest.NewNopHost())
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (dd *datadogDataReceiver) Stop() error {
-	return dd.receiver.Shutdown(context.Background())
-}
+func (dd *datadogDataReceiver) Stop() error { _ = "STUB: not implemented"; return nil }
 
 func (*datadogDataReceiver) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates an exporter config for agent.
-	return `
-  datadog:
-    endpoint: 0.0.0.0:8126
-    `
+	return ""
 }
 
-func (*datadogDataReceiver) ProtocolName() string {
-	return "datadog"
-}
+func (*datadogDataReceiver) ProtocolName() string { _ = "STUB: not implemented"; return "" }

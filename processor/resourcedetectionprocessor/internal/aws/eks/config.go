@@ -12,8 +12,4 @@ type Config struct {
 	NodeFromEnvVar     string                            `mapstructure:"node_from_env_var"`
 }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

@@ -4,16 +4,13 @@
 package awss3exporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter"
 
 import (
-	"errors"
 	"time"
 
-	s3types "github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.uber.org/multierr"
 )
 
 const (
@@ -106,51 +103,4 @@ type Config struct {
 	ResourceAttrsToS3     ResourceAttrsToS3 `mapstructure:"resource_attrs_to_s3"`
 }
 
-func (c *Config) Validate() error {
-	var errs error
-
-	validStorageClasses := make(map[s3types.StorageClass]bool)
-	for _, sc := range s3types.StorageClassStandard.Values() {
-		validStorageClasses[sc] = true
-	}
-
-	validACLs := make(map[s3types.ObjectCannedACL]bool)
-	for _, acl := range s3types.ObjectCannedACLPrivate.Values() {
-		validACLs[acl] = true
-	}
-
-	validUniqueKeyFuncs := map[string]bool{
-		"uuidv7": true,
-	}
-
-	if c.S3Uploader.Region == "" {
-		errs = multierr.Append(errs, errors.New("region is required"))
-	}
-	if c.S3Uploader.S3Bucket == "" && c.S3Uploader.Endpoint == "" {
-		errs = multierr.Append(errs, errors.New("bucket or endpoint is required"))
-	}
-
-	if !validStorageClasses[s3types.StorageClass(c.S3Uploader.StorageClass)] {
-		errs = multierr.Append(errs, errors.New("invalid StorageClass"))
-	}
-
-	if c.S3Uploader.ACL != "" && !validACLs[s3types.ObjectCannedACL(c.S3Uploader.ACL)] {
-		errs = multierr.Append(errs, errors.New("invalid ACL"))
-	}
-
-	compression := c.S3Uploader.Compression
-	if compression.IsCompressed() {
-		if compression != configcompression.TypeGzip && compression != configcompression.TypeZstd {
-			errs = multierr.Append(errs, errors.New("unknown compression type"))
-		}
-	}
-
-	if c.S3Uploader.RetryMode != "nop" && c.S3Uploader.RetryMode != "standard" && c.S3Uploader.RetryMode != "adaptive" {
-		errs = multierr.Append(errs, errors.New("invalid retry mode, must be either 'standard', 'adaptive' or 'nop'"))
-	}
-
-	if c.S3Uploader.UniqueKeyFuncName != "" && !validUniqueKeyFuncs[c.S3Uploader.UniqueKeyFuncName] {
-		errs = multierr.Append(errs, errors.New("invalid UniqueKeyFuncName"))
-	}
-	return errs
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

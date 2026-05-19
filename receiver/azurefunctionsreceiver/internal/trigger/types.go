@@ -25,11 +25,4 @@ type Consumer interface {
 
 // AddMetadataToLogs sets the given attributes on every resource in logs.
 // Shared by consumers that attach trigger metadata to log resources.
-func AddMetadataToLogs(logs *plog.Logs, attrs map[string]string) {
-	for i := 0; i < logs.ResourceLogs().Len(); i++ {
-		res := logs.ResourceLogs().At(i).Resource()
-		for k, v := range attrs {
-			res.Attributes().PutStr(k, v)
-		}
-	}
-}
+func AddMetadataToLogs(logs *plog.Logs, attrs map[string]string) { _ = "STUB: not implemented"; return }

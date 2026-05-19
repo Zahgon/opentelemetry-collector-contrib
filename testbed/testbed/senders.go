@@ -4,19 +4,12 @@
 package testbed // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 
 import (
-	"context"
-	"fmt"
 	"net"
 
-	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/config/configcompression"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/exporter/exportertest"
 	"go.opentelemetry.io/collector/exporter/otlpexporter"
 	"go.opentelemetry.io/collector/exporter/otlphttpexporter"
-	"go.uber.org/zap"
 )
 
 // DataSender defines the interface that allows sending data. This is an interface
@@ -68,13 +61,12 @@ type DataSenderBase struct {
 	Host string
 }
 
-func (dsb *DataSenderBase) GetEndpoint() net.Addr {
-	addr, _ := net.ResolveTCPAddr("tcp", fmt.Sprintf("%s:%d", dsb.Host, dsb.Port))
-	return addr
-}
+func (dsb *DataSenderBase) GetEndpoint() net.Addr { _ = "STUB: not implemented"; return *new(net.Addr) }
 
 func (*DataSenderBase) Flush() {
+	_ = "STUB: not implemented"
 	// Exporter interface does not support Flush, so nothing to do.
+	return
 }
 
 type otlpHTTPDataSender struct {
@@ -83,32 +75,27 @@ type otlpHTTPDataSender struct {
 }
 
 func (ods *otlpHTTPDataSender) fillConfig(cfg *otlphttpexporter.Config) *otlphttpexporter.Config {
-	cfg.ClientConfig.Endpoint = fmt.Sprintf("http://%s", ods.GetEndpoint())
-	// Disable retries, we should push data and if error just log it.
-	cfg.RetryConfig.Enabled = false
-	// Disable sending queue, we should push data from the caller goroutine.
-	cfg.QueueConfig = configoptional.Default(*cfg.QueueConfig.Get())
-	cfg.ClientConfig.TLS = configtls.ClientConfig{
-		Insecure: true,
-	}
-	cfg.ClientConfig.Compression = ods.compression
-	return cfg
+	_ = "STUB: not implemented"
+	return nil
 }
 
+// Disable retries, we should push data and if error just log it.
+
+// Disable sending queue, we should push data from the caller goroutine.
+
 func (ods *otlpHTTPDataSender) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates a receiver config for agent.
-	return fmt.Sprintf(`
-  otlp:
-    protocols:
-      http:
-        endpoint: "%s"`, ods.GetEndpoint())
+	return ""
 }
 
 func (*otlpHTTPDataSender) ProtocolName() string {
-	return "otlp"
+	_ = "STUB: not implemented"
+
+	// otlpHTTPTraceDataSender implements TraceDataSender for OTLP/HTTP trace exporter.
+	return ""
 }
 
-// otlpHTTPTraceDataSender implements TraceDataSender for OTLP/HTTP trace exporter.
 type otlpHTTPTraceDataSender struct {
 	otlpHTTPDataSender
 	consumer.Traces
@@ -116,31 +103,11 @@ type otlpHTTPTraceDataSender struct {
 
 // NewOTLPHTTPTraceDataSender creates a new TraceDataSender for OTLP/HTTP traces exporter.
 func NewOTLPHTTPTraceDataSender(host string, port int, compression configcompression.Type) TraceDataSender {
-	return &otlpHTTPTraceDataSender{
-		otlpHTTPDataSender: otlpHTTPDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-			compression: compression,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(TraceDataSender)
 }
 
-func (ote *otlpHTTPTraceDataSender) Start() error {
-	factory := otlphttpexporter.NewFactory()
-	cfg := ote.fillConfig(factory.CreateDefaultConfig().(*otlphttpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateTraces(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	ote.Traces = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (ote *otlpHTTPTraceDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 // otlpHTTPMetricsDataSender implements MetricDataSender for OTLP/HTTP metrics exporter.
 type otlpHTTPMetricsDataSender struct {
@@ -151,30 +118,11 @@ type otlpHTTPMetricsDataSender struct {
 // NewOTLPHTTPMetricDataSender creates a new OTLP/HTTP metrics exporter sender that will send
 // to the specified port after Start is called.
 func NewOTLPHTTPMetricDataSender(host string, port int) MetricDataSender {
-	return &otlpHTTPMetricsDataSender{
-		otlpHTTPDataSender: otlpHTTPDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricDataSender)
 }
 
-func (ome *otlpHTTPMetricsDataSender) Start() error {
-	factory := otlphttpexporter.NewFactory()
-	cfg := ome.fillConfig(factory.CreateDefaultConfig().(*otlphttpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateMetrics(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	ome.Metrics = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (ome *otlpHTTPMetricsDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 // otlpHTTPLogsDataSender implements LogsDataSender for OTLP/HTTP logs exporter.
 type otlpHTTPLogsDataSender struct {
@@ -185,61 +133,38 @@ type otlpHTTPLogsDataSender struct {
 // NewOTLPHTTPLogsDataSender creates a new OTLP/HTTP logs exporter sender that will send
 // to the specified port after Start is called.
 func NewOTLPHTTPLogsDataSender(host string, port int) LogDataSender {
-	return &otlpHTTPLogsDataSender{
-		otlpHTTPDataSender: otlpHTTPDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(LogDataSender)
 }
 
-func (olds *otlpHTTPLogsDataSender) Start() error {
-	factory := otlphttpexporter.NewFactory()
-	cfg := olds.fillConfig(factory.CreateDefaultConfig().(*otlphttpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateLogs(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	olds.Logs = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (olds *otlpHTTPLogsDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 type otlpDataSender struct {
 	DataSenderBase
 }
 
 func (ods *otlpDataSender) fillConfig(cfg *otlpexporter.Config) *otlpexporter.Config {
-	cfg.ClientConfig.Endpoint = ods.GetEndpoint().String()
-	// Disable retries, we should push data and if error just log it.
-	cfg.RetryConfig.Enabled = false
-	// Disable sending queue, we should push data from the caller goroutine.
-	cfg.QueueConfig = configoptional.Default(*cfg.QueueConfig.Get())
-	cfg.ClientConfig.TLS = configtls.ClientConfig{
-		Insecure: true,
-	}
-	return cfg
+	_ = "STUB: not implemented"
+	return nil
 }
 
+// Disable retries, we should push data and if error just log it.
+
+// Disable sending queue, we should push data from the caller goroutine.
+
 func (ods *otlpDataSender) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates a receiver config for agent.
-	return fmt.Sprintf(`
-  otlp:
-    protocols:
-      grpc:
-        endpoint: "%s"`, ods.GetEndpoint())
+	return ""
 }
 
 func (*otlpDataSender) ProtocolName() string {
-	return "otlp"
+	_ = "STUB: not implemented"
+
+	// otlpTraceDataSender implements TraceDataSender for OTLP traces exporter.
+	return ""
 }
 
-// otlpTraceDataSender implements TraceDataSender for OTLP traces exporter.
 type otlpTraceDataSender struct {
 	otlpDataSender
 	consumer.Traces
@@ -247,30 +172,11 @@ type otlpTraceDataSender struct {
 
 // NewOTLPTraceDataSender creates a new TraceDataSender for OTLP traces exporter.
 func NewOTLPTraceDataSender(host string, port int) TraceDataSender {
-	return &otlpTraceDataSender{
-		otlpDataSender: otlpDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(TraceDataSender)
 }
 
-func (ote *otlpTraceDataSender) Start() error {
-	factory := otlpexporter.NewFactory()
-	cfg := ote.fillConfig(factory.CreateDefaultConfig().(*otlpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateTraces(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	ote.Traces = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (ote *otlpTraceDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 // otlpMetricsDataSender implements MetricDataSender for OTLP metrics exporter.
 type otlpMetricsDataSender struct {
@@ -281,30 +187,11 @@ type otlpMetricsDataSender struct {
 // NewOTLPMetricDataSender creates a new OTLP metric exporter sender that will send
 // to the specified port after Start is called.
 func NewOTLPMetricDataSender(host string, port int) MetricDataSender {
-	return &otlpMetricsDataSender{
-		otlpDataSender: otlpDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricDataSender)
 }
 
-func (ome *otlpMetricsDataSender) Start() error {
-	factory := otlpexporter.NewFactory()
-	cfg := ome.fillConfig(factory.CreateDefaultConfig().(*otlpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateMetrics(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	ome.Metrics = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (ome *otlpMetricsDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
 // otlpLogsDataSender implements LogsDataSender for OTLP logs exporter.
 type otlpLogsDataSender struct {
@@ -315,27 +202,8 @@ type otlpLogsDataSender struct {
 // NewOTLPLogsDataSender creates a new OTLP logs exporter sender that will send
 // to the specified port after Start is called.
 func NewOTLPLogsDataSender(host string, port int) LogDataSender {
-	return &otlpLogsDataSender{
-		otlpDataSender: otlpDataSender{
-			DataSenderBase: DataSenderBase{
-				Port: port,
-				Host: host,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(LogDataSender)
 }
 
-func (olds *otlpLogsDataSender) Start() error {
-	factory := otlpexporter.NewFactory()
-	cfg := olds.fillConfig(factory.CreateDefaultConfig().(*otlpexporter.Config))
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
-
-	exp, err := factory.CreateLogs(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
-
-	olds.Logs = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
+func (olds *otlpLogsDataSender) Start() error { _ = "STUB: not implemented"; return nil }

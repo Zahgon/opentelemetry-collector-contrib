@@ -4,8 +4,6 @@
 package haproxyreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/haproxyreceiver"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
 
@@ -18,9 +16,4 @@ type Config struct {
 	metadata.MetricsBuilderConfig  `mapstructure:",squash"`
 }
 
-func (c Config) Validate() error {
-	if c.Endpoint == "" {
-		return errors.New("'endpoint' cannot be empty")
-	}
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }

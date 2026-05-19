@@ -52,21 +52,10 @@ type Edge struct {
 	VirtualNodeLabel VirtualNodeLabel
 }
 
-func newEdge(key Key, ttl time.Duration) *Edge {
-	return &Edge{
-		Key:        key,
-		Dimensions: make(map[string]string),
-		expiration: time.Now().Add(ttl),
-		Peer:       make(map[string]string),
-	}
-}
+func newEdge(key Key, ttl time.Duration) *Edge { _ = "STUB: not implemented"; return nil }
 
 // isComplete returns true if the corresponding client and server
 // pair spans have been processed for the given Edge
-func (e *Edge) isComplete() bool {
-	return e.ClientService != "" && e.ServerService != ""
-}
+func (e *Edge) isComplete() bool { _ = "STUB: not implemented"; return false }
 
-func (e *Edge) isExpired() bool {
-	return time.Now().After(e.expiration)
-}
+func (e *Edge) isExpired() bool { _ = "STUB: not implemented"; return false }

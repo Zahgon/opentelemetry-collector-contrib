@@ -5,7 +5,6 @@ package prometheusremotewriteexporter // import "github.com/open-telemetry/opent
 
 import (
 	"context"
-	"errors"
 
 	"go.uber.org/zap"
 )
@@ -17,19 +16,11 @@ const (
 )
 
 func contextWithLogger(ctx context.Context, log *zap.Logger) context.Context {
-	return context.WithValue(ctx, loggerCtxKey, log)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
 func loggerFromContext(ctx context.Context) (*zap.Logger, error) {
-	v := ctx.Value(loggerCtxKey)
-	if v == nil {
-		return nil, errors.New("no logger found in context")
-	}
-
-	l, ok := v.(*zap.Logger)
-	if !ok {
-		return nil, errors.New("invalid logger found in context")
-	}
-
-	return l, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

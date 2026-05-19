@@ -14,53 +14,17 @@ type FilterSet struct {
 
 // Matches sends a datapoint through each of the filters in the set and returns
 // true if at least one of them matches the datapoint.
-func (fs *FilterSet) Matches(dp *sfxpb.DataPoint) bool {
-	for _, ex := range fs.excludeFilters {
-		if ex.Matches(dp) {
-			// If we match an exclusionary filter, run through each inclusion
-			// filter and see if anything includes the metrics.
-			for _, in := range fs.includeFilters {
-				if in.Matches(dp) {
-					return false
-				}
-			}
-			return true
-		}
-	}
-	return false
-}
+func (fs *FilterSet) Matches(dp *sfxpb.DataPoint) bool { _ = "STUB: not implemented"; return false }
+
+// If we match an exclusionary filter, run through each inclusion
+// filter and see if anything includes the metrics.
 
 func NewFilterSet(excludes, includes []MetricFilter) (*FilterSet, error) {
-	excludeSet, err := getDataPointFilters(excludes)
-	if err != nil {
-		return nil, err
-	}
-
-	includeSet, err := getDataPointFilters(includes)
-	if err != nil {
-		return nil, err
-	}
-
-	return &FilterSet{
-		excludeFilters: excludeSet,
-		includeFilters: includeSet,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func getDataPointFilters(metricFilters []MetricFilter) ([]*dataPointFilter, error) {
-	out := make([]*dataPointFilter, len(metricFilters))
-	for i, f := range metricFilters {
-		dimSet, err := f.normalize()
-		if err != nil {
-			return nil, err
-		}
-
-		dpf, err := newDataPointFilter(f.MetricNames, dimSet)
-		if err != nil {
-			return nil, err
-		}
-
-		out[i] = dpf
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

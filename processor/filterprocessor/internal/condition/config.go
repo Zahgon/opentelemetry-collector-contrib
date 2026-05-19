@@ -4,9 +4,6 @@
 package condition // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor/internal/condition"
 
 import (
-	"fmt"
-	"strings"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 )
 
@@ -25,16 +22,7 @@ const (
 	Profile   ContextID = "profile"
 )
 
-func (c *ContextID) UnmarshalText(text []byte) error {
-	str := ContextID(strings.ToLower(string(text)))
-	switch str {
-	case Resource, Scope, Span, SpanEvent, Metric, DataPoint, Log, Profile:
-		*c = str
-		return nil
-	default:
-		return fmt.Errorf("unknown context %v", str)
-	}
-}
+func (c *ContextID) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 // ContextConditions is a wrapper struct for OTTL conditions.
 type ContextConditions struct {
@@ -45,22 +33,14 @@ type ContextConditions struct {
 	ErrorMode ottl.ErrorMode `mapstructure:"error_mode"`
 }
 
-func (c ContextConditions) GetConditions() []string {
-	return c.Conditions
-}
+func (c ContextConditions) GetConditions() []string { _ = "STUB: not implemented"; return nil }
 
 func toContextConditions(conditions any) (*ContextConditions, error) {
-	contextConditions, ok := conditions.(ContextConditions)
-	if !ok {
-		return nil, fmt.Errorf("invalid context conditions type, expected: common.ContextConditions, got: %T", conditions)
-	}
-	return &contextConditions, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func getErrorMode[T any](pc *ottl.ParserCollection[T], contextConditions *ContextConditions) ottl.ErrorMode {
-	errorMode := pc.ErrorMode
-	if contextConditions.ErrorMode != "" {
-		errorMode = contextConditions.ErrorMode
-	}
-	return errorMode
+	_ = "STUB: not implemented"
+	return *new(ottl.ErrorMode)
 }

@@ -4,11 +4,6 @@
 package awslambdareceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awslambdareceiver"
 
 import (
-	"errors"
-	"fmt"
-	"sort"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 )
 
@@ -42,26 +37,12 @@ type S3Encoding struct {
 
 // resolvePathPattern returns the effective path pattern for this encoding entry.
 // Returns the configured PathPattern if set, else the default for known names.
-func (e *S3Encoding) resolvePathPattern() string {
-	if e.PathPattern != "" {
-		return e.PathPattern
-	}
-	return defaultS3PathPatterns[e.Name]
-}
+func (e *S3Encoding) resolvePathPattern() string { _ = "STUB: not implemented"; return "" }
 
 // Validate validates an S3Encoding entry.
-func (e *S3Encoding) Validate() error {
-	if e.Name == "" {
-		return errors.New("'name' is required")
-	}
-	// Unknown name without an explicit path_pattern is not routable.
-	if e.PathPattern == "" {
-		if _, ok := defaultS3PathPatterns[e.Name]; !ok {
-			return fmt.Errorf("'path_pattern' is required for encoding %q (no default available); use %q for catch-all", e.Name, catchAllPattern)
-		}
-	}
-	return nil
-}
+func (e *S3Encoding) Validate() error { _ = "STUB: not implemented"; return nil }
+
+// Unknown name without an explicit path_pattern is not routable.
 
 // sharedConfig defines configuration options shared between Lambda trigger types.
 type sharedConfig struct {
@@ -85,56 +66,15 @@ type S3Config struct {
 }
 
 // Validate validates the S3Config.
-func (c *S3Config) Validate() error {
-	if c.Encoding != "" && len(c.Encodings) > 0 {
-		return errors.New("'encoding' and 'encodings' are mutually exclusive; use 'encodings' for multi-format support")
-	}
-	seen := make(map[string]bool, len(c.Encodings))
-	for i, e := range c.Encodings {
-		if err := e.Validate(); err != nil {
-			return fmt.Errorf("encodings[%d]: %w", i, err)
-		}
-		if seen[e.Name] {
-			return fmt.Errorf("encodings[%d]: duplicate encoding name %q", i, e.Name)
-		}
-		seen[e.Name] = true
-	}
-	return nil
-}
+func (c *S3Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // sortedEncodings returns a copy of Encodings sorted by path pattern specificity:
 // more-specific patterns first, catch-all "*" last.
 // This makes matching order-independent — users can list encodings in any order.
-func (c *S3Config) sortedEncodings() []S3Encoding {
-	if len(c.Encodings) == 0 {
-		return nil
-	}
-	sorted := make([]S3Encoding, len(c.Encodings))
-	copy(sorted, c.Encodings)
+func (c *S3Config) sortedEncodings() []S3Encoding { _ = "STUB: not implemented"; return nil }
 
-	// Pre-split patterns once; keyed by pattern string so the map stays correct
-	// as the sort swaps elements.
-	splitCache := make(map[string][]string, len(sorted))
-	for _, enc := range sorted {
-		p := enc.resolvePathPattern()
-		if _, ok := splitCache[p]; !ok {
-			splitCache[p] = strings.Split(p, "/")
-		}
-	}
-
-	sort.SliceStable(sorted, func(i, j int) bool {
-		pi := sorted[i].resolvePathPattern()
-		pj := sorted[j].resolvePathPattern()
-		if isCatchAllPattern(pi) && !isCatchAllPattern(pj) {
-			return false
-		}
-		if !isCatchAllPattern(pi) && isCatchAllPattern(pj) {
-			return true
-		}
-		return comparePatternSpecificity(splitCache[pi], splitCache[pj]) < 0
-	})
-	return sorted
-}
+// Pre-split patterns once; keyed by pattern string so the map stays correct
+// as the sort swaps elements.
 
 // Config is the top-level configuration for the awslambda receiver.
 type Config struct {
@@ -153,31 +93,12 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func (c *Config) Validate() error {
-	if c.FailureBucketARN != "" {
-		if _, err := getBucketNameFromARN(c.FailureBucketARN); err != nil {
-			return fmt.Errorf("invalid failure_bucket_arn: %w", err)
-		}
-	}
-	if err := c.S3.Validate(); err != nil {
-		return fmt.Errorf("invalid s3 config: %w", err)
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // getBucketNameFromARN extracts the S3 bucket name from an ARN.
 // Example: "arn:aws:s3:::myBucket/folderA" => "myBucket"
-func getBucketNameFromARN(arn string) (string, error) {
-	if !strings.HasPrefix(arn, s3ARNPrefix) {
-		return "", fmt.Errorf("invalid S3 ARN format: %s", arn)
-	}
-	s3Path := strings.TrimPrefix(arn, s3ARNPrefix)
-	bucket, _, _ := strings.Cut(s3Path, "/")
-	if bucket == "" {
-		return "", fmt.Errorf("invalid S3 ARN format, bucket name missing: %s", arn)
-	}
-	return bucket, nil
-}
+func getBucketNameFromARN(arn string) (string, error) { _ = "STUB: not implemented"; return "", nil }

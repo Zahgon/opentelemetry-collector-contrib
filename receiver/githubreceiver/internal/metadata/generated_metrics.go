@@ -3,15 +3,11 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 const (
@@ -31,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsChangeState.
-func (av AttributeVcsChangeState) String() string {
-	switch av {
-	case AttributeVcsChangeStateOpen:
-		return "open"
-	case AttributeVcsChangeStateMerged:
-		return "merged"
-	}
-	return ""
-}
+func (av AttributeVcsChangeState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsChangeState is a helper map of string to AttributeVcsChangeState attribute value.
 var MapAttributeVcsChangeState = map[string]AttributeVcsChangeState{
@@ -57,15 +45,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsLineChangeType.
-func (av AttributeVcsLineChangeType) String() string {
-	switch av {
-	case AttributeVcsLineChangeTypeAdded:
-		return "added"
-	case AttributeVcsLineChangeTypeRemoved:
-		return "removed"
-	}
-	return ""
-}
+func (av AttributeVcsLineChangeType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsLineChangeType is a helper map of string to AttributeVcsLineChangeType attribute value.
 var MapAttributeVcsLineChangeType = map[string]AttributeVcsLineChangeType{
@@ -83,15 +63,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsRefBaseType.
-func (av AttributeVcsRefBaseType) String() string {
-	switch av {
-	case AttributeVcsRefBaseTypeBranch:
-		return "branch"
-	case AttributeVcsRefBaseTypeTag:
-		return "tag"
-	}
-	return ""
-}
+func (av AttributeVcsRefBaseType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsRefBaseType is a helper map of string to AttributeVcsRefBaseType attribute value.
 var MapAttributeVcsRefBaseType = map[string]AttributeVcsRefBaseType{
@@ -109,15 +81,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsRefHeadType.
-func (av AttributeVcsRefHeadType) String() string {
-	switch av {
-	case AttributeVcsRefHeadTypeBranch:
-		return "branch"
-	case AttributeVcsRefHeadTypeTag:
-		return "tag"
-	}
-	return ""
-}
+func (av AttributeVcsRefHeadType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsRefHeadType is a helper map of string to AttributeVcsRefHeadType attribute value.
 var MapAttributeVcsRefHeadType = map[string]AttributeVcsRefHeadType{
@@ -135,15 +99,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsRefType.
-func (av AttributeVcsRefType) String() string {
-	switch av {
-	case AttributeVcsRefTypeBranch:
-		return "branch"
-	case AttributeVcsRefTypeTag:
-		return "tag"
-	}
-	return ""
-}
+func (av AttributeVcsRefType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsRefType is a helper map of string to AttributeVcsRefType attribute value.
 var MapAttributeVcsRefType = map[string]AttributeVcsRefType{
@@ -161,15 +117,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVcsRevisionDeltaDirection.
-func (av AttributeVcsRevisionDeltaDirection) String() string {
-	switch av {
-	case AttributeVcsRevisionDeltaDirectionAhead:
-		return "ahead"
-	case AttributeVcsRevisionDeltaDirectionBehind:
-		return "behind"
-	}
-	return ""
-}
+func (av AttributeVcsRevisionDeltaDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVcsRevisionDeltaDirection is a helper map of string to AttributeVcsRevisionDeltaDirection attribute value.
 var MapAttributeVcsRevisionDeltaDirection = map[string]AttributeVcsRevisionDeltaDirection{
@@ -245,81 +193,19 @@ func (m *metricVcsChangeCount) init() {
 }
 
 func (m *metricVcsChangeCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsChangeStateAttributeValue string, vcsRepositoryNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeCountMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeCountMetricAttributeKeyVcsChangeState) {
-		dp.Attributes().PutStr("vcs.change.state", vcsChangeStateAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeCountMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsChangeCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsChangeCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricVcsChangeCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricVcsChangeCount) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricVcsChangeCount(cfg VcsChangeCountMetricConfig) metricVcsChangeCount {
-	m := metricVcsChangeCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsChangeCount)
 }
 
 type metricVcsChangeDuration struct {
@@ -340,84 +226,22 @@ func (m *metricVcsChangeDuration) init() {
 }
 
 func (m *metricVcsChangeDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsChangeStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeDurationMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeDurationMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeDurationMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeDurationMetricAttributeKeyVcsChangeState) {
-		dp.Attributes().PutStr("vcs.change.state", vcsChangeStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsChangeDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsChangeDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsChangeDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsChangeDuration(cfg VcsChangeDurationMetricConfig) metricVcsChangeDuration {
-	m := metricVcsChangeDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsChangeDuration)
 }
 
 type metricVcsChangeTimeToApproval struct {
@@ -438,81 +262,22 @@ func (m *metricVcsChangeTimeToApproval) init() {
 }
 
 func (m *metricVcsChangeTimeToApproval) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToApprovalMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToApprovalMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToApprovalMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsChangeTimeToApproval) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsChangeTimeToApproval) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsChangeTimeToApproval) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsChangeTimeToApproval(cfg VcsChangeTimeToApprovalMetricConfig) metricVcsChangeTimeToApproval {
-	m := metricVcsChangeTimeToApproval{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsChangeTimeToApproval)
 }
 
 type metricVcsChangeTimeToMerge struct {
@@ -533,81 +298,22 @@ func (m *metricVcsChangeTimeToMerge) init() {
 }
 
 func (m *metricVcsChangeTimeToMerge) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToMergeMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToMergeMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsChangeTimeToMergeMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsChangeTimeToMerge) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsChangeTimeToMerge) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsChangeTimeToMerge) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsChangeTimeToMerge(cfg VcsChangeTimeToMergeMetricConfig) metricVcsChangeTimeToMerge {
-	m := metricVcsChangeTimeToMerge{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsChangeTimeToMerge)
 }
 
 type metricVcsContributorCount struct {
@@ -628,78 +334,22 @@ func (m *metricVcsContributorCount) init() {
 }
 
 func (m *metricVcsContributorCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsContributorCountMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsContributorCountMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsContributorCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsContributorCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsContributorCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsContributorCount(cfg VcsContributorCountMetricConfig) metricVcsContributorCount {
-	m := metricVcsContributorCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsContributorCount)
 }
 
 type metricVcsRefCount struct {
@@ -720,81 +370,19 @@ func (m *metricVcsRefCount) init() {
 }
 
 func (m *metricVcsRefCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsRefCountMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefCountMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefCountMetricAttributeKeyVcsRefType) {
-		dp.Attributes().PutStr("vcs.ref.type", vcsRefTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsRefCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsRefCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricVcsRefCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricVcsRefCount) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricVcsRefCount(cfg VcsRefCountMetricConfig) metricVcsRefCount {
-	m := metricVcsRefCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsRefCount)
 }
 
 type metricVcsRefLinesDelta struct {
@@ -815,93 +403,22 @@ func (m *metricVcsRefLinesDelta) init() {
 }
 
 func (m *metricVcsRefLinesDelta) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue string, vcsRefBaseNameAttributeValue string, vcsRefBaseTypeAttributeValue string, vcsLineChangeTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRefHeadType) {
-		dp.Attributes().PutStr("vcs.ref.head.type", vcsRefHeadTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRefBaseName) {
-		dp.Attributes().PutStr("vcs.ref.base.name", vcsRefBaseNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsRefBaseType) {
-		dp.Attributes().PutStr("vcs.ref.base.type", vcsRefBaseTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefLinesDeltaMetricAttributeKeyVcsLineChangeType) {
-		dp.Attributes().PutStr("vcs.line_change.type", vcsLineChangeTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsRefLinesDelta) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsRefLinesDelta) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsRefLinesDelta) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsRefLinesDelta(cfg VcsRefLinesDeltaMetricConfig) metricVcsRefLinesDelta {
-	m := metricVcsRefLinesDelta{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsRefLinesDelta)
 }
 
 type metricVcsRefRevisionsDelta struct {
@@ -922,93 +439,22 @@ func (m *metricVcsRefRevisionsDelta) init() {
 }
 
 func (m *metricVcsRefRevisionsDelta) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue string, vcsRefBaseNameAttributeValue string, vcsRefBaseTypeAttributeValue string, vcsRevisionDeltaDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRefHeadType) {
-		dp.Attributes().PutStr("vcs.ref.head.type", vcsRefHeadTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRefBaseName) {
-		dp.Attributes().PutStr("vcs.ref.base.name", vcsRefBaseNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRefBaseType) {
-		dp.Attributes().PutStr("vcs.ref.base.type", vcsRefBaseTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefRevisionsDeltaMetricAttributeKeyVcsRevisionDeltaDirection) {
-		dp.Attributes().PutStr("vcs.revision_delta.direction", vcsRevisionDeltaDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsRefRevisionsDelta) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsRefRevisionsDelta) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsRefRevisionsDelta) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsRefRevisionsDelta(cfg VcsRefRevisionsDeltaMetricConfig) metricVcsRefRevisionsDelta {
-	m := metricVcsRefRevisionsDelta{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsRefRevisionsDelta)
 }
 
 type metricVcsRefTime struct {
@@ -1029,84 +475,19 @@ func (m *metricVcsRefTime) init() {
 }
 
 func (m *metricVcsRefTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, VcsRefTimeMetricAttributeKeyVcsRepositoryURLFull) {
-		dp.Attributes().PutStr("vcs.repository.url.full", vcsRepositoryURLFullAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefTimeMetricAttributeKeyVcsRepositoryName) {
-		dp.Attributes().PutStr("vcs.repository.name", vcsRepositoryNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefTimeMetricAttributeKeyVcsRefHeadName) {
-		dp.Attributes().PutStr("vcs.ref.head.name", vcsRefHeadNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, VcsRefTimeMetricAttributeKeyVcsRefHeadType) {
-		dp.Attributes().PutStr("vcs.ref.head.type", vcsRefHeadTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsRefTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsRefTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricVcsRefTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricVcsRefTime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricVcsRefTime(cfg VcsRefTimeMetricConfig) metricVcsRefTime {
-	m := metricVcsRefTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsRefTime)
 }
 
 type metricVcsRepositoryCount struct {
@@ -1124,39 +505,22 @@ func (m *metricVcsRepositoryCount) init() {
 }
 
 func (m *metricVcsRepositoryCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricVcsRepositoryCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricVcsRepositoryCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricVcsRepositoryCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricVcsRepositoryCount(cfg VcsRepositoryCountMetricConfig) metricVcsRepositoryCount {
-	m := metricVcsRepositoryCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricVcsRepositoryCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1189,63 +553,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                         mbc,
-		startTime:                      pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                  pmetric.NewMetrics(),
-		buildInfo:                      settings.BuildInfo,
-		metricVcsChangeCount:           newMetricVcsChangeCount(mbc.Metrics.VcsChangeCount),
-		metricVcsChangeDuration:        newMetricVcsChangeDuration(mbc.Metrics.VcsChangeDuration),
-		metricVcsChangeTimeToApproval:  newMetricVcsChangeTimeToApproval(mbc.Metrics.VcsChangeTimeToApproval),
-		metricVcsChangeTimeToMerge:     newMetricVcsChangeTimeToMerge(mbc.Metrics.VcsChangeTimeToMerge),
-		metricVcsContributorCount:      newMetricVcsContributorCount(mbc.Metrics.VcsContributorCount),
-		metricVcsRefCount:              newMetricVcsRefCount(mbc.Metrics.VcsRefCount),
-		metricVcsRefLinesDelta:         newMetricVcsRefLinesDelta(mbc.Metrics.VcsRefLinesDelta),
-		metricVcsRefRevisionsDelta:     newMetricVcsRefRevisionsDelta(mbc.Metrics.VcsRefRevisionsDelta),
-		metricVcsRefTime:               newMetricVcsRefTime(mbc.Metrics.VcsRefTime),
-		metricVcsRepositoryCount:       newMetricVcsRepositoryCount(mbc.Metrics.VcsRepositoryCount),
-		resourceAttributeIncludeFilter: make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter: make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.VcsOwnerName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["vcs.owner.name"] = filter.CreateFilter(mbc.ResourceAttributes.VcsOwnerName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.VcsOwnerName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["vcs.owner.name"] = filter.CreateFilter(mbc.ResourceAttributes.VcsOwnerName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.VcsProviderName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["vcs.provider.name"] = filter.CreateFilter(mbc.ResourceAttributes.VcsProviderName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.VcsProviderName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["vcs.provider.name"] = filter.CreateFilter(mbc.ResourceAttributes.VcsProviderName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1256,35 +589,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1293,108 +614,78 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	rm.SetSchemaUrl(conventions.SchemaURL)
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricVcsChangeCount.emit(ils.Metrics())
-	mb.metricVcsChangeDuration.emit(ils.Metrics())
-	mb.metricVcsChangeTimeToApproval.emit(ils.Metrics())
-	mb.metricVcsChangeTimeToMerge.emit(ils.Metrics())
-	mb.metricVcsContributorCount.emit(ils.Metrics())
-	mb.metricVcsRefCount.emit(ils.Metrics())
-	mb.metricVcsRefLinesDelta.emit(ils.Metrics())
-	mb.metricVcsRefRevisionsDelta.emit(ils.Metrics())
-	mb.metricVcsRefTime.emit(ils.Metrics())
-	mb.metricVcsRepositoryCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordVcsChangeCountDataPoint adds a data point to vcs.change.count metric.
 func (mb *MetricsBuilder) RecordVcsChangeCountDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsChangeStateAttributeValue AttributeVcsChangeState, vcsRepositoryNameAttributeValue string) {
-	mb.metricVcsChangeCount.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsChangeStateAttributeValue.String(), vcsRepositoryNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsChangeDurationDataPoint adds a data point to vcs.change.duration metric.
 func (mb *MetricsBuilder) RecordVcsChangeDurationDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsChangeStateAttributeValue AttributeVcsChangeState) {
-	mb.metricVcsChangeDuration.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue, vcsChangeStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsChangeTimeToApprovalDataPoint adds a data point to vcs.change.time_to_approval metric.
 func (mb *MetricsBuilder) RecordVcsChangeTimeToApprovalDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string) {
-	mb.metricVcsChangeTimeToApproval.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsChangeTimeToMergeDataPoint adds a data point to vcs.change.time_to_merge metric.
 func (mb *MetricsBuilder) RecordVcsChangeTimeToMergeDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string) {
-	mb.metricVcsChangeTimeToMerge.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsContributorCountDataPoint adds a data point to vcs.contributor.count metric.
 func (mb *MetricsBuilder) RecordVcsContributorCountDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string) {
-	mb.metricVcsContributorCount.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsRefCountDataPoint adds a data point to vcs.ref.count metric.
 func (mb *MetricsBuilder) RecordVcsRefCountDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefTypeAttributeValue AttributeVcsRefType) {
-	mb.metricVcsRefCount.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsRefLinesDeltaDataPoint adds a data point to vcs.ref.lines_delta metric.
 func (mb *MetricsBuilder) RecordVcsRefLinesDeltaDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue AttributeVcsRefHeadType, vcsRefBaseNameAttributeValue string, vcsRefBaseTypeAttributeValue AttributeVcsRefBaseType, vcsLineChangeTypeAttributeValue AttributeVcsLineChangeType) {
-	mb.metricVcsRefLinesDelta.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue, vcsRefHeadTypeAttributeValue.String(), vcsRefBaseNameAttributeValue, vcsRefBaseTypeAttributeValue.String(), vcsLineChangeTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsRefRevisionsDeltaDataPoint adds a data point to vcs.ref.revisions_delta metric.
 func (mb *MetricsBuilder) RecordVcsRefRevisionsDeltaDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue AttributeVcsRefHeadType, vcsRefBaseNameAttributeValue string, vcsRefBaseTypeAttributeValue AttributeVcsRefBaseType, vcsRevisionDeltaDirectionAttributeValue AttributeVcsRevisionDeltaDirection) {
-	mb.metricVcsRefRevisionsDelta.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue, vcsRefHeadTypeAttributeValue.String(), vcsRefBaseNameAttributeValue, vcsRefBaseTypeAttributeValue.String(), vcsRevisionDeltaDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsRefTimeDataPoint adds a data point to vcs.ref.time metric.
 func (mb *MetricsBuilder) RecordVcsRefTimeDataPoint(ts pcommon.Timestamp, val int64, vcsRepositoryURLFullAttributeValue string, vcsRepositoryNameAttributeValue string, vcsRefHeadNameAttributeValue string, vcsRefHeadTypeAttributeValue AttributeVcsRefHeadType) {
-	mb.metricVcsRefTime.recordDataPoint(mb.startTime, ts, val, vcsRepositoryURLFullAttributeValue, vcsRepositoryNameAttributeValue, vcsRefHeadNameAttributeValue, vcsRefHeadTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordVcsRepositoryCountDataPoint adds a data point to vcs.repository.count metric.
 func (mb *MetricsBuilder) RecordVcsRepositoryCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricVcsRepositoryCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

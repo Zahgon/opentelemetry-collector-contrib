@@ -11,8 +11,4 @@ type Config struct {
 	ResourceAttributes metadata.ResourceAttributesConfig `mapstructure:"resource_attributes"`
 }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

@@ -33,50 +33,45 @@ type EntityEventsSlice struct {
 
 // NewEntityEventsSlice creates an empty EntityEventsSlice.
 func NewEntityEventsSlice() EntityEventsSlice {
-	return EntityEventsSlice{orig: plog.NewLogRecordSlice()}
+	_ = "STUB: not implemented"
+	return *new(EntityEventsSlice)
 }
 
 // NewEntityEventsSliceFromLogs creates an EntityEventsSlice from a plog.LogRecordSlice.
 func NewEntityEventsSliceFromLogs(logs plog.LogRecordSlice) EntityEventsSlice {
-	return EntityEventsSlice{orig: logs}
+	_ = "STUB: not implemented"
+	return *new(EntityEventsSlice)
 }
 
 // AppendEmpty will append to the end of the slice an empty EntityEvent.
 // It returns the newly added EntityEvent.
 func (s EntityEventsSlice) AppendEmpty() EntityEvent {
-	return EntityEvent{orig: s.orig.AppendEmpty()}
+	_ = "STUB: not implemented"
+	return *new(EntityEvent)
 }
 
 // Len returns the number of elements in the slice.
-func (s EntityEventsSlice) Len() int {
-	return s.orig.Len()
-}
+func (s EntityEventsSlice) Len() int { _ = "STUB: not implemented"; return 0 }
 
 // EnsureCapacity is an operation that ensures the slice has at least the specified capacity.
-func (s EntityEventsSlice) EnsureCapacity(newCap int) {
-	s.orig.EnsureCapacity(newCap)
-}
+func (s EntityEventsSlice) EnsureCapacity(newCap int) { _ = "STUB: not implemented"; return }
 
 // At returns the element at the given index.
 func (s EntityEventsSlice) At(i int) EntityEvent {
-	return EntityEvent{orig: s.orig.At(i)}
+	_ = "STUB: not implemented"
+	return *new(EntityEvent)
 }
 
 // ConvertAndMoveToLogs converts entity events to log representation and moves them
 // from this EntityEventsSlice into plog.Logs. This slice becomes empty after this call.
 func (s EntityEventsSlice) ConvertAndMoveToLogs() plog.Logs {
-	logs := plog.NewLogs()
-
-	scopeLogs := logs.ResourceLogs().AppendEmpty().ScopeLogs().AppendEmpty()
-
-	// Set the scope marker.
-	scopeLogs.Scope().Attributes().PutBool(SemconvOtelEntityEventAsScope, true)
-
-	// Move all events. Note that this remove all
-	s.orig.MoveAndAppendTo(scopeLogs.LogRecords())
-
-	return logs
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }
+
+// Set the scope marker.
+
+// Move all events. Note that this remove all
 
 // EntityEvent is an entity event.
 type EntityEvent struct {
@@ -85,43 +80,38 @@ type EntityEvent struct {
 
 // Timestamp of the event.
 func (e EntityEvent) Timestamp() pcommon.Timestamp {
-	return e.orig.Timestamp()
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
 
 // SetTimestamp sets the event timestamp.
-func (e EntityEvent) SetTimestamp(timestamp pcommon.Timestamp) {
-	e.orig.SetTimestamp(timestamp)
-}
+func (e EntityEvent) SetTimestamp(timestamp pcommon.Timestamp) { _ = "STUB: not implemented"; return }
 
 // ID of the entity.
-func (e EntityEvent) ID() pcommon.Map {
-	m, ok := e.orig.Attributes().Get(semconvOtelEntityID)
-	if !ok {
-		return e.orig.Attributes().PutEmptyMap(semconvOtelEntityID)
-	}
-	return m.Map()
-}
+func (e EntityEvent) ID() pcommon.Map { _ = "STUB: not implemented"; return *new(pcommon.Map) }
 
 // SetEntityState makes this an EntityStateDetails event.
 func (e EntityEvent) SetEntityState() EntityStateDetails {
-	e.orig.Attributes().PutStr(semconvOtelEntityEventName, semconvEventEntityEventState)
-	return e.EntityStateDetails()
+	_ = "STUB: not implemented"
+	return *new(EntityStateDetails)
 }
 
 // EntityStateDetails returns the entity state details of this event.
 func (e EntityEvent) EntityStateDetails() EntityStateDetails {
-	return EntityStateDetails(e)
+	_ = "STUB: not implemented"
+	return *new(EntityStateDetails)
 }
 
 // SetEntityDelete makes this an EntityDeleteDetails event.
 func (e EntityEvent) SetEntityDelete() EntityDeleteDetails {
-	e.orig.Attributes().PutStr(semconvOtelEntityEventName, semconvEventEntityEventDelete)
-	return e.EntityDeleteDetails()
+	_ = "STUB: not implemented"
+	return *new(EntityDeleteDetails)
 }
 
 // EntityDeleteDetails return the entity delete details of this event.
 func (e EntityEvent) EntityDeleteDetails() EntityDeleteDetails {
-	return EntityDeleteDetails(e)
+	_ = "STUB: not implemented"
+	return *new(EntityDeleteDetails)
 }
 
 // EventType is the type of the entity event.
@@ -137,21 +127,7 @@ const (
 )
 
 // EventType returns the type of the event.
-func (e EntityEvent) EventType() EventType {
-	eventType, ok := e.orig.Attributes().Get(semconvOtelEntityEventName)
-	if !ok {
-		return EventTypeNone
-	}
-
-	switch eventType.Str() {
-	case semconvEventEntityEventState:
-		return EventTypeState
-	case semconvEventEntityEventDelete:
-		return EventTypeDelete
-	default:
-		return EventTypeNone
-	}
-}
+func (e EntityEvent) EventType() EventType { _ = "STUB: not implemented"; return *new(EventType) }
 
 // EntityStateDetails represents the details of an EntityState event.
 type EntityStateDetails struct {
@@ -160,40 +136,24 @@ type EntityStateDetails struct {
 
 // Attributes returns the attributes of the entity.
 func (s EntityStateDetails) Attributes() pcommon.Map {
-	m, ok := s.orig.Attributes().Get(semconvOtelEntityAttributes)
-	if !ok {
-		return s.orig.Attributes().PutEmptyMap(semconvOtelEntityAttributes)
-	}
-	return m.Map()
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 // EntityType returns the type of the entity.
-func (s EntityStateDetails) EntityType() string {
-	t, ok := s.orig.Attributes().Get(semconvOtelEntityType)
-	if !ok {
-		return ""
-	}
-	return t.Str()
-}
+func (s EntityStateDetails) EntityType() string { _ = "STUB: not implemented"; return "" }
 
 // SetEntityType sets the type of the entity.
-func (s EntityStateDetails) SetEntityType(t string) {
-	s.orig.Attributes().PutStr(semconvOtelEntityType, t)
-}
+func (s EntityStateDetails) SetEntityType(t string) { _ = "STUB: not implemented"; return }
 
 // SetInterval sets the reporting period
 // i.e. how frequently the information about this entity is reported via EntityState events even if the entity does not change.
-func (s EntityStateDetails) SetInterval(t time.Duration) {
-	s.orig.Attributes().PutInt(semconvOtelEntityInterval, t.Milliseconds())
-}
+func (s EntityStateDetails) SetInterval(t time.Duration) { _ = "STUB: not implemented"; return }
 
 // Interval returns the reporting period
 func (s EntityStateDetails) Interval() time.Duration {
-	t, ok := s.orig.Attributes().Get(semconvOtelEntityInterval)
-	if !ok {
-		return 0
-	}
-	return time.Duration(t.Int()) * time.Millisecond
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }
 
 // EntityDeleteDetails represents the details of an EntityDelete event.
@@ -203,15 +163,7 @@ type EntityDeleteDetails struct {
 
 // EntityType returns the type of the entity.
 // TODO: Move the entity type methods to EntityEvent as they are needed for both EntityState and EntityDelete events.
-func (d EntityDeleteDetails) EntityType() string {
-	t, ok := d.orig.Attributes().Get(semconvOtelEntityType)
-	if !ok {
-		return ""
-	}
-	return t.Str()
-}
+func (d EntityDeleteDetails) EntityType() string { _ = "STUB: not implemented"; return "" }
 
 // SetEntityType sets the type of the entity.
-func (d EntityDeleteDetails) SetEntityType(t string) {
-	d.orig.Attributes().PutStr(semconvOtelEntityType, t)
-}
+func (d EntityDeleteDetails) SetEntityType(t string) { _ = "STUB: not implemented"; return }

@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type CouchdbAverageRequestTimeMetricConfig struct {
 }
 
 func (ms *CouchdbAverageRequestTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type CouchdbDatabaseOpenMetricConfig struct {
 }
 
 func (ms *CouchdbDatabaseOpenMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -66,34 +46,12 @@ type CouchdbDatabaseOperationsMetricConfig struct {
 }
 
 func (ms *CouchdbDatabaseOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *CouchdbDatabaseOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case CouchdbDatabaseOperationsMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric couchdb.database.operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -104,16 +62,7 @@ type CouchdbFileDescriptorOpenMetricConfig struct {
 }
 
 func (ms *CouchdbFileDescriptorOpenMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -124,16 +73,7 @@ type CouchdbHttpdBulkRequestsMetricConfig struct {
 }
 
 func (ms *CouchdbHttpdBulkRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -154,36 +94,11 @@ type CouchdbHttpdRequestsMetricConfig struct {
 }
 
 func (ms *CouchdbHttpdRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *CouchdbHttpdRequestsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case CouchdbHttpdRequestsMetricAttributeKeyHTTPMethod:
-		default:
-			return fmt.Errorf("metric couchdb.httpd.requests doesn't have an attribute %v, valid attributes: [http.method]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *CouchdbHttpdRequestsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // CouchdbHttpdResponsesMetricAttributeKey specifies the key of an attribute for the couchdb.httpd.responses metric.
 type CouchdbHttpdResponsesMetricAttributeKey string
@@ -202,34 +117,12 @@ type CouchdbHttpdResponsesMetricConfig struct {
 }
 
 func (ms *CouchdbHttpdResponsesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *CouchdbHttpdResponsesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case CouchdbHttpdResponsesMetricAttributeKeyHTTPStatusCode:
-		default:
-			return fmt.Errorf("metric couchdb.httpd.responses doesn't have an attribute %v, valid attributes: [http.status_code]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -250,36 +143,11 @@ type CouchdbHttpdViewsMetricConfig struct {
 }
 
 func (ms *CouchdbHttpdViewsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *CouchdbHttpdViewsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case CouchdbHttpdViewsMetricAttributeKeyView:
-		default:
-			return fmt.Errorf("metric couchdb.httpd.views doesn't have an attribute %v, valid attributes: [view]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *CouchdbHttpdViewsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MetricsConfig provides config for couchdb metrics.
 type MetricsConfig struct {
@@ -293,42 +161,7 @@ type MetricsConfig struct {
 	CouchdbHttpdViews         CouchdbHttpdViewsMetricConfig         `mapstructure:"couchdb.httpd.views"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		CouchdbAverageRequestTime: CouchdbAverageRequestTimeMetricConfig{
-			Enabled: true,
-		},
-		CouchdbDatabaseOpen: CouchdbDatabaseOpenMetricConfig{
-			Enabled: true,
-		},
-		CouchdbDatabaseOperations: CouchdbDatabaseOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []CouchdbDatabaseOperationsMetricAttributeKey{CouchdbDatabaseOperationsMetricAttributeKeyOperation},
-		},
-		CouchdbFileDescriptorOpen: CouchdbFileDescriptorOpenMetricConfig{
-			Enabled: true,
-		},
-		CouchdbHttpdBulkRequests: CouchdbHttpdBulkRequestsMetricConfig{
-			Enabled: true,
-		},
-		CouchdbHttpdRequests: CouchdbHttpdRequestsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []CouchdbHttpdRequestsMetricAttributeKey{CouchdbHttpdRequestsMetricAttributeKeyHTTPMethod},
-		},
-		CouchdbHttpdResponses: CouchdbHttpdResponsesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []CouchdbHttpdResponsesMetricAttributeKey{CouchdbHttpdResponsesMetricAttributeKeyHTTPStatusCode},
-		},
-		CouchdbHttpdViews: CouchdbHttpdViewsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []CouchdbHttpdViewsMetricAttributeKey{CouchdbHttpdViewsMetricAttributeKeyView},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -345,14 +178,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -362,11 +188,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		CouchdbNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for couchdb metrics builder.
@@ -376,13 +199,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

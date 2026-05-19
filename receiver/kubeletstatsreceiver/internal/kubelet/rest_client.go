@@ -21,14 +21,8 @@ type HTTPRestClient struct {
 	client kube.Client
 }
 
-func NewRestClient(client kube.Client) *HTTPRestClient {
-	return &HTTPRestClient{client: client}
-}
+func NewRestClient(client kube.Client) *HTTPRestClient { _ = "STUB: not implemented"; return nil }
 
-func (c *HTTPRestClient) StatsSummary() ([]byte, error) {
-	return c.client.Get("/stats/summary")
-}
+func (c *HTTPRestClient) StatsSummary() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func (c *HTTPRestClient) Pods() ([]byte, error) {
-	return c.client.Get("/pods")
-}
+func (c *HTTPRestClient) Pods() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }

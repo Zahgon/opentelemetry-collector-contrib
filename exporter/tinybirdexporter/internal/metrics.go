@@ -4,12 +4,8 @@
 package internal // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/tinybirdexporter/internal"
 
 import (
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/traceutil"
 )
 
 type baseMetricSignal struct {
@@ -46,11 +42,8 @@ on datapoint data.
 This method must be called after baseMetricSignal initialization for each data point.
 */
 func loadDataPoint[T genericDataPoint](metric *baseMetricSignal, dp T) {
-	metric.exemplars = convertExemplars(dp.Exemplars())
-	metric.MetricAttributes = convertAttributes(dp.Attributes())
-	metric.StartTimestamp = dp.StartTimestamp().AsTime().Format(time.RFC3339Nano)
-	metric.Timestamp = dp.Timestamp().AsTime().Format(time.RFC3339Nano)
-	metric.Flags = uint32(dp.Flags())
+	_ = "STUB: not implemented"
+	return
 }
 
 type exemplars struct {
@@ -100,184 +93,15 @@ type exponentialHistogramMetricSignal struct {
 }
 
 func convertExemplars(exem pmetric.ExemplarSlice) exemplars {
-	filteredAttributes := make([]map[string]string, exem.Len())
-	timestamps := make([]string, exem.Len())
-	values := make([]float64, exem.Len())
-	spanIDs := make([]string, exem.Len())
-	traceIDs := make([]string, exem.Len())
-	for i := 0; i < exem.Len(); i++ {
-		ex := exem.At(i)
-		filteredAttributes[i] = convertAttributes(ex.FilteredAttributes())
-		timestamps[i] = ex.Timestamp().AsTime().Format(time.RFC3339Nano)
-		var value float64
-		switch ex.ValueType() {
-		case pmetric.ExemplarValueTypeInt:
-			value = float64(ex.IntValue())
-		case pmetric.ExemplarValueTypeDouble:
-			value = ex.DoubleValue()
-		case pmetric.ExemplarValueTypeEmpty:
-			// Value is unset, use 0.0 as default
-			value = 0.0
-		}
-		values[i] = value
-		spanIDs[i] = traceutil.SpanIDToHexOrEmptyString(ex.SpanID())
-		traceIDs[i] = traceutil.TraceIDToHexOrEmptyString(ex.TraceID())
-	}
-	return exemplars{
-		ExemplarsTimestamp:          timestamps,
-		ExemplarsValue:              values,
-		ExemplarsSpanID:             spanIDs,
-		ExemplarsTraceID:            traceIDs,
-		ExemplarsFilteredAttributes: filteredAttributes,
-	}
+	_ = "STUB: not implemented"
+	return *new(exemplars)
 }
 
-func covertValue(dp pmetric.NumberDataPoint) float64 {
-	switch dp.ValueType() {
-	case pmetric.NumberDataPointValueTypeInt:
-		return float64(dp.IntValue())
-	case pmetric.NumberDataPointValueTypeDouble:
-		return dp.DoubleValue()
-	case pmetric.NumberDataPointValueTypeEmpty:
-		return 0.0
-	}
-	return 0.0
-}
+// Value is unset, use 0.0 as default
+
+func covertValue(dp pmetric.NumberDataPoint) float64 { _ = "STUB: not implemented"; return 0 }
 
 func ConvertMetrics(md pmetric.Metrics, sumEncoder, gaugeEncoder, histogramEncoder, exponentialHistogramEncoder Encoder) error {
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		rm := md.ResourceMetrics().At(i)
-		resource := rm.Resource()
-		schemaURL := rm.SchemaUrl()
-		resourceAttributesMap := resource.Attributes()
-		resourceAttributes := convertAttributes(resourceAttributesMap)
-		serviceName := getServiceName(resourceAttributesMap)
-
-		for j := 0; j < rm.ScopeMetrics().Len(); j++ {
-			sm := rm.ScopeMetrics().At(j)
-			scopeSchemaURL := sm.SchemaUrl()
-			scope := sm.Scope()
-			scopeName := scope.Name()
-			scopeVersion := scope.Version()
-			scopeAttributes := convertAttributes(scope.Attributes())
-			for k := 0; k < sm.Metrics().Len(); k++ {
-				metric := sm.Metrics().At(k)
-
-				bmetricSignal := baseMetricSignal{
-					ResourceSchemaURL:  schemaURL,
-					ResourceAttributes: resourceAttributes,
-					ServiceName:        serviceName,
-					ScopeName:          scopeName,
-					ScopeVersion:       scopeVersion,
-					ScopeSchemaURL:     scopeSchemaURL,
-					ScopeAttributes:    scopeAttributes,
-					MetricName:         metric.Name(),
-					MetricDescription:  metric.Description(),
-					MetricUnit:         metric.Unit(),
-				}
-
-				switch metric.Type() {
-				case pmetric.MetricTypeSum:
-					sum := metric.Sum()
-					dps := sum.DataPoints()
-					for l := 0; l < dps.Len(); l++ {
-						dp := dps.At(l)
-						loadDataPoint(&bmetricSignal, dp)
-						sumSignal := sumMetricSignal{
-							baseMetricSignal:       bmetricSignal,
-							Value:                  covertValue(dp),
-							AggregationTemporality: int32(sum.AggregationTemporality()),
-							IsMonotonic:            sum.IsMonotonic(),
-						}
-
-						if err := sumEncoder.Encode(sumSignal); err != nil {
-							return err
-						}
-					}
-				case pmetric.MetricTypeGauge:
-					dps := metric.Gauge().DataPoints()
-					for l := 0; l < dps.Len(); l++ {
-						dp := dps.At(l)
-						loadDataPoint(&bmetricSignal, dp)
-
-						gaugeSignal := gaugeMetricSignal{
-							baseMetricSignal: bmetricSignal,
-							Value:            covertValue(dp),
-						}
-
-						if err := gaugeEncoder.Encode(gaugeSignal); err != nil {
-							return err
-						}
-					}
-				case pmetric.MetricTypeHistogram:
-					hist := metric.Histogram()
-					dps := hist.DataPoints()
-					for l := 0; l < dps.Len(); l++ {
-						dp := dps.At(l)
-						loadDataPoint(&bmetricSignal, dp)
-
-						var minVal, maxVal *float64
-						if dp.HasMin() {
-							localMin := dp.Min()
-							minVal = &localMin
-						}
-						if dp.HasMax() {
-							localMax := dp.Max()
-							maxVal = &localMax
-						}
-
-						histogramSignal := histogramMetricSignal{
-							baseMetricSignal:       bmetricSignal,
-							Count:                  dp.Count(),
-							Sum:                    dp.Sum(),
-							BucketCounts:           dp.BucketCounts().AsRaw(),
-							ExplicitBounds:         dp.ExplicitBounds().AsRaw(),
-							Min:                    minVal,
-							Max:                    maxVal,
-							AggregationTemporality: int32(hist.AggregationTemporality()),
-						}
-						if err := histogramEncoder.Encode(histogramSignal); err != nil {
-							return err
-						}
-					}
-				case pmetric.MetricTypeExponentialHistogram:
-					ehist := metric.ExponentialHistogram()
-					dps := ehist.DataPoints()
-					for l := 0; l < dps.Len(); l++ {
-						dp := dps.At(l)
-						loadDataPoint(&bmetricSignal, dp)
-
-						var minVal, maxVal *float64
-						if dp.HasMin() {
-							localMin := dp.Min()
-							minVal = &localMin
-						}
-						if dp.HasMax() {
-							localMax := dp.Max()
-							maxVal = &localMax
-						}
-
-						exponentialHistogramSignal := exponentialHistogramMetricSignal{
-							baseMetricSignal:       bmetricSignal,
-							Count:                  dp.Count(),
-							Sum:                    dp.Sum(),
-							Scale:                  dp.Scale(),
-							ZeroCount:              dp.ZeroCount(),
-							PositiveOffset:         dp.Positive().Offset(),
-							PositiveBucketCounts:   dp.Positive().BucketCounts().AsRaw(),
-							NegativeOffset:         dp.Negative().Offset(),
-							NegativeBucketCounts:   dp.Negative().BucketCounts().AsRaw(),
-							Min:                    minVal,
-							Max:                    maxVal,
-							AggregationTemporality: int32(ehist.AggregationTemporality()),
-						}
-						if err := exponentialHistogramEncoder.Encode(exponentialHistogramSignal); err != nil {
-							return err
-						}
-					}
-				}
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }

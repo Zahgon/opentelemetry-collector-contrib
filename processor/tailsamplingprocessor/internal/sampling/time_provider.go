@@ -2,10 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 package sampling // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/sampling"
 
-import (
-	"time"
-)
-
 // TimeProvider allows to get current Unix second
 type TimeProvider interface {
 	getCurSecond() int64
@@ -18,6 +14,4 @@ type TimeProvider interface {
 // to have fake clocks).
 type MonotonicClock struct{}
 
-func (MonotonicClock) getCurSecond() int64 {
-	return time.Now().Unix()
-}
+func (MonotonicClock) getCurSecond() int64 { _ = "STUB: not implemented"; return 0 }

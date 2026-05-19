@@ -5,37 +5,17 @@ package syslogexporter // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/syslogexporter/internal/metadata"
 )
 
 // NewFactory returns a new factory for the syslog exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	qs := configoptional.Default(exporterhelper.NewDefaultQueueConfig())
-
-	return &Config{
-		Port:            DefaultPort,
-		Network:         DefaultNetwork,
-		Protocol:        DefaultProtocol,
-		BackOffConfig:   configretry.NewDefaultBackOffConfig(),
-		QueueSettings:   qs,
-		TimeoutSettings: exporterhelper.NewDefaultTimeoutConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(
@@ -43,10 +23,6 @@ func createLogsExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	exp, err := newLogsExporter(ctx, params, cfg.(*Config))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create the logs exporter: %w", err)
-	}
-
-	return exp, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }

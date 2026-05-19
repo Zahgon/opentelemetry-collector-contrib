@@ -5,7 +5,6 @@ package host // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -43,137 +42,61 @@ type machineInfoOption func(*Info)
 
 // NewInfo creates a new Info struct
 func NewInfo(containerOrchestrator string, refreshInterval time.Duration, logger *zap.Logger, options ...machineInfoOption) (*Info, error) {
-	ctx, cancel := context.WithCancel(context.Background())
-	mInfo := &Info{
-		cancel:           cancel,
-		refreshInterval:  refreshInterval,
-		instanceIDReadyC: make(chan bool),
-		instanceIPReadyC: make(chan bool),
-		logger:           logger,
-
-		containerOrchestrator: containerOrchestrator,
-		awsConfigCreator:      awsutil.GetAWSConfig,
-		nodeCapacityCreator:   newNodeCapacity,
-		ec2MetadataCreator:    newEC2Metadata,
-		ebsVolumeCreator:      newEBSVolume,
-		ec2TagsCreator:        newEC2Tags,
-
-		// used in test only
-		ebsVolumeReadyC: make(chan bool),
-		ec2TagsReadyC:   make(chan bool),
-	}
-
-	for _, opt := range options {
-		opt(mInfo)
-	}
-
-	nodeCapacity, err := mInfo.nodeCapacityCreator(logger)
-	if err != nil {
-		return nil, fmt.Errorf("failed to initialize NodeCapacity: %w", err)
-	}
-	mInfo.nodeCapacity = nodeCapacity
-
-	defaultSessionConfig := awsutil.CreateDefaultSessionConfig()
-	cfg, err := mInfo.awsConfigCreator(ctx, logger, &defaultSessionConfig)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create aws session: %w", err)
-	}
-	mInfo.awsConfig = cfg
-
-	mInfo.ec2Metadata = mInfo.ec2MetadataCreator(ctx, cfg, refreshInterval, mInfo.instanceIDReadyC, mInfo.instanceIPReadyC, logger)
-
-	go mInfo.lazyInitEBSVolume(ctx)
-	go mInfo.lazyInitEC2Tags(ctx)
-	return mInfo, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// used in test only
 
 func (m *Info) lazyInitEBSVolume(ctx context.Context) {
+	_ = "STUB: not implemented"
 	// wait until the instance id is ready
-	<-m.instanceIDReadyC
-	// Because ebs volumes only change occasionally, we refresh every 5 collection intervals to reduce ec2 api calls
-	m.ebsVolume = m.ebsVolumeCreator(ctx, m.awsConfig, m.GetInstanceID(), m.GetRegion(),
-		5*m.refreshInterval, m.logger)
-	close(m.ebsVolumeReadyC)
+	return
 }
 
+// Because ebs volumes only change occasionally, we refresh every 5 collection intervals to reduce ec2 api calls
+
 func (m *Info) lazyInitEC2Tags(ctx context.Context) {
+	_ = "STUB: not implemented"
 	// wait until the instance id is ready
-	<-m.instanceIDReadyC
-	m.ec2Tags = m.ec2TagsCreator(ctx, m.awsConfig, m.GetInstanceID(), m.GetRegion(), m.containerOrchestrator, m.refreshInterval, m.logger)
-	close(m.ec2TagsReadyC)
+	return
 }
 
 // GetInstanceID returns the ec2 instance id for the host
-func (m *Info) GetInstanceID() string {
-	return m.ec2Metadata.getInstanceID()
-}
+func (m *Info) GetInstanceID() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceType returns the ec2 instance type for the host
-func (m *Info) GetInstanceType() string {
-	return m.ec2Metadata.getInstanceType()
-}
+func (m *Info) GetInstanceType() string { _ = "STUB: not implemented"; return "" }
 
 // GetRegion returns the region for the host
-func (m *Info) GetRegion() string {
-	return m.ec2Metadata.getRegion()
-}
+func (m *Info) GetRegion() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceIP returns the IP address of the host
-func (m *Info) GetInstanceIP() string {
-	return m.ec2Metadata.getInstanceIP()
-}
+func (m *Info) GetInstanceIP() string { _ = "STUB: not implemented"; return "" }
 
 // GetNumCores returns the number of cpu cores on the host
-func (m *Info) GetNumCores() int64 {
-	return m.nodeCapacity.getNumCores()
-}
+func (m *Info) GetNumCores() int64 { _ = "STUB: not implemented"; return 0 }
 
 // GetMemoryCapacity returns the total memory (in bytes) on the host
-func (m *Info) GetMemoryCapacity() int64 {
-	return m.nodeCapacity.getMemoryCapacity()
-}
+func (m *Info) GetMemoryCapacity() int64 { _ = "STUB: not implemented"; return 0 }
 
 // GetEBSVolumeID returns the ebs volume id corresponding to the given device name
-func (m *Info) GetEBSVolumeID(devName string) string {
-	if m.ebsVolume != nil {
-		return m.ebsVolume.getEBSVolumeID(devName)
-	}
-
-	return ""
-}
+func (m *Info) GetEBSVolumeID(devName string) string { _ = "STUB: not implemented"; return "" }
 
 // GetClusterName returns the cluster name associated with the host
-func (m *Info) GetClusterName() string {
-	if m.ec2Tags != nil {
-		return m.ec2Tags.getClusterName()
-	}
-
-	return ""
-}
+func (m *Info) GetClusterName() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceIPReadyC returns the channel to show the status of host IP
-func (m *Info) GetInstanceIPReadyC() chan bool {
-	return m.instanceIPReadyC
-}
+func (m *Info) GetInstanceIPReadyC() chan bool { _ = "STUB: not implemented"; return nil }
 
 // GetAutoScalingGroupName returns the auto scaling group associated with the host
-func (m *Info) GetAutoScalingGroupName() string {
-	if m.ec2Tags != nil {
-		return m.ec2Tags.getAutoScalingGroupName()
-	}
-
-	return ""
-}
+func (m *Info) GetAutoScalingGroupName() string { _ = "STUB: not implemented"; return "" }
 
 // ExtractEbsIDsUsedByKubernetes extracts the ebs volume id used by kubernetes cluster from host mount file
 func (m *Info) ExtractEbsIDsUsedByKubernetes() map[string]string {
-	if m.ebsVolume != nil {
-		return m.ebsVolume.extractEbsIDsUsedByKubernetes()
-	}
-	return map[string]string{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Shutdown stops the host Info
-func (m *Info) Shutdown() {
-	m.cancel()
-}
+func (m *Info) Shutdown() { _ = "STUB: not implemented"; return }

@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type HaproxyActiveMetricConfig struct {
 }
 
 func (ms *HaproxyActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type HaproxyBackupMetricConfig struct {
 }
 
 func (ms *HaproxyBackupMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type HaproxyBytesInputMetricConfig struct {
 }
 
 func (ms *HaproxyBytesInputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type HaproxyBytesOutputMetricConfig struct {
 }
 
 func (ms *HaproxyBytesOutputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type HaproxyClientsCanceledMetricConfig struct {
 }
 
 func (ms *HaproxyClientsCanceledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type HaproxyCompressionBypassMetricConfig struct {
 }
 
 func (ms *HaproxyCompressionBypassMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -136,16 +80,7 @@ type HaproxyCompressionCountMetricConfig struct {
 }
 
 func (ms *HaproxyCompressionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -156,16 +91,7 @@ type HaproxyCompressionInputMetricConfig struct {
 }
 
 func (ms *HaproxyCompressionInputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -176,16 +102,7 @@ type HaproxyCompressionOutputMetricConfig struct {
 }
 
 func (ms *HaproxyCompressionOutputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -196,16 +113,7 @@ type HaproxyConnectionsAverageTimeMetricConfig struct {
 }
 
 func (ms *HaproxyConnectionsAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -216,16 +124,7 @@ type HaproxyConnectionsErrorsMetricConfig struct {
 }
 
 func (ms *HaproxyConnectionsErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -236,16 +135,7 @@ type HaproxyConnectionsRateMetricConfig struct {
 }
 
 func (ms *HaproxyConnectionsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -256,16 +146,7 @@ type HaproxyConnectionsRetriesMetricConfig struct {
 }
 
 func (ms *HaproxyConnectionsRetriesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -276,16 +157,7 @@ type HaproxyConnectionsTotalMetricConfig struct {
 }
 
 func (ms *HaproxyConnectionsTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -296,16 +168,7 @@ type HaproxyDowntimeMetricConfig struct {
 }
 
 func (ms *HaproxyDowntimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -316,16 +179,7 @@ type HaproxyFailedChecksMetricConfig struct {
 }
 
 func (ms *HaproxyFailedChecksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -336,16 +190,7 @@ type HaproxyRequestsAverageTimeMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -356,16 +201,7 @@ type HaproxyRequestsDeniedMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsDeniedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -376,16 +212,7 @@ type HaproxyRequestsErrorsMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -396,16 +223,7 @@ type HaproxyRequestsQueuedMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsQueuedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -416,16 +234,7 @@ type HaproxyRequestsRateMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -436,16 +245,7 @@ type HaproxyRequestsRedispatchedMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsRedispatchedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -466,36 +266,11 @@ type HaproxyRequestsTotalMetricConfig struct {
 }
 
 func (ms *HaproxyRequestsTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *HaproxyRequestsTotalMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HaproxyRequestsTotalMetricAttributeKeyStatusCode:
-		default:
-			return fmt.Errorf("metric haproxy.requests.total doesn't have an attribute %v, valid attributes: [status_code]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *HaproxyRequestsTotalMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // HaproxyResponsesAverageTimeMetricConfig provides config for the haproxy.responses.average_time metric.
 type HaproxyResponsesAverageTimeMetricConfig struct {
@@ -504,16 +279,7 @@ type HaproxyResponsesAverageTimeMetricConfig struct {
 }
 
 func (ms *HaproxyResponsesAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -524,16 +290,7 @@ type HaproxyResponsesDeniedMetricConfig struct {
 }
 
 func (ms *HaproxyResponsesDeniedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -544,16 +301,7 @@ type HaproxyResponsesErrorsMetricConfig struct {
 }
 
 func (ms *HaproxyResponsesErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -564,16 +312,7 @@ type HaproxyServerSelectedTotalMetricConfig struct {
 }
 
 func (ms *HaproxyServerSelectedTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -584,16 +323,7 @@ type HaproxySessionsAverageMetricConfig struct {
 }
 
 func (ms *HaproxySessionsAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -604,16 +334,7 @@ type HaproxySessionsCountMetricConfig struct {
 }
 
 func (ms *HaproxySessionsCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -624,16 +345,7 @@ type HaproxySessionsLimitMetricConfig struct {
 }
 
 func (ms *HaproxySessionsLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -644,16 +356,7 @@ type HaproxySessionsRateMetricConfig struct {
 }
 
 func (ms *HaproxySessionsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -664,16 +367,7 @@ type HaproxySessionsTotalMetricConfig struct {
 }
 
 func (ms *HaproxySessionsTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -684,16 +378,7 @@ type HaproxyWeightMetricConfig struct {
 }
 
 func (ms *HaproxyWeightMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -734,111 +419,7 @@ type MetricsConfig struct {
 	HaproxyWeight                 HaproxyWeightMetricConfig                 `mapstructure:"haproxy.weight"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		HaproxyActive: HaproxyActiveMetricConfig{
-			Enabled: false,
-		},
-		HaproxyBackup: HaproxyBackupMetricConfig{
-			Enabled: false,
-		},
-		HaproxyBytesInput: HaproxyBytesInputMetricConfig{
-			Enabled: true,
-		},
-		HaproxyBytesOutput: HaproxyBytesOutputMetricConfig{
-			Enabled: true,
-		},
-		HaproxyClientsCanceled: HaproxyClientsCanceledMetricConfig{
-			Enabled: false,
-		},
-		HaproxyCompressionBypass: HaproxyCompressionBypassMetricConfig{
-			Enabled: false,
-		},
-		HaproxyCompressionCount: HaproxyCompressionCountMetricConfig{
-			Enabled: false,
-		},
-		HaproxyCompressionInput: HaproxyCompressionInputMetricConfig{
-			Enabled: false,
-		},
-		HaproxyCompressionOutput: HaproxyCompressionOutputMetricConfig{
-			Enabled: false,
-		},
-		HaproxyConnectionsAverageTime: HaproxyConnectionsAverageTimeMetricConfig{
-			Enabled: false,
-		},
-		HaproxyConnectionsErrors: HaproxyConnectionsErrorsMetricConfig{
-			Enabled: true,
-		},
-		HaproxyConnectionsRate: HaproxyConnectionsRateMetricConfig{
-			Enabled: true,
-		},
-		HaproxyConnectionsRetries: HaproxyConnectionsRetriesMetricConfig{
-			Enabled: true,
-		},
-		HaproxyConnectionsTotal: HaproxyConnectionsTotalMetricConfig{
-			Enabled: false,
-		},
-		HaproxyDowntime: HaproxyDowntimeMetricConfig{
-			Enabled: false,
-		},
-		HaproxyFailedChecks: HaproxyFailedChecksMetricConfig{
-			Enabled: false,
-		},
-		HaproxyRequestsAverageTime: HaproxyRequestsAverageTimeMetricConfig{
-			Enabled: false,
-		},
-		HaproxyRequestsDenied: HaproxyRequestsDeniedMetricConfig{
-			Enabled: true,
-		},
-		HaproxyRequestsErrors: HaproxyRequestsErrorsMetricConfig{
-			Enabled: true,
-		},
-		HaproxyRequestsQueued: HaproxyRequestsQueuedMetricConfig{
-			Enabled: true,
-		},
-		HaproxyRequestsRate: HaproxyRequestsRateMetricConfig{
-			Enabled: true,
-		},
-		HaproxyRequestsRedispatched: HaproxyRequestsRedispatchedMetricConfig{
-			Enabled: true,
-		},
-		HaproxyRequestsTotal: HaproxyRequestsTotalMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []HaproxyRequestsTotalMetricAttributeKey{HaproxyRequestsTotalMetricAttributeKeyStatusCode},
-		},
-		HaproxyResponsesAverageTime: HaproxyResponsesAverageTimeMetricConfig{
-			Enabled: false,
-		},
-		HaproxyResponsesDenied: HaproxyResponsesDeniedMetricConfig{
-			Enabled: true,
-		},
-		HaproxyResponsesErrors: HaproxyResponsesErrorsMetricConfig{
-			Enabled: true,
-		},
-		HaproxyServerSelectedTotal: HaproxyServerSelectedTotalMetricConfig{
-			Enabled: true,
-		},
-		HaproxySessionsAverage: HaproxySessionsAverageMetricConfig{
-			Enabled: true,
-		},
-		HaproxySessionsCount: HaproxySessionsCountMetricConfig{
-			Enabled: true,
-		},
-		HaproxySessionsLimit: HaproxySessionsLimitMetricConfig{
-			Enabled: false,
-		},
-		HaproxySessionsRate: HaproxySessionsRateMetricConfig{
-			Enabled: true,
-		},
-		HaproxySessionsTotal: HaproxySessionsTotalMetricConfig{
-			Enabled: false,
-		},
-		HaproxyWeight: HaproxyWeightMetricConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -855,14 +436,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -875,20 +449,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		HaproxyAddr: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HaproxyProxyName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HaproxyServerState: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HaproxyServiceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for haproxy metrics builder.
@@ -898,13 +460,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

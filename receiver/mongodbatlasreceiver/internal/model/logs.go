@@ -57,23 +57,11 @@ type AuditRole struct {
 	Database string `json:"db"`
 }
 
-func (ar AuditRole) Pdata() pcommon.Map {
-	m := pcommon.NewMap()
-	m.EnsureCapacity(2)
-	m.PutStr("role", ar.Role)
-	m.PutStr("db", ar.Database)
-	return m
-}
+func (ar AuditRole) Pdata() pcommon.Map { _ = "STUB: not implemented"; return *new(pcommon.Map) }
 
 type AuditUser struct {
 	User     string `json:"user"`
 	Database string `json:"db"`
 }
 
-func (ar AuditUser) Pdata() pcommon.Map {
-	m := pcommon.NewMap()
-	m.EnsureCapacity(2)
-	m.PutStr("user", ar.User)
-	m.PutStr("db", ar.Database)
-	return m
-}
+func (ar AuditUser) Pdata() pcommon.Map { _ = "STUB: not implemented"; return *new(pcommon.Map) }

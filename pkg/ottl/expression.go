@@ -4,21 +4,11 @@
 package ottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 
 import (
-	"bytes"
 	"context"
-	"encoding/binary"
-	"encoding/hex"
-	"errors"
-	"fmt"
-	"reflect"
-	"strconv"
 	"time"
 
-	"github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"golang.org/x/exp/constraints"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/internal/ottlcommon"
 )
 
 // ExprFunc is a function in OTTL
@@ -31,7 +21,8 @@ type Expr[K any] struct {
 
 // Eval invokes the OTTL function
 func (e Expr[K]) Eval(ctx context.Context, tCtx K) (any, error) {
-	return e.exprFunc(ctx, tCtx)
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 // Getter resolves a value at runtime without performing any type checking on the value that is returned.
@@ -60,11 +51,13 @@ type StandardGetSetter[K any] struct {
 }
 
 func (path StandardGetSetter[K]) Get(ctx context.Context, tCtx K) (any, error) {
-	return path.Getter(ctx, tCtx)
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 func (path StandardGetSetter[K]) Set(ctx context.Context, tCtx K, val any) error {
-	return path.Setter(ctx, tCtx, val)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type exprGetter[K any] struct {
@@ -73,86 +66,13 @@ type exprGetter[K any] struct {
 }
 
 func (g *exprGetter[K]) Get(ctx context.Context, tCtx K) (any, error) {
-	result, err := g.expr.Eval(ctx, tCtx)
-	if err != nil {
-		return nil, err
-	}
-
-	if len(g.keys) == 0 {
-		return result, nil
-	}
-
-	for _, k := range g.keys {
-		switch {
-		case k.String != nil:
-			switch r := result.(type) {
-			case pcommon.Map:
-				val, ok := r.Get(*k.String)
-				if !ok {
-					return nil, errors.New("key not found in map")
-				}
-				result = ottlcommon.GetValue(val)
-			case map[string]any:
-				val, ok := r[*k.String]
-				if !ok {
-					return nil, errors.New("key not found in map")
-				}
-				result = val
-			default:
-				return nil, fmt.Errorf("type, %T, does not support string indexing", result)
-			}
-		case k.Int != nil:
-			switch r := result.(type) {
-			case pcommon.Slice:
-				if int(*k.Int) >= r.Len() || int(*k.Int) < 0 {
-					return nil, fmt.Errorf("index %v out of bounds", *k.Int)
-				}
-				result = ottlcommon.GetValue(r.At(int(*k.Int)))
-			case []any:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			case []string:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			case []bool:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			case []float64:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			case []int64:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			case []byte:
-				result, err = getElementByIndex(r, k.Int)
-				if err != nil {
-					return nil, err
-				}
-			default:
-				return nil, fmt.Errorf("type, %T, does not support int indexing", result)
-			}
-		default:
-			return nil, errors.New("neither map nor slice index were set; this is an error in OTTL")
-		}
-	}
-	return result, nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 func getElementByIndex[T any](r []T, idx *int64) (any, error) {
-	if int(*idx) >= len(r) || int(*idx) < 0 {
-		return nil, fmt.Errorf("index %v out of bounds", *idx)
-	}
-	return r[*idx], nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 type listGetter[K any] struct {
@@ -160,32 +80,13 @@ type listGetter[K any] struct {
 }
 
 func newListGetter[K any](slice []Getter[K]) (Getter[K], error) {
-	g := listGetter[K]{slice}
-	for _, v := range slice {
-		if !isLiteralGetter(v) {
-			return &g, nil
-		}
-	}
-	val, err := g.Get(context.Background(), *new(K))
-	if err != nil {
-		return nil, err
-	}
-	return newLiteral[K, any](val), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (l *listGetter[K]) Get(ctx context.Context, tCtx K) (any, error) {
-	evaluated := make([]any, len(l.slice))
-
-	for i, v := range l.slice {
-		val, err := v.Get(ctx, tCtx)
-		if err != nil {
-			return nil, err
-		}
-
-		evaluated[i] = val
-	}
-
-	return evaluated, nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 type mapGetter[K any] struct {
@@ -193,54 +94,13 @@ type mapGetter[K any] struct {
 }
 
 func newMapGetter[K any](mapValues map[string]Getter[K]) (Getter[K], error) {
-	g := mapGetter[K]{mapValues: mapValues}
-	for _, v := range mapValues {
-		if !isLiteralGetter(v) {
-			return &g, nil
-		}
-	}
-	val, err := g.Get(context.Background(), *new(K))
-	if err != nil {
-		return nil, err
-	}
-	return newLiteral[K, any](val), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *mapGetter[K]) Get(ctx context.Context, tCtx K) (any, error) {
-	result := pcommon.NewMap()
-	result.EnsureCapacity(len(m.mapValues))
-	for k, v := range m.mapValues {
-		val, err := v.Get(ctx, tCtx)
-		if err != nil {
-			return nil, err
-		}
-		switch typedVal := val.(type) {
-		case pcommon.Map:
-			target := result.PutEmpty(k).SetEmptyMap()
-			typedVal.CopyTo(target)
-		case []any:
-			target := result.PutEmpty(k).SetEmptySlice()
-			target.EnsureCapacity(len(typedVal))
-			for _, el := range typedVal {
-				switch typedEl := el.(type) {
-				case pcommon.Map:
-					m := target.AppendEmpty().SetEmptyMap()
-					typedEl.CopyTo(m)
-				default:
-					err := target.AppendEmpty().FromRaw(el)
-					if err != nil {
-						return nil, err
-					}
-				}
-			}
-		default:
-			err := result.PutEmpty(k).FromRaw(val)
-			if err != nil {
-				return nil, err
-			}
-		}
-	}
-	return result, nil
+	_ = "STUB: not implemented"
+	return *new(any), nil
 }
 
 // PSliceGetSetter is a GetSetter that must interact with a pcommon.Slice
@@ -256,24 +116,20 @@ type StandardPSliceGetSetter[K any] struct {
 }
 
 func (path StandardPSliceGetSetter[K]) Get(ctx context.Context, tCtx K) (pcommon.Slice, error) {
-	return path.Getter(ctx, tCtx)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Slice), nil
 }
 
 func (path StandardPSliceGetSetter[K]) Set(ctx context.Context, tCtx K, val pcommon.Slice) error {
-	return path.Setter(ctx, tCtx, val)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // newStandardPSliceGetSetter creates a new StandardPSliceGetSetter from a GetSetter[K],
 // also validates getter on each use and checks if the GetSetter is a literalGetter.
 func newStandardPSliceGetSetter[K any](getSetter GetSetter[K]) (PSliceGetSetter[K], error) {
-	g, err := newStandardPSliceGetter[K](getSetter)
-	if err != nil {
-		return nil, err
-	}
-	return StandardPSliceGetSetter[K]{
-		Getter: g.Get,
-		Setter: getSetter.Set,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PSliceGetter is a Getter that must return a pcommon.Slice.
@@ -284,17 +140,8 @@ type PSliceGetter[K any] interface {
 // newStandardPSliceGetter creates a new StandardPSliceGetter from a Getter[K],
 // also checking if the Getter is a literalGetter.
 func newStandardPSliceGetter[K any](getter Getter[K]) (PSliceGetter[K], error) {
-	g := StandardPSliceGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, pcommon.Slice](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardPSliceGetter is a basic implementation of PSliceGetter
@@ -306,82 +153,32 @@ type StandardPSliceGetter[K any] struct {
 // If the value is not a pcommon.Slice a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardPSliceGetter[K]) Get(ctx context.Context, tCtx K) (pcommon.Slice, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return pcommon.Slice{}, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return pcommon.Slice{}, TypeError("expected pcommon.Slice but got nil")
-	}
-	switch v := val.(type) {
-	case pcommon.Slice:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeSlice {
-			return v.Slice(), nil
-		}
-		return pcommon.Slice{}, TypeError(fmt.Sprintf("expected pcommon.Slice but got %v", v.Type()))
-	case []any:
-		s := pcommon.NewSlice()
-		err = s.FromRaw(v)
-		if err != nil {
-			return pcommon.Slice{}, err
-		}
-		return s, nil
-	// Handle common slice types returned by OTTL functions
-	case []string:
-		return newPSliceFrom(v, func(target *pcommon.Value, value string) { target.SetStr(value) })
-	case []int:
-		return newPSliceFromIntegers(v)
-	case []int16:
-		return newPSliceFromIntegers(v)
-	case []int32:
-		return newPSliceFromIntegers(v)
-	case []int64:
-		return newPSliceFromIntegers(v)
-	case []uint:
-		return newPSliceFromIntegers(v)
-	case []uint16:
-		return newPSliceFromIntegers(v)
-	case []uint32:
-		return newPSliceFromIntegers(v)
-	case []uint64:
-		return newPSliceFromIntegers(v)
-	case []float32:
-		return newPSliceFrom(v, func(target *pcommon.Value, value float32) { target.SetDouble(float64(value)) })
-	case []float64:
-		return newPSliceFrom(v, func(target *pcommon.Value, value float64) { target.SetDouble(value) })
-	case []bool:
-		return newPSliceFrom(v, func(target *pcommon.Value, value bool) { target.SetBool(value) })
-	default:
-		return pcommon.Slice{}, TypeError(fmt.Sprintf("expected pcommon.Slice but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return *new(pcommon.Slice), nil
 }
 
+// Handle common slice types returned by OTTL functions
+
 func newPSliceFromIntegers[T constraints.Integer](source []T) (pcommon.Slice, error) {
-	return newPSliceFrom(source, func(target *pcommon.Value, value T) {
-		target.SetInt(int64(value))
-	})
+	_ = "STUB: not implemented"
+	return *new(pcommon.Slice), nil
 }
 
 func newPSliceFrom[T any](source []T, set func(target *pcommon.Value, value T)) (pcommon.Slice, error) {
-	s := pcommon.NewSlice()
-	s.EnsureCapacity(len(source))
-	for _, v := range source {
-		empty := s.AppendEmpty()
-		set(&empty, v)
-	}
-	return s, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Slice), nil
 }
 
 // TypeError represents that a value was not an expected type.
 type TypeError string
 
 func (t TypeError) Error() string {
-	return string(t)
+	_ = "STUB: not implemented"
+
+	// StringGetter is a Getter that must return a string.
+	return ""
 }
 
-// StringGetter is a Getter that must return a string.
 type StringGetter[K any] interface {
 	// Get retrieves a string value.
 	Get(ctx context.Context, tCtx K) (string, error)
@@ -390,17 +187,8 @@ type StringGetter[K any] interface {
 // newStandardStringGetter creates a new StandardStringGetter from a Getter[K],
 // also checking if the Getter is a literalGetter.
 func newStandardStringGetter[K any](getter Getter[K]) (StringGetter[K], error) {
-	g := StandardStringGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, string](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardStringGetter is a basic implementation of StringGetter
@@ -412,24 +200,8 @@ type StandardStringGetter[K any] struct {
 // If the value is not a string a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardStringGetter[K]) Get(ctx context.Context, tCtx K) (string, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return "", fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return "", TypeError("expected string but got nil")
-	}
-	switch v := val.(type) {
-	case string:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeStr {
-			return v.Str(), nil
-		}
-		return "", TypeError(fmt.Sprintf("expected string but got %v", v.Type()))
-	default:
-		return "", TypeError(fmt.Sprintf("expected string but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // IntGetter is a Getter that must return an int64.
@@ -441,17 +213,8 @@ type IntGetter[K any] interface {
 // newStandardIntGetter creates a new StandardIntGetter from a Getter[K],
 // also checking if the Getter is a literalGetter.
 func newStandardIntGetter[K any](getter Getter[K]) (IntGetter[K], error) {
-	g := StandardIntGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, int64](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardIntGetter is a basic implementation of IntGetter
@@ -463,24 +226,8 @@ type StandardIntGetter[K any] struct {
 // If the value is not an int64 a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardIntGetter[K]) Get(ctx context.Context, tCtx K) (int64, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return 0, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return 0, TypeError("expected int64 but got nil")
-	}
-	switch v := val.(type) {
-	case int64:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeInt {
-			return v.Int(), nil
-		}
-		return 0, TypeError(fmt.Sprintf("expected int64 but got %v", v.Type()))
-	default:
-		return 0, TypeError(fmt.Sprintf("expected int64 but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // FloatGetter is a Getter that must return a float64.
@@ -490,17 +237,8 @@ type FloatGetter[K any] interface {
 }
 
 func newStandardFloatGetter[K any](getter Getter[K]) (FloatGetter[K], error) {
-	g := StandardFloatGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, float64](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardFloatGetter is a basic implementation of FloatGetter
@@ -512,24 +250,8 @@ type StandardFloatGetter[K any] struct {
 // If the value is not a float64 a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardFloatGetter[K]) Get(ctx context.Context, tCtx K) (float64, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return 0, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return 0, TypeError("expected float64 but got nil")
-	}
-	switch v := val.(type) {
-	case float64:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeDouble {
-			return v.Double(), nil
-		}
-		return 0, TypeError(fmt.Sprintf("expected float64 but got %v", v.Type()))
-	default:
-		return 0, TypeError(fmt.Sprintf("expected float64 but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // BoolGetter is a Getter that must return a bool.
@@ -539,17 +261,8 @@ type BoolGetter[K any] interface {
 }
 
 func newStandardBoolGetter[K any](getter Getter[K]) (BoolGetter[K], error) {
-	g := StandardBoolGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, bool](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardBoolGetter is a basic implementation of BoolGetter
@@ -561,24 +274,8 @@ type StandardBoolGetter[K any] struct {
 // If the value is not a bool a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardBoolGetter[K]) Get(ctx context.Context, tCtx K) (bool, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return false, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return false, TypeError("expected bool but got nil")
-	}
-	switch v := val.(type) {
-	case bool:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeBool {
-			return v.Bool(), nil
-		}
-		return false, TypeError(fmt.Sprintf("expected bool but got %v", v.Type()))
-	default:
-		return false, TypeError(fmt.Sprintf("expected bool but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // FunctionGetter uses a function factory to return an instantiated function as an Expr.
@@ -598,30 +295,8 @@ type StandardFunctionGetter[K any] struct {
 // If there is a mismatch between the function's signature and the arguments the caller
 // wants to pass to the function, an error is returned.
 func (g StandardFunctionGetter[K]) Get(args Arguments) (Expr[K], error) {
-	if g.Fact == nil {
-		return Expr[K]{}, errors.New("undefined function")
-	}
-	fArgs := g.Fact.CreateDefaultArguments()
-	if reflect.TypeOf(fArgs).Kind() != reflect.Pointer {
-		return Expr[K]{}, fmt.Errorf("factory for %q must return a pointer to an Arguments value in its CreateDefaultArguments method", g.Fact.Name())
-	}
-	if reflect.TypeOf(args).Kind() != reflect.Pointer {
-		return Expr[K]{}, fmt.Errorf("%q must be pointer to an Arguments value", reflect.TypeOf(args).Kind())
-	}
-	fArgsVal := reflect.ValueOf(fArgs).Elem()
-	argsVal := reflect.ValueOf(args).Elem()
-	if fArgsVal.NumField() != argsVal.NumField() {
-		return Expr[K]{}, fmt.Errorf("incorrect number of arguments. Expected: %d Received: %d", fArgsVal.NumField(), argsVal.NumField())
-	}
-	for i := 0; i < fArgsVal.NumField(); i++ {
-		field := argsVal.Field(i)
-		fArgsVal.Field(i).Set(field)
-	}
-	fn, err := g.Fact.CreateFunction(g.FCtx, fArgs)
-	if err != nil {
-		return Expr[K]{}, fmt.Errorf("couldn't create function: %w", err)
-	}
-	return Expr[K]{exprFunc: fn}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PMapGetSetter is a GetSetter that must interact with a pcommon.Map
@@ -637,11 +312,13 @@ type StandardPMapGetSetter[K any] struct {
 }
 
 func (path StandardPMapGetSetter[K]) Get(ctx context.Context, tCtx K) (pcommon.Map, error) {
-	return path.Getter(ctx, tCtx)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map), nil
 }
 
 func (path StandardPMapGetSetter[K]) Set(ctx context.Context, tCtx K, val pcommon.Map) error {
-	return path.Setter(ctx, tCtx, val)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PMapGetter is a Getter that must return a pcommon.Map.
@@ -653,17 +330,8 @@ type PMapGetter[K any] interface {
 // newStandardPMapGetter creates a new StandardPMapGetter from a Getter[K],
 // also checking if the Getter is a literalGetter.
 func newStandardPMapGetter[K any](getter Getter[K]) (PMapGetter[K], error) {
-	g := StandardPMapGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, pcommon.Map](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardPMapGetter is a basic implementation of PMapGetter
@@ -675,31 +343,8 @@ type StandardPMapGetter[K any] struct {
 // If the value is not a pcommon.Map a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardPMapGetter[K]) Get(ctx context.Context, tCtx K) (pcommon.Map, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return pcommon.Map{}, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return pcommon.Map{}, TypeError("expected pcommon.Map but got nil")
-	}
-	switch v := val.(type) {
-	case pcommon.Map:
-		return v, nil
-	case pcommon.Value:
-		if v.Type() == pcommon.ValueTypeMap {
-			return v.Map(), nil
-		}
-		return pcommon.Map{}, TypeError(fmt.Sprintf("expected pcommon.Map but got %v", v.Type()))
-	case map[string]any:
-		m := pcommon.NewMap()
-		err = m.FromRaw(v)
-		if err != nil {
-			return pcommon.Map{}, err
-		}
-		return m, nil
-	default:
-		return pcommon.Map{}, TypeError(fmt.Sprintf("expected pcommon.Map but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map), nil
 }
 
 // StringLikeGetter is a Getter that returns a string by converting the underlying value to a string if necessary.
@@ -714,17 +359,8 @@ type StringLikeGetter[K any] interface {
 // newStandardStringLikeGetter creates a new StandardStringLikeGetter from a Getter[K],
 // also checking if the Getter is a literalGetter.
 func newStandardStringLikeGetter[K any](getter Getter[K]) (StringLikeGetter[K], error) {
-	g := StandardStringLikeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, *string](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardStringLikeGetter is a basic implementation of StringLikeGetter
@@ -733,41 +369,8 @@ type StandardStringLikeGetter[K any] struct {
 }
 
 func (g StandardStringLikeGetter[K]) Get(ctx context.Context, tCtx K) (*string, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return nil, nil
-	}
-	var result string
-	switch v := val.(type) {
-	case string:
-		result = v
-	case []byte:
-		result = hex.EncodeToString(v)
-	case pcommon.Map:
-		resultBytes, err := json.Marshal(v.AsRaw())
-		if err != nil {
-			return nil, err
-		}
-		result = string(resultBytes)
-	case pcommon.Slice:
-		resultBytes, err := json.Marshal(v.AsRaw())
-		if err != nil {
-			return nil, err
-		}
-		result = string(resultBytes)
-	case pcommon.Value:
-		result = v.AsString()
-	default:
-		resultBytes, err := json.Marshal(v)
-		if err != nil {
-			return nil, TypeError(fmt.Sprintf("unsupported type: %T", v))
-		}
-		result = string(resultBytes)
-	}
-	return &result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // FloatLikeGetter is a Getter that returns a float64 by converting the underlying value to a float64 if necessary.
@@ -780,17 +383,8 @@ type FloatLikeGetter[K any] interface {
 }
 
 func newStandardFloatLikeGetter[K any](getter Getter[K]) (FloatLikeGetter[K], error) {
-	g := StandardFloatLikeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, *float64](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardFloatLikeGetter is a basic implementation of FloatLikeGetter
@@ -799,54 +393,8 @@ type StandardFloatLikeGetter[K any] struct {
 }
 
 func (g StandardFloatLikeGetter[K]) Get(ctx context.Context, tCtx K) (*float64, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return nil, nil
-	}
-	var result float64
-	switch v := val.(type) {
-	case float64:
-		result = v
-	case int64:
-		result = float64(v)
-	case string:
-		result, err = strconv.ParseFloat(v, 64)
-		if err != nil {
-			return nil, err
-		}
-	case bool:
-		if v {
-			result = float64(1)
-		} else {
-			result = float64(0)
-		}
-	case pcommon.Value:
-		switch v.Type() {
-		case pcommon.ValueTypeDouble:
-			result = v.Double()
-		case pcommon.ValueTypeInt:
-			result = float64(v.Int())
-		case pcommon.ValueTypeStr:
-			result, err = strconv.ParseFloat(v.Str(), 64)
-			if err != nil {
-				return nil, err
-			}
-		case pcommon.ValueTypeBool:
-			if v.Bool() {
-				result = float64(1)
-			} else {
-				result = float64(0)
-			}
-		default:
-			return nil, TypeError(fmt.Sprintf("unsupported value type: %v", v.Type()))
-		}
-	default:
-		return nil, TypeError(fmt.Sprintf("unsupported type: %T", v))
-	}
-	return &result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // IntLikeGetter is a Getter that returns an int by converting the underlying value to an int if necessary
@@ -859,17 +407,8 @@ type IntLikeGetter[K any] interface {
 }
 
 func newStandardIntLikeGetter[K any](getter Getter[K]) (IntLikeGetter[K], error) {
-	g := StandardIntLikeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, *int64](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardIntLikeGetter is a basic implementation of IntLikeGetter
@@ -878,54 +417,8 @@ type StandardIntLikeGetter[K any] struct {
 }
 
 func (g StandardIntLikeGetter[K]) Get(ctx context.Context, tCtx K) (*int64, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return nil, nil
-	}
-	var result int64
-	switch v := val.(type) {
-	case int64:
-		result = v
-	case string:
-		result, err = strconv.ParseInt(v, 10, 64)
-		if err != nil {
-			return nil, nil
-		}
-	case float64:
-		result = int64(v)
-	case bool:
-		if v {
-			result = int64(1)
-		} else {
-			result = int64(0)
-		}
-	case pcommon.Value:
-		switch v.Type() {
-		case pcommon.ValueTypeInt:
-			result = v.Int()
-		case pcommon.ValueTypeDouble:
-			result = int64(v.Double())
-		case pcommon.ValueTypeStr:
-			result, err = strconv.ParseInt(v.Str(), 10, 64)
-			if err != nil {
-				return nil, nil
-			}
-		case pcommon.ValueTypeBool:
-			if v.Bool() {
-				result = int64(1)
-			} else {
-				result = int64(0)
-			}
-		default:
-			return nil, TypeError(fmt.Sprintf("unsupported value type: %v", v.Type()))
-		}
-	default:
-		return nil, TypeError(fmt.Sprintf("unsupported type: %T", v))
-	}
-	return &result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ByteSliceLikeGetter is a Getter that returns []byte by converting the underlying value to an []byte if necessary
@@ -938,17 +431,8 @@ type ByteSliceLikeGetter[K any] interface {
 }
 
 func newStandardByteSliceLikeGetter[K any](getter Getter[K]) (ByteSliceLikeGetter[K], error) {
-	g := StandardByteSliceLikeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, []byte](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardByteSliceLikeGetter is a basic implementation of ByteSliceLikeGetter
@@ -957,66 +441,18 @@ type StandardByteSliceLikeGetter[K any] struct {
 }
 
 func (g StandardByteSliceLikeGetter[K]) Get(ctx context.Context, tCtx K) ([]byte, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return nil, nil
-	}
-	var result []byte
-	switch v := val.(type) {
-	case []byte:
-		result = v
-	case string:
-		result = []byte(v)
-	case float64, int64, bool:
-		result, err = valueToBytes(v)
-		if err != nil {
-			return nil, fmt.Errorf("error converting value %f of %T: %w", v, g, err)
-		}
-	case pcommon.Value:
-		switch v.Type() {
-		case pcommon.ValueTypeBytes:
-			result = v.Bytes().AsRaw()
-		case pcommon.ValueTypeInt:
-			result, err = valueToBytes(v.Int())
-			if err != nil {
-				return nil, fmt.Errorf("error converting value %d of int64: %w", v.Int(), err)
-			}
-		case pcommon.ValueTypeDouble:
-			result, err = valueToBytes(v.Double())
-			if err != nil {
-				return nil, fmt.Errorf("error converting value %f of float64: %w", v.Double(), err)
-			}
-		case pcommon.ValueTypeStr:
-			result = []byte(v.Str())
-		case pcommon.ValueTypeBool:
-			result, err = valueToBytes(v.Bool())
-			if err != nil {
-				return nil, fmt.Errorf("error converting value %s of bool: %w", v.Str(), err)
-			}
-		default:
-			return nil, TypeError(fmt.Sprintf("unsupported value type: %v", v.Type()))
-		}
-	default:
-		return nil, TypeError(fmt.Sprintf("unsupported type: %T", v))
-	}
-	return result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // valueToBytes converts a value to a byte slice of length 8.
 func valueToBytes(n any) ([]byte, error) {
+	_ = "STUB: not implemented"
 	// Create a buffer to hold the bytes
-	buf := new(bytes.Buffer)
-	// Write the value to the buffer using binary.Write
-	err := binary.Write(buf, binary.BigEndian, n)
-	if err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
+	return nil, nil
 }
+
+// Write the value to the buffer using binary.Write
 
 // BoolLikeGetter is a Getter that returns a bool by converting the underlying value to a bool if necessary.
 type BoolLikeGetter[K any] interface {
@@ -1028,17 +464,8 @@ type BoolLikeGetter[K any] interface {
 }
 
 func newStandardBoolLikeGetter[K any](getter Getter[K]) (BoolLikeGetter[K], error) {
-	g := StandardBoolLikeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, *bool](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardBoolLikeGetter is a basic implementation of BoolLikeGetter
@@ -1047,132 +474,20 @@ type StandardBoolLikeGetter[K any] struct {
 }
 
 func (g StandardBoolLikeGetter[K]) Get(ctx context.Context, tCtx K) (*bool, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return nil, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return nil, nil
-	}
-	var result bool
-	switch v := val.(type) {
-	case bool:
-		result = v
-	case int:
-		result = v != 0
-	case int64:
-		result = v != 0
-	case string:
-		result, err = strconv.ParseBool(v)
-		if err != nil {
-			return nil, err
-		}
-	case float64:
-		result = v != 0.0
-	case pcommon.Value:
-		switch v.Type() {
-		case pcommon.ValueTypeBool:
-			result = v.Bool()
-		case pcommon.ValueTypeInt:
-			result = v.Int() != 0
-		case pcommon.ValueTypeStr:
-			result, err = strconv.ParseBool(v.Str())
-			if err != nil {
-				return nil, err
-			}
-		case pcommon.ValueTypeDouble:
-			result = v.Double() != 0.0
-		default:
-			return nil, TypeError(fmt.Sprintf("unsupported value type: %v", v.Type()))
-		}
-	default:
-		return nil, TypeError(fmt.Sprintf("unsupported type: %T", val))
-	}
-	return &result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (p *Parser[K]) newGetter(val value) (Getter[K], error) {
-	if val.IsNil != nil && *val.IsNil {
-		return newLiteral[K, any](nil), nil
-	}
-
-	if s := val.String; s != nil {
-		return newLiteral[K, any](*s), nil
-	}
-	if b := val.Bool; b != nil {
-		return newLiteral[K, any](bool(*b)), nil
-	}
-	if b := val.Bytes; b != nil {
-		return newLiteral[K, any]([]byte(*b)), nil
-	}
-
-	if val.Enum != nil {
-		enum, err := p.enumParser((*EnumSymbol)(val.Enum))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, any](int64(*enum)), nil
-	}
-
-	if eL := val.Literal; eL != nil {
-		if f := eL.Float; f != nil {
-			return newLiteral[K, any](*f), nil
-		}
-		if i := eL.Int; i != nil {
-			return newLiteral[K, any](*i), nil
-		}
-		if eL.Path != nil {
-			np, err := p.newPath(eL.Path)
-			if err != nil {
-				return nil, err
-			}
-			return p.parsePath(np)
-		}
-		if eL.Converter != nil {
-			return p.newGetterFromConverter(*eL.Converter)
-		}
-	}
-
-	if val.List != nil {
-		slice := make([]Getter[K], len(val.List.Values))
-		for i, v := range val.List.Values {
-			getter, err := p.newGetter(v)
-			if err != nil {
-				return nil, err
-			}
-			slice[i] = getter
-		}
-		return newListGetter(slice)
-	}
-
-	if val.Map != nil {
-		mapValues := map[string]Getter[K]{}
-		for _, kvp := range val.Map.Values {
-			getter, err := p.newGetter(*kvp.Value)
-			if err != nil {
-				return nil, err
-			}
-			mapValues[*kvp.Key] = getter
-		}
-		return newMapGetter(mapValues)
-	}
-
-	if val.MathExpression == nil {
-		// In practice, can't happen since the DSL grammar guarantees one is set
-		return nil, errors.New("no value field set. This is a bug in the OpenTelemetry Transformation Language")
-	}
-	return p.evaluateMathExpression(val.MathExpression)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// In practice, can't happen since the DSL grammar guarantees one is set
+
 func (p *Parser[K]) newGetterFromConverter(c converter) (Getter[K], error) {
-	call, err := p.newFunctionCall(editor(c))
-	if err != nil {
-		return nil, err
-	}
-	return &exprGetter[K]{
-		expr: call,
-		keys: c.Keys,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // TimeGetter is a Getter that must return a time.Time.
@@ -1182,17 +497,8 @@ type TimeGetter[K any] interface {
 }
 
 func newStandardTimeGetter[K any](getter Getter[K]) (TimeGetter[K], error) {
-	g := StandardTimeGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, time.Time](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardTimeGetter is a basic implementation of TimeGetter
@@ -1204,19 +510,8 @@ type StandardTimeGetter[K any] struct {
 // If the value is not a time.Time, a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardTimeGetter[K]) Get(ctx context.Context, tCtx K) (time.Time, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return time.Time{}, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return time.Time{}, TypeError("expected time but got nil")
-	}
-	switch v := val.(type) {
-	case time.Time:
-		return v, nil
-	default:
-		return time.Time{}, TypeError(fmt.Sprintf("expected time but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // DurationGetter is a Getter that must return a time.Duration.
@@ -1226,17 +521,8 @@ type DurationGetter[K any] interface {
 }
 
 func newStandardDurationGetter[K any](getter Getter[K]) (DurationGetter[K], error) {
-	g := StandardDurationGetter[K]{
-		Getter: getter.Get,
-	}
-	if isLiteralGetter(getter) {
-		val, err := g.Get(context.Background(), *new(K))
-		if err != nil {
-			return nil, err
-		}
-		return newLiteral[K, time.Duration](val), nil
-	}
-	return g, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // StandardDurationGetter is a basic implementation of DurationGetter
@@ -1248,17 +534,6 @@ type StandardDurationGetter[K any] struct {
 // If the value is not an time.Duration a new TypeError is returned.
 // If there is an error getting the value it will be returned.
 func (g StandardDurationGetter[K]) Get(ctx context.Context, tCtx K) (time.Duration, error) {
-	val, err := g.Getter(ctx, tCtx)
-	if err != nil {
-		return 0, fmt.Errorf("error getting value in %T: %w", g, err)
-	}
-	if val == nil {
-		return 0, TypeError("expected duration but got nil")
-	}
-	switch v := val.(type) {
-	case time.Duration:
-		return v, nil
-	default:
-		return 0, TypeError(fmt.Sprintf("expected duration but got %T", val))
-	}
+	_ = "STUB: not implemented"
+	return *new(time.Duration), nil
 }

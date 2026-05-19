@@ -4,11 +4,8 @@
 package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/ecsobserver"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	ecstypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
 	"go.uber.org/zap"
 )
@@ -23,49 +20,19 @@ type ServiceConfig struct {
 	ContainerNamePattern string `mapstructure:"container_name_pattern" yaml:"container_name_pattern"`
 }
 
-func (s *ServiceConfig) validate() error {
-	_, err := s.newMatcher(matcherOptions{})
-	return err
-}
+func (s *ServiceConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 func (s *ServiceConfig) newMatcher(opts matcherOptions) (targetMatcher, error) {
-	if s.NamePattern == "" {
-		return nil, errors.New("name_pattern is empty")
-	}
-
-	nameRegex, err := regexp.Compile(s.NamePattern)
-	if err != nil {
-		return nil, fmt.Errorf("invalid name pattern %w", err)
-	}
-	var containerRegex *regexp.Regexp
-	if s.ContainerNamePattern != "" {
-		containerRegex, err = regexp.Compile(s.ContainerNamePattern)
-		if err != nil {
-			return nil, fmt.Errorf("invalid container name pattern %w", err)
-		}
-	}
-	expSetting, err := s.newExportSetting()
-	if err != nil {
-		return nil, err
-	}
-	return &serviceMatcher{
-		logger:             opts.Logger,
-		cfg:                *s,
-		nameRegex:          nameRegex,
-		containerNameRegex: containerRegex,
-		exportSetting:      expSetting,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(targetMatcher), nil
 }
 
 func serviceConfigsToMatchers(cfgs []ServiceConfig) []matcherConfig {
-	matchers := make([]matcherConfig, len(cfgs))
-	for i, cfg := range cfgs {
-		// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
-		copied := cfg
-		matchers[i] = &copied
-	}
-	return matchers
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
 
 type serviceMatcher struct {
 	logger    *zap.Logger
@@ -77,44 +44,22 @@ type serviceMatcher struct {
 }
 
 func (*serviceMatcher) matcherType() matcherType {
-	return matcherTypeService
+	_ = "STUB: not implemented"
+	return *new(matcherType)
 }
 
 func (s *serviceMatcher) matchTargets(t *taskAnnotated, c ecstypes.ContainerDefinition) ([]matchedTarget, error) {
+	_ = "STUB: not implemented"
 	// Service info is only attached for tasks whose services are included in config.
 	// However, Match is called on tasks so we need to guard nil pointer.
-	if t.Service == nil {
-		return nil, errNotMatched
-	}
-	if !s.nameRegex.MatchString(aws.ToString(t.Service.ServiceName)) {
-		return nil, errNotMatched
-	}
-	// The rest is same as taskDefinitionMatcher
-	return matchContainerByName(s.containerNameRegex, s.exportSetting, c)
+	return nil, nil
 }
+
+// The rest is same as taskDefinitionMatcher
 
 // serviceConfigsToFilter reduce number of describe service API call
 func serviceConfigsToFilter(cfgs []ServiceConfig) (serviceNameFilter, error) {
+	_ = "STUB: not implemented"
 	// If no service config, don't describe any services
-	if len(cfgs) == 0 {
-		return func(string) bool {
-			return false
-		}, nil
-	}
-	regs := make([]*regexp.Regexp, len(cfgs))
-	for i, cfg := range cfgs {
-		r, err := regexp.Compile(cfg.NamePattern)
-		if err != nil {
-			return nil, fmt.Errorf("invalid service name pattern %q: %w", cfg.NamePattern, err)
-		}
-		regs[i] = r
-	}
-	return func(name string) bool {
-		for _, r := range regs {
-			if r.MatchString(name) {
-				return true
-			}
-		}
-		return false
-	}, nil
+	return *new(serviceNameFilter), nil
 }

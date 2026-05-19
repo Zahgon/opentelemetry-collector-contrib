@@ -18,24 +18,14 @@ type Dimension struct {
 // The ok flag indicates if a Dimension Value was fetched in order to differentiate
 // an empty string value from a state where no value was found.
 func GetDimensionValue(d Dimension, attributes ...pcommon.Map) (v pcommon.Value, ok bool) {
-	for _, attrs := range attributes {
-		if attr, exists := attrs.Get(d.Name); exists {
-			return attr, true
-		}
-	}
-	// Set the default if configured, otherwise this metric will have no Value set for the Dimension.
-	if d.Value != nil {
-		return *d.Value, true
-	}
-	return v, ok
+	_ = "STUB: not implemented"
+	return *new(pcommon.Value), false
 }
+
+// Set the default if configured, otherwise this metric will have no Value set for the Dimension.
 
 // GetAttributeValue look up value from the given attributes for the specified key, and if not found, return empty string.
 func GetAttributeValue(key string, attributes ...pcommon.Map) (string, bool) {
-	for _, attr := range attributes {
-		if v, ok := attr.Get(key); ok {
-			return v.AsString(), true
-		}
-	}
+	_ = "STUB: not implemented"
 	return "", false
 }

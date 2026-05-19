@@ -6,14 +6,10 @@ package subprocess // import "github.com/open-telemetry/opentelemetry-collector-
 import (
 	"bufio"
 	"context"
-	"errors"
-	"fmt"
 	"io"
-	"os"
 	"os/exec"
 	"sync"
 	"sync/atomic"
-	"syscall"
 	"time"
 
 	"go.uber.org/zap"
@@ -54,46 +50,16 @@ type pid struct {
 	pidLock sync.Mutex
 }
 
-func (p *pid) setPid(pid int) {
-	p.pidLock.Lock()
-	defer p.pidLock.Unlock()
-	p.pid = pid
-}
+func (p *pid) setPid(pid int) { _ = "STUB: not implemented"; return }
 
-func (p *pid) getPid() int {
-	p.pidLock.Lock()
-	defer p.pidLock.Unlock()
-	return p.pid
-}
+func (p *pid) getPid() int { _ = "STUB: not implemented"; return 0 }
 
-func (subprocess *Subprocess) Pid() int {
-	pid := subprocess.pid.getPid()
-	if pid == 0 {
-		return noPid
-	}
-	return pid
-}
+func (subprocess *Subprocess) Pid() int { _ = "STUB: not implemented"; return 0 }
 
 // NewSubprocess exported to be used by jmx metric receiver.
 func NewSubprocess(conf *Config, logger *zap.Logger) *Subprocess {
-	if conf.RestartDelay == nil {
-		restartDelay := defaultRestartDelay
-		conf.RestartDelay = &restartDelay
-		conf.RestartOnError = true
-	}
-	if conf.ShutdownTimeout == nil {
-		shutdownTimeout := defaultShutdownTimeout
-		conf.ShutdownTimeout = &shutdownTimeout
-	}
-
-	return &Subprocess{
-		Stdout:         make(chan string, 100),
-		pid:            pid{pid: noPid, pidLock: sync.Mutex{}},
-		config:         conf,
-		logger:         logger,
-		shutdownSignal: make(chan struct{}),
-		sendToStdIn:    sendToStdIn,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 const (
@@ -106,47 +72,19 @@ const (
 )
 
 func (subprocess *Subprocess) Start(ctx context.Context) error {
-	var cancelCtx context.Context
-	cancelCtx, subprocess.cancel = context.WithCancel(ctx)
-
-	for k, v := range subprocess.config.EnvironmentVariables {
-		joined := fmt.Sprintf("%v=%v", k, v)
-		subprocess.envVars = append(subprocess.envVars, joined)
-	}
-
-	go func() {
-		subprocess.run(cancelCtx) // will block for lifetime of process
-		close(subprocess.shutdownSignal)
-		close(subprocess.Stdout)
-	}()
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// will block for lifetime of process
 
 // Shutdown is invoked during service shutdown.
 func (subprocess *Subprocess) Shutdown(ctx context.Context) error {
-	if subprocess.cancel == nil {
-		return errors.New("no subprocess.cancel().  Has it been started properly?")
-	}
-
-	timeout := defaultShutdownTimeout
-	if subprocess.config.ShutdownTimeout != nil {
-		timeout = *subprocess.config.ShutdownTimeout
-	}
-	t := time.NewTimer(timeout)
-
-	subprocess.cancel()
-
-	// Wait for the subprocess to exit or the timeout period to elapse
-	select {
-	case <-ctx.Done():
-	case <-subprocess.shutdownSignal:
-	case <-t.C:
-		subprocess.logger.Warn("subprocess hasn't returned within shutdown timeout. May be zombied.",
-			zap.String("timeout", timeout.String()))
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Wait for the subprocess to exit or the timeout period to elapse
 
 // A synchronization helper to ensure that signalWhenProcessReturned
 // doesn't write to a closed channel
@@ -156,168 +94,40 @@ type processReturned struct {
 	lock         *sync.Mutex
 }
 
-func newProcessReturned() *processReturned {
-	isOpen := &atomic.Bool{}
-	isOpen.Store(true)
-	pr := processReturned{
-		ReturnedChan: make(chan error),
-		isOpen:       isOpen,
-		lock:         &sync.Mutex{},
-	}
-	return &pr
-}
+func newProcessReturned() *processReturned { _ = "STUB: not implemented"; return nil }
 
-func (pr *processReturned) signal(err error) {
-	pr.lock.Lock()
-	defer pr.lock.Unlock()
-	if pr.isOpen.Load() {
-		pr.ReturnedChan <- err
-	}
-}
+func (pr *processReturned) signal(err error) { _ = "STUB: not implemented"; return }
 
-func (pr *processReturned) close() {
-	pr.lock.Lock()
-	defer pr.lock.Unlock()
-	if pr.isOpen.Load() {
-		close(pr.ReturnedChan)
-		pr.isOpen.Store(false)
-	}
-}
+func (pr *processReturned) close() { _ = "STUB: not implemented"; return }
 
 // Core event loop
-func (subprocess *Subprocess) run(ctx context.Context) {
-	var cmd *exec.Cmd
-	var err error
-	var stdin io.WriteCloser
-	var stdout io.ReadCloser
+func (subprocess *Subprocess) run(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	// writer is signalWhenProcessReturned() and closer is this loop, so we need synchronization
-	processReturned := newProcessReturned()
+// writer is signalWhenProcessReturned() and closer is this loop, so we need synchronization
 
-	state := starting
-	for {
-		subprocess.logger.Debug("subprocess changed state", zap.String("state", state))
+// We aren't supposed to shutdown yet so this is an error state.
 
-		switch state {
-		case starting:
-			cmd, stdin, stdout = createCommand(
-				subprocess.config.ExecutablePath,
-				subprocess.config.Args,
-				subprocess.envVars,
-			)
+// We must close this channel or can wait indefinitely at shuttingDown
 
-			go collectStdout(bufio.NewScanner(stdout), subprocess.Stdout, subprocess.logger)
+// context-based cancel.
 
-			subprocess.logger.Debug("starting subprocess", zap.String("command", cmd.String()))
-			err = cmd.Start()
-			if err != nil {
-				state = errored
-				continue
-			}
-			subprocess.pid.setPid(cmd.Process.Pid)
-
-			go signalWhenProcessReturned(cmd, processReturned)
-
-			state = running
-		case running:
-			err = subprocess.sendToStdIn(subprocess.config.StdInContents, stdin)
-			stdin.Close()
-			if err != nil {
-				state = errored
-				continue
-			}
-
-			select {
-			case err = <-processReturned.ReturnedChan:
-				if err != nil && ctx.Err() == nil {
-					err = fmt.Errorf("unexpected shutdown: %w", err)
-					// We aren't supposed to shutdown yet so this is an error state.
-					state = errored
-					continue
-				}
-				// We must close this channel or can wait indefinitely at shuttingDown
-				processReturned.close()
-				state = shuttingDown
-			case <-ctx.Done(): // context-based cancel.
-				state = shuttingDown
-			}
-		case errored:
-			subprocess.logger.Error("subprocess died", zap.Error(err))
-			if subprocess.config.RestartOnError {
-				subprocess.pid.setPid(-1)
-				state = restarting
-			} else {
-				// We must close this channel or can wait indefinitely at shuttingDown
-				processReturned.close()
-				state = shuttingDown
-			}
-		case shuttingDown:
-			if cmd.Process != nil {
-				_ = cmd.Process.Signal(syscall.SIGTERM)
-			}
-			<-processReturned.ReturnedChan
-			stdout.Close()
-			subprocess.pid.setPid(-1)
-			state = stopped
-		case restarting:
-			stdout.Close()
-			stdin.Close()
-			time.Sleep(*subprocess.config.RestartDelay)
-			state = starting
-		case stopped:
-			return
-		}
-	}
-}
+// We must close this channel or can wait indefinitely at shuttingDown
 
 func signalWhenProcessReturned(cmd *exec.Cmd, pr *processReturned) {
-	err := cmd.Wait()
-	pr.signal(err)
+	_ = "STUB: not implemented"
+	return
 }
 
 func collectStdout(stdoutScanner *bufio.Scanner, stdoutChan chan<- string, logger *zap.Logger) {
-	for stdoutScanner.Scan() {
-		text := stdoutScanner.Text()
-		if text != "" {
-			stdoutChan <- text
-			logger.Debug(text)
-		}
-	}
-	// Returns when stdout is closed when the process ends
+	_ = "STUB: not implemented"
+	return
 }
 
-func sendToStdIn(contents string, writer io.Writer) error {
-	if contents == "" {
-		return nil
-	}
+// Returns when stdout is closed when the process ends
 
-	_, err := writer.Write([]byte(contents))
-	return err
-}
+func sendToStdIn(contents string, writer io.Writer) error { _ = "STUB: not implemented"; return nil }
 
 func createCommand(execPath string, args, envVars []string) (*exec.Cmd, io.WriteCloser, io.ReadCloser) {
-	cmd := exec.Command(execPath, args...)
-
-	var env []string
-	env = append(env, os.Environ()...)
-	env = append(env, envVars...)
-	cmd.Env = env
-
-	inReader, inWriter, err := os.Pipe()
-	if err != nil {
-		panic("Input pipe could not be created for subprocess")
-	}
-
-	cmd.Stdin = inReader
-
-	outReader, outWriter, err := os.Pipe()
-	if err != nil {
-		panic("Output pipe could not be created for subprocess")
-	}
-	cmd.Stdout = outWriter
-	cmd.Stderr = outWriter
-
-	applyOSSpecificCmdModifications(cmd)
-
-	return cmd, inWriter, outReader
+	_ = "STUB: not implemented"
+	return nil, *new(io.WriteCloser), *new(io.ReadCloser)
 }

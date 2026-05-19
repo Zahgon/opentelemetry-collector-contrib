@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/beevik/ntp"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
 	"go.uber.org/zap"
@@ -27,26 +26,11 @@ type ntpScraper struct {
 }
 
 func (s *ntpScraper) scrape(context.Context) (pmetric.Metrics, error) {
-	options := ntp.QueryOptions{Version: s.version, Timeout: s.timeout}
-	response, err := queryWithOptions(s.endpoint, options)
-	if err != nil {
-		return pmetric.NewMetrics(), err
-	}
-	s.mb.RecordNtpOffsetDataPoint(pcommon.NewTimestampFromTime(time.Now()), response.ClockOffset.Nanoseconds())
-
-	rb := s.mb.NewResourceBuilder()
-	rb.SetNtpHost(s.endpoint)
-
-	s.mb.EmitForResource(metadata.WithResource(rb.Emit()))
-	return s.mb.Emit(), nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func newScraper(cfg *Config, settings receiver.Settings) *ntpScraper {
-	return &ntpScraper{
-		logger:   settings.Logger,
-		mb:       metadata.NewMetricsBuilder(cfg.MetricsBuilderConfig, settings),
-		version:  cfg.Version,
-		timeout:  cfg.Timeout,
-		endpoint: cfg.Endpoint,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

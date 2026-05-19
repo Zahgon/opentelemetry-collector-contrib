@@ -17,16 +17,10 @@ func init() {
 }
 
 // NewConfig creates a new JSON parser config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new JSON parser config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		ParserConfig: helper.NewParserConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a JSON parser operator.
 type Config struct {
@@ -37,13 +31,6 @@ type Config struct {
 
 // Build will build a JSON parser operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	parserOperator, err := c.ParserConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	return &Parser{
-		ParserOperator: parserOperator,
-		parseInts:      c.ParseInts,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

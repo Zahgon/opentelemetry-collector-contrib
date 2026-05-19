@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -47,57 +40,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		HostArch: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUCacheL2Size: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUFamily: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUModelID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUModelName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUStepping: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostCPUVendorID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostInterface: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostIP: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostMac: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OsBuildID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		OsDescription: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		OsName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		OsType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OsVersion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

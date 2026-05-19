@@ -9,6 +9,4 @@ import (
 )
 
 // NewFactory creates Pulsar exporter factory.
-func NewFactory() receiver.Factory {
-	panic("AIX is not supported")
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }

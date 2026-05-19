@@ -4,7 +4,6 @@
 package stores // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awscontainerinsightreceiver/internal/stores"
 
 import (
-	"fmt"
 	"sync"
 
 	"go.uber.org/zap"
@@ -30,81 +29,18 @@ type nodeInfo struct {
 	logger *zap.Logger
 }
 
-func newNodeInfo(logger *zap.Logger) *nodeInfo {
-	nc := &nodeInfo{
-		logger: logger,
-	}
-	return nc
-}
+func newNodeInfo(logger *zap.Logger) *nodeInfo { _ = "STUB: not implemented"; return nil }
 
-func (n *nodeInfo) setCPUCapacity(cpuCapacity any) {
-	n.cpuLock.Lock()
-	defer n.cpuLock.Unlock()
-	n.CPUCapacity = forceConvertToInt64(cpuCapacity, n.logger)
-}
+func (n *nodeInfo) setCPUCapacity(cpuCapacity any) { _ = "STUB: not implemented"; return }
 
-func (n *nodeInfo) setMemCapacity(memCapacity any) {
-	n.memLock.Lock()
-	defer n.memLock.Unlock()
-	n.MemCapacity = forceConvertToInt64(memCapacity, n.logger)
-}
+func (n *nodeInfo) setMemCapacity(memCapacity any) { _ = "STUB: not implemented"; return }
 
-func (n *nodeInfo) getCPUCapacity() uint64 {
-	n.cpuLock.RLock()
-	defer n.cpuLock.RUnlock()
-	return n.CPUCapacity
-}
+func (n *nodeInfo) getCPUCapacity() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (n *nodeInfo) getMemCapacity() uint64 {
-	n.memLock.RLock()
-	defer n.memLock.RUnlock()
-	return n.MemCapacity
-}
+func (n *nodeInfo) getMemCapacity() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (n *nodeInfo) setNodeStats(stats nodeStats) {
-	n.statsLock.Lock()
-	defer n.statsLock.Unlock()
-	n.nodeStats = stats
-}
+func (n *nodeInfo) setNodeStats(stats nodeStats) { _ = "STUB: not implemented"; return }
 
-func (n *nodeInfo) getNodeStats() nodeStats {
-	n.statsLock.RLock()
-	defer n.statsLock.RUnlock()
-	return n.nodeStats
-}
+func (n *nodeInfo) getNodeStats() nodeStats { _ = "STUB: not implemented"; return *new(nodeStats) }
 
-func forceConvertToInt64(v any, logger *zap.Logger) uint64 {
-	var value uint64
-
-	switch t := v.(type) {
-	case int:
-		if t < 0 {
-			logger.Error("value is invalid", zap.Any("value", t))
-			return 0
-		}
-		value = uint64(t)
-	case int32:
-		if t < 0 {
-			logger.Error("value is invalid", zap.Any("value", t))
-			return 0
-		}
-		value = uint64(t)
-	case int64:
-		if t < 0 {
-			logger.Error("value is invalid", zap.Any("value", t))
-			return 0
-		}
-		value = uint64(t)
-	case uint:
-		value = uint64(t)
-	case uint32:
-		value = uint64(t)
-	case uint64:
-		value = t
-	default:
-		logger.Error(fmt.Sprintf("value type does not support: %v, %T", v, v))
-		value = 0
-	}
-
-	return value
-}
+func forceConvertToInt64(v any, logger *zap.Logger) uint64 { _ = "STUB: not implemented"; return 0 }

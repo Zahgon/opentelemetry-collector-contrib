@@ -5,28 +5,19 @@ package serializeprofiles // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"encoding/json"
-	"fmt"
-	"math"
-	"time"
 )
 
 // unixTime64 represents nanoseconds since epoch.
 type unixTime64 uint64
 
 // newUnixTime64 creates a unixTime64 from either seconds or nanoseconds since the epoch.
-func newUnixTime64(t uint64) unixTime64 {
-	if t <= math.MaxUint32 {
-		return unixTime64(t) * 1e9
-	}
-	return unixTime64(t)
-}
+func newUnixTime64(t uint64) unixTime64 { _ = "STUB: not implemented"; return *new(unixTime64) }
 
 func (t unixTime64) MarshalJSON() ([]byte, error) {
+	_ = "STUB: not implemented"
 	// Nanoseconds, ES does not support 'epoch_nanoseconds' so
 	// we have to pass it a value formatted as 'strict_date_optional_time_nanos'.
-	out := fmt.Appendf(nil, "%q",
-		time.Unix(0, int64(t)).UTC().Format(time.RFC3339Nano))
-	return out, nil
+	return nil, nil
 }
 
 // Compile-time interface checks

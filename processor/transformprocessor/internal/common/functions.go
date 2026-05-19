@@ -7,13 +7,14 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlresource"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlscope"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 )
 
 func ResourceFunctions() map[string]ottl.Factory[*ottlresource.TransformContext] {
-	return ottlfuncs.StandardFuncs[*ottlresource.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func ScopeFunctions() map[string]ottl.Factory[*ottlscope.TransformContext] {
-	return ottlfuncs.StandardFuncs[*ottlscope.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -9,18 +9,9 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awslambdareceiver/internal/metadata"
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createLogsReceiver(
 	_ context.Context,
@@ -28,7 +19,8 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	return newLogsReceiver(cfg.(*Config), settings, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func createMetricsReceiver(
@@ -37,5 +29,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	return newMetricsReceiver(cfg.(*Config), settings, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

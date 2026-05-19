@@ -7,31 +7,21 @@ package datadogextension // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"runtime"
 	"sync"
 	"time"
 
-	pkgconfigmodel "github.com/DataDog/datadog-agent/pkg/config/model"
-	ddMetrics "github.com/DataDog/datadog-agent/pkg/metrics"
 	"github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/attributes/source"
-	"github.com/google/uuid"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/extension"
 	"go.opentelemetry.io/collector/extension/extensioncapabilities"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/service"
-	"go.opentelemetry.io/collector/service/hostcapabilities"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension/internal/componentchecker"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension/internal/httpserver"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension/internal/metrics"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension/internal/payload"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/datadog/agentcomponents"
-	datadogconfig "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/datadog/config"
 )
 
 const (
@@ -48,9 +38,7 @@ type uuidProvider interface {
 type realUUIDProvider struct{}
 
 // NewString returns a new UUID string using the real uuid package.
-func (*realUUIDProvider) NewString() string {
-	return uuid.New().String()
-}
+func (*realUUIDProvider) NewString() string { _ = "STUB: not implemented"; return "" }
 
 type configs struct {
 	collector *confmap.Conf
@@ -109,254 +97,120 @@ var (
 // this extension to be notified of the Collector's effective configuration.
 // This method is called during startup by the Collector's service after calling Start.
 func (e *datadogExtension) NotifyConfig(_ context.Context, conf *confmap.Conf) error {
-	e.configs.mutex.Lock()
-	defer e.configs.mutex.Unlock()
-
-	e.configs.collector = conf
-
-	// Create the build info struct for the payload
-	buildInfo := payload.CustomBuildInfo{
-		Command:     e.info.build.Command,
-		Description: e.info.build.Description,
-		Version:     e.info.build.Version,
-	}
-
-	// Get the full collector configuration as a flattened JSON string
-	fullConfig := componentchecker.DataToFlattenedJSONString(e.configs.collector.ToStringMap())
-
-	// Prepare the base payload
-	otelCollectorPayload := payload.PrepareOtelCollectorMetadata(
-		e.info.host.Identifier,
-		e.info.hostnameSource,
-		e.info.uuid,
-		e.info.build.Version, // This is the same version from buildInfo; it is possible we could want to set a different version here in the future
-		e.configs.extension.API.Site,
-		fullConfig,
-		e.configs.extension.DeploymentType,
-		e.configs.extension.InstallationMethod,
-		buildInfo,
-		int64(payloadTTL),
-		e.configs.extension.GatewayService,
-		e.configs.extension.GatewayDestination,
-	)
-
-	// Populate resource attributes collected from TelemetrySettings.Resource
-	otelCollectorPayload.CollectorResourceAttributes = e.info.resourceAttributes
-
-	// Populate the full list of components available in the collector build
-	moduleInfoJSON, err := componentchecker.PopulateFullComponentsJSON(e.info.modules, e.configs.collector)
-	if err != nil {
-		e.logger.Warn("Failed to populate full components list", zap.Error(err))
-	} else {
-		otelCollectorPayload.FullComponents = moduleInfoJSON.GetFullComponentsList()
-	}
-
-	// Populate the list of components that are active in a pipeline
-	activeComponents, err := componentchecker.PopulateActiveComponents(e.logger, e.configs.collector, moduleInfoJSON)
-	if err != nil {
-		e.logger.Warn("Failed to populate active components list", zap.Error(err))
-	} else if activeComponents != nil {
-		otelCollectorPayload.ActiveComponents = *activeComponents
-	}
-
-	// TODO: Populate HealthStatus from the pkg/status.
-	// https://datadoghq.atlassian.net/browse/OTEL-2663
-	// For now, we leave it as an empty string.
-	otelCollectorPayload.HealthStatus = "{}"
-
-	// Store the created payload in the extension struct
-	e.otelCollectorMetadata = &otelCollectorPayload
-	e.logger.Debug("Datadog extension payload created", zap.Any("payload", e.otelCollectorMetadata))
-
-	// Create and start the HTTP server
-	e.httpServer = httpserver.NewServer(
-		e.logger,
-		e.serializer,
-		e.configs.extension.HTTPConfig,
-		e.info.host.Identifier,
-		e.info.uuid,
-		otelCollectorPayload,
-		e.telemetrySettings,
-	)
-	startErr := e.httpServer.Start(context.Background(), e.host)
-	if startErr != nil {
-		return startErr
-	}
-	_, err = e.httpServer.SendPayload()
-	if err != nil {
-		return err
-	}
-
-	// Start periodic payload sending (every 30 minutes)
-	e.startPeriodicPayloadSending()
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Create the build info struct for the payload
+
+// Get the full collector configuration as a flattened JSON string
+
+// Prepare the base payload
+
+// This is the same version from buildInfo; it is possible we could want to set a different version here in the future
+
+// Populate resource attributes collected from TelemetrySettings.Resource
+
+// Populate the full list of components available in the collector build
+
+// Populate the list of components that are active in a pipeline
+
+// TODO: Populate HealthStatus from the pkg/status.
+// https://datadoghq.atlassian.net/browse/OTEL-2663
+// For now, we leave it as an empty string.
+
+// Store the created payload in the extension struct
+
+// Create and start the HTTP server
+
+// Start periodic payload sending (every 30 minutes)
 
 // Ready implements the extensioncapabilities.PipelineWatcher interface.
 func (*datadogExtension) Ready() error {
+	_ = "STUB: not implemented"
+
+	// NotReady implements the extensioncapabilities.PipelineWatcher interface.
 	return nil
 }
 
-// NotReady implements the extensioncapabilities.PipelineWatcher interface.
 func (*datadogExtension) NotReady() error {
+	_ = "STUB: not implemented"
+
+	// ComponentStatusChanged implements the componentstatus.Watcher interface.
 	return nil
 }
 
-// ComponentStatusChanged implements the componentstatus.Watcher interface.
 func (*datadogExtension) ComponentStatusChanged(
 	*componentstatus.InstanceID,
 	*componentstatus.Event,
 ) {
+	_ = "STUB: not implemented"
+
+	// Start starts the extension via the component interface.
+	return
 }
 
-// Start starts the extension via the component interface.
 func (e *datadogExtension) Start(_ context.Context, host component.Host) error {
+	_ = "STUB: not implemented"
 	// Store host for later use when creating the HTTP server
-	e.host = host
-
-	// Retrieve module information from the host
-	if mi, ok := host.(hostcapabilities.ModuleInfo); ok {
-		e.info.modules = mi.GetModuleInfos()
-	} else {
-		e.logger.Warn("Host does not implement hostcapabilities.ModuleInfo, component list in payload will be empty.")
-	}
-
-	// Start the serializer if it's available
-	if e.serializer != nil {
-		return e.serializer.Start()
-	}
 	return nil
 }
+
+// Retrieve module information from the host
+
+// Start the serializer if it's available
 
 // Shutdown stops the extension via the component interface.
 // It shuts down the HTTP server, stops forwarder, and passes signal on
 // channel to end goroutine that sends the Datadog otel_collector payloads.
 func (e *datadogExtension) Shutdown(ctx context.Context) error {
-	ctxWithTimeout, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
-
-	// Stop periodic payload sending
-	e.stopPeriodicPayloadSending()
-
-	if e.httpServer != nil {
-		e.httpServer.Stop(ctxWithTimeout)
-	}
-	// Stop the serializer if it's available
-	if e.serializer != nil {
-		e.serializer.Stop()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Stop periodic payload sending
+
+// Stop the serializer if it's available
 
 // sendLivenessMetric sends the otel.datadog_extension.running metric to indicate the extension is active
 func (e *datadogExtension) sendLivenessMetric(_ context.Context) error {
-	now := pcommon.NewTimestampFromTime(time.Now())
-	timestamp := uint64(now)
-	buildTags := metrics.TagsFromBuildInfo(e.info.build)
-
-	// Add hostname source tag to indicate whether hostname was configured or inferred
-	allTags := append([]string{}, buildTags...)
-	allTags = append(allTags, "hostname_source:"+e.info.hostnameSource)
-
-	// Create the liveness metric serie directly in agent format
-	serie := metrics.CreateLivenessSerie(e.info.host.Identifier, timestamp, allTags)
-
-	// Send using the serializer (forwarder handles retries internally)
-	err := e.serializer.SendSeriesWithMetadata(ddMetrics.Series{serie})
-	if err != nil {
-		e.logger.Error("Failed to send extension liveness metric", zap.Error(err))
-		return err
-	}
-
-	e.logger.Debug("Successfully sent extension liveness metric",
-		zap.String("hostname", e.info.host.Identifier),
-		zap.String("hostname_source", e.info.hostnameSource))
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Add hostname source tag to indicate whether hostname was configured or inferred
+
+// Create the liveness metric serie directly in agent format
+
+// Send using the serializer (forwarder handles retries internally)
+
 // startPeriodicPayloadSending starts a goroutine that sends payloads on payloadSendingInterval
-func (e *datadogExtension) startPeriodicPayloadSending() {
-	e.payloadSender.once.Do(func() {
-		go func() {
-			defer e.payloadSender.ticker.Stop()
+func (e *datadogExtension) startPeriodicPayloadSending() { _ = "STUB: not implemented"; return }
 
-			// Send initial liveness metric on startup
-			if err := e.sendLivenessMetric(e.payloadSender.ctx); err != nil {
-				e.logger.Warn("Failed to send initial liveness metric", zap.Error(err))
-			}
+// Send initial liveness metric on startup
 
-			for {
-				select {
-				case <-e.payloadSender.ticker.C:
-					e.logger.Debug("Sending periodic payloads to Datadog")
+// Send liveness metric first
 
-					// Send liveness metric first
-					if err := e.sendLivenessMetric(e.payloadSender.ctx); err != nil {
-						e.logger.Error("Failed to send periodic liveness metric", zap.Error(err))
-					}
+// Wait 1 minute before sending metadata payload
 
-					// Wait 1 minute before sending metadata payload
-					e.logger.Debug("Waiting 1 minute before sending metadata payload")
-					select {
-					case <-time.After(1 * time.Minute):
-						// Send metadata payload after delay
-						if _, err := e.httpServer.SendPayload(); err != nil {
-							e.logger.Error("Failed to send periodic payload", zap.Error(err))
-						} else {
-							e.logger.Debug("Successfully sent periodic payload to Datadog")
-						}
-					case <-e.payloadSender.ctx.Done():
-						e.logger.Debug("Stopping periodic payload sending during delay")
-						return
-					}
+// Send metadata payload after delay
 
-				case <-e.payloadSender.ctx.Done():
-					e.logger.Debug("Stopping periodic payload sending")
-					return
-				case <-e.payloadSender.channel:
-					// Allow manual triggering of payload sending if needed
-					// Manual triggers should send immediately without delay
-					e.logger.Debug("Manually triggered payload send")
+// Allow manual triggering of payload sending if needed
+// Manual triggers should send immediately without delay
 
-					// Send liveness metric first
-					if err := e.sendLivenessMetric(e.payloadSender.ctx); err != nil {
-						e.logger.Error("Failed to send manually triggered liveness metric", zap.Error(err))
-					}
+// Send liveness metric first
 
-					// Send metadata payload immediately on manual trigger
-					if _, err := e.httpServer.SendPayload(); err != nil {
-						e.logger.Error("Failed to send manually triggered payload", zap.Error(err))
-					}
-				}
-			}
-		}()
-
-		e.logger.Info("Started periodic payload sending", zap.Duration("interval", payloadSendingInterval))
-	})
-}
+// Send metadata payload immediately on manual trigger
 
 // stopPeriodicPayloadSending stops the periodic payload sending goroutine
-func (e *datadogExtension) stopPeriodicPayloadSending() {
-	if e.payloadSender == nil {
-		return
-	}
-	if e.payloadSender.cancel != nil {
-		e.payloadSender.cancel()
-	}
-	if e.payloadSender.ticker != nil {
-		e.payloadSender.ticker.Stop()
-	}
-	if e.payloadSender.channel != nil {
-		close(e.payloadSender.channel)
-	}
-}
+func (e *datadogExtension) stopPeriodicPayloadSending() { _ = "STUB: not implemented"; return }
 
 // GetSerializer returns the configured serializer with proxy settings from ClientConfig.
 // This allows other components (like exporters) to use the same serializer instance
 // with the same proxy configuration.
 func (e *datadogExtension) GetSerializer() agentcomponents.SerializerWithForwarder {
-	return e.serializer
+	_ = "STUB: not implemented"
+	return *new(agentcomponents.SerializerWithForwarder)
 }
 
 func newExtension(
@@ -366,77 +220,25 @@ func newExtension(
 	hostProvider source.Provider,
 	uuidProvider uuidProvider,
 ) (*datadogExtension, error) {
+	_ = "STUB: not implemented"
 	// Create configuration for agent components
 	// Convert datadogextension.Config to datadogconfig.Config
-	ddConfig := &datadogconfig.Config{
-		API:          cfg.API,
-		ClientConfig: cfg.ClientConfig,
-	}
-	host, err := hostProvider.Source(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	var hostnameSource string
-	if cfg.Hostname != "" {
-		hostnameSource = "config"
-	} else {
-		hostnameSource = "inferred"
-	}
-
-	// Create agent components with proxy configuration from ClientConfig
-	configOptions := []agentcomponents.ConfigOption{
-		agentcomponents.WithAPIConfig(ddConfig),
-		agentcomponents.WithForwarderConfig(),
-		agentcomponents.WithPayloadsConfig(),
-		// Use ClientConfig proxy settings instead of environment variables
-		agentcomponents.WithProxy(ddConfig),
-		// logging_frequency required to be set to avoid "divide by zero" error
-		agentcomponents.WithCustomConfig("logging_frequency", 1, pkgconfigmodel.SourceDefault),
-	}
-
-	// Create agent components
-	configComponent := agentcomponents.NewConfigComponent(configOptions...)
-	logComponent := agentcomponents.NewLogComponent(set.TelemetrySettings)
-	serializer := agentcomponents.NewSerializerComponent(configComponent, logComponent, host.Identifier)
-
-	// Collect resource attributes from TelemetrySettings.Resource
-	// Format: map[string]string
-	resourceMap := make(map[string]string)
-	if attrs := set.Resource.Attributes(); attrs.Len() > 0 {
-		attrs.Range(func(k string, v pcommon.Value) bool {
-			resourceMap[k] = v.AsString()
-			return true
-		})
-	}
-	// Ensure os.type is always present; defer to any value already set by a resource detector
-	if _, ok := resourceMap[string(conventions.OSTypeKey)]; !ok {
-		resourceMap[string(conventions.OSTypeKey)] = runtime.GOOS
-	}
-
-	// configure payloadSender struct
-	ctxWithCancel, cancel := context.WithCancel(ctx)
-	ticker := time.NewTicker(payloadSendingInterval)
-	channel := make(chan struct{}, 1)
-
-	e := &datadogExtension{
-		configs:           &configs{extension: cfg},
-		logger:            set.Logger,
-		serializer:        serializer,
-		telemetrySettings: set.TelemetrySettings,
-		info: &info{
-			host:               host,
-			hostnameSource:     hostnameSource,
-			uuid:               uuidProvider.NewString(),
-			build:              set.BuildInfo,
-			modules:            service.ModuleInfos{}, // moduleInfos will be populated in Start()
-			resourceAttributes: resourceMap,
-		},
-		payloadSender: &payloadSender{
-			ctx:     ctxWithCancel,
-			cancel:  cancel,
-			ticker:  ticker,
-			channel: channel,
-		},
-	}
-	return e, nil
+	return nil, nil
 }
+
+// Create agent components with proxy configuration from ClientConfig
+
+// Use ClientConfig proxy settings instead of environment variables
+
+// logging_frequency required to be set to avoid "divide by zero" error
+
+// Create agent components
+
+// Collect resource attributes from TelemetrySettings.Resource
+// Format: map[string]string
+
+// Ensure os.type is always present; defer to any value already set by a resource detector
+
+// configure payloadSender struct
+
+// moduleInfos will be populated in Start()

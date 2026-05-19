@@ -4,10 +4,6 @@
 package kafkareceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver"
 
 import (
-	"fmt"
-	"regexp"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/confmap"
@@ -48,94 +44,36 @@ type Config struct {
 	Telemetry TelemetryConfig `mapstructure:"telemetry"`
 }
 
-func (c *Config) Unmarshal(conf *confmap.Conf) error {
-	if err := conf.Unmarshal(c); err != nil {
-		return err
-	}
+func (c *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
-	// Check if deprecated fields have been explicitly set
-	// give them  precedence
-	var zeroConfig Config
-	if err := conf.Unmarshal(&zeroConfig); err != nil {
-		return err
-	}
+// Check if deprecated fields have been explicitly set
+// give them  precedence
 
-	// Set OnPermanentError default value to inherit from OnError for backward compatibility
-	// Only if OnPermanentError was not explicitly set in the config
-	rawConf := conf.Get("message_marking")
-	if rawConf != nil {
-		if messageMarkingConf, ok := rawConf.(map[string]any); ok {
-			if _, hasOnPermanentError := messageMarkingConf["on_permanent_error"]; !hasOnPermanentError {
-				c.MessageMarking.OnPermanentError = c.MessageMarking.OnError
-			}
-		}
-	} else {
-		// If message_marking section doesn't exist, set defaults
-		c.MessageMarking.OnPermanentError = c.MessageMarking.OnError
-	}
+// Set OnPermanentError default value to inherit from OnError for backward compatibility
+// Only if OnPermanentError was not explicitly set in the config
 
-	return nil
-}
+// If message_marking section doesn't exist, set defaults
 
 // Validate checks the receiver configuration is valid.
 func (c *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// Validate that exclude_topic is only used with regex topic patterns
-	if err := validateExcludeTopic("logs", c.Logs.Topics, c.Logs.ExcludeTopics); err != nil {
-		return err
-	}
-	if err := validateExcludeTopic("metrics", c.Metrics.Topics, c.Metrics.ExcludeTopics); err != nil {
-		return err
-	}
-	if err := validateExcludeTopic("traces", c.Traces.Topics, c.Traces.ExcludeTopics); err != nil {
-		return err
-	}
-	if err := validateExcludeTopic("profiles", c.Profiles.Topics, c.Profiles.ExcludeTopics); err != nil {
-		return err
-	}
 	return nil
 }
 
 // validateExcludeTopic checks that exclude_topic is only configured when topics uses regex pattern
 func validateExcludeTopic(signalType string, topics, excludeTopics []string) error {
-	if len(excludeTopics) == 0 {
-		return nil // No exclude_topic configured, nothing to validate
-	}
-
-	// if none of the configured topic uses regex return error
-	var usesRegex bool
-	for _, topic := range topics {
-		if strings.HasPrefix(topic, "^") {
-			usesRegex = true
-			break
-		}
-	}
-
-	if !usesRegex {
-		return fmt.Errorf(
-			"%s.exclude_topics is configured but none of the configured %s.topics use regex pattern (must start with '^')",
-			signalType, signalType,
-		)
-	}
-
-	for _, excludeTopic := range excludeTopics {
-		// Validate that exclude_topic is not empty
-		if excludeTopic == "" {
-			return fmt.Errorf(
-				"%s.exclude_topics contains empty string, which would match all topics",
-				signalType,
-			)
-		}
-		// Validate that exclude_topic is a valid regex pattern
-		if _, err := regexp.Compile(excludeTopic); err != nil {
-			return fmt.Errorf(
-				"%s.exclude_topic contains invalid regex pattern: %w",
-				signalType, err,
-			)
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// No exclude_topic configured, nothing to validate
+
+// if none of the configured topic uses regex return error
+
+// Validate that exclude_topic is not empty
+
+// Validate that exclude_topic is a valid regex pattern
 
 // TopicEncodingConfig holds signal-specific topic and encoding configuration.
 type TopicEncodingConfig struct {

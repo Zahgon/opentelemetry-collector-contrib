@@ -5,18 +5,9 @@ package clientutil // import "github.com/open-telemetry/opentelemetry-collector-
 
 import (
 	"net/http"
-
-	"go.opentelemetry.io/collector/consumer/consumererror"
 )
 
 // WrapError wraps an error to a permanent consumer error that won't be retried if the http response code is non-retriable.
-func WrapError(err error, resp *http.Response) error {
-	if err == nil || resp == nil || !isNonRetriable(resp) {
-		return err
-	}
-	return consumererror.NewPermanent(err)
-}
+func WrapError(err error, resp *http.Response) error { _ = "STUB: not implemented"; return nil }
 
-func isNonRetriable(resp *http.Response) bool {
-	return resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusNotFound || resp.StatusCode == http.StatusRequestEntityTooLarge || resp.StatusCode == http.StatusForbidden
-}
+func isNonRetriable(resp *http.Response) bool { _ = "STUB: not implemented"; return false }

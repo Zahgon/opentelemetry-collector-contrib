@@ -8,25 +8,16 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/xexporter"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlecloudstorageexporter/internal/metadata"
 )
 
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		xexporter.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createLogsExporter(ctx context.Context, set exporter.Settings, config component.Config) (exporter.Logs, error) {
-	return newGCSExporter(ctx, config.(*Config), set.Logger, signalTypeLogs)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func createTracesExporter(ctx context.Context, set exporter.Settings, config component.Config) (exporter.Traces, error) {
-	return newGCSExporter(ctx, config.(*Config), set.Logger, signalTypeTraces)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }

@@ -8,23 +8,14 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/ciscoosreceiver/internal/scraper/systemscraper/internal/metadata"
 )
 
 // NewFactory creates a factory for system scraper.
-func NewFactory() scraper.Factory {
-	return scraper.NewFactory(
-		component.MustNewType("system"),
-		createDefaultConfig,
-		scraper.WithMetrics(createMetricsScraper, component.StabilityLevelDevelopment),
-	)
-}
+func NewFactory() scraper.Factory { _ = "STUB: not implemented"; return *new(scraper.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsScraper(
@@ -32,9 +23,6 @@ func createMetricsScraper(
 	settings scraper.Settings,
 	cfg component.Config,
 ) (scraper.Metrics, error) {
-	config := cfg.(*Config)
-	return &systemScraper{
-		logger: settings.Logger,
-		config: config,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(scraper.Metrics), nil
 }

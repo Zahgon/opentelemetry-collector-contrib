@@ -4,15 +4,8 @@
 package datasenders // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datasenders"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/exporter/exportertest"
-	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusexporter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -25,44 +18,12 @@ type prometheusDataSender struct {
 // NewPrometheusDataSender creates a new Prometheus sender that will expose data
 // on the specified port after Start is called.
 func NewPrometheusDataSender(host string, port int) testbed.MetricDataSender {
-	return &prometheusDataSender{
-		DataSenderBase: testbed.DataSenderBase{
-			Port: port,
-			Host: host,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(testbed.MetricDataSender)
 }
 
-func (pds *prometheusDataSender) Start() error {
-	factory := prometheusexporter.NewFactory()
-	cfg := factory.CreateDefaultConfig().(*prometheusexporter.Config)
-	cfg.NetAddr.Endpoint = pds.GetEndpoint().String()
-	cfg.Namespace = pds.namespace
-	params := exportertest.NewNopSettings(factory.Type())
-	params.Logger = zap.L()
+func (pds *prometheusDataSender) Start() error { _ = "STUB: not implemented"; return nil }
 
-	exp, err := factory.CreateMetrics(context.Background(), params, cfg)
-	if err != nil {
-		return err
-	}
+func (pds *prometheusDataSender) GenConfigYAMLStr() string { _ = "STUB: not implemented"; return "" }
 
-	pds.Metrics = exp
-	return exp.Start(context.Background(), componenttest.NewNopHost())
-}
-
-func (pds *prometheusDataSender) GenConfigYAMLStr() string {
-	format := `
-  prometheus:
-    config:
-      scrape_configs:
-        - job_name: 'testbed'
-          scrape_interval: 100ms
-          static_configs:
-            - targets: ['%s']
-`
-	return fmt.Sprintf(format, pds.GetEndpoint())
-}
-
-func (*prometheusDataSender) ProtocolName() string {
-	return "prometheus"
-}
+func (*prometheusDataSender) ProtocolName() string { _ = "STUB: not implemented"; return "" }

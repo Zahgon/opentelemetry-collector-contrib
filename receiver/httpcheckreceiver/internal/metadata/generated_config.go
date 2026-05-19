@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -26,34 +24,12 @@ type HttpcheckClientConnectionDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckClientConnectionDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckClientConnectionDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckClientConnectionDurationMetricAttributeKeyHTTPURL, HttpcheckClientConnectionDurationMetricAttributeKeyNetworkTransport:
-		default:
-			return fmt.Errorf("metric httpcheck.client.connection.duration doesn't have an attribute %v, valid attributes: [http.url, network.transport]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -74,34 +50,12 @@ type HttpcheckClientRequestDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckClientRequestDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckClientRequestDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckClientRequestDurationMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.client.request.duration doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -122,34 +76,12 @@ type HttpcheckDNSLookupDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckDNSLookupDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckDNSLookupDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckDNSLookupDurationMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.dns.lookup.duration doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -170,36 +102,11 @@ type HttpcheckDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *HttpcheckDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckDurationMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.duration doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *HttpcheckDurationMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // HttpcheckErrorMetricAttributeKey specifies the key of an attribute for the httpcheck.error metric.
 type HttpcheckErrorMetricAttributeKey string
@@ -219,36 +126,11 @@ type HttpcheckErrorMetricConfig struct {
 }
 
 func (ms *HttpcheckErrorMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *HttpcheckErrorMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckErrorMetricAttributeKeyHTTPURL, HttpcheckErrorMetricAttributeKeyErrorMessage:
-		default:
-			return fmt.Errorf("metric httpcheck.error doesn't have an attribute %v, valid attributes: [http.url, error.message]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *HttpcheckErrorMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // HttpcheckResponseDurationMetricAttributeKey specifies the key of an attribute for the httpcheck.response.duration metric.
 type HttpcheckResponseDurationMetricAttributeKey string
@@ -267,34 +149,12 @@ type HttpcheckResponseDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckResponseDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckResponseDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckResponseDurationMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.response.duration doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -315,34 +175,12 @@ type HttpcheckResponseSizeMetricConfig struct {
 }
 
 func (ms *HttpcheckResponseSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckResponseSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckResponseSizeMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.response.size doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -366,36 +204,11 @@ type HttpcheckStatusMetricConfig struct {
 }
 
 func (ms *HttpcheckStatusMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *HttpcheckStatusMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckStatusMetricAttributeKeyHTTPURL, HttpcheckStatusMetricAttributeKeyHTTPStatusCode, HttpcheckStatusMetricAttributeKeyHTTPMethod, HttpcheckStatusMetricAttributeKeyHTTPStatusClass:
-		default:
-			return fmt.Errorf("metric httpcheck.status doesn't have an attribute %v, valid attributes: [http.url, http.status_code, http.method, http.status_class]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *HttpcheckStatusMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // HttpcheckTLSCertRemainingMetricAttributeKey specifies the key of an attribute for the httpcheck.tls.cert_remaining metric.
 type HttpcheckTLSCertRemainingMetricAttributeKey string
@@ -417,34 +230,12 @@ type HttpcheckTLSCertRemainingMetricConfig struct {
 }
 
 func (ms *HttpcheckTLSCertRemainingMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckTLSCertRemainingMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckTLSCertRemainingMetricAttributeKeyHTTPURL, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSIssuer, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSCn, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSSan:
-		default:
-			return fmt.Errorf("metric httpcheck.tls.cert_remaining doesn't have an attribute %v, valid attributes: [http.url, http.tls.issuer, http.tls.cn, http.tls.san]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -465,34 +256,12 @@ type HttpcheckTLSHandshakeDurationMetricConfig struct {
 }
 
 func (ms *HttpcheckTLSHandshakeDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckTLSHandshakeDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckTLSHandshakeDurationMetricAttributeKeyHTTPURL:
-		default:
-			return fmt.Errorf("metric httpcheck.tls.handshake.duration doesn't have an attribute %v, valid attributes: [http.url]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -514,34 +283,12 @@ type HttpcheckValidationFailedMetricConfig struct {
 }
 
 func (ms *HttpcheckValidationFailedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckValidationFailedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckValidationFailedMetricAttributeKeyHTTPURL, HttpcheckValidationFailedMetricAttributeKeyValidationType:
-		default:
-			return fmt.Errorf("metric httpcheck.validation.failed doesn't have an attribute %v, valid attributes: [http.url, validation.type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -563,34 +310,12 @@ type HttpcheckValidationPassedMetricConfig struct {
 }
 
 func (ms *HttpcheckValidationPassedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *HttpcheckValidationPassedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case HttpcheckValidationPassedMetricAttributeKeyHTTPURL, HttpcheckValidationPassedMetricAttributeKeyValidationType:
-		default:
-			return fmt.Errorf("metric httpcheck.validation.passed doesn't have an attribute %v, valid attributes: [http.url, validation.type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -610,70 +335,7 @@ type MetricsConfig struct {
 	HttpcheckValidationPassed         HttpcheckValidationPassedMetricConfig         `mapstructure:"httpcheck.validation.passed"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		HttpcheckClientConnectionDuration: HttpcheckClientConnectionDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckClientConnectionDurationMetricAttributeKey{HttpcheckClientConnectionDurationMetricAttributeKeyHTTPURL, HttpcheckClientConnectionDurationMetricAttributeKeyNetworkTransport},
-		},
-		HttpcheckClientRequestDuration: HttpcheckClientRequestDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckClientRequestDurationMetricAttributeKey{HttpcheckClientRequestDurationMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckDNSLookupDuration: HttpcheckDNSLookupDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckDNSLookupDurationMetricAttributeKey{HttpcheckDNSLookupDurationMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckDuration: HttpcheckDurationMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckDurationMetricAttributeKey{HttpcheckDurationMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckError: HttpcheckErrorMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []HttpcheckErrorMetricAttributeKey{HttpcheckErrorMetricAttributeKeyHTTPURL, HttpcheckErrorMetricAttributeKeyErrorMessage},
-		},
-		HttpcheckResponseDuration: HttpcheckResponseDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckResponseDurationMetricAttributeKey{HttpcheckResponseDurationMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckResponseSize: HttpcheckResponseSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckResponseSizeMetricAttributeKey{HttpcheckResponseSizeMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckStatus: HttpcheckStatusMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []HttpcheckStatusMetricAttributeKey{HttpcheckStatusMetricAttributeKeyHTTPURL, HttpcheckStatusMetricAttributeKeyHTTPStatusCode, HttpcheckStatusMetricAttributeKeyHTTPMethod, HttpcheckStatusMetricAttributeKeyHTTPStatusClass},
-		},
-		HttpcheckTLSCertRemaining: HttpcheckTLSCertRemainingMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckTLSCertRemainingMetricAttributeKey{HttpcheckTLSCertRemainingMetricAttributeKeyHTTPURL, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSIssuer, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSCn, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSSan},
-		},
-		HttpcheckTLSHandshakeDuration: HttpcheckTLSHandshakeDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []HttpcheckTLSHandshakeDurationMetricAttributeKey{HttpcheckTLSHandshakeDurationMetricAttributeKeyHTTPURL},
-		},
-		HttpcheckValidationFailed: HttpcheckValidationFailedMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []HttpcheckValidationFailedMetricAttributeKey{HttpcheckValidationFailedMetricAttributeKeyHTTPURL, HttpcheckValidationFailedMetricAttributeKeyValidationType},
-		},
-		HttpcheckValidationPassed: HttpcheckValidationPassedMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []HttpcheckValidationPassedMetricAttributeKey{HttpcheckValidationPassedMetricAttributeKeyHTTPURL, HttpcheckValidationPassedMetricAttributeKeyValidationType},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for http_check metrics builder.
 type MetricsBuilderConfig struct {
@@ -681,12 +343,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

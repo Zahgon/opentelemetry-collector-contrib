@@ -7,12 +7,7 @@
 package apploadbalancerlog // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/apploadbalancerlog"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -135,137 +130,60 @@ type addressGroup struct {
 }
 
 func handleRecaptchaTokens(data *securityPolicyRequestData, attr pcommon.Map) {
-	if data.RecaptchaActionToken != nil {
-		attr.PutDouble(gcpArmorRecaptchaActionTokenScore, data.RecaptchaActionToken.Score)
-	}
-
-	if data.RecaptchaSessionToken != nil {
-		attr.PutDouble(gcpArmorRecaptchaSessionTokenScore, data.RecaptchaSessionToken.Score)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func handleUserIPInfo(info *userIPInfo, attr pcommon.Map) {
-	if info == nil {
-		return
-	}
-
-	shared.PutStr(gcpArmorUserIPInfoSource, info.Source, attr)
-	shared.PutStr(string(conventions.ClientAddressKey), info.IPAddress, attr)
-}
+func handleUserIPInfo(info *userIPInfo, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func handleRemoteIPInfo(info *remoteIPInfo, attr pcommon.Map) error {
-	if info == nil {
-		return nil
-	}
-
-	shared.PutStr(string(conventions.GeoRegionISOCodeKey), info.RegionCode, attr)
-	shared.PutInt(gcpArmorRemoteIPInfoAsn, info.ASN, attr)
-
-	if _, err := shared.PutStrIfNotPresent(string(conventions.NetworkPeerAddressKey), info.IPAddress, attr); err != nil {
-		return fmt.Errorf("error setting security policy attribute: %w", err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func handleTLSFingerprints(data *securityPolicyRequestData, attr pcommon.Map) {
-	shared.PutStr(gcpArmorTLSJa4Fingerprint, data.TLSJa4Fingerprint, attr)
-	shared.PutStr(string(conventions.TLSClientJa3Key), data.TLSJa3Fingerprint, attr)
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleSecurityPolicyRequestData(data *securityPolicyRequestData, attr pcommon.Map) error {
-	if data == nil {
-		return nil
-	}
-
-	handleRecaptchaTokens(data, attr)
-	handleUserIPInfo(data.UserIPInfo, attr)
-	handleTLSFingerprints(data, attr)
-	return handleRemoteIPInfo(data.RemoteIPInfo, attr)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func handleRateLimitAction(rl *rateLimitAction, attr pcommon.Map) {
-	if rl == nil {
-		return
-	}
-
-	shared.PutStr(gcpArmorRateLimitActionKey, rl.Key, attr)
-	shared.PutStr(gcpArmorRateLimitActionOutcome, rl.Outcome, attr)
+	_ = "STUB: not implemented"
+	return
 }
 
-func handleAddressGroup(ag *addressGroup, attr pcommon.Map) {
-	if ag != nil && len(ag.Names) > 0 {
-		namesSlice := attr.PutEmptySlice(gcpArmorAddressGroupNames)
-		for _, name := range ag.Names {
-			namesSlice.AppendEmpty().SetStr(name)
-		}
-	}
-}
+func handleAddressGroup(ag *addressGroup, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func handleThreatIntelligence(ti *threatIntelligence, attr pcommon.Map) {
-	if ti != nil && len(ti.Categories) > 0 {
-		categoriesSlice := attr.PutEmptySlice(gcpArmorThreatIntelligenceCategories)
-		for _, category := range ti.Categories {
-			categoriesSlice.AppendEmpty().SetStr(category)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleSecurityPolicyBase(sp *securityPolicyBase, attr pcommon.Map) {
-	shared.PutStr(gcpArmorSecurityPolicyName, sp.Name, attr)
-	shared.PutInt(gcpArmorSecurityPolicyPriority, sp.Priority, attr)
-	shared.PutStr(gcpArmorSecurityPolicyConfiguredAction, sp.ConfiguredAction, attr)
-	shared.PutStr(gcpArmorSecurityPolicyOutcome, sp.Outcome, attr)
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleSecurityPolicyExtended(sp *securityPolicyExtended, attr pcommon.Map) {
-	handleSecurityPolicyBase(&sp.securityPolicyBase, attr)
-
-	handleRateLimitAction(sp.RateLimitAction, attr)
-	handleThreatIntelligence(sp.ThreatIntelligence, attr)
-	handleAddressGroup(sp.AddressGroup, attr)
-
-	if len(sp.PreconfiguredExprIDs) > 0 {
-		exprIDsSlice := attr.PutEmptySlice(gcpArmorWAFRuleExpressionIDs)
-		for _, id := range sp.PreconfiguredExprIDs {
-			exprIDsSlice.AppendEmpty().SetStr(id)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleEnforcedSecurityPolicy(sp *enforcedSecurityPolicy, attr pcommon.Map) {
-	handleSecurityPolicyExtended(&sp.securityPolicyExtended, attr)
-
-	if sp.AdaptiveProtection != nil {
-		shared.PutStr(gcpArmorAdaptiveProtectionAutoDeployAlertID, sp.AdaptiveProtection.AutoDeployAlertID, attr)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleSecurityPolicies(armorlog *armorlog, attr pcommon.Map) {
-	if armorlog.PreviewEdgeSecurityPolicy != nil {
-		policyMap := attr.PutEmptyMap(gcpArmorSecurityPolicyPreviewEdge)
-		handleSecurityPolicyBase(armorlog.PreviewEdgeSecurityPolicy, policyMap)
-	}
-	if armorlog.EnforcedEdgeSecurityPolicy != nil {
-		policyMap := attr.PutEmptyMap(gcpArmorSecurityPolicyEnforcedEdge)
-		handleSecurityPolicyBase(armorlog.EnforcedEdgeSecurityPolicy, policyMap)
-	}
-	if armorlog.PreviewSecurityPolicy != nil {
-		policyMap := attr.PutEmptyMap(gcpArmorSecurityPolicyPreview)
-		handleSecurityPolicyExtended(armorlog.PreviewSecurityPolicy, policyMap)
-	}
-	if armorlog.EnforcedSecurityPolicy != nil {
-		policyMap := attr.PutEmptyMap(gcpArmorSecurityPolicyEnforced)
-		handleEnforcedSecurityPolicy(armorlog.EnforcedSecurityPolicy, policyMap)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func handleArmorLogAttributes(armorlog *armorlog, attr pcommon.Map) error {
-	handleSecurityPolicies(armorlog, attr)
-
-	if err := handleSecurityPolicyRequestData(armorlog.SecurityPolicyRequestData, attr); err != nil {
-		return fmt.Errorf("error handling Security Policy Request Data: %w", err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

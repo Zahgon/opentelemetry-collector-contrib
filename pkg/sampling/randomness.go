@@ -4,9 +4,7 @@
 package sampling // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling"
 
 import (
-	"encoding/binary"
 	"errors"
-	"strconv"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
@@ -45,72 +43,55 @@ type Randomness struct {
 // TraceIDToRandomness returns randomness from a TraceID (assumes
 // the traceparent random flag was set).
 func TraceIDToRandomness(id pcommon.TraceID) Randomness {
+	_ = "STUB: not implemented"
 	// To get the 56 bits we want, take the second half of the trace ID,
-	leastHalf := binary.BigEndian.Uint64(id[8:])
-	return Randomness{
-		// Then apply the mask to get the least-significant 56 bits / 7 bytes.
-		// Equivalently stated: zero the most-significant 8 bits.
-		unsigned: leastHalf & leastHalfTraceIDThresholdMask,
-	}
+	return *new(Randomness)
 }
+
+// Then apply the mask to get the least-significant 56 bits / 7 bytes.
+// Equivalently stated: zero the most-significant 8 bits.
 
 // RValueToRandomness parses NumHexDigits hex bytes into a Randomness.
 func RValueToRandomness(s string) (Randomness, error) {
-	if len(s) != NumHexDigits {
-		return Randomness{}, ErrRValueSize
-	}
-
-	unsigned, err := strconv.ParseUint(s, hexBase, 64)
-	if err != nil {
-		return Randomness{}, err
-	}
-
-	return Randomness{
-		unsigned: unsigned,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(Randomness), nil
 }
 
 // RValue formats the r-value encoding.
 func (rnd Randomness) RValue() string {
+	_ = "STUB: not implemented"
 	// The important part here is to format a full 14-byte hex
 	// string, including leading zeros.  We could accomplish the
 	// same with custom code or with fmt.Sprintf directives, but
 	// here we let strconv.FormatUint fill in leading zeros, as
 	// follows:
 	//
-	//   Format (numRandomnessValues+Randomness) as a hex string
-	//   Strip the leading hex digit, which is a "1" by design
+	//	Format (numRandomnessValues+Randomness) as a hex string
+	//	Strip the leading hex digit, which is a "1" by design
 	//
 	// For example, a randomness that requires two leading zeros
 	// (all in hexadecimal):
 	//
-	//   randomness is 7 bytes:             aabbccddeeff
-	//   numRandomnessValues is 2^56:    100000000000000
-	//   randomness+numRandomnessValues: 100aabbccddeeff
-	//   strip the leading "1":           00aabbccddeeff
+	//	randomness is 7 bytes:             aabbccddeeff
+	//	numRandomnessValues is 2^56:    100000000000000
+	//	randomness+numRandomnessValues: 100aabbccddeeff
+	//	strip the leading "1":           00aabbccddeeff
 	//
 	// If the value is out-of-range, the empty string will be
 	// returned.
-	if rnd.unsigned >= numRandomnessValues {
-		return ""
-	}
-	return strconv.FormatUint(numRandomnessValues+rnd.unsigned, hexBase)[1:]
+	return ""
 }
 
 // Unsigned returns the unsigned representation of the random value.
 // Items of data SHOULD be sampled when:
 //
 //	Threshold.Unsigned() <= // Randomness.Unsigned().
-func (rnd Randomness) Unsigned() uint64 {
-	return rnd.unsigned
-}
+func (rnd Randomness) Unsigned() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // UnsignedToRandomness constructs a randomness using 56 random bits
 // of unsigned number.  If the input is out of range, an invalid value
 // will be returned with an error.
 func UnsignedToRandomness(x uint64) (Randomness, error) {
-	if x >= MaxAdjustedCount {
-		return AllProbabilitiesRandomness, ErrRValueSize
-	}
-	return Randomness{unsigned: x}, nil
+	_ = "STUB: not implemented"
+	return *new(Randomness), nil
 }

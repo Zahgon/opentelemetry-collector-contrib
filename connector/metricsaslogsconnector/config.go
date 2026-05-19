@@ -15,13 +15,9 @@ type Config struct {
 	_ struct{}
 }
 
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		IncludeResourceAttributes: true,
-		IncludeScopeInfo:          true,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

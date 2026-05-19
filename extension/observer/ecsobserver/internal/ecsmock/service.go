@@ -5,11 +5,7 @@ package ecsmock // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"fmt"
-	"reflect"
-	"strconv"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	ec2types "github.com/aws/aws-sdk-go-v2/service/ec2/types"
 	"github.com/aws/aws-sdk-go-v2/service/ecs"
@@ -28,16 +24,7 @@ type PageLimit struct {
 	DescribeInstanceOutput         int // max 1000
 }
 
-func DefaultPageLimit() PageLimit {
-	return PageLimit{
-		ListTaskOutput:                 100,
-		DescribeTaskInput:              100,
-		ListServiceOutput:              10,
-		DescribeServiceInput:           10,
-		DescribeContainerInstanceInput: 100,
-		DescribeInstanceOutput:         1000,
-	}
-}
+func DefaultPageLimit() PageLimit { _ = "STUB: not implemented"; return *new(PageLimit) }
 
 // Cluster implements both ECS and EC2 API for a single cluster.
 type Cluster struct {
@@ -56,19 +43,13 @@ type Cluster struct {
 }
 
 // NewCluster creates a mock ECS cluster with default limits.
-func NewCluster() *Cluster {
-	return NewClusterWithName("")
-}
+func NewCluster() *Cluster { _ = "STUB: not implemented"; return nil }
 
 // NewClusterWithName creates a cluster that checks for cluster name if request includes a non empty cluster name.
-func NewClusterWithName(name string) *Cluster {
-	return &Cluster{
-		name: name,
-		// NOTE: we don't set the maps by design, they should be injected and API calls
-		// without setting up data should just panic.
-		limit: DefaultPageLimit(),
-	}
-}
+func NewClusterWithName(name string) *Cluster { _ = "STUB: not implemented"; return nil }
+
+// NOTE: we don't set the maps by design, they should be injected and API calls
+// without setting up data should just panic.
 
 // APIStat keep track of individual API calls.
 type APIStat struct {
@@ -84,161 +65,43 @@ type ClusterStats struct {
 
 // API Start
 
-func (c *Cluster) Stats() ClusterStats {
-	return c.stats
-}
+func (c *Cluster) Stats() ClusterStats { _ = "STUB: not implemented"; return *new(ClusterStats) }
 
 func (c *Cluster) ListTasks(_ context.Context, input *ecs.ListTasksInput, _ ...func(*ecs.Options)) (*ecs.ListTasksOutput, error) {
-	if err := checkCluster(input.Cluster, c.name); err != nil {
-		return nil, err
-	}
-	page, err := getPage(pageInput{
-		nextToken: input.NextToken,
-		size:      len(c.taskList),
-		limit:     c.limit.ListTaskOutput,
-	})
-	if err != nil {
-		return nil, err
-	}
-	res := c.taskList[page.start:page.end]
-	return &ecs.ListTasksOutput{
-		TaskArns: getArns(res, func(i int) string {
-			return *res[i].TaskArn
-		}),
-		NextToken: page.nextToken,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *Cluster) DescribeTasks(_ context.Context, input *ecs.DescribeTasksInput, _ ...func(*ecs.Options)) (*ecs.DescribeTasksOutput, error) {
-	if err := checkCluster(input.Cluster, c.name); err != nil {
-		return nil, err
-	}
-	var failures []ecstypes.Failure
-	tasks := make([]ecstypes.Task, 0, len(input.Tasks))
-	for i, taskArn := range input.Tasks {
-		task, ok := c.taskMap[taskArn]
-		if !ok {
-			failures = append(failures, ecstypes.Failure{
-				Arn:    aws.String(taskArn),
-				Detail: aws.String(fmt.Sprintf("task not found index %d arn %s total tasks %d", i, taskArn, len(c.taskMap))),
-				Reason: aws.String("task not found"),
-			})
-			continue
-		}
-		tasks = append(tasks, task)
-	}
-	return &ecs.DescribeTasksOutput{Failures: failures, Tasks: tasks}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *Cluster) DescribeTaskDefinition(_ context.Context, input *ecs.DescribeTaskDefinitionInput, _ ...func(*ecs.Options)) (*ecs.DescribeTaskDefinitionOutput, error) {
-	c.stats.DescribeTaskDefinition.Called++
-	defArn := *input.TaskDefinition
-	def, ok := c.definitions[defArn]
-	if !ok {
-		c.stats.DescribeTaskDefinition.Error++
-		return nil, fmt.Errorf("task definition not found for arn %q", defArn)
-	}
-	return &ecs.DescribeTaskDefinitionOutput{TaskDefinition: def}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *Cluster) DescribeContainerInstances(_ context.Context, input *ecs.DescribeContainerInstancesInput, _ ...func(*ecs.Options)) (*ecs.DescribeContainerInstancesOutput, error) {
-	if err := checkCluster(input.Cluster, c.name); err != nil {
-		return nil, err
-	}
-	var failures []ecstypes.Failure
-	instances := make([]ecstypes.ContainerInstance, 0, len(input.ContainerInstances))
-	for _, cid := range input.ContainerInstances {
-		ci, ok := c.containerInstanceMap[cid]
-		if !ok {
-			failures = append(failures, ecstypes.Failure{
-				Arn:    aws.String(cid),
-				Detail: aws.String(fmt.Sprintf("container instance not found %s", cid)),
-				Reason: aws.String("container instance not found"),
-			})
-			continue
-		}
-		instances = append(instances, ci)
-	}
-	return &ecs.DescribeContainerInstancesOutput{ContainerInstances: instances, Failures: failures}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeInstances supports get all the instances and get instance by ids.
 // It does NOT support filter. Result always has a single reservation, which is not the case in actual EC2 API.
 func (c *Cluster) DescribeInstances(_ context.Context, input *ec2.DescribeInstancesInput, _ ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error) {
-	var (
-		instances []ec2types.Instance
-		nextToken *string
-	)
-	if len(input.InstanceIds) != 0 {
-		for _, id := range input.InstanceIds {
-			ins, ok := c.ec2Map[id]
-			if !ok {
-				return nil, fmt.Errorf("instance %q not found", id)
-			}
-			instances = append(instances, ins)
-		}
-	} else {
-		page, err := getPage(pageInput{
-			nextToken: input.NextToken,
-			size:      len(c.ec2List),
-			limit:     c.limit.DescribeInstanceOutput,
-		})
-		if err != nil {
-			return nil, err
-		}
-		instances = c.ec2List[page.start:page.end]
-		nextToken = page.nextToken
-	}
-	return &ec2.DescribeInstancesOutput{
-		Reservations: []ec2types.Reservation{
-			{
-				Instances: instances,
-			},
-		},
-		NextToken: nextToken,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *Cluster) ListServices(_ context.Context, input *ecs.ListServicesInput, _ ...func(*ecs.Options)) (*ecs.ListServicesOutput, error) {
-	if err := checkCluster(input.Cluster, c.name); err != nil {
-		return nil, err
-	}
-	page, err := getPage(pageInput{
-		nextToken: input.NextToken,
-		size:      len(c.serviceList),
-		limit:     c.limit.ListServiceOutput,
-	})
-	if err != nil {
-		return nil, err
-	}
-	res := c.serviceList[page.start:page.end]
-	return &ecs.ListServicesOutput{
-		ServiceArns: getArns(res, func(i int) string {
-			return *res[i].ServiceArn
-		}),
-		NextToken: page.nextToken,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *Cluster) DescribeServices(_ context.Context, input *ecs.DescribeServicesInput, _ ...func(*ecs.Options)) (*ecs.DescribeServicesOutput, error) {
-	if err := checkCluster(input.Cluster, c.name); err != nil {
-		return nil, err
-	}
-	var failures []ecstypes.Failure
-	services := make([]ecstypes.Service, 0, len(input.Services))
-	for i, serviceArn := range input.Services {
-		svc, ok := c.serviceMap[serviceArn]
-		if !ok {
-			failures = append(failures, ecstypes.Failure{
-				Arn:    aws.String(serviceArn),
-				Detail: aws.String(fmt.Sprintf("service not found index %d arn %s total services %d", i, serviceArn, len(c.serviceMap))),
-				Reason: aws.String("service not found"),
-			})
-			continue
-		}
-		services = append(services, svc)
-	}
-	return &ecs.DescribeServicesOutput{Failures: failures, Services: services}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // API End
@@ -246,58 +109,26 @@ func (c *Cluster) DescribeServices(_ context.Context, input *ecs.DescribeService
 // Hook Start
 
 // SetTasks update both list and map.
-func (c *Cluster) SetTasks(tasks []ecstypes.Task) {
-	m := make(map[string]ecstypes.Task, len(tasks))
-	for i := range tasks {
-		t := tasks[i]
-		m[*t.TaskArn] = t
-	}
-	c.taskMap = m
-	c.taskList = tasks
-}
+func (c *Cluster) SetTasks(tasks []ecstypes.Task) { _ = "STUB: not implemented"; return }
 
 // SetTaskDefinitions updates the map.
 // NOTE: we could have both list and map, but we are not using list task def in ecsobserver.
 func (c *Cluster) SetTaskDefinitions(defs []*ecstypes.TaskDefinition) {
-	m := make(map[string]*ecstypes.TaskDefinition, len(defs))
-	for _, d := range defs {
-		m[*d.TaskDefinitionArn] = d
-	}
-	c.definitions = m
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetContainerInstances updates the list and map.
 func (c *Cluster) SetContainerInstances(instances []ecstypes.ContainerInstance) {
-	m := make(map[string]ecstypes.ContainerInstance, len(instances))
-	for i := range instances {
-		instance := instances[i]
-		m[*instance.ContainerInstanceArn] = instance
-	}
-	c.containerInstanceMap = m
-	c.containerInstanceList = instances
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetEc2Instances updates the list and map.
-func (c *Cluster) SetEc2Instances(instances []ec2types.Instance) {
-	m := make(map[string]ec2types.Instance, len(instances))
-	for i := range instances {
-		instance := instances[i]
-		m[*instance.InstanceId] = instance
-	}
-	c.ec2Map = m
-	c.ec2List = instances
-}
+func (c *Cluster) SetEc2Instances(instances []ec2types.Instance) { _ = "STUB: not implemented"; return }
 
 // SetServices updates the list and map.
-func (c *Cluster) SetServices(services []ecstypes.Service) {
-	m := make(map[string]ecstypes.Service, len(services))
-	for i := range services {
-		s := services[i]
-		m[*s.ServiceArn] = s
-	}
-	c.serviceMap = m
-	c.serviceList = services
-}
+func (c *Cluster) SetServices(services []ecstypes.Service) { _ = "STUB: not implemented"; return }
 
 // Hook End
 
@@ -305,87 +136,35 @@ func (c *Cluster) SetServices(services []ecstypes.Service) {
 
 // GenTasks returns tasks with TaskArn set to arnPrefix+offset, where offset is [0, count).
 func GenTasks(arnPrefix string, count int, modifier func(i int, task *ecstypes.Task)) []ecstypes.Task {
-	var tasks []ecstypes.Task
-	for i := range count {
-		t := ecstypes.Task{
-			Group:   aws.String(""),
-			TaskArn: aws.String(arnPrefix + strconv.Itoa(i)),
-		}
-		if modifier != nil {
-			modifier(i, &t)
-		}
-		tasks = append(tasks, t)
-	}
-	return tasks
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GenTaskDefinitions returns tasks with TaskArn set to arnPrefix+offset+version, where offset is [0, count).
 // e.g. foo0:1, foo1:1 the `:` is following the task family version syntax.
 func GenTaskDefinitions(arnPrefix string, count, version int, modifier func(i int, def *ecstypes.TaskDefinition)) []*ecstypes.TaskDefinition {
-	var defs []*ecstypes.TaskDefinition
-	for i := range count {
-		d := &ecstypes.TaskDefinition{
-			TaskDefinitionArn: aws.String(fmt.Sprintf("%s%d:%d", arnPrefix, i, version)),
-			Family:            aws.String(""),
-		}
-		if modifier != nil {
-			modifier(i, d)
-		}
-		defs = append(defs, d)
-	}
-	return defs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func GenContainerInstances(arnPrefix string, count int, modifier func(i int, ci *ecstypes.ContainerInstance)) []ecstypes.ContainerInstance {
-	var instances []ecstypes.ContainerInstance
-	for i := range count {
-		ci := ecstypes.ContainerInstance{
-			ContainerInstanceArn: aws.String(fmt.Sprintf("%s%d", arnPrefix, i)),
-		}
-		if modifier != nil {
-			modifier(i, &ci)
-		}
-		instances = append(instances, ci)
-	}
-	return instances
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func GenEc2Instances(idPrefix string, count int, modifier func(i int, ins *ec2types.Instance)) []ec2types.Instance {
-	var instances []ec2types.Instance
-	for i := range count {
-		ins := ec2types.Instance{
-			InstanceId: aws.String(fmt.Sprintf("%s%d", idPrefix, i)),
-		}
-		if modifier != nil {
-			modifier(i, &ins)
-		}
-		instances = append(instances, ins)
-	}
-	return instances
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func GenServices(arnPrefix string, count int, modifier func(i int, s *ecstypes.Service)) []ecstypes.Service {
-	var services []ecstypes.Service
-	for i := range count {
-		svc := ecstypes.Service{
-			ServiceArn:  aws.String(fmt.Sprintf("%s%d", arnPrefix, i)),
-			ServiceName: aws.String(fmt.Sprintf("%s%d", arnPrefix, i)),
-		}
-		if modifier != nil {
-			modifier(i, &svc)
-		}
-		services = append(services, svc)
-	}
-	return services
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func checkCluster(reqClusterName *string, mockClusterName string) error {
-	if reqClusterName == nil || mockClusterName == "" || *reqClusterName == mockClusterName {
-		return nil
-	}
-	return &ecstypes.ClusterNotFoundException{
-		Message: aws.String(fmt.Sprintf("Want cluster %s but the mock cluster is %s", *reqClusterName, mockClusterName)),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // pagination Start
@@ -404,27 +183,7 @@ type pageOutput struct {
 
 // getPage returns new page offset based on existing one.
 // It is not using the actual AWS token format, it simply uses number string to keep track of offset.
-func getPage(p pageInput) (*pageOutput, error) {
-	var err error
-	start := 0
-	if p.nextToken != nil {
-		token := *p.nextToken
-		start, err = strconv.Atoi(token)
-		if err != nil {
-			return nil, fmt.Errorf("invalid next token %q: %w", token, err)
-		}
-	}
-	end := min(p.size, start+p.limit)
-	var newNextToken *string
-	if end < p.size {
-		newNextToken = aws.String(strconv.Itoa(end))
-	}
-	return &pageOutput{
-		start:     start,
-		end:       end,
-		nextToken: newNextToken,
-	}, nil
-}
+func getPage(p pageInput) (*pageOutput, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // pagination Emd
 
@@ -432,10 +191,6 @@ func getPage(p pageInput) (*pageOutput, error) {
 
 // getArns is used by both ListTasks and ListServices
 func getArns(items any, arnGetter func(i int) string) []string {
-	rv := reflect.ValueOf(items)
-	var arns []string
-	for i := 0; i < rv.Len(); i++ {
-		arns = append(arns, arnGetter(i))
-	}
-	return arns
+	_ = "STUB: not implemented"
+	return nil
 }

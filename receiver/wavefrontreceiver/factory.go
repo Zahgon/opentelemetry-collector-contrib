@@ -5,15 +5,11 @@ package wavefrontreceiver // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/wavefrontreceiver/internal/metadata"
 )
 
 const (
@@ -24,20 +20,11 @@ const (
 // This file implements factory for the Wavefront receiver.
 
 // NewFactory creates a factory for WaveFront receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		TCPAddrConfig: confignet.TCPAddrConfig{
-			Endpoint: "localhost:2003",
-		},
-		TCPIdleTimeout: tcpIdleTimeoutDefault,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -46,9 +33,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	rCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, fmt.Errorf("a wavefront receiver config was expected by the receiver factory, but got %T", rCfg)
-	}
-	return newMetricsReceiver(rCfg, params, consumer), nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

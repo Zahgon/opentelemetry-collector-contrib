@@ -4,13 +4,9 @@
 package batch // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/batch"
 
 import (
-	"errors"
-
-	"go.opentelemetry.io/collector/consumer/consumererror"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/key"
 )
@@ -27,97 +23,28 @@ type batchMarshaller struct {
 var _ Encoder = (*batchMarshaller)(nil)
 
 func (bm *batchMarshaller) Logs(ld plog.Logs) (*Batch, error) {
-	bt := New(bm.batchOptions...)
+	_ = "STUB: not implemented"
+	return nil, nil
 
 	// Due to kinesis limitations of only allowing 1Mb of data per record,
 	// the resource data is copied to the export variable then marshaled
 	// due to no current means of marshaling per resource.
-
-	export := plog.NewLogs()
-	export.ResourceLogs().AppendEmpty()
-
-	var errs error
-	for i := 0; i < ld.ResourceLogs().Len(); i++ {
-		line := ld.ResourceLogs().At(i)
-		line.CopyTo(export.ResourceLogs().At(0))
-
-		data, err := bm.logsMarshaller.MarshalLogs(export)
-		if err != nil {
-			if errors.Is(err, ErrUnsupportedEncoding) {
-				return nil, err
-			}
-			errs = multierr.Append(errs, consumererror.NewLogs(err, export))
-			continue
-		}
-
-		if err := bt.AddRecord(data, bm.partitioner(export)); err != nil {
-			errs = multierr.Append(errs, consumererror.NewLogs(err, export))
-		}
-	}
-
-	return bt, errs
 }
 
 func (bm *batchMarshaller) Traces(td ptrace.Traces) (*Batch, error) {
-	bt := New(bm.batchOptions...)
+	_ = "STUB: not implemented"
+	return nil, nil
 
 	// Due to kinesis limitations of only allowing 1Mb of data per record,
 	// the resource data is copied to the export variable then marshaled
 	// due to no current means of marshaling per resource.
-
-	export := ptrace.NewTraces()
-	export.ResourceSpans().AppendEmpty()
-
-	var errs error
-	for i := 0; i < td.ResourceSpans().Len(); i++ {
-		span := td.ResourceSpans().At(i)
-		span.CopyTo(export.ResourceSpans().At(0))
-
-		data, err := bm.tracesMarshaller.MarshalTraces(export)
-		if err != nil {
-			if errors.Is(err, ErrUnsupportedEncoding) {
-				return nil, err
-			}
-			errs = multierr.Append(errs, consumererror.NewTraces(err, export))
-			continue
-		}
-
-		if err := bt.AddRecord(data, bm.partitioner(span)); err != nil {
-			errs = multierr.Append(errs, consumererror.NewTraces(err, export))
-		}
-	}
-
-	return bt, errs
 }
 
 func (bm *batchMarshaller) Metrics(md pmetric.Metrics) (*Batch, error) {
-	bt := New(bm.batchOptions...)
+	_ = "STUB: not implemented"
+	return nil, nil
 
 	// Due to kinesis limitations of only allowing 1Mb of data per record,
 	// the resource data is copied to the export variable then marshaled
 	// due to no current means of marshaling per resource.
-
-	export := pmetric.NewMetrics()
-	export.ResourceMetrics().AppendEmpty()
-
-	var errs error
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		datapoint := md.ResourceMetrics().At(i)
-		datapoint.CopyTo(export.ResourceMetrics().At(0))
-
-		data, err := bm.metricsMarshaller.MarshalMetrics(export)
-		if err != nil {
-			if errors.Is(err, ErrUnsupportedEncoding) {
-				return nil, err
-			}
-			errs = multierr.Append(errs, consumererror.NewMetrics(err, export))
-			continue
-		}
-
-		if err := bt.AddRecord(data, bm.partitioner(export)); err != nil {
-			errs = multierr.Append(errs, consumererror.NewMetrics(err, export))
-		}
-	}
-
-	return bt, errs
 }

@@ -4,10 +4,6 @@
 package aggregateutil // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/aggregateutil"
 
 import (
-	"fmt"
-	"slices"
-	"strings"
-
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
 
@@ -36,17 +32,9 @@ const (
 
 var AggregationTypes = []AggregationType{Sum, Mean, Min, Max, Median, Count}
 
-func (at AggregationType) IsValid() bool {
-	return slices.Contains(AggregationTypes, at)
-}
+func (at AggregationType) IsValid() bool { _ = "STUB: not implemented"; return false }
 
-func GetSupportedAggregationFunctionsList() string {
-	slice := make([]string, 0, len(AggregationTypes))
-	for _, a := range AggregationTypes {
-		slice = append(slice, string(a))
-	}
-	return strings.Join(slice, ", ")
-}
+func GetSupportedAggregationFunctionsList() string { _ = "STUB: not implemented"; return "" }
 
 type AggGroups struct {
 	gauge        map[string]pmetric.NumberDataPointSlice
@@ -56,9 +44,6 @@ type AggGroups struct {
 }
 
 func ConvertToAggregationFunction(str string) (AggregationType, error) {
-	a := AggregationType(str)
-	if a.IsValid() {
-		return a, nil
-	}
-	return a, fmt.Errorf("unsupported function: '%s'", str)
+	_ = "STUB: not implemented"
+	return *new(AggregationType), nil
 }

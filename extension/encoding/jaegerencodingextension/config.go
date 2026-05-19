@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 package jaegerencodingextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jaegerencodingextension"
-import (
-	"fmt"
-)
 
 type JaegerProtocol string
 
@@ -19,12 +16,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	switch c.Protocol {
-	case JaegerProtocolProtobuf:
-	case JaegerProtocolJSON:
-	default:
-		return fmt.Errorf("invalid protocol %q", c.Protocol)
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

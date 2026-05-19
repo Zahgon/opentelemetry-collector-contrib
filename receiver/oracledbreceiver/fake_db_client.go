@@ -14,10 +14,6 @@ type fakeDbClient struct {
 }
 
 func (c *fakeDbClient) metricRows(context.Context, ...any) ([]metricRow, error) {
-	if c.Err != nil {
-		return nil, c.Err
-	}
-	idx := c.RequestCounter
-	c.RequestCounter++
-	return c.Responses[idx], nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -11,19 +11,9 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/macosunifiedloggingreceiver/internal/metadata"
 )
 
-func newFactoryAdapter() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithLogs(createLogsReceiverDarwin, metadata.LogsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func newFactoryAdapter() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createLogsReceiver creates a logs receiver based on provided config
 func createLogsReceiverDarwin(
@@ -32,11 +22,6 @@ func createLogsReceiverDarwin(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	oCfg := cfg.(*Config)
-
-	if err := oCfg.Validate(); err != nil {
-		return nil, err
-	}
-
-	return newUnifiedLoggingReceiver(oCfg, set.Logger, consumer), nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

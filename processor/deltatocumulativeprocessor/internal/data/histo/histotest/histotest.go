@@ -23,46 +23,15 @@ type Histogram struct {
 }
 
 func (hist Histogram) Into() pmetric.HistogramDataPoint {
-	dp := pmetric.NewHistogramDataPoint()
-
-	dp.SetTimestamp(hist.Ts)
-
-	dp.ExplicitBounds().FromRaw(hist.Bounds)
-	if hist.Bounds == nil {
-		dp.ExplicitBounds().FromRaw(histo.DefaultBounds)
-	}
-	dp.BucketCounts().FromRaw(hist.Buckets)
-
-	dp.SetCount(hist.Count)
-	if hist.Sum != nil {
-		dp.SetSum(*hist.Sum)
-	}
-
-	if hist.Min != nil {
-		dp.SetMin(*hist.Min)
-	}
-	if hist.Max != nil {
-		dp.SetMax(*hist.Max)
-	}
-
-	return dp
+	_ = "STUB: not implemented"
+	return *new(pmetric.HistogramDataPoint)
 }
 
 type Bounds histo.Bounds
 
 func (bs Bounds) Observe(observations ...float64) Histogram {
-	dp := histo.Bounds(bs).Observe(observations...)
-	return Histogram{
-		Ts:      dp.Timestamp(),
-		Bounds:  dp.ExplicitBounds().AsRaw(),
-		Buckets: dp.BucketCounts().AsRaw(),
-		Count:   dp.Count(),
-		Sum:     ptr(dp.Sum()),
-		Min:     ptr(dp.Min()),
-		Max:     ptr(dp.Max()),
-	}
+	_ = "STUB: not implemented"
+	return *new(Histogram)
 }
 
-func ptr[T any](v T) *T {
-	return &v
-}
+func ptr[T any](v T) *T { _ = "STUB: not implemented"; return nil }

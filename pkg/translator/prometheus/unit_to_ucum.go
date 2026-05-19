@@ -3,8 +3,6 @@
 
 package prometheus // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus"
 
-import "strings"
-
 var wordToUCUM = map[string]string{
 	// Time
 	"days":         "d",
@@ -57,33 +55,13 @@ var perWordToUCUM = map[string]string{
 // https://ucum.org/ucum#section-Alphabetic-Index-By-Symbol
 // It also handles rates, such as meters_per_second, by translating the first
 // word to UCUM, and the "per" word to UCUM. It joins them with a "/" between.
-func UnitWordToUCUM(unit string) string {
-	unitTokens := strings.SplitN(unit, "_per_", 2)
-	if len(unitTokens) == 0 {
-		return ""
-	}
-	ucumUnit := wordToUCUMOrDefault(unitTokens[0])
-	if len(unitTokens) > 1 && unitTokens[1] != "" {
-		ucumUnit += "/" + perWordToUCUMOrDefault(unitTokens[1])
-	}
-	return ucumUnit
-}
+func UnitWordToUCUM(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // wordToUCUMOrDefault retrieves the Prometheus "basic" unit corresponding to
 // the specified "basic" unit. Returns the specified unit if not found in
 // wordToUCUM.
-func wordToUCUMOrDefault(unit string) string {
-	if promUnit, ok := wordToUCUM[unit]; ok {
-		return promUnit
-	}
-	return unit
-}
+func wordToUCUMOrDefault(unit string) string { _ = "STUB: not implemented"; return "" }
 
 // perWordToUCUMOrDefault retrieve the Prometheus "per" unit corresponding to
 // the specified "per" unit. Returns the specified unit if not found in perWordToUCUM.
-func perWordToUCUMOrDefault(perUnit string) string {
-	if promPerUnit, ok := perWordToUCUM[perUnit]; ok {
-		return promPerUnit
-	}
-	return perUnit
-}
+func perWordToUCUMOrDefault(perUnit string) string { _ = "STUB: not implemented"; return "" }

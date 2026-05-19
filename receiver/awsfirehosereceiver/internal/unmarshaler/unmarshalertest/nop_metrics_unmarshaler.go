@@ -20,28 +20,26 @@ var _ pmetric.Unmarshaler = (*NopMetricsUnmarshaler)(nil)
 
 // NewNopMetrics provides a nop metrics unmarshaler with the default
 // pmetric.Metrics and no error.
-func NewNopMetrics() *NopMetricsUnmarshaler {
-	return &NopMetricsUnmarshaler{metrics: pmetric.NewMetrics()}
-}
+func NewNopMetrics() *NopMetricsUnmarshaler { _ = "STUB: not implemented"; return nil }
 
 // NewWithMetrics provides a nop metrics unmarshaler with the passed
 // in metrics as the result of the Unmarshal and no error.
 func NewWithMetrics(metrics pmetric.Metrics) *NopMetricsUnmarshaler {
-	return &NopMetricsUnmarshaler{metrics: metrics}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewErrMetrics provides a nop metrics unmarshaler with the passed
 // in error as the Unmarshal error.
-func NewErrMetrics(err error) *NopMetricsUnmarshaler {
-	return &NopMetricsUnmarshaler{metrics: pmetric.NewMetrics(), err: err}
-}
+func NewErrMetrics(err error) *NopMetricsUnmarshaler { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal deserializes the records into metrics.
 func (u *NopMetricsUnmarshaler) UnmarshalMetrics([]byte) (pmetric.Metrics, error) {
-	return u.metrics, u.err
+	_ = "STUB: not implemented"
+	return *
+
+	// Type of the serialized messages.
+	new(pmetric.Metrics), nil
 }
 
-// Type of the serialized messages.
-func (*NopMetricsUnmarshaler) Type() string {
-	return typeStr
-}
+func (*NopMetricsUnmarshaler) Type() string { _ = "STUB: not implemented"; return "" }

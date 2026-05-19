@@ -15,43 +15,24 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetContainerImageName sets provided value as "container.image.name" attribute.
-func (rb *ResourceBuilder) SetContainerImageName(val string) {
-	if rb.config.ContainerImageName.Enabled {
-		rb.res.Attributes().PutStr("container.image.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageName(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerName sets provided value as "container.name" attribute.
-func (rb *ResourceBuilder) SetContainerName(val string) {
-	if rb.config.ContainerName.Enabled {
-		rb.res.Attributes().PutStr("container.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetOsType sets provided value as "os.type" attribute.
-func (rb *ResourceBuilder) SetOsType(val string) {
-	if rb.config.OsType.Enabled {
-		rb.res.Attributes().PutStr("os.type", val)
-	}
-}
+func (rb *ResourceBuilder) SetOsType(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

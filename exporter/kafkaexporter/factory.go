@@ -7,16 +7,10 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
-	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/collector/exporter/exporterhelper/xexporterhelper"
 	"go.opentelemetry.io/collector/exporter/xexporter"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/kafkaexporter/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka"
 )
 
 const (
@@ -38,49 +32,11 @@ const (
 )
 
 // NewFactory creates Kafka exporter factory.
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		xexporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithProfiles(createProfilesExporter, metadata.ProfilesStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		TimeoutSettings:  exporterhelper.NewDefaultTimeoutConfig(),
-		BackOffConfig:    configretry.NewDefaultBackOffConfig(),
-		QueueBatchConfig: configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		ClientConfig:     configkafka.NewDefaultClientConfig(),
-		Producer:         configkafka.NewDefaultProducerConfig(),
-		Logs: SignalConfig{
-			Topic:    defaultLogsTopic,
-			Encoding: defaultLogsEncoding,
-		},
-		Metrics: SignalConfig{
-			Topic:    defaultMetricsTopic,
-			Encoding: defaultMetricsEncoding,
-		},
-		Traces: SignalConfig{
-			Topic:    defaultTracesTopic,
-			Encoding: defaultTracesEncoding,
-		},
-		Profiles: SignalConfig{
-			Topic:    defaultProfilesTopic,
-			Encoding: defaultProfilesEncoding,
-		},
-		PartitionMetricsByResourceAttributes: defaultPartitionMetricsByResourceAttributesEnabled,
-		PartitionLogsByResourceAttributes:    defaultPartitionLogsByResourceAttributesEnabled,
-		PartitionLogsByTraceID:               defaultPartitionLogsByTraceIDEnabled,
-		RecordPartitioner: RecordPartitionerConfig{
-			StickyKey: &StickyKeyPartitionerConfig{
-				Hasher: HasherSaramaCompat,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -88,19 +44,10 @@ func createTracesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	oCfg := *(cfg.(*Config)) // Clone the config
-	exp := newTracesExporter(oCfg, set)
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		&oCfg,
-		exp.exportData,
-		exporterhelperOptions(
-			oCfg,
-			xexporterhelper.NewTracesQueueBatchSettings(),
-			exp.Start, exp.Close,
-		)...,
-	)
+	_ = "STUB: not implemented"
+	return *
+	// Clone the config
+	new(exporter.Traces), nil
 }
 
 func createMetricsExporter(
@@ -108,19 +55,10 @@ func createMetricsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Metrics, error) {
-	oCfg := *(cfg.(*Config)) // Clone the config
-	exp := newMetricsExporter(oCfg, set)
-	return exporterhelper.NewMetrics(
-		ctx,
-		set,
-		&oCfg,
-		exp.exportData,
-		exporterhelperOptions(
-			oCfg,
-			xexporterhelper.NewMetricsQueueBatchSettings(),
-			exp.Start, exp.Close,
-		)...,
-	)
+	_ = "STUB: not implemented"
+	return *
+	// Clone the config
+	new(exporter.Metrics), nil
 }
 
 func createLogsExporter(
@@ -128,19 +66,10 @@ func createLogsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	oCfg := *(cfg.(*Config)) // Clone the config
-	exp := newLogsExporter(oCfg, set)
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		&oCfg,
-		exp.exportData,
-		exporterhelperOptions(
-			oCfg,
-			xexporterhelper.NewLogsQueueBatchSettings(),
-			exp.Start, exp.Close,
-		)...,
-	)
+	_ = "STUB: not implemented"
+	return *
+	// Clone the config
+	new(exporter.Logs), nil
 }
 
 func createProfilesExporter(
@@ -148,19 +77,10 @@ func createProfilesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (xexporter.Profiles, error) {
-	oCfg := *(cfg.(*Config)) // Clone the config
-	exp := newProfilesExporter(oCfg, set)
-	return xexporterhelper.NewProfiles(
-		ctx,
-		set,
-		&oCfg,
-		exp.exportData,
-		exporterhelperOptions(
-			oCfg,
-			xexporterhelper.NewProfilesQueueBatchSettings(),
-			exp.Start, exp.Close,
-		)...,
-	)
+	_ = "STUB: not implemented"
+	return *
+	// Clone the config
+	new(xexporter.Profiles), nil
 }
 
 func exporterhelperOptions(
@@ -169,12 +89,6 @@ func exporterhelperOptions(
 	startFunc component.StartFunc,
 	shutdownFunc component.ShutdownFunc,
 ) []exporterhelper.Option {
-	return []exporterhelper.Option{
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		xexporterhelper.WithQueueBatch(cfg.QueueBatchConfig, qbs),
-		exporterhelper.WithStart(startFunc),
-		exporterhelper.WithShutdown(shutdownFunc),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -38,24 +38,6 @@ type Config struct {
 	metadata.MetricsBuilderConfig `mapstructure:",squash"`
 }
 
-func (config Config) Validate() error {
-	if config.DockerAPIVersion != "" {
-		if err := docker.VersionIsValidAndGTE(config.DockerAPIVersion, minimumRequiredDockerAPIVersion); err != nil {
-			return err
-		}
-	}
-	return nil
-}
+func (config Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (config *Config) Unmarshal(conf *confmap.Conf) error {
-	err := conf.Unmarshal(config)
-	if err != nil {
-		return err
-	}
-
-	if len(config.ExcludedImages) == 0 {
-		config.ExcludedImages = nil
-	}
-
-	return err
-}
+func (config *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }

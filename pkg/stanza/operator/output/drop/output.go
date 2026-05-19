@@ -16,11 +16,13 @@ type Output struct {
 }
 
 func (*Output) ProcessBatch(context.Context, []*entry.Entry) error {
+	_ = "STUB: not implemented"
+
+	// Process will drop the incoming entry.
 	return nil
 }
 
-// Process will drop the incoming entry.
 func (*Output) Process(_ context.Context, e *entry.Entry) error {
-	entry.Put(e)
+	_ = "STUB: not implemented"
 	return nil
 }

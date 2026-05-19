@@ -5,19 +5,13 @@ package kubeletstatsreceiver // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
-	kube "github.com/open-telemetry/opentelemetry-collector-contrib/internal/kubelet"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kubeletstatsreceiver/internal/kubelet"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kubeletstatsreceiver/internal/metadata"
 )
 
 const (
@@ -31,27 +25,11 @@ var defaultMetricGroups = []kubelet.MetricGroup{
 }
 
 // NewFactory creates a factory for kubeletstats receiver.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	scs := scraperhelper.NewDefaultControllerConfig()
-	scs.CollectionInterval = 10 * time.Second
-
-	return &Config{
-		ControllerConfig: scs,
-		ClientConfig: kube.ClientConfig{
-			APIConfig: k8sconfig.APIConfig{
-				AuthType: k8sconfig.AuthTypeTLS,
-			},
-		},
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -60,33 +38,11 @@ func createMetricsReceiver(
 	baseCfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	cfg := baseCfg.(*Config)
-	rOptions, err := cfg.getReceiverOptions()
-	if err != nil {
-		return nil, err
-	}
-	rest, err := restClient(set.Logger, cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	scrp, err := newKubeletScraper(rest, set, rOptions, cfg.MetricsBuilderConfig, cfg.NodeName)
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(&cfg.ControllerConfig, set, consumer, scraperhelper.AddMetricsScraper(metadata.Type, scrp))
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func restClient(logger *zap.Logger, cfg *Config) (kubelet.RestClient, error) {
-	clientProvider, err := kube.NewClientProvider(cfg.Endpoint, &cfg.ClientConfig, logger)
-	if err != nil {
-		return nil, err
-	}
-	client, err := clientProvider.BuildClient()
-	if err != nil {
-		return nil, err
-	}
-	rest := kubelet.NewRestClient(client)
-	return rest, nil
+	_ = "STUB: not implemented"
+	return *new(kubelet.RestClient), nil
 }

@@ -4,7 +4,6 @@
 package validate
 
 import (
-	"encoding/hex"
 	"errors"
 )
 
@@ -15,27 +14,6 @@ var (
 	errInvalidSpanID        = errors.New("failed to create SpanID byte array from the given SpanID, make sure the SpanID is a hex representation of a [8]byte, like: '5828fa4960140870'")
 )
 
-func TraceID(traceID string) error {
-	if len(traceID) != 32 {
-		return errInvalidTraceIDLength
-	}
+func TraceID(traceID string) error { _ = "STUB: not implemented"; return nil }
 
-	_, err := hex.DecodeString(traceID)
-	if err != nil {
-		return errInvalidTraceID
-	}
-
-	return nil
-}
-
-func SpanID(spanID string) error {
-	if len(spanID) != 16 {
-		return errInvalidSpanIDLength
-	}
-	_, err := hex.DecodeString(spanID)
-	if err != nil {
-		return errInvalidSpanID
-	}
-
-	return nil
-}
+func SpanID(spanID string) error { _ = "STUB: not implemented"; return nil }

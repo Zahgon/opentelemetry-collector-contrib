@@ -5,17 +5,10 @@ package oauth2clientauthextension // import "github.com/open-telemetry/opentelem
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
-	"maps"
 	"net/url"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/google/uuid"
-	"go.uber.org/multierr"
 	"golang.org/x/oauth2"
 )
 
@@ -24,47 +17,8 @@ const (
 )
 
 func newJwtGrantTypeConfig(cfg *Config) (*jwtGrantTypeConfig, error) {
-	var sig *jwt.SigningMethodRSA
-	switch cfg.SignatureAlgorithm {
-	case jwt.SigningMethodRS256.Name:
-		sig = jwt.SigningMethodRS256
-	case jwt.SigningMethodRS384.Name:
-		sig = jwt.SigningMethodRS384
-	case jwt.SigningMethodRS512.Name:
-		sig = jwt.SigningMethodRS512
-	case "":
-		sig = jwt.SigningMethodRS256
-	default:
-		return nil, errInvalidSignatureAlg
-	}
-
-	clientID, err := getActualValue(cfg.ClientID, cfg.ClientIDFile)
-	if err != nil {
-		return nil, multierr.Combine(errNoClientIDProvided, err)
-	}
-
-	clientCertificate, err := getActualValue(string(cfg.ClientCertificateKey), cfg.ClientCertificateKeyFile)
-	if err != nil {
-		return nil, multierr.Combine(errNoClientCertificateProvided, err)
-	}
-
-	iss := cfg.Iss
-	if iss == "" {
-		iss = clientID
-	}
-
-	return &jwtGrantTypeConfig{
-		PrivateKey:       []byte(clientCertificate),
-		PrivateKeyID:     cfg.ClientCertificateKeyID,
-		Scopes:           cfg.Scopes,
-		TokenURL:         cfg.TokenURL,
-		SigningAlgorithm: sig,
-		Iss:              iss,
-		Subject:          cfg.ClientID,
-		Audience:         cfg.Audience,
-		PrivateClaims:    cfg.Claims,
-		EndpointParams:   cfg.EndpointParams,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Config is the configuration for using JWT to fetch tokens,
@@ -119,14 +73,17 @@ type jwtGrantTypeConfig struct {
 // TokenSource returns a JWT TokenSource using the configuration
 // in c and the HTTP client from the provided context.
 func (c *jwtGrantTypeConfig) TokenSource(ctx context.Context) oauth2.TokenSource {
-	return jwtSource{ctx, c}
+	_ = "STUB: not implemented"
+	return *new(oauth2.TokenSource)
 }
 
 func (c *jwtGrantTypeConfig) TokenEndpoint() string {
-	return c.TokenURL
+	_ = "STUB: not implemented"
+
+	// jwtSource implements TokenSource
+	return ""
 }
 
-// jwtSource implements TokenSource
 var _ oauth2.TokenSource = (*jwtSource)(nil)
 
 // jwtSource is a source that always does a signed JWT request for a token.
@@ -136,89 +93,9 @@ type jwtSource struct {
 	conf *jwtGrantTypeConfig
 }
 
-func (js jwtSource) Token() (*oauth2.Token, error) {
-	pk, err := jwt.ParseRSAPrivateKeyFromPEM(js.conf.PrivateKey)
-	if err != nil {
-		return nil, err
-	}
-	hc := oauth2.NewClient(js.ctx, nil)
-	audience := js.conf.TokenURL
-	if aud := js.conf.Audience; aud != "" {
-		audience = aud
-	}
-	expiration := time.Now().Add(30 * time.Minute)
-	if t := js.conf.Expires; t > 0 {
-		expiration = time.Now().Add(t)
-	}
-	scopes := strings.Join(js.conf.Scopes, " ")
+func (js jwtSource) Token() (*oauth2.Token, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	claims := jwt.MapClaims{
-		"iss": js.conf.Iss,
-		"sub": js.conf.Subject,
-		"jti": uuid.New(),
-		"aud": audience,
-		"iat": jwt.NewNumericDate(time.Now()),
-		"exp": jwt.NewNumericDate(expiration),
-	}
+// Allow grant_type to be overridden to allow interoperability with
+// non-compliant implementations.
 
-	if scopes != "" {
-		claims["scope"] = scopes
-	}
-
-	maps.Copy(claims, js.conf.PrivateClaims)
-
-	assertion := jwt.NewWithClaims(js.conf.SigningAlgorithm, claims)
-	if js.conf.PrivateKeyID != "" {
-		assertion.Header["kid"] = js.conf.PrivateKeyID
-	}
-	payload, err := assertion.SignedString(pk)
-	if err != nil {
-		return nil, err
-	}
-	v := url.Values{}
-	v.Set("grant_type", grantTypeJWTBearer)
-	v.Set("assertion", payload)
-	if scopes != "" {
-		v.Set("scope", scopes)
-	}
-
-	for k, p := range js.conf.EndpointParams {
-		// Allow grant_type to be overridden to allow interoperability with
-		// non-compliant implementations.
-		if _, ok := v[k]; ok && k != "grant_type" {
-			return nil, fmt.Errorf("oauth2: cannot overwrite parameter %q", k)
-		}
-		v[k] = p
-	}
-
-	resp, err := hc.PostForm(js.conf.TokenURL, v)
-	if err != nil {
-		return nil, fmt.Errorf("oauth2: cannot fetch token: %w", err)
-	}
-	defer resp.Body.Close()
-	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
-	if err != nil {
-		return nil, fmt.Errorf("oauth2: cannot fetch token: %w", err)
-	}
-	if c := resp.StatusCode; c < 200 || c > 299 {
-		return nil, &oauth2.RetrieveError{
-			Response: resp,
-			Body:     body,
-		}
-	}
-	// tokenRes is the JSON response body.
-	var tokenRes struct {
-		oauth2.Token
-	}
-	if err := json.Unmarshal(body, &tokenRes); err != nil {
-		return nil, fmt.Errorf("oauth2: cannot fetch token: %w", err)
-	}
-	token := &oauth2.Token{
-		AccessToken: tokenRes.AccessToken,
-		TokenType:   tokenRes.TokenType,
-	}
-	if secs := tokenRes.ExpiresIn; secs > 0 {
-		token.Expiry = time.Now().Add(time.Duration(secs) * time.Second)
-	}
-	return token, nil
-}
+// tokenRes is the JSON response body.

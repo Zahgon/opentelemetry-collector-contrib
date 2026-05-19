@@ -5,100 +5,35 @@ package dorisexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/dorisexporter/internal/metadata"
 )
 
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	httpClientConfig := confighttp.NewDefaultClientConfig()
-	httpClientConfig.Timeout = 60 * time.Second
-
-	return &Config{
-		ClientConfig:  httpClientConfig,
-		QueueSettings: configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		BackOffConfig: configretry.NewDefaultBackOffConfig(),
-		Table: Table{
-			Logs:    "otel_logs",
-			Traces:  "otel_traces",
-			Metrics: "otel_metrics",
-		},
-		Database:            "otel",
-		CreateSchema:        true,
-		HistoryDays:         0,
-		CreateHistoryDays:   0,
-		ReplicationNum:      1,
-		TimeZone:            time.Local.String(),
-		LogResponse:         false,
-		LabelPrefix:         "open_telemetry",
-		LogProgressInterval: 10,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(ctx context.Context, set exporter.Settings, cfg component.Config) (exporter.Logs, error) {
-	c := cfg.(*Config)
-	exporter := newLogsExporter(set.Logger, c, set.TelemetrySettings)
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		exporter.pushLogData,
-		exporterhelper.WithStart(exporter.start),
-		exporterhelper.WithShutdown(exporter.shutdown),
-		// we config the timeout option in http client, so we don't need to set timeout here
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(c.QueueSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
+
+// we config the timeout option in http client, so we don't need to set timeout here
 
 func createTracesExporter(ctx context.Context, set exporter.Settings, cfg component.Config) (exporter.Traces, error) {
-	c := cfg.(*Config)
-	exporter := newTracesExporter(set.Logger, c, set.TelemetrySettings)
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		exporter.pushTraceData,
-		exporterhelper.WithStart(exporter.start),
-		exporterhelper.WithShutdown(exporter.shutdown),
-		// we config the timeout option in http client, so we don't need to set timeout here
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(c.QueueSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
+// we config the timeout option in http client, so we don't need to set timeout here
+
 func createMetricsExporter(ctx context.Context, set exporter.Settings, cfg component.Config) (exporter.Metrics, error) {
-	c := cfg.(*Config)
-	exporter := newMetricsExporter(set.Logger, c, set.TelemetrySettings)
-	return exporterhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		exporter.pushMetricData,
-		exporterhelper.WithStart(exporter.start),
-		exporterhelper.WithShutdown(exporter.shutdown),
-		// we config the timeout option in http client, so we don't need to set timeout here
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(c.QueueSettings),
-		exporterhelper.WithRetry(c.BackOffConfig),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
+
+// we config the timeout option in http client, so we don't need to set timeout here

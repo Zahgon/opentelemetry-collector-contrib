@@ -4,8 +4,6 @@
 package awscloudwatchlogsexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awscloudwatchlogsexporter"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -13,7 +11,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/awsutil"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/cwlogs"
 )
 
 // Config represent a configuration for the CloudWatch logs exporter.
@@ -58,29 +55,6 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate config
-func (config *Config) Validate() error {
-	if config.LogGroupName == "" {
-		return errors.New("'log_group_name' must be set")
-	}
-	if config.LogStreamName == "" {
-		return errors.New("'log_stream_name' must be set")
-	}
-
-	if isPatternValid, invalidPattern := (isPatternValid(config.LogGroupName)); !isPatternValid {
-		return errors.New("'log_group_name' has an invalid pattern between curly brackets: " + invalidPattern)
-	}
-	if isPatternValid, invalidPattern := (isPatternValid(config.LogStreamName)); !isPatternValid {
-		return errors.New("'log_stream_name'  has an invalid pattern between curly brackets: " + invalidPattern)
-	}
-
-	if err := config.QueueSettings.Validate(); err != nil {
-		return err
-	}
-
-	if retErr := cwlogs.ValidateRetentionValue(config.LogRetention); retErr != nil {
-		return retErr
-	}
-	return cwlogs.ValidateTagsInput(config.Tags)
-}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TODO(jbd): Add ARN role to config.

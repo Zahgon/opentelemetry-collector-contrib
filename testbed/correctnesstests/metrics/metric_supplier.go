@@ -13,14 +13,11 @@ type metricSupplier struct {
 }
 
 func newMetricSupplier(pdms []pmetric.Metrics) *metricSupplier {
-	return &metricSupplier{pdms: pdms}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (p *metricSupplier) nextMetrics() (pdm pmetric.Metrics, done bool) {
-	if p.currIdx == len(p.pdms) {
-		return pmetric.Metrics{}, true
-	}
-	pdm = p.pdms[p.currIdx]
-	p.currIdx++
-	return pdm, false
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), false
 }

@@ -5,8 +5,6 @@ package ottl // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"go.opentelemetry.io/collector/component"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/internal/metadata"
 )
 
 // Arguments holds the arguments for an OTTL function, with arguments
@@ -47,18 +45,18 @@ type factory[K any] struct {
 }
 
 //nolint:unused
-func (*factory[K]) unexportedFactoryFunc() {}
+func (*factory[K]) unexportedFactoryFunc() { _ = "STUB: not implemented"; return }
 
-func (f *factory[K]) Name() string {
-	return f.name
-}
+func (f *factory[K]) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (f *factory[K]) CreateDefaultArguments() Arguments {
-	return f.args
+	_ = "STUB: not implemented"
+	return *new(Arguments)
 }
 
 func (f *factory[K]) CreateFunction(fCtx FunctionContext, args Arguments) (ExprFunc[K], error) {
-	return f.createFunctionFunc(fCtx, args)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // FactoryOption is an option for a Factory
@@ -66,32 +64,13 @@ type FactoryOption[K any] func(factory *factory[K])
 
 // NewFactory creates a new Factory
 func NewFactory[K any](name string, args Arguments, createFunctionFunc CreateFunctionFunc[K], options ...FactoryOption[K]) Factory[K] {
-	f := &factory[K]{
-		name:               name,
-		args:               args,
-		createFunctionFunc: createFunctionFunc,
-	}
-
-	for _, option := range options {
-		option(f)
-	}
-
-	return f
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CreateFactoryMap takes a list of factories and returns a map of Factories
 // keyed on their canonical names.
 func CreateFactoryMap[K any](factories ...Factory[K]) map[string]Factory[K] {
-	factoryMap := map[string]Factory[K]{}
-
-	for _, fn := range factories {
-		if metadata.OttlPanicDuplicateNameFeatureGate.IsEnabled() {
-			if _, ok := factoryMap[fn.Name()]; ok {
-				panic("duplicate factory name: " + fn.Name())
-			}
-		}
-		factoryMap[fn.Name()] = fn
-	}
-
-	return factoryMap
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -4,8 +4,6 @@
 package metadata // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadata"
 
 import (
-	"fmt"
-
 	"cloud.google.com/go/spanner"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -51,131 +49,83 @@ type nullFloat64MetricValue struct {
 	value    spanner.NullFloat64
 }
 
-func (m queryMetricValueMetadata) ValueHolder() any {
-	return m.valueHolderFunc()
-}
+func (m queryMetricValueMetadata) ValueHolder() any { _ = "STUB: not implemented"; return *new(any) }
 
 func (m queryMetricValueMetadata) NewMetricValue(value any) MetricValue {
-	return m.newMetricValueFunc(m, value)
+	_ = "STUB: not implemented"
+	return *new(MetricValue)
 }
 
-func (m queryMetricValueMetadata) Name() string {
-	return m.name
-}
+func (m queryMetricValueMetadata) Name() string { _ = "STUB: not implemented"; return "" }
 
-func (m queryMetricValueMetadata) ColumnName() string {
-	return m.columnName
-}
+func (m queryMetricValueMetadata) ColumnName() string { _ = "STUB: not implemented"; return "" }
 
 func (m queryMetricValueMetadata) ValueType() ValueType {
-	return m.valueType
+	_ = "STUB: not implemented"
+	return *new(ValueType)
 }
 
 func (m queryMetricValueMetadata) DataType() MetricType {
-	return m.dataType
+	_ = "STUB: not implemented"
+	return *new(MetricType)
 }
 
-func (m queryMetricValueMetadata) Unit() string {
-	return m.unit
-}
+func (m queryMetricValueMetadata) Unit() string { _ = "STUB: not implemented"; return "" }
 
 func (v int64MetricValue) Metadata() MetricValueMetadata {
-	return v.metadata
+	_ = "STUB: not implemented"
+	return *new(MetricValueMetadata)
 }
 
 func (v float64MetricValue) Metadata() MetricValueMetadata {
-	return v.metadata
+	_ = "STUB: not implemented"
+	return *new(MetricValueMetadata)
 }
 
 func (v nullFloat64MetricValue) Metadata() MetricValueMetadata {
-	return v.metadata
+	_ = "STUB: not implemented"
+	return *new(MetricValueMetadata)
 }
 
-func (v int64MetricValue) Value() any {
-	return v.value
-}
+func (v int64MetricValue) Value() any { _ = "STUB: not implemented"; return *new(any) }
 
-func (v float64MetricValue) Value() any {
-	return v.value
-}
+func (v float64MetricValue) Value() any { _ = "STUB: not implemented"; return *new(any) }
 
-func (v nullFloat64MetricValue) Value() any {
-	return v.value
-}
+func (v nullFloat64MetricValue) Value() any { _ = "STUB: not implemented"; return *new(any) }
 
 func (v int64MetricValue) SetValueTo(point pmetric.NumberDataPoint) {
-	point.SetIntValue(v.value)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (v float64MetricValue) SetValueTo(point pmetric.NumberDataPoint) {
-	point.SetDoubleValue(v.value)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (v nullFloat64MetricValue) SetValueTo(point pmetric.NumberDataPoint) {
-	if v.value.Valid {
-		point.SetDoubleValue(v.value.Float64)
-	} else {
-		point.SetDoubleValue(0)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newInt64MetricValue(metadata MetricValueMetadata, valueHolder any) MetricValue {
-	return int64MetricValue{
-		metadata: metadata,
-		value:    *valueHolder.(*int64),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricValue)
 }
 
 func newFloat64MetricValue(metadata MetricValueMetadata, valueHolder any) MetricValue {
-	return float64MetricValue{
-		metadata: metadata,
-		value:    *valueHolder.(*float64),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricValue)
 }
 
 func newNullFloat64MetricValue(metadata MetricValueMetadata, valueHolder any) MetricValue {
-	return nullFloat64MetricValue{
-		metadata: metadata,
-		value:    *valueHolder.(*spanner.NullFloat64),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricValue)
 }
 
 func NewMetricValueMetadata(name, columnName string, dataType MetricType, unit string,
 	valueType ValueType,
 ) (MetricValueMetadata, error) {
-	var newMetricValueFunc newMetricValueFunction
-	var valueHolderFunc valueHolderFunction
-
-	switch valueType {
-	case IntValueType:
-		newMetricValueFunc = newInt64MetricValue
-		valueHolderFunc = func() any {
-			var valueHolder int64
-			return &valueHolder
-		}
-	case FloatValueType:
-		newMetricValueFunc = newFloat64MetricValue
-		valueHolderFunc = func() any {
-			var valueHolder float64
-			return &valueHolder
-		}
-	case NullFloatValueType:
-		newMetricValueFunc = newNullFloat64MetricValue
-		valueHolderFunc = func() any {
-			var valueHolder spanner.NullFloat64
-			return &valueHolder
-		}
-	default:
-		return nil, fmt.Errorf("invalid value type received for metric value %q", name)
-	}
-
-	return queryMetricValueMetadata{
-		name:               name,
-		columnName:         columnName,
-		dataType:           dataType,
-		unit:               unit,
-		valueType:          valueType,
-		newMetricValueFunc: newMetricValueFunc,
-		valueHolderFunc:    valueHolderFunc,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(MetricValueMetadata), nil
 }

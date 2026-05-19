@@ -33,21 +33,11 @@ func NewAppendable(
 	externalLabels labels.Labels,
 	trimSuffixes bool,
 ) (storage.AppendableV2, error) {
-	obsrecv, err := receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{ReceiverID: set.ID, Transport: transport, ReceiverCreateSettings: set})
-	if err != nil {
-		return nil, err
-	}
-
-	return &appendable{
-		sink:           sink,
-		settings:       set,
-		useMetadata:    useMetadata,
-		externalLabels: externalLabels,
-		obsrecv:        obsrecv,
-		trimSuffixes:   trimSuffixes,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(storage.AppendableV2), nil
 }
 
 func (o *appendable) AppenderV2(ctx context.Context) storage.AppenderV2 {
-	return newTransaction(ctx, o.sink, o.externalLabels, o.settings, o.obsrecv, o.trimSuffixes, o.useMetadata)
+	_ = "STUB: not implemented"
+	return *new(storage.AppenderV2)
 }

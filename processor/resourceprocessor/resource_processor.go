@@ -21,33 +21,21 @@ type resourceProcessor struct {
 }
 
 func (rp *resourceProcessor) processTraces(ctx context.Context, td ptrace.Traces) (ptrace.Traces, error) {
-	rss := td.ResourceSpans()
-	for i := 0; i < rss.Len(); i++ {
-		rp.attrProc.Process(ctx, rp.logger, rss.At(i).Resource().Attributes())
-	}
-	return td, nil
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
 func (rp *resourceProcessor) processMetrics(ctx context.Context, md pmetric.Metrics) (pmetric.Metrics, error) {
-	rms := md.ResourceMetrics()
-	for i := 0; i < rms.Len(); i++ {
-		rp.attrProc.Process(ctx, rp.logger, rms.At(i).Resource().Attributes())
-	}
-	return md, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func (rp *resourceProcessor) processLogs(ctx context.Context, ld plog.Logs) (plog.Logs, error) {
-	rls := ld.ResourceLogs()
-	for i := 0; i < rls.Len(); i++ {
-		rp.attrProc.Process(ctx, rp.logger, rls.At(i).Resource().Attributes())
-	}
-	return ld, nil
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
 func (rp *resourceProcessor) processProfiles(ctx context.Context, pd pprofile.Profiles) (pprofile.Profiles, error) {
-	rps := pd.ResourceProfiles()
-	for i := 0; i < rps.Len(); i++ {
-		rp.attrProc.Process(ctx, rp.logger, rps.At(i).Resource().Attributes())
-	}
-	return pd, nil
+	_ = "STUB: not implemented"
+	return *new(pprofile.Profiles), nil
 }

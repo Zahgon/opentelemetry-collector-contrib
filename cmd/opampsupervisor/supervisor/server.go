@@ -20,48 +20,26 @@ type flattenedSettings struct {
 }
 
 func (fs flattenedSettings) toServerSettings() server.StartSettings {
-	return server.StartSettings{
-		Settings: server.Settings{
-			Callbacks: serverTypes.Callbacks{
-				OnConnecting: fs.OnConnecting,
-			},
-		},
-		ListenEndpoint: fs.endpoint,
-	}
+	_ = "STUB: not implemented"
+	return *new(server.StartSettings)
 }
 
 func (fs flattenedSettings) OnConnecting(request *http.Request) serverTypes.ConnectionResponse {
-	if fs.onConnecting != nil {
-		shouldConnect, rejectStatusCode := fs.onConnecting(request)
-		if !shouldConnect {
-			return serverTypes.ConnectionResponse{
-				Accept:         false,
-				HTTPStatusCode: rejectStatusCode,
-			}
-		}
-	}
-
-	return serverTypes.ConnectionResponse{
-		Accept: true,
-		ConnectionCallbacks: serverTypes.ConnectionCallbacks{
-			OnMessage:         fs.OnMessage,
-			OnConnectionClose: fs.OnConnectionClose,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(serverTypes.ConnectionResponse)
 }
 
-func (flattenedSettings) OnConnected(context.Context, serverTypes.Connection) {}
+func (flattenedSettings) OnConnected(context.Context, serverTypes.Connection) {
+	_ = "STUB: not implemented"
+	return
+}
 
 func (fs flattenedSettings) OnMessage(_ context.Context, conn serverTypes.Connection, message *protobufs.AgentToServer) *protobufs.ServerToAgent {
-	if fs.onMessage != nil {
-		return fs.onMessage(conn, message)
-	}
-
-	return &protobufs.ServerToAgent{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (fs flattenedSettings) OnConnectionClose(conn serverTypes.Connection) {
-	if fs.onConnectionClose != nil {
-		fs.onConnectionClose(conn)
-	}
+	_ = "STUB: not implemented"
+	return
 }

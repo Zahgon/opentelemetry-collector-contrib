@@ -5,33 +5,18 @@ package metadatatest
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processortest"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata/metricdatatest"
 )
 
 func NewSettings(tt *componenttest.Telemetry) processor.Settings {
-	set := processortest.NewNopSettings(processortest.NopType)
-	set.ID = component.NewID(component.MustNewType("log_dedup"))
-	set.TelemetrySettings = tt.NewTelemetrySettings()
-	return set
+	_ = "STUB: not implemented"
+	return *new(processor.Settings)
 }
 
 func AssertEqualDedupProcessorAggregatedLogs(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.HistogramDataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_dedup_processor_aggregated_logs",
-		Description: "Number of log records that were aggregated together. [Development]",
-		Unit:        "{records}",
-		Data: metricdata.Histogram[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_dedup_processor_aggregated_logs")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }

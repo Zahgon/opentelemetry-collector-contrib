@@ -21,33 +21,19 @@ var _ samplingpolicy.Evaluator = (*not)(nil)
 
 // NewNot creates a new not policy evaluator returns the opposite of the decision of the wrapped policy.
 func NewNot(logger *zap.Logger, subPolicyEvaluator samplingpolicy.Evaluator) samplingpolicy.Evaluator {
-	return &not{
-		logger:             logger,
-		subPolicyEvaluator: subPolicyEvaluator,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingResult.
 // The not policy return the opposite of the decision of the wrapped policy.
 func (n *not) Evaluate(ctx context.Context, traceID pcommon.TraceID, trace *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	decision, err := n.subPolicyEvaluator.Evaluate(ctx, traceID, trace)
-	if err != nil {
-		n.logger.Debug("Evaluation error from sub-policy", zap.Error(err))
-		return decision, err
-	}
-
-	// Return the opposite of the decision
-	switch decision {
-	case samplingpolicy.Sampled:
-		return samplingpolicy.NotSampled, nil
-	case samplingpolicy.NotSampled:
-		return samplingpolicy.Sampled, nil
-	default:
-		// For any other decision types (Unspecified, Pending, Error), just let them bubble up.
-		return decision, nil
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (n *not) IsStateful() bool {
-	return n.subPolicyEvaluator.IsStateful()
-}
+// Return the opposite of the decision
+
+// For any other decision types (Unspecified, Pending, Error), just let them bubble up.
+
+func (n *not) IsStateful() bool { _ = "STUB: not implemented"; return false }

@@ -8,12 +8,8 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/simpleprometheusreceiver/internal/metadata"
 )
 
 // This file implements factory for prometheus_simple receiver
@@ -25,24 +21,11 @@ const (
 var defaultCollectionInterval = 10 * time.Second
 
 // NewFactory creates a factory for "Simple" Prometheus receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Endpoint = defaultEndpoint
-	clientConfig.TLS = configtls.ClientConfig{
-		Insecure: true,
-	}
-	return &Config{
-		ClientConfig:       clientConfig,
-		MetricsPath:        defaultMetricsPath,
-		CollectionInterval: defaultCollectionInterval,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -51,6 +34,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	rCfg := cfg.(*Config)
-	return newPrometheusReceiverWrapper(params, rCfg, nextConsumer), nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

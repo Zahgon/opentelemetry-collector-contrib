@@ -4,13 +4,7 @@
 package protocol // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/protocol"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
-	"sort"
-	"strings"
-
-	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
 const (
@@ -87,65 +81,15 @@ var _ ParserConfig = (*RegexParserConfig)(nil)
 
 // BuildParser builds the respective parser of the configuration instance.
 func (rpc *RegexParserConfig) BuildParser() (Parser, error) {
-	if rpc == nil {
-		return nil, errors.New("nil receiver on RegexParserConfig.BuildParser")
-	}
-
-	if err := compileRegexRules(rpc.Rules); err != nil {
-		return nil, err
-	}
-
-	rpp := &regexPathParser{
-		rules:               rpc.Rules,
-		metricNameSeparator: rpc.MetricNameSeparator,
-	}
-
-	return newParser(rpp)
+	_ = "STUB: not implemented"
+	return *new(Parser), nil
 }
 
-func compileRegexRules(rules []*RegexRule) error {
-	if len(rules) == 0 {
-		return errors.New(`no expression rule was specified`)
-	}
+func compileRegexRules(rules []*RegexRule) error { _ = "STUB: not implemented"; return nil }
 
-	for i, r := range rules {
-		regex, err := regexp.Compile(r.Regexp)
-		if err != nil {
-			return fmt.Errorf("error compiling %d-th rule: %w", i, err)
-		}
+// Default capture.
 
-		switch TargetMetricType(r.MetricType) {
-		case DefaultMetricType, GaugeMetricType, CumulativeMetricType:
-		default:
-			return fmt.Errorf(
-				`error on %d-th rule: unknown metric type %q valid choices are: %q or %q`,
-				i,
-				r.MetricType,
-				GaugeMetricType,
-				CumulativeMetricType)
-		}
-
-		rules[i].compRegexp = regex
-		var metricNameParts []string
-		for _, n := range regex.SubexpNames() {
-			switch {
-			case n == "":
-				// Default capture.
-			case strings.HasPrefix(n, metricNameCapturePrefix):
-				metricNameParts = append(metricNameParts, n)
-			case strings.HasPrefix(n, keyCapturePrefix):
-				// Correctly prefixed, nothing else to do.
-			default:
-				return fmt.Errorf(
-					"capture %q on %d-th rule has an unknown prefix", n, i)
-			}
-		}
-		sort.Strings(metricNameParts)
-		rules[i].metricNameParts = metricNameParts
-	}
-
-	return nil
-}
+// Correctly prefixed, nothing else to do.
 
 type regexPathParser struct {
 	rules []*RegexRule
@@ -160,62 +104,14 @@ type regexPathParser struct {
 // a full description of the line format) according to the RegexParserConfig
 // settings.
 func (rpp *regexPathParser) parsePath(path string, parsedPath *parsedPath) error {
-	for _, rule := range rpp.rules {
-		if !rule.compRegexp.MatchString(path) {
-			continue
-		}
-		ms := rule.compRegexp.FindStringSubmatch(path)
-		nms := rule.compRegexp.SubexpNames() // regexp pre-computes this slice.
-		metricNameLookup := map[string]string{}
-		attributes := pcommon.NewMap()
-
-		for i := 1; i < len(ms); i++ {
-			groupName, groupValue := nms[i], ms[i]
-			if groupName == "" {
-				// Skip unnamed groups.
-				continue
-			}
-			if groupValue == "" {
-				// Skip unmatched groups.
-				continue
-			}
-			if strings.HasPrefix(groupName, metricNameCapturePrefix) {
-				metricNameLookup[groupName] = groupValue
-			} else {
-				attributes.PutStr(groupName[len(keyCapturePrefix):], groupValue)
-			}
-		}
-
-		for k, v := range rule.Labels {
-			attributes.PutStr(k, v)
-		}
-
-		var actualMetricName string
-		if len(rule.metricNameParts) == 0 {
-			actualMetricName = rule.NamePrefix
-		} else {
-			var sb strings.Builder
-			sb.WriteString(rule.NamePrefix)
-			for _, mnp := range rule.metricNameParts {
-				sb.WriteString(rpp.metricNameSeparator)
-				sb.WriteString(metricNameLookup[mnp])
-			}
-			actualMetricName = sb.String()
-		}
-
-		if actualMetricName == "" {
-			actualMetricName = path
-		}
-
-		parsedPath.MetricName = actualMetricName
-		parsedPath.Attributes = attributes
-		parsedPath.MetricType = TargetMetricType(rule.MetricType)
-		return nil
-	}
-
-	return rpp.plaintextPathParser.parsePath(path, parsedPath)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func regexDefaultConfig() ParserConfig {
-	return &RegexParserConfig{}
-}
+// regexp pre-computes this slice.
+
+// Skip unnamed groups.
+
+// Skip unmatched groups.
+
+func regexDefaultConfig() ParserConfig { _ = "STUB: not implemented"; return *new(ParserConfig) }

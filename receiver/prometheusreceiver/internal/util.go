@@ -5,16 +5,11 @@ package internal // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"errors"
-	"sort"
-	"strconv"
-	"strings"
 
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/prometheus/model/labels"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus"
 )
 
 const (
@@ -49,113 +44,48 @@ var (
 	notUsefulLabelsSummary   = sortString(append(notUsefulLabelsOther, model.QuantileLabel))
 )
 
-func sortString(strs []string) []string {
-	sort.Strings(strs)
-	return strs
-}
+func sortString(strs []string) []string { _ = "STUB: not implemented"; return nil }
 
 func getSortedNotUsefulLabels(mType pmetric.MetricType) []string {
-	switch mType {
-	case pmetric.MetricTypeHistogram:
-		return notUsefulLabelsHistogram
-	case pmetric.MetricTypeSummary:
-		return notUsefulLabelsSummary
-	default:
-		return notUsefulLabelsOther
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getSortedNotUsefulLabelsForSeries(mType pmetric.MetricType, ls labels.Labels) []string {
-	base := getSortedNotUsefulLabels(mType)
-	var exclusions []string
-	var seen map[string]struct{}
-	ls.Range(func(l labels.Label) {
-		if strings.HasPrefix(l.Name, prometheus.ScopeLabelPrefix) {
-			if exclusions == nil {
-				exclusions = make([]string, 0, len(base)+ls.Len())
-				exclusions = append(exclusions, base...)
-				seen = make(map[string]struct{}, len(base))
-				for _, name := range base {
-					seen[name] = struct{}{}
-				}
-			}
-			if _, ok := seen[l.Name]; ok {
-				return
-			}
-			seen[l.Name] = struct{}{}
-			exclusions = append(exclusions, l.Name)
-		}
-	})
-	if exclusions == nil {
-		return base
-	}
-	sort.Strings(exclusions)
-	return exclusions
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func timestampFromFloat64(ts float64) pcommon.Timestamp {
-	secs := int64(ts)
-	nanos := int64((ts - float64(secs)) * 1e9)
-	return pcommon.Timestamp(secs*1e9 + nanos)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
 
 func timestampFromMs(timeAtMs int64) pcommon.Timestamp {
-	return pcommon.Timestamp(timeAtMs * 1e6)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
 
 func getBoundary(metricType pmetric.MetricType, labels labels.Labels) (float64, error) {
-	var val string
-	switch metricType {
-	case pmetric.MetricTypeHistogram:
-		val = labels.Get(model.BucketLabel)
-		if val == "" {
-			return 0, errEmptyLeLabel
-		}
-	case pmetric.MetricTypeSummary:
-		val = labels.Get(model.QuantileLabel)
-		if val == "" {
-			return 0, errEmptyQuantileLabel
-		}
-	default:
-		return 0, errNoBoundaryLabel
-	}
-
-	return strconv.ParseFloat(val, 64)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // convToMetricType returns the data type and if it is monotonic
 func convToMetricType(metricType model.MetricType, exponentialHistogram bool) (pmetric.MetricType, bool) {
-	switch metricType {
-	case model.MetricTypeCounter:
-		// always use float64, as it's the internal data type used in prometheus
-		return pmetric.MetricTypeSum, true
-	// model.MetricTypeUnknown is converted to gauge by default to prevent Prometheus untyped metrics from being dropped
-	case model.MetricTypeGauge, model.MetricTypeUnknown:
-		return pmetric.MetricTypeGauge, false
-	case model.MetricTypeHistogram:
-		if exponentialHistogram {
-			return pmetric.MetricTypeExponentialHistogram, true
-		}
-		return pmetric.MetricTypeHistogram, true
-	// dropping support for gaugehistogram for now until we have an official spec of its implementation
-	// a draft can be found in: https://docs.google.com/document/d/1KwV0mAXwwbvvifBvDKH_LU1YjyXE_wxCkHNoCGq1GX0/edit#heading=h.1cvzqd4ksd23
-	// case model.MetricTypeGaugeHistogram:
-	//	return <pdata gauge histogram type>
-	case model.MetricTypeSummary:
-		return pmetric.MetricTypeSummary, true
-	case model.MetricTypeInfo, model.MetricTypeStateset:
-		return pmetric.MetricTypeSum, false
-	default:
-		// including: model.MetricTypeGaugeHistogram
-		return pmetric.MetricTypeEmpty, false
-	}
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType), false
 }
 
-func normalizeMetricName(name string) string {
-	for _, s := range trimmableSuffixes {
-		if strings.HasSuffix(name, s) && name != s {
-			return strings.TrimSuffix(name, s)
-		}
-	}
-	return name
-}
+// always use float64, as it's the internal data type used in prometheus
+
+// model.MetricTypeUnknown is converted to gauge by default to prevent Prometheus untyped metrics from being dropped
+
+// dropping support for gaugehistogram for now until we have an official spec of its implementation
+// a draft can be found in: https://docs.google.com/document/d/1KwV0mAXwwbvvifBvDKH_LU1YjyXE_wxCkHNoCGq1GX0/edit#heading=h.1cvzqd4ksd23
+// case model.MetricTypeGaugeHistogram:
+//	return <pdata gauge histogram type>
+
+// including: model.MetricTypeGaugeHistogram
+
+func normalizeMetricName(name string) string { _ = "STUB: not implemented"; return "" }

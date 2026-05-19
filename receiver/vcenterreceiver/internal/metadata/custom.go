@@ -6,11 +6,11 @@ package metadata // import "github.com/open-telemetry/opentelemetry-collector-co
 import "go.opentelemetry.io/collector/pdata/pcommon"
 
 func (mb *MetricsBuilder) RecordVcenterResourcePoolMemoryUsageDataPointWithoutTypeAttribute(ts pcommon.Timestamp, val int64) {
-	mb.metricVcenterResourcePoolMemoryUsage.recordDataPointWithoutType(ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (m *metricVcenterResourcePoolMemoryUsage) recordDataPointWithoutType(ts pcommon.Timestamp, val int64) {
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }

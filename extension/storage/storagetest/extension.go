@@ -24,34 +24,21 @@ type TestStorage struct {
 // Ensure this storage extension implements the appropriate interface
 var _ storage.Extension = (*TestStorage)(nil)
 
-func NewStorageID(name string) component.ID {
-	return component.NewIDWithName(testStorageType, name)
-}
+func NewStorageID(name string) component.ID { _ = "STUB: not implemented"; return *new(component.ID) }
 
 // NewInMemoryStorageExtension creates a TestStorage extension
-func NewInMemoryStorageExtension(name string) *TestStorage {
-	return &TestStorage{
-		ID: NewStorageID(name),
-	}
-}
+func NewInMemoryStorageExtension(name string) *TestStorage { _ = "STUB: not implemented"; return nil }
 
 // NewFileBackedStorageExtension creates a TestStorage extension
 func NewFileBackedStorageExtension(name, storageDir string) *TestStorage {
-	return &TestStorage{
-		ID:         NewStorageID(name),
-		storageDir: storageDir,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetClient returns a storage client for an individual component
 func (s *TestStorage) GetClient(ctx context.Context, kind component.Kind, ent component.ID, name string) (storage.Client, error) {
-	var client *TestClient
-	if s.storageDir == "" {
-		client = NewInMemoryClient(kind, ent, name)
-	} else {
-		client = NewFileBackedClient(kind, ent, name, s.storageDir)
-	}
-	return client, setCreatorID(ctx, client, s.ID)
+	_ = "STUB: not implemented"
+	return *new(storage.Client), nil
 }
 
 var nonStorageType component.Type = component.MustNewType("non_storage")
@@ -68,12 +55,9 @@ type NonStorage struct {
 var _ extension.Extension = (*NonStorage)(nil)
 
 func NewNonStorageID(name string) component.ID {
-	return component.NewIDWithName(nonStorageType, name)
+	_ = "STUB: not implemented"
+	return *new(component.ID)
 }
 
 // NewNonStorageExtension creates a NonStorage extension
-func NewNonStorageExtension(name string) *NonStorage {
-	return &NonStorage{
-		ID: NewNonStorageID(name),
-	}
-}
+func NewNonStorageExtension(name string) *NonStorage { _ = "STUB: not implemented"; return nil }

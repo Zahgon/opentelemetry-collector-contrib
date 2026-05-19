@@ -5,53 +5,21 @@ package sshcheckreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sshcheckreceiver/internal/configssh"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sshcheckreceiver/internal/metadata"
 )
 
 // NewFactory creates a new receiver factory
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	cfg := scraperhelper.NewDefaultControllerConfig()
-	cfg.CollectionInterval = 10 * time.Second
-
-	return &Config{
-		ControllerConfig: cfg,
-		SSHClientSettings: configssh.SSHClientSettings{
-			Timeout: 10 * time.Second,
-		},
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(_ context.Context, params receiver.Settings, rConf component.Config, consumer consumer.Metrics) (receiver.Metrics, error) {
-	cfg, ok := rConf.(*Config)
-	if !ok {
-		return nil, errConfigNotSSHCheck
-	}
-
-	sshcheckScraper := newScraper(cfg, params)
-	s, err := scraper.NewMetrics(sshcheckScraper.scrape, scraper.WithStart(sshcheckScraper.start))
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(&cfg.ControllerConfig, params, consumer, scraperhelper.AddMetricsScraper(metadata.Type, s))
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

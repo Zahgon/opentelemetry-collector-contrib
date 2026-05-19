@@ -3,12 +3,6 @@
 
 package openinference // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/genainormalizerprocessor/internal/openinference"
 
-import (
-	"strings"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/genainormalizerprocessor/internal/otelsemconv"
-)
-
 // operationNameValues maps OpenInference openinference.span.kind values to
 // OTel GenAI operation names. Keys are lowercased; TransformValue lowercases
 // the input before lookup.
@@ -31,11 +25,6 @@ type Transformer struct{}
 // target attribute is gen_ai.operation.name. Returns the original value if no
 // mapping applies.
 func (Transformer) TransformValue(targetKey, value string) string {
-	if targetKey != otelsemconv.GenAIOperationName {
-		return value
-	}
-	if mapped, ok := operationNameValues[strings.ToLower(value)]; ok {
-		return mapped
-	}
-	return value
+	_ = "STUB: not implemented"
+	return ""
 }

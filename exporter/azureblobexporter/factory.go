@@ -5,17 +5,9 @@ package azureblobexporter // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/exporter/xexporter"
-	"go.opentelemetry.io/collector/pipeline"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azureblobexporter/internal/metadata"
 )
 
 const (
@@ -25,95 +17,33 @@ const (
 )
 
 // NewFactory creates a factory for Azure Blob exporter.
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		xexporter.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		QueueSettings:   configoptional.Default(exporterhelper.NewDefaultQueueConfig()),
-		TimeoutSettings: exporterhelper.TimeoutConfig{Timeout: 30 * time.Second},
-		Auth: Authentication{
-			Type: ConnectionString,
-		},
-		Container: TelemetryConfig{
-			Metrics: "metrics",
-			Logs:    "logs",
-			Traces:  "traces",
-		},
-		BlobNameFormat: BlobNameFormat{
-			MetricsFormat:     "2006/01/02/metrics_15_04_05.json",
-			LogsFormat:        "2006/01/02/logs_15_04_05.json",
-			TracesFormat:      "2006/01/02/traces_15_04_05.json",
-			SerialNumEnabled:  true,
-			SerialNumRange:    10000,
-			Params:            map[string]string{},
-			TemplateEnabled:   false,
-			TimeParserEnabled: true,
-			TimeParserRanges:  nil,
-		},
-		FormatType: formatTypeJSON,
-		AppendBlob: AppendBlob{
-			Enabled:   false,
-			Separator: "\n",
-		},
-		Encodings:     Encodings{},
-		BackOffConfig: configretry.NewDefaultBackOffConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(ctx context.Context,
 	params exporter.Settings,
 	config component.Config,
 ) (exporter.Logs, error) {
-	cfg := config.(*Config)
-	azBlobExporter := newAzureBlobExporter(cfg, params.Logger, pipeline.SignalLogs)
-
-	return exporterhelper.NewLogs(ctx, params,
-		config,
-		azBlobExporter.ConsumeLogs,
-		exporterhelper.WithStart(azBlobExporter.start),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings))
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func createMetricsExporter(ctx context.Context,
 	params exporter.Settings,
 	config component.Config,
 ) (exporter.Metrics, error) {
-	cfg := config.(*Config)
-	azBlobExporter := newAzureBlobExporter(cfg, params.Logger, pipeline.SignalMetrics)
-
-	return exporterhelper.NewMetrics(ctx, params,
-		config,
-		azBlobExporter.ConsumeMetrics,
-		exporterhelper.WithStart(azBlobExporter.start),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings))
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createTracesExporter(ctx context.Context,
 	params exporter.Settings,
 	config component.Config,
 ) (exporter.Traces, error) {
-	cfg := config.(*Config)
-	azBlobExporter := newAzureBlobExporter(cfg, params.Logger, pipeline.SignalTraces)
-
-	return exporterhelper.NewTraces(ctx,
-		params,
-		config,
-		azBlobExporter.ConsumeTraces,
-		exporterhelper.WithStart(azBlobExporter.start),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(cfg.QueueSettings),
-		exporterhelper.WithTimeout(cfg.TimeoutSettings))
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }

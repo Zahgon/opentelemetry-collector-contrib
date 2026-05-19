@@ -17,7 +17,8 @@ import (
 //
 //nolint:unused // stub for non-Windows platforms
 func newSIDEnrichingConsumer(next consumer.Logs, _ sidcache.Cache, _ *zap.Logger) consumer.Logs {
+	_ = "STUB: not implemented"
 	// SID enrichment is only supported on Windows
 	// Return the next consumer unchanged
-	return next
+	return *new(consumer.Logs)
 }

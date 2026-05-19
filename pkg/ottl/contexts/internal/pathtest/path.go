@@ -19,31 +19,15 @@ type Path[K any] struct {
 	FullPath string
 }
 
-func (p *Path[K]) Name() string {
-	return p.N
-}
+func (p *Path[K]) Name() string { _ = "STUB: not implemented"; return "" }
 
-func (p *Path[K]) Context() string {
-	return p.C
-}
+func (p *Path[K]) Context() string { _ = "STUB: not implemented"; return "" }
 
-func (p *Path[K]) Next() ottl.Path[K] {
-	if p.NextPath == nil {
-		return nil
-	}
-	return p.NextPath
-}
+func (p *Path[K]) Next() ottl.Path[K] { _ = "STUB: not implemented"; return nil }
 
-func (p *Path[K]) Keys() []ottl.Key[K] {
-	return p.KeySlice
-}
+func (p *Path[K]) Keys() []ottl.Key[K] { _ = "STUB: not implemented"; return nil }
 
-func (p *Path[K]) String() string {
-	if p.FullPath != "" {
-		return p.FullPath
-	}
-	return p.N
-}
+func (p *Path[K]) String() string { _ = "STUB: not implemented"; return "" }
 
 var _ ottl.Key[any] = &Key[any]{}
 
@@ -54,13 +38,16 @@ type Key[K any] struct {
 }
 
 func (k *Key[K]) String(_ context.Context, _ K) (*string, error) {
-	return k.S, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (k *Key[K]) Int(_ context.Context, _ K) (*int64, error) {
-	return k.I, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (k *Key[K]) ExpressionGetter(_ context.Context, _ K) (ottl.Getter[K], error) {
-	return k.G, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

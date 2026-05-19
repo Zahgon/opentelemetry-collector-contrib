@@ -4,8 +4,6 @@
 package agentcomponents // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/datadog/agentcomponents"
 
 import (
-	"fmt"
-
 	tracelog "github.com/DataDog/datadog-agent/pkg/trace/log"
 	"go.uber.org/zap"
 )
@@ -21,68 +19,57 @@ type ZapLogger struct {
 }
 
 // Trace implements Logger.
-func (*ZapLogger) Trace(...any) { /* N/A */ }
+func (*ZapLogger) Trace(...any) {
+	_ = "STUB: not implemented" /* N/A */
 
-// Tracef implements Logger.
-func (*ZapLogger) Tracef(string, ...any) { /* N/A */ }
-
-// Debug implements Logger.
-func (z *ZapLogger) Debug(v ...any) {
-	z.Logger.Debug(fmt.Sprint(v...))
+	// Tracef implements Logger.
+	return
 }
+
+func (*ZapLogger) Tracef(string, ...any) {
+	_ = "STUB: not implemented" /* N/A */
+
+	// Debug implements Logger.
+	return
+}
+
+func (z *ZapLogger) Debug(v ...any) { _ = "STUB: not implemented"; return }
 
 // Debugf implements Logger.
-func (z *ZapLogger) Debugf(format string, params ...any) {
-	z.Logger.Debug(fmt.Sprintf(format, params...))
-}
+func (z *ZapLogger) Debugf(format string, params ...any) { _ = "STUB: not implemented"; return }
 
 // Info implements Logger.
-func (z *ZapLogger) Info(v ...any) {
-	z.Logger.Info(fmt.Sprint(v...))
-}
+func (z *ZapLogger) Info(v ...any) { _ = "STUB: not implemented"; return }
 
 // Infof implements Logger.
-func (z *ZapLogger) Infof(format string, params ...any) {
-	z.Logger.Info(fmt.Sprintf(format, params...))
-}
+func (z *ZapLogger) Infof(format string, params ...any) { _ = "STUB: not implemented"; return }
 
 // Warn implements Logger.
-func (z *ZapLogger) Warn(v ...any) error {
-	z.Logger.Warn(fmt.Sprint(v...))
-	return nil
-}
+func (z *ZapLogger) Warn(v ...any) error { _ = "STUB: not implemented"; return nil }
 
 // Warnf implements Logger.
 func (z *ZapLogger) Warnf(format string, params ...any) error {
-	z.Logger.Warn(fmt.Sprintf(format, params...))
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Error implements Logger.
-func (z *ZapLogger) Error(v ...any) error {
-	z.Logger.Error(fmt.Sprint(v...))
-	return nil
-}
+func (z *ZapLogger) Error(v ...any) error { _ = "STUB: not implemented"; return nil }
 
 // Errorf implements Logger.
 func (z *ZapLogger) Errorf(format string, params ...any) error {
-	z.Logger.Error(fmt.Sprintf(format, params...))
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Critical implements Logger.
-func (z *ZapLogger) Critical(v ...any) error {
-	z.Logger.Error(fmt.Sprint(v...), zap.Bool("critical", true))
-	return nil
-}
+func (z *ZapLogger) Critical(v ...any) error { _ = "STUB: not implemented"; return nil }
 
 // Criticalf implements Logger.
 func (z *ZapLogger) Criticalf(format string, params ...any) error {
-	z.Logger.Error(fmt.Sprintf(format, params...), zap.Bool("critical", true))
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Flush implements Logger.
-func (z *ZapLogger) Flush() {
-	_ = z.Logger.Sync()
-}
+func (z *ZapLogger) Flush() { _ = "STUB: not implemented"; return }

@@ -5,10 +5,7 @@ package k8snode // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
@@ -27,31 +24,16 @@ type k8snodeProvider struct {
 }
 
 func NewProvider(nodeName string, apiConf k8sconfig.APIConfig) (Provider, error) {
-	if nodeName == "" {
-		return nil, errors.New("nodeName can't be empty")
-	}
-	k8sAPIClient, err := k8sconfig.MakeClient(apiConf)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create K8s API client: %w", err)
-	}
-	return &k8snodeProvider{
-		k8snodeClient: k8sAPIClient,
-		nodeName:      nodeName,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(Provider), nil
 }
 
 func (k *k8snodeProvider) NodeUID(ctx context.Context) (string, error) {
-	node, err := k.k8snodeClient.CoreV1().Nodes().Get(ctx, k.nodeName, metav1.GetOptions{})
-	if err != nil {
-		return "", fmt.Errorf("failed to fetch node with name %s from K8s API: %w", k.nodeName, err)
-	}
-	return string(node.UID), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (k *k8snodeProvider) NodeName(ctx context.Context) (string, error) {
-	node, err := k.k8snodeClient.CoreV1().Nodes().Get(ctx, k.nodeName, metav1.GetOptions{})
-	if err != nil {
-		return "", fmt.Errorf("failed to fetch node with name %s from K8s API: %w", k.nodeName, err)
-	}
-	return node.Name, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

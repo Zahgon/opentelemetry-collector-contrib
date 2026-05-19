@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
 	"go.uber.org/zap"
 )
 
@@ -41,117 +40,29 @@ type EcsInfo struct {
 	cgroupScannerCreator         func(context.Context, *zap.Logger, ecsTaskInfoProvider, containerInstanceInfoProvider, time.Duration) cgroupScannerProvider
 }
 
-func (e *EcsInfo) GetRunningTaskCount() int64 {
-	if e.ecsTaskInfo != nil {
-		return e.ecsTaskInfo.getRunningTaskCount()
-	}
-	return 0
-}
+func (e *EcsInfo) GetRunningTaskCount() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (e *EcsInfo) GetCPUReserved() int64 {
-	if e.cgroup != nil {
-		return e.cgroup.getCPUReserved()
-	}
-	return 0
-}
+func (e *EcsInfo) GetCPUReserved() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (e *EcsInfo) GetMemReserved() int64 {
-	if e.cgroup != nil {
-		return e.cgroup.getMemReserved()
-	}
-	return 0
-}
+func (e *EcsInfo) GetMemReserved() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (e *EcsInfo) GetContainerInstanceID() string {
-	if e.containerInstanceInfo != nil {
-		return e.containerInstanceInfo.GetContainerInstanceID()
-	}
-	return ""
-}
+func (e *EcsInfo) GetContainerInstanceID() string { _ = "STUB: not implemented"; return "" }
 
-func (e *EcsInfo) GetClusterName() string {
-	if e.containerInstanceInfo != nil {
-		return e.containerInstanceInfo.GetClusterName()
-	}
-	return ""
-}
+func (e *EcsInfo) GetClusterName() string { _ = "STUB: not implemented"; return "" }
 
 type ecsInfoOption func(*EcsInfo)
 
 // New creates a k8sApiServer which can generate cluster-level metrics
 func NewECSInfo(refreshInterval time.Duration, hostIPProvider hostIPProvider, host component.Host, settings component.TelemetrySettings, options ...ecsInfoOption) (*EcsInfo, error) {
-	setting := confighttp.ClientConfig{
-		Timeout: defaultTimeout,
-	}
-	ctx, cancel := context.WithCancel(context.Background())
-
-	client, err := setting.ToClient(ctx, host.GetExtensions(), settings)
-	if err != nil {
-		settings.Logger.Warn("Failed to create a http client for ECS info!")
-		cancel()
-		return nil, err
-	}
-
-	ecsInfo := &EcsInfo{
-		logger:                       settings.Logger,
-		hostIPProvider:               hostIPProvider,
-		refreshInterval:              refreshInterval,
-		httpClient:                   client,
-		cancel:                       cancel,
-		containerInstanceInfoCreator: newECSInstanceInfo,
-		ecsTaskInfoCreator:           newECSTaskInfo,
-		cgroupScannerCreator:         newCGroupScannerForContainer,
-		isTaskInfoReadyC:             make(chan bool),
-		isContainerInfoReadyC:        make(chan bool),
-		isCgroupReadyC:               make(chan bool),
-		taskInfoTestReadyC:           make(chan bool),
-		containerInfoTestReadyC:      make(chan bool),
-	}
-
-	for _, opt := range options {
-		opt(ecsInfo)
-	}
-
-	go ecsInfo.initContainerInfo(ctx)
-
-	go ecsInfo.initTaskInfo(ctx)
-
-	go ecsInfo.initCgroupScanner(ctx)
-
-	return ecsInfo, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (e *EcsInfo) initContainerInfo(ctx context.Context) {
-	<-e.hostIPProvider.GetInstanceIPReadyC()
+func (e *EcsInfo) initContainerInfo(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	e.logger.Info("instance ip is ready and begin initializing ecs container info")
+func (e *EcsInfo) initTaskInfo(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	e.containerInstanceInfo = e.containerInstanceInfoCreator(ctx, e.hostIPProvider, e.refreshInterval, e.logger, e.httpClient, e.isContainerInfoReadyC)
-	close(e.containerInfoTestReadyC)
-}
-
-func (e *EcsInfo) initTaskInfo(ctx context.Context) {
-	<-e.hostIPProvider.GetInstanceIPReadyC()
-
-	e.logger.Info("instance ip is ready and begin initializing ecs task info")
-
-	e.ecsTaskInfo = e.ecsTaskInfoCreator(ctx, e.hostIPProvider, e.refreshInterval, e.logger, e.httpClient, e.isTaskInfoReadyC)
-
-	close(e.taskInfoTestReadyC)
-}
-
-func (e *EcsInfo) initCgroupScanner(ctx context.Context) {
-	<-e.isContainerInfoReadyC
-	<-e.isTaskInfoReadyC
-
-	e.logger.Info("info ready and begin getting info")
-
-	e.cgroup = e.cgroupScannerCreator(ctx, e.logger, e.ecsTaskInfo, e.containerInstanceInfo, e.refreshInterval)
-
-	close(e.isCgroupReadyC)
-}
+func (e *EcsInfo) initCgroupScanner(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 // Shutdown stops the ecs Info
-func (e *EcsInfo) Shutdown() {
-	e.cancel()
-}
+func (e *EcsInfo) Shutdown() { _ = "STUB: not implemented"; return }

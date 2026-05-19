@@ -9,11 +9,7 @@ package env // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"fmt"
-	"net/url"
-	"os"
 	"regexp"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
@@ -38,62 +34,21 @@ var _ internal.Detector = (*Detector)(nil)
 type Detector struct{}
 
 func NewDetector(processor.Settings, internal.DetectorConfig) (internal.Detector, error) {
-	return &Detector{}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 func (*Detector) Detect(context.Context) (resource pcommon.Resource, schemaURL string, err error) {
-	res := pcommon.NewResource()
-
-	labels := strings.TrimSpace(os.Getenv(envVar))
-	if labels == "" {
-		labels = strings.TrimSpace(os.Getenv(deprecatedEnvVar))
-		if labels == "" {
-			return res, "", nil
-		}
-	}
-
-	err = initializeAttributeMap(res.Attributes(), labels)
-	if err != nil {
-		res.Attributes().Clear()
-		return res, "", err
-	}
-
-	return res, "", nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
 
 // labelRegex matches any key=value pair including a trailing comma or the end of the
 // string. Captures the trimmed key & value parts, and ignores any superfluous spaces.
 var labelRegex = regexp.MustCompile(`\s*([[:ascii:]]{1,256}?)\s*=\s*([[:ascii:]]{0,256}?)\s*(?:,|$)`)
 
-func initializeAttributeMap(am pcommon.Map, s string) error {
-	matches := labelRegex.FindAllStringSubmatchIndex(s, -1)
-	for len(matches) == 0 {
-		return fmt.Errorf("invalid resource format: %q", s)
-	}
+func initializeAttributeMap(am pcommon.Map, s string) error { _ = "STUB: not implemented"; return nil }
 
-	prevIndex := 0
-	for _, match := range matches {
-		// if there is any text between matches, raise an error
-		if prevIndex != match[0] {
-			return fmt.Errorf("invalid resource format, invalid text: %q", s[prevIndex:match[0]])
-		}
+// if there is any text between matches, raise an error
 
-		key := s[match[2]:match[3]]
-		value := s[match[4]:match[5]]
-
-		var err error
-		if value, err = url.QueryUnescape(value); err != nil {
-			return fmt.Errorf("invalid resource format in attribute: %q, err: %w", s[match[0]:match[1]], err)
-		}
-		am.PutStr(key, value)
-
-		prevIndex = match[1]
-	}
-
-	// if there is any text after the last match, raise an error
-	if matches[len(matches)-1][1] != len(s) {
-		return fmt.Errorf("invalid resource format, invalid text: %q", s[matches[len(matches)-1][1]:])
-	}
-
-	return nil
-}
+// if there is any text after the last match, raise an error

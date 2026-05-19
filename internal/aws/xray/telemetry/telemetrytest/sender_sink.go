@@ -12,13 +12,7 @@ import (
 
 // NewSenderSink returns a Sender that acts like a sink and
 // stores all calls to the record functions for testing.
-func NewSenderSink() *SenderSink {
-	return &SenderSink{
-		Recorder:   telemetry.NewRecorder(),
-		StartCount: &atomic.Int64{},
-		StopCount:  &atomic.Int64{},
-	}
-}
+func NewSenderSink() *SenderSink { _ = "STUB: not implemented"; return nil }
 
 var _ telemetry.Sender = (*SenderSink)(nil)
 
@@ -28,10 +22,6 @@ type SenderSink struct {
 	StopCount  *atomic.Int64
 }
 
-func (s SenderSink) Start(_ context.Context) {
-	s.StartCount.Add(1)
-}
+func (s SenderSink) Start(_ context.Context) { _ = "STUB: not implemented"; return }
 
-func (s SenderSink) Stop() {
-	s.StopCount.Add(1)
-}
+func (s SenderSink) Stop() { _ = "STUB: not implemented"; return }

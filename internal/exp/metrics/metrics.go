@@ -24,103 +24,35 @@ import (
 //
 // That said, this will do a large amount of memory copying
 func Merge(mdA, mdB pmetric.Metrics) pmetric.Metrics {
-outer:
-	for i := 0; i < mdB.ResourceMetrics().Len(); i++ {
-		rmB := mdB.ResourceMetrics().At(i)
-		resourceIDB := identity.OfResource(rmB.Resource())
-
-		for j := 0; j < mdA.ResourceMetrics().Len(); j++ {
-			rmA := mdA.ResourceMetrics().At(j)
-			resourceIDA := identity.OfResource(rmA.Resource())
-
-			if resourceIDA == resourceIDB {
-				mergeResourceMetrics(resourceIDA, rmA, rmB)
-				continue outer
-			}
-		}
-
-		// We didn't find a match
-		// Add it to mdA
-		newRM := mdA.ResourceMetrics().AppendEmpty()
-		rmB.CopyTo(newRM)
-	}
-
-	return mdA
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
+
+// We didn't find a match
+// Add it to mdA
 
 func mergeResourceMetrics(resourceID identity.Resource, rmA, rmB pmetric.ResourceMetrics) pmetric.ResourceMetrics {
-outer:
-	for i := 0; i < rmB.ScopeMetrics().Len(); i++ {
-		smB := rmB.ScopeMetrics().At(i)
-		scopeIDB := identity.OfScope(resourceID, smB.Scope())
-
-		for j := 0; j < rmA.ScopeMetrics().Len(); j++ {
-			smA := rmA.ScopeMetrics().At(j)
-			scopeIDA := identity.OfScope(resourceID, smA.Scope())
-
-			if scopeIDA == scopeIDB {
-				mergeScopeMetrics(scopeIDA, smA, smB)
-				continue outer
-			}
-		}
-
-		// We didn't find a match
-		// Add it to rmA
-		newSM := rmA.ScopeMetrics().AppendEmpty()
-		smB.CopyTo(newSM)
-	}
-
-	return rmA
+	_ = "STUB: not implemented"
+	return *new(pmetric.ResourceMetrics)
 }
+
+// We didn't find a match
+// Add it to rmA
 
 func mergeScopeMetrics(scopeID identity.Scope, smA, smB pmetric.ScopeMetrics) pmetric.ScopeMetrics {
-outer:
-	for i := 0; i < smB.Metrics().Len(); i++ {
-		mB := smB.Metrics().At(i)
-		metricIDB := identity.OfMetric(scopeID, mB)
-
-		for j := 0; j < smA.Metrics().Len(); j++ {
-			mA := smA.Metrics().At(j)
-			metricIDA := identity.OfMetric(scopeID, mA)
-
-			if metricIDA == metricIDB {
-				//exhaustive:enforce
-				switch mA.Type() {
-				case pmetric.MetricTypeGauge:
-					mergeDataPoints(mA.Gauge().DataPoints(), mB.Gauge().DataPoints())
-				case pmetric.MetricTypeSum:
-					mergeDataPoints(mA.Sum().DataPoints(), mB.Sum().DataPoints())
-				case pmetric.MetricTypeHistogram:
-					mergeDataPoints(mA.Histogram().DataPoints(), mB.Histogram().DataPoints())
-				case pmetric.MetricTypeExponentialHistogram:
-					mergeDataPoints(mA.ExponentialHistogram().DataPoints(), mB.ExponentialHistogram().DataPoints())
-				case pmetric.MetricTypeSummary:
-					mergeDataPoints(mA.Summary().DataPoints(), mB.Summary().DataPoints())
-				}
-
-				continue outer
-			}
-		}
-
-		// We didn't find a match
-		// Add it to smA
-		newM := smA.Metrics().AppendEmpty()
-		mB.CopyTo(newM)
-	}
-
-	return smA
+	_ = "STUB: not implemented"
+	return *new(pmetric.ScopeMetrics)
 }
 
+//exhaustive:enforce
+
+// We didn't find a match
+// Add it to smA
+
 func mergeDataPoints[DPS dataPointSlice[DP], DP dataPoint[DP]](dataPointsA, dataPointsB DPS) DPS {
+	_ = "STUB: not implemented"
 	// Append all the datapoints from B to A
-	for i := 0; i < dataPointsB.Len(); i++ {
-		dpB := dataPointsB.At(i)
-
-		newDP := dataPointsA.AppendEmpty()
-		dpB.CopyTo(newDP)
-	}
-
-	return dataPointsA
+	return *new(DPS)
 }
 
 type dataPointSlice[DP dataPoint[DP]] interface {

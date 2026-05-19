@@ -23,11 +23,13 @@ var _ provider.GeoIPProviderFactory = (*Factory)(nil)
 
 // CreateDefaultConfig creates the default configuration for the Provider.
 func (*Factory) CreateDefaultConfig() provider.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+
+	// CreateGeoIPProvider creates a provider based on this config.
+	return *new(provider.Config)
 }
 
-// CreateGeoIPProvider creates a provider based on this config.
 func (*Factory) CreateGeoIPProvider(_ context.Context, _ processor.Settings, cfg provider.Config) (provider.GeoIPProvider, error) {
-	maxMindConfig := cfg.(*Config)
-	return newMaxMindProvider(maxMindConfig)
+	_ = "STUB: not implemented"
+	return *new(provider.GeoIPProvider), nil
 }

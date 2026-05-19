@@ -4,7 +4,6 @@
 package awsemfexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awsemfexporter"
 
 import (
-	"bytes"
 	"errors"
 	"regexp"
 	"sort"
@@ -47,22 +46,8 @@ type LabelMatcher struct {
 
 // dedupDimensionSet removes duplicated entries from dimension set.
 func dedupDimensionSet(dimensions []string) (deduped []string, hasDuplicate bool) {
-	seen := make(map[string]bool, len(dimensions))
-	for _, v := range dimensions {
-		seen[v] = true
-	}
-	hasDuplicate = (len(seen) < len(dimensions))
-	if !hasDuplicate {
-		deduped = dimensions
-		return deduped, hasDuplicate
-	}
-	deduped = make([]string, len(seen))
-	idx := 0
-	for dim := range seen {
-		deduped[idx] = dim
-		idx++
-	}
-	return deduped, hasDuplicate
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 // init initializes the MetricDeclaration struct. Performs validation and compiles
@@ -120,47 +105,24 @@ func (m *MetricDeclaration) init(logger *zap.Logger) error {
 // MatchesName returns true if the given OTLP Metric's name matches any of the Metric
 // Declaration's metric name selectors.
 func (m *MetricDeclaration) MatchesName(metricName string) bool {
-	for _, regex := range m.metricRegexList {
-		if regex.MatchString(metricName) {
-			return true
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 // MatchesLabels returns true if the given OTLP Metric's name matches any of the Metric
 // Declaration's label matchers.
 func (m *MetricDeclaration) MatchesLabels(labels map[string]string) bool {
-	if len(m.LabelMatchers) == 0 {
-		return true
-	}
-
-	// If there are label matchers defined, check if metric's labels matches at least one
-	for _, lm := range m.LabelMatchers {
-		if lm.Matches(labels) {
-			return true
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return false
 }
+
+// If there are label matchers defined, check if metric's labels matches at least one
 
 // ExtractDimensions filters through the dimensions defined in the given metric declaration and
 // returns dimensions that only contains labels from in the given label set.
 func (m *MetricDeclaration) ExtractDimensions(labels map[string]string) (dimensions [][]string) {
-	for _, dimensionSet := range m.Dimensions {
-		includeSet := true
-		for _, dim := range dimensionSet {
-			if _, ok := labels[dim]; !ok {
-				includeSet = false
-				break
-			}
-		}
-		if includeSet {
-			dimensions = append(dimensions, dimensionSet)
-		}
-	}
-	return dimensions
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // init LabelMatcher with default values and compile regex string.
@@ -182,22 +144,12 @@ func (lm *LabelMatcher) init() (err error) {
 
 // Matches returns true if given set of labels matches the LabelMatcher's rules.
 func (lm *LabelMatcher) Matches(labels map[string]string) bool {
-	concatenatedLabels := lm.getConcatenatedLabels(labels)
-	return lm.compiledRegex.MatchString(concatenatedLabels)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // getConcatenatedLabels concatenates label values of matched labels using separator defined by the LabelMatcher's rules.
 func (lm *LabelMatcher) getConcatenatedLabels(labels map[string]string) string {
-	buf := new(bytes.Buffer)
-	isFirstLabel := true
-	for _, labelName := range lm.LabelNames {
-		if isFirstLabel {
-			isFirstLabel = false
-		} else {
-			buf.WriteString(lm.Separator)
-		}
-
-		buf.WriteString(labels[labelName])
-	}
-	return buf.String()
+	_ = "STUB: not implemented"
+	return ""
 }

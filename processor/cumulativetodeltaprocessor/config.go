@@ -4,8 +4,6 @@
 package cumulativetodeltaprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/cumulativetodeltaprocessor"
 
 import (
-	"errors"
-	"fmt"
 	"strings"
 	"time"
 
@@ -57,33 +55,4 @@ var _ component.Config = (*Config)(nil)
 
 // Validate checks whether the input configuration has all of the required fields for the processor.
 // An error is returned if there are any invalid inputs.
-func (config *Config) Validate() error {
-	if (len(config.Include.Metrics) > 0 && len(config.Include.MatchType) == 0) ||
-		(len(config.Exclude.Metrics) > 0 && len(config.Exclude.MatchType) == 0) {
-		return errors.New("match_type must be set if metrics are supplied")
-	}
-	if (len(config.Include.MatchType) > 0 && len(config.Include.Metrics) == 0) ||
-		(len(config.Exclude.MatchType) > 0 && len(config.Exclude.Metrics) == 0) {
-		return errors.New("metrics must be supplied if match_type is set")
-	}
-
-	for _, metricType := range config.Exclude.MetricTypes {
-		if valid := validMetricTypes[strings.ToLower(metricType)]; !valid {
-			return fmt.Errorf(
-				"found invalid metric type in exclude.metric_types: %s. Valid values are %s",
-				metricType,
-				validMetricTypeList,
-			)
-		}
-	}
-	for _, metricType := range config.Include.MetricTypes {
-		if valid := validMetricTypes[strings.ToLower(metricType)]; !valid {
-			return fmt.Errorf(
-				"found invalid metric type in include.metric_types: %s. Valid values are %s",
-				metricType,
-				validMetricTypeList,
-			)
-		}
-	}
-	return nil
-}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }

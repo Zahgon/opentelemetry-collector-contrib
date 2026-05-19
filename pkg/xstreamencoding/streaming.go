@@ -5,8 +5,6 @@ package xstreamencoding // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"bufio"
-	"bytes"
-	"fmt"
 	"io"
 
 	"go.opentelemetry.io/collector/pdata/plog"
@@ -28,91 +26,42 @@ type ScannerHelper struct {
 // It accepts optional encoding.DecoderOption to configure batch flushing behavior.
 // If a bufio.Reader is provided, it will be used as-is. Otherwise, one will be derived with default buffer size.
 func NewScannerHelper(reader io.Reader, opts ...encoding.DecoderOption) (*ScannerHelper, error) {
-	batchHelper := NewBatchHelper(opts...)
-
-	var bufReader *bufio.Reader
-	if br, ok := reader.(*bufio.Reader); ok {
-		bufReader = br
-	} else {
-		bufReader = bufio.NewReader(reader)
-	}
-
-	if batchHelper.options.Offset != 0 {
-		_, err := bufReader.Discard(int(batchHelper.options.Offset))
-		if err != nil {
-			return nil, fmt.Errorf("failed to discard offset %d: %w", batchHelper.options.Offset, err)
-		}
-	}
-
-	return &ScannerHelper{
-		batchHelper: batchHelper,
-		bufReader:   bufReader,
-		offset:      batchHelper.options.Offset,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ScanString scans the next line from the stream and returns it as a string. This excludes new line delimiter.
 // flush indicates whether the batch should be flushed after processing this string.
 // err is non-nil if an error occurred during scanning. If the end of the stream is reached, err will be io.EOF.
 func (h *ScannerHelper) ScanString() (line string, flush bool, err error) {
-	internal, b, err := h.scanInternal()
-	return string(internal), b, err
+	_ = "STUB: not implemented"
+	return "", false, nil
 }
 
 // ScanBytes scans the next line from the stream and returns it as a byte slice. This excludes new line delimiter.
 // flush indicates whether the batch should be flushed after processing these bytes.
 // err is non-nil if an error occurred during scanning. If the end of the stream is reached, err will be io.EOF.
 func (h *ScannerHelper) ScanBytes() (bytes []byte, flush bool, err error) {
-	b, flush, err := h.scanInternal()
-	if b != nil {
-		cpy := make([]byte, len(b))
-		copy(cpy, b)
-		return cpy, flush, err
-	}
-	return nil, flush, err
+	_ = "STUB: not implemented"
+	return nil, false, nil
 }
 
 func (h *ScannerHelper) scanInternal() ([]byte, bool, error) {
-	var isEOF bool
-	b, err := h.bufReader.ReadBytes('\n')
-	if err != nil {
-		if err != io.EOF {
-			return nil, false, err
-		}
-		isEOF = true
-	}
-
-	if len(b) == 0 && isEOF {
-		return nil, true, io.EOF
-	}
-
-	h.offset += int64(len(b))
-	h.batchHelper.IncrementBytes(int64(len(b)))
-	h.batchHelper.IncrementItems(1)
-
-	var flush bool
-	if h.batchHelper.ShouldFlush() {
-		h.batchHelper.Reset()
-		flush = true
-	}
-
-	b = bytes.TrimSpace(b)
-
-	if isEOF {
-		return b, flush, io.EOF
-	}
-
-	return b, flush, nil
+	_ = "STUB: not implemented"
+	return nil, false, nil
 }
 
 // Offset returns the current byte offset read from the stream.
 func (h *ScannerHelper) Offset() int64 {
-	return h.offset
+	_ = "STUB: not implemented"
+
+	// Options returns the DecoderOptions used by the ScannerHelper's BatchHelper.
+	return 0
 }
 
-// Options returns the DecoderOptions used by the ScannerHelper's BatchHelper.
 func (h *ScannerHelper) Options() encoding.DecoderOptions {
-	return h.batchHelper.Options()
+	_ = "STUB: not implemented"
+	return *new(encoding.DecoderOptions)
 }
 
 // BatchHelper is a helper to determine when to flush based on configured options.
@@ -126,46 +75,32 @@ type BatchHelper struct {
 
 // NewBatchHelper creates a new BatchHelper with the provided options.
 func NewBatchHelper(opts ...encoding.DecoderOption) *BatchHelper {
-	return &BatchHelper{
-		options: encoding.NewDecoderOptions(opts...),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IncrementBytes adds n to the current byte count.
-func (sh *BatchHelper) IncrementBytes(n int64) {
-	sh.currentBytes += n
-}
+func (sh *BatchHelper) IncrementBytes(n int64) { _ = "STUB: not implemented"; return }
 
 // IncrementItems adds n to the current item count.
-func (sh *BatchHelper) IncrementItems(n int64) {
-	sh.currentItems += n
-}
+func (sh *BatchHelper) IncrementItems(n int64) { _ = "STUB: not implemented"; return }
 
 // ShouldFlush returns true if the current counts exceed configured thresholds.
 // Make sure to call Reset after flushing to start tracking the next batch.
-func (sh *BatchHelper) ShouldFlush() bool {
-	if sh.options.FlushBytes > 0 && sh.currentBytes >= sh.options.FlushBytes {
-		return true
-	}
-	if sh.options.FlushItems > 0 && sh.currentItems >= sh.options.FlushItems {
-		return true
-	}
-	return false
-}
+func (sh *BatchHelper) ShouldFlush() bool { _ = "STUB: not implemented"; return false }
 
 // Reset resets the current byte and item counts to zero.
 // Should be called after flushing a batch to start tracking the next batch.
-func (sh *BatchHelper) Reset() {
-	sh.currentBytes = 0
-	sh.currentItems = 0
-}
+func (sh *BatchHelper) Reset() { _ = "STUB: not implemented"; return }
 
 // Options returns the DecoderOptions used by the BatchHelper.
 func (sh *BatchHelper) Options() encoding.DecoderOptions {
-	return sh.options
+	_ = "STUB: not implemented"
+
+	// LogsDecoderAdapter adapts decode and offset functions to implement encoding.LogsDecoder.
+	return *new(encoding.DecoderOptions)
 }
 
-// LogsDecoderAdapter adapts decode and offset functions to implement encoding.LogsDecoder.
 type LogsDecoderAdapter struct {
 	decode func() (plog.Logs, error)
 	offset func() int64
@@ -173,21 +108,22 @@ type LogsDecoderAdapter struct {
 
 // NewLogsDecoderAdapter creates a new LogsDecoderAdapter with the provided decode and offset functions.
 func NewLogsDecoderAdapter(decode func() (plog.Logs, error), offset func() int64) LogsDecoderAdapter {
-	return LogsDecoderAdapter{
-		decode: decode,
-		offset: offset,
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsDecoderAdapter)
 }
 
 func (a LogsDecoderAdapter) DecodeLogs() (plog.Logs, error) {
-	return a.decode()
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
 func (a LogsDecoderAdapter) Offset() int64 {
-	return a.offset()
+	_ = "STUB: not implemented"
+
+	// MetricsDecoderAdapter adapts decode and offset functions to implement encoding.MetricsDecoder.
+	return 0
 }
 
-// MetricsDecoderAdapter adapts decode and offset functions to implement encoding.MetricsDecoder.
 type MetricsDecoderAdapter struct {
 	decode func() (pmetric.Metrics, error)
 	offset func() int64
@@ -195,22 +131,23 @@ type MetricsDecoderAdapter struct {
 
 // NewMetricsDecoderAdapter creates a new MetricsDecoderAdapter with the provided decode and offset functions.
 func NewMetricsDecoderAdapter(decode func() (pmetric.Metrics, error), offset func() int64) MetricsDecoderAdapter {
-	return MetricsDecoderAdapter{
-		decode: decode,
-		offset: offset,
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsDecoderAdapter)
 }
 
 func (a MetricsDecoderAdapter) DecodeMetrics() (pmetric.Metrics, error) {
-	return a.decode()
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func (a MetricsDecoderAdapter) Offset() int64 {
-	return a.offset()
+	_ = "STUB: not implemented"
+
+	// logsUnmarshalerDecoderFactory adapts a plog.Unmarshaler into an encoding.LogsDecoderFactory.
+	// It reads the entire remaining stream and delegates to the unmarshaler on the first decode call.
+	return 0
 }
 
-// logsUnmarshalerDecoderFactory adapts a plog.Unmarshaler into an encoding.LogsDecoderFactory.
-// It reads the entire remaining stream and delegates to the unmarshaler on the first decode call.
 type logsUnmarshalerDecoderFactory struct {
 	unmarshaler plog.Unmarshaler
 }
@@ -218,15 +155,13 @@ type logsUnmarshalerDecoderFactory struct {
 // NewLogsUnmarshalerDecoderFactory returns an encoding.LogsDecoderFactory that reads the full
 // stream into memory and delegates to the provided plog.Unmarshaler.
 func NewLogsUnmarshalerDecoderFactory(unmarshaler plog.Unmarshaler) encoding.LogsDecoderFactory {
-	return &logsUnmarshalerDecoderFactory{unmarshaler: unmarshaler}
+	_ = "STUB: not implemented"
+	return *new(encoding.LogsDecoderFactory)
 }
 
 func (f *logsUnmarshalerDecoderFactory) NewLogsDecoder(reader io.Reader, options ...encoding.DecoderOption) (encoding.LogsDecoder, error) {
-	return &logsUnmarshalerDecoder{
-		unmarshaler: f.unmarshaler,
-		reader:      reader,
-		opts:        encoding.NewDecoderOptions(options...),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(encoding.LogsDecoder), nil
 }
 
 type logsUnmarshalerDecoder struct {
@@ -238,33 +173,18 @@ type logsUnmarshalerDecoder struct {
 }
 
 func (d *logsUnmarshalerDecoder) DecodeLogs() (plog.Logs, error) {
-	if d.done {
-		return plog.Logs{}, io.EOF
-	}
-	d.done = true
-	if d.opts.Offset > 0 {
-		if _, err := io.CopyN(io.Discard, d.reader, d.opts.Offset); err != nil {
-			return plog.Logs{}, fmt.Errorf("failed to discard offset %d: %w", d.opts.Offset, err)
-		}
-	}
-	buf, err := io.ReadAll(d.reader)
-	if err != nil {
-		return plog.Logs{}, fmt.Errorf("failed to read stream: %w", err)
-	}
-	d.offset = d.opts.Offset + int64(len(buf))
-	logs, err := d.unmarshaler.UnmarshalLogs(buf)
-	if err != nil {
-		return plog.Logs{}, err
-	}
-	return logs, nil
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
 func (d *logsUnmarshalerDecoder) Offset() int64 {
-	return d.offset
+	_ = "STUB: not implemented"
+
+	// metricsUnmarshalerDecoderFactory adapts a pmetric.Unmarshaler into an encoding.MetricsDecoderFactory.
+	// It reads the entire remaining stream and delegates to the unmarshaler on the first decode call.
+	return 0
 }
 
-// metricsUnmarshalerDecoderFactory adapts a pmetric.Unmarshaler into an encoding.MetricsDecoderFactory.
-// It reads the entire remaining stream and delegates to the unmarshaler on the first decode call.
 type metricsUnmarshalerDecoderFactory struct {
 	unmarshaler pmetric.Unmarshaler
 }
@@ -272,15 +192,13 @@ type metricsUnmarshalerDecoderFactory struct {
 // NewMetricsUnmarshalerDecoderFactory returns an encoding.MetricsDecoderFactory that reads the full
 // stream into memory and delegates to the provided pmetric.Unmarshaler.
 func NewMetricsUnmarshalerDecoderFactory(unmarshaler pmetric.Unmarshaler) encoding.MetricsDecoderFactory {
-	return &metricsUnmarshalerDecoderFactory{unmarshaler: unmarshaler}
+	_ = "STUB: not implemented"
+	return *new(encoding.MetricsDecoderFactory)
 }
 
 func (f *metricsUnmarshalerDecoderFactory) NewMetricsDecoder(reader io.Reader, options ...encoding.DecoderOption) (encoding.MetricsDecoder, error) {
-	return &metricsUnmarshalerDecoder{
-		unmarshaler: f.unmarshaler,
-		reader:      reader,
-		opts:        encoding.NewDecoderOptions(options...),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(encoding.MetricsDecoder), nil
 }
 
 type metricsUnmarshalerDecoder struct {
@@ -292,27 +210,8 @@ type metricsUnmarshalerDecoder struct {
 }
 
 func (d *metricsUnmarshalerDecoder) DecodeMetrics() (pmetric.Metrics, error) {
-	if d.done {
-		return pmetric.Metrics{}, io.EOF
-	}
-	d.done = true
-	if d.opts.Offset > 0 {
-		if _, err := io.CopyN(io.Discard, d.reader, d.opts.Offset); err != nil {
-			return pmetric.Metrics{}, fmt.Errorf("failed to discard offset %d: %w", d.opts.Offset, err)
-		}
-	}
-	buf, err := io.ReadAll(d.reader)
-	if err != nil {
-		return pmetric.Metrics{}, fmt.Errorf("failed to read stream: %w", err)
-	}
-	d.offset = d.opts.Offset + int64(len(buf))
-	metrics, err := d.unmarshaler.UnmarshalMetrics(buf)
-	if err != nil {
-		return pmetric.Metrics{}, err
-	}
-	return metrics, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
-func (d *metricsUnmarshalerDecoder) Offset() int64 {
-	return d.offset
-}
+func (d *metricsUnmarshalerDecoder) Offset() int64 { _ = "STUB: not implemented"; return 0 }

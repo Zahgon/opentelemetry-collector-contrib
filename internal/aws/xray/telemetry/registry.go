@@ -28,38 +28,30 @@ var globalRegistry = NewRegistry()
 
 // GlobalRegistry returns the global Registry.
 func GlobalRegistry() Registry {
-	return globalRegistry
+	_ = "STUB: not implemented"
+	return *
+
+	// registry maintains a map of all registered senders.
+	new(Registry)
 }
 
-// registry maintains a map of all registered senders.
 type registry struct {
 	senders sync.Map
 }
 
 // NewRegistry returns a new empty Registry.
-func NewRegistry() Registry {
-	return &registry{}
-}
+func NewRegistry() Registry { _ = "STUB: not implemented"; return *new(Registry) }
 
-func (r *registry) Load(id component.ID) Sender {
-	sender, ok := r.senders.Load(id)
-	if ok {
-		return sender.(Sender)
-	}
-	return nil
-}
+func (r *registry) Load(id component.ID) Sender { _ = "STUB: not implemented"; return *new(Sender) }
 
 func (r *registry) LoadOrNop(id component.ID) Sender {
-	sender := r.Load(id)
-	if sender == nil {
-		sender = NewNopSender()
-	}
-	return sender
+	_ = "STUB: not implemented"
+	return *new(Sender)
 }
 
 func (r *registry) LoadOrStore(id component.ID, sender Sender) (Sender, bool) {
-	actual, loaded := r.senders.LoadOrStore(id, sender)
-	return actual.(Sender), loaded
+	_ = "STUB: not implemented"
+	return *new(Sender), false
 }
 
 func (r *registry) Register(
@@ -68,13 +60,6 @@ func (r *registry) Register(
 	client awsxray.XRayClient,
 	opts ...Option,
 ) Sender {
-	if sender, ok := r.senders.Load(id); ok {
-		return sender.(Sender)
-	}
-	sender := NewSender(client, opts...)
-	r.senders.Store(id, sender)
-	for _, contributor := range cfg.Contributors {
-		r.LoadOrStore(contributor, sender)
-	}
-	return sender
+	_ = "STUB: not implemented"
+	return *new(Sender)
 }

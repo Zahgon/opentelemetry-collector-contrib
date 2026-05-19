@@ -5,9 +5,6 @@
 
 package reader // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/internal/reader"
 
-func (*Reader) tryLockFile() bool {
-	return true
-}
+func (*Reader) tryLockFile() bool { _ = "STUB: not implemented"; return false }
 
-func (*Reader) unlockFile() {
-}
+func (*Reader) unlockFile() { _ = "STUB: not implemented"; return }

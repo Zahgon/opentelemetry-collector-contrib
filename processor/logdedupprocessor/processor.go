@@ -5,7 +5,6 @@ package logdedupprocessor // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"fmt"
 	"sync"
 	"time"
 
@@ -18,7 +17,6 @@ import (
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottllog"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/logdedupprocessor/internal/metadata"
 )
 
 // logDedupProcessor is a logDedupProcessor that counts duplicate instances of logs.
@@ -35,138 +33,51 @@ type logDedupProcessor struct {
 }
 
 func newProcessor(cfg *Config, nextConsumer consumer.Logs, settings processor.Settings) (*logDedupProcessor, error) {
-	telemetryBuilder, err := metadata.NewTelemetryBuilder(settings.TelemetrySettings)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create telemetry builder: %w", err)
-	}
-
-	// This should not happen due to config validation but we check anyways.
-	timezone, err := time.LoadLocation(cfg.Timezone)
-	if err != nil {
-		return nil, fmt.Errorf("invalid timezone: %w", err)
-	}
-
-	return &logDedupProcessor{
-		emitInterval: cfg.Interval,
-		aggregator:   newLogAggregator(cfg.LogCountAttribute, timezone, telemetryBuilder, cfg.IncludeFields),
-		remover:      newFieldRemover(cfg.ExcludeFields),
-		nextConsumer: nextConsumer,
-		logger:       settings.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// This should not happen due to config validation but we check anyways.
 
 // Start starts the processor.
 func (p *logDedupProcessor) Start(ctx context.Context, _ component.Host) error {
-	ctx, cancel := context.WithCancel(ctx)
-	p.cancel = cancel
-
-	p.wg.Add(1)
-	go p.handleExportInterval(ctx)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Capabilities returns the consumer's capabilities.
 func (*logDedupProcessor) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: true}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 // Shutdown stops the processor.
-func (p *logDedupProcessor) Shutdown(context.Context) error {
-	if p.cancel != nil {
-		// Call cancel to stop the export interval goroutine and wait for it to finish.
-		p.cancel()
-		p.wg.Wait()
-	}
-	return nil
-}
+func (p *logDedupProcessor) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
+
+// Call cancel to stop the export interval goroutine and wait for it to finish.
 
 // ConsumeLogs processes the logs.
 func (p *logDedupProcessor) ConsumeLogs(ctx context.Context, pl plog.Logs) error {
-	p.mux.Lock()
-	defer p.mux.Unlock()
-
-	pl.ResourceLogs().RemoveIf(func(rl plog.ResourceLogs) bool {
-		resource := rl.Resource()
-
-		rl.ScopeLogs().RemoveIf(func(sl plog.ScopeLogs) bool {
-			scope := sl.Scope()
-			logs := sl.LogRecords()
-
-			logs.RemoveIf(func(logRecord plog.LogRecord) bool {
-				if p.conditions == nil {
-					p.aggregateLog(logRecord, scope, resource)
-					return true
-				}
-
-				logCtx := ottllog.NewTransformContextPtr(rl, sl, logRecord)
-				defer logCtx.Close()
-				logMatch, err := p.conditions.Eval(ctx, logCtx)
-				if err != nil {
-					p.logger.Error("error matching conditions", zap.Error(err))
-					return false
-				}
-				if !logMatch {
-					return false
-				}
-				p.aggregateLog(logRecord, scope, resource)
-				return true
-			})
-			return sl.LogRecords().Len() == 0
-		})
-		return rl.ScopeLogs().Len() == 0
-	})
-
-	// immediately consume any logs that didn't match any conditions
-	if pl.LogRecordCount() > 0 {
-		err := p.nextConsumer.ConsumeLogs(ctx, pl)
-		if err != nil {
-			p.logger.Error("failed to consume logs", zap.Error(err))
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// immediately consume any logs that didn't match any conditions
+
 func (p *logDedupProcessor) aggregateLog(logRecord plog.LogRecord, scope pcommon.InstrumentationScope, resource pcommon.Resource) {
-	p.remover.RemoveFields(logRecord)
-	p.aggregator.Add(resource, scope, logRecord)
+	_ = "STUB: not implemented"
+	return
 }
 
 // handleExportInterval sends metrics at the configured interval.
 func (p *logDedupProcessor) handleExportInterval(ctx context.Context) {
-	defer p.wg.Done()
-
-	ticker := time.NewTicker(p.emitInterval)
-	defer ticker.Stop()
-
-	for {
-		select {
-		case <-ctx.Done():
-			// Export any remaining logs
-			p.exportLogs(ctx)
-			if err := ctx.Err(); err != context.Canceled {
-				p.logger.Error("context error", zap.Error(err))
-			}
-			return
-		case <-ticker.C:
-			p.exportLogs(ctx)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Export any remaining logs
 
 // exportLogs exports the logs to the next consumer.
-func (p *logDedupProcessor) exportLogs(ctx context.Context) {
-	p.mux.Lock()
-	defer p.mux.Unlock()
+func (p *logDedupProcessor) exportLogs(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	logs := p.aggregator.Export(ctx)
-	// Only send logs if we have some
-	if logs.LogRecordCount() > 0 {
-		err := p.nextConsumer.ConsumeLogs(ctx, logs)
-		if err != nil {
-			p.logger.Error("failed to consume logs", zap.Error(err))
-		}
-	}
-	p.aggregator.Reset()
-}
+// Only send logs if we have some

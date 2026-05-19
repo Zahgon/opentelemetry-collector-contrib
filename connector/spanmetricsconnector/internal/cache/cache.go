@@ -21,75 +21,37 @@ type Cache[K comparable, V any] struct {
 
 // NewCache creates a Cache.
 func NewCache[K comparable, V any](size int) (*Cache[K, V], error) {
-	evictedItems := make(map[K]V)
-	lruCache, err := simplelru.NewLRU(size, func(key K, value V) {
-		evictedItems[key] = value
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return &Cache[K, V]{
-		lru:          lruCache,
-		evictedItems: evictedItems,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RemoveEvictedItems cleans all the evicted items.
 func (c *Cache[K, V]) RemoveEvictedItems() {
+	_ = "STUB: not implemented"
 	// we need to keep the original pointer to evictedItems map as it is used in the closure of lru.NewWithEvict
-	for k := range c.evictedItems {
-		delete(c.evictedItems, k)
-	}
+	return
 }
 
 // Add a value to the cache, returns true if an eviction occurred and updates the "recently used"-ness of the key.
-func (c *Cache[K, V]) Add(key K, value V) bool {
-	return c.lru.Add(key, value)
-}
+func (c *Cache[K, V]) Add(key K, value V) bool { _ = "STUB: not implemented"; return false }
 
 // Get an item from the LRU cache or evicted items.
-func (c *Cache[K, V]) Get(key K) (V, bool) {
-	if val, ok := c.lru.Get(key); ok {
-		return val, ok
-	}
-	val, ok := c.evictedItems[key]
+func (c *Cache[K, V]) Get(key K) (V, bool) { _ = "STUB: not implemented"; return *new(V), false }
 
-	// Revive from evicted items back into the main cache if a fetch was attempted.
-	if ok {
-		delete(c.evictedItems, key)
-		c.Add(key, val)
-	}
-
-	return val, ok
-}
+// Revive from evicted items back into the main cache if a fetch was attempted.
 
 // Remove removes a key from the cache if it exists.
-func (c *Cache[K, V]) Remove(key K) bool {
-	return c.lru.Remove(key)
-}
+func (c *Cache[K, V]) Remove(key K) bool { _ = "STUB: not implemented"; return false }
 
 // Len returns the number of items in the cache.
 func (c *Cache[K, V]) Len() int {
-	return c.lru.Len()
+	_ = "STUB: not implemented"
+
+	// Purge removes all the items from the LRU cache and evicted items.
+	return 0
 }
 
-// Purge removes all the items from the LRU cache and evicted items.
-func (c *Cache[K, V]) Purge() {
-	c.lru.Purge()
-	c.RemoveEvictedItems()
-}
+func (c *Cache[K, V]) Purge() { _ = "STUB: not implemented"; return }
 
 // ForEach iterates over all the items within the cache, as well as the evicted items (if any).
-func (c *Cache[K, V]) ForEach(fn func(k K, v V)) {
-	for _, k := range c.lru.Keys() {
-		v, ok := c.lru.Get(k)
-		if ok {
-			fn(k, v)
-		}
-	}
-
-	for k, v := range c.evictedItems {
-		fn(k, v)
-	}
-}
+func (c *Cache[K, V]) ForEach(fn func(k K, v V)) { _ = "STUB: not implemented"; return }

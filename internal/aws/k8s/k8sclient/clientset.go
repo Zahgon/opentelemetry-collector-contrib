@@ -4,17 +4,12 @@
 package k8sclient // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/k8s/k8sclient"
 
 import (
-	"context"
 	"os"
 	"path/filepath"
-	"reflect"
-	"sort"
-	"strings"
 	"sync"
 	"time"
 
 	"go.uber.org/zap"
-	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -40,12 +35,8 @@ type stopper interface {
 }
 
 func shutdownClient(client stopper, mu *sync.Mutex, afterShutdown func()) {
-	mu.Lock()
-	if client != nil {
-		client.shutdown()
-		afterShutdown()
-	}
-	mu.Unlock()
+	_ = "STUB: not implemented"
+	return
 }
 
 type cacheReflector interface {
@@ -66,74 +57,35 @@ type reflectorSyncChecker struct {
 }
 
 func (r *reflectorSyncChecker) Check(reflector cacheReflector, warnMessage string) {
-	if err := wait.PollUntilContextTimeout(context.Background(), r.pollInterval, r.pollTimeout, false, func(context.Context) (done bool, err error) {
-		return reflector.LastSyncResourceVersion() != "", nil
-	}); err != nil {
-		r.logger.Warn(warnMessage, zap.Error(err))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // KubeConfigPath provides the option to set the kube config which will be used if the
 // service account that kubernetes gives to pods can't be used
-func KubeConfigPath(kubeConfigPath string) Option {
-	return Option{
-		name: "kubeConfigPath:" + kubeConfigPath,
-		set: func(kc *K8sClient) {
-			kc.kubeConfigPath = kubeConfigPath
-		},
-	}
-}
+func KubeConfigPath(kubeConfigPath string) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // InitSyncPollInterval provides the option to set the init sync poll interval
 // for testing connection to kubernetes api server
 func InitSyncPollInterval(pollInterval time.Duration) Option {
-	return Option{
-		name: "initSyncPollInterval:" + pollInterval.String(),
-		set: func(kc *K8sClient) {
-			kc.initSyncPollInterval = pollInterval
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // InitSyncPollTimeout provides the option to set the init sync poll timeout
 // for testing connection to kubernetes api server
 func InitSyncPollTimeout(pollTimeout time.Duration) Option {
-	return Option{
-		name: "initSyncPollTimeout:" + pollTimeout.String(),
-		set: func(kc *K8sClient) {
-			kc.initSyncPollTimeout = pollTimeout
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
-func getStringifiedOptions(options ...Option) string {
-	opts := make([]string, len(options))
-	for i, option := range options {
-		opts[i] = option.name
-	}
-
-	sort.Strings(opts)
-	return strings.Join(opts, "+")
-}
+func getStringifiedOptions(options ...Option) string { _ = "STUB: not implemented"; return "" }
 
 // Get returns a singleton instance of k8s client
 // If the intialization fails, it returns nil
-func Get(logger *zap.Logger, options ...Option) *K8sClient {
-	strOptions := getStringifiedOptions(options...)
+func Get(logger *zap.Logger, options ...Option) *K8sClient { _ = "STUB: not implemented"; return nil }
 
-	mu.Lock()
-	if optionsToK8sClient[strOptions] == nil {
-		// construct the k8s client
-		k8sClient := new(K8sClient)
-		err := k8sClient.init(logger, options...)
-		if err == nil {
-			optionsToK8sClient[strOptions] = k8sClient
-		}
-	}
-	mu.Unlock()
-
-	return optionsToK8sClient[strOptions]
-}
+// construct the k8s client
 
 type epClientWithStopper interface {
 	EpClient
@@ -231,110 +183,37 @@ func (c *K8sClient) init(logger *zap.Logger, options ...Option) error {
 	return nil
 }
 
-func (c *K8sClient) GetEpClient() EpClient {
-	c.epMu.Lock()
-	if c.ep == nil {
-		c.ep = newEpClient(c.clientSet, c.logger, epSyncCheckerOption(c.syncChecker))
-	}
-	c.epMu.Unlock()
-	return c.ep
-}
+func (c *K8sClient) GetEpClient() EpClient { _ = "STUB: not implemented"; return *new(EpClient) }
 
-func (c *K8sClient) ShutdownEpClient() {
-	shutdownClient(c.ep, &c.epMu, func() {
-		c.ep = nil
-	})
-}
+func (c *K8sClient) ShutdownEpClient() { _ = "STUB: not implemented"; return }
 
-func (c *K8sClient) GetPodClient() PodClient {
-	c.podMu.Lock()
-	if c.pod == nil {
-		c.pod = newPodClient(c.clientSet, c.logger, podSyncCheckerOption(c.syncChecker))
-	}
-	c.podMu.Unlock()
-	return c.pod
-}
+func (c *K8sClient) GetPodClient() PodClient { _ = "STUB: not implemented"; return *new(PodClient) }
 
-func (c *K8sClient) ShutdownPodClient() {
-	shutdownClient(c.pod, &c.podMu, func() {
-		c.pod = nil
-	})
-}
+func (c *K8sClient) ShutdownPodClient() { _ = "STUB: not implemented"; return }
 
-func (c *K8sClient) GetNodeClient() NodeClient {
-	c.nodeMu.Lock()
-	if c.node == nil {
-		c.node = newNodeClient(c.clientSet, c.logger, nodeSyncCheckerOption(c.syncChecker))
-	}
-	c.nodeMu.Unlock()
-	return c.node
-}
+func (c *K8sClient) GetNodeClient() NodeClient { _ = "STUB: not implemented"; return *new(NodeClient) }
 
-func (c *K8sClient) ShutdownNodeClient() {
-	shutdownClient(c.node, &c.nodeMu, func() {
-		c.node = nil
-	})
-}
+func (c *K8sClient) ShutdownNodeClient() { _ = "STUB: not implemented"; return }
 
-func (c *K8sClient) GetJobClient() JobClient {
-	var err error
-	c.jobMu.Lock()
-	if c.job == nil {
-		c.job, err = newJobClient(c.clientSet, c.logger, jobSyncCheckerOption(c.syncChecker))
-		if err != nil {
-			c.logger.Error("use an no-op job client instead because of error", zap.Error(err))
-			c.job = &noOpJobClient{}
-		}
-	}
-	c.jobMu.Unlock()
-	return c.job
-}
+func (c *K8sClient) GetJobClient() JobClient { _ = "STUB: not implemented"; return *new(JobClient) }
 
-func (c *K8sClient) ShutdownJobClient() {
-	shutdownClient(c.job, &c.jobMu, func() {
-		c.job = nil
-	})
-}
+func (c *K8sClient) ShutdownJobClient() { _ = "STUB: not implemented"; return }
 
 func (c *K8sClient) GetReplicaSetClient() ReplicaSetClient {
-	var err error
-	c.rsMu.Lock()
-	if c.replicaSet == nil || reflect.ValueOf(c.replicaSet).IsNil() {
-		c.replicaSet, err = newReplicaSetClient(c.clientSet, c.logger, replicaSetSyncCheckerOption(c.syncChecker))
-		if err != nil {
-			c.logger.Error("use an no-op replica set client instead because of error", zap.Error(err))
-			c.replicaSet = &noOpReplicaSetClient{}
-		}
-	}
-	c.rsMu.Unlock()
-	return c.replicaSet
+	_ = "STUB: not implemented"
+	return *new(ReplicaSetClient)
 }
 
-func (c *K8sClient) ShutdownReplicaSetClient() {
-	shutdownClient(c.replicaSet, &c.rsMu, func() {
-		c.replicaSet = nil
-	})
-}
+func (c *K8sClient) ShutdownReplicaSetClient() { _ = "STUB: not implemented"; return }
 
 func (c *K8sClient) GetClientSet() kubernetes.Interface {
-	return c.clientSet
+	_ = "STUB: not implemented"
+	return *
+
+	// Shutdown stops K8sClient
+	new(kubernetes.Interface)
 }
 
-// Shutdown stops K8sClient
-func (c *K8sClient) Shutdown() {
-	mu.Lock()
-	defer mu.Unlock()
+func (c *K8sClient) Shutdown() { _ = "STUB: not implemented"; return }
 
-	c.ShutdownEpClient()
-	c.ShutdownPodClient()
-	c.ShutdownNodeClient()
-	c.ShutdownJobClient()
-	c.ShutdownReplicaSetClient()
-
-	// remove the current instance of k8s client from map
-	for key, val := range optionsToK8sClient {
-		if val == c {
-			delete(optionsToK8sClient, key)
-		}
-	}
-}
+// remove the current instance of k8s client from map

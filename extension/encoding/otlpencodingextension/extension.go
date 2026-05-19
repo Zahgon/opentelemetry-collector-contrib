@@ -5,7 +5,6 @@ package otlpencodingextension // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/plog"
@@ -45,79 +44,55 @@ type otlpExtension struct {
 }
 
 func newExtension(config *Config) (*otlpExtension, error) {
-	var ex *otlpExtension
-	var err error
-	protocol := config.Protocol
-	switch protocol {
-	case otlpProto:
-		ex = &otlpExtension{
-			config:             config,
-			traceMarshaler:     &ptrace.ProtoMarshaler{},
-			traceUnmarshaler:   &ptrace.ProtoUnmarshaler{},
-			logMarshaler:       &plog.ProtoMarshaler{},
-			logUnmarshaler:     &plog.ProtoUnmarshaler{},
-			metricMarshaler:    &pmetric.ProtoMarshaler{},
-			metricUnmarshaler:  &pmetric.ProtoUnmarshaler{},
-			profileMarshaler:   &pprofile.ProtoMarshaler{},
-			profileUnmarshaler: &pprofile.ProtoUnmarshaler{},
-		}
-	case otlpJSON:
-		ex = &otlpExtension{
-			config:             config,
-			traceMarshaler:     &ptrace.JSONMarshaler{},
-			traceUnmarshaler:   &ptrace.JSONUnmarshaler{},
-			logMarshaler:       &plog.JSONMarshaler{},
-			logUnmarshaler:     &plog.JSONUnmarshaler{},
-			metricMarshaler:    &pmetric.JSONMarshaler{},
-			metricUnmarshaler:  &pmetric.JSONUnmarshaler{},
-			profileMarshaler:   &pprofile.JSONMarshaler{},
-			profileUnmarshaler: &pprofile.JSONUnmarshaler{},
-		}
-	default:
-		err = fmt.Errorf("unsupported protocol: %q", protocol)
-	}
-
-	return ex, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (ex *otlpExtension) UnmarshalTraces(buf []byte) (ptrace.Traces, error) {
-	return ex.traceUnmarshaler.UnmarshalTraces(buf)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
 func (ex *otlpExtension) MarshalTraces(traces ptrace.Traces) ([]byte, error) {
-	return ex.traceMarshaler.MarshalTraces(traces)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (ex *otlpExtension) UnmarshalMetrics(buf []byte) (pmetric.Metrics, error) {
-	return ex.metricUnmarshaler.UnmarshalMetrics(buf)
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func (ex *otlpExtension) MarshalMetrics(metrics pmetric.Metrics) ([]byte, error) {
-	return ex.metricMarshaler.MarshalMetrics(metrics)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (ex *otlpExtension) UnmarshalLogs(buf []byte) (plog.Logs, error) {
-	return ex.logUnmarshaler.UnmarshalLogs(buf)
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }
 
 func (ex *otlpExtension) MarshalLogs(logs plog.Logs) ([]byte, error) {
-	return ex.logMarshaler.MarshalLogs(logs)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // UnmarshalProfiles implements encoding.ProfilesUnmarshalerExtension.
 func (ex *otlpExtension) UnmarshalProfiles(buf []byte) (pprofile.Profiles, error) {
-	return ex.profileUnmarshaler.UnmarshalProfiles(buf)
+	_ = "STUB: not implemented"
+	return *new(pprofile.Profiles), nil
 }
 
 // MarshalProfiles implements encoding.ProfilesMarshalerExtension.
 func (ex *otlpExtension) MarshalProfiles(profiles pprofile.Profiles) ([]byte, error) {
-	return ex.profileMarshaler.MarshalProfiles(profiles)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (*otlpExtension) Start(context.Context, component.Host) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*otlpExtension) Shutdown(context.Context) error {
-	return nil
-}
+func (*otlpExtension) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }

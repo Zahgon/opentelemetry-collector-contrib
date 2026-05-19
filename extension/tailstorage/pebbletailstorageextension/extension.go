@@ -22,38 +22,31 @@ type pebbleTailStorageExtension struct {
 var _ extension.Extension = (*pebbleTailStorageExtension)(nil)
 
 func newExtension(settings extension.Settings, cfg *Config) *pebbleTailStorageExtension {
-	return &pebbleTailStorageExtension{
-		settings: settings,
-		cfg:      cfg,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *pebbleTailStorageExtension) Start(_ context.Context, _ component.Host) error {
-	storage, err := newStorage(e.cfg.Directory, e.settings.Logger)
-	if err != nil {
-		return err
-	}
-	e.storage = storage
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (e *pebbleTailStorageExtension) Shutdown(_ context.Context) error {
-	if e.storage == nil {
-		return nil
-	}
-	err := e.storage.Close()
-	e.storage = nil
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *pebbleTailStorageExtension) Append(traceID pcommon.TraceID, rss ptrace.ResourceSpans) {
-	e.storage.Append(traceID, rss)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (e *pebbleTailStorageExtension) Take(traceID pcommon.TraceID) (ptrace.Traces, bool) {
-	return e.storage.Take(traceID)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), false
 }
 
 func (e *pebbleTailStorageExtension) Delete(traceID pcommon.TraceID) {
-	e.storage.Delete(traceID)
+	_ = "STUB: not implemented"
+	return
 }

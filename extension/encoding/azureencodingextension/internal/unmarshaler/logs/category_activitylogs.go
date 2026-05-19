@@ -4,14 +4,7 @@
 package logs // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler/logs"
 
 import (
-	"strconv"
-	"strings"
-
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // ------------------------------------------------------------
@@ -25,23 +18,11 @@ type azureIdentityActivity struct {
 }
 
 func (r *azureIdentityActivity) PutIdentityAttributes(attrs pcommon.Map) {
-	r.azureIdentityBase.PutIdentityAttributes(attrs)
-
-	// Authorization
-	if r.Authorization != nil {
-		unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationScope, r.Authorization.Scope)
-		unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationAction, r.Authorization.Action)
-
-		if r.Authorization.Evidence != nil {
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidenceRole, r.Authorization.Evidence.Role)
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidenceRoleAssignmentScope, r.Authorization.Evidence.RoleAssignmentScope)
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidenceRoleAssignmentID, r.Authorization.Evidence.RoleAssignmentID)
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidenceRoleDefinitionID, r.Authorization.Evidence.RoleDefinitionID)
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidencePrincipalID, r.Authorization.Evidence.PrincipalID)
-			unmarshaler.AttrPutStrIf(attrs, attributeIdentityAuthorizationEvidencePrincipalType, r.Authorization.Evidence.PrincipalType)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Authorization
 
 // activityLogIdentityEvidence describes role assignment evidence in identity authorization
 type activityLogIdentityEvidence struct {
@@ -75,11 +56,8 @@ type activityLogRecordBase struct {
 // PutCommonAttributes extends the base method by also extracting identity fields
 // specific to Activity Logs (authorization, JWT claims, etc.)
 func (r *activityLogRecordBase) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	if r.Identity != nil {
-		r.Identity.PutIdentityAttributes(attrs)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ------------------------------------------------------------
@@ -106,10 +84,7 @@ type azureAdministrativeLog struct {
 }
 
 func (r *azureAdministrativeLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAdministrativeEntity, r.Properties.Entity)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAdministrativeMessage, r.Properties.Message)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAdministrativeHierarchy, r.Properties.Hierarchy)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -151,17 +126,7 @@ type azureAlertLog struct {
 }
 
 func (r *azureAlertLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertWebhookURI, r.Properties.WebHookURI)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertRuleURI, r.Properties.RuleURI)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertRuleName, r.Properties.RuleName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertRuleDescription, r.Properties.RuleDescription)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertThreshold, r.Properties.Threshold)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertWindowSize, r.Properties.WindowSizeInMinutes)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertAggregation, r.Properties.Aggregation)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertOperator, r.Properties.Operator)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertMetricName, r.Properties.MetricName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAlertMetricUnit, r.Properties.MetricUnit)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -193,12 +158,7 @@ type azureAutoscaleLog struct {
 }
 
 func (r *azureAutoscaleLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAutoscaleDescription, r.Properties.Description)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAutoscaleResourceName, r.Properties.ResourceName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAutoscaleOldInstances, r.Properties.OldInstancesCount)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAutoscaleNewInstances, r.Properties.NewInstancesCount)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAutoscaleLastScaleAction, r.Properties.LastScaleActionTime)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -235,34 +195,16 @@ type azureSecurityLog struct {
 }
 
 func (r *azureSecurityLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// Map to OTel process semantic conventions
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ProcessCommandLineKey), r.Properties.CommandLine)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ProcessExecutablePathKey), r.Properties.ProcessName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ProcessOwnerKey), r.Properties.UserName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.EnduserIDKey), r.Properties.UserSID)
-
-	// Parse and set process.pid if present
-	if r.Properties.ProcessID != "" {
-		if pid, err := strconv.ParseInt(r.Properties.ProcessID, 10, 64); err == nil {
-			attrs.PutInt(string(conventions.ProcessPIDKey), pid)
-		}
-	}
-
-	// Parse and set process.parent_pid if present
-	if r.Properties.ParentProcessID != "" {
-		if ppid, err := strconv.ParseInt(r.Properties.ParentProcessID, 10, 64); err == nil {
-			attrs.PutInt(string(conventions.ProcessParentPIDKey), ppid)
-		}
-	}
-
-	// Azure-specific fields that don't have OTel equivalents
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSecurityAccountLogonID, r.Properties.AccountLogonID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSecurityDomainName, r.Properties.DomainName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSecurityActionTaken, r.Properties.ActionTaken)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSecuritySeverity, r.Properties.Severity)
-
 	return nil
 }
+
+// Parse and set process.pid if present
+
+// Parse and set process.parent_pid if present
+
+// Azure-specific fields that don't have OTel equivalents
 
 // ------------------------------------------------------------
 // Activity Log - Policy category
@@ -312,43 +254,12 @@ type azurePolicyLog struct {
 }
 
 func (r *azurePolicyLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// Parse isComplianceCheck as boolean
-	if r.Properties.IsComplianceCheck != "" {
-		isComplianceCheck := strings.EqualFold(r.Properties.IsComplianceCheck, "true")
-		attrs.PutBool(attributeAzurePolicyIsComplianceCheck, isComplianceCheck)
-	}
-
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureLocation, r.Properties.ResourceLocation)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzurePolicyAncestors, r.Properties.Ancestors)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzurePolicyHierarchy, r.Properties.Hierarchy)
-
-	// Parse the embedded policies JSON string
-	if r.Properties.Policies != "" {
-		var policies []policyElement
-		if err := gojson.Unmarshal([]byte(r.Properties.Policies), &policies); err == nil && len(policies) > 0 {
-			policiesSlice := attrs.PutEmptySlice(attributeAzurePolicyPolicies)
-			for i := range policies {
-				policyMap := policiesSlice.AppendEmpty().SetEmptyMap()
-				policyMap.PutStr("definition.id", policies[i].DefinitionID)
-				policyMap.PutStr("definition.name", policies[i].DefinitionName)
-				policyMap.PutStr("definition.display_name", policies[i].DefinitionDisplayName)
-				policyMap.PutStr("definition.version", policies[i].DefinitionVersion)
-				policyMap.PutStr("definition.effect", policies[i].DefinitionEffect)
-				policyMap.PutStr("definition.reference_id", policies[i].ReferenceID)
-				policyMap.PutStr("set_definition.id", policies[i].SetDefinitionID)
-				policyMap.PutStr("set_definition.name", policies[i].SetDefinitionName)
-				policyMap.PutStr("set_definition.display_name", policies[i].SetDefinitionDisplayName)
-				policyMap.PutStr("set_definition.version", policies[i].SetDefinitionVersion)
-				policyMap.PutStr("assignment.id", policies[i].AssignmentID)
-				policyMap.PutStr("assignment.name", policies[i].AssignmentName)
-				policyMap.PutStr("assignment.display_name", policies[i].AssignmentDisplayName)
-				policyMap.PutStr("assignment.scope", policies[i].AssignmentScope)
-			}
-		}
-	}
-
 	return nil
 }
+
+// Parse the embedded policies JSON string
 
 // ------------------------------------------------------------
 // Activity Log - Service Health category
@@ -417,59 +328,15 @@ type azureServiceHealthLog struct {
 }
 
 func (r *azureServiceHealthLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthTitle, r.Properties.Title)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthService, r.Properties.Service)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthRegion, r.Properties.Region)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthCommunicationBody, r.Properties.CommunicationText)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthIncidentType, r.Properties.IncidentType)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthTrackingID, r.Properties.TrackingID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthImpactStartTime, r.Properties.ImpactStartTime)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthImpactMitigationTime, r.Properties.ImpactMitigationTime)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthDefaultLanguageTitle, r.Properties.DefaultLanguageTitle)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthDefaultLanguageContent, r.Properties.DefaultLanguageContent)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthState, r.Properties.Stage)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthCommunicationID, r.Properties.CommunicationID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthMaintenanceID, r.Properties.MaintenanceID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthMaintenanceType, r.Properties.MaintenanceType)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthImpactType, r.Properties.ImpactType)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureServiceHealthImpactCategory, r.Properties.ImpactCategory)
-
-	// Handle isHIR - only set if true
-	if r.Properties.IsHIR {
-		attrs.PutBool(attributeAzureServiceHealthIsHIR, r.Properties.IsHIR)
-	}
-
-	// Parse isSynthetic as boolean
-	if r.Properties.IsSynthetic != "" {
-		isSynthetic := r.Properties.IsSynthetic == "True" || r.Properties.IsSynthetic == "true"
-		attrs.PutBool(attributeAzureServiceHealthIsSynthetic, isSynthetic)
-	}
-
-	// Parse the embedded impactedServices JSON string
-	if r.Properties.ImpactedServices != "" {
-		var impactedServices []impactedService
-		if err := gojson.Unmarshal([]byte(r.Properties.ImpactedServices), &impactedServices); err == nil && len(impactedServices) > 0 {
-			impactedServicesSlice := attrs.PutEmptySlice(attributeAzureServiceHealthImpactedServices)
-			for _, s := range impactedServices {
-				impactedServiceMap := impactedServicesSlice.AppendEmpty().SetEmptyMap()
-				impactedServiceMap.PutStr("name", s.Name)
-				impactedServiceMap.PutStr("id", s.ID)
-				impactedServiceMap.PutStr("guid", s.GUID)
-
-				if len(s.Regions) > 0 {
-					regionsSlice := impactedServiceMap.PutEmptySlice("regions")
-					for _, region := range s.Regions {
-						regionMap := regionsSlice.AppendEmpty().SetEmptyMap()
-						regionMap.PutStr("name", region.Name)
-						regionMap.PutStr("id", region.ID)
-					}
-				}
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Handle isHIR - only set if true
+
+// Parse isSynthetic as boolean
+
+// Parse the embedded impactedServices JSON string
 
 // ------------------------------------------------------------
 // Activity Log - Resource Health category
@@ -501,12 +368,6 @@ type azureResourceHealthLog struct {
 }
 
 func (r *azureResourceHealthLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthTitle, r.Properties.Title)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthDetails, r.Properties.Details)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthCurrentHealthStatus, r.Properties.CurrentHealthStatus)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthPreviousHealthStatus, r.Properties.PreviousHealthStatus)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthType, r.Properties.Type)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureResourceHealthCause, r.Properties.Cause)
-
+	_ = "STUB: not implemented"
 	return nil
 }

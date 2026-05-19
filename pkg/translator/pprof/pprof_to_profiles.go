@@ -4,20 +4,10 @@
 package pprof // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/pprof"
 
 import (
-	"encoding/binary"
 	"errors"
-	"fmt"
-	"math"
-	"reflect"
-	"slices"
-	"strconv"
-	"strings"
 
 	"github.com/google/pprof/profile"
-	"github.com/zeebo/xxh3"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pprofile"
-	semconv "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 var (
@@ -101,638 +91,192 @@ type lookupTables struct {
 
 // ConvertPprofToProfiles converts a pprof profile to OTLP profiles format.
 func ConvertPprofToProfiles(src *profile.Profile) (*pprofile.Profiles, error) {
-	if err := src.CheckValid(); err != nil {
-		return nil, fmt.Errorf("%w: %w", err, errPprofInvalid)
-	}
-	dst := pprofile.NewProfiles()
-
-	// Initialize remaining lookup tables of pprofile.ProfilesDictionary in initLookupTables.
-	lts := initLookupTables()
-
-	// Pre-populate all mappings from the original profile in order.
-	// This ensures all mappings are preserved and their IDs match the original order.
-	for _, m := range src.Mapping {
-		lts.getIdxForMapping(
-			m.Start,
-			m.Limit,
-			m.Offset,
-			lts.getIdxForString(m.File),
-			lts.getIdxForMMAttributes(m),
-		)
-	}
-
-	// Add envelope messages
-	rp := dst.ResourceProfiles().AppendEmpty()
-	rp.SetSchemaUrl(semconv.SchemaURL)
-
-	sp := rp.ScopeProfiles().AppendEmpty()
-	sp.SetSchemaUrl(semconv.SchemaURL)
-
-	// Use a dedicated pprofile.Profile for each sample type.
-	// By convention, pprof uses the last sample type as default, while OTel Profiles
-	// uses the first profile as default. Therefore, swap first and last.
-	for stIdx := range src.SampleType {
-		// Swap first and last: last pprof sample type becomes first OTel profile
-		var mappedIdx int
-		switch stIdx {
-		case 0:
-			mappedIdx = len(src.SampleType) - 1
-		case len(src.SampleType) - 1:
-			mappedIdx = 0
-		default:
-			mappedIdx = stIdx
-		}
-		st := src.SampleType[mappedIdx]
-		p := sp.Profiles().AppendEmpty()
-
-		// pprof.Profile.sample_type
-		p.SampleType().SetTypeStrindex(lts.getIdxForString(st.Type))
-		p.SampleType().SetUnitStrindex(lts.getIdxForString(st.Unit))
-
-		// pprof.Profile.sample
-		for _, sample := range src.Sample {
-			s := p.Samples().AppendEmpty()
-
-			// pprof.Sample.location_id
-			stackIdx := lts.getIdxForStack(sample.Location)
-			s.SetStackIndex(stackIdx)
-
-			// pprof.Sample.value
-			s.Values().Append(sample.Value[mappedIdx])
-
-			// pprof.Sample.label - this field is split into string and numeric labels.
-			for lk, lv := range sample.Label {
-				if len(lv) != 1 {
-					return nil, fmt.Errorf("labels with multiple values (%d) are not supported: %w",
-						len(lv), errPprofInvalid)
-				}
-				var idx int32
-				lu, exist := sample.NumUnit[lk]
-				if !exist {
-					idx = lts.getIdxForAttribute(lk, lv)
-				} else {
-					idx = lts.getIdxForAttributeWithUnit(lk, lu[0], lv)
-				}
-				s.AttributeIndices().Append(idx)
-			}
-
-			for lk, lv := range sample.NumLabel {
-				if len(lv) != 1 {
-					return nil, fmt.Errorf("invalid length of numeric label value %d: %w",
-						len(lv), errPprofInvalid)
-				}
-				var idx int32
-				lu, exist := sample.NumUnit[lk]
-				if !exist {
-					idx = lts.getIdxForAttribute(lk, lv)
-				} else {
-					idx = lts.getIdxForAttributeWithUnit(lk, lu[0], lv)
-				}
-				s.AttributeIndices().Append(idx)
-			}
-		}
-
-		// pprof.Profile.mapping
-		// As OTel pprofile manages its own ProfilesDictionary.mapping_table, there
-		// is no 1 to 1 mapping here.
-
-		// pprof.Profile.location
-		// As OTel pprofile manages its own ProfilesDictionary.location_table, there
-		// is no 1 to 1 mapping here.
-
-		// pprof.Profile.function
-		// As OTel pprofile manages its own ProfilesDictionary.function_table, there
-		// is no 1 to 1 mapping here.
-
-		// pprof.Profile.string_table
-		// As OTel pprofile manages its own ProfilesDictionary.string_table, there
-		// is no 1 to 1 mapping here.
-
-		// pprof.Profile.drop_frames
-		dropFramesIdx := lts.getIdxForAttribute(string(semconv.PprofProfileDropFramesKey), src.DropFrames)
-		p.AttributeIndices().Append(dropFramesIdx)
-
-		// pprof.Profile.keep_frames
-		keepFramesIdx := lts.getIdxForAttribute(string(semconv.PprofProfileKeepFramesKey), src.KeepFrames)
-		p.AttributeIndices().Append(keepFramesIdx)
-
-		// pprof.Profile.time_nanos
-		p.SetTime(pcommon.Timestamp(src.TimeNanos))
-
-		// pprof.Profile.duration_nanos
-		p.SetDurationNano(uint64(src.DurationNanos))
-
-		// pprof.Profile.period_type
-		p.PeriodType().SetTypeStrindex(lts.getIdxForString(src.PeriodType.Type))
-		p.PeriodType().SetUnitStrindex(lts.getIdxForString(src.PeriodType.Unit))
-
-		// pprof.Profile.period
-		p.SetPeriod(src.Period)
-
-		// pprof.Profile.comment
-		for ci, c := range src.Comments {
-			// Append a index to the attribute key, so that
-			// later src.Comments can be reconstructed correctly.
-			p.AttributeIndices().Append(lts.getIdxForAttribute(
-				string(semconv.PprofProfileCommentKey)+fmt.Sprintf(".%d", ci), c))
-		}
-
-		// pprof.Profile.default_sample_type
-		// As OTel pprofile uses a single Sample Type, it is implicit its default type.
-
-		// pprof.Profile.doc_url
-		docURLIdx := lts.getIdxForAttribute(string(semconv.PprofProfileDocURLKey), src.DocURL)
-		p.AttributeIndices().Append(docURLIdx)
-	}
-
-	if err := lts.dumpLookupTables(dst.Dictionary()); err != nil {
-		return nil, err
-	}
-	return &dst, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Initialize remaining lookup tables of pprofile.ProfilesDictionary in initLookupTables.
+
+// Pre-populate all mappings from the original profile in order.
+// This ensures all mappings are preserved and their IDs match the original order.
+
+// Add envelope messages
+
+// Use a dedicated pprofile.Profile for each sample type.
+// By convention, pprof uses the last sample type as default, while OTel Profiles
+// uses the first profile as default. Therefore, swap first and last.
+
+// Swap first and last: last pprof sample type becomes first OTel profile
+
+// pprof.Profile.sample_type
+
+// pprof.Profile.sample
+
+// pprof.Sample.location_id
+
+// pprof.Sample.value
+
+// pprof.Sample.label - this field is split into string and numeric labels.
+
+// pprof.Profile.mapping
+// As OTel pprofile manages its own ProfilesDictionary.mapping_table, there
+// is no 1 to 1 mapping here.
+
+// pprof.Profile.location
+// As OTel pprofile manages its own ProfilesDictionary.location_table, there
+// is no 1 to 1 mapping here.
+
+// pprof.Profile.function
+// As OTel pprofile manages its own ProfilesDictionary.function_table, there
+// is no 1 to 1 mapping here.
+
+// pprof.Profile.string_table
+// As OTel pprofile manages its own ProfilesDictionary.string_table, there
+// is no 1 to 1 mapping here.
+
+// pprof.Profile.drop_frames
+
+// pprof.Profile.keep_frames
+
+// pprof.Profile.time_nanos
+
+// pprof.Profile.duration_nanos
+
+// pprof.Profile.period_type
+
+// pprof.Profile.period
+
+// pprof.Profile.comment
+
+// Append a index to the attribute key, so that
+// later src.Comments can be reconstructed correctly.
+
+// pprof.Profile.default_sample_type
+// As OTel pprofile uses a single Sample Type, it is implicit its default type.
+
+// pprof.Profile.doc_url
 
 // getIdxForFunction returns the corresponding index for the function.
 // If the function does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForFunction(name, systemName, fileName string, startLine int64) int32 {
-	key := fn{
-		name:       name,
-		systemName: systemName,
-		fileName:   fileName,
-		startLine:  startLine,
-	}
-	if idx, exists := lts.functionTable[key]; exists {
-		return idx
-	}
-	lts.lastFunctionTableIdx++
-	lts.functionTable[key] = lts.lastFunctionTableIdx
-	return lts.lastFunctionTableIdx
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // getIdxForString returns the corresponding index for the string.
 // If the string does not yet exist in the cache, it will be added.
-func (lts *lookupTables) getIdxForString(s string) int32 {
-	if idx, exists := lts.stringTable[s]; exists {
-		return idx
-	}
-	lts.lastStringTableIdx++
-	lts.stringTable[s] = lts.lastStringTableIdx
-	return lts.lastStringTableIdx
-}
+func (lts *lookupTables) getIdxForString(s string) int32 { _ = "STUB: not implemented"; return 0 }
 
 // getValueHash returns a unique hash for the given value.
-func getValueHash(v any) uint64 {
-	switch val := v.(type) {
-	case string:
-		return xxh3.HashString(val)
-	case int64:
-		var b [8]byte
-		binary.LittleEndian.PutUint64(b[:], uint64(val))
-		return xxh3.Hash(b[:])
-	case float64:
-		var b [8]byte
-		binary.LittleEndian.PutUint64(b[:], math.Float64bits(val))
-		return xxh3.Hash(b[:])
-	case bool:
-		if val {
-			return 1
-		}
-		return 0
-	case []int64:
-		// Cast the slice to a byte slice for zero-allocation hashing if possible,
-		// but for safety/simplicity, we process the slice:
-		h := xxh3.New()
-		var b [8]byte
-		for _, x := range val {
-			binary.LittleEndian.PutUint64(b[:], uint64(x))
-			_, _ = h.Write(b[:])
-		}
-		return h.Sum64()
-	case []float64:
-		h := xxh3.New()
-		var b [8]byte
-		for _, x := range val {
-			binary.LittleEndian.PutUint64(b[:], math.Float64bits(x))
-			_, _ = h.Write(b[:])
-		}
-		return h.Sum64()
-	case []byte:
-		return xxh3.Hash(val)
-	default:
-		// Fallback for unexpected types (nil, etc.)
-		return 0
-	}
-}
+func getValueHash(v any) uint64 { _ = "STUB: not implemented"; return 0 }
+
+// Cast the slice to a byte slice for zero-allocation hashing if possible,
+// but for safety/simplicity, we process the slice:
+
+// Fallback for unexpected types (nil, etc.)
 
 // getIdxForAttribute returns the corresponding index for the attribute.
 // If the attribute does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForAttribute(key string, value any) int32 {
-	return lts.getIdxForAttributeWithUnit(key, "", value)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // getIdxForAttributeWithUnit returns the corresponding index for the attribute.
 // If the attribute does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForAttributeWithUnit(key, unit string, value any) int32 {
-	keyStrIdx := lts.getIdxForString(key)
-	valueHash := getValueHash(value)
-	unitStrIdx := noAttrUnit
-	if unit != "" {
-		unitStrIdx = lts.getIdxForString(unit)
-	}
-
-	attrKey := attr{
-		keyStrIdx:  keyStrIdx,
-		valueHash:  valueHash,
-		unitStrIdx: unitStrIdx,
-	}
-
-	if id, exists := lts.attributeTable[attrKey]; exists {
-		return id
-	}
-
-	lts.lastAttributeTableIdx++
-	lts.attributeTable[attrKey] = lts.lastAttributeTableIdx
-	lts.attributeHashToValue[valueHash] = value
-	return lts.lastAttributeTableIdx
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // getIdxForMapping returns the correspoinding index for the mapping.
 // If the mapping does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForMapping(start, limit, offset uint64, fnStrIdx int32, attrIdx []int32) int32 {
-	attrIdxs := attrIdxToString(attrIdx)
-	key := mm{
-		memoryStart:    start,
-		memoryLimit:    limit,
-		fileOffset:     offset,
-		filenameStrIdx: fnStrIdx,
-		attrIdxs:       attrIdxs,
-	}
-	if idx, exists := lts.mappingTable[key]; exists {
-		return idx
-	}
-	lts.lastMappingTableIdx++
-	lts.mappingTable[key] = lts.lastMappingTableIdx
-	return lts.lastMappingTableIdx
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // getIdxForMMAttributes returns a list of indices to attributes related
 // to the mapping.
 func (lts *lookupTables) getIdxForMMAttributes(m *profile.Mapping) []int32 {
-	ids := []int32{}
+	_ = "STUB: not implemented"
 
 	// pprof.Mapping.build_id
 	// Assume all build_ids are GNU build IDs
-	buildIDIdx := lts.getIdxForAttribute(
-		string(semconv.ProcessExecutableBuildIDGNUKey), m.BuildID)
-	ids = append(ids, buildIDIdx)
-
-	// pprof.Mapping.has_*
-	if m.HasFunctions {
-		idx := lts.getIdxForAttribute(string(semconv.PprofMappingHasFunctionsKey), true)
-		ids = append(ids, idx)
-	}
-
-	if m.HasFilenames {
-		idx := lts.getIdxForAttribute(string(semconv.PprofMappingHasFilenamesKey), true)
-		ids = append(ids, idx)
-	}
-
-	if m.HasLineNumbers {
-		idx := lts.getIdxForAttribute(string(semconv.PprofMappingHasLineNumbersKey), true)
-		ids = append(ids, idx)
-	}
-
-	if m.HasInlineFrames {
-		idx := lts.getIdxForAttribute(string(semconv.PprofMappingHasInlineFramesKey), true)
-		ids = append(ids, idx)
-	}
-
-	return ids
+	return nil
 }
+
+// pprof.Mapping.has_*
 
 // getIdxForStack returns the corresponding index for a stack and its location
 // indices. If the mapping does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForStack(locs []*profile.Location) int32 {
-	var locTableIDs []int32
-	for _, loc := range locs {
-		idx := lts.getIdxForLocation(loc)
-
-		locTableIDs = append(locTableIDs, idx)
-	}
-
-	// Use makeStackKey instead of attrIdxToString to preserve stack order.
-	key := makeStackKey(locTableIDs)
-	if s, exists := lts.stackTable[key]; exists {
-		return s.id
-	}
-	lts.lastStackTableIdx++
-	lts.stackTable[key] = stack{id: lts.lastStackTableIdx, locationIdxs: locTableIDs}
-	return lts.lastStackTableIdx
+	_ = "STUB: not implemented"
+	return 0
 }
+
+// Use makeStackKey instead of attrIdxToString to preserve stack order.
 
 // getIdxForLocation returns the corresponding index for a location.
 // If the location does not yet exist in the cache, it will be added.
 func (lts *lookupTables) getIdxForLocation(l *profile.Location) int32 {
-	var attrIdxs []int32
+	_ = "STUB: not implemented"
+	return 0
+
 	// pprof.Location.is_folded
-	if l.IsFolded {
-		idx := lts.getIdxForAttribute(string(semconv.PprofLocationIsFoldedKey), true)
-		attrIdxs = append(attrIdxs, idx)
-	}
-
-	key := loc{
-		// pprof.Location.address
-		address:  l.Address,
-		attrIdxs: attrIdxToString(attrIdxs),
-		// pprof.Location.line
-		lines: lts.linesToString(l.Line),
-	}
-
-	// pprof.Location.mapping_id
-	if l.Mapping != nil {
-		mmIdx := lts.getIdxForMapping(
-			l.Mapping.Start,
-			l.Mapping.Limit,
-			l.Mapping.Offset,
-			lts.getIdxForString(l.Mapping.File),
-			lts.getIdxForMMAttributes(l.Mapping),
-		)
-		key.mappingIdx = mmIdx
-	}
-
-	if idx, exists := lts.locationTable[key]; exists {
-		return idx
-	}
-	lts.lastLocationTableIdx++
-	lts.locationTable[key] = lts.lastLocationTableIdx
-	return lts.lastLocationTableIdx
 }
+
+// pprof.Location.address
+
+// pprof.Location.line
+
+// pprof.Location.mapping_id
 
 // initLookupTables returns a supporting elements to construct pprofile.ProfilesDictionary.
-func initLookupTables() lookupTables {
-	lts := lookupTables{
-		mappingTable:         make(map[mm]int32),
-		locationTable:        make(map[loc]int32),
-		functionTable:        make(map[fn]int32),
-		stringTable:          make(map[string]int32),
-		attributeTable:       make(map[attr]int32),
-		attributeHashToValue: make(map[uint64]any),
-		stackTable:           make(map[stackKey]stack),
-	}
+func initLookupTables() lookupTables { _ = "STUB: not implemented"; return *new(lookupTables) }
 
-	// mapping_table[0] must always be zero value (Mapping{}) and present.
-	lts.mappingTable[mm{}] = lts.lastMappingTableIdx
+// mapping_table[0] must always be zero value (Mapping{}) and present.
 
-	// location_table[0] must always be zero value (Location{}) and present.
-	lts.locationTable[loc{}] = lts.lastLocationTableIdx
+// location_table[0] must always be zero value (Location{}) and present.
 
-	// function_table[0] must always be zero value (Function{}) and present.
-	lts.functionTable[fn{}] = lts.lastFunctionTableIdx
+// function_table[0] must always be zero value (Function{}) and present.
 
-	// string_table[0] must always be "" and present.
-	lts.stringTable[""] = lts.lastStringTableIdx
+// string_table[0] must always be "" and present.
 
-	// attribute_table[0] must always be zero value (KeyValueAndUnit{}) and present.
-	lts.attributeTable[attr{}] = lts.lastAttributeTableIdx
+// attribute_table[0] must always be zero value (KeyValueAndUnit{}) and present.
 
-	// stack_table[0] must always be zero value (Stack{}) and present.
-	lts.stackTable[makeStackKey(nil)] = stack{id: lts.lastStackTableIdx, locationIdxs: nil}
-	return lts
-}
+// stack_table[0] must always be zero value (Stack{}) and present.
 
 // dumpLookupTables fills pprofile.ProfilesDictionary with the content of
 // the supporting lookup tables.
 func (lts *lookupTables) dumpLookupTables(dic pprofile.ProfilesDictionary) error {
-	for i := 0; i < len(lts.functionTable); i++ {
-		dic.FunctionTable().AppendEmpty()
-	}
-	for fn, id := range lts.functionTable {
-		dic.FunctionTable().At(int(id)).SetNameStrindex(lts.getIdxForString(fn.name))
-		dic.FunctionTable().At(int(id)).SetSystemNameStrindex(lts.getIdxForString(fn.systemName))
-		dic.FunctionTable().At(int(id)).SetFilenameStrindex(lts.getIdxForString(fn.fileName))
-		dic.FunctionTable().At(int(id)).SetStartLine(fn.startLine)
-	}
-
-	for i := 0; i < len(lts.mappingTable); i++ {
-		dic.MappingTable().AppendEmpty()
-	}
-	for m, id := range lts.mappingTable {
-		dic.MappingTable().At(int(id)).SetMemoryStart(m.memoryStart)
-		dic.MappingTable().At(int(id)).SetMemoryLimit(m.memoryLimit)
-		dic.MappingTable().At(int(id)).SetFileOffset(m.fileOffset)
-		dic.MappingTable().At(int(id)).SetFilenameStrindex(m.filenameStrIdx)
-		attrIndices, err := stringToAttrIdx(m.attrIdxs)
-		if err != nil {
-			return err
-		}
-		dic.MappingTable().At(int(id)).AttributeIndices().Append(attrIndices...)
-	}
-
-	for i := 0; i < len(lts.locationTable); i++ {
-		dic.LocationTable().AppendEmpty()
-	}
-	for l, id := range lts.locationTable {
-		dic.LocationTable().At(int(id)).SetAddress(l.address)
-		dic.LocationTable().At(int(id)).SetMappingIndex(l.mappingIdx)
-		lines, err := stringToLine(l.lines)
-		if err != nil {
-			return err
-		}
-		for _, ln := range lines {
-			newLine := dic.LocationTable().At(int(id)).Lines().AppendEmpty()
-			newLine.SetLine(ln.Line())
-			newLine.SetColumn(ln.Column())
-			newLine.SetFunctionIndex(ln.FunctionIndex())
-		}
-		attrIdxs, err := stringToAttrIdx(l.attrIdxs)
-		if err != nil {
-			return err
-		}
-		dic.LocationTable().At(int(id)).AttributeIndices().Append(attrIdxs...)
-	}
-
-	for i := 0; i < len(lts.stackTable); i++ {
-		dic.StackTable().AppendEmpty()
-	}
-	for _, s := range lts.stackTable {
-		dic.StackTable().At(int(s.id)).LocationIndices().Append(s.locationIdxs...)
-	}
-
-	for i := 0; i < len(lts.stringTable); i++ {
-		dic.StringTable().Append("")
-	}
-	for s, id := range lts.stringTable {
-		dic.StringTable().SetAt(int(id), s)
-	}
-
-	for i := 0; i < len(lts.attributeTable); i++ {
-		dic.AttributeTable().AppendEmpty()
-	}
-	for a, id := range lts.attributeTable {
-		dic.AttributeTable().At(int(id)).SetKeyStrindex(a.keyStrIdx)
-		attrValue := lts.attributeHashToValue[a.valueHash]
-		if attrValue == nil {
-			if id == 0 {
-				continue
-			}
-			return fmt.Errorf("invalid attribute %#v", a)
-		}
-		if reflect.TypeOf(attrValue).Kind() == reflect.Slice {
-			slice := dic.AttributeTable().At(int(id)).Value().SetEmptySlice()
-			rv := reflect.ValueOf(attrValue)
-			for i := 0; i < rv.Len(); i++ {
-				value := slice.AppendEmpty()
-				if err := value.FromRaw(rv.Index(i).Interface()); err != nil {
-					return err
-				}
-			}
-		} else {
-			if err := dic.AttributeTable().At(int(id)).Value().FromRaw(attrValue); err != nil {
-				return err
-			}
-		}
-		if a.unitStrIdx != noAttrUnit {
-			dic.AttributeTable().At(int(id)).SetUnitStrindex(a.unitStrIdx)
-		}
-	}
-
-	// The concept of profiles.Link does not exist in pprof.
-	// Therefore LinkTable only holds an empty value to be compliant.
-	dic.LinkTable().AppendEmpty()
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// The concept of profiles.Link does not exist in pprof.
+// Therefore LinkTable only holds an empty value to be compliant.
+
 // attrIdxToString is a helper function to convert a list of indices
 // into a string. This function modifies the input slice.
-func attrIdxToString(indices []int32) string {
-	if len(indices) == 0 {
-		return ""
-	}
-	slices.Sort(indices)
-
-	stringNumbers := make([]string, len(indices))
-
-	for i, n := range indices {
-		stringNumbers[i] = strconv.FormatInt(int64(n), 10)
-	}
-
-	return strings.Join(stringNumbers, ";")
-}
+func attrIdxToString(indices []int32) string { _ = "STUB: not implemented"; return "" }
 
 // stringToAttrIdx is a helper function to convert a string into
 // a list of indices.
-func stringToAttrIdx(indices string) ([]int32, error) {
-	if indices == "" {
-		return []int32{}, nil
-	}
-	parts := strings.Split(indices, ";")
-
-	result := make([]int32, 0, len(parts))
-	for _, s := range parts {
-		n, err := strconv.ParseInt(s, 10, 32)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse '%s' as int32. %w", s, err)
-		}
-		result = append(result, int32(n))
-	}
-	if !slices.IsSorted(result) {
-		return nil, fmt.Errorf("invalid order of indices '%s': %w", indices, errIdxFormatInvalid)
-	}
-
-	return result, nil
-}
+func stringToAttrIdx(indices string) ([]int32, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // makeStackKey is a helper function to convert a list of location indices
 // into a stackKey, preserving their order (unlike attrIdxToString which sorts).
-func makeStackKey(indices []int32) stackKey {
-	if len(indices) == 0 {
-		return ""
-	}
-
-	stringNumbers := make([]string, len(indices))
-	for i, n := range indices {
-		stringNumbers[i] = strconv.FormatInt(int64(n), 10)
-	}
-
-	return stackKey(strings.Join(stringNumbers, ";"))
-}
+func makeStackKey(indices []int32) stackKey { _ = "STUB: not implemented"; return *new(stackKey) }
 
 // linesToString is a helper function to convert a list of lines into a string.
 func (lts *lookupTables) linesToString(lines []profile.Line) string {
-	if len(lines) == 0 {
-		return ""
-	}
-
-	slices.SortFunc(lines, func(a, b profile.Line) int {
-		if a.Line != b.Line {
-			return int(a.Line - b.Line)
-		}
-		if a.Column != b.Column {
-			return int(a.Column - b.Column)
-		}
-		if a.Function == nil && b.Function == nil {
-			return 0
-		}
-		if a.Function == nil {
-			return -1
-		}
-		if b.Function == nil {
-			return 1
-		}
-		return int(a.Function.ID - b.Function.ID)
-	})
-
-	var parts []string
-	for _, line := range lines {
-		funcID := int32(-1)
-		if line.Function != nil {
-			funcID = lts.getIdxForFunction(
-				line.Function.Name,
-				line.Function.SystemName,
-				line.Function.Filename,
-				line.Function.StartLine)
-		}
-		parts = append(parts, fmt.Sprintf("%d:%d:%d", funcID, line.Line, line.Column))
-	}
-	return strings.Join(parts, ";")
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // stringToLine is a helper function to convert a string into a list of lines.
 func stringToLine(lines string) ([]pprofile.Line, error) {
-	if lines == "" {
-		return []pprofile.Line{}, nil
-	}
-
-	parts := strings.Split(lines, ";")
-	result := make([]pprofile.Line, 0, len(parts))
-
-	for _, part := range parts {
-		components := strings.Split(part, ":")
-		if len(components) != 3 {
-			return nil, fmt.Errorf("invalid line format '%s': %w", part, errIdxFormatInvalid)
-		}
-
-		funcID, err := strconv.ParseInt(components[0], 10, 32)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse function ID '%s': %w", components[0], err)
-		}
-
-		lineNum, err := strconv.ParseInt(components[1], 10, 64)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse line number '%s': %w", components[1], err)
-		}
-
-		column, err := strconv.ParseInt(components[2], 10, 64)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse column '%s': %w", components[2], err)
-		}
-
-		line := pprofile.NewLine()
-		line.SetFunctionIndex(int32(funcID))
-		line.SetLine(lineNum)
-		line.SetColumn(column)
-
-		result = append(result, line)
-	}
-	return result, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -3,28 +3,15 @@
 
 package metrics // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/correctnesstests/metrics"
 
-import (
-	"os"
-	"path"
-	"path/filepath"
-)
-
 type resultsDir struct {
 	dir string
 }
 
-func newResultsDir(dirName string) (*resultsDir, error) {
-	dir, err := filepath.Abs(path.Join("results", dirName))
-	if err != nil {
-		return nil, err
-	}
-	return &resultsDir{dir: dir}, nil
-}
+func newResultsDir(dirName string) (*resultsDir, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func (d *resultsDir) mkDir() error {
-	return os.MkdirAll(d.dir, os.ModePerm)
-}
+func (d *resultsDir) mkDir() error { _ = "STUB: not implemented"; return nil }
 
 func (d *resultsDir) fullPath(name string) (string, error) {
-	return filepath.Abs(path.Join(d.dir, name))
+	_ = "STUB: not implemented"
+	return "", nil
 }

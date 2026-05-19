@@ -16,18 +16,7 @@ import (
 	"go.opentelemetry.io/collector/pipeline"
 )
 
-func allConsumers[T any](r router[T]) ([]T, error) {
-	pipeIDs := r.PipelineIDs()
-	consumers := make([]T, len(pipeIDs))
-	for i, pipeID := range pipeIDs {
-		cons, err := r.Consumer(pipeID)
-		if err != nil {
-			return nil, err
-		}
-		consumers[i] = cons
-	}
-	return consumers, nil
-}
+func allConsumers[T any](r router[T]) ([]T, error) { _ = "STUB: not implemented"; return nil, nil }
 
 type router[T any] interface {
 	PipelineIDs() []pipeline.ID
@@ -35,27 +24,18 @@ type router[T any] interface {
 }
 
 func newLogs(nextConsumer consumer.Logs) (connector.Logs, error) {
-	nextConsumers, err := allConsumers[consumer.Logs](nextConsumer.(connector.LogsRouterAndConsumer))
-	if err != nil {
-		return nil, err
-	}
-	return &roundRobin{nextLogs: nextConsumers}, nil
+	_ = "STUB: not implemented"
+	return *new(connector.Logs), nil
 }
 
 func newMetrics(nextConsumer consumer.Metrics) (connector.Metrics, error) {
-	nextConsumers, err := allConsumers[consumer.Metrics](nextConsumer.(connector.MetricsRouterAndConsumer))
-	if err != nil {
-		return nil, err
-	}
-	return &roundRobin{nextMetrics: nextConsumers}, nil
+	_ = "STUB: not implemented"
+	return *new(connector.Metrics), nil
 }
 
 func newTraces(nextConsumer consumer.Traces) (connector.Traces, error) {
-	nextConsumers, err := allConsumers[consumer.Traces](nextConsumer.(connector.TracesRouterAndConsumer))
-	if err != nil {
-		return nil, err
-	}
-	return &roundRobin{nextTraces: nextConsumers}, nil
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }
 
 // roundRobin is used to pass signals directly from one pipeline to one of the configured once in a round-robin mode.
@@ -71,17 +51,21 @@ type roundRobin struct {
 }
 
 func (*roundRobin) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (rr *roundRobin) ConsumeLogs(ctx context.Context, ld plog.Logs) error {
-	return rr.nextLogs[rr.nextConsumer.Add(1)%uint64(len(rr.nextLogs))].ConsumeLogs(ctx, ld)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (rr *roundRobin) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	return rr.nextMetrics[rr.nextConsumer.Add(1)%uint64(len(rr.nextMetrics))].ConsumeMetrics(ctx, md)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (rr *roundRobin) ConsumeTraces(ctx context.Context, td ptrace.Traces) error {
-	return rr.nextTraces[rr.nextConsumer.Add(1)%uint64(len(rr.nextTraces))].ConsumeTraces(ctx, td)
+	_ = "STUB: not implemented"
+	return nil
 }

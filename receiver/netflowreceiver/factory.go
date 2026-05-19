@@ -9,8 +9,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/netflowreceiver/internal/metadata"
 )
 
 const (
@@ -23,35 +21,19 @@ const (
 )
 
 // NewFactory creates a factory for netflow receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // Config defines configuration for netflow receiver.
 // By default we listen for netflow traffic on port 2055
 func createDefaultConfig() component.Config {
-	return &Config{
-		Scheme:    "netflow",
-		Port:      2055,
-		Sockets:   defaultSockets,
-		Workers:   defaultWorkers,
-		QueueSize: defaultQueueSize,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createLogsReceiver creates a netflow receiver.
 // We also create the UDP receiver, which is the piece of software that actually listens
 // for incoming netflow traffic on an UDP port.
 func createLogsReceiver(_ context.Context, params receiver.Settings, cfg component.Config, consumer consumer.Logs) (receiver.Logs, error) {
-	conf := *(cfg.(*Config))
-
-	nr, err := newNetflowLogsReceiver(params, conf, consumer)
-	if err != nil {
-		return nil, err
-	}
-
-	return nr, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

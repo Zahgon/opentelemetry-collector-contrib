@@ -6,9 +6,6 @@
 package windowsservicereceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowsservicereceiver"
 
 import (
-	"syscall"
-
-	"golang.org/x/sys/windows"
 	"golang.org/x/sys/windows/svc/mgr"
 )
 
@@ -43,55 +40,16 @@ type serviceManager struct {
 	svcmgr *mgr.Mgr
 }
 
-func (sm *serviceManager) connect() error {
-	var m mgr.Mgr
-	var s *uint16
+func (sm *serviceManager) connect() error { _ = "STUB: not implemented"; return nil }
 
-	h, err := windows.OpenSCManager(s, nil, windows.GENERIC_READ)
-	if err != nil {
-		return err
-	}
-
-	m.Handle = h
-
-	sm.svcmgr = &m
-	return nil
-}
-
-func (sm *serviceManager) disconnect() error {
-	if sm.svcmgr != nil {
-		return sm.svcmgr.Disconnect()
-	}
-	return nil
-}
+func (sm *serviceManager) disconnect() error { _ = "STUB: not implemented"; return nil }
 
 func (sm *serviceManager) listServices() ([]string, error) {
-	if sm.svcmgr == nil {
-		return []string{}, nil
-	}
-	return sm.svcmgr.ListServices()
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (sm *serviceManager) openService(name string) (*mgr.Service, error) {
-	if sm.svcmgr == nil {
-		return nil, windows.ERROR_INVALID_HANDLE
-	}
-	if name == "" {
-		return nil, windows.ERROR_INVALID_PARAMETER
-	}
-
-	namePointer, err := syscall.UTF16PtrFromString(name)
-	if err != nil {
-		return nil, err
-	}
-
-	h, err := windows.OpenService(sm.svcmgr.Handle, namePointer, windows.GENERIC_READ)
-	if err != nil {
-		return nil, err
-	}
-
-	return &mgr.Service{
-		Handle: h,
-		Name:   name,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

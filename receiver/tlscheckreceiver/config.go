@@ -5,12 +5,10 @@ package tlscheckreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/tlscheckreceiver/internal/metadata"
 )
@@ -57,44 +55,10 @@ type Config struct {
 	_ struct{}
 }
 
-func validateTarget(ct *CertificateTarget) error {
-	if ct.Endpoint != "" && ct.FilePath != "" {
-		return errors.New("cannot specify both endpoint and file_path")
-	}
-	if ct.Endpoint == "" && ct.FilePath == "" {
-		return errors.New("must specify either endpoint or file_path")
-	}
+func validateTarget(ct *CertificateTarget) error { _ = "STUB: not implemented"; return nil }
 
-	if ct.FilePath != "" {
-		switch ct.FileFormat {
-		case FileFormatAuto, FileFormatPEM, FileFormatJKS, FileFormatPKCS12, "":
-			// valid — "" is treated the same as "auto"
-		default:
-			return fmt.Errorf("%w: got %q", errInvalidFileFormat, ct.FileFormat)
-		}
-	} else {
-		// Endpoint-based target: file-related options must not be set.
-		if ct.FileFormat != "" {
-			return errors.New(`"file_format" cannot be set when "file_path" is empty (endpoint-based target)`)
-		}
-		if ct.Password != "" {
-			return errors.New(`"password" cannot be set when "file_path" is empty (endpoint-based target)`)
-		}
-	}
+// valid — "" is treated the same as "auto"
 
-	return nil
-}
+// Endpoint-based target: file-related options must not be set.
 
-func (cfg *Config) Validate() error {
-	var err error
-
-	if len(cfg.Targets) == 0 {
-		err = multierr.Append(err, errMissingTargets)
-	}
-
-	for _, target := range cfg.Targets {
-		err = multierr.Append(err, validateTarget(target))
-	}
-
-	return err
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

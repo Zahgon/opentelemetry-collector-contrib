@@ -15,36 +15,27 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetAzuremonitorSubscription sets provided value as "azuremonitor.subscription" attribute.
 func (rb *ResourceBuilder) SetAzuremonitorSubscription(val string) {
-	if rb.config.AzuremonitorSubscription.Enabled {
-		rb.res.Attributes().PutStr("azuremonitor.subscription", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetAzuremonitorSubscriptionID sets provided value as "azuremonitor.subscription_id" attribute.
 func (rb *ResourceBuilder) SetAzuremonitorSubscriptionID(val string) {
-	if rb.config.AzuremonitorSubscriptionID.Enabled {
-		rb.res.Attributes().PutStr("azuremonitor.subscription_id", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetAzuremonitorTenantID sets provided value as "azuremonitor.tenant_id" attribute.
-func (rb *ResourceBuilder) SetAzuremonitorTenantID(val string) {
-	if rb.config.AzuremonitorTenantID.Enabled {
-		rb.res.Attributes().PutStr("azuremonitor.tenant_id", val)
-	}
-}
+func (rb *ResourceBuilder) SetAzuremonitorTenantID(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

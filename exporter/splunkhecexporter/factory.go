@@ -5,21 +5,15 @@ package splunkhecexporter // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/splunk"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/batchperresourceattr"
-	translator "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/splunk"
 )
 
 const (
@@ -50,50 +44,11 @@ type baseTracesExporter struct {
 }
 
 // NewFactory creates a factory for Splunk HEC exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability))
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	defaultMaxConns := defaultMaxIdleCons
-	defaultIdleConnTimeout := defaultIdleConnTimeout
-
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Timeout = defaultHTTPTimeout
-	clientConfig.IdleConnTimeout = defaultIdleConnTimeout
-	clientConfig.MaxIdleConnsPerHost = defaultMaxConns
-	clientConfig.MaxIdleConns = defaultMaxConns
-	clientConfig.HTTP2ReadIdleTimeout = defaultHTTP2ReadIdleTimeout
-	clientConfig.HTTP2PingTimeout = defaultHTTP2PingTimeout
-
-	return &Config{
-		LogDataEnabled:          true,
-		ProfilingDataEnabled:    true,
-		ClientConfig:            clientConfig,
-		SplunkAppName:           defaultSplunkAppName,
-		BackOffConfig:           configretry.NewDefaultBackOffConfig(),
-		QueueSettings:           configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		DisableCompression:      false,
-		MaxContentLengthLogs:    defaultContentLengthLogsLimit,
-		MaxContentLengthMetrics: defaultContentLengthMetricsLimit,
-		MaxContentLengthTraces:  defaultContentLengthTracesLimit,
-		MaxEventSize:            defaultMaxEventSize,
-		OtelAttrsToHec:          translator.DefaultHecToOtelAttrs(),
-		HecFields:               translator.DefaultOtelToHecFields(),
-		HealthPath:              splunk.DefaultHealthPath,
-		HecHealthCheckEnabled:   false,
-		ExportRaw:               false,
-		Telemetry: HecTelemetry{
-			Enabled:              false,
-			OverrideMetricsNames: map[string]string{},
-			ExtraAttributes:      map[string]string{},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -101,113 +56,33 @@ func createTracesExporter(
 	set exporter.Settings,
 	config component.Config,
 ) (exporter.Traces, error) {
-	cfg := config.(*Config)
-	c := newTracesClient(set, cfg)
-
-	e, err := exporterhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		c.pushTraceData,
-		// explicitly disable since we rely on http.Client timeout logic.
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(hecQueueSettings(cfg.QueueSettings)),
-		exporterhelper.WithStart(c.start),
-		exporterhelper.WithShutdown(c.stop),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	wrapped := &baseTracesExporter{
-		Component: e,
-		Traces: batchperresourceattr.NewMultiBatchPerResourceTraces(
-			[]string{splunk.HecTokenLabel, splunk.DefaultIndexLabel},
-			e,
-			batchperresourceattr.WithMetadataInjection(),
-		),
-	}
-
-	return wrapped, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
+
+// explicitly disable since we rely on http.Client timeout logic.
 
 func createMetricsExporter(
 	ctx context.Context,
 	set exporter.Settings,
 	config component.Config,
 ) (exporter.Metrics, error) {
-	cfg := config.(*Config)
-	c := newMetricsClient(set, cfg)
-
-	e, err := exporterhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		c.pushMetricsData,
-		// explicitly disable since we rely on http.Client timeout logic.
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(hecQueueSettings(cfg.QueueSettings)),
-		exporterhelper.WithStart(c.start),
-		exporterhelper.WithShutdown(c.stop),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	wrapped := &baseMetricsExporter{
-		Component: e,
-		Metrics: batchperresourceattr.NewMultiBatchPerResourceMetrics(
-			[]string{splunk.HecTokenLabel, splunk.DefaultIndexLabel},
-			e,
-			batchperresourceattr.WithMetadataInjection(),
-		),
-	}
-
-	return wrapped, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
+
+// explicitly disable since we rely on http.Client timeout logic.
 
 func createLogsExporter(
 	ctx context.Context,
 	set exporter.Settings,
 	config component.Config,
 ) (exporter exporter.Logs, err error) {
-	cfg := config.(*Config)
-	c := newLogsClient(set, cfg)
-
-	logsExporter, err := exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		c.pushLogData,
-		// explicitly disable since we rely on http.Client timeout logic.
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithRetry(cfg.BackOffConfig),
-		exporterhelper.WithQueue(hecQueueSettings(cfg.QueueSettings)),
-		exporterhelper.WithStart(c.start),
-		exporterhelper.WithShutdown(c.stop),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	wrapped := &baseLogsExporter{
-		Component: logsExporter,
-		Logs: batchperresourceattr.NewMultiBatchPerResourceLogs(
-			[]string{splunk.HecTokenLabel, splunk.DefaultIndexLabel},
-			&perScopeBatcher{
-				logsEnabled:      cfg.LogDataEnabled,
-				profilingEnabled: cfg.ProfilingDataEnabled,
-				logger:           set.Logger,
-				next:             logsExporter,
-			},
-			batchperresourceattr.WithMetadataInjection(),
-		),
-	}
-
-	return wrapped, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
+
+// explicitly disable since we rely on http.Client timeout logic.
 
 // hecRequiredMetadataKeys are the context metadata keys the exporterhelper
 // batcher must use to partition requests so different HEC routing targets
@@ -219,21 +94,6 @@ var hecRequiredMetadataKeys = []string{splunk.HecTokenLabel, splunk.DefaultIndex
 // set by the user are preserved; required keys are appended only when absent
 // (case-insensitive). Returns qs unchanged when batching is not configured.
 func hecQueueSettings(qs configoptional.Optional[exporterhelper.QueueBatchConfig]) configoptional.Optional[exporterhelper.QueueBatchConfig] {
-	if !qs.HasValue() || !qs.Get().Batch.HasValue() {
-		return qs
-	}
-	qCopy := *qs.Get()
-	bCopy := *qCopy.Batch.Get()
-
-	existing := make(map[string]bool, len(bCopy.Partition.MetadataKeys))
-	for _, k := range bCopy.Partition.MetadataKeys {
-		existing[strings.ToLower(k)] = true
-	}
-	for _, k := range hecRequiredMetadataKeys {
-		if !existing[strings.ToLower(k)] {
-			bCopy.Partition.MetadataKeys = append(bCopy.Partition.MetadataKeys, k)
-		}
-	}
-	qCopy.Batch = configoptional.Some(bCopy)
-	return configoptional.Some(qCopy)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -10,9 +10,7 @@
 package proto
 
 import (
-	reflect "reflect"
 	sync "sync"
-	unsafe "unsafe"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -33,42 +31,21 @@ type MetadataList struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *MetadataList) Reset() {
-	*x = MetadataList{}
-	mi := &file_checkpoint_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *MetadataList) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *MetadataList) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *MetadataList) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*MetadataList) ProtoMessage() {}
+func (*MetadataList) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *MetadataList) ProtoReflect() protoreflect.Message {
-	mi := &file_checkpoint_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use MetadataList.ProtoReflect.Descriptor instead.
-func (*MetadataList) Descriptor() ([]byte, []int) {
-	return file_checkpoint_proto_rawDescGZIP(), []int{0}
-}
+func (*MetadataList) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *MetadataList) GetMetadata() []*Metadata {
-	if x != nil {
-		return x.Metadata
-	}
-	return nil
-}
+func (x *MetadataList) GetMetadata() []*Metadata { _ = "STUB: not implemented"; return nil }
 
 // Metadata represents the state of a file reader
 type Metadata struct {
@@ -96,91 +73,35 @@ type Metadata struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Metadata) Reset() {
-	*x = Metadata{}
-	mi := &file_checkpoint_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Metadata) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Metadata) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Metadata) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Metadata) ProtoMessage() {}
+func (*Metadata) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Metadata) ProtoReflect() protoreflect.Message {
-	mi := &file_checkpoint_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Metadata.ProtoReflect.Descriptor instead.
-func (*Metadata) Descriptor() ([]byte, []int) {
-	return file_checkpoint_proto_rawDescGZIP(), []int{1}
-}
+func (*Metadata) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Metadata) GetFingerprint() *Fingerprint {
-	if x != nil {
-		return x.Fingerprint
-	}
-	return nil
-}
+func (x *Metadata) GetFingerprint() *Fingerprint { _ = "STUB: not implemented"; return nil }
 
-func (x *Metadata) GetOffset() int64 {
-	if x != nil {
-		return x.Offset
-	}
-	return 0
-}
+func (x *Metadata) GetOffset() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Metadata) GetRecordNum() int64 {
-	if x != nil {
-		return x.RecordNum
-	}
-	return 0
-}
+func (x *Metadata) GetRecordNum() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Metadata) GetFileAttributes() []byte {
-	if x != nil {
-		return x.FileAttributes
-	}
-	return nil
-}
+func (x *Metadata) GetFileAttributes() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *Metadata) GetHeaderFinalized() bool {
-	if x != nil {
-		return x.HeaderFinalized
-	}
-	return false
-}
+func (x *Metadata) GetHeaderFinalized() bool { _ = "STUB: not implemented"; return false }
 
-func (x *Metadata) GetFlushState() *FlushState {
-	if x != nil {
-		return x.FlushState
-	}
-	return nil
-}
+func (x *Metadata) GetFlushState() *FlushState { _ = "STUB: not implemented"; return nil }
 
-func (x *Metadata) GetTokenLenState() *TokenLenState {
-	if x != nil {
-		return x.TokenLenState
-	}
-	return nil
-}
+func (x *Metadata) GetTokenLenState() *TokenLenState { _ = "STUB: not implemented"; return nil }
 
-func (x *Metadata) GetFileType() string {
-	if x != nil {
-		return x.FileType
-	}
-	return ""
-}
+func (x *Metadata) GetFileType() string { _ = "STUB: not implemented"; return "" }
 
 // Fingerprint identifies a file by its first N bytes
 type Fingerprint struct {
@@ -190,42 +111,21 @@ type Fingerprint struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *Fingerprint) Reset() {
-	*x = Fingerprint{}
-	mi := &file_checkpoint_proto_msgTypes[2]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *Fingerprint) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Fingerprint) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Fingerprint) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Fingerprint) ProtoMessage() {}
+func (*Fingerprint) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Fingerprint) ProtoReflect() protoreflect.Message {
-	mi := &file_checkpoint_proto_msgTypes[2]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Fingerprint.ProtoReflect.Descriptor instead.
-func (*Fingerprint) Descriptor() ([]byte, []int) {
-	return file_checkpoint_proto_rawDescGZIP(), []int{2}
-}
+func (*Fingerprint) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *Fingerprint) GetFirstBytes() []byte {
-	if x != nil {
-		return x.FirstBytes
-	}
-	return nil
-}
+func (x *Fingerprint) GetFirstBytes() []byte { _ = "STUB: not implemented"; return nil }
 
 // FlushState tracks timing for flush operations
 type FlushState struct {
@@ -238,49 +138,23 @@ type FlushState struct {
 	sizeCache      protoimpl.SizeCache
 }
 
-func (x *FlushState) Reset() {
-	*x = FlushState{}
-	mi := &file_checkpoint_proto_msgTypes[3]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *FlushState) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *FlushState) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *FlushState) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*FlushState) ProtoMessage() {}
+func (*FlushState) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *FlushState) ProtoReflect() protoreflect.Message {
-	mi := &file_checkpoint_proto_msgTypes[3]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use FlushState.ProtoReflect.Descriptor instead.
-func (*FlushState) Descriptor() ([]byte, []int) {
-	return file_checkpoint_proto_rawDescGZIP(), []int{3}
-}
+func (*FlushState) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *FlushState) GetLastDataChangeUnixNano() int64 {
-	if x != nil {
-		return x.LastDataChangeUnixNano
-	}
-	return 0
-}
+func (x *FlushState) GetLastDataChangeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *FlushState) GetLastDataLength() int32 {
-	if x != nil {
-		return x.LastDataLength
-	}
-	return 0
-}
+func (x *FlushState) GetLastDataLength() int32 { _ = "STUB: not implemented"; return 0 }
 
 // TokenLenState tracks potential token lengths
 type TokenLenState struct {
@@ -290,42 +164,21 @@ type TokenLenState struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *TokenLenState) Reset() {
-	*x = TokenLenState{}
-	mi := &file_checkpoint_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
+func (x *TokenLenState) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TokenLenState) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TokenLenState) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TokenLenState) ProtoMessage() {}
+func (*TokenLenState) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TokenLenState) ProtoReflect() protoreflect.Message {
-	mi := &file_checkpoint_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TokenLenState.ProtoReflect.Descriptor instead.
-func (*TokenLenState) Descriptor() ([]byte, []int) {
-	return file_checkpoint_proto_rawDescGZIP(), []int{4}
-}
+func (*TokenLenState) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TokenLenState) GetMinimumLength() int32 {
-	if x != nil {
-		return x.MinimumLength
-	}
-	return 0
-}
+func (x *TokenLenState) GetMinimumLength() int32 { _ = "STUB: not implemented"; return 0 }
 
 var File_checkpoint_proto protoreflect.FileDescriptor
 
@@ -361,12 +214,7 @@ var (
 	file_checkpoint_proto_rawDescData []byte
 )
 
-func file_checkpoint_proto_rawDescGZIP() []byte {
-	file_checkpoint_proto_rawDescOnce.Do(func() {
-		file_checkpoint_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_checkpoint_proto_rawDesc), len(file_checkpoint_proto_rawDesc)))
-	})
-	return file_checkpoint_proto_rawDescData
-}
+func file_checkpoint_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_checkpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_checkpoint_proto_goTypes = []any{
@@ -388,26 +236,5 @@ var file_checkpoint_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_checkpoint_proto_init() }
-func file_checkpoint_proto_init() {
-	if File_checkpoint_proto != nil {
-		return
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_checkpoint_proto_rawDesc), len(file_checkpoint_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   5,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_checkpoint_proto_goTypes,
-		DependencyIndexes: file_checkpoint_proto_depIdxs,
-		MessageInfos:      file_checkpoint_proto_msgTypes,
-	}.Build()
-	File_checkpoint_proto = out.File
-	file_checkpoint_proto_goTypes = nil
-	file_checkpoint_proto_depIdxs = nil
-}
+func init()                       { file_checkpoint_proto_init() }
+func file_checkpoint_proto_init() { _ = "STUB: not implemented"; return }

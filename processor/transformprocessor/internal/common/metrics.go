@@ -10,7 +10,6 @@ import (
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/expr"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottldatapoint"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlmetric"
@@ -26,34 +25,10 @@ type metricStatements struct {
 	expr.BoolExpr[*ottlmetric.TransformContext]
 }
 
-func (metricStatements) Context() ContextID {
-	return Metric
-}
+func (metricStatements) Context() ContextID { _ = "STUB: not implemented"; return *new(ContextID) }
 
 func (m metricStatements) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		rmetrics := md.ResourceMetrics().At(i)
-		for j := 0; j < rmetrics.ScopeMetrics().Len(); j++ {
-			smetrics := rmetrics.ScopeMetrics().At(j)
-			metrics := smetrics.Metrics()
-			for k := 0; k < metrics.Len(); k++ {
-				tCtx := ottlmetric.NewTransformContextPtr(rmetrics, smetrics, metrics.At(k))
-				condition, err := m.Eval(ctx, tCtx)
-				if err != nil {
-					tCtx.Close()
-					return err
-				}
-				if condition {
-					err = m.Execute(ctx, tCtx)
-					if err != nil {
-						tCtx.Close()
-						return err
-					}
-				}
-				tCtx.Close()
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -62,118 +37,32 @@ type dataPointStatements struct {
 	expr.BoolExpr[*ottldatapoint.TransformContext]
 }
 
-func (dataPointStatements) Context() ContextID {
-	return DataPoint
-}
+func (dataPointStatements) Context() ContextID { _ = "STUB: not implemented"; return *new(ContextID) }
 
 func (d dataPointStatements) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		rmetrics := md.ResourceMetrics().At(i)
-		for j := 0; j < rmetrics.ScopeMetrics().Len(); j++ {
-			smetrics := rmetrics.ScopeMetrics().At(j)
-			metrics := smetrics.Metrics()
-			for k := 0; k < metrics.Len(); k++ {
-				metric := metrics.At(k)
-				var err error
-				//exhaustive:enforce
-				switch metric.Type() {
-				case pmetric.MetricTypeSum:
-					err = d.handleNumberDataPoints(ctx, rmetrics, smetrics, metric, metric.Sum().DataPoints())
-				case pmetric.MetricTypeGauge:
-					err = d.handleNumberDataPoints(ctx, rmetrics, smetrics, metric, metric.Gauge().DataPoints())
-				case pmetric.MetricTypeHistogram:
-					err = d.handleHistogramDataPoints(ctx, rmetrics, smetrics, metric, metric.Histogram().DataPoints())
-				case pmetric.MetricTypeExponentialHistogram:
-					err = d.handleExponentialHistogramDataPoints(ctx, rmetrics, smetrics, metric, metric.ExponentialHistogram().DataPoints())
-				case pmetric.MetricTypeSummary:
-					err = d.handleSummaryDataPoints(ctx, rmetrics, smetrics, metric, metric.Summary().DataPoints())
-				}
-				if err != nil {
-					return err
-				}
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+//exhaustive:enforce
+
 func (d dataPointStatements) handleNumberDataPoints(ctx context.Context, resourceMetrics pmetric.ResourceMetrics, scopeMetrics pmetric.ScopeMetrics, metric pmetric.Metric, dps pmetric.NumberDataPointSlice) error {
-	for i := 0; i < dps.Len(); i++ {
-		tCtx := ottldatapoint.NewTransformContextPtr(resourceMetrics, scopeMetrics, metric, dps.At(i))
-		condition, err := d.Eval(ctx, tCtx)
-		if err != nil {
-			tCtx.Close()
-			return err
-		}
-		if condition {
-			err = d.Execute(ctx, tCtx)
-			if err != nil {
-				tCtx.Close()
-				return err
-			}
-		}
-		tCtx.Close()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (d dataPointStatements) handleHistogramDataPoints(ctx context.Context, resourceMetrics pmetric.ResourceMetrics, scopeMetrics pmetric.ScopeMetrics, metric pmetric.Metric, dps pmetric.HistogramDataPointSlice) error {
-	for i := 0; i < dps.Len(); i++ {
-		tCtx := ottldatapoint.NewTransformContextPtr(resourceMetrics, scopeMetrics, metric, dps.At(i))
-		condition, err := d.Eval(ctx, tCtx)
-		if err != nil {
-			tCtx.Close()
-			return err
-		}
-		if condition {
-			err := d.Execute(ctx, tCtx)
-			if err != nil {
-				tCtx.Close()
-				return err
-			}
-		}
-		tCtx.Close()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (d dataPointStatements) handleExponentialHistogramDataPoints(ctx context.Context, resourceMetrics pmetric.ResourceMetrics, scopeMetrics pmetric.ScopeMetrics, metric pmetric.Metric, dps pmetric.ExponentialHistogramDataPointSlice) error {
-	for i := 0; i < dps.Len(); i++ {
-		tCtx := ottldatapoint.NewTransformContextPtr(resourceMetrics, scopeMetrics, metric, dps.At(i))
-		condition, err := d.Eval(ctx, tCtx)
-		if err != nil {
-			tCtx.Close()
-			return err
-		}
-		if condition {
-			err = d.Execute(ctx, tCtx)
-			if err != nil {
-				tCtx.Close()
-				return err
-			}
-		}
-		tCtx.Close()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (d dataPointStatements) handleSummaryDataPoints(ctx context.Context, resourceMetrics pmetric.ResourceMetrics, scopeMetrics pmetric.ScopeMetrics, metric pmetric.Metric, dps pmetric.SummaryDataPointSlice) error {
-	for i := 0; i < dps.Len(); i++ {
-		tCtx := ottldatapoint.NewTransformContextPtr(resourceMetrics, scopeMetrics, metric, dps.At(i))
-		condition, err := d.Eval(ctx, tCtx)
-		if err != nil {
-			tCtx.Close()
-			return err
-		}
-		if condition {
-			err = d.Execute(ctx, tCtx)
-			if err != nil {
-				tCtx.Close()
-				return err
-			}
-		}
-		tCtx.Close()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -182,94 +71,36 @@ type MetricParserCollection ottl.ParserCollection[MetricsConsumer]
 type MetricParserCollectionOption ottl.ParserCollectionOption[MetricsConsumer]
 
 func WithMetricParser(functions map[string]ottl.Factory[*ottlmetric.TransformContext]) MetricParserCollectionOption {
-	return func(pc *ottl.ParserCollection[MetricsConsumer]) error {
-		metricParser, err := ottlmetric.NewParser(functions, pc.Settings, ottlmetric.EnablePathContextNames())
-		if err != nil {
-			return err
-		}
-		return ottl.WithParserCollectionContext(ottlmetric.ContextName, &metricParser, ottl.WithStatementConverter(convertMetricStatements))(pc)
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricParserCollectionOption)
 }
 
 func WithDataPointParser(functions map[string]ottl.Factory[*ottldatapoint.TransformContext]) MetricParserCollectionOption {
-	return func(pc *ottl.ParserCollection[MetricsConsumer]) error {
-		dataPointParser, err := ottldatapoint.NewParser(functions, pc.Settings, ottldatapoint.EnablePathContextNames())
-		if err != nil {
-			return err
-		}
-		return ottl.WithParserCollectionContext(ottldatapoint.ContextName, &dataPointParser, ottl.WithStatementConverter(convertDataPointStatements))(pc)
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricParserCollectionOption)
 }
 
 func WithMetricErrorMode(errorMode ottl.ErrorMode) MetricParserCollectionOption {
-	return MetricParserCollectionOption(ottl.WithParserCollectionErrorMode[MetricsConsumer](errorMode))
+	_ = "STUB: not implemented"
+	return *new(MetricParserCollectionOption)
 }
 
 func NewMetricParserCollection(settings component.TelemetrySettings, options ...MetricParserCollectionOption) (*MetricParserCollection, error) {
-	pcOptions := []ottl.ParserCollectionOption[MetricsConsumer]{
-		withCommonContextParsers[MetricsConsumer](),
-		ottl.EnableParserCollectionModifiedPathsLogging[MetricsConsumer](true),
-	}
-
-	for _, option := range options {
-		pcOptions = append(pcOptions, ottl.ParserCollectionOption[MetricsConsumer](option))
-	}
-
-	pc, err := ottl.NewParserCollection(settings, pcOptions...)
-	if err != nil {
-		return nil, err
-	}
-
-	mpc := MetricParserCollection(*pc)
-	return &mpc, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func convertMetricStatements(pc *ottl.ParserCollection[MetricsConsumer], statements ottl.StatementsGetter, parsedStatements []*ottl.Statement[*ottlmetric.TransformContext]) (MetricsConsumer, error) {
-	contextStatements, err := toContextStatements(statements)
-	if err != nil {
-		return nil, err
-	}
-	errorMode := pc.ErrorMode
-	if contextStatements.ErrorMode != "" {
-		errorMode = contextStatements.ErrorMode
-	}
-	var parserOptions []ottl.Option[*ottlmetric.TransformContext]
-	if contextStatements.Context == "" {
-		parserOptions = append(parserOptions, ottlmetric.EnablePathContextNames())
-	}
-	globalExpr, errGlobalBoolExpr := parseGlobalExpr(filterottl.NewBoolExprForMetricWithOptions, contextStatements.Conditions, errorMode, pc.Settings, filterottl.StandardMetricFuncs(), parserOptions)
-	if errGlobalBoolExpr != nil {
-		return nil, errGlobalBoolExpr
-	}
-	mStatements := ottlmetric.NewStatementSequence(parsedStatements, pc.Settings, ottlmetric.WithStatementSequenceErrorMode(errorMode))
-	return metricStatements{mStatements, globalExpr}, nil
+	_ = "STUB: not implemented"
+	return *new(MetricsConsumer), nil
 }
 
 func convertDataPointStatements(pc *ottl.ParserCollection[MetricsConsumer], statements ottl.StatementsGetter, parsedStatements []*ottl.Statement[*ottldatapoint.TransformContext]) (MetricsConsumer, error) {
-	contextStatements, err := toContextStatements(statements)
-	if err != nil {
-		return nil, err
-	}
-	errorMode := pc.ErrorMode
-	if contextStatements.ErrorMode != "" {
-		errorMode = contextStatements.ErrorMode
-	}
-	var parserOptions []ottl.Option[*ottldatapoint.TransformContext]
-	if contextStatements.Context == "" {
-		parserOptions = append(parserOptions, ottldatapoint.EnablePathContextNames())
-	}
-	globalExpr, errGlobalBoolExpr := parseGlobalExpr(filterottl.NewBoolExprForDataPointWithOptions, contextStatements.Conditions, errorMode, pc.Settings, filterottl.StandardDataPointFuncs(), parserOptions)
-	if errGlobalBoolExpr != nil {
-		return nil, errGlobalBoolExpr
-	}
-	dpStatements := ottldatapoint.NewStatementSequence(parsedStatements, pc.Settings, ottldatapoint.WithStatementSequenceErrorMode(errorMode))
-	return dataPointStatements{dpStatements, globalExpr}, nil
+	_ = "STUB: not implemented"
+	return *new(MetricsConsumer), nil
 }
 
 func (mpc *MetricParserCollection) ParseContextStatements(contextStatements ContextStatements) (MetricsConsumer, error) {
-	pc := ottl.ParserCollection[MetricsConsumer](*mpc)
-	if contextStatements.Context != "" {
-		return pc.ParseStatementsWithContext(string(contextStatements.Context), contextStatements, true)
-	}
-	return pc.ParseStatements(contextStatements, ottl.WithContextInferenceConditions(contextStatements.Conditions))
+	_ = "STUB: not implemented"
+	return *new(MetricsConsumer), nil
 }

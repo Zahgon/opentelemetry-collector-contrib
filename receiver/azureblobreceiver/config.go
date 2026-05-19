@@ -5,10 +5,8 @@ package azureblobreceiver // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/config/configopaque"
-	"go.uber.org/multierr"
 )
 
 var (
@@ -82,16 +80,7 @@ const (
 	DefaultAuth          AuthType = "default"
 )
 
-func (e *AuthType) UnmarshalText(text []byte) error {
-	str := AuthType(text)
-	switch str {
-	case ServicePrincipalAuth, ConnectionStringAuth, DefaultAuth:
-		*e = str
-		return nil
-	default:
-		return fmt.Errorf("authentication %v is not supported. supported authentications include [%v,%v,%v]", str, ServicePrincipalAuth, ConnectionStringAuth, DefaultAuth)
-	}
-}
+func (e *AuthType) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 type CloudType string
 
@@ -100,41 +89,7 @@ const (
 	AzureGovernmentCloudType = "AzureUSGovernment"
 )
 
-func (e *CloudType) UnmarshalText(text []byte) error {
-	str := CloudType(text)
-	switch str {
-	case AzureCloudType, AzureGovernmentCloudType:
-		*e = str
-		return nil
-	default:
-		return fmt.Errorf("cloud %v is not supported. supported options include [%v,%v]", str, AzureCloudType, AzureGovernmentCloudType)
-	}
-}
+func (e *CloudType) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 // Validate validates the configuration by checking for missing or invalid fields
-func (c Config) Validate() (err error) {
-	switch c.Authentication {
-	case ServicePrincipalAuth:
-		if c.ServicePrincipal.TenantID == "" {
-			err = multierr.Append(err, errMissingTenantID)
-		}
-
-		if c.ServicePrincipal.ClientID == "" {
-			err = multierr.Append(err, errMissingClientID)
-		}
-
-		if c.ServicePrincipal.ClientSecret == "" {
-			err = multierr.Append(err, errMissingClientSecret)
-		}
-
-		if c.StorageAccountURL == "" {
-			err = multierr.Append(err, errMissingStorageAccountURL)
-		}
-	case ConnectionStringAuth:
-		if c.ConnectionString == "" {
-			err = multierr.Append(err, errMissingConnectionString)
-		}
-	}
-
-	return err
-}
+func (c Config) Validate() (err error) { _ = "STUB: not implemented"; return nil }

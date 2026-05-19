@@ -34,31 +34,20 @@ type options struct {
 
 // WithOnChange registers a callback invoked with the new value after each
 // successful file reload. Not called for static values.
-func WithOnChange(fn func(string)) Option {
-	return func(o *options) { o.onChange = fn }
-}
+func WithOnChange(fn func(string)) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 // NewValueResolver returns a ValueResolver appropriate for the given inputs.
 // If filePath is non-empty, returns a FileWatcher that watches the file for changes.
 // Otherwise returns a StaticValue wrapping inlineValue.
 // Returns an error if both inlineValue and filePath are empty.
 func NewValueResolver(inlineValue, filePath string, logger *zap.Logger, opts ...Option) (ValueResolver, error) {
-	var o options
-	for _, opt := range opts {
-		opt(&o)
-	}
-	if filePath != "" {
-		return newFileWatcher(filePath, logger, o.onChange), nil
-	}
-	if inlineValue == "" {
-		return nil, errNoValueProvided
-	}
-	return staticValue(inlineValue), nil
+	_ = "STUB: not implemented"
+	return *new(ValueResolver), nil
 }
 
 // staticValue is a ValueResolver that returns a fixed string.
 type staticValue string
 
-func (s staticValue) Value() string             { return string(s) }
-func (staticValue) Start(context.Context) error { return nil }
-func (staticValue) Shutdown() error             { return nil }
+func (s staticValue) Value() string             { _ = "STUB: not implemented"; return "" }
+func (staticValue) Start(context.Context) error { _ = "STUB: not implemented"; return nil }
+func (staticValue) Shutdown() error             { _ = "STUB: not implemented"; return nil }

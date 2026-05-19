@@ -16,24 +16,16 @@ var (
 
 type obfuscator obfuscate.Obfuscator
 
-func newObfuscator() *obfuscator {
-	return (*obfuscator)(obfuscate.NewObfuscator(obfuscatorConfig))
-}
+func newObfuscator() *obfuscator { _ = "STUB: not implemented"; return nil }
 
 func (o *obfuscator) obfuscateSQLString(sql string) (string, error) {
-	obfuscatedQuery, err := (*obfuscate.Obfuscator)(o).ObfuscateSQLStringWithOptions(sql, &obfuscateSQLConfig, "")
-	if err != nil {
-		return "", err
-	}
-	return obfuscatedQuery.Query, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *obfuscator) obfuscatePlan(plan string) (string, error) {
-	obfuscated, err := (*obfuscate.Obfuscator)(o).ObfuscateSQLExecPlan(plan, false)
-	if err != nil {
-		return "", err
-	}
-	return obfuscated, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // For further information, see https://dev.mysql.com/doc/refman/8.4/en/explain.html

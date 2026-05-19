@@ -12,9 +12,7 @@ type (
 )
 
 // Abs returns a view into the buckets using an absolute scale
-func Abs(bs Buckets) Absolute {
-	return Absolute{buckets: bs}
-}
+func Abs(bs Buckets) Absolute { _ = "STUB: not implemented"; return *new(Absolute) }
 
 type buckets = Buckets
 
@@ -29,24 +27,12 @@ type Absolute struct {
 }
 
 // Abs returns the value at absolute index 'at'
-func (a Absolute) Abs(at int) uint64 {
-	if i, ok := a.idx(at); ok {
-		return a.BucketCounts().At(i)
-	}
-	return 0
-}
+func (a Absolute) Abs(at int) uint64 { _ = "STUB: not implemented"; return 0 }
 
 // Upper returns the minimal index outside the set, such that every i < Upper
-func (a Absolute) Upper() int {
-	return a.BucketCounts().Len() + int(a.Offset())
-}
+func (a Absolute) Upper() int { _ = "STUB: not implemented"; return 0 }
 
 // Lower returns the minimal index inside the set, such that every i >= Lower
-func (a Absolute) Lower() int {
-	return int(a.Offset())
-}
+func (a Absolute) Lower() int { _ = "STUB: not implemented"; return 0 }
 
-func (a Absolute) idx(at int) (int, bool) {
-	idx := at - a.Lower()
-	return idx, idx >= 0 && idx < a.BucketCounts().Len()
-}
+func (a Absolute) idx(at int) (int, bool) { _ = "STUB: not implemented"; return 0, false }

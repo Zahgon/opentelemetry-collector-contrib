@@ -7,9 +7,6 @@ import (
 	"encoding/json"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -53,18 +50,7 @@ type frontDoorHealthProbeLog struct {
 }
 
 func (r *frontDoorHealthProbeLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFrontDoorHealthProbeID, r.Properties.HealthProbeID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzurePop, r.Properties.Pop)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HTTPRequestMethodKey), r.Properties.HTTPVerb)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.Properties.HTTPStatusCode)
-	unmarshaler.AttrPutURLParsed(attrs, r.Properties.ProbeURL)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureFrontDoorHealthOriginName, r.Properties.OriginName)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureFrontDoorHealthTotalLatency, r.Properties.TotalLatency)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureFrontDoorHealthConnLatency, r.Properties.ConnectionLatency)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureFrontDoorHealthDNSLatency, r.Properties.DNSLatency)
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ServerAddressKey), string(conventions.ServerPortKey), r.Properties.OriginIP)
-	body.SetStr(r.Properties.Result)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -87,16 +73,6 @@ type frontDoorWAFLog struct {
 }
 
 func (r *frontDoorWAFLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ClientPortKey), r.Properties.ClientPort)
-	unmarshaler.AttrPutURLParsed(attrs, r.Properties.RequestURI)
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ClientAddressKey), string(conventions.ClientPortKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkPeerAddressKey), r.Properties.SocketIP)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.AzureServiceRequestIDKey), r.Properties.TrackingReference)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderHost, r.Properties.Host)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleRulesetNameKey), r.Properties.Policy)
-	unmarshaler.AttrPutStrIf(attrs, attributeSecurityRuleRulesetModeKey, r.Properties.PolicyMode)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SecurityRuleNameKey), r.Properties.RuleName)
-	unmarshaler.AttrPutStrIf(attrs, attributeSecurityRuleActionKey, r.Properties.Action)
-
+	_ = "STUB: not implemented"
 	return nil
 }

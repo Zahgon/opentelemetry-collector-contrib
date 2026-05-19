@@ -29,38 +29,22 @@ type DbWrapper struct {
 }
 
 func (d DbWrapper) QueryContext(ctx context.Context, query string, args ...any) (rows, error) {
-	rows, err := d.Db.QueryContext(ctx, query, args...)
-	return rowsWrapper{rows}, err
+	_ = "STUB: not implemented"
+	return *new(rows), nil
 }
 
 type rowsWrapper struct {
 	rows *sql.Rows
 }
 
-func (r rowsWrapper) ColumnTypes() ([]colType, error) {
-	types, err := r.rows.ColumnTypes()
-	if err != nil {
-		return nil, err
-	}
-	var out []colType
-	for _, columnType := range types {
-		out = append(out, colWrapper{columnType})
-	}
-	return out, nil
-}
+func (r rowsWrapper) ColumnTypes() ([]colType, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func (r rowsWrapper) Next() bool {
-	return r.rows.Next()
-}
+func (r rowsWrapper) Next() bool { _ = "STUB: not implemented"; return false }
 
-func (r rowsWrapper) Scan(dest ...any) error {
-	return r.rows.Scan(dest...)
-}
+func (r rowsWrapper) Scan(dest ...any) error { _ = "STUB: not implemented"; return nil }
 
 type colWrapper struct {
 	ct *sql.ColumnType
 }
 
-func (c colWrapper) Name() string {
-	return c.ct.Name()
-}
+func (c colWrapper) Name() string { _ = "STUB: not implemented"; return "" }

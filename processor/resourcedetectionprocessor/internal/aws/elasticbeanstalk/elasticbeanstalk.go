@@ -5,13 +5,9 @@ package elasticbeanstalk // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"encoding/json"
-	"io"
-	"strconv"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/aws/elasticbeanstalk/internal/metadata"
@@ -39,39 +35,17 @@ type EbMetaData struct {
 }
 
 func NewDetector(_ processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-	return &Detector{fs: &ebFileSystem{}, rb: metadata.NewResourceBuilder(cfg.ResourceAttributes)}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 func (d Detector) Detect(context.Context) (resource pcommon.Resource, schemaURL string, err error) {
-	var conf io.ReadCloser
-
-	if d.fs.IsWindows() {
-		conf, err = d.fs.Open(windowsPath)
-	} else {
-		conf, err = d.fs.Open(linuxPath)
-	}
-
-	// Do not want to return error so it fails silently on non-EB instances
-	if err != nil {
-		// TODO: Log a more specific message with zap
-		return pcommon.NewResource(), "", nil
-	}
-
-	ebmd := &EbMetaData{}
-	err = json.NewDecoder(conf).Decode(ebmd)
-	conf.Close()
-
-	if err != nil {
-		// TODO: Log a more specific error with zap
-		return pcommon.NewResource(), "", err
-	}
-
-	d.rb.SetCloudProvider(conventions.CloudProviderAWS.Value.AsString())
-	d.rb.SetCloudPlatform(conventions.CloudPlatformAWSElasticBeanstalk.Value.AsString())
-	d.rb.SetServiceInstanceID(strconv.Itoa(ebmd.DeploymentID))
-	d.rb.SetDeploymentEnvironment(ebmd.EnvironmentName)
-	d.rb.SetServiceVersion(ebmd.VersionLabel)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
+
+// Do not want to return error so it fails silently on non-EB instances
+
+// TODO: Log a more specific message with zap
+
+// TODO: Log a more specific error with zap

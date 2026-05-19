@@ -8,20 +8,15 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/diskscraper/internal/metadata"
 )
 
 // NewFactory for Disk scraper.
-func NewFactory() scraper.Factory {
-	return scraper.NewFactory(metadata.Type, createDefaultConfig, scraper.WithMetrics(createMetricsScraper, metadata.MetricsStability))
-}
+func NewFactory() scraper.Factory { _ = "STUB: not implemented"; return *new(scraper.Factory) }
 
 // createDefaultConfig creates the default configuration for the Scraper.
 func createDefaultConfig() component.Config {
-	return &Config{
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createMetricsScraper creates a scraper based on provided config.
@@ -30,13 +25,6 @@ func createMetricsScraper(
 	settings scraper.Settings,
 	config component.Config,
 ) (scraper.Metrics, error) {
-	cfg := config.(*Config)
-	s, err := newDiskScraper(ctx, settings, cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return scraper.NewMetrics(s.scrape,
-		scraper.WithStart(s.start),
-	)
+	_ = "STUB: not implemented"
+	return *new(scraper.Metrics), nil
 }

@@ -9,10 +9,8 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/confmap"
-	"go.uber.org/multierr"
 )
 
 const (
@@ -76,78 +74,17 @@ type GitlabHeaders struct {
 }
 
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultEndpoint
-	return &Config{
-		WebHook: WebHook{
-			ServerConfig: confighttp.ServerConfig{
-				NetAddr:      netAddr,
-				ReadTimeout:  defaultReadTimeout,
-				WriteTimeout: defaultWriteTimeout,
-			},
-			GitlabHeaders: GitlabHeaders{
-				Customizable: map[string]string{
-					defaultUserAgentHeader:      "",
-					defaultGitLabInstanceHeader: "https://gitlab.com",
-				},
-				Fixed: map[string]string{
-					defaultGitLabWebhookUUIDHeader: "",
-					defaultGitLabEventHeader:       "Pipeline Hook",
-					defaultGitLabEventUUIDHeader:   "",
-					defaultIdempotencyKeyHeader:    "",
-				},
-			},
-			Path:                  defaultPath,
-			HealthPath:            defaultHealthPath,
-			IncludeUserAttributes: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func (cfg *Config) Validate() error {
-	var errs error
-
-	maxReadWriteTimeout, _ := time.ParseDuration("10s")
-
-	if cfg.WebHook.ReadTimeout > maxReadWriteTimeout {
-		errs = multierr.Append(errs, errReadTimeoutExceedsMaxValue)
-	}
-
-	if cfg.WebHook.WriteTimeout > maxReadWriteTimeout {
-		errs = multierr.Append(errs, errWriteTimeoutExceedsMaxValue)
-	}
-
-	for key, value := range cfg.WebHook.RequiredHeaders {
-		if key == "" || value == "" {
-			errs = multierr.Append(errs, errRequiredHeader)
-		}
-
-		if _, exists := cfg.WebHook.GitlabHeaders.Fixed[key]; exists {
-			errs = multierr.Append(errs, errGitlabHeader)
-		}
-	}
-
-	return errs
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		return nil
-	}
-
-	// load the non-dynamic config normally
-	err := componentParser.Unmarshal(cfg, confmap.WithIgnoreUnused())
-	if err != nil {
-		return err
-	}
-
-	// overwrite customizable GitLab default headers if configured within the required_headers
-	for key, header := range cfg.WebHook.RequiredHeaders {
-		if _, exists := cfg.WebHook.GitlabHeaders.Customizable[key]; exists {
-			cfg.WebHook.GitlabHeaders.Customizable[key] = string(header)
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// load the non-dynamic config normally
+
+// overwrite customizable GitLab default headers if configured within the required_headers

@@ -8,6 +8,4 @@ type httpError struct {
 	statusCode int
 }
 
-func (h httpError) Error() string {
-	return h.msg
-}
+func (h httpError) Error() string { _ = "STUB: not implemented"; return "" }

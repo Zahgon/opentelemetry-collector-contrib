@@ -7,79 +7,27 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/common/testutil"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/healthcheck"
 )
 
 const defaultPort = 13133
 
 // NewFactory creates a factory for HealthCheck extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Config: healthcheck.Config{
-			LegacyConfig: healthcheck.HTTPLegacyConfig{
-				ServerConfig: confighttp.ServerConfig{
-					NetAddr: confignet.AddrConfig{
-						Transport: confignet.TransportTypeTCP,
-						Endpoint:  testutil.EndpointForPort(defaultPort),
-					},
-				},
-				Path: "/",
-				CheckCollectorPipeline: &healthcheck.CheckCollectorPipelineConfig{
-					Enabled:                  false,
-					Interval:                 "5m",
-					ExporterFailureThreshold: 5,
-				},
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
-	config := cfg.(*Config)
-
-	if metadata.ExtensionHealthcheckUseComponentStatusFeatureGate.IsEnabled() {
-		// When feature gate is enabled, use v2 implementation directly.
-		// The feature gate controls behavior, not the presence of v2 config fields.
-		config.UseV2 = true
-
-		// If no v2 config is set, create HTTP config from legacy settings for backward compatibility
-		if config.HTTPConfig == nil && config.GRPCConfig == nil {
-			set.Logger.Warn(
-				"Feature gate enabled but using legacy config format. " +
-					"Please migrate to v2 config format (http/grpc fields). " +
-					"See: https://github.com/open-telemetry/opentelemetry-collector-contrib/tree/main/extension/healthcheckextension#backward-compatibility",
-			)
-			config.HTTPConfig = &healthcheck.HTTPConfig{
-				ServerConfig: config.ServerConfig,
-				Status: healthcheck.PathConfig{
-					Enabled: true,
-					Path:    config.Path,
-				},
-				Config: healthcheck.PathConfig{
-					Enabled: false,
-					Path:    "/config",
-				},
-			}
-		}
-
-		return healthcheck.NewHealthCheckExtension(config.Config, set), nil
-	}
-
-	// Feature gate disabled: use legacy implementation.
-	return newServer(*config, set.TelemetrySettings), nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
+
+// When feature gate is enabled, use v2 implementation directly.
+// The feature gate controls behavior, not the presence of v2 config fields.
+
+// If no v2 config is set, create HTTP config from legacy settings for backward compatibility
+
+// Feature gate disabled: use legacy implementation.

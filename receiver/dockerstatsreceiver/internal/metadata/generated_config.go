@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -28,34 +26,12 @@ type ContainerBlockioIoMergedRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoMergedRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoMergedRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoMergedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoMergedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoMergedRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_merged_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -78,34 +54,12 @@ type ContainerBlockioIoQueuedRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoQueuedRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoQueuedRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoQueuedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoQueuedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoQueuedRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_queued_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -128,34 +82,12 @@ type ContainerBlockioIoServiceBytesRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoServiceBytesRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoServiceBytesRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_service_bytes_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -178,34 +110,12 @@ type ContainerBlockioIoServiceTimeRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoServiceTimeRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoServiceTimeRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_service_time_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -228,34 +138,12 @@ type ContainerBlockioIoServicedRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoServicedRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoServicedRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoServicedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServicedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServicedRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_serviced_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -278,34 +166,12 @@ type ContainerBlockioIoTimeRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoTimeRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoTimeRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoTimeRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_time_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -328,34 +194,12 @@ type ContainerBlockioIoWaitTimeRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioIoWaitTimeRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioIoWaitTimeRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.io_wait_time_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -378,34 +222,12 @@ type ContainerBlockioSectorsRecursiveMetricConfig struct {
 }
 
 func (ms *ContainerBlockioSectorsRecursiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerBlockioSectorsRecursiveMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerBlockioSectorsRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioSectorsRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioSectorsRecursiveMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric container.blockio.sectors_recursive doesn't have an attribute %v, valid attributes: [device_major, device_minor, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -416,16 +238,7 @@ type ContainerCPULimitMetricConfig struct {
 }
 
 func (ms *ContainerCPULimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -436,16 +249,7 @@ type ContainerCPULogicalCountMetricConfig struct {
 }
 
 func (ms *ContainerCPULogicalCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -456,16 +260,7 @@ type ContainerCPUSharesMetricConfig struct {
 }
 
 func (ms *ContainerCPUSharesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -476,16 +271,7 @@ type ContainerCPUThrottlingDataPeriodsMetricConfig struct {
 }
 
 func (ms *ContainerCPUThrottlingDataPeriodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -496,16 +282,7 @@ type ContainerCPUThrottlingDataThrottledPeriodsMetricConfig struct {
 }
 
 func (ms *ContainerCPUThrottlingDataThrottledPeriodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -516,16 +293,7 @@ type ContainerCPUThrottlingDataThrottledTimeMetricConfig struct {
 }
 
 func (ms *ContainerCPUThrottlingDataThrottledTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -536,16 +304,7 @@ type ContainerCPUUsageKernelmodeMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageKernelmodeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -566,34 +325,12 @@ type ContainerCPUUsagePercpuMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsagePercpuMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerCPUUsagePercpuMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerCPUUsagePercpuMetricAttributeKeyCore:
-		default:
-			return fmt.Errorf("metric container.cpu.usage.percpu doesn't have an attribute %v, valid attributes: [core]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -604,16 +341,7 @@ type ContainerCPUUsageSystemMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageSystemMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -624,16 +352,7 @@ type ContainerCPUUsageTotalMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -644,16 +363,7 @@ type ContainerCPUUsageUsermodeMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageUsermodeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -664,16 +374,7 @@ type ContainerCPUUtilizationMetricConfig struct {
 }
 
 func (ms *ContainerCPUUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -684,16 +385,7 @@ type ContainerMemoryActiveAnonMetricConfig struct {
 }
 
 func (ms *ContainerMemoryActiveAnonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -704,16 +396,7 @@ type ContainerMemoryActiveFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryActiveFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -724,16 +407,7 @@ type ContainerMemoryAnonMetricConfig struct {
 }
 
 func (ms *ContainerMemoryAnonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -744,16 +418,7 @@ type ContainerMemoryCacheMetricConfig struct {
 }
 
 func (ms *ContainerMemoryCacheMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -764,16 +429,7 @@ type ContainerMemoryDirtyMetricConfig struct {
 }
 
 func (ms *ContainerMemoryDirtyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -784,16 +440,7 @@ type ContainerMemoryFailsMetricConfig struct {
 }
 
 func (ms *ContainerMemoryFailsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -804,16 +451,7 @@ type ContainerMemoryFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -824,16 +462,7 @@ type ContainerMemoryHierarchicalMemoryLimitMetricConfig struct {
 }
 
 func (ms *ContainerMemoryHierarchicalMemoryLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -844,16 +473,7 @@ type ContainerMemoryHierarchicalMemswLimitMetricConfig struct {
 }
 
 func (ms *ContainerMemoryHierarchicalMemswLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -864,16 +484,7 @@ type ContainerMemoryInactiveAnonMetricConfig struct {
 }
 
 func (ms *ContainerMemoryInactiveAnonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -884,16 +495,7 @@ type ContainerMemoryInactiveFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryInactiveFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -904,16 +506,7 @@ type ContainerMemoryMappedFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryMappedFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -924,16 +517,7 @@ type ContainerMemoryPercentMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPercentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -944,16 +528,7 @@ type ContainerMemoryPgfaultMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPgfaultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -964,16 +539,7 @@ type ContainerMemoryPgmajfaultMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPgmajfaultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -984,16 +550,7 @@ type ContainerMemoryPgpginMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPgpginMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1004,16 +561,7 @@ type ContainerMemoryPgpgoutMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPgpgoutMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1024,16 +572,7 @@ type ContainerMemoryRssMetricConfig struct {
 }
 
 func (ms *ContainerMemoryRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1044,16 +583,7 @@ type ContainerMemoryRssHugeMetricConfig struct {
 }
 
 func (ms *ContainerMemoryRssHugeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1064,16 +594,7 @@ type ContainerMemoryTotalActiveAnonMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalActiveAnonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1084,16 +605,7 @@ type ContainerMemoryTotalActiveFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalActiveFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1104,16 +616,7 @@ type ContainerMemoryTotalCacheMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalCacheMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1124,16 +627,7 @@ type ContainerMemoryTotalDirtyMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalDirtyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1144,16 +638,7 @@ type ContainerMemoryTotalInactiveAnonMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalInactiveAnonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1164,16 +649,7 @@ type ContainerMemoryTotalInactiveFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalInactiveFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1184,16 +660,7 @@ type ContainerMemoryTotalMappedFileMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalMappedFileMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1204,16 +671,7 @@ type ContainerMemoryTotalPgfaultMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalPgfaultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1224,16 +682,7 @@ type ContainerMemoryTotalPgmajfaultMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalPgmajfaultMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1244,16 +693,7 @@ type ContainerMemoryTotalPgpginMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalPgpginMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1264,16 +704,7 @@ type ContainerMemoryTotalPgpgoutMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalPgpgoutMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1284,16 +715,7 @@ type ContainerMemoryTotalRssMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1304,16 +726,7 @@ type ContainerMemoryTotalRssHugeMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalRssHugeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1324,16 +737,7 @@ type ContainerMemoryTotalUnevictableMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalUnevictableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1344,16 +748,7 @@ type ContainerMemoryTotalWritebackMetricConfig struct {
 }
 
 func (ms *ContainerMemoryTotalWritebackMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1364,16 +759,7 @@ type ContainerMemoryUnevictableMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUnevictableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1384,16 +770,7 @@ type ContainerMemoryUsageLimitMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1404,16 +781,7 @@ type ContainerMemoryUsageMaxMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1424,16 +792,7 @@ type ContainerMemoryUsageTotalMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1444,16 +803,7 @@ type ContainerMemoryWritebackMetricConfig struct {
 }
 
 func (ms *ContainerMemoryWritebackMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1474,34 +824,12 @@ type ContainerNetworkIoUsageRxBytesMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageRxBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageRxBytesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageRxBytesMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.rx_bytes doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1522,34 +850,12 @@ type ContainerNetworkIoUsageRxDroppedMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageRxDroppedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageRxDroppedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageRxDroppedMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.rx_dropped doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1570,34 +876,12 @@ type ContainerNetworkIoUsageRxErrorsMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageRxErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageRxErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageRxErrorsMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.rx_errors doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1618,34 +902,12 @@ type ContainerNetworkIoUsageRxPacketsMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageRxPacketsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageRxPacketsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageRxPacketsMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.rx_packets doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1666,34 +928,12 @@ type ContainerNetworkIoUsageTxBytesMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageTxBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageTxBytesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageTxBytesMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.tx_bytes doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1714,34 +954,12 @@ type ContainerNetworkIoUsageTxDroppedMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageTxDroppedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageTxDroppedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageTxDroppedMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.tx_dropped doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1762,34 +980,12 @@ type ContainerNetworkIoUsageTxErrorsMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageTxErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageTxErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageTxErrorsMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.tx_errors doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1810,34 +1006,12 @@ type ContainerNetworkIoUsageTxPacketsMetricConfig struct {
 }
 
 func (ms *ContainerNetworkIoUsageTxPacketsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *ContainerNetworkIoUsageTxPacketsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ContainerNetworkIoUsageTxPacketsMetricAttributeKeyInterface:
-		default:
-			return fmt.Errorf("metric container.network.io.usage.tx_packets doesn't have an attribute %v, valid attributes: [interface]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1848,16 +1022,7 @@ type ContainerPidsCountMetricConfig struct {
 }
 
 func (ms *ContainerPidsCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1868,16 +1033,7 @@ type ContainerPidsLimitMetricConfig struct {
 }
 
 func (ms *ContainerPidsLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1888,16 +1044,7 @@ type ContainerRestartsMetricConfig struct {
 }
 
 func (ms *ContainerRestartsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1908,16 +1055,7 @@ type ContainerUptimeMetricConfig struct {
 }
 
 func (ms *ContainerUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1996,257 +1134,7 @@ type MetricsConfig struct {
 	ContainerUptime                            ContainerUptimeMetricConfig                            `mapstructure:"container.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ContainerBlockioIoMergedRecursive: ContainerBlockioIoMergedRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoMergedRecursiveMetricAttributeKey{ContainerBlockioIoMergedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoMergedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoMergedRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoQueuedRecursive: ContainerBlockioIoQueuedRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoQueuedRecursiveMetricAttributeKey{ContainerBlockioIoQueuedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoQueuedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoQueuedRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoServiceBytesRecursive: ContainerBlockioIoServiceBytesRecursiveMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoServiceBytesRecursiveMetricAttributeKey{ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServiceBytesRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoServiceTimeRecursive: ContainerBlockioIoServiceTimeRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoServiceTimeRecursiveMetricAttributeKey{ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServiceTimeRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoServicedRecursive: ContainerBlockioIoServicedRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoServicedRecursiveMetricAttributeKey{ContainerBlockioIoServicedRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoServicedRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoServicedRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoTimeRecursive: ContainerBlockioIoTimeRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoTimeRecursiveMetricAttributeKey{ContainerBlockioIoTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoTimeRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioIoWaitTimeRecursive: ContainerBlockioIoWaitTimeRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioIoWaitTimeRecursiveMetricAttributeKey{ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioIoWaitTimeRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerBlockioSectorsRecursive: ContainerBlockioSectorsRecursiveMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerBlockioSectorsRecursiveMetricAttributeKey{ContainerBlockioSectorsRecursiveMetricAttributeKeyDeviceMajor, ContainerBlockioSectorsRecursiveMetricAttributeKeyDeviceMinor, ContainerBlockioSectorsRecursiveMetricAttributeKeyOperation},
-		},
-		ContainerCPULimit: ContainerCPULimitMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPULogicalCount: ContainerCPULogicalCountMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUShares: ContainerCPUSharesMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUThrottlingDataPeriods: ContainerCPUThrottlingDataPeriodsMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUThrottlingDataThrottledPeriods: ContainerCPUThrottlingDataThrottledPeriodsMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUThrottlingDataThrottledTime: ContainerCPUThrottlingDataThrottledTimeMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUUsageKernelmode: ContainerCPUUsageKernelmodeMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUsagePercpu: ContainerCPUUsagePercpuMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerCPUUsagePercpuMetricAttributeKey{ContainerCPUUsagePercpuMetricAttributeKeyCore},
-		},
-		ContainerCPUUsageSystem: ContainerCPUUsageSystemMetricConfig{
-			Enabled: false,
-		},
-		ContainerCPUUsageTotal: ContainerCPUUsageTotalMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUsageUsermode: ContainerCPUUsageUsermodeMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUtilization: ContainerCPUUtilizationMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryActiveAnon: ContainerMemoryActiveAnonMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryActiveFile: ContainerMemoryActiveFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryAnon: ContainerMemoryAnonMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryCache: ContainerMemoryCacheMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryDirty: ContainerMemoryDirtyMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryFails: ContainerMemoryFailsMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryFile: ContainerMemoryFileMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryHierarchicalMemoryLimit: ContainerMemoryHierarchicalMemoryLimitMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryHierarchicalMemswLimit: ContainerMemoryHierarchicalMemswLimitMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryInactiveAnon: ContainerMemoryInactiveAnonMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryInactiveFile: ContainerMemoryInactiveFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryMappedFile: ContainerMemoryMappedFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryPercent: ContainerMemoryPercentMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryPgfault: ContainerMemoryPgfaultMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryPgmajfault: ContainerMemoryPgmajfaultMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryPgpgin: ContainerMemoryPgpginMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryPgpgout: ContainerMemoryPgpgoutMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryRss: ContainerMemoryRssMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryRssHuge: ContainerMemoryRssHugeMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalActiveAnon: ContainerMemoryTotalActiveAnonMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalActiveFile: ContainerMemoryTotalActiveFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalCache: ContainerMemoryTotalCacheMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryTotalDirty: ContainerMemoryTotalDirtyMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalInactiveAnon: ContainerMemoryTotalInactiveAnonMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalInactiveFile: ContainerMemoryTotalInactiveFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalMappedFile: ContainerMemoryTotalMappedFileMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalPgfault: ContainerMemoryTotalPgfaultMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalPgmajfault: ContainerMemoryTotalPgmajfaultMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalPgpgin: ContainerMemoryTotalPgpginMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalPgpgout: ContainerMemoryTotalPgpgoutMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalRss: ContainerMemoryTotalRssMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalRssHuge: ContainerMemoryTotalRssHugeMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalUnevictable: ContainerMemoryTotalUnevictableMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryTotalWriteback: ContainerMemoryTotalWritebackMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryUnevictable: ContainerMemoryUnevictableMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryUsageLimit: ContainerMemoryUsageLimitMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryUsageMax: ContainerMemoryUsageMaxMetricConfig{
-			Enabled: false,
-		},
-		ContainerMemoryUsageTotal: ContainerMemoryUsageTotalMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryWriteback: ContainerMemoryWritebackMetricConfig{
-			Enabled: false,
-		},
-		ContainerNetworkIoUsageRxBytes: ContainerNetworkIoUsageRxBytesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageRxBytesMetricAttributeKey{ContainerNetworkIoUsageRxBytesMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageRxDropped: ContainerNetworkIoUsageRxDroppedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageRxDroppedMetricAttributeKey{ContainerNetworkIoUsageRxDroppedMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageRxErrors: ContainerNetworkIoUsageRxErrorsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageRxErrorsMetricAttributeKey{ContainerNetworkIoUsageRxErrorsMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageRxPackets: ContainerNetworkIoUsageRxPacketsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageRxPacketsMetricAttributeKey{ContainerNetworkIoUsageRxPacketsMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageTxBytes: ContainerNetworkIoUsageTxBytesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageTxBytesMetricAttributeKey{ContainerNetworkIoUsageTxBytesMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageTxDropped: ContainerNetworkIoUsageTxDroppedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageTxDroppedMetricAttributeKey{ContainerNetworkIoUsageTxDroppedMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageTxErrors: ContainerNetworkIoUsageTxErrorsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageTxErrorsMetricAttributeKey{ContainerNetworkIoUsageTxErrorsMetricAttributeKeyInterface},
-		},
-		ContainerNetworkIoUsageTxPackets: ContainerNetworkIoUsageTxPacketsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []ContainerNetworkIoUsageTxPacketsMetricAttributeKey{ContainerNetworkIoUsageTxPacketsMetricAttributeKeyInterface},
-		},
-		ContainerPidsCount: ContainerPidsCountMetricConfig{
-			Enabled: false,
-		},
-		ContainerPidsLimit: ContainerPidsLimitMetricConfig{
-			Enabled: false,
-		},
-		ContainerRestarts: ContainerRestartsMetricConfig{
-			Enabled: false,
-		},
-		ContainerUptime: ContainerUptimeMetricConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -2263,14 +1151,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2286,29 +1167,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ContainerCommandLine: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerHostname: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerImageName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerRuntime: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for docker_stats metrics builder.
@@ -2318,13 +1178,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

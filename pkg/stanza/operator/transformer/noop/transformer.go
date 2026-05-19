@@ -16,10 +16,12 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.WriteBatch(ctx, entries)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will forward the entry to the next output without any alterations.
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.Write(ctx, entry)
+	_ = "STUB: not implemented"
+	return nil
 }

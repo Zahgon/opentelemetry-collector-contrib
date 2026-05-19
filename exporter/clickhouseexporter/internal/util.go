@@ -4,64 +4,21 @@
 package internal // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter/internal"
 
 import (
-	"slices"
-	"strings"
-
 	"github.com/ClickHouse/clickhouse-go/v2/lib/column"
-	"github.com/ClickHouse/clickhouse-go/v2/lib/column/orderedmap"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
-func GetServiceName(resAttr pcommon.Map) string {
-	if v, ok := resAttr.Get(string(conventions.ServiceNameKey)); ok {
-		return v.AsString()
-	}
-
-	return ""
-}
+func GetServiceName(resAttr pcommon.Map) string { _ = "STUB: not implemented"; return "" }
 
 func AttributesToMap(attributes pcommon.Map) column.IterableOrderedMap {
-	return orderedmap.CollectN(func(yield func(string, string) bool) {
-		attributes.Range(func(k string, v pcommon.Value) bool {
-			return yield(k, v.AsString())
-		})
-	}, attributes.Len())
+	_ = "STUB: not implemented"
+	return *new(column.IterableOrderedMap)
 }
 
 // UniqueFlattenedAttributes converts a pcommon.Map into a slice of attributes. Paths are flattened and sorted.
-func UniqueFlattenedAttributes(m pcommon.Map) []string {
-	mLen := m.Len()
-	if mLen == 0 {
-		return nil
-	}
-
-	pathsSet := make(map[string]struct{}, mLen)
-	paths := make([]string, 0, mLen)
-
-	uniqueFlattenedAttributesNested("", &pathsSet, &paths, m)
-	slices.Sort(paths)
-
-	return paths
-}
+func UniqueFlattenedAttributes(m pcommon.Map) []string { _ = "STUB: not implemented"; return nil }
 
 func uniqueFlattenedAttributesNested(pathPrefix string, pathsSet *map[string]struct{}, paths *[]string, m pcommon.Map) {
-	m.Range(func(path string, v pcommon.Value) bool {
-		if pathPrefix != "" {
-			var b strings.Builder
-			b.WriteString(pathPrefix)
-			b.WriteRune('.')
-			b.WriteString(path)
-			path = b.String()
-		}
-
-		if v.Type() == pcommon.ValueTypeMap {
-			uniqueFlattenedAttributesNested(path, pathsSet, paths, v.Map())
-		} else if _, ok := (*pathsSet)[path]; !ok {
-			(*pathsSet)[path] = struct{}{}
-			*paths = append(*paths, path)
-		}
-
-		return true
-	})
+	_ = "STUB: not implemented"
+	return
 }

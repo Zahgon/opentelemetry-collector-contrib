@@ -11,10 +11,8 @@ import (
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/traceutil"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/pdatautil"
 )
 
@@ -32,111 +30,50 @@ type logsConnector struct {
 }
 
 func newLogsConnector(logger *zap.Logger, config component.Config) *logsConnector {
-	cfg := config.(*Config)
-
-	return &logsConnector{
-		logger:     logger,
-		config:     *cfg,
-		dimensions: newDimensions(cfg.Dimensions),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Capabilities implements the consumer interface.
 func (*logsConnector) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 // ConsumeTraces implements the consumer.Traces interface.
 // It aggregates the trace data to generate logs.
 func (c *logsConnector) ConsumeTraces(ctx context.Context, traces ptrace.Traces) error {
-	ld := plog.NewLogs()
-	for i := 0; i < traces.ResourceSpans().Len(); i++ {
-		rspans := traces.ResourceSpans().At(i)
-		resourceAttr := rspans.Resource().Attributes()
-		serviceAttr, ok := resourceAttr.Get(string(conventions.ServiceNameKey))
-		if !ok {
-			continue
-		}
-
-		serviceName := serviceAttr.Str()
-		ilsSlice := rspans.ScopeSpans()
-		for j := 0; j < ilsSlice.Len(); j++ {
-			sl := c.newScopeLogs(ld)
-			ils := ilsSlice.At(j)
-			ils.Scope().CopyTo(sl.Scope())
-			spans := ils.Spans()
-			for k := 0; k < spans.Len(); k++ {
-				span := spans.At(k)
-				if span.Kind() == ptrace.SpanKindClient && spanDuration(span) >= c.config.Threshold.Nanoseconds() {
-					// through db.Statement exists represents db client
-					if _, dbSystem := findAttributeValue(dbSystemKey, span.Attributes()); dbSystem {
-						for _, db := range c.config.DBSystem {
-							if db == getValue(span.Attributes(), dbSystemKey) {
-								c.attrToLogRecord(sl, serviceName, span, resourceAttr)
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return c.exportLogs(ctx, ld)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// through db.Statement exists represents db client
 
 // spanDuration returns the duration of the given span in nano
-func spanDuration(span ptrace.Span) int64 {
-	return int64(span.EndTimestamp()) - int64(span.StartTimestamp())
-}
+func spanDuration(span ptrace.Span) int64 { _ = "STUB: not implemented"; return 0 }
 
 func (c *logsConnector) exportLogs(ctx context.Context, ld plog.Logs) error {
-	if err := c.logsConsumer.ConsumeLogs(ctx, ld); err != nil {
-		c.logger.Error("failed to convert slow sql to logs", zap.Error(err))
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*logsConnector) newScopeLogs(ld plog.Logs) plog.ScopeLogs {
-	rl := ld.ResourceLogs().AppendEmpty()
-	sl := rl.ScopeLogs().AppendEmpty()
-	return sl
+	_ = "STUB: not implemented"
+	return *new(plog.ScopeLogs)
 }
 
 func (c *logsConnector) attrToLogRecord(sl plog.ScopeLogs, serviceName string, span ptrace.Span, resourceAttrs pcommon.Map) plog.LogRecord {
-	logRecord := sl.LogRecords().AppendEmpty()
-
-	logRecord.SetTimestamp(span.StartTimestamp())
-	logRecord.SetSeverityNumber(plog.SeverityNumberError)
-	logRecord.SetSeverityText("SLOW")
-	logRecord.SetSpanID(span.SpanID())
-	logRecord.SetTraceID(span.TraceID())
-	spanAttrs := span.Attributes()
-
-	// Copy span attributes to the log record.
-	spanAttrs.CopyTo(logRecord.Attributes())
-
-	// Add common attributes to the log record.
-	logRecord.Attributes().PutStr(spanNameKey, span.Name())
-	logRecord.Attributes().PutStr(spanKindKey, traceutil.SpanKindStr(span.Kind()))
-	logRecord.Attributes().PutStr(statusCodeKey, traceutil.StatusCodeStr(span.Status().Code()))
-	logRecord.Attributes().PutStr(serviceNameKey, serviceName)
-	logRecord.Attributes().PutStr(dbStatementKey, getValue(spanAttrs, dbStatementKey))
-	logRecord.Attributes().PutInt(statementExecDuration, spanDuration(span)) // nanos
-
-	// Add configured dimension attributes to the log record.
-	for _, d := range c.dimensions {
-		if v, ok := pdatautil.GetDimensionValue(d, spanAttrs, resourceAttrs); ok {
-			logRecord.Attributes().PutStr(d.Name, v.Str())
-		}
-	}
-
-	return logRecord
+	_ = "STUB: not implemented"
+	return *new(plog.LogRecord)
 }
+
+// Copy span attributes to the log record.
+
+// Add common attributes to the log record.
+
+// nanos
+
+// Add configured dimension attributes to the log record.
 
 // getValue returns the value of the attribute with the given key.
-func getValue(attr pcommon.Map, key string) string {
-	if attrVal, ok := attr.Get(key); ok {
-		return attrVal.Str()
-	}
-	return ""
-}
+func getValue(attr pcommon.Map, key string) string { _ = "STUB: not implemented"; return "" }

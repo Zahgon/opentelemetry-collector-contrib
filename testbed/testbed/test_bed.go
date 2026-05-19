@@ -13,25 +13,12 @@
 package testbed // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 
 import (
-	"log"
-	"os"
-	"path/filepath"
 	"testing"
 )
 
-func Start(resultsSummary TestResultsSummary) error {
-	dir, err := filepath.Abs("results")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	resultsSummary.Init(dir)
+func Start(resultsSummary TestResultsSummary) error { _ = "STUB: not implemented"; return nil }
 
-	return err
-}
-
-func SaveResults(resultsSummary TestResultsSummary) {
-	resultsSummary.Save()
-}
+func SaveResults(resultsSummary TestResultsSummary) { _ = "STUB: not implemented"; return }
 
 const testBedEnableEnvVarName = "RUN_TESTBED"
 
@@ -55,23 +42,8 @@ var GlobalConfig = struct {
 
 // DoTestMain is intended to be run from TestMain somewhere in the test suit.
 // This enables the testbed.
-func DoTestMain(m *testing.M, resultsSummary TestResultsSummary) {
-	testBedConfigFile := os.Getenv(testBedEnableEnvVarName)
-	if testBedConfigFile == "" {
-		log.Printf(testBedEnableEnvVarName + " is not defined, skipping E2E tests.")
-		os.Exit(0)
-	}
+func DoTestMain(m *testing.M, resultsSummary TestResultsSummary) { _ = "STUB: not implemented"; return }
 
-	// Load the test bed config first.
-	err := Start(resultsSummary)
-	if err != nil {
-		log.Fatal(err.Error())
-	}
+// Load the test bed config first.
 
-	res := m.Run()
-
-	SaveResults(resultsSummary)
-
-	// Now run all tests.
-	os.Exit(res)
-}
+// Now run all tests.

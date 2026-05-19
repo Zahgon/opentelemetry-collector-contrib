@@ -4,8 +4,6 @@
 package pprofreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/pprofreceiver"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
@@ -74,15 +72,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if !c.Remote.HasValue() && !c.File.HasValue() && !c.Self.HasValue() && !c.Server.HasValue() {
-		return errors.New("at least one of remote, file, self, or server must be configured")
-	}
-	if c.Remote.HasValue() && c.Remote.Get().Endpoint == "" {
-		return errors.New("remote.endpoint must be specified")
-	}
-	if c.File.HasValue() && c.File.Get().Include == "" {
-		return errors.New("file.include must be specified")
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

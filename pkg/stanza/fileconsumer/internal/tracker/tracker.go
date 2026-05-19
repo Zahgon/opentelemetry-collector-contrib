@@ -6,10 +6,8 @@ package tracker // import "github.com/open-telemetry/opentelemetry-collector-con
 import (
 	"context"
 	"os"
-	"slices"
 
 	"go.opentelemetry.io/collector/component"
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/internal/archive"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/internal/fileset"
@@ -59,116 +57,73 @@ type fileTracker struct {
 }
 
 func NewFileTracker(ctx context.Context, set component.TelemetrySettings, maxBatchFiles, pollsToArchive int, persister operator.Persister) Tracker {
-	knownFiles := make([]*fileset.Fileset[*reader.Metadata], 3)
-	for i := range knownFiles {
-		knownFiles[i] = fileset.New[*reader.Metadata](maxBatchFiles)
-	}
-	set.Logger = set.Logger.With(zap.String("tracker", "fileTracker"))
-
-	t := &fileTracker{
-		set:               set,
-		maxBatchFiles:     maxBatchFiles,
-		currentPollFiles:  fileset.New[*reader.Reader](maxBatchFiles),
-		previousPollFiles: fileset.New[*reader.Reader](maxBatchFiles),
-		knownFiles:        knownFiles,
-		archive:           archive.New(ctx, set.Logger.Named("archive"), pollsToArchive, persister),
-	}
-	return t
+	_ = "STUB: not implemented"
+	return *new(Tracker)
 }
 
-func (*fileTracker) Name() string {
-	return FileTracker
-}
+func (*fileTracker) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (t *fileTracker) Add(reader *reader.Reader) {
+	_ = "STUB: not implemented"
 	// add a new reader for tracking
-	t.currentPollFiles.Add(reader)
+	return
 }
 
 func (t *fileTracker) GetCurrentFile(fp *fingerprint.Fingerprint) *reader.Reader {
-	return t.currentPollFiles.Match(fp, fileset.Equal)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *fileTracker) GetOpenFile(fp *fingerprint.Fingerprint) *reader.Reader {
-	return t.previousPollFiles.Match(fp, fileset.StartsWith)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *fileTracker) GetClosedFile(fp *fingerprint.Fingerprint) *reader.Metadata {
-	for i := 0; i < len(t.knownFiles); i++ {
-		if oldMetadata := t.knownFiles[i].Match(fp, fileset.StartsWith); oldMetadata != nil {
-			return oldMetadata
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (t *fileTracker) AddUnmatched(file *os.File, fp *fingerprint.Fingerprint) {
+	_ = "STUB: not implemented"
 	// exclude duplicate fingerprints
-	if slices.ContainsFunc(t.unmatchedFps, fp.Equal) {
-		t.set.Logger.Debug("Skipping duplicate file", zap.String("path", file.Name()))
-		return
-	}
-	t.unmatchedFps = append(t.unmatchedFps, fp)
-	t.unmatchedFiles = append(t.unmatchedFiles, file)
+	return
 }
 
 func (t *fileTracker) LookupArchive(ctx context.Context) ([]*os.File, []*fingerprint.Fingerprint, []*reader.Metadata) {
+	_ = "STUB: not implemented"
 	// LookupArchive performs fingerprint matching against the archive and returns matched metadata, files and fingerprints.
-	metadata := t.archive.FindFiles(ctx, t.unmatchedFps)
-	return t.unmatchedFiles, t.unmatchedFps, metadata
+	return nil, nil, nil
 }
 
 func (t *fileTracker) GetMetadata() []*reader.Metadata {
+	_ = "STUB: not implemented"
 	// return all known metadata for checkpoining
-	allCheckpoints := make([]*reader.Metadata, 0, t.TotalReaders())
-	for _, knownFiles := range t.knownFiles {
-		allCheckpoints = append(allCheckpoints, knownFiles.Get()...)
-	}
-
-	for _, r := range t.previousPollFiles.Get() {
-		allCheckpoints = append(allCheckpoints, r.Metadata)
-	}
-	return allCheckpoints
+	return nil
 }
 
-func (t *fileTracker) LoadMetadata(metadata []*reader.Metadata) {
-	t.knownFiles[0].Add(metadata...)
-}
+func (t *fileTracker) LoadMetadata(metadata []*reader.Metadata) { _ = "STUB: not implemented"; return }
 
-func (t *fileTracker) CurrentPollFiles() []*reader.Reader {
-	return t.currentPollFiles.Get()
-}
+func (t *fileTracker) CurrentPollFiles() []*reader.Reader { _ = "STUB: not implemented"; return nil }
 
-func (t *fileTracker) PreviousPollFiles() []*reader.Reader {
-	return t.previousPollFiles.Get()
-}
+func (t *fileTracker) PreviousPollFiles() []*reader.Reader { _ = "STUB: not implemented"; return nil }
 
 func (t *fileTracker) ClosePreviousFiles() (filesClosed int) {
+	_ = "STUB: not implemented"
 	// t.previousPollFiles -> t.knownFiles[0]
-	for r, _ := t.previousPollFiles.Pop(); r != nil; r, _ = t.previousPollFiles.Pop() {
-		t.knownFiles[0].Add(r.Close())
-		filesClosed++
-	}
-	return filesClosed
+	return 0
 }
 
 func (t *fileTracker) EndPoll(ctx context.Context) {
+	_ = "STUB: not implemented"
 	// shift the filesets at end of every poll() call
 	// t.knownFiles[0] -> t.knownFiles[1] -> t.knownFiles[2]
-
-	// Instead of throwing it away, archive it.
-	t.archive.WriteFiles(ctx, t.knownFiles[2])
-	copy(t.knownFiles[1:], t.knownFiles)
-	t.knownFiles[0] = fileset.New[*reader.Metadata](t.maxBatchFiles)
+	return
 }
 
-func (t *fileTracker) TotalReaders() int {
-	total := t.previousPollFiles.Len()
-	for i := 0; i < len(t.knownFiles); i++ {
-		total += t.knownFiles[i].Len()
-	}
-	return total
-}
+// Instead of throwing it away, archive it.
+
+func (t *fileTracker) TotalReaders() int { _ = "STUB: not implemented"; return 0 }
 
 // noStateTracker only tracks the current polled files. Once the poll is
 // complete and telemetry is consumed, the tracked files are closed. The next
@@ -182,62 +137,55 @@ type noStateTracker struct {
 }
 
 func NewNoStateTracker(set component.TelemetrySettings, maxBatchFiles int) Tracker {
-	set.Logger = set.Logger.With(zap.String("tracker", "noStateTracker"))
-	return &noStateTracker{
-		set:              set,
-		maxBatchFiles:    maxBatchFiles,
-		currentPollFiles: fileset.New[*reader.Reader](maxBatchFiles),
-	}
+	_ = "STUB: not implemented"
+	return *new(Tracker)
 }
 
-func (*noStateTracker) Name() string {
-	return NoStateTracker
-}
+func (*noStateTracker) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (t *noStateTracker) Add(reader *reader.Reader) {
+	_ = "STUB: not implemented"
 	// add a new reader for tracking
-	t.currentPollFiles.Add(reader)
+	return
 }
 
-func (t *noStateTracker) CurrentPollFiles() []*reader.Reader {
-	return t.currentPollFiles.Get()
-}
+func (t *noStateTracker) CurrentPollFiles() []*reader.Reader { _ = "STUB: not implemented"; return nil }
 
 func (t *noStateTracker) GetCurrentFile(fp *fingerprint.Fingerprint) *reader.Reader {
-	return t.currentPollFiles.Match(fp, fileset.Equal)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (t *noStateTracker) EndConsume() (filesClosed int) {
-	for r, _ := t.currentPollFiles.Pop(); r != nil; r, _ = t.currentPollFiles.Pop() {
-		r.Close()
-		filesClosed++
-	}
-	t.unmatchedFiles = make([]*os.File, 0)
-	t.unmatchedFps = make([]*fingerprint.Fingerprint, 0)
-	return filesClosed
+func (t *noStateTracker) EndConsume() (filesClosed int) { _ = "STUB: not implemented"; return 0 }
+
+func (*noStateTracker) GetOpenFile(*fingerprint.Fingerprint) *reader.Reader {
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (*noStateTracker) GetOpenFile(*fingerprint.Fingerprint) *reader.Reader { return nil }
+func (*noStateTracker) GetClosedFile(*fingerprint.Fingerprint) *reader.Metadata {
+	_ = "STUB: not implemented"
+	return nil
+}
 
-func (*noStateTracker) GetClosedFile(*fingerprint.Fingerprint) *reader.Metadata { return nil }
+func (*noStateTracker) GetMetadata() []*reader.Metadata { _ = "STUB: not implemented"; return nil }
 
-func (*noStateTracker) GetMetadata() []*reader.Metadata { return nil }
+func (*noStateTracker) LoadMetadata([]*reader.Metadata) { _ = "STUB: not implemented"; return }
 
-func (*noStateTracker) LoadMetadata([]*reader.Metadata) {}
+func (*noStateTracker) PreviousPollFiles() []*reader.Reader { _ = "STUB: not implemented"; return nil }
 
-func (*noStateTracker) PreviousPollFiles() []*reader.Reader { return nil }
+func (*noStateTracker) ClosePreviousFiles() int { _ = "STUB: not implemented"; return 0 }
 
-func (*noStateTracker) ClosePreviousFiles() int { return 0 }
+func (*noStateTracker) EndPoll(context.Context) { _ = "STUB: not implemented"; return }
 
-func (*noStateTracker) EndPoll(context.Context) {}
-
-func (*noStateTracker) TotalReaders() int { return 0 }
+func (*noStateTracker) TotalReaders() int { _ = "STUB: not implemented"; return 0 }
 
 func (t *noStateTracker) AddUnmatched(file *os.File, fp *fingerprint.Fingerprint) {
-	t.unmatchedFiles = append(t.unmatchedFiles, file)
-	t.unmatchedFps = append(t.unmatchedFps, fp)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (t *noStateTracker) LookupArchive(context.Context) ([]*os.File, []*fingerprint.Fingerprint, []*reader.Metadata) {
-	return t.unmatchedFiles, t.unmatchedFps, make([]*reader.Metadata, len(t.unmatchedFps))
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }

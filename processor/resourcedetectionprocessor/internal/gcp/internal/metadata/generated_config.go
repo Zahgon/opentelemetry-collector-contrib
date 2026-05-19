@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -49,63 +42,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		CloudAccountID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudAvailabilityZone: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudPlatform: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudProvider: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudRegion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FaasInstance: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FaasName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FaasVersion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		GcpCloudRunJobExecution: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		GcpCloudRunJobTaskIndex: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		GcpGceInstanceHostname: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		GcpGceInstanceName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		GcpGceInstanceGroupManagerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		GcpGceInstanceGroupManagerRegion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		GcpGceInstanceGroupManagerZone: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HostID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HostType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sClusterName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

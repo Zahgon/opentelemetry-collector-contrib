@@ -4,11 +4,6 @@
 package redfishreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver"
 
 import (
-	"errors"
-	"net/url"
-	"strings"
-	"time"
-
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
 
@@ -39,27 +34,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (cfg *Config) Validate() error {
-	if len(cfg.Servers) == 0 {
-		return errors.New("servers must not be empty")
-	}
-
-	for i := range cfg.Servers {
-		if _, err := url.ParseRequestURI(cfg.Servers[i].BaseURL); err != nil {
-			return err
-		}
-
-		if strings.TrimSpace(cfg.Servers[i].ComputerSystemID) == "" {
-			return errors.New("computer_system_id must not be empty")
-		}
-
-		if _, err := time.ParseDuration(cfg.Servers[i].Timeout); err != nil && cfg.Servers[i].Timeout != "" {
-			return errors.New("invalid server timeout")
-		}
-
-		if len(cfg.Servers[i].Resources) == 0 {
-			return errors.New("resources must not be empty")
-		}
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

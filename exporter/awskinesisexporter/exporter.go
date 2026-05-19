@@ -5,13 +5,9 @@ package awskinesisexporter // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"context"
-	"errors"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	awsconfig "github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/credentials/stscreds"
 	"github.com/aws/aws-sdk-go-v2/service/kinesis"
-	"github.com/aws/aws-sdk-go-v2/service/sts"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -35,106 +31,28 @@ type options struct {
 }
 
 func createExporter(ctx context.Context, c component.Config, log *zap.Logger, opts ...func(opt *options)) (*kinesisExporter, error) {
-	options := &options{
-		NewKinesisClient: kinesis.NewFromConfig,
-	}
-
-	for _, opt := range opts {
-		opt(options)
-	}
-
-	conf, ok := c.(*Config)
-	if !ok || conf == nil {
-		return nil, errors.New("incorrect config provided")
-	}
-
-	var configOpts []func(*awsconfig.LoadOptions) error
-	if conf.AWS.Region != "" {
-		configOpts = append(configOpts, func(lo *awsconfig.LoadOptions) error {
-			lo.Region = conf.AWS.Region
-			return nil
-		})
-	}
-
-	awsconf, err := awsconfig.LoadDefaultConfig(ctx, configOpts...)
-	if err != nil {
-		return nil, err
-	}
-
-	var kinesisOpts []func(*kinesis.Options)
-	if conf.AWS.Role != "" {
-		kinesisOpts = append(kinesisOpts, func(o *kinesis.Options) {
-			roleProvider := stscreds.NewAssumeRoleProvider(
-				sts.NewFromConfig(awsconf),
-				conf.AWS.Role,
-			)
-			o.Credentials = aws.NewCredentialsCache(roleProvider)
-		})
-	}
-
-	if conf.AWS.KinesisEndpoint != "" {
-		kinesisOpts = append(kinesisOpts,
-			func(o *kinesis.Options) {
-				o.BaseEndpoint = aws.String(conf.AWS.KinesisEndpoint)
-			},
-		)
-	}
-
-	producer, err := producer.NewBatcher(
-		options.NewKinesisClient(awsconf, kinesisOpts...),
-		conf.AWS.StreamName,
-		producer.WithLogger(log),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	encoder, err := batch.NewEncoder(
-		conf.Name,
-		batch.WithMaxRecordSize(conf.MaxRecordSize),
-		batch.WithMaxRecordsPerBatch(conf.MaxRecordsPerBatch),
-		batch.WithCompressionType(conf.Compression),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	if conf.Name == "otlp_json" {
-		log.Info("otlp_json is considered experimental and should not be used in a production environment")
-	}
-
-	return &kinesisExporter{
-		producer: producer,
-		batcher:  encoder,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // start validates that the Kinesis stream is available.
 func (e kinesisExporter) start(ctx context.Context, _ component.Host) error {
-	return e.producer.Ready(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ConsumeTraces receives a span batch and exports it to AWS Kinesis
 func (e kinesisExporter) consumeTraces(ctx context.Context, td ptrace.Traces) error {
-	bt, err := e.batcher.Traces(td)
-	if err != nil {
-		return err
-	}
-	return e.producer.Put(ctx, bt)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e kinesisExporter) consumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	bt, err := e.batcher.Metrics(md)
-	if err != nil {
-		return err
-	}
-	return e.producer.Put(ctx, bt)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e kinesisExporter) consumeLogs(ctx context.Context, ld plog.Logs) error {
-	bt, err := e.batcher.Logs(ld)
-	if err != nil {
-		return err
-	}
-	return e.producer.Put(ctx, bt)
+	_ = "STUB: not implemented"
+	return nil
 }

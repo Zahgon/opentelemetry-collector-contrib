@@ -14,8 +14,6 @@
 
 package structure // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/expohisto/structure"
 
-import "fmt"
-
 // DefaultMaxSize is the default maximum number of buckets per
 // positive or negative number range.  The value 160 is specified by
 // OpenTelemetry--yields a maximum relative error of less than 5% for
@@ -47,53 +45,26 @@ type Option interface {
 // WithMaxSize sets the maximum size of each range (positive and/or
 // negative) in the histogram.
 func WithMaxSize(size int32) Option {
-	return maxSize(size)
+	_ = "STUB: not implemented"
+	return *
+
+	// maxSize is an option to set the maximum histogram size.
+	new(Option)
 }
 
-// maxSize is an option to set the maximum histogram size.
 type maxSize int32
 
 // apply implements Option.
-func (ms maxSize) apply(cfg Config) Config {
-	cfg.maxSize = int32(ms)
-	return cfg
-}
+func (ms maxSize) apply(cfg Config) Config { _ = "STUB: not implemented"; return *new(Config) }
 
 // NewConfig returns an exponential histogram configuration with
 // defaults and limits applied.
-func NewConfig(opts ...Option) Config {
-	var cfg Config
-	for _, opt := range opts {
-		cfg = opt.apply(cfg)
-	}
-	return cfg
-}
+func NewConfig(opts ...Option) Config { _ = "STUB: not implemented"; return *new(Config) }
 
 // Validate returns true for valid configurations.
-func (c Config) Valid() bool {
-	_, err := c.Validate()
-	return err == nil
-}
+func (c Config) Valid() bool { _ = "STUB: not implemented"; return false }
 
 // Validate returns the nearest valid Config object to the input and a
 // boolean indicating whether the the input was a valid
 // configurations.
-func (c Config) Validate() (Config, error) {
-	if c.maxSize >= MinSize && c.maxSize <= MaximumMaxSize {
-		return c, nil
-	}
-	if c.maxSize == 0 {
-		c.maxSize = DefaultMaxSize
-		return c, nil
-	}
-	err := fmt.Errorf("invalid histogram size: %d", c.maxSize)
-	switch {
-	case c.maxSize < 0:
-		c.maxSize = DefaultMaxSize
-	case c.maxSize < MinSize:
-		c.maxSize = MinSize
-	case c.maxSize > MaximumMaxSize:
-		c.maxSize = MaximumMaxSize
-	}
-	return c, err
-}
+func (c Config) Validate() (Config, error) { _ = "STUB: not implemented"; return *new(Config), nil }

@@ -123,20 +123,7 @@ const (
 	MappingBodyMap
 )
 
-func (m MappingMode) String() string {
-	switch m {
-	case MappingSS4O:
-		return "ss4o"
-	case MappingECS:
-		return "ecs"
-	case MappingFlattenAttributes:
-		return "flatten_attributes"
-	case MappingBodyMap:
-		return "bodymap"
-	default:
-		return "ss4o"
-	}
-}
+func (m MappingMode) String() string { _ = "STUB: not implemented"; return "" }
 
 var mappingModes = func() map[string]MappingMode {
 	table := map[string]MappingMode{}
@@ -153,57 +140,13 @@ var mappingModes = func() map[string]MappingMode {
 }()
 
 // Validate validates the opensearch server configuration.
-func (cfg *Config) Validate() error {
-	var multiErr []error
-	if cfg.Endpoint == "" {
-		multiErr = append(multiErr, errConfigNoEndpoint)
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.Dataset == "" {
-		multiErr = append(multiErr, errDatasetNoValue)
-	}
-	if cfg.Namespace == "" {
-		multiErr = append(multiErr, errNamespaceNoValue)
-	}
+// Validate LogsIndexTimeFormat if set
 
-	// Validate LogsIndexTimeFormat if set
-	if cfg.LogsIndexTimeFormat != "" {
-		if err := validateTimeFormat(cfg.LogsIndexTimeFormat); err != nil {
-			multiErr = append(multiErr, errLogsIndexTimeFormatInvalid)
-		}
-	}
-
-	// Validate TracesIndexTimeFormat if set
-	if cfg.TracesIndexTimeFormat != "" {
-		if err := validateTimeFormat(cfg.TracesIndexTimeFormat); err != nil {
-			multiErr = append(multiErr, errTracesIndexTimeFormatInvalid)
-		}
-	}
-
-	if cfg.BulkAction != "create" && cfg.BulkAction != "index" {
-		return errBulkActionInvalid
-	}
-
-	if _, ok := mappingModes[cfg.Mode]; !ok {
-		multiErr = append(multiErr, errMappingModeInvalid)
-	}
-
-	return errors.Join(multiErr...)
-}
+// Validate TracesIndexTimeFormat if set
 
 // validateTimeFormat validates a time format string contains only valid tokens and separators
-func validateTimeFormat(format string) error {
-	validTokens := []string{"yyyy", "yy", "MM", "dd", "HH", "mm", "ss"}
-	remaining := format
-	for _, token := range validTokens {
-		remaining = strings.ReplaceAll(remaining, token, "")
-	}
-	// After removing all valid tokens, only allowed separators should remain
-	allowed := "-._+"
-	for _, r := range remaining {
-		if !strings.ContainsRune(allowed, r) {
-			return errors.New("invalid time format")
-		}
-	}
-	return nil
-}
+func validateTimeFormat(format string) error { _ = "STUB: not implemented"; return nil }
+
+// After removing all valid tokens, only allowed separators should remain

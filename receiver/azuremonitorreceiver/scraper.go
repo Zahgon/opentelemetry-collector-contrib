@@ -5,25 +5,15 @@ package azuremonitorreceiver // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"context"
-	"fmt"
-	"maps"
-	"regexp"
-	"slices"
-	"strings"
 	"sync"
 	"time"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/monitor/armmonitor"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armresources/v3"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/resources/armsubscriptions"
-	"github.com/huandu/go-clone"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azuremonitorreceiver/internal/metadata"
 )
@@ -96,9 +86,7 @@ type timeNowIface interface {
 
 type timeWrapper struct{}
 
-func (*timeWrapper) Now() time.Time {
-	return time.Now()
-}
+func (*timeWrapper) Now() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
 
 type storageAccountSpecificConfig struct {
 	askedBlobServices  bool
@@ -108,24 +96,13 @@ type storageAccountSpecificConfig struct {
 }
 
 func newStorageAccountSpecificConfig(services []string) storageAccountSpecificConfig {
-	return storageAccountSpecificConfig{
-		askedBlobServices:  slices.IndexFunc(services, func(s string) bool { return strings.EqualFold(s, "Microsoft.Storage/storageAccounts/blobServices") }) != -1,
-		askedFileServices:  slices.IndexFunc(services, func(s string) bool { return strings.EqualFold(s, "Microsoft.Storage/storageAccounts/fileServices") }) != -1,
-		askedQueueServices: slices.IndexFunc(services, func(s string) bool { return strings.EqualFold(s, "Microsoft.Storage/storageAccounts/queueServices") }) != -1,
-		askedTableServices: slices.IndexFunc(services, func(s string) bool { return strings.EqualFold(s, "Microsoft.Storage/storageAccounts/tableServices") }) != -1,
-	}
+	_ = "STUB: not implemented"
+	return *new(storageAccountSpecificConfig)
 }
 
 func newScraper(conf *Config, settings receiver.Settings) *azureScraper {
-	return &azureScraper{
-		cfg:                          conf,
-		settings:                     settings.TelemetrySettings,
-		mb:                           metadata.NewMetricsBuilder(conf.MetricsBuilderConfig, settings),
-		mutex:                        &sync.Mutex{},
-		time:                         &timeWrapper{},
-		clientOptionsResolver:        newClientOptionsResolver(conf.Cloud),
-		storageAccountSpecificConfig: newStorageAccountSpecificConfig(conf.Services),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type azureScraper struct {
@@ -147,249 +124,55 @@ type azureScraper struct {
 }
 
 func (s *azureScraper) start(_ context.Context, host component.Host) (err error) {
-	if s.cred, err = loadCredentials(s.settings.Logger, s.cfg, host); err != nil {
-		return err
-	}
-
-	s.subscriptions = map[string]*azureSubscription{}
-	s.resources = map[string]map[string]*azureResource{}
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *azureScraper) loadSubscription(sub azureSubscription) {
-	s.resources[sub.SubscriptionID] = make(map[string]*azureResource)
-	s.subscriptions[sub.SubscriptionID] = &azureSubscription{
-		SubscriptionID: sub.SubscriptionID,
-		DisplayName:    sub.DisplayName,
-	}
-}
+func (s *azureScraper) loadSubscription(sub azureSubscription) { _ = "STUB: not implemented"; return }
 
-func (s *azureScraper) unloadSubscription(id string) {
-	s.settings.Logger.Debug("Unloading subscription", zap.String("subscription_id", id))
-	delete(s.resources, id)
-	delete(s.subscriptions, id)
-}
+func (s *azureScraper) unloadSubscription(id string) { _ = "STUB: not implemented"; return }
 
 func (s *azureScraper) scrape(ctx context.Context) (pmetric.Metrics, error) {
-	s.loadSubscriptions(ctx)
-
-	for subscriptionID, subscription := range s.subscriptions {
-		s.loadResources(ctx, subscriptionID)
-
-		resourcesIDsWithDefinitions := make(chan string)
-		go func(subscriptionID string) {
-			defer close(resourcesIDsWithDefinitions)
-			for resourceID := range s.resources[subscriptionID] {
-				s.loadMetricsDefinitions(ctx, subscriptionID, resourceID)
-				resourcesIDsWithDefinitions <- resourceID
-			}
-		}(subscriptionID)
-
-		var wg sync.WaitGroup
-		for resourceID := range resourcesIDsWithDefinitions {
-			wg.Add(1)
-			go func(subscriptionID, resourceID string) {
-				defer wg.Done()
-				s.loadMetricsValues(ctx, subscriptionID, resourceID)
-			}(subscriptionID, resourceID)
-		}
-
-		wg.Wait()
-
-		// Once all metrics has been collected for one subscription, we move to the next.
-		// We need to keep it synchronous to have the subscription id in resource attributes and not metrics attributes.
-		// It can be revamped later if we need to parallelize more, but currently, resource emit is not thread safe.
-		rb := s.mb.NewResourceBuilder()
-		rb.SetAzuremonitorTenantID(s.cfg.TenantID)
-		rb.SetAzuremonitorSubscriptionID(subscriptionID)
-		rb.SetAzuremonitorSubscription(subscription.DisplayName)
-		s.mb.EmitForResource(metadata.WithResource(rb.Emit()))
-	}
-	return s.mb.Emit(), nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
-func (s *azureScraper) loadSubscriptions(ctx context.Context) {
-	s.settings.Logger.Debug("Loading the list of Azure Subscriptions", zap.Bool("discover_subscriptions", s.cfg.DiscoverSubscriptions))
-	if time.Since(s.subscriptionsUpdated).Seconds() < s.cfg.CacheResources {
-		s.settings.Logger.Debug("Azure subscriptions are cached, skipping refresh")
-		return
-	}
+// Once all metrics has been collected for one subscription, we move to the next.
+// We need to keep it synchronous to have the subscription id in resource attributes and not metrics attributes.
+// It can be revamped later if we need to parallelize more, but currently, resource emit is not thread safe.
 
-	// Subscriptions discovery enabled or not, we'll need a client.
-	// - If enabled, to get the subscription list
-	// - If not, to get more info about the subscription
-	// The only case where it won't be needed is when we don't want the subscription name in resource attributes.
-	armSubscriptionClient, clientErr := armsubscriptions.NewClient(s.cred, s.clientOptionsResolver.GetArmSubscriptionsClientOptions())
-	if clientErr != nil {
-		s.settings.Logger.Error("Failed to initialize the client for Azure Subscriptions",
-			zap.Error(clientErr))
-		return
-	}
+func (s *azureScraper) loadSubscriptions(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-	// Make a special case for when we only have subscription ids configured (discovery disabled)
-	if !s.cfg.DiscoverSubscriptions {
-		for _, subID := range s.cfg.SubscriptionIDs {
-			// we don't need additional info,
-			// => It simply load the subscription id
-			if !s.cfg.MetricsBuilderConfig.ResourceAttributes.AzuremonitorSubscription.Enabled {
-				s.loadSubscription(azureSubscription{
-					SubscriptionID: subID,
-				})
-				continue
-			}
+// Subscriptions discovery enabled or not, we'll need a client.
+// - If enabled, to get the subscription list
+// - If not, to get more info about the subscription
+// The only case where it won't be needed is when we don't want the subscription name in resource attributes.
 
-			// We need additional info,
-			// => It makes some get requests
-			resp, err := armSubscriptionClient.Get(ctx, subID, &armsubscriptions.ClientGetOptions{})
-			logFields := []zap.Field{zap.String("subscription_id", subID)}
-			if err != nil {
-				logFields = append(logFields, zap.Error(err))
-				s.settings.Logger.Error("Failed to collect Subscription info from Azure", logFields...)
-				return
-			}
-			logFields = append(logFields, zap.String("subscription_display_name", *resp.DisplayName))
-			s.settings.Logger.Debug("Collected Subscription info from Azure", logFields...)
-			s.loadSubscription(azureSubscription{
-				SubscriptionID: *resp.SubscriptionID,
-				DisplayName:    *resp.DisplayName,
-			})
-		}
-		s.subscriptionsUpdated = time.Now()
-		s.settings.Logger.Info("Loaded the list of Azure Subscriptions",
-			zap.Int("subscriptions_count", len(s.subscriptions)))
-		return
-	}
+// Make a special case for when we only have subscription ids configured (discovery disabled)
 
-	// Prepare a map of existing subscriptions to detect removed ones later
-	existingSubscriptions := map[string]void{}
-	for id := range s.subscriptions {
-		existingSubscriptions[id] = void{}
-	}
+// we don't need additional info,
+// => It simply load the subscription id
 
-	opts := &armsubscriptions.ClientListOptions{}
-	pager := armSubscriptionClient.NewListPager(opts)
-	page := 0
-	for pager.More() {
-		nextResult, err := pager.NextPage(ctx)
-		logFields := []zap.Field{zap.Int("page", page)}
-		if err != nil {
-			logFields = append(logFields, zap.Error(err))
-			s.settings.Logger.Error("Failed to collect Subscription list from Azure", logFields...)
-			return
-		}
-		logFields = append(logFields, zap.Int("subscriptions_count", len(nextResult.Value)))
-		s.settings.Logger.Debug("Collected Subscription list page from Azure", logFields...)
-		page++
+// We need additional info,
+// => It makes some get requests
 
-		for _, subscription := range nextResult.Value {
-			s.loadSubscription(azureSubscription{
-				SubscriptionID: *subscription.SubscriptionID,
-				DisplayName:    *subscription.DisplayName,
-			})
-			delete(existingSubscriptions, *subscription.SubscriptionID)
-		}
-	}
+// Prepare a map of existing subscriptions to detect removed ones later
 
-	// Unload subscriptions that are no longer present
-	if len(existingSubscriptions) > 0 {
-		for idToDelete := range existingSubscriptions {
-			s.unloadSubscription(idToDelete)
-		}
-	}
-
-	s.subscriptionsUpdated = time.Now()
-	s.settings.Logger.Info("Loaded the list of Azure Subscriptions",
-		zap.Int("subscriptions_count", len(s.subscriptions)),
-		zap.Int("deleted_subscriptions_count", len(existingSubscriptions)))
-}
+// Unload subscriptions that are no longer present
 
 func (s *azureScraper) loadResources(ctx context.Context, subscriptionID string) {
-	s.settings.Logger.Debug("Loading the list of Azure Resources",
-		zap.String("subscription_id", subscriptionID))
-	if time.Since(s.subscriptions[subscriptionID].resourcesUpdated).Seconds() < s.cfg.CacheResources {
-		s.settings.Logger.Debug("Azure Resources are cached, skipping refresh",
-			zap.String("subscription_id", subscriptionID))
-		return
-	}
-
-	clientResources, clientErr := armresources.NewClient(subscriptionID, s.cred, s.clientOptionsResolver.GetArmResourceClientOptions(subscriptionID))
-	if clientErr != nil {
-		s.settings.Logger.Error("Failed to initialize the client for Azure Resources",
-			zap.String("subscription_id", subscriptionID),
-			zap.Error(clientErr))
-		return
-	}
-
-	// Prepare a map of existing resources to detect removed ones later
-	existingResources := map[string]void{}
-	for id := range s.resources[subscriptionID] {
-		existingResources[id] = void{}
-	}
-
-	// Prepare the tags filter to apply on resources later on.
-	// TODO: We don't need to do it per subscription. It can be done upper in the code to improve performances.
-	tagsFilterMap := getTagsFilterMap(s.cfg.AppendTagsAsAttributes)
-
-	// Prepare the options to get the resource list.
-	filter := s.getResourcesFilter()
-	opts := &armresources.ClientListOptions{
-		Filter: &filter,
-	}
-
-	pager := clientResources.NewListPager(opts)
-	page := 0
-	for pager.More() {
-		nextResult, err := pager.NextPage(ctx)
-
-		logFields := []zap.Field{
-			zap.String("subscription_id", subscriptionID),
-			zap.String("filter", filter),
-			zap.Int("page", page),
-		}
-		if err != nil {
-			logFields = append(logFields, zap.Error(err))
-			s.settings.Logger.Error("Failed to collect Resource list from Azure", logFields...)
-			return
-		}
-		logFields = append(logFields, zap.Int("resources_count", len(nextResult.Value)))
-		s.settings.Logger.Debug("Collected Resource list from Azure", logFields...)
-		page++
-
-		for _, resource := range s.processResources(nextResult.Value) {
-			if _, ok := s.resources[subscriptionID][*resource.ID]; !ok {
-				resourceGroup := getResourceGroupFromID(*resource.ID)
-				attributes := map[string]*string{
-					attributeName:          resource.Name,
-					attributeResourceGroup: &resourceGroup,
-					attributeResourceType:  resource.Type,
-				}
-				if resource.Location != nil {
-					attributes[attributeLocation] = resource.Location
-				}
-				s.resources[subscriptionID][*resource.ID] = &azureResource{
-					attributes:   attributes,
-					tags:         filterResourceTags(tagsFilterMap, resource.Tags),
-					resourceType: resource.Type,
-				}
-			}
-			delete(existingResources, *resource.ID)
-		}
-	}
-
-	// Unload resources that are no longer present
-	if len(existingResources) > 0 {
-		for idToDelete := range existingResources {
-			delete(s.resources[subscriptionID], idToDelete)
-		}
-	}
-
-	s.subscriptions[subscriptionID].resourcesUpdated = time.Now()
-	s.settings.Logger.Info("Loaded the list of Azure Resources",
-		zap.String("subscription_id", subscriptionID),
-		zap.Int("resources_count", len(s.resources[subscriptionID])),
-		zap.Int("deleted_resources_count", len(existingResources)))
+	_ = "STUB: not implemented"
+	return
 }
+
+// Prepare a map of existing resources to detect removed ones later
+
+// Prepare the tags filter to apply on resources later on.
+// TODO: We don't need to do it per subscription. It can be done upper in the code to improve performances.
+
+// Prepare the options to get the resource list.
+
+// Unload resources that are no longer present
 
 // processResources is a workaround specially done for the storageAccount metrics.
 // Every StorageAccount resources have some implicit sub resources (/blobServices/default, fileServices/default, etc...) that are not returned by the API.
@@ -400,237 +183,41 @@ func (s *azureScraper) loadResources(ctx context.Context, subscriptionID string)
 // It will create a fake resource with id .../Microsoft.Storage/storageAccount/myResource/blobServices/default of type Microsoft.Storage/storageAccounts/blobServices.
 // TODO: duplicate
 func (s *azureScraper) processResources(resources []*armresources.GenericResourceExpanded) []*armresources.GenericResourceExpanded {
-	var subTypeResources []*armresources.GenericResourceExpanded
-	for _, resource := range resources {
-		subTypeResources = append(subTypeResources, resource)
-		if resource != nil && resource.Type != nil && *resource.Type == storageAccountType {
-			if s.storageAccountSpecificConfig.askedBlobServices {
-				if r := buildSubTypeResource(*resource, "Microsoft.Storage/storageAccounts/blobServices", fmt.Sprintf("%s/blobServices/default", *resource.ID)); r != nil {
-					subTypeResources = append(subTypeResources, r)
-				}
-			}
-			if s.storageAccountSpecificConfig.askedFileServices {
-				if r := buildSubTypeResource(*resource, "Microsoft.Storage/storageAccounts/fileServices", fmt.Sprintf("%s/fileServices/default", *resource.ID)); r != nil {
-					subTypeResources = append(subTypeResources, r)
-				}
-			}
-			if s.storageAccountSpecificConfig.askedQueueServices {
-				if r := buildSubTypeResource(*resource, "Microsoft.Storage/storageAccounts/queueServices", fmt.Sprintf("%s/queueServices/default", *resource.ID)); r != nil {
-					subTypeResources = append(subTypeResources, r)
-				}
-			}
-			if s.storageAccountSpecificConfig.askedTableServices {
-				if r := buildSubTypeResource(*resource, "Microsoft.Storage/storageAccounts/tableServices", fmt.Sprintf("%s/tableServices/default", *resource.ID)); r != nil {
-					subTypeResources = append(subTypeResources, r)
-				}
-			}
-		}
-	}
-	return subTypeResources
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // buildSubTypeResource creates a virtual new resource with given type and ID.
 // The rest of the attributes (location, tags, etc...) are copied from the original resource.
 func buildSubTypeResource(orig armresources.GenericResourceExpanded, newType, newID string) *armresources.GenericResourceExpanded {
-	cloned := clone.Clone(orig).(armresources.GenericResourceExpanded)
-	cloned.ID = &newID
-	cloned.Type = &newType
-	return &cloned
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func getResourceGroupFromID(id string) string {
-	s := regexp.MustCompile(`/resourcegroups/([^/]+)/`)
-	match := s.FindStringSubmatch(strings.ToLower(id))
+func getResourceGroupFromID(id string) string { _ = "STUB: not implemented"; return "" }
 
-	if len(match) == 2 {
-		return match[1]
-	}
+func (s *azureScraper) getResourcesFilter() string {
+	_ = "STUB: not implemented"
+	// TODO: switch to parsing services from
+	// https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported
 	return ""
 }
 
-func (s *azureScraper) getResourcesFilter() string {
-	// TODO: switch to parsing services from
-	// https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/metrics-supported
-	resourcesTypeFilter := strings.Join(s.cfg.Services, "' or resourceType eq '")
-
-	resourcesGroupFilterString := ""
-	if len(s.cfg.ResourceGroups) > 0 {
-		resourcesGroupFilterString = fmt.Sprintf(" and (resourceGroup eq '%s')",
-			strings.Join(s.cfg.ResourceGroups, "' or resourceGroup eq  '"))
-	}
-
-	return fmt.Sprintf("(resourceType eq '%s')%s", resourcesTypeFilter, resourcesGroupFilterString)
-}
-
 func (s *azureScraper) loadMetricsDefinitions(ctx context.Context, subscriptionID, resourceID string) {
-	s.settings.Logger.Debug("Loading the list of Azure Metrics Definitions",
-		zap.String("resource_id", resourceID),
-		zap.String("subscription_id", subscriptionID))
-	if time.Since(s.resources[subscriptionID][resourceID].metricsDefinitionsUpdated).Seconds() < s.cfg.CacheResourcesDefinitions {
-		s.settings.Logger.Debug("Azure Metrics Definitions are cached, skipping refresh",
-			zap.String("resource_id", resourceID),
-			zap.String("subscription_id", subscriptionID))
-		return
-	}
-
-	// Prepare the map of metrics by composite key.
-	s.resources[subscriptionID][resourceID].metricsByCompositeKey = map[metricsCompositeKey]*azureResourceMetrics{}
-
-	clientMetricsDefinitions, clientErr := armmonitor.NewMetricDefinitionsClient(subscriptionID, s.cred, s.clientOptionsResolver.GetArmMonitorClientOptions())
-	if clientErr != nil {
-		s.settings.Logger.Error("Failed to initialize the client for Azure Metrics definitions",
-			zap.Error(clientErr))
-		return
-	}
-
-	pager := clientMetricsDefinitions.NewListPager(resourceID, nil)
-
-	page := 0
-	for pager.More() {
-		nextResult, err := pager.NextPage(ctx)
-
-		logFields := []zap.Field{
-			zap.String("resource_id", resourceID),
-			zap.String("subscription_id", subscriptionID),
-			zap.Int("page", page),
-		}
-		if err != nil {
-			logFields = append(logFields, zap.Error(err))
-			s.settings.Logger.Error("Failed to collect Azure Definitions list from Azure", logFields...)
-			return
-		}
-		logFields = append(logFields, zap.Int("definitions_count", len(nextResult.Value)))
-		s.settings.Logger.Debug("Collected Azure Metrics Definitions list from Azure", logFields...)
-		page++
-
-		for _, v := range nextResult.Value {
-			metricName := *v.Name.Value
-			metricAggregations := getMetricAggregations(*v.Namespace, metricName, s.cfg.Metrics, convertAggregationsToStr(v.SupportedAggregationTypes))
-			if len(metricAggregations) == 0 {
-				continue
-			}
-
-			timeGrain := *v.MetricAvailabilities[0].TimeGrain
-			dimensions := filterDimensions(v.Dimensions, s.cfg.Dimensions, *s.resources[subscriptionID][resourceID].resourceType, metricName)
-			compositeKey := metricsCompositeKey{
-				timeGrain:    timeGrain,
-				dimensions:   serializeDimensions(dimensions),
-				aggregations: strings.Join(metricAggregations, ","),
-			}
-			s.loadMetricsDefinition(subscriptionID, resourceID, metricName, compositeKey)
-		}
-	}
-
-	s.resources[subscriptionID][resourceID].metricsDefinitionsUpdated = time.Now()
-	s.settings.Logger.Info("Loaded the list of Azure Metrics Definitions",
-		zap.Int("metrics_definitions_count", len(s.resources[subscriptionID][resourceID].metricsByCompositeKey)),
-		zap.String("resource_id", resourceID),
-		zap.String("subscription_id", subscriptionID))
+	_ = "STUB: not implemented"
+	return
 }
+
+// Prepare the map of metrics by composite key.
 
 func (s *azureScraper) loadMetricsDefinition(subscriptionID, resourceID, metricName string, compositeKey metricsCompositeKey) {
-	s.settings.Logger.Debug("Loading metric definition",
-		zap.String("dimensions", compositeKey.dimensions),
-		zap.String("aggregations", compositeKey.aggregations),
-		zap.String("timegrain", compositeKey.timeGrain),
-		zap.String("metric", metricName),
-		zap.String("resource_id", resourceID),
-		zap.String("subscription_id", subscriptionID))
-	if _, ok := s.resources[subscriptionID][resourceID].metricsByCompositeKey[compositeKey]; ok {
-		s.resources[subscriptionID][resourceID].metricsByCompositeKey[compositeKey].metrics = append(
-			s.resources[subscriptionID][resourceID].metricsByCompositeKey[compositeKey].metrics, metricName,
-		)
-	} else {
-		s.resources[subscriptionID][resourceID].metricsByCompositeKey[compositeKey] = &azureResourceMetrics{metrics: []string{metricName}}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *azureScraper) loadMetricsValues(ctx context.Context, subscriptionID, resourceID string) {
-	s.settings.Logger.Debug("Loading the Azure Metrics",
-		zap.String("resource_id", resourceID),
-		zap.String("subscription_id", subscriptionID))
-	res := *s.resources[subscriptionID][resourceID]
-	updatedAt := s.time.Now().Truncate(truncateTimeGrain)
-
-	clientMetricsValues, clientErr := armmonitor.NewMetricsClient(subscriptionID, s.cred, s.clientOptionsResolver.GetArmMonitorClientOptions())
-	if clientErr != nil {
-		s.settings.Logger.Error("Failed to initialize the client for Azure Metrics",
-			zap.String("resource_id", resourceID),
-			zap.String("subscription_id", subscriptionID),
-			zap.Error(clientErr))
-		return
-	}
-
-	for compositeKey, metricsByGrain := range res.metricsByCompositeKey {
-		if updatedAt.Sub(metricsByGrain.metricsValuesUpdated).Seconds() < float64(timeGrains[compositeKey.timeGrain]) {
-			continue
-		}
-		metricsByGrain.metricsValuesUpdated = updatedAt
-
-		start := 0
-
-		for start < len(metricsByGrain.metrics) {
-			end := min(start+s.cfg.MaximumNumberOfMetricsInACall, len(metricsByGrain.metrics))
-
-			opts := newResourceMetricsValuesRequestOptions(
-				metricsByGrain.metrics,
-				compositeKey.dimensions,
-				compositeKey.timeGrain,
-				compositeKey.aggregations,
-				start,
-				end,
-				s.cfg.MaximumNumberOfRecordsPerResource,
-			)
-
-			result, err := clientMetricsValues.List(
-				ctx,
-				resourceID,
-				&opts,
-			)
-			logFields := []zap.Field{
-				zap.Any("metrics", metricsByGrain.metrics[start:end]),
-				zap.String("dimensions", compositeKey.dimensions),
-				zap.String("aggregations", compositeKey.aggregations),
-				zap.String("timegrain", compositeKey.timeGrain),
-				zap.String("resource_id", resourceID),
-				zap.String("subscription_id", subscriptionID),
-			}
-			if err != nil {
-				logFields = append(logFields, zap.Error(err))
-				s.settings.Logger.Error("Failed to collect Azure Metrics values from Azure", logFields...)
-				return
-			}
-
-			start = end
-
-			logFields = append(logFields, zap.Int("metrics_count", len(result.Value)))
-			s.settings.Logger.Debug("Collected Azure Metrics values from Azure", logFields...)
-
-			for _, metric := range result.Value {
-				for _, timeseriesElement := range metric.Timeseries {
-					if timeseriesElement.Data == nil {
-						continue
-					}
-					attributes := map[string]*string{}
-					maps.Copy(attributes, res.attributes)
-					for _, value := range timeseriesElement.Metadatavalues {
-						name := metadataPrefix + *value.Name.Value
-						attributes[name] = value.Value
-					}
-					for tagName, value := range res.tags {
-						name := tagPrefix + tagName
-						attributes[name] = value
-					}
-					for _, metricValue := range timeseriesElement.Data {
-						s.processTimeseriesData(resourceID, metric, metricValue, attributes)
-					}
-				}
-			}
-		}
-	}
-	s.settings.Logger.Info("Loaded the Azure Metrics",
-		zap.String("resource_id", resourceID),
-		zap.String("subscription_id", subscriptionID))
+	_ = "STUB: not implemented"
+	return
 }
 
 func newResourceMetricsValuesRequestOptions(
@@ -642,14 +229,8 @@ func newResourceMetricsValuesRequestOptions(
 	end int,
 	top int32,
 ) armmonitor.MetricsClientListOptions {
-	return armmonitor.MetricsClientListOptions{
-		Metricnames: to.Ptr(strings.Join(metrics[start:end], ",")),
-		Interval:    to.Ptr(timeGrain),
-		Timespan:    to.Ptr(timeGrain),
-		Aggregation: to.Ptr(aggregationsStr),
-		Top:         to.Ptr(top),
-		Filter:      buildDimensionsFilter(dimensionsStr),
-	}
+	_ = "STUB: not implemented"
+	return *new(armmonitor.MetricsClientListOptions)
 }
 
 func (s *azureScraper) processTimeseriesData(
@@ -658,34 +239,8 @@ func (s *azureScraper) processTimeseriesData(
 	metricValue *armmonitor.MetricValue,
 	attributes map[string]*string,
 ) {
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
-
-	ts := pcommon.NewTimestampFromTime(time.Now())
-
-	aggregationsData := []struct {
-		name  string
-		value *float64
-	}{
-		{"Average", metricValue.Average},
-		{"Count", metricValue.Count},
-		{"Maximum", metricValue.Maximum},
-		{"Minimum", metricValue.Minimum},
-		{"Total", metricValue.Total},
-	}
-	for _, aggregation := range aggregationsData {
-		if aggregation.value != nil {
-			s.mb.AddDataPoint(
-				resourceID,
-				*metric.Name.Value,
-				aggregation.name,
-				string(*metric.Unit),
-				attributes,
-				ts,
-				*aggregation.value,
-			)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // getMetricAggregations returns a list of aggregations for a given namespace/metric.
@@ -698,82 +253,40 @@ func (s *azureScraper) processTimeseriesData(
 // Note that a special filter * is supported to return all supported aggregations explicitly.
 // /!\ It does not control the aggregations in the filters. If it's not in the supported list, it still lets it pass.
 func getMetricAggregations(metricNamespace, metricName string, filters NestedListAlias, supportedAggregations []string) []string {
+	_ = "STUB: not implemented"
 	// default behavior when no metric filters specified: pass all metrics with all aggregations
-	if len(filters) == 0 {
-		return supportedAggregations
-	}
-
-	metricsFilters, ok := mapFindInsensitive(filters, metricNamespace)
-	// metric namespace isn't found, or it's empty: pass all metrics from the namespace
-	if !ok || len(metricsFilters) == 0 {
-		return supportedAggregations
-	}
-
-	aggregationsFilters, ok := mapFindInsensitive(metricsFilters, metricName)
-	// if the target metric is absent in the metrics map: filter out metric
-	if !ok {
-		return []string{}
-	}
-	// allow all aggregations if others are not specified
-	if len(aggregationsFilters) == 0 || slices.Contains(aggregationsFilters, filterAllAggregations) {
-		return supportedAggregations
-	}
-
-	// collect known aggregations without filtering on supported
-	var out []string
-	for _, filter := range aggregationsFilters {
-		for _, aggregation := range aggregations {
-			if strings.EqualFold(aggregation, filter) {
-				out = append(out, aggregation)
-			}
-		}
-	}
-
-	return out
+	return nil
 }
 
+// metric namespace isn't found, or it's empty: pass all metrics from the namespace
+
+// if the target metric is absent in the metrics map: filter out metric
+
+// allow all aggregations if others are not specified
+
+// collect known aggregations without filtering on supported
+
 func convertAggregationsToStr(aggregations []*armmonitor.AggregationType) []string {
-	var result []string
-	for _, aggr := range aggregations {
-		result = append(result, string(*aggr))
-	}
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func mapFindInsensitive[T any](m map[string]T, key string) (T, bool) {
-	for k, v := range m {
-		if strings.EqualFold(key, k) {
-			return v, true
-		}
-	}
-
-	var got T
-	return got, false
+	_ = "STUB: not implemented"
+	return *new(T), false
 }
 
 // getTagsFilterMap returns a map used to filter tags.
 // Each user-configured tag key is normalized to lowercase and added to the map for case-insensitive lookup.
 func getTagsFilterMap(appendTagsAsAttributes []string) (tagsFilterMap map[string]struct{}) {
-	tagsFilterMap = make(map[string]struct{}, len(appendTagsAsAttributes))
-	for _, v := range appendTagsAsAttributes {
-		tagsFilterMap[strings.ToLower(v)] = struct{}{}
-	}
-	return tagsFilterMap
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // filterResourceTags filter out resource tags according to configured tag list (append_tags_as_attributes)
 func filterResourceTags(tagFilterList map[string]struct{}, resourceTags map[string]*string) map[string]*string {
-	if _, includeAll := tagFilterList["*"]; includeAll {
-		return resourceTags
-	}
-
-	// wildcard not found. include only configured tags
-	includedTags := make(map[string]*string, len(resourceTags))
-	for tagName, value := range resourceTags {
-		if _, ok := tagFilterList[strings.ToLower(tagName)]; ok {
-			includedTags[tagName] = value
-		}
-	}
-
-	return includedTags
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// wildcard not found. include only configured tags

@@ -5,7 +5,6 @@ package fileexporter // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"bufio"
-	"errors"
 	"io"
 )
 
@@ -19,23 +18,15 @@ type bufferedWriteCloser struct {
 var _ io.WriteCloser = (*bufferedWriteCloser)(nil)
 
 func newBufferedWriteCloser(f io.WriteCloser) io.WriteCloser {
-	return &bufferedWriteCloser{
-		wrapped:  f,
-		buffered: bufio.NewWriter(f),
-	}
+	_ = "STUB: not implemented"
+	return *new(io.WriteCloser)
 }
 
 func (bwc *bufferedWriteCloser) Write(p []byte) (n int, err error) {
-	return bwc.buffered.Write(p)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
-func (bwc *bufferedWriteCloser) Close() error {
-	return errors.Join(
-		bwc.buffered.Flush(),
-		bwc.wrapped.Close(),
-	)
-}
+func (bwc *bufferedWriteCloser) Close() error { _ = "STUB: not implemented"; return nil }
 
-func (bwc *bufferedWriteCloser) flush() error {
-	return bwc.buffered.Flush()
-}
+func (bwc *bufferedWriteCloser) flush() error { _ = "STUB: not implemented"; return nil }

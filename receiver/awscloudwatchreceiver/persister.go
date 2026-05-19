@@ -5,11 +5,7 @@ package awscloudwatchreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"time"
 
-	"github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/extension/xextension/storage"
 	"go.uber.org/zap"
 )
@@ -22,10 +18,8 @@ type cloudwatchCheckpointPersister struct {
 }
 
 func newCloudwatchCheckpointPersister(client storage.Client, logger *zap.Logger) *cloudwatchCheckpointPersister {
-	return &cloudwatchCheckpointPersister{
-		client: client,
-		logger: logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetCheckpoint stores the checkpoint (timestamp) for a specific log stream
@@ -33,31 +27,7 @@ func (p *cloudwatchCheckpointPersister) SetCheckpoint(
 	ctx context.Context,
 	logGroupName, timestamp string,
 ) error {
-	if p.client == nil {
-		return errors.New("storage client is nil")
-	}
-	if timestamp == "" {
-		return errors.New("timestamp is empty")
-	}
-
-	key := p.getCheckpointKey(logGroupName)
-	if key == "" {
-		return errors.New("checkpoint key is empty")
-	}
-
-	data, err := json.Marshal(timestamp)
-	if err != nil {
-		return fmt.Errorf("failed to marshal timestamp: %w", err)
-	}
-
-	if err := p.client.Set(ctx, key, data); err != nil {
-		return fmt.Errorf("failed to store checkpoint: %w", err)
-	}
-
-	p.logger.Debug("Checkpoint saved",
-		zap.String("logGroup", logGroupName),
-		zap.String("checkpoint", timestamp))
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -65,72 +35,31 @@ func (p *cloudwatchCheckpointPersister) SetCheckpoint(
 func (p *cloudwatchCheckpointPersister) GetCheckpoint(
 	ctx context.Context, logGroupName string,
 ) (string, error) {
-	if p.client == nil {
-		return "", errors.New("storage client is nil")
-	}
-
-	data, err := p.client.Get(ctx, p.getCheckpointKey(logGroupName))
-	if err != nil {
-		p.logger.Warn("Error retrieving checkpoint",
-			zap.String("logGroup", logGroupName),
-			zap.Error(err))
-		return "", fmt.Errorf("failed to retrieve checkpoint: %w", err)
-	}
-
-	// If key is not found, data and error is nil
-	if len(data) == 0 {
-		p.logger.Debug("No checkpoint found, starting from the beginning",
-			zap.String("logGroup", logGroupName))
-		return newCheckpointTimeFromStartOfStream(), nil
-	}
-
-	var timestamp string
-	if err := json.Unmarshal(data, &timestamp); err != nil {
-		return "", fmt.Errorf("failed to unmarshal timestamp: %w", err)
-	}
-
-	return timestamp, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// If key is not found, data and error is nil
 
 // DeleteCheckpoint removes the checkpoint (timestamp) for a specific log stream
 func (p *cloudwatchCheckpointPersister) DeleteCheckpoint(
 	ctx context.Context, logGroupName string,
 ) error {
-	if p.client == nil {
-		return errors.New("storage client is nil")
-	}
-
-	if err := p.client.Delete(ctx, p.getCheckpointKey(logGroupName)); err != nil {
-		p.logger.Warn("Error deleting checkpoint",
-			zap.String("logGroup", logGroupName),
-			zap.Error(err))
-		return fmt.Errorf("failed to delete checkpoint: %w", err)
-	}
-
-	p.logger.Debug("Checkpoint deleted",
-		zap.String("logGroup", logGroupName))
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (p *cloudwatchCheckpointPersister) Shutdown(ctx context.Context) error {
-	if p.client == nil {
-		return nil
-	}
-	return p.client.Close(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getCheckpointKey generates a unique storage key
 func (*cloudwatchCheckpointPersister) getCheckpointKey(logGroupName string) string {
-	if logGroupName == "" {
-		return ""
-	}
-
-	return fmt.Sprintf(checkpointKeyFormat, logGroupName)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // newCheckpointTimeFromStartOfStream returns the Unix epoch start time as a string in RFC3339 format,
 // which is the default timestamp for starting at the beginning.
-func newCheckpointTimeFromStartOfStream() string {
-	return time.Unix(0, 0).Format(time.RFC3339)
-}
+func newCheckpointTimeFromStartOfStream() string { _ = "STUB: not implemented"; return "" }

@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeClass.
-func (av AttributeClass) String() string {
-	switch av {
-	case AttributeClassDatapath:
-		return "datapath"
-	case AttributeClassServices:
-		return "services"
-	}
-	return ""
-}
+func (av AttributeClass) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeClass is a helper map of string to AttributeClass attribute value.
 var MapAttributeClass = map[string]AttributeClass{
@@ -56,15 +45,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionReceived:
-		return "received"
-	case AttributeDirectionTransmitted:
-		return "transmitted"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -82,15 +63,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDiskState.
-func (av AttributeDiskState) String() string {
-	switch av {
-	case AttributeDiskStateUsed:
-		return "used"
-	case AttributeDiskStateAvailable:
-		return "available"
-	}
-	return ""
-}
+func (av AttributeDiskState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDiskState is a helper map of string to AttributeDiskState attribute value.
 var MapAttributeDiskState = map[string]AttributeDiskState{
@@ -109,17 +82,7 @@ const (
 )
 
 // String returns the string representation of the AttributePacketType.
-func (av AttributePacketType) String() string {
-	switch av {
-	case AttributePacketTypeDropped:
-		return "dropped"
-	case AttributePacketTypeErrored:
-		return "errored"
-	case AttributePacketTypeSuccess:
-		return "success"
-	}
-	return ""
-}
+func (av AttributePacketType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributePacketType is a helper map of string to AttributePacketType attribute value.
 var MapAttributePacketType = map[string]AttributePacketType{
@@ -184,75 +147,22 @@ func (m *metricNsxtNodeCPUUtilization) init() {
 }
 
 func (m *metricNsxtNodeCPUUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, classAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NsxtNodeCPUUtilizationMetricAttributeKeyClass) {
-		dp.Attributes().PutStr("class", classAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeCPUUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeCPUUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeCPUUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeCPUUtilization(cfg NsxtNodeCPUUtilizationMetricConfig) metricNsxtNodeCPUUtilization {
-	m := metricNsxtNodeCPUUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeCPUUtilization)
 }
 
 type metricNsxtNodeFilesystemUsage struct {
@@ -275,75 +185,22 @@ func (m *metricNsxtNodeFilesystemUsage) init() {
 }
 
 func (m *metricNsxtNodeFilesystemUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, diskStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NsxtNodeFilesystemUsageMetricAttributeKeyDiskState) {
-		dp.Attributes().PutStr("state", diskStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeFilesystemUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeFilesystemUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeFilesystemUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeFilesystemUsage(cfg NsxtNodeFilesystemUsageMetricConfig) metricNsxtNodeFilesystemUsage {
-	m := metricNsxtNodeFilesystemUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeFilesystemUsage)
 }
 
 type metricNsxtNodeFilesystemUtilization struct {
@@ -361,39 +218,22 @@ func (m *metricNsxtNodeFilesystemUtilization) init() {
 }
 
 func (m *metricNsxtNodeFilesystemUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeFilesystemUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeFilesystemUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeFilesystemUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeFilesystemUtilization(cfg NsxtNodeFilesystemUtilizationMetricConfig) metricNsxtNodeFilesystemUtilization {
-	m := metricNsxtNodeFilesystemUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeFilesystemUtilization)
 }
 
 type metricNsxtNodeMemoryCacheUsage struct {
@@ -413,39 +253,22 @@ func (m *metricNsxtNodeMemoryCacheUsage) init() {
 }
 
 func (m *metricNsxtNodeMemoryCacheUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeMemoryCacheUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeMemoryCacheUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeMemoryCacheUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeMemoryCacheUsage(cfg NsxtNodeMemoryCacheUsageMetricConfig) metricNsxtNodeMemoryCacheUsage {
-	m := metricNsxtNodeMemoryCacheUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeMemoryCacheUsage)
 }
 
 type metricNsxtNodeMemoryUsage struct {
@@ -465,39 +288,22 @@ func (m *metricNsxtNodeMemoryUsage) init() {
 }
 
 func (m *metricNsxtNodeMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeMemoryUsage(cfg NsxtNodeMemoryUsageMetricConfig) metricNsxtNodeMemoryUsage {
-	m := metricNsxtNodeMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeMemoryUsage)
 }
 
 type metricNsxtNodeNetworkIo struct {
@@ -520,75 +326,22 @@ func (m *metricNsxtNodeNetworkIo) init() {
 }
 
 func (m *metricNsxtNodeNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NsxtNodeNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeNetworkIo(cfg NsxtNodeNetworkIoMetricConfig) metricNsxtNodeNetworkIo {
-	m := metricNsxtNodeNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeNetworkIo)
 }
 
 type metricNsxtNodeNetworkPacketCount struct {
@@ -611,78 +364,22 @@ func (m *metricNsxtNodeNetworkPacketCount) init() {
 }
 
 func (m *metricNsxtNodeNetworkPacketCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string, packetTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NsxtNodeNetworkPacketCountMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, NsxtNodeNetworkPacketCountMetricAttributeKeyPacketType) {
-		dp.Attributes().PutStr("type", packetTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNsxtNodeNetworkPacketCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNsxtNodeNetworkPacketCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNsxtNodeNetworkPacketCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNsxtNodeNetworkPacketCount(cfg NsxtNodeNetworkPacketCountMetricConfig) metricNsxtNodeNetworkPacketCount {
-	m := metricNsxtNodeNetworkPacketCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNsxtNodeNetworkPacketCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -712,72 +409,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                              mbc,
-		startTime:                           pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                       pmetric.NewMetrics(),
-		buildInfo:                           settings.BuildInfo,
-		metricNsxtNodeCPUUtilization:        newMetricNsxtNodeCPUUtilization(mbc.Metrics.NsxtNodeCPUUtilization),
-		metricNsxtNodeFilesystemUsage:       newMetricNsxtNodeFilesystemUsage(mbc.Metrics.NsxtNodeFilesystemUsage),
-		metricNsxtNodeFilesystemUtilization: newMetricNsxtNodeFilesystemUtilization(mbc.Metrics.NsxtNodeFilesystemUtilization),
-		metricNsxtNodeMemoryCacheUsage:      newMetricNsxtNodeMemoryCacheUsage(mbc.Metrics.NsxtNodeMemoryCacheUsage),
-		metricNsxtNodeMemoryUsage:           newMetricNsxtNodeMemoryUsage(mbc.Metrics.NsxtNodeMemoryUsage),
-		metricNsxtNodeNetworkIo:             newMetricNsxtNodeNetworkIo(mbc.Metrics.NsxtNodeNetworkIo),
-		metricNsxtNodeNetworkPacketCount:    newMetricNsxtNodeNetworkPacketCount(mbc.Metrics.NsxtNodeNetworkPacketCount),
-		resourceAttributeIncludeFilter:      make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:      make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.DeviceID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["device.id"] = filter.CreateFilter(mbc.ResourceAttributes.DeviceID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.DeviceID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["device.id"] = filter.CreateFilter(mbc.ResourceAttributes.DeviceID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["nsxt.node.id"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["nsxt.node.id"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["nsxt.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["nsxt.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeType.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["nsxt.node.type"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeType.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.NsxtNodeType.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["nsxt.node.type"] = filter.CreateFilter(mbc.ResourceAttributes.NsxtNodeType.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -788,35 +445,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -825,89 +470,60 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricNsxtNodeCPUUtilization.emit(ils.Metrics())
-	mb.metricNsxtNodeFilesystemUsage.emit(ils.Metrics())
-	mb.metricNsxtNodeFilesystemUtilization.emit(ils.Metrics())
-	mb.metricNsxtNodeMemoryCacheUsage.emit(ils.Metrics())
-	mb.metricNsxtNodeMemoryUsage.emit(ils.Metrics())
-	mb.metricNsxtNodeNetworkIo.emit(ils.Metrics())
-	mb.metricNsxtNodeNetworkPacketCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordNsxtNodeCPUUtilizationDataPoint adds a data point to nsxt.node.cpu.utilization metric.
 func (mb *MetricsBuilder) RecordNsxtNodeCPUUtilizationDataPoint(ts pcommon.Timestamp, val float64, classAttributeValue AttributeClass) {
-	mb.metricNsxtNodeCPUUtilization.recordDataPoint(mb.startTime, ts, val, classAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeFilesystemUsageDataPoint adds a data point to nsxt.node.filesystem.usage metric.
 func (mb *MetricsBuilder) RecordNsxtNodeFilesystemUsageDataPoint(ts pcommon.Timestamp, val int64, diskStateAttributeValue AttributeDiskState) {
-	mb.metricNsxtNodeFilesystemUsage.recordDataPoint(mb.startTime, ts, val, diskStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeFilesystemUtilizationDataPoint adds a data point to nsxt.node.filesystem.utilization metric.
 func (mb *MetricsBuilder) RecordNsxtNodeFilesystemUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricNsxtNodeFilesystemUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeMemoryCacheUsageDataPoint adds a data point to nsxt.node.memory.cache.usage metric.
 func (mb *MetricsBuilder) RecordNsxtNodeMemoryCacheUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNsxtNodeMemoryCacheUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeMemoryUsageDataPoint adds a data point to nsxt.node.memory.usage metric.
 func (mb *MetricsBuilder) RecordNsxtNodeMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNsxtNodeMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeNetworkIoDataPoint adds a data point to nsxt.node.network.io metric.
 func (mb *MetricsBuilder) RecordNsxtNodeNetworkIoDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricNsxtNodeNetworkIo.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNsxtNodeNetworkPacketCountDataPoint adds a data point to nsxt.node.network.packet.count metric.
 func (mb *MetricsBuilder) RecordNsxtNodeNetworkPacketCountDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection, packetTypeAttributeValue AttributePacketType) {
-	mb.metricNsxtNodeNetworkPacketCount.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String(), packetTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

@@ -5,9 +5,6 @@ package headerssetterextension // import "github.com/open-telemetry/opentelemetr
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"maps"
 	"net/http"
 
 	"go.opentelemetry.io/collector/component"
@@ -47,184 +44,56 @@ type headerSetterExtension struct {
 
 // Dependencies implements extensioncapabilities.Dependent.
 func (h *headerSetterExtension) Dependencies() []component.ID {
-	if h.additionalAuth == nil {
-		return nil
-	}
-	return []component.ID{*h.additionalAuth}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start stores the host for later use in getting the additional auth extension.
 func (h *headerSetterExtension) start(ctx context.Context, host component.Host) error {
-	h.host = host
+	_ = "STUB: not implemented"
 
 	// Start all file resolvers
-	for _, resolver := range h.resolvers {
-		if err := resolver.Start(ctx); err != nil {
-			return fmt.Errorf("failed to start value resolver: %w", err)
-		}
-	}
-
 	return nil
 }
 
 // Shutdown stops all file resolvers
 func (h *headerSetterExtension) shutdown(_ context.Context) error {
-	var errs []error
-	for _, resolver := range h.resolvers {
-		if err := resolver.Shutdown(); err != nil {
-			errs = append(errs, err)
-		}
-	}
-	if len(errs) > 0 {
-		return fmt.Errorf("failed to shutdown resolvers: %v", errs)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // getAdditionalAuthExtension retrieves the configured additional auth extension if present.
 // Returns nil if no additional auth is configured.
 func (h *headerSetterExtension) getAdditionalAuthExtension() (component.Component, error) {
-	if h.additionalAuth == nil || h.host == nil {
-		return nil, nil
-	}
-
-	ext := h.host.GetExtensions()[*h.additionalAuth]
-	if ext == nil {
-		return nil, fmt.Errorf("auth extension %v not found", h.additionalAuth)
-	}
-
-	return ext, nil
+	_ = "STUB: not implemented"
+	return *new(component.Component), nil
 }
 
 // PerRPCCredentials implements extensionauth.GRPCClient.
 func (h *headerSetterExtension) PerRPCCredentials() (credentials.PerRPCCredentials, error) {
-	var baseCredentials credentials.PerRPCCredentials
-
-	// If additional_auth is configured, chain with it first
-	ext, err := h.getAdditionalAuthExtension()
-	if err != nil {
-		return nil, err
-	}
-
-	if ext != nil {
-		if grpcClient, ok := ext.(extensionauth.GRPCClient); ok {
-			baseCredentials, err = grpcClient.PerRPCCredentials()
-			if err != nil {
-				return nil, fmt.Errorf("failed to get PerRPCCredentials from %v: %w", h.additionalAuth, err)
-			}
-		}
-	}
-
-	return &headersPerRPC{
-		headers:         h.headers,
-		baseCredentials: baseCredentials,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(credentials.PerRPCCredentials), nil
 }
+
+// If additional_auth is configured, chain with it first
 
 // RoundTripper implements extensionauth.HTTPClient.
 func (h *headerSetterExtension) RoundTripper(base http.RoundTripper) (http.RoundTripper, error) {
+	_ = "STUB: not implemented"
 	// If additional_auth is configured, chain with it first
-	baseRT := base
-
-	ext, err := h.getAdditionalAuthExtension()
-	if err != nil {
-		return nil, err
-	}
-
-	if ext != nil {
-		// Check if it implements HTTPClient
-		if httpClient, ok := ext.(extensionauth.HTTPClient); ok {
-			baseRT, err = httpClient.RoundTripper(base)
-			if err != nil {
-				return nil, fmt.Errorf("failed to get RoundTripper from %v: %w", h.additionalAuth, err)
-			}
-		}
-	}
-
-	// Now wrap with our headers
-	return &headersRoundTripper{
-		base:    baseRT,
-		headers: h.headers,
-	}, nil
+	return *new(http.RoundTripper), nil
 }
+
+// Check if it implements HTTPClient
+
+// Now wrap with our headers
 
 func newHeadersSetterExtension(cfg *Config, logger *zap.Logger) (*headerSetterExtension, error) {
-	if cfg == nil {
-		return nil, errors.New("extension configuration is not provided")
-	}
-
-	headers := make([]header, 0, len(cfg.HeadersConfig))
-	var resolvers []credentialsfile.ValueResolver
-
-	for _, h := range cfg.HeadersConfig {
-		var s source.Source
-		switch {
-		case h.Value != nil:
-			s = &source.StaticSource{
-				Value: *h.Value,
-			}
-		case h.ValueFile != nil:
-			resolver, err := credentialsfile.NewValueResolver("", *h.ValueFile, logger)
-			if err != nil {
-				return nil, fmt.Errorf("failed to create value resolver for header %s: %w", *h.Key, err)
-			}
-			resolvers = append(resolvers, resolver)
-			s = &source.FileSource{
-				Resolver: resolver,
-			}
-		case h.FromAttribute != nil:
-			defaultValue := ""
-			if h.DefaultValue != nil {
-				defaultValue = string(*h.DefaultValue)
-			}
-			s = &source.AttributeSource{
-				Key:          *h.FromAttribute,
-				DefaultValue: defaultValue,
-			}
-		case h.FromContext != nil:
-			defaultValue := ""
-			if h.DefaultValue != nil {
-				defaultValue = string(*h.DefaultValue)
-			}
-			s = &source.ContextSource{
-				Key:          *h.FromContext,
-				DefaultValue: defaultValue,
-			}
-		}
-
-		var a action.Action
-		switch h.Action {
-		case INSERT:
-			a = action.Insert{Key: *h.Key}
-		case UPSERT:
-			a = action.Upsert{Key: *h.Key}
-		case UPDATE:
-			a = action.Update{Key: *h.Key}
-		case DELETE:
-			a = action.Delete{Key: *h.Key}
-		default:
-			a = action.Upsert{Key: *h.Key}
-			logger.Warn("The action was not provided, using 'upsert'." +
-				" In future versions, we'll require this to be explicitly set")
-		}
-		headers = append(headers, header{action: a, source: s})
-	}
-
-	ext := &headerSetterExtension{
-		headers:        headers,
-		additionalAuth: cfg.AdditionalAuth,
-		resolvers:      resolvers,
-		logger:         logger,
-	}
-
-	// Enable Start/Shutdown methods if additional_auth is configured or if we have file resolvers
-	if cfg.AdditionalAuth != nil || len(resolvers) > 0 {
-		ext.StartFunc = ext.start
-		ext.ShutdownFunc = ext.shutdown
-	}
-
-	return ext, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Enable Start/Shutdown methods if additional_auth is configured or if we have file resolvers
 
 // headersPerRPC is a gRPC credentials.PerRPCCredentials implementation sets
 // headers with values extracted from provided sources.
@@ -238,37 +107,18 @@ func (h *headersPerRPC) GetRequestMetadata(
 	ctx context.Context,
 	uri ...string,
 ) (map[string]string, error) {
+	_ = "STUB: not implemented"
 	// Start with base credentials if available
-	metadata := make(map[string]string)
-
-	if h.baseCredentials != nil {
-		baseMetadata, err := h.baseCredentials.GetRequestMetadata(ctx, uri...)
-		if err != nil {
-			return nil, err
-		}
-		// Copy base metadata
-		maps.Copy(metadata, baseMetadata)
-	}
-
-	// Now apply our headers on top
-	for _, header := range h.headers {
-		value, err := header.source.Get(ctx)
-		if err != nil {
-			return nil, fmt.Errorf("failed to determine the source: %w", err)
-		}
-		header.action.ApplyOnMetadata(metadata, value)
-	}
-	return metadata, nil
+	return nil, nil
 }
+
+// Copy base metadata
+
+// Now apply our headers on top
 
 // RequireTransportSecurity returns whether transport security is required.
 // If chained with another auth extension, delegate to it.
-func (h *headersPerRPC) RequireTransportSecurity() bool {
-	if h.baseCredentials != nil {
-		return h.baseCredentials.RequireTransportSecurity()
-	}
-	return false
-}
+func (h *headersPerRPC) RequireTransportSecurity() bool { _ = "STUB: not implemented"; return false }
 
 // headersRoundTripper intercepts downstream requests and sets headers with
 // values extracted from configured sources.
@@ -280,16 +130,6 @@ type headersRoundTripper struct {
 // RoundTrip copies the original request and sets headers of the new requests
 // with values extracted from configured sources.
 func (h *headersRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	req2 := req.Clone(req.Context())
-	if req2.Header == nil {
-		req2.Header = make(http.Header)
-	}
-	for _, header := range h.headers {
-		value, err := header.source.Get(req.Context())
-		if err != nil {
-			return nil, fmt.Errorf("failed to determine the source: %w", err)
-		}
-		header.action.ApplyOnHeaders(req2.Header, value)
-	}
-	return h.base.RoundTrip(req2)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

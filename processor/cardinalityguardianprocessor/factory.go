@@ -6,7 +6,6 @@ package cardinalityguardianprocessor // import "github.com/open-telemetry/opente
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -20,30 +19,21 @@ const typeStr = "cardinality_guardian"
 // NewFactory creates the cardinality_guardian processor factory. It is
 // registered at StabilityLevelDevelopment — the API and configuration schema
 // may change between releases.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		component.MustNewType(typeStr),
-		createDefaultConfig,
-		processor.WithMetrics(createMetricsProcessor, component.StabilityLevelDevelopment),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 // createDefaultConfig returns a *Config with conservative defaults suitable
 // for most production environments. See the Config field docs for the
 // meaning of each setting.
 func createDefaultConfig() component.Config {
-	return &Config{
-		MaxCardinalityDeltaPerEpoch: 100,
-		EpochDurationSeconds:        300,
-		NeverDropLabels:             []string{"http.status_code", "region"},
-		EnforcementMode:             EnforcementTagOnly,
-		EstimatedCostPerMetricMonth: 0.05, // Default to $0.05 per metric/month
-		TopOffendersCount:           10,   // Report the top 10 exploding (metric, label) pairs
-		MaxTrackerCount:             0,    // Default to unlimited
-		MetricOverrides:             nil,  // No per-metric overrides by default
-		DropLogMaxPerEpoch:          10,   // Only log the first 10 drops per epoch
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// Default to $0.05 per metric/month
+// Report the top 10 exploding (metric, label) pairs
+// Default to unlimited
+// No per-metric overrides by default
+// Only log the first 10 drops per epoch
 
 // createMetricsProcessor is the constructor wired into the factory by
 // processor.WithMetrics. The Collector calls it once per pipeline that
@@ -56,9 +46,6 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	oCfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, fmt.Errorf("invalid config type: expected *Config, got %T", cfg)
-	}
-	return newCardinalityProcessor(ctx, oCfg, set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }

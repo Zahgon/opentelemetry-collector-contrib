@@ -15,23 +15,31 @@ import (
 )
 
 func (s *processScraper) recordCPUTimeMetric(now pcommon.Timestamp, cpuTime *cpu.TimesStat) {
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *processScraper) recordCPUUtilization(now pcommon.Timestamp, cpuUtilization ucal.CPUUtilization) {
+	_ = "STUB: not implemented"
+	return
 }
 
 func getProcessName(context.Context, processHandle, string) (string, error) {
+	_ = "STUB: not implemented"
 	return "", nil
 }
 
 func getProcessCgroup(ctx context.Context, proc processHandle) (string, error) {
+	_ = "STUB: not implemented"
 	return "", nil
 }
 
 func getProcessExecutable(context.Context, processHandle) (string, error) {
+	_ = "STUB: not implemented"
 	return "", nil
 }
 
 func getProcessCommand(context.Context, processHandle) (*commandMetadata, error) {
+	_ = "STUB: not implemented"
 	return nil, nil
 }

@@ -4,11 +4,8 @@
 package configkafka // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
-	"github.com/twmb/franz-go/pkg/kversion"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/configtls"
@@ -84,30 +81,9 @@ type ClientConfig struct {
 	ConnIdleTimeout time.Duration `mapstructure:"conn_idle_timeout"`
 }
 
-func NewDefaultClientConfig() ClientConfig {
-	return ClientConfig{
-		Brokers:         []string{"localhost:9092"},
-		ClientID:        "otel-collector",
-		Metadata:        NewDefaultMetadataConfig(),
-		UseLeaderEpoch:  true,
-		ConnIdleTimeout: 9 * time.Minute,
-	}
-}
+func NewDefaultClientConfig() ClientConfig { _ = "STUB: not implemented"; return *new(ClientConfig) }
 
-func (c ClientConfig) Validate() error {
-	if len(c.Brokers) == 0 {
-		return errors.New("brokers must be specified")
-	}
-	if c.ProtocolVersion != "" {
-		if kversion.FromString(c.ProtocolVersion) == nil {
-			return fmt.Errorf("invalid protocol version: %q", c.ProtocolVersion)
-		}
-	}
-	if c.ConnIdleTimeout <= 0 {
-		return fmt.Errorf("conn_idle_timeout (%s) must be positive", c.ConnIdleTimeout)
-	}
-	return nil
-}
+func (c ClientConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type ConsumerConfig struct {
 	// SessionTimeout controls the Kafka consumer group session timeout.
@@ -157,72 +133,20 @@ type ConsumerConfig struct {
 }
 
 func NewDefaultConsumerConfig() ConsumerConfig {
-	return ConsumerConfig{
-		SessionTimeout:    10 * time.Second,
-		HeartbeatInterval: 3 * time.Second,
-		GroupID:           "otel-collector",
-		InitialOffset:     LatestOffset,
-		AutoCommit: AutoCommitConfig{
-			Enable:   true,
-			Interval: time.Second,
-		},
-		MinFetchSize:          1,
-		MaxFetchSize:          1048576,
-		MaxFetchWait:          250 * time.Millisecond,
-		MaxPartitionFetchSize: 1048576,
-	}
+	_ = "STUB: not implemented"
+	return *new(ConsumerConfig)
 }
 
-func (c ConsumerConfig) Validate() error {
-	switch c.InitialOffset {
-	case LatestOffset, EarliestOffset:
-		// Valid
-	default:
-		return fmt.Errorf(
-			"initial_offset should be one of 'latest' or 'earliest'. configured value %v",
-			c.InitialOffset,
-		)
-	}
+func (c ConsumerConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if c.GroupRebalanceStrategy != "" {
-		switch c.GroupRebalanceStrategy {
-		case RangeBalanceStrategy, RoundRobinBalanceStrategy, StickyBalanceStrategy, CooperativeStickyBalanceStrategy:
-			// Built-in strategy, valid.
-		default:
-			// Accept any value that parses as a component ID; the extension
-			// will be resolved at runtime by the consumer client.
-			var id component.ID
-			if err := id.UnmarshalText([]byte(c.GroupRebalanceStrategy)); err != nil {
-				return fmt.Errorf(
-					"group_rebalance_strategy %q is not a built-in strategy (%s, %s, %s, %s) or a valid extension ID: %w",
-					c.GroupRebalanceStrategy,
-					RangeBalanceStrategy, RoundRobinBalanceStrategy, StickyBalanceStrategy, CooperativeStickyBalanceStrategy,
-					err,
-				)
-			}
-		}
-	}
+// Valid
 
-	// Validate fetch size constraints
-	if c.MinFetchSize < 0 {
-		return fmt.Errorf("min_fetch_size (%d) must be non-negative", c.MinFetchSize)
-	}
-	if c.MaxFetchSize < 0 {
-		return fmt.Errorf("max_fetch_size (%d) must be non-negative", c.MaxFetchSize)
-	}
-	if c.MaxPartitionFetchSize < 0 {
-		return fmt.Errorf("max_partition_fetch_size (%d) must be non-negative", c.MaxPartitionFetchSize)
-	}
-	if c.MaxFetchSize < c.MinFetchSize {
-		return fmt.Errorf(
-			"max_fetch_size (%d) cannot be less than min_fetch_size (%d)",
-			c.MaxFetchSize,
-			c.MinFetchSize,
-		)
-	}
+// Built-in strategy, valid.
 
-	return nil
-}
+// Accept any value that parses as a component ID; the extension
+// will be resolved at runtime by the consumer client.
+
+// Validate fetch size constraints
 
 type AutoCommitConfig struct {
 	// Whether or not to auto-commit updated offsets back to the broker.
@@ -273,39 +197,11 @@ type ProducerConfig struct {
 }
 
 func NewDefaultProducerConfig() ProducerConfig {
-	return ProducerConfig{
-		MaxMessageBytes:        1000000,
-		RequiredAcks:           WaitForLocal,
-		Compression:            "none",
-		FlushMaxMessages:       10000,
-		AllowAutoTopicCreation: true,
-		Linger:                 10 * time.Millisecond,
-	}
+	_ = "STUB: not implemented"
+	return *new(ProducerConfig)
 }
 
-func (c ProducerConfig) Validate() error {
-	switch c.Compression {
-	case "none", "gzip", "snappy", "lz4", "zstd":
-		ct := configcompression.Type(c.Compression)
-		if ct.IsCompressed() {
-			if err := ct.ValidateParams(c.CompressionParams); err != nil {
-				return err
-			}
-		}
-	default:
-		return fmt.Errorf(
-			"compression should be one of 'none', 'gzip', 'snappy', 'lz4', or 'zstd'. configured value is %q",
-			c.Compression,
-		)
-	}
-	if c.MaxMessageBytes < 0 {
-		return fmt.Errorf("max_message_bytes (%d) must be non-negative", c.MaxMessageBytes)
-	}
-	if c.FlushMaxMessages < 1 {
-		return fmt.Errorf("flush_max_messages (%d) must be at least 1", c.FlushMaxMessages)
-	}
-	return nil
-}
+func (c ProducerConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal unmarshals into ProducerConfig, allowing the user to specify any of ["all", -1, 0, 1]
 // for required_acks. This is in line with standard Kafka producer configuration as described at
@@ -313,16 +209,7 @@ func (c ProducerConfig) Validate() error {
 //
 // Note that confmap.Unmarshaler may only be implemented by structs, so we cannot define this method
 // on RequiredAcks itself.
-func (c *ProducerConfig) Unmarshal(conf *confmap.Conf) error {
-	if conf.Get("required_acks") == "all" {
-		if err := conf.Merge(confmap.NewFromStringMap(
-			map[string]any{"required_acks": WaitForAll},
-		)); err != nil {
-			return err
-		}
-	}
-	return conf.Unmarshal(c)
-}
+func (c *ProducerConfig) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // RequiredAcks defines record acknowledgement behavior for producers.
 type RequiredAcks int
@@ -338,12 +225,7 @@ const (
 	WaitForAll RequiredAcks = -1
 )
 
-func (r RequiredAcks) Validate() error {
-	if r < -1 || r > 1 {
-		return fmt.Errorf("expected 'all' (-1), 0, or 1; configured value is %v", r)
-	}
-	return nil
-}
+func (r RequiredAcks) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type MetadataConfig struct {
 	// Whether to maintain a full set of metadata for all topics, or just
@@ -373,14 +255,8 @@ type MetadataRetryConfig struct {
 }
 
 func NewDefaultMetadataConfig() MetadataConfig {
-	return MetadataConfig{
-		Full:            true,
-		RefreshInterval: 10 * time.Minute,
-		Retry: MetadataRetryConfig{
-			Max:     3,
-			Backoff: time.Millisecond * 250,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(MetadataConfig)
 }
 
 // AuthenticationConfig defines authentication-related configuration.
@@ -431,33 +307,11 @@ type SASLConfig struct {
 	OAuthBearerTokenSource component.ID `mapstructure:"oauthbearer_token_source,omitempty"`
 }
 
-func (c SASLConfig) Validate() error {
-	switch c.Mechanism {
-	case "AWS_MSK_IAM_OAUTHBEARER":
-		// TODO validate c.AWSMSK
-	case "PLAIN", "SCRAM-SHA-256", "SCRAM-SHA-512":
-		// Do nothing, valid mechanism
-		if c.Username == "" {
-			return errors.New("username is required")
-		}
-		if c.Password == "" {
-			return errors.New("password is required")
-		}
-	case "OAUTHBEARER":
-		if c.OAuthBearerTokenSource == (component.ID{}) {
-			return errors.New("oauth2authclient extension is required")
-		}
-	default:
-		return fmt.Errorf(
-			"mechanism should be one of 'PLAIN', 'AWS_MSK_IAM_OAUTHBEARER', 'SCRAM-SHA-256' or 'SCRAM-SHA-512'. configured value %v",
-			c.Mechanism,
-		)
-	}
-	if c.Version < 0 || c.Version > 1 {
-		return fmt.Errorf("version has to be either 0 or 1. configured value %v", c.Version)
-	}
-	return nil
-}
+func (c SASLConfig) Validate() error { _ = "STUB: not implemented"; return nil }
+
+// TODO validate c.AWSMSK
+
+// Do nothing, valid mechanism
 
 // AWSMSKConfig defines the additional SASL authentication
 // measures needed to use the AWS_MSK_IAM_OAUTHBEARER mechanism

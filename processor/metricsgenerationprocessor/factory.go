@@ -5,28 +5,20 @@ package metricsgenerationprocessor // import "github.com/open-telemetry/opentele
 
 import (
 	"context"
-	"errors"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/metricsgenerationprocessor/internal/metadata"
 )
 
 var processorCapabilities = consumer.Capabilities{MutatesData: true}
 
 // NewFactory returns a new factory for the Metrics Generation processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithMetrics(createMetricsProcessor, metadata.MetricsStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsProcessor(
@@ -35,37 +27,9 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	processorConfig, ok := cfg.(*Config)
-	if !ok {
-		return nil, errors.New("configuration parsing error")
-	}
-
-	metricsProcessor := newMetricsGenerationProcessor(buildInternalConfig(processorConfig), set.Logger)
-
-	return processorhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		metricsProcessor.processMetrics,
-		processorhelper.WithCapabilities(processorCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }
 
 // buildInternalConfig constructs the internal metric generation rules
-func buildInternalConfig(config *Config) []internalRule {
-	internalRules := make([]internalRule, len(config.Rules))
-
-	for i, rule := range config.Rules {
-		customRule := internalRule{
-			name:      rule.Name,
-			unit:      rule.Unit,
-			ruleType:  string(rule.Type),
-			metric1:   rule.Metric1,
-			metric2:   rule.Metric2,
-			operation: string(rule.Operation),
-			scaleBy:   rule.ScaleBy,
-		}
-		internalRules[i] = customRule
-	}
-	return internalRules
-}
+func buildInternalConfig(config *Config) []internalRule { _ = "STUB: not implemented"; return nil }

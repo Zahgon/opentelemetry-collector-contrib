@@ -7,46 +7,17 @@ package sumologicexporter // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sumologicexporter/internal/metadata"
 )
 
 // NewFactory returns a new factory for the sumologic exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	qs := configoptional.Default(exporterhelper.NewDefaultQueueConfig())
-	retryConfig := configretry.NewDefaultBackOffConfig()
-	retryConfig.Multiplier = DefaultRetryOnFailureMultiplier
-	retryConfig.MaxInterval = DefaultRetryOnFailureMaxInterval
-	retryConfig.MaxElapsedTime = DefaultRetryOnFailureMaxElapsedTime
-
-	return &Config{
-		MaxRequestBodySize: DefaultMaxRequestBodySize,
-		LogFormat:          DefaultLogFormat,
-		MetricFormat:       DefaultMetricFormat,
-		Client:             DefaultClient,
-
-		ClientConfig:         createDefaultClientConfig(),
-		BackOffConfig:        retryConfig,
-		QueueSettings:        qs,
-		StickySessionEnabled: DefaultStickySessionEnabled,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(
@@ -54,12 +25,8 @@ func createLogsExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	exp, err := newLogsExporter(ctx, params, cfg.(*Config))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create the logs exporter: %w", err)
-	}
-
-	return exp, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func createMetricsExporter(
@@ -67,12 +34,8 @@ func createMetricsExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Metrics, error) {
-	exp, err := newMetricsExporter(ctx, params, cfg.(*Config))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create the metrics exporter: %w", err)
-	}
-
-	return exp, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createTracesExporter(
@@ -80,10 +43,6 @@ func createTracesExporter(
 	params exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	exp, err := newTracesExporter(ctx, params, cfg.(*Config))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create the traces exporter: %w", err)
-	}
-
-	return exp, nil
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }

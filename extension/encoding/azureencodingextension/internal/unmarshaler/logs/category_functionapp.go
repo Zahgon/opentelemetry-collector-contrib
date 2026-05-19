@@ -6,11 +6,7 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 import (
 	"encoding/json"
 
-	jsoniter "github.com/json-iterator/go"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -46,24 +42,15 @@ type azureFunctionAppLogProperties struct {
 }
 
 func (p *azureFunctionAppLogProperties) UnmarshalJSON(data []byte) error {
-	if len(data) > 1 && data[0] == '"' && data[1] == '{' {
-		// Remove leading and trailing double quote
-		data = convertInvalidSingleQuotedJSON(data[1 : len(data)-1])
-	}
-
-	// Define an alias type to avoid infinite recursion
-	type alias azureFunctionAppLogProperties
-	var temp alias
-
-	if err := jsoniter.ConfigFastest.Unmarshal(data, &temp); err != nil {
-		return err
-	}
-
-	// Assign the unmarshaled fields from the alias to the original struct
-	*p = azureFunctionAppLogProperties(temp)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Remove leading and trailing double quote
+
+// Define an alias type to avoid infinite recursion
+
+// Assign the unmarshaled fields from the alias to the original struct
 
 // See https://learn.microsoft.com/en-us/azure/azure-monitor/reference/tables/functionapplogs
 // There is no documentation about the structure of the logs, so we will
@@ -78,81 +65,39 @@ type azureFunctionAppLog struct {
 
 // Override GetResource to add ServiceName and ServiceInstanceID from Properties
 func (r *azureFunctionAppLog) GetResource() logsResourceAttributes {
+	_ = "STUB: not implemented"
 	// Try to parse Properties to get AppName and FunctionName
-	properties := r.getParsedProperties()
-	if properties == nil {
-		// We failed to parse "properties" - return basic Resource attributes only
-		return logsResourceAttributes{
-			ResourceID: r.ResourceID,
-			TenantID:   r.TenantID,
-			Location:   r.Location,
-		}
-	}
-
-	// In general "appName" is naturally matched to "service.name" Resource Attribute,
-	// but in Azure multiple functions could be deployed into single FunctionApp
-	// So to make "service.name" correctly identifiable we will use the same approach
-	// as in SemConv "faas.name" - combine "appName" and "functionName"
-	serviceName := properties.AppName
-	if properties.FunctionName != "" {
-		serviceName = properties.AppName + "/" + properties.FunctionName
-	}
-	return logsResourceAttributes{
-		ResourceID:  r.ResourceID,
-		TenantID:    r.TenantID,
-		Location:    r.Location,
-		ServiceName: serviceName,
-		// "RoleInstance" field typically matches "AppRoleInstance" in Azure Traces, so we'll assign it to the
-		// same attribute as "service.instance.id" as in Trace Unmarshaler for correlation purposes
-		ServiceInstanceID: properties.RoleInstanceID,
-	}
+	return *new(logsResourceAttributes)
 }
 
+// We failed to parse "properties" - return basic Resource attributes only
+
+// In general "appName" is naturally matched to "service.name" Resource Attribute,
+// but in Azure multiple functions could be deployed into single FunctionApp
+// So to make "service.name" correctly identifiable we will use the same approach
+// as in SemConv "faas.name" - combine "appName" and "functionName"
+
+// "RoleInstance" field typically matches "AppRoleInstance" in Azure Traces, so we'll assign it to the
+// same attribute as "service.instance.id" as in Trace Unmarshaler for correlation purposes
+
 func (r *azureFunctionAppLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// Put some common attributes
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.FaaSInvokedProviderKey), conventions.CloudProviderAzure.Value.AsString())
-
-	// Try to parse Properties field
-	properties := r.getParsedProperties()
-	if properties == nil {
-		// Properties field could not be parsed - put raw string to `azure.properties` attribute
-		attrs.PutStr(attributesAzureProperties, string(r.Properties))
-		return nil
-	}
-
-	// If we were able to parse Properties - put all known fields to attributes
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.LogRecordUIDKey), properties.ActivityID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureEventName, properties.EventName)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureEventID, properties.EventID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.FaaSInvocationIDKey), properties.FunctionInvocationID)
-	// According to SemConv this attribute for Azure should be in form `<FUNCAPP>/<FUNC>`
-	// For clear func name we will use faas.invoked_name attribute
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.FaaSNameKey), properties.AppName+"/"+properties.FunctionName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.FaaSInvokedNameKey), properties.FunctionName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostIDKey), properties.HostInstanceID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostImageVersionKey), properties.HostVersion)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ProcessPIDKey), properties.ProcessID)
-	// "exceptionDetails" field typically contains a full stack trace of the exception
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionStacktraceKey), properties.ExceptionDetails)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionMessageKey), properties.ExceptionMessage)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionTypeKey), properties.ExceptionType)
-
-	body.SetStr(properties.Message)
-
 	return nil
 }
 
+// Try to parse Properties field
+
+// Properties field could not be parsed - put raw string to `azure.properties` attribute
+
+// If we were able to parse Properties - put all known fields to attributes
+
+// According to SemConv this attribute for Azure should be in form `<FUNCAPP>/<FUNC>`
+// For clear func name we will use faas.invoked_name attribute
+
+// "exceptionDetails" field typically contains a full stack trace of the exception
+
 func (r *azureFunctionAppLog) getParsedProperties() *azureFunctionAppLogProperties {
-	if r.propertiesParsed {
-		return r.parsedProperties
-	}
-
-	var properties azureFunctionAppLogProperties
-	r.propertiesParsed = true
-	if err := jsoniter.ConfigFastest.Unmarshal(r.Properties, &properties); err != nil {
-		return nil
-	}
-	r.parsedProperties = &properties
-
-	return r.parsedProperties
+	_ = "STUB: not implemented"
+	return nil
 }

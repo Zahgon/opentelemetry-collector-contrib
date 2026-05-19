@@ -4,11 +4,7 @@
 package serializeprofiles // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/serializer/otelserializer/serializeprofiles"
 
 import (
-	"encoding/json"
-	"strings"
 	"time"
-
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 // EcsVersionString is the value for the `ecs.version` metrics field.
@@ -93,26 +89,18 @@ type ResourceData struct {
 
 // MarshalJSON customizes the JSON marshaling for HostResourceData.
 func (h ResourceData) MarshalJSON() ([]byte, error) {
+	_ = "STUB: not implemented"
 	// Create a temporary map to hold the combined data
-	combinedData := make(map[string]any)
-
-	combinedData[string(conventions.HostIDKey)] = h.HostID
-	combinedData["ecs.version"] = h.V
-	// The ES index profiling-hosts expects a second-precise timestamp
-	combinedData["@timestamp"] = time.Now().UTC().Unix()
-
-	// Iterate over the Data map and add the key-value pairs with lowercase keys and values
-	for key, value := range h.Data {
-		if value == "" {
-			// Do not populate keys without value
-			continue
-		}
-		combinedData[strings.ToLower(key)] = strings.ToLower(value)
-	}
-
-	// Marshal the combined map into JSON
-	return json.Marshal(combinedData)
+	return nil, nil
 }
+
+// The ES index profiling-hosts expects a second-precise timestamp
+
+// Iterate over the Data map and add the key-value pairs with lowercase keys and values
+
+// Do not populate keys without value
+
+// Marshal the combined map into JSON
 
 // Script written in Painless that will both create a new document (if DocID does not exist),
 // and update timestamp of an existing document. Named parameters are used to improve performance
@@ -159,19 +147,8 @@ type ExeMetadata struct {
 }
 
 func NewExeMetadata(docID string, lastSeen uint32, buildID, fileName string) ExeMetadata {
-	return ExeMetadata{
-		DocID:          docID,
-		ScriptedUpsert: true,
-		Script: ExeMetadataScript{
-			Source: ExeMetadataUpsertScript,
-			Params: ExeMetadataParams{
-				LastSeen:   lastSeen,
-				BuildID:    buildID,
-				FileName:   fileName,
-				EcsVersion: EcsVersionString,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ExeMetadata)
 }
 
 // UnsymbolizedExecutable represents an array of executable FileIDs written into the

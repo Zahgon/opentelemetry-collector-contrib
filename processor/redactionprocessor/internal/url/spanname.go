@@ -4,8 +4,6 @@
 package url // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/redactionprocessor/internal/url"
 
 import (
-	"strings"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 	semconv125 "go.opentelemetry.io/otel/semconv/v1.25.0"
@@ -15,59 +13,15 @@ import (
 // SanitizeSpanName sanitizes the span name if the span looks like an HTTP span.
 // It returns the sanitized name and true when a change was made.
 func SanitizeSpanName(span ptrace.Span, sanitizer *URLSanitizer) (string, bool) {
-	if sanitizer == nil {
-		return "", false
-	}
-
-	if !shouldSanitizeSpan(span) {
-		return "", false
-	}
-
-	name := span.Name()
-	sanitized := sanitizer.SanitizeURL(name)
-	if sanitized == name {
-		return "", false
-	}
-
-	// This means the full span name was replaced
-	if wasFullyRedacted(sanitized) {
-		return name, false
-	}
-
-	return sanitized, true
+	_ = "STUB: not implemented"
+	return "", false
 }
 
-func wasFullyRedacted(s string) bool {
-	if s == "" {
-		return false
-	}
-	segments := strings.Split(s, "/")
-	hasAsterisk := false
-	for _, segment := range segments {
-		if segment == "*" {
-			hasAsterisk = true
-		} else if segment != "" {
-			return false
-		}
-	}
-	return hasAsterisk
-}
+// This means the full span name was replaced
 
-func shouldSanitizeSpan(span ptrace.Span) bool {
-	kind := span.Kind()
-	if kind != ptrace.SpanKindClient && kind != ptrace.SpanKindServer {
-		return false
-	}
+func wasFullyRedacted(s string) bool { _ = "STUB: not implemented"; return false }
 
-	attrs := span.Attributes()
-	spanName := span.Name()
-
-	if !hasHTTPAttributes(attrs) && !strings.Contains(spanName, "/") {
-		return false
-	}
-
-	return true
-}
+func shouldSanitizeSpan(span ptrace.Span) bool { _ = "STUB: not implemented"; return false }
 
 var httpAttributeKeys = []string{
 	string(semconv138.HTTPRouteKey),
@@ -81,11 +35,4 @@ var httpAttributeKeys = []string{
 	string(semconv125.HTTPURLKey),
 }
 
-func hasHTTPAttributes(attrs pcommon.Map) bool {
-	for _, key := range httpAttributeKeys {
-		if _, ok := attrs.Get(key); ok {
-			return true
-		}
-	}
-	return false
-}
+func hasHTTPAttributes(attrs pcommon.Map) bool { _ = "STUB: not implemented"; return false }

@@ -23,63 +23,31 @@ import "go.opentelemetry.io/collector/pdata/ptrace"
 //
 // Each byte in the input string is a unique ID for the corresponding element.
 func NewTraces(resourceIDs, scopeIDs, spanIDs, spanEventIDs string) ptrace.Traces {
-	td := ptrace.NewTraces()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rs := td.ResourceSpans().AppendEmpty()
-		rs.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			ss := rs.ScopeSpans().AppendEmpty()
-			ss.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for spanN := 0; spanN < len(spanIDs); spanN++ {
-				s := ss.Spans().AppendEmpty()
-				s.SetName("span" + string(spanIDs[spanN]))
-				for spanEventN := 0; spanEventN < len(spanEventIDs); spanEventN++ {
-					se := s.Events().AppendEmpty()
-					se.Attributes().PutStr("spanEventName", "spanEvent"+string(spanEventIDs[spanEventN]))
-				}
-			}
-		}
-	}
-	return td
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces)
 }
 
 func NewTracesFromOpts(resources ...ptrace.ResourceSpans) ptrace.Traces {
-	md := ptrace.NewTraces()
-	for _, resource := range resources {
-		resource.CopyTo(md.ResourceSpans().AppendEmpty())
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces)
 }
 
 func Resource(id string, scopes ...ptrace.ScopeSpans) ptrace.ResourceSpans {
-	rm := ptrace.NewResourceSpans()
-	rm.Resource().Attributes().PutStr("resourceName", "resource"+id)
-	for _, scope := range scopes {
-		scope.CopyTo(rm.ScopeSpans().AppendEmpty())
-	}
-	return rm
+	_ = "STUB: not implemented"
+	return *new(ptrace.ResourceSpans)
 }
 
 func Scope(id string, spans ...ptrace.Span) ptrace.ScopeSpans {
-	s := ptrace.NewScopeSpans()
-	s.Scope().SetName("scope" + id)
-	for _, span := range spans {
-		span.CopyTo(s.Spans().AppendEmpty())
-	}
-	return s
+	_ = "STUB: not implemented"
+	return *new(ptrace.ScopeSpans)
 }
 
 func Span(id string, ses ...ptrace.SpanEvent) ptrace.Span {
-	m := ptrace.NewSpan()
-	m.SetName("span" + id)
-	for _, se := range ses {
-		se.CopyTo(m.Events().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(ptrace.Span)
 }
 
 func SpanEvent(id string) ptrace.SpanEvent {
-	dp := ptrace.NewSpanEvent()
-	dp.Attributes().PutStr("spanEventName", "spanEvent"+id)
-	return dp
+	_ = "STUB: not implemented"
+	return *new(ptrace.SpanEvent)
 }

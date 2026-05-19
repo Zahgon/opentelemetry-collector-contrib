@@ -20,65 +20,20 @@ const (
 )
 
 func (s *processesScraper) getProcessesMetadata(ctx context.Context) (processesMetadata, error) {
-	processes, err := s.getProcesses(ctx)
-	if err != nil {
-		return processesMetadata{}, err
-	}
-
-	countByStatus := map[metadata.AttributeStatus]int64{}
-	for _, process := range processes {
-		var status []string
-		status, err = process.Status()
-		if err != nil {
-			// We expect an error in the case that a process has
-			// been terminated as we run this code.
-			continue
-		}
-		state, ok := toAttributeStatus(status)
-		if !ok {
-			countByStatus[metadata.AttributeStatusUnknown]++
-			continue
-		}
-		countByStatus[state]++
-	}
-
-	// Processes are actively changing as we run this code, so this reason
-	// the above loop will tend to underestimate process counts.
-	// getMiscStats is a single read/syscall so it should be more accurate.
-	miscStat, err := s.getMiscStats(ctx)
-	if err != nil {
-		return processesMetadata{}, err
-	}
-
-	var procsCreated *int64
-	if enableProcessesCreated {
-		v := int64(miscStat.ProcsCreated)
-		procsCreated = &v
-	}
-
-	countByStatus[metadata.AttributeStatusBlocked] = int64(miscStat.ProcsBlocked)
-	countByStatus[metadata.AttributeStatusRunning] = int64(miscStat.ProcsRunning)
-
-	totalKnown := int64(0)
-	for _, count := range countByStatus {
-		totalKnown += count
-	}
-	if int64(miscStat.ProcsTotal) > totalKnown {
-		countByStatus[metadata.AttributeStatusUnknown] = int64(miscStat.ProcsTotal) - totalKnown
-	}
-
-	return processesMetadata{
-		countByStatus:    countByStatus,
-		processesCreated: procsCreated,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(processesMetadata), nil
 }
 
+// We expect an error in the case that a process has
+// been terminated as we run this code.
+
+// Processes are actively changing as we run this code, so this reason
+// the above loop will tend to underestimate process counts.
+// getMiscStats is a single read/syscall so it should be more accurate.
+
 func toAttributeStatus(status []string) (metadata.AttributeStatus, bool) {
-	if len(status) == 0 || status[0] == "" {
-		return metadata.AttributeStatus(0), false
-	}
-	state, ok := charToState[status[0]]
-	return state, ok
+	_ = "STUB: not implemented"
+	return *new(metadata.AttributeStatus), false
 }
 
 var charToState = map[string]metadata.AttributeStatus{

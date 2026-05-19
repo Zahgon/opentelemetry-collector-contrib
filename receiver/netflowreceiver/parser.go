@@ -4,15 +4,8 @@
 package netflowreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/netflowreceiver"
 
 import (
-	"errors"
-	"net/netip"
-	"time"
-
 	"github.com/netsampler/goflow2/v2/producer"
-	protoproducer "github.com/netsampler/goflow2/v2/producer/proto"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 var (
@@ -191,68 +184,25 @@ var (
 	}
 )
 
-func getEtypeName(etype uint32) string {
-	if name, ok := etypeNames[etype]; ok {
-		return name
-	}
-	return "unknown"
-}
+func getEtypeName(etype uint32) string { _ = "STUB: not implemented"; return "" }
 
-func getTransportName(proto uint32) string {
-	if name, ok := transportProtocolNames[proto]; ok {
-		return name
-	}
-	return "unknown"
-}
+func getTransportName(proto uint32) string { _ = "STUB: not implemented"; return "" }
 
-func getFlowTypeName(flowType int32) string {
-	if name, ok := flowTypeNames[flowType]; ok {
-		return name
-	}
-	return "unknown"
-}
+func getFlowTypeName(flowType int32) string { _ = "STUB: not implemented"; return "" }
 
 // addMessageAttributes parses the message attributes and adds them to the log record
 func addMessageAttributes(m producer.ProducerMessage, r *plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// we know msg is ProtoProducerMessage because that is the parent producer
-	pm, ok := m.(*protoproducer.ProtoProducerMessage)
-	if !ok {
-		return errors.New("this flow message is not ProtoProducerMessage, this is not expected")
-	}
-
-	// Parse IP addresses bytes to netip.Addr
-	srcAddr, _ := netip.AddrFromSlice(pm.SrcAddr)
-	dstAddr, _ := netip.AddrFromSlice(pm.DstAddr)
-	samplerAddr, _ := netip.AddrFromSlice(pm.SamplerAddress)
-
-	// Time the receiver received the message
-	receivedTime := time.Unix(0, int64(pm.TimeReceivedNs))
-	startTime := time.Unix(0, int64(pm.TimeFlowStartNs))
-
-	r.SetObservedTimestamp(pcommon.NewTimestampFromTime(receivedTime))
-	r.SetTimestamp(pcommon.NewTimestampFromTime(startTime))
-
-	// Source and destination attributes
-	r.Attributes().PutStr(string(conventions.SourceAddressKey), srcAddr.String())
-	r.Attributes().PutInt(string(conventions.SourcePortKey), int64(pm.SrcPort))
-	r.Attributes().PutStr(string(conventions.DestinationAddressKey), dstAddr.String())
-	r.Attributes().PutInt(string(conventions.DestinationPortKey), int64(pm.DstPort))
-
-	// Network attributes
-	r.Attributes().PutStr(string(conventions.NetworkTransportKey), getTransportName(pm.Proto))
-	r.Attributes().PutStr(string(conventions.NetworkTypeKey), getEtypeName(pm.Etype))
-
-	// There is no semconv as of today for these
-	r.Attributes().PutInt("flow.io.bytes", int64(pm.Bytes))
-	r.Attributes().PutInt("flow.io.packets", int64(pm.Packets))
-	r.Attributes().PutStr("flow.type", getFlowTypeName(int32(pm.Type)))
-	r.Attributes().PutInt("flow.sequence_num", int64(pm.SequenceNum))
-	r.Attributes().PutInt("flow.time_received", int64(pm.TimeReceivedNs))
-	r.Attributes().PutInt("flow.start", int64(pm.TimeFlowStartNs))
-	r.Attributes().PutInt("flow.end", int64(pm.TimeFlowEndNs))
-	r.Attributes().PutInt("flow.sampling_rate", int64(pm.SamplingRate))
-	r.Attributes().PutStr("flow.sampler_address", samplerAddr.String())
-	r.Attributes().PutInt("flow.tcp_flags", int64(pm.TcpFlags))
-
 	return nil
 }
+
+// Parse IP addresses bytes to netip.Addr
+
+// Time the receiver received the message
+
+// Source and destination attributes
+
+// Network attributes
+
+// There is no semconv as of today for these

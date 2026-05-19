@@ -121,16 +121,8 @@ type DecoderOptions struct {
 }
 
 func NewDecoderOptions(opts ...DecoderOption) DecoderOptions {
-	options := DecoderOptions{
-		FlushBytes: defaultFlushBytes,
-		FlushItems: defaultFlushItems,
-		Offset:     0,
-	}
-
-	for _, o := range opts {
-		o(&options)
-	}
-	return options
+	_ = "STUB: not implemented"
+	return *new(DecoderOptions)
 }
 
 // DecoderOption defines the functional option for DecoderOptions.
@@ -138,24 +130,12 @@ type DecoderOption func(*DecoderOptions)
 
 // WithFlushBytes sets the number of bytes after stream decoder should flush.
 // Use WithFlushBytes(0) to disable flushing by byte count.
-func WithFlushBytes(b int64) DecoderOption {
-	return func(o *DecoderOptions) {
-		o.FlushBytes = b
-	}
-}
+func WithFlushBytes(b int64) DecoderOption { _ = "STUB: not implemented"; return *new(DecoderOption) }
 
 // WithFlushItems sets the number of items after stream decoder should flush.
 // Use WithFlushItems(0) to disable flushing by item count.
-func WithFlushItems(i int64) DecoderOption {
-	return func(o *DecoderOptions) {
-		o.FlushItems = i
-	}
-}
+func WithFlushItems(i int64) DecoderOption { _ = "STUB: not implemented"; return *new(DecoderOption) }
 
 // WithOffset defines the initial stream offset for the stream.
 // The exact meaning of the offset may vary by decoder (e.g. bytes, lines, records).
-func WithOffset(offset int64) DecoderOption {
-	return func(o *DecoderOptions) {
-		o.Offset = offset
-	}
-}
+func WithOffset(offset int64) DecoderOption { _ = "STUB: not implemented"; return *new(DecoderOption) }

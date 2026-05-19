@@ -9,26 +9,22 @@ type ErrRecoverable struct {
 	Err error
 }
 
-func (e *ErrRecoverable) Error() string {
-	return e.Err.Error()
-}
+func (e *ErrRecoverable) Error() string { _ = "STUB: not implemented"; return "" }
 
 // Unwrap implements the new error feature introduced in Go 1.13
 func (e *ErrRecoverable) Unwrap() error {
-	return e.Err
+	_ = "STUB: not implemented"
+
+	// ErrIrrecoverable represents an error that should
+	// stop the receiver.
+	return nil
 }
 
-// ErrIrrecoverable represents an error that should
-// stop the receiver.
 type ErrIrrecoverable struct {
 	Err error
 }
 
-func (e *ErrIrrecoverable) Error() string {
-	return e.Err.Error()
-}
+func (e *ErrIrrecoverable) Error() string { _ = "STUB: not implemented"; return "" }
 
 // Unwrap implements the new error feature introduced in Go 1.13
-func (e *ErrIrrecoverable) Unwrap() error {
-	return e.Err
-}
+func (e *ErrIrrecoverable) Unwrap() error { _ = "STUB: not implemented"; return nil }

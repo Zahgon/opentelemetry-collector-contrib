@@ -15,5 +15,6 @@ type clrService struct {
 }
 
 func (*clrService) Collect(context.Context, *agent.CLRMetricCollection) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

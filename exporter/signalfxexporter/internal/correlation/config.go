@@ -4,37 +4,15 @@
 package correlation // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/correlation"
 
 import (
-	"errors"
-	"net/url"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/apm/correlations"
 )
 
 // DefaultConfig returns default configuration correlation values.
-func DefaultConfig() *Config {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Timeout = 5 * time.Second
-	return &Config{
-		ClientConfig:        clientConfig,
-		StaleServiceTimeout: 5 * time.Minute,
-		SyncAttributes: map[string]string{
-			string(conventions.K8SPodUIDKey):   string(conventions.K8SPodUIDKey),
-			string(conventions.ContainerIDKey): string(conventions.ContainerIDKey),
-		},
-		Config: correlations.Config{
-			MaxRequests:     20,
-			MaxBuffered:     10_000,
-			MaxRetries:      2,
-			LogUpdates:      false,
-			RetryDelay:      30 * time.Second,
-			CleanupInterval: 1 * time.Minute,
-		},
-	}
-}
+func DefaultConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // Config defines configuration for correlation via traces.
 type Config struct {
@@ -48,15 +26,4 @@ type Config struct {
 	SyncAttributes map[string]string `mapstructure:"sync_attributes"`
 }
 
-func (c *Config) validate() error {
-	if c.Endpoint == "" {
-		return errors.New("`correlation.endpoint` not specified")
-	}
-
-	_, err := url.Parse(c.Endpoint)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
+func (c *Config) validate() error { _ = "STUB: not implemented"; return nil }

@@ -5,7 +5,6 @@ package dorisexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	_ "embed"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -28,48 +27,13 @@ type metricModelGauge struct {
 }
 
 func (*metricModelGauge) metricType() pmetric.MetricType {
-	return pmetric.MetricTypeGauge
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType)
 }
 
-func (*metricModelGauge) tableSuffix() string {
-	return "_gauge"
-}
+func (*metricModelGauge) tableSuffix() string { _ = "STUB: not implemented"; return "" }
 
 func (m *metricModelGauge) add(pm pmetric.Metric, dm *dMetric, e *metricsExporter) error {
-	if pm.Type() != pmetric.MetricTypeGauge {
-		return fmt.Errorf("metric type is not gauge: %v", pm.Type().String())
-	}
-
-	dataPoints := pm.Gauge().DataPoints()
-	for i := 0; i < dataPoints.Len(); i++ {
-		dp := dataPoints.At(i)
-
-		exemplars := dp.Exemplars()
-		newExemplars := make([]*dExemplar, 0, exemplars.Len())
-		for j := 0; j < exemplars.Len(); j++ {
-			exemplar := exemplars.At(j)
-
-			newExemplar := &dExemplar{
-				FilteredAttributes: exemplar.FilteredAttributes().AsRaw(),
-				Timestamp:          e.formatTime(exemplar.Timestamp().AsTime()),
-				Value:              e.getExemplarValue(exemplar),
-				SpanID:             exemplar.SpanID().String(),
-				TraceID:            exemplar.TraceID().String(),
-			}
-
-			newExemplars = append(newExemplars, newExemplar)
-		}
-
-		metric := &dMetricGauge{
-			dMetric:    dm,
-			Timestamp:  e.formatTime(dp.Timestamp().AsTime()),
-			Attributes: dp.Attributes().AsRaw(),
-			StartTime:  e.formatTime(dp.StartTimestamp().AsTime()),
-			Value:      e.getNumberDataPointValue(dp),
-			Exemplars:  newExemplars,
-		}
-		m.data = append(m.data, metric)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

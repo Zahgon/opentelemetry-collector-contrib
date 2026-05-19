@@ -21,50 +21,23 @@ import "go.opentelemetry.io/collector/pdata/plog"
 //
 // Each byte in the input string is a unique ID for the corresponding element.
 func NewLogs(resourceIDs, scopeIDs, logRecordIDs string) plog.Logs {
-	ld := plog.NewLogs()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rl := ld.ResourceLogs().AppendEmpty()
-		rl.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sl := rl.ScopeLogs().AppendEmpty()
-			sl.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for logRecordN := 0; logRecordN < len(logRecordIDs); logRecordN++ {
-				lr := sl.LogRecords().AppendEmpty()
-				lr.Body().SetStr("log" + string(logRecordIDs[logRecordN]))
-			}
-		}
-	}
-	return ld
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }
 
 func NewLogsFromOpts(resources ...plog.ResourceLogs) plog.Logs {
-	ld := plog.NewLogs()
-	for _, resource := range resources {
-		resource.CopyTo(ld.ResourceLogs().AppendEmpty())
-	}
-	return ld
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }
 
 func Resource(id string, scopes ...plog.ScopeLogs) plog.ResourceLogs {
-	rl := plog.NewResourceLogs()
-	rl.Resource().Attributes().PutStr("resourceName", "resource"+id)
-	for _, scope := range scopes {
-		scope.CopyTo(rl.ScopeLogs().AppendEmpty())
-	}
-	return rl
+	_ = "STUB: not implemented"
+	return *new(plog.ResourceLogs)
 }
 
 func Scope(id string, logs ...plog.LogRecord) plog.ScopeLogs {
-	s := plog.NewScopeLogs()
-	s.Scope().SetName("scope" + id)
-	for _, log := range logs {
-		log.CopyTo(s.LogRecords().AppendEmpty())
-	}
-	return s
+	_ = "STUB: not implemented"
+	return *new(plog.ScopeLogs)
 }
 
-func LogRecord(id string) plog.LogRecord {
-	lr := plog.NewLogRecord()
-	lr.Body().SetStr("log" + id)
-	return lr
-}
+func LogRecord(id string) plog.LogRecord { _ = "STUB: not implemented"; return *new(plog.LogRecord) }

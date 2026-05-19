@@ -28,33 +28,13 @@ type defaultPinger struct {
 	*probing.Pinger
 }
 
-func (p *defaultPinger) IPString() string {
-	return p.IPAddr().IP.String()
-}
+func (p *defaultPinger) IPString() string { _ = "STUB: not implemented"; return "" }
 
-func (p *defaultPinger) HostName() string {
-	return p.Addr()
-}
+func (p *defaultPinger) HostName() string { _ = "STUB: not implemented"; return "" }
 
-func (p *defaultPinger) Stats() *pingStats {
-	return &pingStats{
-		minRtt:    p.Statistics().MinRtt,
-		avgRtt:    p.Statistics().AvgRtt,
-		maxRtt:    p.Statistics().MaxRtt,
-		stdDevRtt: p.Statistics().StdDevRtt,
-		lossRatio: p.Statistics().PacketLoss,
-	}
-}
+func (p *defaultPinger) Stats() *pingStats { _ = "STUB: not implemented"; return nil }
 
 func defaultPingerFactory(target PingTarget) (pinger, error) {
-	p, err := probing.NewPinger(target.Host)
-	if err != nil {
-		return nil, err
-	}
-
-	p.Interval = target.PingInterval
-	p.Timeout = target.PingTimeout
-	p.Count = target.PingCount
-
-	return &defaultPinger{p}, nil
+	_ = "STUB: not implemented"
+	return *new(pinger), nil
 }

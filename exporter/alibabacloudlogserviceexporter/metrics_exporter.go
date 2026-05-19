@@ -8,27 +8,14 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
 )
 
 // newMetricsExporter return a new LogService metrics exporter.
 func newMetricsExporter(set exporter.Settings, cfg component.Config) (exporter.Metrics, error) {
-	l := &logServiceMetricsSender{
-		logger: set.Logger,
-	}
-
-	var err error
-	if l.client, err = newLogServiceClient(cfg.(*Config), set.Logger); err != nil {
-		return nil, err
-	}
-
-	return exporterhelper.NewMetrics(
-		context.TODO(),
-		set,
-		cfg,
-		l.pushMetricsData)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 type logServiceMetricsSender struct {
@@ -40,10 +27,6 @@ func (s *logServiceMetricsSender) pushMetricsData(
 	_ context.Context,
 	md pmetric.Metrics,
 ) error {
-	var err error
-	logs := metricsDataToLogServiceData(s.logger, md)
-	if len(logs) > 0 {
-		err = s.client.sendLogs(logs)
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }

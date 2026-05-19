@@ -13,8 +13,4 @@ type Config struct {
 }
 
 // CreateDefaultConfig returns the default configuration for the IBM Cloud Classic detector.
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

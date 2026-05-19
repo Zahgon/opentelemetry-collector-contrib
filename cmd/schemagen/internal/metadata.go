@@ -3,13 +3,6 @@
 
 package internal
 
-import (
-	"os"
-	"path"
-
-	"gopkg.in/yaml.v3"
-)
-
 type Metadata struct {
 	Type   string `mapstructure:"type"`
 	Status struct {
@@ -18,13 +11,4 @@ type Metadata struct {
 	Parent string `mapstructure:"parent"`
 }
 
-func ReadMetadata(dir string) (*Metadata, bool) {
-	mdPath := path.Join(dir, "metadata.yaml")
-	if data, err := os.ReadFile(mdPath); err == nil {
-		var m Metadata
-		if err := yaml.Unmarshal(data, &m); err == nil {
-			return &m, true
-		}
-	}
-	return nil, false
-}
+func ReadMetadata(dir string) (*Metadata, bool) { _ = "STUB: not implemented"; return nil, false }

@@ -5,11 +5,8 @@ package awsproxy // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"errors"
-	"net/http"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/extension"
 	"go.uber.org/zap"
 
@@ -26,33 +23,13 @@ type xrayProxy struct {
 var _ extension.Extension = (*xrayProxy)(nil)
 
 func (x *xrayProxy) Start(_ context.Context, host component.Host) error {
-	srv, err := proxy.NewServer(&x.config.ProxyConfig, host, x.settings)
-	if err != nil {
-		return err
-	}
-	x.server = srv
-	go func() {
-		if err := x.server.ListenAndServe(); !errors.Is(err, http.ErrServerClosed) && err != nil {
-			componentstatus.ReportStatus(host, componentstatus.NewFatalErrorEvent(err))
-		}
-	}()
-	x.logger.Info("X-Ray proxy server started on " + x.config.ProxyConfig.Endpoint)
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *xrayProxy) Shutdown(ctx context.Context) error {
-	if x.server != nil {
-		return x.server.Shutdown(ctx)
-	}
-	return nil
-}
+func (x *xrayProxy) Shutdown(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func newXrayProxy(config *Config, telemetrySettings component.TelemetrySettings) (extension.Extension, error) {
-	p := &xrayProxy{
-		config:   config,
-		logger:   telemetrySettings.Logger,
-		settings: telemetrySettings,
-	}
-
-	return p, nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

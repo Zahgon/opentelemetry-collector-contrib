@@ -4,8 +4,6 @@
 package attributesprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/attributesprocessor"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/attraction"
@@ -31,9 +29,4 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (cfg *Config) Validate() error {
-	if len(cfg.Actions) == 0 {
-		return errors.New("missing required field \"actions\"")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

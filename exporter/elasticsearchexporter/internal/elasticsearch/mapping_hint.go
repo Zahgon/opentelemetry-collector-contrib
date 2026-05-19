@@ -4,8 +4,6 @@
 package elasticsearch // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/elasticsearch"
 
 import (
-	"slices"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
@@ -34,19 +32,12 @@ type MappingHintGetter struct {
 
 // NewMappingHintGetter creates a new MappingHintGetter
 func NewMappingHintGetter(attr pcommon.Map) (g MappingHintGetter) {
-	v, ok := attr.Get(MappingHintsAttrKey)
-	if !ok || v.Type() != pcommon.ValueTypeSlice {
-		return g
-	}
-	slice := v.Slice()
-	g.hints = slices.Grow(g.hints, slice.Len())
-	for _, hint := range slice.All() {
-		g.hints = append(g.hints, MappingHint(hint.Str()))
-	}
-	return g
+	_ = "STUB: not implemented"
+	return *new(MappingHintGetter)
 }
 
 // HasMappingHint checks whether the getter contains the requested mapping hint
 func (g MappingHintGetter) HasMappingHint(hint MappingHint) bool {
-	return slices.Contains(g.hints, hint)
+	_ = "STUB: not implemented"
+	return false
 }

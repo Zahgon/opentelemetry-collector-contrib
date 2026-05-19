@@ -19,7 +19,6 @@
 package healthcheck // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension/internal/healthcheck"
 
 import (
-	"encoding/json"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -39,18 +38,7 @@ const (
 	Broken
 )
 
-func (s Status) String() string {
-	switch s {
-	case Unavailable:
-		return "unavailable"
-	case Ready:
-		return "ready"
-	case Broken:
-		return "broken"
-	default:
-		return "unknown"
-	}
-}
+func (s Status) String() string { _ = "STUB: not implemented"; return "" }
 
 type healthCheckResponse struct {
 	statusCode int
@@ -72,75 +60,31 @@ type HealthCheck struct {
 }
 
 // New creates a HealthCheck with the specified initial state.
-func New() *HealthCheck {
-	hc := &HealthCheck{
-		logger: zap.NewNop(),
-		responses: map[Status]healthCheckResponse{
-			Unavailable: {
-				statusCode: http.StatusServiceUnavailable,
-				StatusMsg:  "Server not available",
-			},
-			Ready: {
-				statusCode: http.StatusOK,
-				StatusMsg:  "Server available",
-			},
-		},
-	}
-	hc.state.Store(state{status: Unavailable})
-	return hc
-}
+func New() *HealthCheck { _ = "STUB: not implemented"; return nil }
 
 // SetLogger initializes a logger.
 func (hc *HealthCheck) SetLogger(logger *zap.Logger) {
-	hc.logger = logger
+	_ = "STUB: not implemented"
+
+	// Handler creates a new HTTP handler.
+	return
 }
 
-// Handler creates a new HTTP handler.
-func (hc *HealthCheck) Handler() http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		hcState := hc.getState()
-		template := hc.responses[hcState.status]
-
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(template.statusCode)
-
-		_, _ = w.Write(createRespBody(hcState, template))
-	})
-}
+func (hc *HealthCheck) Handler() http.Handler { _ = "STUB: not implemented"; return *new(http.Handler) }
 
 func createRespBody(state state, template healthCheckResponse) []byte {
-	resp := template // clone
-	if state.status == Ready {
-		resp.UpSince = state.upSince
-		resp.Uptime = time.Since(state.upSince).String()
-	}
-	healthCheckStatus, _ := json.Marshal(resp)
-	return healthCheckStatus
+	_ = "STUB: not implemented"
+	// clone
+	return nil
 }
 
 // Set a new health check status
-func (hc *HealthCheck) Set(status Status) {
-	oldState := hc.getState()
-	newState := state{status: status}
-	if status == Ready {
-		if oldState.status != Ready {
-			newState.upSince = time.Now()
-		}
-	}
-	hc.state.Store(newState)
-	hc.logger.Info("Health Check state change", zap.Stringer("status", status))
-}
+func (hc *HealthCheck) Set(status Status) { _ = "STUB: not implemented"; return }
 
 // Get the current status of this health check
-func (hc *HealthCheck) Get() Status {
-	return hc.getState().status
-}
+func (hc *HealthCheck) Get() Status { _ = "STUB: not implemented"; return *new(Status) }
 
-func (hc *HealthCheck) getState() state {
-	return hc.state.Load().(state)
-}
+func (hc *HealthCheck) getState() state { _ = "STUB: not implemented"; return *new(state) }
 
 // Ready is a shortcut for Set(Ready) (kept for backwards compatibility)
-func (hc *HealthCheck) Ready() {
-	hc.Set(Ready)
-}
+func (hc *HealthCheck) Ready() { _ = "STUB: not implemented"; return }

@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetFileName sets provided value as "file.name" attribute.
-func (rb *ResourceBuilder) SetFileName(val string) {
-	if rb.config.FileName.Enabled {
-		rb.res.Attributes().PutStr("file.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetFileName(val string) { _ = "STUB: not implemented"; return }
 
 // SetFilePath sets provided value as "file.path" attribute.
-func (rb *ResourceBuilder) SetFilePath(val string) {
-	if rb.config.FilePath.Enabled {
-		rb.res.Attributes().PutStr("file.path", val)
-	}
-}
+func (rb *ResourceBuilder) SetFilePath(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

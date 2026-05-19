@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -27,36 +24,11 @@ type SaphanaAlertCountMetricConfig struct {
 }
 
 func (ms *SaphanaAlertCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SaphanaAlertCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaAlertCountMetricAttributeKeyAlertRating:
-		default:
-			return fmt.Errorf("metric saphana.alert.count doesn't have an attribute %v, valid attributes: [rating]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SaphanaAlertCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SaphanaBackupLatestMetricConfig provides config for the saphana.backup.latest metric.
 type SaphanaBackupLatestMetricConfig struct {
@@ -65,16 +37,7 @@ type SaphanaBackupLatestMetricConfig struct {
 }
 
 func (ms *SaphanaBackupLatestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,34 +59,12 @@ type SaphanaColumnMemoryUsedMetricConfig struct {
 }
 
 func (ms *SaphanaColumnMemoryUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaColumnMemoryUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemoryType, SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemorySubtype:
-		default:
-			return fmt.Errorf("metric saphana.column.memory.used doesn't have an attribute %v, valid attributes: [type, subtype]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -144,34 +85,12 @@ type SaphanaComponentMemoryUsedMetricConfig struct {
 }
 
 func (ms *SaphanaComponentMemoryUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaComponentMemoryUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaComponentMemoryUsedMetricAttributeKeyComponent:
-		default:
-			return fmt.Errorf("metric saphana.component.memory.used doesn't have an attribute %v, valid attributes: [component]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -192,34 +111,12 @@ type SaphanaConnectionCountMetricConfig struct {
 }
 
 func (ms *SaphanaConnectionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaConnectionCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaConnectionCountMetricAttributeKeyConnectionStatus:
-		default:
-			return fmt.Errorf("metric saphana.connection.count doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -240,36 +137,11 @@ type SaphanaCPUUsedMetricConfig struct {
 }
 
 func (ms *SaphanaCPUUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SaphanaCPUUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaCPUUsedMetricAttributeKeyCPUType:
-		default:
-			return fmt.Errorf("metric saphana.cpu.used doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SaphanaCPUUsedMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SaphanaDiskSizeCurrentMetricAttributeKey specifies the key of an attribute for the saphana.disk.size.current metric.
 type SaphanaDiskSizeCurrentMetricAttributeKey string
@@ -290,34 +162,12 @@ type SaphanaDiskSizeCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaDiskSizeCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaDiskSizeCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaDiskSizeCurrentMetricAttributeKeyPath, SaphanaDiskSizeCurrentMetricAttributeKeyDiskUsageType, SaphanaDiskSizeCurrentMetricAttributeKeyDiskStateUsedFree:
-		default:
-			return fmt.Errorf("metric saphana.disk.size.current doesn't have an attribute %v, valid attributes: [path, usage_type, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -338,34 +188,12 @@ type SaphanaHostMemoryCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaHostMemoryCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaHostMemoryCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaHostMemoryCurrentMetricAttributeKeyMemoryStateUsedFree:
-		default:
-			return fmt.Errorf("metric saphana.host.memory.current doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -386,34 +214,12 @@ type SaphanaHostSwapCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaHostSwapCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaHostSwapCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaHostSwapCurrentMetricAttributeKeyHostSwapState:
-		default:
-			return fmt.Errorf("metric saphana.host.swap.current doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -424,16 +230,7 @@ type SaphanaInstanceCodeSizeMetricConfig struct {
 }
 
 func (ms *SaphanaInstanceCodeSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -454,34 +251,12 @@ type SaphanaInstanceMemoryCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaInstanceMemoryCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaInstanceMemoryCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaInstanceMemoryCurrentMetricAttributeKeyMemoryStateUsedFree:
-		default:
-			return fmt.Errorf("metric saphana.instance.memory.current doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -492,16 +267,7 @@ type SaphanaInstanceMemorySharedAllocatedMetricConfig struct {
 }
 
 func (ms *SaphanaInstanceMemorySharedAllocatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -512,16 +278,7 @@ type SaphanaInstanceMemoryUsedPeakMetricConfig struct {
 }
 
 func (ms *SaphanaInstanceMemoryUsedPeakMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -532,16 +289,7 @@ type SaphanaLicenseExpirationTimeMetricConfig struct {
 }
 
 func (ms *SaphanaLicenseExpirationTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -552,16 +300,7 @@ type SaphanaLicenseLimitMetricConfig struct {
 }
 
 func (ms *SaphanaLicenseLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -572,16 +311,7 @@ type SaphanaLicensePeakMetricConfig struct {
 }
 
 func (ms *SaphanaLicensePeakMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -592,16 +322,7 @@ type SaphanaNetworkRequestAverageTimeMetricConfig struct {
 }
 
 func (ms *SaphanaNetworkRequestAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -622,34 +343,12 @@ type SaphanaNetworkRequestCountMetricConfig struct {
 }
 
 func (ms *SaphanaNetworkRequestCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaNetworkRequestCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaNetworkRequestCountMetricAttributeKeyActivePendingRequestState:
-		default:
-			return fmt.Errorf("metric saphana.network.request.count doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -670,34 +369,12 @@ type SaphanaNetworkRequestFinishedCountMetricConfig struct {
 }
 
 func (ms *SaphanaNetworkRequestFinishedCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaNetworkRequestFinishedCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaNetworkRequestFinishedCountMetricAttributeKeyInternalExternalRequestType:
-		default:
-			return fmt.Errorf("metric saphana.network.request.finished.count doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -721,34 +398,12 @@ type SaphanaReplicationAverageTimeMetricConfig struct {
 }
 
 func (ms *SaphanaReplicationAverageTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaReplicationAverageTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaReplicationAverageTimeMetricAttributeKeyPrimaryHost, SaphanaReplicationAverageTimeMetricAttributeKeySecondaryHost, SaphanaReplicationAverageTimeMetricAttributeKeyPort, SaphanaReplicationAverageTimeMetricAttributeKeyReplicationMode:
-		default:
-			return fmt.Errorf("metric saphana.replication.average_time doesn't have an attribute %v, valid attributes: [primary, secondary, port, mode]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -772,34 +427,12 @@ type SaphanaReplicationBacklogSizeMetricConfig struct {
 }
 
 func (ms *SaphanaReplicationBacklogSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaReplicationBacklogSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaReplicationBacklogSizeMetricAttributeKeyPrimaryHost, SaphanaReplicationBacklogSizeMetricAttributeKeySecondaryHost, SaphanaReplicationBacklogSizeMetricAttributeKeyPort, SaphanaReplicationBacklogSizeMetricAttributeKeyReplicationMode:
-		default:
-			return fmt.Errorf("metric saphana.replication.backlog.size doesn't have an attribute %v, valid attributes: [primary, secondary, port, mode]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -823,34 +456,12 @@ type SaphanaReplicationBacklogTimeMetricConfig struct {
 }
 
 func (ms *SaphanaReplicationBacklogTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaReplicationBacklogTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaReplicationBacklogTimeMetricAttributeKeyPrimaryHost, SaphanaReplicationBacklogTimeMetricAttributeKeySecondaryHost, SaphanaReplicationBacklogTimeMetricAttributeKeyPort, SaphanaReplicationBacklogTimeMetricAttributeKeyReplicationMode:
-		default:
-			return fmt.Errorf("metric saphana.replication.backlog.time doesn't have an attribute %v, valid attributes: [primary, secondary, port, mode]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -871,34 +482,12 @@ type SaphanaRowStoreMemoryUsedMetricConfig struct {
 }
 
 func (ms *SaphanaRowStoreMemoryUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaRowStoreMemoryUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaRowStoreMemoryUsedMetricAttributeKeyRowMemoryType:
-		default:
-			return fmt.Errorf("metric saphana.row_store.memory.used doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -920,34 +509,12 @@ type SaphanaSchemaMemoryUsedCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaSchemaMemoryUsedCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaSchemaMemoryUsedCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchema, SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchemaMemoryType:
-		default:
-			return fmt.Errorf("metric saphana.schema.memory.used.current doesn't have an attribute %v, valid attributes: [schema, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -968,34 +535,12 @@ type SaphanaSchemaMemoryUsedMaxMetricConfig struct {
 }
 
 func (ms *SaphanaSchemaMemoryUsedMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaSchemaMemoryUsedMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaSchemaMemoryUsedMaxMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric saphana.schema.memory.used.max doesn't have an attribute %v, valid attributes: [schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1017,34 +562,12 @@ type SaphanaSchemaOperationCountMetricConfig struct {
 }
 
 func (ms *SaphanaSchemaOperationCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaSchemaOperationCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaSchemaOperationCountMetricAttributeKeySchema, SaphanaSchemaOperationCountMetricAttributeKeySchemaOperationType:
-		default:
-			return fmt.Errorf("metric saphana.schema.operation.count doesn't have an attribute %v, valid attributes: [schema, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1065,34 +588,12 @@ type SaphanaSchemaRecordCompressedCountMetricConfig struct {
 }
 
 func (ms *SaphanaSchemaRecordCompressedCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaSchemaRecordCompressedCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaSchemaRecordCompressedCountMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric saphana.schema.record.compressed.count doesn't have an attribute %v, valid attributes: [schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1114,34 +615,12 @@ type SaphanaSchemaRecordCountMetricConfig struct {
 }
 
 func (ms *SaphanaSchemaRecordCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaSchemaRecordCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaSchemaRecordCountMetricAttributeKeySchema, SaphanaSchemaRecordCountMetricAttributeKeySchemaRecordType:
-		default:
-			return fmt.Errorf("metric saphana.schema.record.count doesn't have an attribute %v, valid attributes: [schema, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1162,34 +641,12 @@ type SaphanaServiceCodeSizeMetricConfig struct {
 }
 
 func (ms *SaphanaServiceCodeSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceCodeSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceCodeSizeMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.code_size doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1210,36 +667,11 @@ type SaphanaServiceCountMetricConfig struct {
 }
 
 func (ms *SaphanaServiceCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SaphanaServiceCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceCountMetricAttributeKeyServiceStatus:
-		default:
-			return fmt.Errorf("metric saphana.service.count doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SaphanaServiceCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKey specifies the key of an attribute for the saphana.service.memory.compactors.allocated metric.
 type SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKey string
@@ -1258,34 +690,12 @@ type SaphanaServiceMemoryCompactorsAllocatedMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryCompactorsAllocatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryCompactorsAllocatedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.compactors.allocated doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1306,34 +716,12 @@ type SaphanaServiceMemoryCompactorsFreeableMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryCompactorsFreeableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryCompactorsFreeableMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryCompactorsFreeableMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.compactors.freeable doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1354,34 +742,12 @@ type SaphanaServiceMemoryEffectiveLimitMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryEffectiveLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryEffectiveLimitMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryEffectiveLimitMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.effective_limit doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1403,34 +769,12 @@ type SaphanaServiceMemoryHeapCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryHeapCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryHeapCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryHeapCurrentMetricAttributeKeyService, SaphanaServiceMemoryHeapCurrentMetricAttributeKeyMemoryStateUsedFree:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.heap.current doesn't have an attribute %v, valid attributes: [service, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1451,34 +795,12 @@ type SaphanaServiceMemoryLimitMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryLimitMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryLimitMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.limit doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1500,34 +822,12 @@ type SaphanaServiceMemorySharedCurrentMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemorySharedCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemorySharedCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemorySharedCurrentMetricAttributeKeyService, SaphanaServiceMemorySharedCurrentMetricAttributeKeyMemoryStateUsedFree:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.shared.current doesn't have an attribute %v, valid attributes: [service, state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1549,37 +849,12 @@ type SaphanaServiceMemoryUsedMetricConfig struct {
 }
 
 func (ms *SaphanaServiceMemoryUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceMemoryUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceMemoryUsedMetricAttributeKeyService, SaphanaServiceMemoryUsedMetricAttributeKeyServiceMemoryUsedType:
-		default:
-			return fmt.Errorf("metric saphana.service.memory.used doesn't have an attribute %v, valid attributes: [service, type]", val)
-		}
-	}
-	if !slices.Contains(ms.EnabledAttributes, SaphanaServiceMemoryUsedMetricAttributeKeyServiceMemoryUsedType) {
-		return fmt.Errorf("type is a required attribute for saphana.service.memory.used metric and must be included")
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1600,34 +875,12 @@ type SaphanaServiceStackSizeMetricConfig struct {
 }
 
 func (ms *SaphanaServiceStackSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceStackSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceStackSizeMetricAttributeKeyService:
-		default:
-			return fmt.Errorf("metric saphana.service.stack_size doesn't have an attribute %v, valid attributes: [service]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1648,34 +901,12 @@ type SaphanaServiceThreadCountMetricConfig struct {
 }
 
 func (ms *SaphanaServiceThreadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaServiceThreadCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaServiceThreadCountMetricAttributeKeyThreadStatus:
-		default:
-			return fmt.Errorf("metric saphana.service.thread.count doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1686,16 +917,7 @@ type SaphanaTransactionBlockedMetricConfig struct {
 }
 
 func (ms *SaphanaTransactionBlockedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1716,34 +938,12 @@ type SaphanaTransactionCountMetricConfig struct {
 }
 
 func (ms *SaphanaTransactionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaTransactionCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaTransactionCountMetricAttributeKeyTransactionType:
-		default:
-			return fmt.Errorf("metric saphana.transaction.count doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1754,16 +954,7 @@ type SaphanaUptimeMetricConfig struct {
 }
 
 func (ms *SaphanaUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1786,34 +977,12 @@ type SaphanaVolumeOperationCountMetricConfig struct {
 }
 
 func (ms *SaphanaVolumeOperationCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaVolumeOperationCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaVolumeOperationCountMetricAttributeKeyPath, SaphanaVolumeOperationCountMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationCountMetricAttributeKeyVolumeOperationType:
-		default:
-			return fmt.Errorf("metric saphana.volume.operation.count doesn't have an attribute %v, valid attributes: [path, usage_type, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1836,34 +1005,12 @@ type SaphanaVolumeOperationSizeMetricConfig struct {
 }
 
 func (ms *SaphanaVolumeOperationSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaVolumeOperationSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaVolumeOperationSizeMetricAttributeKeyPath, SaphanaVolumeOperationSizeMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationSizeMetricAttributeKeyVolumeOperationType:
-		default:
-			return fmt.Errorf("metric saphana.volume.operation.size doesn't have an attribute %v, valid attributes: [path, usage_type, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1886,34 +1033,12 @@ type SaphanaVolumeOperationTimeMetricConfig struct {
 }
 
 func (ms *SaphanaVolumeOperationTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SaphanaVolumeOperationTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SaphanaVolumeOperationTimeMetricAttributeKeyPath, SaphanaVolumeOperationTimeMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationTimeMetricAttributeKeyVolumeOperationType:
-		default:
-			return fmt.Errorf("metric saphana.volume.operation.time doesn't have an attribute %v, valid attributes: [path, usage_type, type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1966,215 +1091,7 @@ type MetricsConfig struct {
 	SaphanaVolumeOperationTime              SaphanaVolumeOperationTimeMetricConfig              `mapstructure:"saphana.volume.operation.time"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SaphanaAlertCount: SaphanaAlertCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaAlertCountMetricAttributeKey{SaphanaAlertCountMetricAttributeKeyAlertRating},
-		},
-		SaphanaBackupLatest: SaphanaBackupLatestMetricConfig{
-			Enabled: true,
-		},
-		SaphanaColumnMemoryUsed: SaphanaColumnMemoryUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaColumnMemoryUsedMetricAttributeKey{SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemoryType, SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemorySubtype},
-		},
-		SaphanaComponentMemoryUsed: SaphanaComponentMemoryUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaComponentMemoryUsedMetricAttributeKey{SaphanaComponentMemoryUsedMetricAttributeKeyComponent},
-		},
-		SaphanaConnectionCount: SaphanaConnectionCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaConnectionCountMetricAttributeKey{SaphanaConnectionCountMetricAttributeKeyConnectionStatus},
-		},
-		SaphanaCPUUsed: SaphanaCPUUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaCPUUsedMetricAttributeKey{SaphanaCPUUsedMetricAttributeKeyCPUType},
-		},
-		SaphanaDiskSizeCurrent: SaphanaDiskSizeCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaDiskSizeCurrentMetricAttributeKey{SaphanaDiskSizeCurrentMetricAttributeKeyPath, SaphanaDiskSizeCurrentMetricAttributeKeyDiskUsageType, SaphanaDiskSizeCurrentMetricAttributeKeyDiskStateUsedFree},
-		},
-		SaphanaHostMemoryCurrent: SaphanaHostMemoryCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaHostMemoryCurrentMetricAttributeKey{SaphanaHostMemoryCurrentMetricAttributeKeyMemoryStateUsedFree},
-		},
-		SaphanaHostSwapCurrent: SaphanaHostSwapCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaHostSwapCurrentMetricAttributeKey{SaphanaHostSwapCurrentMetricAttributeKeyHostSwapState},
-		},
-		SaphanaInstanceCodeSize: SaphanaInstanceCodeSizeMetricConfig{
-			Enabled: true,
-		},
-		SaphanaInstanceMemoryCurrent: SaphanaInstanceMemoryCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaInstanceMemoryCurrentMetricAttributeKey{SaphanaInstanceMemoryCurrentMetricAttributeKeyMemoryStateUsedFree},
-		},
-		SaphanaInstanceMemorySharedAllocated: SaphanaInstanceMemorySharedAllocatedMetricConfig{
-			Enabled: true,
-		},
-		SaphanaInstanceMemoryUsedPeak: SaphanaInstanceMemoryUsedPeakMetricConfig{
-			Enabled: true,
-		},
-		SaphanaLicenseExpirationTime: SaphanaLicenseExpirationTimeMetricConfig{
-			Enabled: true,
-		},
-		SaphanaLicenseLimit: SaphanaLicenseLimitMetricConfig{
-			Enabled: true,
-		},
-		SaphanaLicensePeak: SaphanaLicensePeakMetricConfig{
-			Enabled: true,
-		},
-		SaphanaNetworkRequestAverageTime: SaphanaNetworkRequestAverageTimeMetricConfig{
-			Enabled: true,
-		},
-		SaphanaNetworkRequestCount: SaphanaNetworkRequestCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaNetworkRequestCountMetricAttributeKey{SaphanaNetworkRequestCountMetricAttributeKeyActivePendingRequestState},
-		},
-		SaphanaNetworkRequestFinishedCount: SaphanaNetworkRequestFinishedCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaNetworkRequestFinishedCountMetricAttributeKey{SaphanaNetworkRequestFinishedCountMetricAttributeKeyInternalExternalRequestType},
-		},
-		SaphanaReplicationAverageTime: SaphanaReplicationAverageTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SaphanaReplicationAverageTimeMetricAttributeKey{SaphanaReplicationAverageTimeMetricAttributeKeyPrimaryHost, SaphanaReplicationAverageTimeMetricAttributeKeySecondaryHost, SaphanaReplicationAverageTimeMetricAttributeKeyPort, SaphanaReplicationAverageTimeMetricAttributeKeyReplicationMode},
-		},
-		SaphanaReplicationBacklogSize: SaphanaReplicationBacklogSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaReplicationBacklogSizeMetricAttributeKey{SaphanaReplicationBacklogSizeMetricAttributeKeyPrimaryHost, SaphanaReplicationBacklogSizeMetricAttributeKeySecondaryHost, SaphanaReplicationBacklogSizeMetricAttributeKeyPort, SaphanaReplicationBacklogSizeMetricAttributeKeyReplicationMode},
-		},
-		SaphanaReplicationBacklogTime: SaphanaReplicationBacklogTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaReplicationBacklogTimeMetricAttributeKey{SaphanaReplicationBacklogTimeMetricAttributeKeyPrimaryHost, SaphanaReplicationBacklogTimeMetricAttributeKeySecondaryHost, SaphanaReplicationBacklogTimeMetricAttributeKeyPort, SaphanaReplicationBacklogTimeMetricAttributeKeyReplicationMode},
-		},
-		SaphanaRowStoreMemoryUsed: SaphanaRowStoreMemoryUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaRowStoreMemoryUsedMetricAttributeKey{SaphanaRowStoreMemoryUsedMetricAttributeKeyRowMemoryType},
-		},
-		SaphanaSchemaMemoryUsedCurrent: SaphanaSchemaMemoryUsedCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaSchemaMemoryUsedCurrentMetricAttributeKey{SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchema, SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchemaMemoryType},
-		},
-		SaphanaSchemaMemoryUsedMax: SaphanaSchemaMemoryUsedMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaSchemaMemoryUsedMaxMetricAttributeKey{SaphanaSchemaMemoryUsedMaxMetricAttributeKeySchema},
-		},
-		SaphanaSchemaOperationCount: SaphanaSchemaOperationCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaSchemaOperationCountMetricAttributeKey{SaphanaSchemaOperationCountMetricAttributeKeySchema, SaphanaSchemaOperationCountMetricAttributeKeySchemaOperationType},
-		},
-		SaphanaSchemaRecordCompressedCount: SaphanaSchemaRecordCompressedCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaSchemaRecordCompressedCountMetricAttributeKey{SaphanaSchemaRecordCompressedCountMetricAttributeKeySchema},
-		},
-		SaphanaSchemaRecordCount: SaphanaSchemaRecordCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaSchemaRecordCountMetricAttributeKey{SaphanaSchemaRecordCountMetricAttributeKeySchema, SaphanaSchemaRecordCountMetricAttributeKeySchemaRecordType},
-		},
-		SaphanaServiceCodeSize: SaphanaServiceCodeSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceCodeSizeMetricAttributeKey{SaphanaServiceCodeSizeMetricAttributeKeyService},
-		},
-		SaphanaServiceCount: SaphanaServiceCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceCountMetricAttributeKey{SaphanaServiceCountMetricAttributeKeyServiceStatus},
-		},
-		SaphanaServiceMemoryCompactorsAllocated: SaphanaServiceMemoryCompactorsAllocatedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKey{SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKeyService},
-		},
-		SaphanaServiceMemoryCompactorsFreeable: SaphanaServiceMemoryCompactorsFreeableMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryCompactorsFreeableMetricAttributeKey{SaphanaServiceMemoryCompactorsFreeableMetricAttributeKeyService},
-		},
-		SaphanaServiceMemoryEffectiveLimit: SaphanaServiceMemoryEffectiveLimitMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryEffectiveLimitMetricAttributeKey{SaphanaServiceMemoryEffectiveLimitMetricAttributeKeyService},
-		},
-		SaphanaServiceMemoryHeapCurrent: SaphanaServiceMemoryHeapCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryHeapCurrentMetricAttributeKey{SaphanaServiceMemoryHeapCurrentMetricAttributeKeyService, SaphanaServiceMemoryHeapCurrentMetricAttributeKeyMemoryStateUsedFree},
-		},
-		SaphanaServiceMemoryLimit: SaphanaServiceMemoryLimitMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryLimitMetricAttributeKey{SaphanaServiceMemoryLimitMetricAttributeKeyService},
-		},
-		SaphanaServiceMemorySharedCurrent: SaphanaServiceMemorySharedCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemorySharedCurrentMetricAttributeKey{SaphanaServiceMemorySharedCurrentMetricAttributeKeyService, SaphanaServiceMemorySharedCurrentMetricAttributeKeyMemoryStateUsedFree},
-		},
-		SaphanaServiceMemoryUsed: SaphanaServiceMemoryUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceMemoryUsedMetricAttributeKey{SaphanaServiceMemoryUsedMetricAttributeKeyService, SaphanaServiceMemoryUsedMetricAttributeKeyServiceMemoryUsedType},
-		},
-		SaphanaServiceStackSize: SaphanaServiceStackSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceStackSizeMetricAttributeKey{SaphanaServiceStackSizeMetricAttributeKeyService},
-		},
-		SaphanaServiceThreadCount: SaphanaServiceThreadCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaServiceThreadCountMetricAttributeKey{SaphanaServiceThreadCountMetricAttributeKeyThreadStatus},
-		},
-		SaphanaTransactionBlocked: SaphanaTransactionBlockedMetricConfig{
-			Enabled: true,
-		},
-		SaphanaTransactionCount: SaphanaTransactionCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaTransactionCountMetricAttributeKey{SaphanaTransactionCountMetricAttributeKeyTransactionType},
-		},
-		SaphanaUptime: SaphanaUptimeMetricConfig{
-			Enabled: true,
-		},
-		SaphanaVolumeOperationCount: SaphanaVolumeOperationCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaVolumeOperationCountMetricAttributeKey{SaphanaVolumeOperationCountMetricAttributeKeyPath, SaphanaVolumeOperationCountMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationCountMetricAttributeKeyVolumeOperationType},
-		},
-		SaphanaVolumeOperationSize: SaphanaVolumeOperationSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaVolumeOperationSizeMetricAttributeKey{SaphanaVolumeOperationSizeMetricAttributeKeyPath, SaphanaVolumeOperationSizeMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationSizeMetricAttributeKeyVolumeOperationType},
-		},
-		SaphanaVolumeOperationTime: SaphanaVolumeOperationTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SaphanaVolumeOperationTimeMetricAttributeKey{SaphanaVolumeOperationTimeMetricAttributeKeyPath, SaphanaVolumeOperationTimeMetricAttributeKeyDiskUsageType, SaphanaVolumeOperationTimeMetricAttributeKeyVolumeOperationType},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -2191,14 +1108,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2209,14 +1119,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		DbSystem: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SaphanaHost: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for saphana metrics builder.
@@ -2226,13 +1130,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

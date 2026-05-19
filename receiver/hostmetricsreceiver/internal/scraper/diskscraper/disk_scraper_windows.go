@@ -7,20 +7,14 @@ package diskscraper // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"fmt"
-	"time"
 
-	"github.com/shirou/gopsutil/v4/host"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scrapererror"
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/winperfcounters"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/precision"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/diskscraper/internal/metadata"
 )
 
@@ -73,115 +67,27 @@ type diskScraper struct {
 
 // newDiskScraper creates a Disk Scraper
 func newDiskScraper(_ context.Context, settings scraper.Settings, cfg *Config) (*diskScraper, error) {
-	scraper := &diskScraper{
-		settings:           settings,
-		config:             cfg,
-		bootTime:           host.BootTimeWithContext,
-		perfCounterFactory: winperfcounters.NewWatcher,
-	}
-
-	var err error
-
-	if len(cfg.Include.Devices) > 0 {
-		scraper.includeFS, err = filterset.CreateFilterSet(cfg.Include.Devices, &cfg.Include.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating device include filters: %w", err)
-		}
-	}
-
-	if len(cfg.Exclude.Devices) > 0 {
-		scraper.excludeFS, err = filterset.CreateFilterSet(cfg.Exclude.Devices, &cfg.Exclude.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating device exclude filters: %w", err)
-		}
-	}
-
-	return scraper, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *diskScraper) start(ctx context.Context, _ component.Host) error {
-	bootTime, err := s.bootTime(ctx)
-	if err != nil {
-		return err
-	}
-
-	s.startTime = pcommon.Timestamp(bootTime * 1e9)
-	s.mb = metadata.NewMetricsBuilder(s.config.MetricsBuilderConfig, s.settings, metadata.WithStartTime(s.startTime))
-
-	// Initialize the performance counter watchers
-	s.perfCounters = make([]winperfcounters.PerfCounterWatcher, len(counterNames))
-	for i, counterName := range counterNames {
-		s.perfCounters[i], err = s.perfCounterFactory(logicalDisk, "*", counterName)
-		if err != nil {
-			s.skipScrape = true
-			s.settings.Logger.Error(
-				"Failed to create performance counter watcher, disk metrics will not be scraped",
-				zap.String("counter", counterName),
-				zap.Error(err))
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Initialize the performance counter watchers
+
 func (s *diskScraper) scrape(_ context.Context) (pmetric.Metrics, error) {
-	if s.skipScrape {
-		return pmetric.NewMetrics(), nil
-	}
-
-	instanceToRawCounters := make(map[string][]int64)
-	now := pcommon.NewTimestampFromTime(time.Now())
-	for i := range counterNames {
-		counterValues, err := s.perfCounters[i].ScrapeRawValues()
-		if err != nil {
-			return pmetric.NewMetrics(), scrapererror.NewPartialScrapeError(err, metricsLen)
-		}
-
-		for _, counterValue := range counterValues {
-			instanceName := counterValue.InstanceName
-			if instanceValues, ok := instanceToRawCounters[instanceName]; ok {
-				instanceValues[i] = counterValue.RawValue
-				continue
-			}
-
-			if includeDevice(instanceName, s.includeFS, s.excludeFS) {
-				instanceToRawCounters[instanceName] = make([]int64, len(counterNames))
-				instanceToRawCounters[instanceName][i] = counterValue.RawValue
-			}
-		}
-	}
-
-	// For each counter and respective set of values record the metrics
-	for instance, values := range instanceToRawCounters {
-		for i := range counterNames {
-			switch counterNames[i] {
-			case readBytesPerSec:
-				s.mb.RecordSystemDiskIoDataPoint(now, values[i], instance, metadata.AttributeDirectionRead)
-			case writeBytesPerSec:
-				s.mb.RecordSystemDiskIoDataPoint(now, values[i], instance, metadata.AttributeDirectionWrite)
-			case readsPerSec:
-				s.mb.RecordSystemDiskOperationsDataPoint(now, values[i], instance, metadata.AttributeDirectionRead)
-			case writesPerSec:
-				s.mb.RecordSystemDiskOperationsDataPoint(now, values[i], instance, metadata.AttributeDirectionWrite)
-			// NOTE: int64-to-uint64 cast is safe because perf counter values are non-negative.
-			case idleTime:
-				s.mb.RecordSystemDiskIoTimeDataPoint(now, precision.Scale(uint64(now-s.startTime), time.Nanosecond)-precision.Scale(uint64(values[i]), time.Nanosecond*100), instance)
-			case avgDiskSecsPerRead:
-				s.mb.RecordSystemDiskOperationTimeDataPoint(now, precision.Scale(uint64(values[i]), time.Nanosecond*100), instance, metadata.AttributeDirectionRead)
-			case avgDiskSecsPerWrite:
-				s.mb.RecordSystemDiskOperationTimeDataPoint(now, precision.Scale(uint64(values[i]), time.Nanosecond*100), instance, metadata.AttributeDirectionWrite)
-			case queueLength:
-				s.mb.RecordSystemDiskPendingOperationsDataPoint(now, values[i], instance)
-			default:
-				s.settings.Logger.Error("Unknown counter name", zap.String("counter", counterNames[i]))
-			}
-		}
-	}
-
-	return s.mb.Emit(), nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
+// For each counter and respective set of values record the metrics
+
+// NOTE: int64-to-uint64 cast is safe because perf counter values are non-negative.
+
 func includeDevice(deviceName string, includeFS, excludeFS filterset.FilterSet) bool {
-	return (includeFS == nil || includeFS.Matches(deviceName)) &&
-		(excludeFS == nil || !excludeFS.Matches(deviceName))
+	_ = "STUB: not implemented"
+	return false
 }

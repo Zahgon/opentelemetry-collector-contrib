@@ -18,28 +18,23 @@ var _ plog.Unmarshaler = (*NopLogsUnmarshaler)(nil)
 
 // NewNopLogs provides a nop logs unmarshaler with the default
 // plog.Logs and no error.
-func NewNopLogs() *NopLogsUnmarshaler {
-	return &NopLogsUnmarshaler{logs: plog.NewLogs()}
-}
+func NewNopLogs() *NopLogsUnmarshaler { _ = "STUB: not implemented"; return nil }
 
 // NewWithLogs provides a nop logs unmarshaler with the passed
 // in logs as the result of the Unmarshal and no error.
-func NewWithLogs(logs plog.Logs) *NopLogsUnmarshaler {
-	return &NopLogsUnmarshaler{logs: logs}
-}
+func NewWithLogs(logs plog.Logs) *NopLogsUnmarshaler { _ = "STUB: not implemented"; return nil }
 
 // NewErrLogs provides a nop logs unmarshaler with the passed
 // in error as the Unmarshal error.
-func NewErrLogs(err error) *NopLogsUnmarshaler {
-	return &NopLogsUnmarshaler{logs: plog.NewLogs(), err: err}
-}
+func NewErrLogs(err error) *NopLogsUnmarshaler { _ = "STUB: not implemented"; return nil }
 
 // Unmarshal deserializes the records into logs.
 func (u *NopLogsUnmarshaler) UnmarshalLogs([]byte) (plog.Logs, error) {
-	return u.logs, u.err
+	_ = "STUB: not implemented"
+	return *
+
+	// Type of the serialized messages.
+	new(plog.Logs), nil
 }
 
-// Type of the serialized messages.
-func (*NopLogsUnmarshaler) Type() string {
-	return typeStr
-}
+func (*NopLogsUnmarshaler) Type() string { _ = "STUB: not implemented"; return "" }

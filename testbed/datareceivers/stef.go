@@ -4,16 +4,10 @@
 package datareceivers // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datareceivers"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/receivertest"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/stefreceiver"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -29,48 +23,23 @@ var _ testbed.DataReceiver = (*StefDataReceiver)(nil)
 
 // NewStefDataReceiver creates a new StefDataReceiver that will listen on the
 // specified port after Start is called.
-func NewStefDataReceiver(port int) *StefDataReceiver {
-	return &StefDataReceiver{DataReceiverBase: testbed.DataReceiverBase{Port: port}}
-}
+func NewStefDataReceiver(port int) *StefDataReceiver { _ = "STUB: not implemented"; return nil }
 
 // Start the receiver.
 func (sr *StefDataReceiver) Start(_ consumer.Traces, mc consumer.Metrics, _ consumer.Logs) error {
-	var err error
-	f := stefreceiver.NewFactory()
-	config := f.CreateDefaultConfig()
-	config.(*stefreceiver.Config).NetAddr.Endpoint = fmt.Sprintf("127.0.0.1:%d", sr.Port)
-
-	set := receivertest.NewNopSettings(f.Type())
-	if sr.Logger != nil {
-		set.Logger = sr.Logger
-	}
-	sr.receiver, err = f.CreateMetrics(context.Background(), set, config, mc)
-	if err != nil {
-		return err
-	}
-
-	return sr.receiver.Start(context.Background(), componenttest.NewNopHost())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Stop the receiver.
-func (sr *StefDataReceiver) Stop() error {
-	return sr.receiver.Shutdown(context.Background())
-}
+func (sr *StefDataReceiver) Stop() error { _ = "STUB: not implemented"; return nil }
 
 // GenConfigYAMLStr returns exporter config for the agent.
 func (sr *StefDataReceiver) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates an exporter config for agent.
-	return fmt.Sprintf(
-		`
-    stef:
-      endpoint: "127.0.0.1:%d"
-      tls:
-        insecure: true
-`, sr.Port,
-	)
+	return ""
 }
 
 // ProtocolName returns protocol name as it is specified in Collector config.
-func (*StefDataReceiver) ProtocolName() string {
-	return "stef"
-}
+func (*StefDataReceiver) ProtocolName() string { _ = "STUB: not implemented"; return "" }

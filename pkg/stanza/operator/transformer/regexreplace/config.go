@@ -4,8 +4,6 @@
 package regexreplace // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/regexreplace"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
 
 	"go.opentelemetry.io/collector/component"
@@ -25,16 +23,10 @@ func init() {
 }
 
 // NewConfig creates a new ansi_control_sequences config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new ansi_control_sequences config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of an ansi_control_sequences operator.
 type Config struct {
@@ -45,37 +37,10 @@ type Config struct {
 	Field                    entry.Field `mapstructure:"field"`
 }
 
-func (c *Config) getRegexp() (*regexp.Regexp, error) {
-	switch c.RegexName {
-	case "ansi_control_sequences":
-		return ansiCsiEscapeRegex, nil
-	case "":
-		return regexp.Compile(c.Regex)
-	default:
-		return nil, fmt.Errorf("regex_name %s is unknown", c.RegexName)
-	}
-}
+func (c *Config) getRegexp() (*regexp.Regexp, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // Build will build an ansi_control_sequences operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	if (c.RegexName == "") == (c.Regex == "") {
-		return nil, errors.New("either regex or regex_name must be set")
-	}
-
-	regexp, err := c.getRegexp()
-	if err != nil {
-		return nil, err
-	}
-
-	return &Transformer{
-		TransformerOperator: transformerOperator,
-		field:               c.Field,
-		regexp:              regexp,
-		replaceWith:         c.ReplaceWith,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

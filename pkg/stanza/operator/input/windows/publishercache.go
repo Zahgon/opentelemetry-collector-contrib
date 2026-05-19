@@ -5,48 +5,20 @@
 
 package windows // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/windows"
 
-import (
-	"go.uber.org/multierr"
-)
-
 type publisherCache struct {
 	cache map[string]Publisher
 }
 
-func newPublisherCache() publisherCache {
-	return publisherCache{
-		cache: make(map[string]Publisher),
-	}
-}
+func newPublisherCache() publisherCache { _ = "STUB: not implemented"; return *new(publisherCache) }
 
 func (c *publisherCache) get(provider string) (Publisher, error) {
-	publisher, ok := c.cache[provider]
-	if ok {
-		return publisher, nil
-	}
-
-	var err error
-	publisher = NewPublisher()
-	if provider != "" {
-		// If the provider is empty, there is nothing to be formatted on the event
-		// keep the invalid publisher in the cache. See issue #35135
-		err = publisher.Open(provider)
-	}
-
-	// Always store the publisher even if there was an error opening it.
-	c.cache[provider] = publisher
-
-	return publisher, err
+	_ = "STUB: not implemented"
+	return *new(Publisher), nil
 }
 
-func (c *publisherCache) evictAll() error {
-	var errs error
-	for _, publisher := range c.cache {
-		if publisher.Valid() {
-			errs = multierr.Append(errs, publisher.Close())
-		}
-	}
+// If the provider is empty, there is nothing to be formatted on the event
+// keep the invalid publisher in the cache. See issue #35135
 
-	c.cache = make(map[string]Publisher)
-	return errs
-}
+// Always store the publisher even if there was an error opening it.
+
+func (c *publisherCache) evictAll() error { _ = "STUB: not implemented"; return nil }

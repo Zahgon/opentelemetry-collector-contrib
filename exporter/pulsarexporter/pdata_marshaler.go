@@ -18,26 +18,15 @@ type pdataLogsMarshaler struct {
 }
 
 func (p pdataLogsMarshaler) Marshal(ld plog.Logs, _ string) ([]*pulsar.ProducerMessage, error) {
-	bts, err := p.marshaler.MarshalLogs(ld)
-	if err != nil {
-		return nil, err
-	}
-	return []*pulsar.ProducerMessage{
-		{
-			Payload: bts,
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (p pdataLogsMarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataLogsMarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataLogsMarshaler(marshaler plog.Marshaler, encoding string) LogsMarshaler {
-	return pdataLogsMarshaler{
-		marshaler: marshaler,
-		encoding:  encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsMarshaler)
 }
 
 type pdataMetricsMarshaler struct {
@@ -46,26 +35,15 @@ type pdataMetricsMarshaler struct {
 }
 
 func (p pdataMetricsMarshaler) Marshal(ld pmetric.Metrics, _ string) ([]*pulsar.ProducerMessage, error) {
-	bts, err := p.marshaler.MarshalMetrics(ld)
-	if err != nil {
-		return nil, err
-	}
-	return []*pulsar.ProducerMessage{
-		{
-			Payload: bts,
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (p pdataMetricsMarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataMetricsMarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataMetricsMarshaler(marshaler pmetric.Marshaler, encoding string) MetricsMarshaler {
-	return pdataMetricsMarshaler{
-		marshaler: marshaler,
-		encoding:  encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsMarshaler)
 }
 
 type pdataTracesMarshaler struct {
@@ -74,24 +52,13 @@ type pdataTracesMarshaler struct {
 }
 
 func (p pdataTracesMarshaler) Marshal(td ptrace.Traces, _ string) ([]*pulsar.ProducerMessage, error) {
-	bts, err := p.marshaler.MarshalTraces(td)
-	if err != nil {
-		return nil, err
-	}
-	return []*pulsar.ProducerMessage{
-		{
-			Payload: bts,
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (p pdataTracesMarshaler) Encoding() string {
-	return p.encoding
-}
+func (p pdataTracesMarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 func newPdataTracesMarshaler(marshaler ptrace.Marshaler, encoding string) TracesMarshaler {
-	return pdataTracesMarshaler{
-		marshaler: marshaler,
-		encoding:  encoding,
-	}
+	_ = "STUB: not implemented"
+	return *new(TracesMarshaler)
 }

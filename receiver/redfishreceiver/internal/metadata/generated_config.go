@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -33,36 +31,11 @@ type ChassisPowerstateMetricConfig struct {
 }
 
 func (ms *ChassisPowerstateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ChassisPowerstateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ChassisPowerstateMetricAttributeKeyChassisID, ChassisPowerstateMetricAttributeKeyChassisAssetTag, ChassisPowerstateMetricAttributeKeyChassisModel, ChassisPowerstateMetricAttributeKeyChassisName, ChassisPowerstateMetricAttributeKeyChassisManufacturer, ChassisPowerstateMetricAttributeKeyChassisSerialNumber, ChassisPowerstateMetricAttributeKeyChassisSku, ChassisPowerstateMetricAttributeKeyChassisChassisType:
-		default:
-			return fmt.Errorf("metric chassis.powerstate doesn't have an attribute %v, valid attributes: [chassis.id, chassis.asset_tag, chassis.model, chassis.name, chassis.manufacturer, chassis.serial_number, chassis.sku, chassis.chassis_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ChassisPowerstateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ChassisStatusHealthMetricAttributeKey specifies the key of an attribute for the chassis.status.health metric.
 type ChassisStatusHealthMetricAttributeKey string
@@ -88,36 +61,11 @@ type ChassisStatusHealthMetricConfig struct {
 }
 
 func (ms *ChassisStatusHealthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ChassisStatusHealthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ChassisStatusHealthMetricAttributeKeyChassisID, ChassisStatusHealthMetricAttributeKeyChassisAssetTag, ChassisStatusHealthMetricAttributeKeyChassisModel, ChassisStatusHealthMetricAttributeKeyChassisName, ChassisStatusHealthMetricAttributeKeyChassisManufacturer, ChassisStatusHealthMetricAttributeKeyChassisSerialNumber, ChassisStatusHealthMetricAttributeKeyChassisSku, ChassisStatusHealthMetricAttributeKeyChassisChassisType:
-		default:
-			return fmt.Errorf("metric chassis.status.health doesn't have an attribute %v, valid attributes: [chassis.id, chassis.asset_tag, chassis.model, chassis.name, chassis.manufacturer, chassis.serial_number, chassis.sku, chassis.chassis_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ChassisStatusHealthMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ChassisStatusStateMetricAttributeKey specifies the key of an attribute for the chassis.status.state metric.
 type ChassisStatusStateMetricAttributeKey string
@@ -143,36 +91,11 @@ type ChassisStatusStateMetricConfig struct {
 }
 
 func (ms *ChassisStatusStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *ChassisStatusStateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case ChassisStatusStateMetricAttributeKeyChassisID, ChassisStatusStateMetricAttributeKeyChassisAssetTag, ChassisStatusStateMetricAttributeKeyChassisModel, ChassisStatusStateMetricAttributeKeyChassisName, ChassisStatusStateMetricAttributeKeyChassisManufacturer, ChassisStatusStateMetricAttributeKeyChassisSerialNumber, ChassisStatusStateMetricAttributeKeyChassisSku, ChassisStatusStateMetricAttributeKeyChassisChassisType:
-		default:
-			return fmt.Errorf("metric chassis.status.state doesn't have an attribute %v, valid attributes: [chassis.id, chassis.asset_tag, chassis.model, chassis.name, chassis.manufacturer, chassis.serial_number, chassis.sku, chassis.chassis_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *ChassisStatusStateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // FanReadingMetricAttributeKey specifies the key of an attribute for the fan.reading metric.
 type FanReadingMetricAttributeKey string
@@ -193,36 +116,11 @@ type FanReadingMetricConfig struct {
 }
 
 func (ms *FanReadingMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *FanReadingMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case FanReadingMetricAttributeKeyChassisID, FanReadingMetricAttributeKeyFanName, FanReadingMetricAttributeKeyFanReadingUnits:
-		default:
-			return fmt.Errorf("metric fan.reading doesn't have an attribute %v, valid attributes: [chassis.id, fan.name, fan.reading_units]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *FanReadingMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // FanStatusHealthMetricAttributeKey specifies the key of an attribute for the fan.status.health metric.
 type FanStatusHealthMetricAttributeKey string
@@ -242,36 +140,11 @@ type FanStatusHealthMetricConfig struct {
 }
 
 func (ms *FanStatusHealthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *FanStatusHealthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case FanStatusHealthMetricAttributeKeyChassisID, FanStatusHealthMetricAttributeKeyFanName:
-		default:
-			return fmt.Errorf("metric fan.status.health doesn't have an attribute %v, valid attributes: [chassis.id, fan.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *FanStatusHealthMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // FanStatusStateMetricAttributeKey specifies the key of an attribute for the fan.status.state metric.
 type FanStatusStateMetricAttributeKey string
@@ -291,36 +164,11 @@ type FanStatusStateMetricConfig struct {
 }
 
 func (ms *FanStatusStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *FanStatusStateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case FanStatusStateMetricAttributeKeyChassisID, FanStatusStateMetricAttributeKeyFanName:
-		default:
-			return fmt.Errorf("metric fan.status.state doesn't have an attribute %v, valid attributes: [chassis.id, fan.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *FanStatusStateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemPowerstateMetricAttributeKey specifies the key of an attribute for the system.powerstate metric.
 type SystemPowerstateMetricAttributeKey string
@@ -347,36 +195,11 @@ type SystemPowerstateMetricConfig struct {
 }
 
 func (ms *SystemPowerstateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemPowerstateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemPowerstateMetricAttributeKeySystemID, SystemPowerstateMetricAttributeKeySystemAssetTag, SystemPowerstateMetricAttributeKeySystemBiosVersion, SystemPowerstateMetricAttributeKeySystemModel, SystemPowerstateMetricAttributeKeySystemName, SystemPowerstateMetricAttributeKeySystemManufacturer, SystemPowerstateMetricAttributeKeySystemSerialNumber, SystemPowerstateMetricAttributeKeySystemSku, SystemPowerstateMetricAttributeKeySystemSystemType:
-		default:
-			return fmt.Errorf("metric system.powerstate doesn't have an attribute %v, valid attributes: [system.id, system.asset_tag, system.bios_version, system.model, system.name, system.manufacturer, system.serial_number, system.sku, system.system_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemPowerstateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemStatusHealthMetricAttributeKey specifies the key of an attribute for the system.status.health metric.
 type SystemStatusHealthMetricAttributeKey string
@@ -403,36 +226,11 @@ type SystemStatusHealthMetricConfig struct {
 }
 
 func (ms *SystemStatusHealthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemStatusHealthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemStatusHealthMetricAttributeKeySystemID, SystemStatusHealthMetricAttributeKeySystemAssetTag, SystemStatusHealthMetricAttributeKeySystemBiosVersion, SystemStatusHealthMetricAttributeKeySystemModel, SystemStatusHealthMetricAttributeKeySystemName, SystemStatusHealthMetricAttributeKeySystemManufacturer, SystemStatusHealthMetricAttributeKeySystemSerialNumber, SystemStatusHealthMetricAttributeKeySystemSku, SystemStatusHealthMetricAttributeKeySystemSystemType:
-		default:
-			return fmt.Errorf("metric system.status.health doesn't have an attribute %v, valid attributes: [system.id, system.asset_tag, system.bios_version, system.model, system.name, system.manufacturer, system.serial_number, system.sku, system.system_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemStatusHealthMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemStatusStateMetricAttributeKey specifies the key of an attribute for the system.status.state metric.
 type SystemStatusStateMetricAttributeKey string
@@ -459,36 +257,11 @@ type SystemStatusStateMetricConfig struct {
 }
 
 func (ms *SystemStatusStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemStatusStateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemStatusStateMetricAttributeKeySystemID, SystemStatusStateMetricAttributeKeySystemAssetTag, SystemStatusStateMetricAttributeKeySystemBiosVersion, SystemStatusStateMetricAttributeKeySystemModel, SystemStatusStateMetricAttributeKeySystemName, SystemStatusStateMetricAttributeKeySystemManufacturer, SystemStatusStateMetricAttributeKeySystemSerialNumber, SystemStatusStateMetricAttributeKeySystemSku, SystemStatusStateMetricAttributeKeySystemSystemType:
-		default:
-			return fmt.Errorf("metric system.status.state doesn't have an attribute %v, valid attributes: [system.id, system.asset_tag, system.bios_version, system.model, system.name, system.manufacturer, system.serial_number, system.sku, system.system_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemStatusStateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TemperatureReadingMetricAttributeKey specifies the key of an attribute for the temperature.reading metric.
 type TemperatureReadingMetricAttributeKey string
@@ -508,36 +281,11 @@ type TemperatureReadingMetricConfig struct {
 }
 
 func (ms *TemperatureReadingMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *TemperatureReadingMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case TemperatureReadingMetricAttributeKeyChassisID, TemperatureReadingMetricAttributeKeyTemperatureName:
-		default:
-			return fmt.Errorf("metric temperature.reading doesn't have an attribute %v, valid attributes: [chassis.id, temperature.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *TemperatureReadingMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TemperatureStatusHealthMetricAttributeKey specifies the key of an attribute for the temperature.status.health metric.
 type TemperatureStatusHealthMetricAttributeKey string
@@ -557,34 +305,12 @@ type TemperatureStatusHealthMetricConfig struct {
 }
 
 func (ms *TemperatureStatusHealthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *TemperatureStatusHealthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case TemperatureStatusHealthMetricAttributeKeyChassisID, TemperatureStatusHealthMetricAttributeKeyTemperatureName:
-		default:
-			return fmt.Errorf("metric temperature.status.health doesn't have an attribute %v, valid attributes: [chassis.id, temperature.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -606,34 +332,12 @@ type TemperatureStatusStateMetricConfig struct {
 }
 
 func (ms *TemperatureStatusStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *TemperatureStatusStateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case TemperatureStatusStateMetricAttributeKeyChassisID, TemperatureStatusStateMetricAttributeKeyTemperatureName:
-		default:
-			return fmt.Errorf("metric temperature.status.state doesn't have an attribute %v, valid attributes: [chassis.id, temperature.name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -653,70 +357,7 @@ type MetricsConfig struct {
 	TemperatureStatusState  TemperatureStatusStateMetricConfig  `mapstructure:"temperature.status.state"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ChassisPowerstate: ChassisPowerstateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []ChassisPowerstateMetricAttributeKey{ChassisPowerstateMetricAttributeKeyChassisID, ChassisPowerstateMetricAttributeKeyChassisAssetTag, ChassisPowerstateMetricAttributeKeyChassisModel, ChassisPowerstateMetricAttributeKeyChassisName, ChassisPowerstateMetricAttributeKeyChassisManufacturer, ChassisPowerstateMetricAttributeKeyChassisSerialNumber, ChassisPowerstateMetricAttributeKeyChassisSku, ChassisPowerstateMetricAttributeKeyChassisChassisType},
-		},
-		ChassisStatusHealth: ChassisStatusHealthMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []ChassisStatusHealthMetricAttributeKey{ChassisStatusHealthMetricAttributeKeyChassisID, ChassisStatusHealthMetricAttributeKeyChassisAssetTag, ChassisStatusHealthMetricAttributeKeyChassisModel, ChassisStatusHealthMetricAttributeKeyChassisName, ChassisStatusHealthMetricAttributeKeyChassisManufacturer, ChassisStatusHealthMetricAttributeKeyChassisSerialNumber, ChassisStatusHealthMetricAttributeKeyChassisSku, ChassisStatusHealthMetricAttributeKeyChassisChassisType},
-		},
-		ChassisStatusState: ChassisStatusStateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []ChassisStatusStateMetricAttributeKey{ChassisStatusStateMetricAttributeKeyChassisID, ChassisStatusStateMetricAttributeKeyChassisAssetTag, ChassisStatusStateMetricAttributeKeyChassisModel, ChassisStatusStateMetricAttributeKeyChassisName, ChassisStatusStateMetricAttributeKeyChassisManufacturer, ChassisStatusStateMetricAttributeKeyChassisSerialNumber, ChassisStatusStateMetricAttributeKeyChassisSku, ChassisStatusStateMetricAttributeKeyChassisChassisType},
-		},
-		FanReading: FanReadingMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []FanReadingMetricAttributeKey{FanReadingMetricAttributeKeyChassisID, FanReadingMetricAttributeKeyFanName, FanReadingMetricAttributeKeyFanReadingUnits},
-		},
-		FanStatusHealth: FanStatusHealthMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []FanStatusHealthMetricAttributeKey{FanStatusHealthMetricAttributeKeyChassisID, FanStatusHealthMetricAttributeKeyFanName},
-		},
-		FanStatusState: FanStatusStateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []FanStatusStateMetricAttributeKey{FanStatusStateMetricAttributeKeyChassisID, FanStatusStateMetricAttributeKeyFanName},
-		},
-		SystemPowerstate: SystemPowerstateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SystemPowerstateMetricAttributeKey{SystemPowerstateMetricAttributeKeySystemID, SystemPowerstateMetricAttributeKeySystemAssetTag, SystemPowerstateMetricAttributeKeySystemBiosVersion, SystemPowerstateMetricAttributeKeySystemModel, SystemPowerstateMetricAttributeKeySystemName, SystemPowerstateMetricAttributeKeySystemManufacturer, SystemPowerstateMetricAttributeKeySystemSerialNumber, SystemPowerstateMetricAttributeKeySystemSku, SystemPowerstateMetricAttributeKeySystemSystemType},
-		},
-		SystemStatusHealth: SystemStatusHealthMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SystemStatusHealthMetricAttributeKey{SystemStatusHealthMetricAttributeKeySystemID, SystemStatusHealthMetricAttributeKeySystemAssetTag, SystemStatusHealthMetricAttributeKeySystemBiosVersion, SystemStatusHealthMetricAttributeKeySystemModel, SystemStatusHealthMetricAttributeKeySystemName, SystemStatusHealthMetricAttributeKeySystemManufacturer, SystemStatusHealthMetricAttributeKeySystemSerialNumber, SystemStatusHealthMetricAttributeKeySystemSku, SystemStatusHealthMetricAttributeKeySystemSystemType},
-		},
-		SystemStatusState: SystemStatusStateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SystemStatusStateMetricAttributeKey{SystemStatusStateMetricAttributeKeySystemID, SystemStatusStateMetricAttributeKeySystemAssetTag, SystemStatusStateMetricAttributeKeySystemBiosVersion, SystemStatusStateMetricAttributeKeySystemModel, SystemStatusStateMetricAttributeKeySystemName, SystemStatusStateMetricAttributeKeySystemManufacturer, SystemStatusStateMetricAttributeKeySystemSerialNumber, SystemStatusStateMetricAttributeKeySystemSku, SystemStatusStateMetricAttributeKeySystemSystemType},
-		},
-		TemperatureReading: TemperatureReadingMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []TemperatureReadingMetricAttributeKey{TemperatureReadingMetricAttributeKeyChassisID, TemperatureReadingMetricAttributeKeyTemperatureName},
-		},
-		TemperatureStatusHealth: TemperatureStatusHealthMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []TemperatureStatusHealthMetricAttributeKey{TemperatureStatusHealthMetricAttributeKeyChassisID, TemperatureStatusHealthMetricAttributeKeyTemperatureName},
-		},
-		TemperatureStatusState: TemperatureStatusStateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []TemperatureStatusStateMetricAttributeKey{TemperatureStatusStateMetricAttributeKeyChassisID, TemperatureStatusStateMetricAttributeKeyTemperatureName},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -733,14 +374,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -751,14 +385,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		URLFull: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for redfish metrics builder.
@@ -768,13 +396,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -5,12 +5,8 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"encoding/json"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -87,47 +83,13 @@ type azureIdentityStorage struct {
 // Calls the base method first (for common claims, if any), then adds
 // storage-specific fields as a nested map under `azure.identity`.
 func (id *azureIdentityStorage) PutIdentityAttributes(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Common identity fields (claims) - no-op for Storage logs since they
 	// don't have JWT claims, but keeps the pattern consistent with Activity logs.
-	id.azureIdentityBase.PutIdentityAttributes(attrs)
-
-	// Storage-specific identity fields as nested map
-	identityMap := attrs.PutEmptyMap(attributeAzureIdentity)
-
-	unmarshaler.AttrPutStrIf(identityMap, "type", id.Type)
-	unmarshaler.AttrPutStrIf(identityMap, "tokenHash", id.TokenHash)
-
-	if len(id.Authorization) > 0 {
-		authSlice := identityMap.PutEmptySlice("authorization")
-		for i := range id.Authorization {
-			entry := &id.Authorization[i]
-			authMap := authSlice.AppendEmpty().SetEmptyMap()
-			unmarshaler.AttrPutStrIf(authMap, "action", entry.Action)
-			unmarshaler.AttrPutStrIf(authMap, "roleAssignmentId", entry.RoleAssignmentID)
-			unmarshaler.AttrPutStrIf(authMap, "roleDefinitionId", entry.RoleDefinitionID)
-			unmarshaler.AttrPutStrIf(authMap, "denyAssignmentId", entry.DenyAssignmentID)
-			unmarshaler.AttrPutStrIf(authMap, "type", entry.Type)
-			unmarshaler.AttrPutStrIf(authMap, "result", entry.Result)
-			unmarshaler.AttrPutStrIf(authMap, "reason", entry.Reason)
-
-			if len(entry.Principals) > 0 {
-				principalsSlice := authMap.PutEmptySlice("principals")
-				for j := range entry.Principals {
-					p := &entry.Principals[j]
-					pMap := principalsSlice.AppendEmpty().SetEmptyMap()
-					unmarshaler.AttrPutStrIf(pMap, "id", p.ID)
-					unmarshaler.AttrPutStrIf(pMap, "type", p.Type)
-				}
-			}
-		}
-	}
-
-	if id.Requester != nil {
-		requesterMap := identityMap.PutEmptyMap("requester")
-		unmarshaler.AttrPutStrIf(requesterMap, "objectId", id.Requester.ObjectID)
-		unmarshaler.AttrPutStrIf(requesterMap, "tenantId", id.Requester.TenantID)
-	}
+	return
 }
+
+// Storage-specific identity fields as nested map
 
 // ------------------------------------------------------------
 // Storage Blob Log Category
@@ -167,43 +129,18 @@ type azureStorageBlobLog struct {
 }
 
 func (r *azureStorageBlobLog) PutCommonAttributes(attrs pcommon.Map, body pcommon.Value) {
+	_ = "STUB: not implemented"
 	// Put common attributes first
-	r.azureLogRecordBase.PutCommonAttributes(attrs, body)
-
-	// Storage identity is semantically different from Activity Log identity
-	// (authorization audit vs caller identity). Parse into typed structure.
-	if r.Identity != nil {
-		r.Identity.PutIdentityAttributes(attrs)
-	}
-
-	// Then put custom top-level attributes
-	// `StatusCode` might be set to "Unknown" value according to Azure docs
-	if r.StatusCode != nil && r.StatusCode.String() != "Unknown" {
-		unmarshaler.AttrPutIntNumberPtrIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.StatusCode)
-	}
-	unmarshaler.AttrPutStrPtrIf(attrs, attributeHTTPResponseStatusText, r.StatusText)
-	if r.Protocol != nil {
-		unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolNameKey), strings.ToLower(*r.Protocol))
-	}
-	if r.URI != nil {
-		unmarshaler.AttrPutURLParsed(attrs, *r.URI)
-	}
+	return
 }
 
-func (r *azureStorageBlobLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeStorageAccountName, r.Properties.AccountName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOriginalKey), r.Properties.UserAgentHeader)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.AzureServiceRequestIDKey), r.Properties.ClientRequestID)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureResponseDuration, r.Properties.ServerLatencyMs)
-	unmarshaler.AttrPutStrIf(attrs, attributeStorageServiceType, r.Properties.ServiceType)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeStorageOperationCount, r.Properties.OperationCount)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPRequestBodySizeKey), r.Properties.RequestBodySize)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeHTTPRequestHeaderSize, r.Properties.RequestHeaderSize)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseBodySizeKey), r.Properties.ResponseBodySize)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeHTTPResponseHeaderSize, r.Properties.RequestHeaderSize)
-	attrPutTLSProtoIf(attrs, r.Properties.TLSVersion)
-	unmarshaler.AttrPutStrIf(attrs, attributeStorageObjectKey, r.Properties.ObjectKey)
-	unmarshaler.AttrPutStrIf(attrs, attributeStorageSourceAccessTier, r.Properties.SourceAccessTier)
+// Storage identity is semantically different from Activity Log identity
+// (authorization audit vs caller identity). Parse into typed structure.
 
+// Then put custom top-level attributes
+// `StatusCode` might be set to "Unknown" value according to Azure docs
+
+func (r *azureStorageBlobLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
+	_ = "STUB: not implemented"
 	return nil
 }

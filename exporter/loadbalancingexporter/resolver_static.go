@@ -6,11 +6,9 @@ package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry
 import (
 	"context"
 	"errors"
-	"sort"
 	"sync"
 
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/metric"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter/internal/metadata"
 )
@@ -33,50 +31,23 @@ type staticResolver struct {
 }
 
 func newStaticResolver(endpoints []string, tb *metadata.TelemetryBuilder) (*staticResolver, error) {
-	if len(endpoints) == 0 {
-		return nil, errNoEndpoints
-	}
-
-	// make sure we won't change the provided slice
-	endpointsCopy := make([]string, len(endpoints))
-	copy(endpointsCopy, endpoints)
-
-	// sort is a guarantee that the order of endpoints doesn't matter
-	sort.Strings(endpointsCopy)
-
-	return &staticResolver{
-		endpoints: endpointsCopy,
-		telemetry: tb,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (r *staticResolver) start(ctx context.Context) error {
-	_, err := r.resolve(ctx) // right now, this can't fail
-	return err
-}
+// make sure we won't change the provided slice
 
-func (r *staticResolver) shutdown(context.Context) error {
-	r.endpoints = nil
+// sort is a guarantee that the order of endpoints doesn't matter
 
-	for _, callback := range r.onChangeCallbacks {
-		callback(r.endpoints)
-	}
+func (r *staticResolver) start(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
-	return nil
-}
+// right now, this can't fail
+
+func (r *staticResolver) shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (r *staticResolver) resolve(ctx context.Context) ([]string, error) {
-	r.telemetry.LoadbalancerNumResolutions.Add(ctx, 1, metric.WithAttributeSet(staticResolverSuccessAttrSet))
-	r.once.Do(func() {
-		r.telemetry.LoadbalancerNumBackends.Record(ctx, int64(len(r.endpoints)), metric.WithAttributeSet(staticResolverAttrSet))
-		r.telemetry.LoadbalancerNumBackendUpdates.Add(ctx, 1, metric.WithAttributeSet(staticResolverAttrSet))
-		for _, callback := range r.onChangeCallbacks {
-			callback(r.endpoints)
-		}
-	})
-	return r.endpoints, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (r *staticResolver) onChange(f func([]string)) {
-	r.onChangeCallbacks = append(r.onChangeCallbacks, f)
-}
+func (r *staticResolver) onChange(f func([]string)) { _ = "STUB: not implemented"; return }

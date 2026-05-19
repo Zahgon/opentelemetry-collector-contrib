@@ -7,12 +7,8 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/zipkinreceiver/internal/metadata"
 )
 
 // This file implements factory for Zipkin receiver.
@@ -22,23 +18,12 @@ const (
 )
 
 // NewFactory creates a new Zipkin receiver factory
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(createTracesReceiver, metadata.TracesStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createDefaultConfig creates the default configuration for Zipkin receiver.
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultHTTPEndpoint
-	return &Config{
-		ServerConfig:    confighttp.ServerConfig{NetAddr: netAddr},
-		ParseStringTags: false,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createTracesReceiver creates a trace receiver based on provided config.
@@ -48,6 +33,6 @@ func createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	rCfg := cfg.(*Config)
-	return newReceiver(rCfg, nextConsumer, set)
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }

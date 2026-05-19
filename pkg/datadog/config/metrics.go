@@ -5,8 +5,6 @@ package config // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"encoding"
-	"errors"
-	"fmt"
 
 	otlpmetrics "github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/metrics"
 	"go.opentelemetry.io/collector/config/confignet"
@@ -49,15 +47,7 @@ const (
 
 var _ encoding.TextUnmarshaler = (*HistogramMode)(nil)
 
-func (hm *HistogramMode) UnmarshalText(in []byte) error {
-	switch mode := HistogramMode(in); mode {
-	case HistogramModeCounters, HistogramModeDistributions, HistogramModeNoBuckets:
-		*hm = mode
-		return nil
-	default:
-		return fmt.Errorf("invalid histogram mode %q", mode)
-	}
-}
+func (hm *HistogramMode) UnmarshalText(in []byte) error { _ = "STUB: not implemented"; return nil }
 
 // HistogramConfig customizes export of OTLP Histograms.
 type HistogramConfig struct {
@@ -84,22 +74,9 @@ type HistogramConfig struct {
 var _ confmap.Marshaler = (*HistogramConfig)(nil)
 
 // Marshal emits only the canonical histogram aggregation setting.
-func (c HistogramConfig) Marshal(conf *confmap.Conf) error {
-	return conf.Marshal(struct {
-		Mode             HistogramMode `mapstructure:"mode"`
-		SendAggregations bool          `mapstructure:"send_aggregation_metrics"`
-	}{
-		Mode:             c.Mode,
-		SendAggregations: c.SendAggregations,
-	})
-}
+func (c HistogramConfig) Marshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
-func (c *HistogramConfig) validate() error {
-	if c.Mode == HistogramModeNoBuckets && !c.SendAggregations {
-		return errors.New("'nobuckets' mode and `send_aggregation_metrics` set to false will send no histogram metrics")
-	}
-	return nil
-}
+func (c *HistogramConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 // CumulativeMonotonicSumMode is the export mode for OTLP Sum metrics.
 type CumulativeMonotonicSumMode string
@@ -119,14 +96,8 @@ var _ encoding.TextUnmarshaler = (*CumulativeMonotonicSumMode)(nil)
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
 func (sm *CumulativeMonotonicSumMode) UnmarshalText(in []byte) error {
-	switch mode := CumulativeMonotonicSumMode(in); mode {
-	case CumulativeMonotonicSumModeToDelta,
-		CumulativeMonotonicSumModeRawValue:
-		*sm = mode
-		return nil
-	default:
-		return fmt.Errorf("invalid cumulative monotonic sum mode %q", mode)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // InitialValueMode defines what the exporter should do with the initial value
@@ -148,17 +119,7 @@ const (
 var _ encoding.TextUnmarshaler = (*InitialValueMode)(nil)
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
-func (iv *InitialValueMode) UnmarshalText(in []byte) error {
-	switch mode := InitialValueMode(in); mode {
-	case InitialValueModeAuto,
-		InitialValueModeDrop,
-		InitialValueModeKeep:
-		*iv = mode
-		return nil
-	default:
-		return fmt.Errorf("invalid initial value mode %q", mode)
-	}
-}
+func (iv *InitialValueMode) UnmarshalText(in []byte) error { _ = "STUB: not implemented"; return nil }
 
 // SumConfig customizes export of OTLP Sums.
 type SumConfig struct {
@@ -189,16 +150,7 @@ const (
 var _ encoding.TextUnmarshaler = (*SummaryMode)(nil)
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
-func (sm *SummaryMode) UnmarshalText(in []byte) error {
-	switch mode := SummaryMode(in); mode {
-	case SummaryModeNoQuantiles,
-		SummaryModeGauges:
-		*sm = mode
-		return nil
-	default:
-		return fmt.Errorf("invalid summary mode %q", mode)
-	}
-}
+func (sm *SummaryMode) UnmarshalText(in []byte) error { _ = "STUB: not implemented"; return nil }
 
 // SummaryConfig customizes export of OTLP Summaries.
 type SummaryConfig struct {
@@ -230,35 +182,6 @@ type MetricsExporterConfig struct {
 
 // ToTranslatorOpts returns a list of metrics translator options from the metrics config
 func (mcfg MetricsConfig) ToTranslatorOpts() []otlpmetrics.TranslatorOption {
-	options := []otlpmetrics.TranslatorOption{
-		otlpmetrics.WithDeltaTTL(mcfg.DeltaTTL),
-	}
-
-	if mcfg.HistConfig.SendAggregations {
-		options = append(options, otlpmetrics.WithHistogramAggregations())
-	}
-
-	if mcfg.SummaryConfig.Mode == SummaryModeGauges {
-		options = append(options, otlpmetrics.WithQuantiles())
-	}
-
-	if mcfg.ExporterConfig.InstrumentationScopeMetadataAsTags {
-		options = append(options, otlpmetrics.WithInstrumentationScopeMetadataAsTags())
-	}
-
-	options = append(options, otlpmetrics.WithHistogramMode(otlpmetrics.HistogramMode(mcfg.HistConfig.Mode)))
-
-	var numberMode otlpmetrics.NumberMode
-	switch mcfg.SumConfig.CumulativeMonotonicMode {
-	case CumulativeMonotonicSumModeRawValue:
-		numberMode = otlpmetrics.NumberModeRawValue
-	case CumulativeMonotonicSumModeToDelta:
-		numberMode = otlpmetrics.NumberModeCumulativeToDelta
-	}
-	options = append(options,
-		otlpmetrics.WithNumberMode(numberMode),
-		otlpmetrics.WithInitialCumulMonoValueMode(
-			otlpmetrics.InitialCumulMonoValueMode(mcfg.SumConfig.InitialCumulativeMonotonicMode)))
-
-	return options
+	_ = "STUB: not implemented"
+	return nil
 }

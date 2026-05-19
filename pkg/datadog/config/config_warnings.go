@@ -4,9 +4,6 @@
 package config // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/datadog/config"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -42,43 +39,27 @@ var renamedSettings = []deprecatedError{
 }
 
 // Error implements the error interface.
-func (e deprecatedError) Error() string {
-	return fmt.Sprintf(
-		"%q has been deprecated in favor of %q",
-		e.oldName,
-		e.newName,
-	)
-}
+func (e deprecatedError) Error() string { _ = "STUB: not implemented"; return "" }
 
 // Check if the deprecated option is being used.
 // Error out if both the old and new options are being used.
 func (e deprecatedError) Check(configMap *confmap.Conf) (bool, error) {
-	if configMap.IsSet(e.oldName) && configMap.IsSet(e.newName) {
-		return false, fmt.Errorf("%q and %q can't be both set at the same time: use %q only instead", e.oldName, e.newName, e.newName)
-	}
-	return configMap.IsSet(e.oldName), nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // UpdateCfg to move the old configuration value into the new one.
 func (e deprecatedError) UpdateCfg(cfg *Config) {
-	e.updateFn(cfg)
+	_ = "STUB: not implemented"
+
+	// handleRenamedSettings for a given configuration map.
+	// Error out if any pair of old-new options are set at the same time.
+	return
 }
 
-// handleRenamedSettings for a given configuration map.
-// Error out if any pair of old-new options are set at the same time.
 func handleRenamedSettings(configMap *confmap.Conf, cfg *Config) (warnings []error, err error) {
-	var errs []error
-	for _, renaming := range renamedSettings {
-		isOldNameUsed, errCheck := renaming.Check(configMap)
-		errs = append(errs, errCheck)
-
-		if errCheck == nil && isOldNameUsed {
-			warnings = append(warnings, renaming)
-			// only update config if old name is in use
-			renaming.UpdateCfg(cfg)
-		}
-	}
-	err = errors.Join(errs...)
-
-	return warnings, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// only update config if old name is in use

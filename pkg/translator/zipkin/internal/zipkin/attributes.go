@@ -31,19 +31,12 @@ type attrValDescript struct {
 }
 
 func constructAttrValDescript(regex string, attrType pcommon.ValueType) *attrValDescript {
-	regexc := regexp.MustCompile(regex)
-	return &attrValDescript{
-		regex:    regexc,
-		attrType: attrType,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DetermineValueType returns the native OTLP attribute type the string translates to.
 func DetermineValueType(value string) pcommon.ValueType {
-	for _, desc := range attrValDescriptions {
-		if desc.regex.MatchString(value) {
-			return desc.attrType
-		}
-	}
-	return pcommon.ValueTypeStr
+	_ = "STUB: not implemented"
+	return *new(pcommon.ValueType)
 }

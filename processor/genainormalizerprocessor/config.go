@@ -4,9 +4,6 @@
 package genainormalizerprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/genainormalizerprocessor"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap/xconfmap"
 )
 
@@ -50,19 +47,4 @@ type Config struct {
 var _ xconfmap.Validator = (*Config)(nil)
 
 // Validate checks that the configuration is valid.
-func (c *Config) Validate() error {
-	if len(c.Sources) == 0 {
-		return errors.New("at least one source must be specified")
-	}
-	seen := make(map[SourceName]struct{}, len(c.Sources))
-	for i, src := range c.Sources {
-		if _, ok := supportedSources[src.Name]; !ok {
-			return fmt.Errorf("sources[%d]: unknown source %q", i, src.Name)
-		}
-		if _, dup := seen[src.Name]; dup {
-			return fmt.Errorf("sources[%d]: duplicate source %q", i, src.Name)
-		}
-		seen[src.Name] = struct{}{}
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

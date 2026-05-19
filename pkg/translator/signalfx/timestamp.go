@@ -8,11 +8,13 @@ import "go.opentelemetry.io/collector/pdata/pcommon"
 const millisToNanos = 1e6
 
 func fromTimestamp(ts pcommon.Timestamp) int64 {
+	_ = "STUB: not implemented"
 	// Convert nanos to millis.
-	return int64(ts) / millisToNanos
+	return 0
 }
 
 func toTimestamp(ts int64) pcommon.Timestamp {
+	_ = "STUB: not implemented"
 	// Convert millis to nanos.
-	return pcommon.Timestamp(ts * millisToNanos)
+	return *new(pcommon.Timestamp)
 }

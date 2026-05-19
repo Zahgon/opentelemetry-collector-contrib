@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -26,36 +24,11 @@ type MongodbatlasDbCountsMetricConfig struct {
 }
 
 func (ms *MongodbatlasDbCountsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MongodbatlasDbCountsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDbCountsMetricAttributeKeyObjectType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.db.counts doesn't have an attribute %v, valid attributes: [object_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MongodbatlasDbCountsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MongodbatlasDbSizeMetricAttributeKey specifies the key of an attribute for the mongodbatlas.db.size metric.
 type MongodbatlasDbSizeMetricAttributeKey string
@@ -74,36 +47,11 @@ type MongodbatlasDbSizeMetricConfig struct {
 }
 
 func (ms *MongodbatlasDbSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MongodbatlasDbSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDbSizeMetricAttributeKeyObjectType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.db.size doesn't have an attribute %v, valid attributes: [object_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MongodbatlasDbSizeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MongodbatlasDiskPartitionIopsAverageMetricAttributeKey specifies the key of an attribute for the mongodbatlas.disk.partition.iops.average metric.
 type MongodbatlasDiskPartitionIopsAverageMetricAttributeKey string
@@ -122,34 +70,12 @@ type MongodbatlasDiskPartitionIopsAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionIopsAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionIopsAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionIopsAverageMetricAttributeKeyDiskDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.iops.average doesn't have an attribute %v, valid attributes: [disk_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -170,34 +96,12 @@ type MongodbatlasDiskPartitionIopsMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionIopsMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionIopsMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionIopsMaxMetricAttributeKeyDiskDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.iops.max doesn't have an attribute %v, valid attributes: [disk_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -218,34 +122,12 @@ type MongodbatlasDiskPartitionLatencyAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionLatencyAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionLatencyAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionLatencyAverageMetricAttributeKeyDiskDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.latency.average doesn't have an attribute %v, valid attributes: [disk_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -266,34 +148,12 @@ type MongodbatlasDiskPartitionLatencyMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionLatencyMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionLatencyMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionLatencyMaxMetricAttributeKeyDiskDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.latency.max doesn't have an attribute %v, valid attributes: [disk_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -304,16 +164,7 @@ type MongodbatlasDiskPartitionQueueDepthMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionQueueDepthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -334,34 +185,12 @@ type MongodbatlasDiskPartitionSpaceAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionSpaceAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionSpaceAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionSpaceAverageMetricAttributeKeyDiskStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.space.average doesn't have an attribute %v, valid attributes: [disk_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -382,34 +211,12 @@ type MongodbatlasDiskPartitionSpaceMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionSpaceMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionSpaceMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionSpaceMaxMetricAttributeKeyDiskStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.space.max doesn't have an attribute %v, valid attributes: [disk_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -430,34 +237,12 @@ type MongodbatlasDiskPartitionThroughputMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionThroughputMetricAttributeKeyDiskDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.throughput doesn't have an attribute %v, valid attributes: [disk_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -478,34 +263,12 @@ type MongodbatlasDiskPartitionUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionUsageAverageMetricAttributeKeyDiskStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.usage.average doesn't have an attribute %v, valid attributes: [disk_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -526,34 +289,12 @@ type MongodbatlasDiskPartitionUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasDiskPartitionUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasDiskPartitionUsageMaxMetricAttributeKeyDiskStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.disk.partition.usage.max doesn't have an attribute %v, valid attributes: [disk_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -564,16 +305,7 @@ type MongodbatlasDiskPartitionUtilizationAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionUtilizationAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -584,16 +316,7 @@ type MongodbatlasDiskPartitionUtilizationMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasDiskPartitionUtilizationMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -614,34 +337,12 @@ type MongodbatlasProcessAssertsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessAssertsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessAssertsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessAssertsMetricAttributeKeyAssertType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.asserts doesn't have an attribute %v, valid attributes: [assert_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -652,16 +353,7 @@ type MongodbatlasProcessBackgroundFlushMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessBackgroundFlushMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -682,34 +374,12 @@ type MongodbatlasProcessCacheIoMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCacheIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCacheIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCacheIoMetricAttributeKeyCacheDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cache.io doesn't have an attribute %v, valid attributes: [cache_direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -730,34 +400,12 @@ type MongodbatlasProcessCacheRatioMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCacheRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCacheRatioMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCacheRatioMetricAttributeKeyCacheRatioType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cache.ratio doesn't have an attribute %v, valid attributes: [cache_ratio_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -778,34 +426,12 @@ type MongodbatlasProcessCacheSizeMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCacheSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCacheSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCacheSizeMetricAttributeKeyCacheStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cache.size doesn't have an attribute %v, valid attributes: [cache_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -816,16 +442,7 @@ type MongodbatlasProcessConnectionsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessConnectionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -846,34 +463,12 @@ type MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.children.normalized.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -894,34 +489,12 @@ type MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.children.normalized.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -942,34 +515,12 @@ type MongodbatlasProcessCPUChildrenUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUChildrenUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUChildrenUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUChildrenUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.children.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -990,34 +541,12 @@ type MongodbatlasProcessCPUChildrenUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUChildrenUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUChildrenUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUChildrenUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.children.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1038,34 +567,12 @@ type MongodbatlasProcessCPUNormalizedUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUNormalizedUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUNormalizedUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUNormalizedUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.normalized.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1086,34 +593,12 @@ type MongodbatlasProcessCPUNormalizedUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUNormalizedUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUNormalizedUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUNormalizedUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.normalized.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1134,34 +619,12 @@ type MongodbatlasProcessCPUUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1182,34 +645,12 @@ type MongodbatlasProcessCPUUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCPUUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCPUUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCPUUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cpu.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1230,34 +671,12 @@ type MongodbatlasProcessCursorsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessCursorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessCursorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessCursorsMetricAttributeKeyCursorState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.cursors doesn't have an attribute %v, valid attributes: [cursor_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1278,34 +697,12 @@ type MongodbatlasProcessDbDocumentRateMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbDocumentRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbDocumentRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbDocumentRateMetricAttributeKeyDocumentStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.document.rate doesn't have an attribute %v, valid attributes: [document_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1327,34 +724,12 @@ type MongodbatlasProcessDbOperationsRateMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbOperationsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbOperationsRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbOperationsRateMetricAttributeKeyOperation, MongodbatlasProcessDbOperationsRateMetricAttributeKeyClusterRole:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.operations.rate doesn't have an attribute %v, valid attributes: [operation, cluster_role]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1375,34 +750,12 @@ type MongodbatlasProcessDbOperationsTimeMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbOperationsTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbOperationsTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbOperationsTimeMetricAttributeKeyExecutionType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.operations.time doesn't have an attribute %v, valid attributes: [execution_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1423,34 +776,12 @@ type MongodbatlasProcessDbQueryExecutorScannedMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbQueryExecutorScannedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbQueryExecutorScannedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbQueryExecutorScannedMetricAttributeKeyScannedType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.query_executor.scanned doesn't have an attribute %v, valid attributes: [scanned_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1471,34 +802,12 @@ type MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricAttributeKeyScannedType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.query_targeting.scanned_per_returned doesn't have an attribute %v, valid attributes: [scanned_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1519,34 +828,12 @@ type MongodbatlasProcessDbStorageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessDbStorageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessDbStorageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessDbStorageMetricAttributeKeyStorageStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.db.storage doesn't have an attribute %v, valid attributes: [storage_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1567,34 +854,12 @@ type MongodbatlasProcessGlobalLockMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessGlobalLockMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessGlobalLockMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessGlobalLockMetricAttributeKeyGlobalLockState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.global_lock doesn't have an attribute %v, valid attributes: [global_lock_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1605,16 +870,7 @@ type MongodbatlasProcessIndexBtreeMissRatioMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessIndexBtreeMissRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1635,34 +891,12 @@ type MongodbatlasProcessIndexCountersMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessIndexCountersMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessIndexCountersMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessIndexCountersMetricAttributeKeyBtreeCounterType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.index.counters doesn't have an attribute %v, valid attributes: [btree_counter_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1673,16 +907,7 @@ type MongodbatlasProcessJournalingCommitsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessJournalingCommitsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1693,16 +918,7 @@ type MongodbatlasProcessJournalingDataFilesMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessJournalingDataFilesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1713,16 +929,7 @@ type MongodbatlasProcessJournalingWrittenMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessJournalingWrittenMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1743,34 +950,12 @@ type MongodbatlasProcessMemoryUsageMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessMemoryUsageMetricAttributeKeyMemoryState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.memory.usage doesn't have an attribute %v, valid attributes: [memory_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1791,34 +976,12 @@ type MongodbatlasProcessNetworkIoMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.network.io doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1829,16 +992,7 @@ type MongodbatlasProcessNetworkRequestsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessNetworkRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1849,16 +1003,7 @@ type MongodbatlasProcessOplogRateMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessOplogRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1879,34 +1024,12 @@ type MongodbatlasProcessOplogTimeMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessOplogTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessOplogTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessOplogTimeMetricAttributeKeyOplogType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.oplog.time doesn't have an attribute %v, valid attributes: [oplog_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1927,34 +1050,12 @@ type MongodbatlasProcessPageFaultsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessPageFaultsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessPageFaultsMetricAttributeKeyMemoryIssueType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.page_faults doesn't have an attribute %v, valid attributes: [memory_issue_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1965,16 +1066,7 @@ type MongodbatlasProcessRestartsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessRestartsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1995,34 +1087,12 @@ type MongodbatlasProcessTicketsMetricConfig struct {
 }
 
 func (ms *MongodbatlasProcessTicketsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasProcessTicketsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasProcessTicketsMetricAttributeKeyTicketType:
-		default:
-			return fmt.Errorf("metric mongodbatlas.process.tickets doesn't have an attribute %v, valid attributes: [ticket_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2043,34 +1113,12 @@ type MongodbatlasSystemCPUNormalizedUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemCPUNormalizedUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemCPUNormalizedUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemCPUNormalizedUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.cpu.normalized.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2091,34 +1139,12 @@ type MongodbatlasSystemCPUNormalizedUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemCPUNormalizedUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemCPUNormalizedUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemCPUNormalizedUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.cpu.normalized.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2139,34 +1165,12 @@ type MongodbatlasSystemCPUUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemCPUUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemCPUUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemCPUUsageAverageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.cpu.usage.average doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2187,34 +1191,12 @@ type MongodbatlasSystemCPUUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemCPUUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemCPUUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemCPUUsageMaxMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.cpu.usage.max doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2235,34 +1217,12 @@ type MongodbatlasSystemFtsCPUNormalizedUsageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemFtsCPUNormalizedUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemFtsCPUNormalizedUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemFtsCPUNormalizedUsageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.fts.cpu.normalized.usage doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2283,34 +1243,12 @@ type MongodbatlasSystemFtsCPUUsageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemFtsCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemFtsCPUUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemFtsCPUUsageMetricAttributeKeyCPUState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.fts.cpu.usage doesn't have an attribute %v, valid attributes: [cpu_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2321,16 +1259,7 @@ type MongodbatlasSystemFtsDiskUsedMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemFtsDiskUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2351,34 +1280,12 @@ type MongodbatlasSystemFtsMemoryUsageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemFtsMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemFtsMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemFtsMemoryUsageMetricAttributeKeyMemoryState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.fts.memory.usage doesn't have an attribute %v, valid attributes: [memory_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2399,34 +1306,12 @@ type MongodbatlasSystemMemoryUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemMemoryUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemMemoryUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemMemoryUsageAverageMetricAttributeKeyMemoryStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.memory.usage.average doesn't have an attribute %v, valid attributes: [memory_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2447,34 +1332,12 @@ type MongodbatlasSystemMemoryUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemMemoryUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemMemoryUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemMemoryUsageMaxMetricAttributeKeyMemoryStatus:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.memory.usage.max doesn't have an attribute %v, valid attributes: [memory_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2495,34 +1358,12 @@ type MongodbatlasSystemNetworkIoAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemNetworkIoAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemNetworkIoAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemNetworkIoAverageMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.network.io.average doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2543,34 +1384,12 @@ type MongodbatlasSystemNetworkIoMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemNetworkIoMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemNetworkIoMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemNetworkIoMaxMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.network.io.max doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2591,34 +1410,12 @@ type MongodbatlasSystemPagingIoAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemPagingIoAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemPagingIoAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemPagingIoAverageMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.paging.io.average doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2639,34 +1436,12 @@ type MongodbatlasSystemPagingIoMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemPagingIoMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemPagingIoMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemPagingIoMaxMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.paging.io.max doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2687,34 +1462,12 @@ type MongodbatlasSystemPagingUsageAverageMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemPagingUsageAverageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemPagingUsageAverageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemPagingUsageAverageMetricAttributeKeyMemoryState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.paging.usage.average doesn't have an attribute %v, valid attributes: [memory_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2735,34 +1488,12 @@ type MongodbatlasSystemPagingUsageMaxMetricConfig struct {
 }
 
 func (ms *MongodbatlasSystemPagingUsageMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MongodbatlasSystemPagingUsageMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MongodbatlasSystemPagingUsageMaxMetricAttributeKeyMemoryState:
-		default:
-			return fmt.Errorf("metric mongodbatlas.system.paging.usage.max doesn't have an attribute %v, valid attributes: [memory_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2835,309 +1566,7 @@ type MetricsConfig struct {
 	MongodbatlasSystemPagingUsageMax                      MongodbatlasSystemPagingUsageMaxMetricConfig                      `mapstructure:"mongodbatlas.system.paging.usage.max"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		MongodbatlasDbCounts: MongodbatlasDbCountsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDbCountsMetricAttributeKey{MongodbatlasDbCountsMetricAttributeKeyObjectType},
-		},
-		MongodbatlasDbSize: MongodbatlasDbSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDbSizeMetricAttributeKey{MongodbatlasDbSizeMetricAttributeKeyObjectType},
-		},
-		MongodbatlasDiskPartitionIopsAverage: MongodbatlasDiskPartitionIopsAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionIopsAverageMetricAttributeKey{MongodbatlasDiskPartitionIopsAverageMetricAttributeKeyDiskDirection},
-		},
-		MongodbatlasDiskPartitionIopsMax: MongodbatlasDiskPartitionIopsMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionIopsMaxMetricAttributeKey{MongodbatlasDiskPartitionIopsMaxMetricAttributeKeyDiskDirection},
-		},
-		MongodbatlasDiskPartitionLatencyAverage: MongodbatlasDiskPartitionLatencyAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionLatencyAverageMetricAttributeKey{MongodbatlasDiskPartitionLatencyAverageMetricAttributeKeyDiskDirection},
-		},
-		MongodbatlasDiskPartitionLatencyMax: MongodbatlasDiskPartitionLatencyMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionLatencyMaxMetricAttributeKey{MongodbatlasDiskPartitionLatencyMaxMetricAttributeKeyDiskDirection},
-		},
-		MongodbatlasDiskPartitionQueueDepth: MongodbatlasDiskPartitionQueueDepthMetricConfig{
-			Enabled: false,
-		},
-		MongodbatlasDiskPartitionSpaceAverage: MongodbatlasDiskPartitionSpaceAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionSpaceAverageMetricAttributeKey{MongodbatlasDiskPartitionSpaceAverageMetricAttributeKeyDiskStatus},
-		},
-		MongodbatlasDiskPartitionSpaceMax: MongodbatlasDiskPartitionSpaceMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionSpaceMaxMetricAttributeKey{MongodbatlasDiskPartitionSpaceMaxMetricAttributeKeyDiskStatus},
-		},
-		MongodbatlasDiskPartitionThroughput: MongodbatlasDiskPartitionThroughputMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionThroughputMetricAttributeKey{MongodbatlasDiskPartitionThroughputMetricAttributeKeyDiskDirection},
-		},
-		MongodbatlasDiskPartitionUsageAverage: MongodbatlasDiskPartitionUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionUsageAverageMetricAttributeKey{MongodbatlasDiskPartitionUsageAverageMetricAttributeKeyDiskStatus},
-		},
-		MongodbatlasDiskPartitionUsageMax: MongodbatlasDiskPartitionUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasDiskPartitionUsageMaxMetricAttributeKey{MongodbatlasDiskPartitionUsageMaxMetricAttributeKeyDiskStatus},
-		},
-		MongodbatlasDiskPartitionUtilizationAverage: MongodbatlasDiskPartitionUtilizationAverageMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasDiskPartitionUtilizationMax: MongodbatlasDiskPartitionUtilizationMaxMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessAsserts: MongodbatlasProcessAssertsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessAssertsMetricAttributeKey{MongodbatlasProcessAssertsMetricAttributeKeyAssertType},
-		},
-		MongodbatlasProcessBackgroundFlush: MongodbatlasProcessBackgroundFlushMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessCacheIo: MongodbatlasProcessCacheIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCacheIoMetricAttributeKey{MongodbatlasProcessCacheIoMetricAttributeKeyCacheDirection},
-		},
-		MongodbatlasProcessCacheRatio: MongodbatlasProcessCacheRatioMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCacheRatioMetricAttributeKey{MongodbatlasProcessCacheRatioMetricAttributeKeyCacheRatioType},
-		},
-		MongodbatlasProcessCacheSize: MongodbatlasProcessCacheSizeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MongodbatlasProcessCacheSizeMetricAttributeKey{MongodbatlasProcessCacheSizeMetricAttributeKeyCacheStatus},
-		},
-		MongodbatlasProcessConnections: MongodbatlasProcessConnectionsMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessCPUChildrenNormalizedUsageAverage: MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricAttributeKey{MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUChildrenNormalizedUsageMax: MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricAttributeKey{MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUChildrenUsageAverage: MongodbatlasProcessCPUChildrenUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUChildrenUsageAverageMetricAttributeKey{MongodbatlasProcessCPUChildrenUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUChildrenUsageMax: MongodbatlasProcessCPUChildrenUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUChildrenUsageMaxMetricAttributeKey{MongodbatlasProcessCPUChildrenUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUNormalizedUsageAverage: MongodbatlasProcessCPUNormalizedUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUNormalizedUsageAverageMetricAttributeKey{MongodbatlasProcessCPUNormalizedUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUNormalizedUsageMax: MongodbatlasProcessCPUNormalizedUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUNormalizedUsageMaxMetricAttributeKey{MongodbatlasProcessCPUNormalizedUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUUsageAverage: MongodbatlasProcessCPUUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUUsageAverageMetricAttributeKey{MongodbatlasProcessCPUUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCPUUsageMax: MongodbatlasProcessCPUUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCPUUsageMaxMetricAttributeKey{MongodbatlasProcessCPUUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasProcessCursors: MongodbatlasProcessCursorsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessCursorsMetricAttributeKey{MongodbatlasProcessCursorsMetricAttributeKeyCursorState},
-		},
-		MongodbatlasProcessDbDocumentRate: MongodbatlasProcessDbDocumentRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessDbDocumentRateMetricAttributeKey{MongodbatlasProcessDbDocumentRateMetricAttributeKeyDocumentStatus},
-		},
-		MongodbatlasProcessDbOperationsRate: MongodbatlasProcessDbOperationsRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessDbOperationsRateMetricAttributeKey{MongodbatlasProcessDbOperationsRateMetricAttributeKeyOperation, MongodbatlasProcessDbOperationsRateMetricAttributeKeyClusterRole},
-		},
-		MongodbatlasProcessDbOperationsTime: MongodbatlasProcessDbOperationsTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MongodbatlasProcessDbOperationsTimeMetricAttributeKey{MongodbatlasProcessDbOperationsTimeMetricAttributeKeyExecutionType},
-		},
-		MongodbatlasProcessDbQueryExecutorScanned: MongodbatlasProcessDbQueryExecutorScannedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessDbQueryExecutorScannedMetricAttributeKey{MongodbatlasProcessDbQueryExecutorScannedMetricAttributeKeyScannedType},
-		},
-		MongodbatlasProcessDbQueryTargetingScannedPerReturned: MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricAttributeKey{MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricAttributeKeyScannedType},
-		},
-		MongodbatlasProcessDbStorage: MongodbatlasProcessDbStorageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessDbStorageMetricAttributeKey{MongodbatlasProcessDbStorageMetricAttributeKeyStorageStatus},
-		},
-		MongodbatlasProcessGlobalLock: MongodbatlasProcessGlobalLockMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessGlobalLockMetricAttributeKey{MongodbatlasProcessGlobalLockMetricAttributeKeyGlobalLockState},
-		},
-		MongodbatlasProcessIndexBtreeMissRatio: MongodbatlasProcessIndexBtreeMissRatioMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessIndexCounters: MongodbatlasProcessIndexCountersMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessIndexCountersMetricAttributeKey{MongodbatlasProcessIndexCountersMetricAttributeKeyBtreeCounterType},
-		},
-		MongodbatlasProcessJournalingCommits: MongodbatlasProcessJournalingCommitsMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessJournalingDataFiles: MongodbatlasProcessJournalingDataFilesMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessJournalingWritten: MongodbatlasProcessJournalingWrittenMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessMemoryUsage: MongodbatlasProcessMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessMemoryUsageMetricAttributeKey{MongodbatlasProcessMemoryUsageMetricAttributeKeyMemoryState},
-		},
-		MongodbatlasProcessNetworkIo: MongodbatlasProcessNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessNetworkIoMetricAttributeKey{MongodbatlasProcessNetworkIoMetricAttributeKeyDirection},
-		},
-		MongodbatlasProcessNetworkRequests: MongodbatlasProcessNetworkRequestsMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessOplogRate: MongodbatlasProcessOplogRateMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessOplogTime: MongodbatlasProcessOplogTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessOplogTimeMetricAttributeKey{MongodbatlasProcessOplogTimeMetricAttributeKeyOplogType},
-		},
-		MongodbatlasProcessPageFaults: MongodbatlasProcessPageFaultsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessPageFaultsMetricAttributeKey{MongodbatlasProcessPageFaultsMetricAttributeKeyMemoryIssueType},
-		},
-		MongodbatlasProcessRestarts: MongodbatlasProcessRestartsMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasProcessTickets: MongodbatlasProcessTicketsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasProcessTicketsMetricAttributeKey{MongodbatlasProcessTicketsMetricAttributeKeyTicketType},
-		},
-		MongodbatlasSystemCPUNormalizedUsageAverage: MongodbatlasSystemCPUNormalizedUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemCPUNormalizedUsageAverageMetricAttributeKey{MongodbatlasSystemCPUNormalizedUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemCPUNormalizedUsageMax: MongodbatlasSystemCPUNormalizedUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemCPUNormalizedUsageMaxMetricAttributeKey{MongodbatlasSystemCPUNormalizedUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemCPUUsageAverage: MongodbatlasSystemCPUUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemCPUUsageAverageMetricAttributeKey{MongodbatlasSystemCPUUsageAverageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemCPUUsageMax: MongodbatlasSystemCPUUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemCPUUsageMaxMetricAttributeKey{MongodbatlasSystemCPUUsageMaxMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemFtsCPUNormalizedUsage: MongodbatlasSystemFtsCPUNormalizedUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemFtsCPUNormalizedUsageMetricAttributeKey{MongodbatlasSystemFtsCPUNormalizedUsageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemFtsCPUUsage: MongodbatlasSystemFtsCPUUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemFtsCPUUsageMetricAttributeKey{MongodbatlasSystemFtsCPUUsageMetricAttributeKeyCPUState},
-		},
-		MongodbatlasSystemFtsDiskUsed: MongodbatlasSystemFtsDiskUsedMetricConfig{
-			Enabled: true,
-		},
-		MongodbatlasSystemFtsMemoryUsage: MongodbatlasSystemFtsMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MongodbatlasSystemFtsMemoryUsageMetricAttributeKey{MongodbatlasSystemFtsMemoryUsageMetricAttributeKeyMemoryState},
-		},
-		MongodbatlasSystemMemoryUsageAverage: MongodbatlasSystemMemoryUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemMemoryUsageAverageMetricAttributeKey{MongodbatlasSystemMemoryUsageAverageMetricAttributeKeyMemoryStatus},
-		},
-		MongodbatlasSystemMemoryUsageMax: MongodbatlasSystemMemoryUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemMemoryUsageMaxMetricAttributeKey{MongodbatlasSystemMemoryUsageMaxMetricAttributeKeyMemoryStatus},
-		},
-		MongodbatlasSystemNetworkIoAverage: MongodbatlasSystemNetworkIoAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemNetworkIoAverageMetricAttributeKey{MongodbatlasSystemNetworkIoAverageMetricAttributeKeyDirection},
-		},
-		MongodbatlasSystemNetworkIoMax: MongodbatlasSystemNetworkIoMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemNetworkIoMaxMetricAttributeKey{MongodbatlasSystemNetworkIoMaxMetricAttributeKeyDirection},
-		},
-		MongodbatlasSystemPagingIoAverage: MongodbatlasSystemPagingIoAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemPagingIoAverageMetricAttributeKey{MongodbatlasSystemPagingIoAverageMetricAttributeKeyDirection},
-		},
-		MongodbatlasSystemPagingIoMax: MongodbatlasSystemPagingIoMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemPagingIoMaxMetricAttributeKey{MongodbatlasSystemPagingIoMaxMetricAttributeKeyDirection},
-		},
-		MongodbatlasSystemPagingUsageAverage: MongodbatlasSystemPagingUsageAverageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemPagingUsageAverageMetricAttributeKey{MongodbatlasSystemPagingUsageAverageMetricAttributeKeyMemoryState},
-		},
-		MongodbatlasSystemPagingUsageMax: MongodbatlasSystemPagingUsageMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []MongodbatlasSystemPagingUsageMaxMetricAttributeKey{MongodbatlasSystemPagingUsageMaxMetricAttributeKeyMemoryState},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -3154,14 +1583,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -3183,47 +1605,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		MongodbAtlasClusterName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		MongodbAtlasDbName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasDiskPartition: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasHostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasOrgName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProcessID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProcessPort: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProcessTypeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProjectID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProjectName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		MongodbAtlasProviderName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		MongodbAtlasRegionName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		MongodbAtlasUserAlias: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for mongodb_atlas metrics builder.
@@ -3233,13 +1616,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -4,8 +4,6 @@
 package kube // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor/internal/kube"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/otel/attribute"
 )
 
@@ -21,30 +19,36 @@ type AttributesFunction func(key, val string) attribute.KeyValue
 // Semantic conventions define `*.label.*` and `*.annotation.*`
 // More information - https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/37957
 func K8SPodLabels(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.pod.labels.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
 // K8SPodAnnotations returns an attribute KeyValue for pod annotations using the plural form
 func K8SPodAnnotations(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.pod.annotations.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
 // K8SNodeLabels returns an attribute KeyValue for node labels using the plural form
 func K8SNodeLabels(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.node.labels.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
 // K8SNodeAnnotations returns an attribute KeyValue for node annotations using the plural form
 func K8SNodeAnnotations(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.node.annotations.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
 // K8SNamespaceLabels returns an attribute KeyValue for namespace labels using the plural form
 func K8SNamespaceLabels(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.namespace.labels.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
 // K8SNamespaceAnnotations returns an attribute KeyValue for namespace annotations using the plural form
 func K8SNamespaceAnnotations(key, val string) attribute.KeyValue {
-	return attribute.String(fmt.Sprintf("k8s.namespace.annotations.%s", key), val)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }

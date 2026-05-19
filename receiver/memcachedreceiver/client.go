@@ -17,11 +17,6 @@ type client interface {
 type newMemcachedClientFunc func(endpoint string, timeout time.Duration) (client, error)
 
 func newMemcachedClient(endpoint string, timeout time.Duration) (client, error) {
-	newClient, err := memcache.New(endpoint)
-	if err != nil {
-		return nil, err
-	}
-
-	newClient.Timeout = timeout
-	return newClient, nil
+	_ = "STUB: not implemented"
+	return *new(client), nil
 }

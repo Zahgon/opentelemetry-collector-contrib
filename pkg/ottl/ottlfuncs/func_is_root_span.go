@@ -4,33 +4,32 @@
 package ottlfuncs // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 
 import (
-	"context"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspan"
 )
 
 // Deprecated: [v0.142.0] use NewIsRootSpanFactoryNew.
 func NewIsRootSpanFactory() ottl.Factory[ottlspan.TransformContext] {
-	return ottl.NewFactory("IsRootSpan", nil, createIsRootSpanFunctionLegacy)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createIsRootSpanFunctionLegacy(_ ottl.FunctionContext, _ ottl.Arguments) (ottl.ExprFunc[ottlspan.TransformContext], error) {
-	return func(_ context.Context, tCtx ottlspan.TransformContext) (any, error) {
-		return tCtx.GetSpan().ParentSpanID().IsEmpty(), nil
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func NewIsRootSpanFactoryNew() ottl.Factory[*ottlspan.TransformContext] {
-	return ottl.NewFactory("IsRootSpan", nil, createIsRootSpanFunction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createIsRootSpanFunction(_ ottl.FunctionContext, _ ottl.Arguments) (ottl.ExprFunc[*ottlspan.TransformContext], error) {
-	return isRootSpan()
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func isRootSpan() (ottl.ExprFunc[*ottlspan.TransformContext], error) {
-	return func(_ context.Context, tCtx *ottlspan.TransformContext) (any, error) {
-		return tCtx.GetSpan().ParentSpanID().IsEmpty(), nil
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

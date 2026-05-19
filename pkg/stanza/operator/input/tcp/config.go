@@ -5,18 +5,11 @@ package tcp // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"bufio"
-	"context"
-	"errors"
-	"fmt"
-	"net"
-	"time"
 
-	"github.com/jpillora/backoff"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configtls"
 	"golang.org/x/text/encoding"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/textutils"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/split"
@@ -40,20 +33,10 @@ func init() {
 }
 
 // NewConfig creates a new TCP input config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new TCP input config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		InputConfig: helper.NewInputConfig(operatorID, operatorType),
-		BaseConfig: BaseConfig{
-			OneLogPerPacket: false,
-			Encoding:        "utf-8",
-		},
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a tcp input operator.
 type Config struct {
@@ -77,75 +60,18 @@ type BaseConfig struct {
 type SplitFuncBuilder func(enc encoding.Encoding) (bufio.SplitFunc, error)
 
 func (c Config) defaultSplitFuncBuilder(enc encoding.Encoding) (bufio.SplitFunc, error) {
-	return c.SplitConfig.Func(enc, true, int(c.MaxLogSize))
+	_ = "STUB: not implemented"
+	return *new(bufio.SplitFunc), nil
 }
 
 // Build will build a tcp input operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	inputOperator, err := c.InputConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	// If MaxLogSize not set, set sane default
-	if c.MaxLogSize == 0 {
-		c.MaxLogSize = DefaultMaxLogSize
-	}
-
-	if c.MaxLogSize < minMaxLogSize {
-		return nil, fmt.Errorf("invalid value for parameter 'max_log_size', must be equal to or greater than %d bytes", minMaxLogSize)
-	}
-
-	if c.ListenAddress == "" {
-		return nil, errors.New("missing required parameter 'listen_address'")
-	}
-
-	// validate the input address
-	if _, err = net.ResolveTCPAddr("tcp", c.ListenAddress); err != nil {
-		return nil, fmt.Errorf("failed to resolve listen_address: %w", err)
-	}
-
-	enc, err := textutils.LookupEncoding(c.Encoding)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.SplitFuncBuilder == nil {
-		c.SplitFuncBuilder = c.defaultSplitFuncBuilder
-	}
-
-	// Build split func
-	splitFunc, err := c.SplitFuncBuilder(enc)
-	if err != nil {
-		return nil, err
-	}
-	splitFunc = trim.WithFunc(splitFunc, c.TrimConfig.Func())
-
-	var resolver *helper.IPResolver
-	if c.AddAttributes {
-		resolver = helper.NewIPResolver()
-	}
-
-	tcpInput := &Input{
-		InputOperator:   inputOperator,
-		address:         c.ListenAddress,
-		MaxLogSize:      int(c.MaxLogSize),
-		addAttributes:   c.AddAttributes,
-		OneLogPerPacket: c.OneLogPerPacket,
-		encoding:        enc,
-		splitFunc:       splitFunc,
-		backoff: backoff.Backoff{
-			Max: 3 * time.Second,
-		},
-		resolver: resolver,
-	}
-
-	if c.TLS != nil {
-		tcpInput.tls, err = c.TLS.LoadTLSConfig(context.Background())
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return tcpInput, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }
+
+// If MaxLogSize not set, set sane default
+
+// validate the input address
+
+// Build split func

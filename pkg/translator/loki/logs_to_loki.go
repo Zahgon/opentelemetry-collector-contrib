@@ -4,11 +4,8 @@
 package loki // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/loki"
 
 import (
-	"fmt"
-
 	"github.com/grafana/loki/pkg/push"
 	"github.com/prometheus/common/model"
-	"github.com/prometheus/otlptranslator"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 )
@@ -47,71 +44,13 @@ const (
 // to make this decision, as it includes all of the errors that were encountered,
 // as well as the number of items dropped and submitted.
 func LogsToLokiRequests(ld plog.Logs, defaultLabelsEnabled map[string]bool) map[string]PushRequest {
-	groups := map[string]pushRequestGroup{}
-
-	rls := ld.ResourceLogs()
-	for i := 0; i < rls.Len(); i++ {
-		ills := rls.At(i).ScopeLogs()
-		resource := rls.At(i).Resource()
-
-		for j := 0; j < ills.Len(); j++ {
-			logs := ills.At(j).LogRecords()
-			scope := ills.At(j).Scope()
-			for k := 0; k < logs.Len(); k++ {
-				log := logs.At(k)
-				tenant := GetTenantFromTenantHint(log.Attributes(), resource.Attributes())
-				group, ok := groups[tenant]
-				if !ok {
-					group = pushRequestGroup{
-						report:  &PushReport{},
-						streams: make(map[string]*push.Stream),
-					}
-					groups[tenant] = group
-				}
-
-				entry, err := LogToLokiEntry(log, resource, scope, defaultLabelsEnabled)
-				if err != nil {
-					// Couldn't convert so dropping log.
-					group.report.Errors = append(group.report.Errors, fmt.Errorf("failed to convert, dropping log: %w", err))
-					group.report.NumDropped++
-					continue
-				}
-
-				group.report.NumSubmitted++
-
-				// create the stream name based on the labels
-				labels := entry.Labels.String()
-				if stream, ok := group.streams[labels]; ok {
-					stream.Entries = append(stream.Entries, *entry.Entry)
-					continue
-				}
-
-				group.streams[labels] = &push.Stream{
-					Labels:  labels,
-					Entries: []push.Entry{*entry.Entry},
-				}
-			}
-		}
-	}
-
-	requests := make(map[string]PushRequest)
-	for tenant, g := range groups {
-		pr := &push.PushRequest{
-			Streams: make([]push.Stream, len(g.streams)),
-		}
-
-		i := 0
-		for _, stream := range g.streams {
-			pr.Streams[i] = *stream
-			i++
-		}
-		requests[tenant] = PushRequest{
-			PushRequest: pr,
-			Report:      g.report,
-		}
-	}
-	return requests
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Couldn't convert so dropping log.
+
+// create the stream name based on the labels
 
 // PushEntry is Loki log entry enriched with labels
 type PushEntry struct {
@@ -121,82 +60,31 @@ type PushEntry struct {
 
 // LogToLokiEntry converts LogRecord into Loki log entry enriched with normalized labels
 func LogToLokiEntry(lr plog.LogRecord, rl pcommon.Resource, scope pcommon.InstrumentationScope, defaultLabelsEnabled map[string]bool) (*PushEntry, error) {
+	_ = "STUB: not implemented"
 	// we may remove attributes, so change only our version
-	log := plog.NewLogRecord()
-	lr.CopyTo(log)
-
-	// similarly, we may remove attributes, so we make a copy and change our version
-	resource := pcommon.NewResource()
-	rl.CopyTo(resource)
-
-	if enabled, ok := defaultLabelsEnabled[levelLabel]; !ok || enabled {
-		// adds level attribute from log.severityNumber
-		addLogLevelAttributeAndHint(log)
-	}
-
-	format := getFormatFromFormatHint(log.Attributes(), resource.Attributes())
-
-	mergedLabels := convertAttributesAndMerge(log.Attributes(), resource.Attributes(), defaultLabelsEnabled)
-	// remove the attributes that were promoted to labels
-	removeAttributes(log.Attributes(), mergedLabels)
-	removeAttributes(resource.Attributes(), mergedLabels)
-
-	entry, err := convertLogToLokiEntry(log, resource, format, scope)
-	if err != nil {
-		return nil, err
-	}
-
-	labels := model.LabelSet{}
-	namer := otlptranslator.LabelNamer{}
-	for label := range mergedLabels {
-		// Loki doesn't support dots in label names
-		// labelName is normalized label name to follow Prometheus label names standard
-		labelName, err := namer.Build(string(label))
-		if err != nil {
-			return nil, err
-		}
-		labels[model.LabelName(labelName)] = mergedLabels[label]
-	}
-
-	return &PushEntry{
-		Entry:  entry,
-		Labels: labels,
-	}, nil
+	return nil, nil
 }
 
-func getFormatFromFormatHint(logAttr, resourceAttr pcommon.Map) string {
-	format := formatJSON
-	formatVal, found := resourceAttr.Get(hintFormat)
-	if !found {
-		formatVal, found = logAttr.Get(hintFormat)
-	}
+// similarly, we may remove attributes, so we make a copy and change our version
 
-	if found {
-		format = formatVal.AsString()
-	}
-	return format
+// adds level attribute from log.severityNumber
+
+// remove the attributes that were promoted to labels
+
+// Loki doesn't support dots in label names
+// labelName is normalized label name to follow Prometheus label names standard
+
+func getFormatFromFormatHint(logAttr, resourceAttr pcommon.Map) string {
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // GetTenantFromTenantHint extract an attribute based on the tenant hint.
 // it looks up for the attribute first in resource attributes and fallbacks to
 // record attributes if it is not found.
 func GetTenantFromTenantHint(logAttr, resourceAttr pcommon.Map) string {
-	var tenant string
-	hintAttr, found := resourceAttr.Get(hintTenant)
-	if !found {
-		if hintAttr, found = logAttr.Get(hintTenant); !found {
-			return tenant
-		}
-	}
-
-	if tenantAttr, found := resourceAttr.Get(hintAttr.Str()); found {
-		tenant = tenantAttr.Str()
-	} else {
-		if tenantAttr, found = logAttr.Get(hintAttr.Str()); found {
-			tenant = tenantAttr.Str()
-		}
-	}
-	return tenant
+	_ = "STUB: not implemented"
+	return ""
 }
 
 type pushRequestGroup struct {
@@ -204,29 +92,9 @@ type pushRequestGroup struct {
 	report  *PushReport
 }
 
-func addLogLevelAttributeAndHint(log plog.LogRecord) {
-	if log.SeverityNumber() == plog.SeverityNumberUnspecified {
-		return
-	}
-	addHint(log)
-	if _, found := log.Attributes().Get(levelAttributeName); !found {
-		level := severityNumberToLevel[log.SeverityNumber().String()]
-		log.Attributes().PutStr(levelAttributeName, level)
-	}
-}
+func addLogLevelAttributeAndHint(log plog.LogRecord) { _ = "STUB: not implemented"; return }
 
-func addHint(log plog.LogRecord) {
-	if value, found := log.Attributes().Get(hintAttributes); found {
-		switch value.Type() {
-		case pcommon.ValueTypeSlice:
-			value.Slice().AppendEmpty().SetStr(levelAttributeName)
-		case pcommon.ValueTypeStr:
-			log.Attributes().PutStr(hintAttributes, fmt.Sprintf("%s,%s", value.AsString(), levelAttributeName))
-		}
-	} else {
-		log.Attributes().PutStr(hintAttributes, levelAttributeName)
-	}
-}
+func addHint(log plog.LogRecord) { _ = "STUB: not implemented"; return }
 
 var severityNumberToLevel = map[string]string{
 	plog.SeverityNumberUnspecified.String(): "UNSPECIFIED",

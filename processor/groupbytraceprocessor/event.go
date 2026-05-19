@@ -4,17 +4,13 @@
 package groupbytraceprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor"
 
 import (
-	"context"
 	"errors"
-	"fmt"
 	"hash/maphash"
 	"sync"
 	"time"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbytraceprocessor/internal/metadata"
@@ -87,225 +83,52 @@ type eventMachine struct {
 }
 
 func newEventMachine(logger *zap.Logger, bufferSize, numWorkers, numTraces int, telemetry *metadata.TelemetryBuilder) *eventMachine {
-	em := &eventMachine{
-		logger:                    logger,
-		telemetry:                 telemetry,
-		workers:                   make([]*eventMachineWorker, numWorkers),
-		close:                     make(chan struct{}),
-		shutdownLock:              &sync.RWMutex{},
-		metricsCollectionInterval: time.Second,
-		shutdownTimeout:           10 * time.Second,
-	}
-	for i := range em.workers {
-		em.workers[i] = &eventMachineWorker{
-			machine: em,
-			buffer:  newRingBuffer(numTraces / numWorkers),
-			events:  make(chan event, bufferSize/numWorkers),
-		}
-	}
-	return em
-}
-
-func (em *eventMachine) startInBackground() {
-	em.startWorkers()
-	go em.periodicMetrics()
-}
-
-func (em *eventMachine) numEvents() int {
-	var result int
-	for _, worker := range em.workers {
-		result += len(worker.events)
-	}
-	return result
-}
-
-func (em *eventMachine) periodicMetrics() {
-	numEvents := em.numEvents()
-	em.logger.Debug("recording current state of the queue", zap.Int("num-events", numEvents))
-	em.telemetry.ProcessorGroupbytraceNumEventsInQueue.Record(context.Background(), int64(numEvents))
-
-	em.shutdownLock.RLock()
-	closed := em.closed
-	em.shutdownLock.RUnlock()
-	if closed {
-		return
-	}
-
-	time.AfterFunc(em.metricsCollectionInterval, func() {
-		em.periodicMetrics()
-	})
-}
-
-func (em *eventMachine) startWorkers() {
-	for _, worker := range em.workers {
-		go worker.start()
-	}
-}
-
-func (em *eventMachine) handleEvent(e event, w *eventMachineWorker) {
-	switch e.typ {
-	case traceReceived:
-		if em.onTraceReceived == nil {
-			em.logger.Debug("onTraceReceived not set, skipping event")
-			em.callOnError(e)
-			return
-		}
-		payload, ok := e.payload.(tracesWithID)
-		if !ok {
-			// the payload had an unexpected type!
-			em.callOnError(e)
-			return
-		}
-
-		em.handleEventWithObservability("onTraceReceived", func() error {
-			return em.onTraceReceived(payload, w)
-		})
-	case traceExpired:
-		if em.onTraceExpired == nil {
-			em.logger.Debug("onTraceExpired not set, skipping event")
-			em.callOnError(e)
-			return
-		}
-		payload, ok := e.payload.(pcommon.TraceID)
-		if !ok {
-			// the payload had an unexpected type!
-			em.callOnError(e)
-			return
-		}
-
-		em.handleEventWithObservability("onTraceExpired", func() error {
-			return em.onTraceExpired(payload, w)
-		})
-	case traceReleased:
-		if em.onTraceReleased == nil {
-			em.logger.Debug("onTraceReleased not set, skipping event")
-			em.callOnError(e)
-			return
-		}
-		payload, ok := e.payload.([]ptrace.ResourceSpans)
-		if !ok {
-			// the payload had an unexpected type!
-			em.callOnError(e)
-			return
-		}
-
-		em.handleEventWithObservability("onTraceReleased", func() error {
-			return em.onTraceReleased(payload)
-		})
-	case traceRemoved:
-		if em.onTraceRemoved == nil {
-			em.logger.Debug("onTraceRemoved not set, skipping event")
-			em.callOnError(e)
-			return
-		}
-		payload, ok := e.payload.(pcommon.TraceID)
-		if !ok {
-			// the payload had an unexpected type!
-			em.callOnError(e)
-			return
-		}
-
-		em.handleEventWithObservability("onTraceRemoved", func() error {
-			return em.onTraceRemoved(payload)
-		})
-	default:
-		em.logger.Info("unknown event type", zap.Any("event", e.typ))
-		em.callOnError(e)
-		return
-	}
-}
-
-// consume takes a single trace and routes it to one of the workers.
-func (em *eventMachine) consume(td ptrace.Traces) error {
-	traceID, err := getTraceID(td)
-	if err != nil {
-		return fmt.Errorf("eventmachine consume failed: %w", err)
-	}
-
-	var bucket uint64
-	if len(em.workers) != 1 {
-		bucket = workerIndexForTraceID(traceID, len(em.workers))
-	}
-
-	em.logger.Debug("scheduled trace to worker", zap.Uint64("id", bucket))
-
-	em.workers[bucket].fire(event{
-		typ:     traceReceived,
-		payload: tracesWithID{id: traceID, td: td},
-	})
+	_ = "STUB: not implemented"
 	return nil
 }
 
+func (em *eventMachine) startInBackground() { _ = "STUB: not implemented"; return }
+
+func (em *eventMachine) numEvents() int { _ = "STUB: not implemented"; return 0 }
+
+func (em *eventMachine) periodicMetrics() { _ = "STUB: not implemented"; return }
+
+func (em *eventMachine) startWorkers() { _ = "STUB: not implemented"; return }
+
+func (em *eventMachine) handleEvent(e event, w *eventMachineWorker) {
+	_ = "STUB: not implemented"
+	return
+}
+
+// the payload had an unexpected type!
+
+// the payload had an unexpected type!
+
+// the payload had an unexpected type!
+
+// the payload had an unexpected type!
+
+// consume takes a single trace and routes it to one of the workers.
+func (em *eventMachine) consume(td ptrace.Traces) error { _ = "STUB: not implemented"; return nil }
+
 func workerIndexForTraceID(traceID pcommon.TraceID, numWorkers int) uint64 {
-	hash := hashPool.Get().(*maphash.Hash)
-	defer func() {
-		hash.Reset()
-		hashPool.Put(hash)
-	}()
-
-	_, _ = hash.Write(traceID[:])
-	return hash.Sum64() % uint64(numWorkers)
+	_ = "STUB: not implemented"
+	return 0
 }
 
-func (em *eventMachine) shutdown() {
-	em.logger.Info("shutting down the event manager", zap.Int("pending-events", em.numEvents()))
-	em.shutdownLock.Lock()
-	em.closed = true
-	em.shutdownLock.Unlock()
+func (em *eventMachine) shutdown() { _ = "STUB: not implemented"; return }
 
-	done := make(chan struct{})
+// we never return an error here
 
-	// we never return an error here
-	ok, _ := doWithTimeout(em.shutdownTimeout, func() error {
-		ticker := time.NewTicker(100 * time.Millisecond)
-		defer ticker.Stop()
+// Check immediately first
 
-		// Check immediately first
-		if em.numEvents() == 0 {
-			return nil
-		}
-
-		for {
-			select {
-			case <-done:
-				return nil
-			case <-ticker.C:
-				if em.numEvents() == 0 {
-					return nil
-				}
-			}
-		}
-	})
-	close(done)
-
-	if !ok {
-		em.logger.Info("forcing the shutdown of the event manager", zap.Int("pending-events", em.numEvents()))
-	}
-	close(em.close)
-}
-
-func (em *eventMachine) callOnError(e event) {
-	if em.onError != nil {
-		em.onError(e)
-	}
-}
+func (em *eventMachine) callOnError(e event) { _ = "STUB: not implemented"; return }
 
 // handleEventWithObservability uses the given function to process and event,
 // recording the event's latency and timing out if it doesn't finish within a reasonable duration
 func (em *eventMachine) handleEventWithObservability(event string, do func() error) {
-	start := time.Now()
-	succeeded, err := doWithTimeout(time.Second, do)
-	duration := time.Since(start)
-	em.telemetry.ProcessorGroupbytraceEventLatency.Record(context.Background(), duration.Milliseconds(), metric.WithAttributeSet(attribute.NewSet(attribute.String("event", event))))
-
-	if err != nil {
-		em.logger.Error("failed to process event", zap.Error(err), zap.String("event", event))
-	}
-	if succeeded {
-		em.logger.Debug("event finished", zap.String("event", event))
-	} else {
-		em.logger.Debug("event aborted", zap.String("event", event))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 type eventMachineWorker struct {
@@ -318,69 +141,26 @@ type eventMachineWorker struct {
 }
 
 func (w *eventMachineWorker) start() {
-	for {
-		// Prioritize shutdown: check if we should stop before processing next event
-		select {
-		case <-w.machine.close:
-			return
-		default:
-		}
+	_ = "STUB: not implemented"
 
-		// Process events or handle shutdown
-		select {
-		case e := <-w.events:
-			w.machine.handleEvent(e, w)
-		case <-w.machine.close:
-			return
-		}
-	}
+	// Prioritize shutdown: check if we should stop before processing next event
+	return
 }
 
-func (w *eventMachineWorker) fire(events ...event) {
-	w.machine.shutdownLock.RLock()
-	defer w.machine.shutdownLock.RUnlock()
+// Process events or handle shutdown
 
-	// we are not accepting new events
-	if w.machine.closed {
-		return
-	}
+func (w *eventMachineWorker) fire(events ...event) { _ = "STUB: not implemented"; return }
 
-	for _, e := range events {
-		w.events <- e
-	}
-}
+// we are not accepting new events
 
 // doWithTimeout wraps a function in a timeout, returning whether it succeeded before timing out.
 // If the function returns an error within the timeout, it's considered as succeeded and the error will be returned back to the caller.
 func doWithTimeout(timeout time.Duration, do func() error) (bool, error) {
-	done := make(chan error, 1)
-	go func() {
-		done <- do()
-	}()
-
-	select {
-	case <-time.After(timeout):
-		return false, nil
-	case err := <-done:
-		return true, err
-	}
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func getTraceID(td ptrace.Traces) (pcommon.TraceID, error) {
-	rss := td.ResourceSpans()
-	if rss.Len() == 0 {
-		return pcommon.NewTraceIDEmpty(), errNoTraceID
-	}
-
-	ilss := rss.At(0).ScopeSpans()
-	if ilss.Len() == 0 {
-		return pcommon.NewTraceIDEmpty(), errNoTraceID
-	}
-
-	spans := ilss.At(0).Spans()
-	if spans.Len() == 0 {
-		return pcommon.NewTraceIDEmpty(), errNoTraceID
-	}
-
-	return spans.At(0).TraceID(), nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.TraceID), nil
 }

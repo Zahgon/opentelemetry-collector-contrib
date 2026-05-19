@@ -5,8 +5,6 @@ package elasticbeanstalk // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"io"
-	"os"
-	"runtime"
 )
 
 type fileSystem interface {
@@ -17,9 +15,8 @@ type fileSystem interface {
 type ebFileSystem struct{}
 
 func (ebFileSystem) Open(name string) (io.ReadCloser, error) {
-	return os.Open(name)
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser), nil
 }
 
-func (ebFileSystem) IsWindows() bool {
-	return runtime.GOOS == "windows"
-}
+func (ebFileSystem) IsWindows() bool { _ = "STUB: not implemented"; return false }

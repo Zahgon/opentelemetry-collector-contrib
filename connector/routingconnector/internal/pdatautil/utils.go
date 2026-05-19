@@ -9,15 +9,8 @@ type OnceValue[K any] struct {
 	isInit bool
 }
 
-func (ov *OnceValue[K]) IsInit() bool {
-	return ov.isInit
-}
+func (ov *OnceValue[K]) IsInit() bool { _ = "STUB: not implemented"; return false }
 
-func (ov *OnceValue[K]) Init(val K) {
-	ov.isInit = true
-	ov.val = val
-}
+func (ov *OnceValue[K]) Init(val K) { _ = "STUB: not implemented"; return }
 
-func (ov *OnceValue[K]) Value() K {
-	return ov.val
-}
+func (ov *OnceValue[K]) Value() K { _ = "STUB: not implemented"; return *new(K) }

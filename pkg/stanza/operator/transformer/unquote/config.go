@@ -18,16 +18,10 @@ func init() {
 }
 
 // NewConfig creates a new unquote config with default values
-func NewConfig() *Config {
-	return NewConfigWithID(operatorType)
-}
+func NewConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 // NewConfigWithID creates a new unquote config with default values
-func NewConfigWithID(operatorID string) *Config {
-	return &Config{
-		TransformerConfig: helper.NewTransformerConfig(operatorID, operatorType),
-	}
-}
+func NewConfigWithID(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of an unquote operator.
 type Config struct {
@@ -37,13 +31,6 @@ type Config struct {
 
 // Build will build an unquote operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	transformerOperator, err := c.TransformerConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	return &Transformer{
-		TransformerOperator: transformerOperator,
-		field:               c.Field,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

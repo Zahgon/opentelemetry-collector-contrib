@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type IisApplicationPoolStateMetricConfig struct {
 }
 
 func (ms *IisApplicationPoolStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type IisApplicationPoolUptimeMetricConfig struct {
 }
 
 func (ms *IisApplicationPoolUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type IisConnectionActiveMetricConfig struct {
 }
 
 func (ms *IisConnectionActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type IisConnectionAnonymousMetricConfig struct {
 }
 
 func (ms *IisConnectionAnonymousMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type IisConnectionAttemptCountMetricConfig struct {
 }
 
 func (ms *IisConnectionAttemptCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type IisNetworkBlockedMetricConfig struct {
 }
 
 func (ms *IisNetworkBlockedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -146,36 +90,11 @@ type IisNetworkFileCountMetricConfig struct {
 }
 
 func (ms *IisNetworkFileCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *IisNetworkFileCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case IisNetworkFileCountMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric iis.network.file.count doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *IisNetworkFileCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // IisNetworkIoMetricAttributeKey specifies the key of an attribute for the iis.network.io metric.
 type IisNetworkIoMetricAttributeKey string
@@ -194,36 +113,11 @@ type IisNetworkIoMetricConfig struct {
 }
 
 func (ms *IisNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *IisNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case IisNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric iis.network.io doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *IisNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // IisRequestCountMetricAttributeKey specifies the key of an attribute for the iis.request.count metric.
 type IisRequestCountMetricAttributeKey string
@@ -242,36 +136,11 @@ type IisRequestCountMetricConfig struct {
 }
 
 func (ms *IisRequestCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *IisRequestCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case IisRequestCountMetricAttributeKeyRequest:
-		default:
-			return fmt.Errorf("metric iis.request.count doesn't have an attribute %v, valid attributes: [request]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *IisRequestCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // IisRequestQueueAgeMaxMetricConfig provides config for the iis.request.queue.age.max metric.
 type IisRequestQueueAgeMaxMetricConfig struct {
@@ -280,16 +149,7 @@ type IisRequestQueueAgeMaxMetricConfig struct {
 }
 
 func (ms *IisRequestQueueAgeMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -300,16 +160,7 @@ type IisRequestQueueCountMetricConfig struct {
 }
 
 func (ms *IisRequestQueueCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -320,16 +171,7 @@ type IisRequestRejectedMetricConfig struct {
 }
 
 func (ms *IisRequestRejectedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -340,16 +182,7 @@ type IisThreadActiveMetricConfig struct {
 }
 
 func (ms *IisThreadActiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -360,16 +193,7 @@ type IisUptimeMetricConfig struct {
 }
 
 func (ms *IisUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -391,58 +215,7 @@ type MetricsConfig struct {
 	IisUptime                 IisUptimeMetricConfig                 `mapstructure:"iis.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		IisApplicationPoolState: IisApplicationPoolStateMetricConfig{
-			Enabled: true,
-		},
-		IisApplicationPoolUptime: IisApplicationPoolUptimeMetricConfig{
-			Enabled: true,
-		},
-		IisConnectionActive: IisConnectionActiveMetricConfig{
-			Enabled: true,
-		},
-		IisConnectionAnonymous: IisConnectionAnonymousMetricConfig{
-			Enabled: true,
-		},
-		IisConnectionAttemptCount: IisConnectionAttemptCountMetricConfig{
-			Enabled: true,
-		},
-		IisNetworkBlocked: IisNetworkBlockedMetricConfig{
-			Enabled: true,
-		},
-		IisNetworkFileCount: IisNetworkFileCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []IisNetworkFileCountMetricAttributeKey{IisNetworkFileCountMetricAttributeKeyDirection},
-		},
-		IisNetworkIo: IisNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []IisNetworkIoMetricAttributeKey{IisNetworkIoMetricAttributeKeyDirection},
-		},
-		IisRequestCount: IisRequestCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []IisRequestCountMetricAttributeKey{IisRequestCountMetricAttributeKeyRequest},
-		},
-		IisRequestQueueAgeMax: IisRequestQueueAgeMaxMetricConfig{
-			Enabled: true,
-		},
-		IisRequestQueueCount: IisRequestQueueCountMetricConfig{
-			Enabled: true,
-		},
-		IisRequestRejected: IisRequestRejectedMetricConfig{
-			Enabled: true,
-		},
-		IisThreadActive: IisThreadActiveMetricConfig{
-			Enabled: true,
-		},
-		IisUptime: IisUptimeMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -459,14 +232,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -477,14 +243,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		IisApplicationPool: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		IisSite: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for iis metrics builder.
@@ -494,13 +254,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -5,15 +5,9 @@ package traces // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"errors"
-	"fmt"
 
-	jsoniter "github.com/json-iterator/go"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-	"go.opentelemetry.io/otel/trace"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // List of supported "Logs" Categories (in Azure - Traces are actually Logs inside)
@@ -104,73 +98,40 @@ type azureTracesRecordBase struct {
 // GetResource returns resource attributes for the parsed Trace Record
 // Implementation is common for all _supported_ Azure Trace Records
 func (r *azureTracesRecordBase) GetResource() traceResourceAttributes {
-	return traceResourceAttributes{
-		ResourceID:      r.ResourceID,
-		ServiceName:     r.AppRoleName,
-		ServiceInstance: r.AppRoleInstance,
-		ServiceVersion:  r.AppVersion,
-		SDKVersion:      r.SDKVersion,
-	}
+	_ = "STUB: not implemented"
+	return *new(traceResourceAttributes)
 }
 
 // GetTimestamp tries to parse timestamp from `time` field using provided list of time formats.
 // If field is empty (undefined) or parsing failed - return an error
 func (r *azureTracesRecordBase) GetTimestamp(formats ...string) (pcommon.Timestamp, error) {
-	if r.Time == "" {
-		return pcommon.Timestamp(0), errNoTimestamp
-	}
-
-	nanos, err := unmarshaler.AsTimestamp(r.Time, formats...)
-	if err != nil {
-		return pcommon.Timestamp(0), fmt.Errorf("unable to convert value %q as timestamp: %w", r.Time, err)
-	}
-
-	return nanos, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp), nil
 }
 
 // GetTraceID tries to parse TraceID from `OperationId` field
 // If field is empty (undefined) or parsing failed - return an error
 func (r *azureTracesRecordBase) GetTraceID() (pcommon.TraceID, error) {
-	traceID, err := trace.TraceIDFromHex(r.OperationID)
-	if err != nil {
-		return pcommon.TraceID{}, fmt.Errorf("unable to parse TraceID from Azure OperationId %q: %w", r.OperationID, err)
-	}
-	return pcommon.TraceID(traceID), nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.TraceID), nil
 }
 
 // GetSpanID tries to parse SpanID from `OperationId` and `Id` fields
 // If fields are empty (undefined) or parsing failed - return an error
 func (r *azureTracesRecordBase) GetSpanID() (pcommon.SpanID, error) {
+	_ = "STUB: not implemented"
 	// Sometimes Azure sets "Id" equal to "OperationId", i.e. 16-bytes length
 	// To avoid loosing of such Spans we will trim Span ID to correct 8-bytes length here
-	spanID := r.SpanID
-	if r.SpanID == r.OperationID {
-		spanID = spanID[:16]
-	}
-
-	id, err := trace.SpanIDFromHex(spanID)
-	if err != nil {
-		return pcommon.SpanID{}, fmt.Errorf("unable to parse SpanID from Azure OperationId/Id %q/%q: %w", r.OperationID, r.SpanID, err)
-	}
-
-	return pcommon.SpanID(id), nil
+	return *new(pcommon.SpanID), nil
 }
 
 // GetParentSpanID tries to parse ParentSpanID from `OperationId` and `ParentId` fields
 // If fields are empty (undefined) or parsing failed - return an error
 func (r *azureTracesRecordBase) GetParentSpanID() (pcommon.SpanID, error) {
+	_ = "STUB: not implemented"
 	// Sometimes Azure sets "ParentId" equal to "OperationId", i.e. 16-bytes array
 	// We assume that it's actually a Root Span, so set it to empty here
-	if r.ParentID == r.OperationID || r.ParentID == "" {
-		return pcommon.NewSpanIDEmpty(), nil
-	}
-
-	id, err := trace.SpanIDFromHex(r.ParentID)
-	if err != nil {
-		return pcommon.NewSpanIDEmpty(), fmt.Errorf("unable to parse ParentSpanID from Azure OperationId/ParentId %q/%q: %w", r.OperationID, r.ParentID, err)
-	}
-
-	return pcommon.SpanID(id), nil
+	return *new(pcommon.SpanID), nil
 }
 
 // GetSpanKind is a helper function to determine the SpanKind based on
@@ -179,85 +140,55 @@ func (r *azureTracesRecordBase) GetParentSpanID() (pcommon.SpanID, error) {
 // because depends on Category-specific fields
 // By default - returns "Internal" Span Kind as of OpenTelemetry SemConv Spec
 func (*azureTracesRecordBase) GetSpanKind() ptrace.SpanKind {
-	return ptrace.SpanKindInternal
+	_ = "STUB: not implemented"
+	return *new(ptrace.SpanKind)
 }
 
 // GetSpanName returns Span Name from either `Name` or `OperationName` field
-func (r *azureTracesRecordBase) GetSpanName() string {
-	if r.Name != "" {
-		return r.Name
-	}
-
-	return r.OperationName
-}
+func (r *azureTracesRecordBase) GetSpanName() string { _ = "STUB: not implemented"; return "" }
 
 // GetSpanDuration returns Span Duration calculated from `DurationMs` field
 func (r *azureTracesRecordBase) GetSpanDuration() pcommon.Timestamp {
-	return pcommon.Timestamp(r.DurationMs * 1e6) // milliseconds to nanoseconds
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
+
+// milliseconds to nanoseconds
 
 // GetSpanStatus returns Span Status Code and optional Status Message,
 // based on `Success` field
 func (r *azureTracesRecordBase) GetSpanStatus() (ptrace.StatusCode, string) {
+	_ = "STUB: not implemented"
 	// According to Azure Docs if `Success` is false - the operation failed,
 	// so we'll mark Span Status as Error for such cases according to OpenTelemetry Specs
-	if !r.Success {
-		return ptrace.StatusCodeError, ""
-	}
-
-	// In all other cases - return Unset Status Code as recommended by OpenTelemetry Specs
-	return ptrace.StatusCodeUnset, ""
+	return *new(ptrace.StatusCode), ""
 }
+
+// In all other cases - return Unset Status Code as recommended by OpenTelemetry Specs
 
 // PutCommonAttributes puts already parsed common attributes into provided Attributes Map/Body
 func (r *azureTracesRecordBase) PutCommonAttributes(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Common fields for all Azure Trace Categories should be
 	// placed as attributes, no matter if we can map the category or not
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOriginalKey), r.ClientBrowser)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.GeoLocalityNameKey), r.ClientCity)
-	unmarshaler.AttrPutStrIf(attrs, attributeGeoCountryName, r.ClientCountryOrRegion)
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ClientAddressKey), string(conventions.ClientPortKey), r.ClientIP)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.DeviceModelNameKey), r.ClientModel)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOSNameKey), r.ClientOS)
-	unmarshaler.AttrPutStrIf(attrs, attributeGeoStateName, r.ClientStateOrProvince)
-	unmarshaler.AttrPutStrIf(attrs, attributeDeviceType, r.ClientType)
-	unmarshaler.AttrPutStrIf(attrs, unmarshaler.AttributeAzureOperationName, r.OperationName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SessionIDKey), r.SessionID)
-	unmarshaler.AttrPutStrIf(attrs, unmarshaler.AttributeAzureCategory, r.Category)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserIDKey), r.UserID)
+	return
 }
 
 // PutProperties puts already attributes from "properties" field into provided Attributes Map/Body
 func (r *azureTracesRecordBase) PutProperties(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Properties are free-form attributes so will be copied into Span Attributes as is
 	// TODO: Add best-effort parsing of the "properties" to SemConv attributes
 	// after we will get more details and/or more samples of data
-	for key, value := range r.Properties {
-		unmarshaler.AttrPutStrIf(attrs, key, value)
-	}
+	return
 }
 
 // processTraceRecord tries to parse incoming record based of provided traceCategory
 func processTraceRecord(traceCategory string, record []byte) (azureTraceRecord, error) {
-	var parsed azureTraceRecord
-
-	switch traceCategory {
-	case categoryRequests:
-		parsed = new(azureAppRequests)
-	case categoryDependencies:
-		parsed = new(azureAppDependencies)
-	case categoryAvailabilityResults:
-		parsed = new(azureAppAvailabilityResults)
-	default:
-		parsed = new(azureTracesRecordBase)
-	}
-
-	// Unfortunately, "goccy/go-json" has a bug with case-insensitive key matching
-	// for nested structures, so we have to use jsoniter here
-	// see https://github.com/goccy/go-json/issues/470
-	if err := jsoniter.ConfigFastest.Unmarshal(record, parsed); err != nil {
-		return nil, fmt.Errorf("JSON parse failed: %w", err)
-	}
-
-	return parsed, nil
+	_ = "STUB: not implemented"
+	return *new(azureTraceRecord), nil
 }
+
+// Unfortunately, "goccy/go-json" has a bug with case-insensitive key matching
+// for nested structures, so we have to use jsoniter here
+// see https://github.com/goccy/go-json/issues/470

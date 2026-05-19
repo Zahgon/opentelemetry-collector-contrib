@@ -4,8 +4,6 @@
 package ottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 
 import (
-	"reflect"
-
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -20,7 +18,8 @@ const (
 // avoiding panics. It is intended for debug logging only and should not be used in
 // production code.
 func newTransformContextField(tCtx any) zap.Field {
-	return zap.Inline(&transformContextMarshaller{tCtx})
+	_ = "STUB: not implemented"
+	return *new(zap.Field)
 }
 
 type transformContextMarshaller struct {
@@ -28,8 +27,7 @@ type transformContextMarshaller struct {
 }
 
 func (m *transformContextMarshaller) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	tCtxEncoder := &transformContextEncoder{ObjectEncoder: encoder}
-	zap.Any(transformContextKey, m.tCtx).AddTo(tCtxEncoder)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -39,75 +37,45 @@ type transformContextEncoder struct {
 }
 
 func (m *transformContextEncoder) withArrayEncoder(enc zapcore.ArrayEncoder) *transformContextEncoder {
-	return &transformContextEncoder{ObjectEncoder: m.ObjectEncoder, ArrayEncoder: enc}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) withObjectEncoder(enc zapcore.ObjectEncoder) *transformContextEncoder {
-	return &transformContextEncoder{ObjectEncoder: enc, ArrayEncoder: m.ArrayEncoder}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) AddArray(k string, v zapcore.ArrayMarshaler) error {
-	return m.ObjectEncoder.AddArray(k, zapcore.ArrayMarshalerFunc(func(enc zapcore.ArrayEncoder) error {
-		encoder := m.withArrayEncoder(enc)
-		if isInvalidPData(v) {
-			encoder.AppendString(deletedReplacement)
-			return nil
-		}
-		return v.MarshalLogArray(encoder)
-	}))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) AddObject(k string, v zapcore.ObjectMarshaler) error {
-	return m.ObjectEncoder.AddObject(k, zapcore.ObjectMarshalerFunc(func(enc zapcore.ObjectEncoder) error {
-		encoder := m.withObjectEncoder(enc)
-		if isInvalidPData(v) {
-			encoder.AddString(deletedReplacement, deletedReplacement)
-			return nil
-		}
-		return v.MarshalLogObject(encoder)
-	}))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) AddReflected(k string, v any) error {
-	if isInvalidPData(v) {
-		m.AddString(k, deletedReplacement)
-		return nil
-	}
-	return m.ObjectEncoder.AddReflected(k, v)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (m *transformContextEncoder) OpenNamespace(k string) {
-	m.ObjectEncoder.OpenNamespace(k)
-}
+func (m *transformContextEncoder) OpenNamespace(k string) { _ = "STUB: not implemented"; return }
 
 func (m *transformContextEncoder) AppendArray(v zapcore.ArrayMarshaler) error {
-	return m.ArrayEncoder.AppendArray(zapcore.ArrayMarshalerFunc(func(enc zapcore.ArrayEncoder) error {
-		encoder := m.withArrayEncoder(enc)
-		if isInvalidPData(v) {
-			encoder.AppendString(deletedReplacement)
-			return nil
-		}
-		return v.MarshalLogArray(encoder)
-	}))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) AppendObject(v zapcore.ObjectMarshaler) error {
-	return m.ArrayEncoder.AppendObject(zapcore.ObjectMarshalerFunc(func(enc zapcore.ObjectEncoder) error {
-		encoder := m.withObjectEncoder(enc)
-		if isInvalidPData(v) {
-			encoder.AddString(deletedReplacement, deletedReplacement)
-			return nil
-		}
-		return v.MarshalLogObject(encoder)
-	}))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *transformContextEncoder) AppendReflected(v any) error {
-	if isInvalidPData(v) {
-		m.AppendString(deletedReplacement)
-		return nil
-	}
-	return m.ArrayEncoder.AppendReflected(v)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // isInvalidPData reports whether `data` refers to an invalid PData value.
@@ -115,33 +83,4 @@ func (m *transformContextEncoder) AppendReflected(v any) error {
 // `orig` field is set to nil, and attempting to marshal it may panic.
 // There is no stable public API to detect this today, so this function uses reflection to
 // look for an `orig` field and treat a nil `orig` as invalid.
-func isInvalidPData(data any) bool {
-	if data == nil {
-		return true
-	}
-
-	v := reflect.ValueOf(data)
-	for v.Kind() == reflect.Pointer {
-		if v.IsNil() {
-			return false
-		}
-		v = v.Elem()
-	}
-
-	if v.Kind() != reflect.Struct {
-		return false
-	}
-
-	origField := v.FieldByName("orig")
-	if !origField.IsValid() {
-		return false
-	}
-
-	origKind := origField.Kind()
-	return (origKind == reflect.Pointer ||
-		origKind == reflect.Interface ||
-		origKind == reflect.Slice ||
-		origKind == reflect.Map ||
-		origKind == reflect.Func ||
-		origKind == reflect.Chan) && origField.IsNil()
-}
+func isInvalidPData(data any) bool { _ = "STUB: not implemented"; return false }

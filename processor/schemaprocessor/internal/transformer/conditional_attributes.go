@@ -4,12 +4,9 @@
 package transformer // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/transformer"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/alias"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/migrate"
 )
 
@@ -19,52 +16,10 @@ type MetricDataPointAttributes struct {
 	ConditionalAttributeChange migrate.ConditionalAttributeSet
 }
 
-func (MetricDataPointAttributes) IsMigrator() {}
+func (MetricDataPointAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o MetricDataPointAttributes) Do(ss migrate.StateSelector, metric pmetric.Metric) error {
-	var datam alias.Attributed
-	switch metric.Type() {
-	case pmetric.MetricTypeEmpty:
-		return nil
-	case pmetric.MetricTypeExponentialHistogram:
-		for dp := 0; dp < metric.ExponentialHistogram().DataPoints().Len(); dp++ {
-			datam = metric.ExponentialHistogram().DataPoints().At(dp)
-			if err := o.ConditionalAttributeChange.Do(ss, datam.Attributes(), metric.Name()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeHistogram:
-		for dp := 0; dp < metric.Histogram().DataPoints().Len(); dp++ {
-			datam = metric.Histogram().DataPoints().At(dp)
-			if err := o.ConditionalAttributeChange.Do(ss, datam.Attributes(), metric.Name()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeGauge:
-		for dp := 0; dp < metric.Gauge().DataPoints().Len(); dp++ {
-			datam = metric.Gauge().DataPoints().At(dp)
-			if err := o.ConditionalAttributeChange.Do(ss, datam.Attributes(), metric.Name()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeSum:
-		for dp := 0; dp < metric.Sum().DataPoints().Len(); dp++ {
-			datam = metric.Sum().DataPoints().At(dp)
-			if err := o.ConditionalAttributeChange.Do(ss, datam.Attributes(), metric.Name()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeSummary:
-		for dp := 0; dp < metric.Summary().DataPoints().Len(); dp++ {
-			datam = metric.Summary().DataPoints().At(dp)
-			if err := o.ConditionalAttributeChange.Do(ss, datam.Attributes(), metric.Name()); err != nil {
-				return err
-			}
-		}
-	default:
-		return errors.New("unsupported metric type")
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -74,8 +29,9 @@ type SpanConditionalAttributes struct {
 	Migrator migrate.ConditionalAttributeSet
 }
 
-func (SpanConditionalAttributes) IsMigrator() {}
+func (SpanConditionalAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o SpanConditionalAttributes) Do(ss migrate.StateSelector, span ptrace.Span) error {
-	return o.Migrator.Do(ss, span.Attributes(), span.Name())
+	_ = "STUB: not implemented"
+	return nil
 }

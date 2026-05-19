@@ -5,7 +5,6 @@ package regexreplace // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
 	"regexp"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
@@ -21,24 +20,13 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.replace)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.replace)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (t *Transformer) replace(e *entry.Entry) error {
-	value, ok := t.field.Get(e)
-	if !ok {
-		return nil
-	}
-
-	switch v := value.(type) {
-	case string:
-		s := t.regexp.ReplaceAllString(v, t.replaceWith)
-		return t.field.Set(e, s)
-	default:
-		return fmt.Errorf("type %T cannot be handled", value)
-	}
-}
+func (t *Transformer) replace(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }

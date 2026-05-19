@@ -7,8 +7,6 @@
 package main // import "github.com/open-telemetry/opentelemetry-collector-contrib/telemetrygen/internal/telemetrygen"
 
 import (
-	"os"
-
 	"github.com/spf13/cobra"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/pkg/logs"
@@ -77,10 +75,7 @@ func init() {
 }
 
 // Execute tries to run the input command
-func Execute() {
-	if err := rootCmd.Execute(); err != nil {
-		// TODO: Uncomment the line below when using run instead of RunE in the xxxCmd functions
-		// fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
-}
+func Execute() { _ = "STUB: not implemented"; return }
+
+// TODO: Uncomment the line below when using run instead of RunE in the xxxCmd functions
+// fmt.Fprintln(os.Stderr, err)

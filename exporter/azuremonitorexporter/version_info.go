@@ -4,9 +4,6 @@
 package azuremonitorexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azuremonitorexporter"
 
 import (
-	"runtime"
-	"runtime/debug"
-	"strings"
 	"sync"
 )
 
@@ -15,28 +12,6 @@ var (
 	cachedVersion string
 )
 
-func getCollectorVersion() string {
-	once.Do(func() {
-		osInformation := runtime.GOOS[:3] + "-" + runtime.GOARCH
-		unknownVersion := "otelc-unknown-" + osInformation
+func getCollectorVersion() string { _ = "STUB: not implemented"; return "" }
 
-		info, ok := debug.ReadBuildInfo()
-		if !ok {
-			cachedVersion = unknownVersion
-			return
-		}
-
-		for _, mod := range info.Deps {
-			if mod.Path == "go.opentelemetry.io/collector" {
-				// Extract the semantic version without metadata.
-				semVer, _, _ := strings.Cut(mod.Version, "-")
-				cachedVersion = "otelc-" + semVer + "-" + osInformation
-				return
-			}
-		}
-
-		cachedVersion = unknownVersion
-	})
-
-	return cachedVersion
-}
+// Extract the semantic version without metadata.

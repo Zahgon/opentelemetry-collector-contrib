@@ -73,63 +73,10 @@ type ServicePrincipal struct {
 
 var _ component.Config = (*Config)(nil)
 
-func (*ManagedIdentity) Validate() error {
-	return nil
-}
+func (*ManagedIdentity) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *WorkloadIdentity) Validate() error {
-	var errs []error
-	if cfg.TenantID == "" {
-		errs = append(errs, errEmptyTenantID)
-	}
-	if cfg.ClientID == "" {
-		errs = append(errs, errEmptyClientID)
-	}
-	if cfg.FederatedTokenFile == "" {
-		errs = append(errs, errEmptyFederatedTokenFile)
-	}
+func (cfg *WorkloadIdentity) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if len(errs) > 0 {
-		return errors.Join(errs...)
-	}
-	return nil
-}
+func (cfg *ServicePrincipal) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *ServicePrincipal) Validate() error {
-	var errs []error
-	if cfg.TenantID == "" {
-		errs = append(errs, errEmptyTenantID)
-	}
-	if cfg.ClientID == "" {
-		errs = append(errs, errEmptyClientID)
-	}
-	if cfg.ClientCertificatePath == "" && cfg.ClientSecret == "" {
-		errs = append(errs, errEmptyClientCredential)
-	} else if cfg.ClientCertificatePath != "" && cfg.ClientSecret != "" {
-		errs = append(errs, errMutuallyExclusiveAuth)
-	}
-
-	return errors.Join(errs...)
-}
-
-func (cfg *Config) Validate() error {
-	if !cfg.UseDefault && !cfg.ServicePrincipal.HasValue() && !cfg.Workload.HasValue() && !cfg.Managed.HasValue() {
-		return errEmptyAuthentication
-	}
-
-	if cfg.Server.HasValue() {
-		serverCfg := cfg.Server.Get()
-		var errs []error
-		if serverCfg.IssuerURL == "" {
-			errs = append(errs, errEmptyServerIssuerURL)
-		}
-		if serverCfg.Audience == "" {
-			errs = append(errs, errEmptyServerAudience)
-		}
-		if len(errs) > 0 {
-			return errors.Join(errs...)
-		}
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

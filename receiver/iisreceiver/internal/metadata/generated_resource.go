@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetIisApplicationPool sets provided value as "iis.application_pool" attribute.
-func (rb *ResourceBuilder) SetIisApplicationPool(val string) {
-	if rb.config.IisApplicationPool.Enabled {
-		rb.res.Attributes().PutStr("iis.application_pool", val)
-	}
-}
+func (rb *ResourceBuilder) SetIisApplicationPool(val string) { _ = "STUB: not implemented"; return }
 
 // SetIisSite sets provided value as "iis.site" attribute.
-func (rb *ResourceBuilder) SetIisSite(val string) {
-	if rb.config.IisSite.Enabled {
-		rb.res.Attributes().PutStr("iis.site", val)
-	}
-}
+func (rb *ResourceBuilder) SetIisSite(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

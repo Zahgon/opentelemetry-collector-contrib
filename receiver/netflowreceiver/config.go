@@ -3,10 +3,6 @@
 
 package netflowreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/netflowreceiver"
 
-import (
-	"errors"
-)
-
 // Config represents the receiver config settings within the collector's config.yaml
 type Config struct {
 	// The scheme defines the type of flow data that the listener will receive
@@ -36,35 +32,4 @@ type Config struct {
 }
 
 // Validate checks if the receiver configuration is valid
-func (cfg *Config) Validate() error {
-	validSchemes := [2]string{"sflow", "netflow"}
-
-	validScheme := false
-	for _, scheme := range validSchemes {
-		if cfg.Scheme == scheme {
-			validScheme = true
-			break
-		}
-	}
-	if !validScheme {
-		return errors.New("scheme must be netflow or sflow")
-	}
-
-	if cfg.Sockets <= 0 {
-		return errors.New("sockets must be greater than 0")
-	}
-
-	if cfg.Workers <= 0 {
-		return errors.New("workers must be greater than 0")
-	}
-
-	if cfg.QueueSize <= 0 {
-		cfg.QueueSize = defaultQueueSize
-	}
-
-	if cfg.Port <= 0 {
-		return errors.New("port must be greater than 0")
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -4,9 +4,6 @@
 package k8snode // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/k8snode"
 
 import (
-	"errors"
-	"os"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/k8snode/internal/metadata"
 )
@@ -38,19 +35,6 @@ type Config struct {
 }
 
 // UpdateDefaults validates and update the default config with user's provided settings
-func (c *Config) UpdateDefaults() error {
-	if c.NodeFromEnvVar == "" {
-		c.NodeFromEnvVar = "K8S_NODE_NAME"
-	}
-	if value, envExists := os.LookupEnv(c.NodeFromEnvVar); !envExists || value == "" {
-		return errors.New("node name can't be found. Check the readme on how to set the required env variable")
-	}
-	return nil
-}
+func (c *Config) UpdateDefaults() error { _ = "STUB: not implemented"; return nil }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		APIConfig:          k8sconfig.APIConfig{AuthType: k8sconfig.AuthTypeServiceAccount},
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

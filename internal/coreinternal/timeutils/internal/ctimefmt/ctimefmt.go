@@ -10,8 +10,6 @@
 package ctimefmt // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/timeutils/internal/ctimefmt"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
 	"time"
 )
@@ -101,79 +99,24 @@ var ctimeSubstitutes = map[string]string{
 //	%t - Horizontal-tab character ('\t')
 //	%% - A % sign
 //	%c - Date and time representation (Mon Jan 02 15:04:05 2006)
-func Format(format string, t time.Time) (string, error) {
-	native, err := ToNative(format)
-	if err != nil {
-		return "", err
-	}
-	return t.Format(native), nil
-}
+func Format(format string, t time.Time) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // Parse parses a ctime-like formatted string (e.g. "%Y-%m-%d ...") and returns
 // the time value it represents.
 //
 // Refer to Format() function documentation for possible directives.
 func Parse(format, value string) (time.Time, error) {
-	native, err := ToNative(format)
-	if err != nil {
-		return time.Time{}, nil
-	}
-	return time.Parse(native, value)
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // ToNative converts ctime-like format string to Go native layout
 // (which is used by time.Time.Format() and time.Parse() functions).
-func ToNative(format string) (string, error) {
-	var errs []error
-	replaceFunc := func(directive string) string {
-		if subst, ok := ctimeSubstitutes[directive]; ok {
-			return subst
-		}
-		errs = append(errs, errors.New("unsupported ctimefmt.ToNative() directive: "+directive))
-		return ""
-	}
+func ToNative(format string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
-	replaced := ctimeRegexp.ReplaceAllStringFunc(format, replaceFunc)
-	if len(errs) != 0 {
-		return "", fmt.Errorf("convert to go time format: %v", errs)
-	}
-
-	return replaced, nil
-}
-
-func Validate(format string) error {
-	if match := decimalsRegexp.FindString(format); match != "" {
-		return errors.New("format string should not contain decimals")
-	}
-
-	if match := invalidFractionalSecondsStrptime.FindString(format); match != "" {
-		return fmt.Errorf("invalid fractional seconds directive: '%s'. must be preceded with '.' or ','", match)
-	}
-
-	directives := ctimeRegexp.FindAllString(format, -1)
-
-	var errs []error
-	for _, directive := range directives {
-		if _, ok := ctimeSubstitutes[directive]; !ok {
-			errs = append(errs, errors.New("unsupported ctimefmt.ToNative() directive: "+directive))
-		}
-	}
-	if len(errs) != 0 {
-		return fmt.Errorf("invalid strptime format: %v", errs)
-	}
-	return nil
-}
+func Validate(format string) error { _ = "STUB: not implemented"; return nil }
 
 // GetNativeSubstitutes analyzes the provided format string and returns a map where each
 // key is a Go native layout element (as used in time.Format) found in the format, and
 // each value is the corresponding ctime-like directive.
-func GetNativeSubstitutes(format string) map[string]string {
-	nativeDirectives := map[string]string{}
-	directives := ctimeRegexp.FindAllString(format, -1)
-	for _, directive := range directives {
-		if val, ok := ctimeSubstitutes[directive]; ok {
-			nativeDirectives[val] = directive
-		}
-	}
-	return nativeDirectives
-}
+func GetNativeSubstitutes(format string) map[string]string { _ = "STUB: not implemented"; return nil }

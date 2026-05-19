@@ -3,14 +3,10 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/scraper"
-	conventions "go.opentelemetry.io/otel/semconv/v1.9.0"
 )
 
 const (
@@ -35,25 +31,7 @@ const (
 )
 
 // String returns the string representation of the AttributeState.
-func (av AttributeState) String() string {
-	switch av {
-	case AttributeStateBuffered:
-		return "buffered"
-	case AttributeStateCached:
-		return "cached"
-	case AttributeStateInactive:
-		return "inactive"
-	case AttributeStateFree:
-		return "free"
-	case AttributeStateSlabReclaimable:
-		return "slab_reclaimable"
-	case AttributeStateSlabUnreclaimable:
-		return "slab_unreclaimable"
-	case AttributeStateUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeState is a helper map of string to AttributeState attribute value.
 var MapAttributeState = map[string]AttributeState{
@@ -77,12 +55,7 @@ const (
 
 // String returns the string representation of the AttributeSystemMemoryLinuxHugepagesState.
 func (av AttributeSystemMemoryLinuxHugepagesState) String() string {
-	switch av {
-	case AttributeSystemMemoryLinuxHugepagesStateFree:
-		return "free"
-	case AttributeSystemMemoryLinuxHugepagesStateUsed:
-		return "used"
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -171,39 +144,22 @@ func (m *metricSystemLinuxMemoryAvailable) init() {
 }
 
 func (m *metricSystemLinuxMemoryAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemLinuxMemoryAvailable) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemLinuxMemoryAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemLinuxMemoryAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemLinuxMemoryAvailable(cfg SystemLinuxMemoryAvailableMetricConfig) metricSystemLinuxMemoryAvailable {
-	m := metricSystemLinuxMemoryAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemLinuxMemoryAvailable)
 }
 
 type metricSystemLinuxMemoryDirty struct {
@@ -223,39 +179,22 @@ func (m *metricSystemLinuxMemoryDirty) init() {
 }
 
 func (m *metricSystemLinuxMemoryDirty) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemLinuxMemoryDirty) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemLinuxMemoryDirty) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemLinuxMemoryDirty) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemLinuxMemoryDirty(cfg SystemLinuxMemoryDirtyMetricConfig) metricSystemLinuxMemoryDirty {
-	m := metricSystemLinuxMemoryDirty{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemLinuxMemoryDirty)
 }
 
 type metricSystemMemoryLimit struct {
@@ -275,39 +214,22 @@ func (m *metricSystemMemoryLimit) init() {
 }
 
 func (m *metricSystemMemoryLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLimit(cfg SystemMemoryLimitMetricConfig) metricSystemMemoryLimit {
-	m := metricSystemMemoryLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLimit)
 }
 
 type metricSystemMemoryLinuxHugepagesLimit struct {
@@ -327,39 +249,22 @@ func (m *metricSystemMemoryLinuxHugepagesLimit) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryLinuxHugepagesLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryLinuxHugepagesLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesLimit(cfg SystemMemoryLinuxHugepagesLimitMetricConfig) metricSystemMemoryLinuxHugepagesLimit {
-	m := metricSystemMemoryLinuxHugepagesLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesLimit)
 }
 
 type metricSystemMemoryLinuxHugepagesPageSize struct {
@@ -379,39 +284,25 @@ func (m *metricSystemMemoryLinuxHugepagesPageSize) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesPageSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSystemMemoryLinuxHugepagesPageSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesPageSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesPageSize(cfg SystemMemoryLinuxHugepagesPageSizeMetricConfig) metricSystemMemoryLinuxHugepagesPageSize {
-	m := metricSystemMemoryLinuxHugepagesPageSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesPageSize)
 }
 
 type metricSystemMemoryLinuxHugepagesReserved struct {
@@ -431,39 +322,25 @@ func (m *metricSystemMemoryLinuxHugepagesReserved) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesReserved) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSystemMemoryLinuxHugepagesReserved) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesReserved) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesReserved(cfg SystemMemoryLinuxHugepagesReservedMetricConfig) metricSystemMemoryLinuxHugepagesReserved {
-	m := metricSystemMemoryLinuxHugepagesReserved{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesReserved)
 }
 
 type metricSystemMemoryLinuxHugepagesSurplus struct {
@@ -483,39 +360,25 @@ func (m *metricSystemMemoryLinuxHugepagesSurplus) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesSurplus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSystemMemoryLinuxHugepagesSurplus) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesSurplus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesSurplus(cfg SystemMemoryLinuxHugepagesSurplusMetricConfig) metricSystemMemoryLinuxHugepagesSurplus {
-	m := metricSystemMemoryLinuxHugepagesSurplus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesSurplus)
 }
 
 type metricSystemMemoryLinuxHugepagesUsage struct {
@@ -538,75 +401,22 @@ func (m *metricSystemMemoryLinuxHugepagesUsage) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemMemoryLinuxHugepagesStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemMemoryLinuxHugepagesUsageMetricAttributeKeySystemMemoryLinuxHugepagesState) {
-		dp.Attributes().PutStr("system.memory.linux.hugepages.state", systemMemoryLinuxHugepagesStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryLinuxHugepagesUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryLinuxHugepagesUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesUsage(cfg SystemMemoryLinuxHugepagesUsageMetricConfig) metricSystemMemoryLinuxHugepagesUsage {
-	m := metricSystemMemoryLinuxHugepagesUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesUsage)
 }
 
 type metricSystemMemoryLinuxHugepagesUtilization struct {
@@ -627,75 +437,25 @@ func (m *metricSystemMemoryLinuxHugepagesUtilization) init() {
 }
 
 func (m *metricSystemMemoryLinuxHugepagesUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, systemMemoryLinuxHugepagesStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemMemoryLinuxHugepagesUtilizationMetricAttributeKeySystemMemoryLinuxHugepagesState) {
-		dp.Attributes().PutStr("system.memory.linux.hugepages.state", systemMemoryLinuxHugepagesStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSystemMemoryLinuxHugepagesUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxHugepagesUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxHugepagesUtilization(cfg SystemMemoryLinuxHugepagesUtilizationMetricConfig) metricSystemMemoryLinuxHugepagesUtilization {
-	m := metricSystemMemoryLinuxHugepagesUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxHugepagesUtilization)
 }
 
 type metricSystemMemoryLinuxShared struct {
@@ -715,39 +475,22 @@ func (m *metricSystemMemoryLinuxShared) init() {
 }
 
 func (m *metricSystemMemoryLinuxShared) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryLinuxShared) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryLinuxShared) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryLinuxShared) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryLinuxShared(cfg SystemMemoryLinuxSharedMetricConfig) metricSystemMemoryLinuxShared {
-	m := metricSystemMemoryLinuxShared{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryLinuxShared)
 }
 
 type metricSystemMemoryPageSize struct {
@@ -765,39 +508,22 @@ func (m *metricSystemMemoryPageSize) init() {
 }
 
 func (m *metricSystemMemoryPageSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryPageSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryPageSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryPageSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryPageSize(cfg SystemMemoryPageSizeMetricConfig) metricSystemMemoryPageSize {
-	m := metricSystemMemoryPageSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryPageSize)
 }
 
 type metricSystemMemoryUsage struct {
@@ -820,75 +546,22 @@ func (m *metricSystemMemoryUsage) init() {
 }
 
 func (m *metricSystemMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemMemoryUsageMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryUsage(cfg SystemMemoryUsageMetricConfig) metricSystemMemoryUsage {
-	m := metricSystemMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryUsage)
 }
 
 type metricSystemMemoryUtilization struct {
@@ -909,75 +582,22 @@ func (m *metricSystemMemoryUtilization) init() {
 }
 
 func (m *metricSystemMemoryUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemMemoryUtilizationMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemMemoryUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemMemoryUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemMemoryUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemMemoryUtilization(cfg SystemMemoryUtilizationMetricConfig) metricSystemMemoryUtilization {
-	m := metricSystemMemoryUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemMemoryUtilization)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1011,47 +631,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                      mbc,
-		startTime:                                   pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                               pmetric.NewMetrics(),
-		buildInfo:                                   settings.BuildInfo,
-		metricSystemLinuxMemoryAvailable:            newMetricSystemLinuxMemoryAvailable(mbc.Metrics.SystemLinuxMemoryAvailable),
-		metricSystemLinuxMemoryDirty:                newMetricSystemLinuxMemoryDirty(mbc.Metrics.SystemLinuxMemoryDirty),
-		metricSystemMemoryLimit:                     newMetricSystemMemoryLimit(mbc.Metrics.SystemMemoryLimit),
-		metricSystemMemoryLinuxHugepagesLimit:       newMetricSystemMemoryLinuxHugepagesLimit(mbc.Metrics.SystemMemoryLinuxHugepagesLimit),
-		metricSystemMemoryLinuxHugepagesPageSize:    newMetricSystemMemoryLinuxHugepagesPageSize(mbc.Metrics.SystemMemoryLinuxHugepagesPageSize),
-		metricSystemMemoryLinuxHugepagesReserved:    newMetricSystemMemoryLinuxHugepagesReserved(mbc.Metrics.SystemMemoryLinuxHugepagesReserved),
-		metricSystemMemoryLinuxHugepagesSurplus:     newMetricSystemMemoryLinuxHugepagesSurplus(mbc.Metrics.SystemMemoryLinuxHugepagesSurplus),
-		metricSystemMemoryLinuxHugepagesUsage:       newMetricSystemMemoryLinuxHugepagesUsage(mbc.Metrics.SystemMemoryLinuxHugepagesUsage),
-		metricSystemMemoryLinuxHugepagesUtilization: newMetricSystemMemoryLinuxHugepagesUtilization(mbc.Metrics.SystemMemoryLinuxHugepagesUtilization),
-		metricSystemMemoryLinuxShared:               newMetricSystemMemoryLinuxShared(mbc.Metrics.SystemMemoryLinuxShared),
-		metricSystemMemoryPageSize:                  newMetricSystemMemoryPageSize(mbc.Metrics.SystemMemoryPageSize),
-		metricSystemMemoryUsage:                     newMetricSystemMemoryUsage(mbc.Metrics.SystemMemoryUsage),
-		metricSystemMemoryUtilization:               newMetricSystemMemoryUtilization(mbc.Metrics.SystemMemoryUtilization),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1062,35 +661,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1099,116 +686,96 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	rm.SetSchemaUrl(conventions.SchemaURL)
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSystemLinuxMemoryAvailable.emit(ils.Metrics())
-	mb.metricSystemLinuxMemoryDirty.emit(ils.Metrics())
-	mb.metricSystemMemoryLimit.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesLimit.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesPageSize.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesReserved.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesSurplus.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesUsage.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxHugepagesUtilization.emit(ils.Metrics())
-	mb.metricSystemMemoryLinuxShared.emit(ils.Metrics())
-	mb.metricSystemMemoryPageSize.emit(ils.Metrics())
-	mb.metricSystemMemoryUsage.emit(ils.Metrics())
-	mb.metricSystemMemoryUtilization.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSystemLinuxMemoryAvailableDataPoint adds a data point to system.linux.memory.available metric.
 func (mb *MetricsBuilder) RecordSystemLinuxMemoryAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemLinuxMemoryAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemLinuxMemoryDirtyDataPoint adds a data point to system.linux.memory.dirty metric.
 func (mb *MetricsBuilder) RecordSystemLinuxMemoryDirtyDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemLinuxMemoryDirty.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLimitDataPoint adds a data point to system.memory.limit metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesLimitDataPoint adds a data point to system.memory.linux.hugepages.limit metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLinuxHugepagesLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesPageSizeDataPoint adds a data point to system.memory.linux.hugepages.page_size metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesPageSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLinuxHugepagesPageSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesReservedDataPoint adds a data point to system.memory.linux.hugepages.reserved metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesReservedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLinuxHugepagesReserved.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesSurplusDataPoint adds a data point to system.memory.linux.hugepages.surplus metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesSurplusDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLinuxHugepagesSurplus.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesUsageDataPoint adds a data point to system.memory.linux.hugepages.usage metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesUsageDataPoint(ts pcommon.Timestamp, val int64, systemMemoryLinuxHugepagesStateAttributeValue AttributeSystemMemoryLinuxHugepagesState) {
-	mb.metricSystemMemoryLinuxHugepagesUsage.recordDataPoint(mb.startTime, ts, val, systemMemoryLinuxHugepagesStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxHugepagesUtilizationDataPoint adds a data point to system.memory.linux.hugepages.utilization metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxHugepagesUtilizationDataPoint(ts pcommon.Timestamp, val float64, systemMemoryLinuxHugepagesStateAttributeValue AttributeSystemMemoryLinuxHugepagesState) {
-	mb.metricSystemMemoryLinuxHugepagesUtilization.recordDataPoint(mb.startTime, ts, val, systemMemoryLinuxHugepagesStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryLinuxSharedDataPoint adds a data point to system.memory.linux.shared metric.
 func (mb *MetricsBuilder) RecordSystemMemoryLinuxSharedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryLinuxShared.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryPageSizeDataPoint adds a data point to system.memory.page_size metric.
 func (mb *MetricsBuilder) RecordSystemMemoryPageSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSystemMemoryPageSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryUsageDataPoint adds a data point to system.memory.usage metric.
 func (mb *MetricsBuilder) RecordSystemMemoryUsageDataPoint(ts pcommon.Timestamp, val int64, stateAttributeValue AttributeState) {
-	mb.metricSystemMemoryUsage.recordDataPoint(mb.startTime, ts, val, stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemMemoryUtilizationDataPoint adds a data point to system.memory.utilization metric.
 func (mb *MetricsBuilder) RecordSystemMemoryUtilizationDataPoint(ts pcommon.Timestamp, val float64, stateAttributeValue AttributeState) {
-	mb.metricSystemMemoryUtilization.recordDataPoint(mb.startTime, ts, val, stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

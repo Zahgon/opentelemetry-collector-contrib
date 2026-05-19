@@ -4,28 +4,18 @@
 package traces // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/transformprocessor/internal/traces"
 
 import (
-	"maps"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspan"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspanevent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 )
 
 func SpanFunctions() map[string]ottl.Factory[*ottlspan.TransformContext] {
-	functions := ottlfuncs.StandardFuncs[*ottlspan.TransformContext]()
-
-	spanFunctions := ottl.CreateFactoryMap(
-		ottlfuncs.NewIsRootSpanFactoryNew(),
-		NewSetSemconvSpanNameFactory(),
-	)
-
-	maps.Copy(functions, spanFunctions)
-
-	return functions
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func SpanEventFunctions() map[string]ottl.Factory[*ottlspanevent.TransformContext] {
+	_ = "STUB: not implemented"
 	// No trace-only functions yet.
-	return ottlfuncs.StandardFuncs[*ottlspanevent.TransformContext]()
+	return nil
 }

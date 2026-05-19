@@ -5,7 +5,6 @@ package syslogexporter // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"errors"
-	"strings"
 
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configoptional"
@@ -47,41 +46,7 @@ type Config struct {
 }
 
 // Validate the configuration for errors. This is required by component.Config.
-func (cfg *Config) Validate() error {
-	invalidFields := []error{}
-
-	cfg.Network = strings.ToLower(cfg.Network)
-	switch cfg.Network {
-	case string(confignet.TransportTypeTCP), string(confignet.TransportTypeUDP):
-		if cfg.Port < 1 || cfg.Port > 65535 {
-			invalidFields = append(invalidFields, errUnsupportedPort)
-		}
-	case string(confignet.TransportTypeUnix):
-	default:
-		invalidFields = append(invalidFields, errUnsupportedNetwork)
-	}
-
-	if cfg.Endpoint == "" {
-		invalidFields = append(invalidFields, errInvalidEndpoint)
-	}
-
-	switch cfg.Protocol {
-	case protocolRFC3164Str:
-	case protocolRFC5424Str:
-	default:
-		invalidFields = append(invalidFields, errUnsupportedProtocol)
-	}
-
-	if cfg.EnableOctetCounting && cfg.Protocol != protocolRFC5424Str {
-		invalidFields = append(invalidFields, errOctetCounting)
-	}
-
-	if len(invalidFields) > 0 {
-		return errors.Join(invalidFields...)
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 const (
 	// Syslog Network

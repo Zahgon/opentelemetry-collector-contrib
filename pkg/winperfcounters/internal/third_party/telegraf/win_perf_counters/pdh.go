@@ -33,12 +33,8 @@
 package win_perf_counters // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/winperfcounters/internal/third_party/telegraf/win_perf_counters"
 
 import (
-	"fmt"
 	"syscall"
 	"time"
-	"unsafe"
-
-	"golang.org/x/sys/windows"
 )
 
 // Error codes
@@ -243,47 +239,25 @@ func init() {
 //
 //	typeperf -qx
 func PdhAddCounter(hQuery PDH_HQUERY, szFullCounterPath string, dwUserData uintptr, phCounter *PDH_HCOUNTER) uint32 {
-	ptxt, _ := syscall.UTF16PtrFromString(szFullCounterPath)
-	ret, _, _ := pdh_AddCounterW.Call(
-		uintptr(hQuery),
-		uintptr(unsafe.Pointer(ptxt)),
-		dwUserData,
-		uintptr(unsafe.Pointer(phCounter)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhAddEnglishCounterSupported returns true if PdhAddEnglishCounterW Win API function was found in pdh.dll.
 // PdhAddEnglishCounterW function is not supported on pre-Windows Vista systems
 
-func PdhAddEnglishCounterSupported() bool {
-	return pdh_AddEnglishCounterW != nil
-}
+func PdhAddEnglishCounterSupported() bool { _ = "STUB: not implemented"; return false }
 
 // PdhAddEnglishCounter adds the specified language-neutral counter to the query. See the PdhAddCounter function. This function only exists on
 // Windows versions higher than Vista.
 func PdhAddEnglishCounter(hQuery PDH_HQUERY, szFullCounterPath string, dwUserData uintptr, phCounter *PDH_HCOUNTER) uint32 {
-	if pdh_AddEnglishCounterW == nil {
-		return ERROR_INVALID_FUNCTION
-	}
-
-	ptxt, _ := syscall.UTF16PtrFromString(szFullCounterPath)
-	ret, _, _ := pdh_AddEnglishCounterW.Call(
-		uintptr(hQuery),
-		uintptr(unsafe.Pointer(ptxt)),
-		dwUserData,
-		uintptr(unsafe.Pointer(phCounter)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhCloseQuery closes all counters contained in the specified query, closes all handles related to the query,
 // and frees all memory associated with the query.
-func PdhCloseQuery(hQuery PDH_HQUERY) uint32 {
-	ret, _, _ := pdh_CloseQuery.Call(uintptr(hQuery))
-
-	return uint32(ret)
-}
+func PdhCloseQuery(hQuery PDH_HQUERY) uint32 { _ = "STUB: not implemented"; return 0 }
 
 // Collects the current raw data value for all counters in the specified query and updates the status
 // code of each counter. With some counters, this function needs to be repeatedly called before the value
@@ -306,52 +280,23 @@ func PdhCloseQuery(hQuery PDH_HQUERY) uint32 {
 //
 // The PdhCollectQueryData will return an error in the first call because it needs two values for
 // displaying the correct data for the processor idle time. The second call will have a 0 return code.
-func PdhCollectQueryData(hQuery PDH_HQUERY) uint32 {
-	ret, _, _ := pdh_CollectQueryData.Call(uintptr(hQuery))
-
-	return uint32(ret)
-}
+func PdhCollectQueryData(hQuery PDH_HQUERY) uint32 { _ = "STUB: not implemented"; return 0 }
 
 // PdhCollectQueryDataWithTime queries data from perfmon, retrieving the device/windows timestamp from the node it was collected on.
 // Converts the filetime structure to a GO time class and returns the native time.
 func PdhCollectQueryDataWithTime(hQuery PDH_HQUERY) (uint32, time.Time) {
-	var localFileTime FILETIME
-	ret, _, _ := pdh_CollectQueryDataWithTime.Call(uintptr(hQuery), uintptr(unsafe.Pointer(&localFileTime)))
-
-	if ret == ERROR_SUCCESS {
-		var utcFileTime FILETIME
-		ret, _, _ := krn_LocalFileTimeToFileTime.Call(
-			uintptr(unsafe.Pointer(&localFileTime)),
-			uintptr(unsafe.Pointer(&utcFileTime)))
-
-		if ret == 0 {
-			return uint32(ERROR_FAILURE), time.Now()
-		}
-
-		// First convert 100-ns intervals to microseconds, then adjust for the
-		// epoch difference
-		var totalMicroSeconds int64
-		totalMicroSeconds = ((int64(utcFileTime.dwHighDateTime) << 32) | int64(utcFileTime.dwLowDateTime)) / 10
-		totalMicroSeconds -= EPOCH_DIFFERENCE_MICROS
-
-		retTime := time.Unix(0, totalMicroSeconds*1000)
-
-		return uint32(ERROR_SUCCESS), retTime
-	}
-
-	return uint32(ret), time.Now()
+	_ = "STUB: not implemented"
+	return 0, *new(time.Time)
 }
+
+// First convert 100-ns intervals to microseconds, then adjust for the
+// epoch difference
 
 // PdhGetFormattedCounterValueDouble formats the given hCounter using a 'double'. The result is set into the specialized union struct pValue.
 // This function does not directly translate to a Windows counterpart due to union specialization tricks.
 func PdhGetFormattedCounterValueDouble(hCounter PDH_HCOUNTER, lpdwType *uint32, pValue *PDH_FMT_COUNTERVALUE_DOUBLE) uint32 {
-	ret, _, _ := pdh_GetFormattedCounterValue.Call(
-		uintptr(hCounter),
-		uintptr(PDH_FMT_DOUBLE|PDH_FMT_NOCAP100),
-		uintptr(unsafe.Pointer(lpdwType)),
-		uintptr(unsafe.Pointer(pValue)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhGetFormattedCounterArrayDouble returns an array of formatted counter values. Use this function when you want to format the counter values of a
@@ -392,14 +337,8 @@ func PdhGetFormattedCounterValueDouble(hCounter PDH_HCOUNTER, lpdwType *uint32, 
 //		}
 //	}
 func PdhGetFormattedCounterArrayDouble(hCounter PDH_HCOUNTER, lpdwBufferSize, lpdwBufferCount *uint32, itemBuffer *byte) uint32 {
-	ret, _, _ := pdh_GetFormattedCounterArrayW.Call(
-		uintptr(hCounter),
-		uintptr(PDH_FMT_DOUBLE|PDH_FMT_NOCAP100),
-		uintptr(unsafe.Pointer(lpdwBufferSize)),
-		uintptr(unsafe.Pointer(lpdwBufferCount)),
-		uintptr(unsafe.Pointer(itemBuffer)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhOpenQuery creates a new query that is used to manage the collection of performance data.
@@ -410,12 +349,8 @@ func PdhGetFormattedCounterArrayDouble(hCounter PDH_HCOUNTER, lpdwBufferSize, lp
 // the handle to the query, and must be used in subsequent calls. This function returns a PDH_
 // constant error code, or ERROR_SUCCESS if the call succeeded.
 func PdhOpenQuery(szDataSource, dwUserData uintptr, phQuery *PDH_HQUERY) uint32 {
-	ret, _, _ := pdh_OpenQuery.Call(
-		szDataSource,
-		dwUserData,
-		uintptr(unsafe.Pointer(phQuery)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhExpandWildCardPath examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.
@@ -450,36 +385,19 @@ func PdhOpenQuery(szDataSource, dwUserData uintptr, phQuery *PDH_HQUERY) uint32 
 //
 // Partial counter path string matches (for example, "pro*") are supported.
 func PdhExpandWildCardPath(szWildCardPath string, mszExpandedPathList *uint16, pcchPathListLength *uint32) uint32 {
-	ptxt, _ := syscall.UTF16PtrFromString(szWildCardPath)
-	flags := uint32(0) // expand instances and counters
-	ret, _, _ := pdh_ExpandWildCardPathW.Call(
-		uintptr(unsafe.Pointer(nil)), // search counters on local computer
-		uintptr(unsafe.Pointer(ptxt)),
-		uintptr(unsafe.Pointer(mszExpandedPathList)),
-		uintptr(unsafe.Pointer(pcchPathListLength)),
-		uintptr(unsafe.Pointer(&flags)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
+
+// expand instances and counters
+
+// search counters on local computer
 
 // PdhValidatePath validates a path. Will return ERROR_SUCCESS when ok, or PDH_CSTATUS_BAD_COUNTERNAME when the path is
 // erroneous.
-func PdhValidatePath(path string) uint32 {
-	ptxt, _ := syscall.UTF16PtrFromString(path)
-	ret, _, _ := pdh_ValidatePathW.Call(uintptr(unsafe.Pointer(ptxt)))
+func PdhValidatePath(path string) uint32 { _ = "STUB: not implemented"; return 0 }
 
-	return uint32(ret)
-}
-
-func PdhFormatError(msgId uint32) string {
-	var flags uint32 = windows.FORMAT_MESSAGE_FROM_HMODULE | windows.FORMAT_MESSAGE_ARGUMENT_ARRAY | windows.FORMAT_MESSAGE_IGNORE_INSERTS
-	buf := make([]uint16, 300)
-	_, err := windows.FormatMessage(flags, uintptr(libpdhDll.Handle), msgId, 0, buf, nil)
-	if err == nil {
-		return fmt.Sprintf("%s", UTF16PtrToString(&buf[0]))
-	}
-	return fmt.Sprintf("(pdhErr=%d) %s", msgId, err.Error())
-}
+func PdhFormatError(msgId uint32) string { _ = "STUB: not implemented"; return "" }
 
 // Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values
 // hCounter [in]
@@ -494,13 +412,8 @@ func PdhFormatError(msgId uint32) string {
 // lpBuffer [out]
 // Caller-allocated buffer that receives a PDH_COUNTER_INFO structure. The structure is variable-length, because the string data is appended to the end of the fixed-format portion of the structure. This is done so that all data is returned in a single buffer allocated by the caller. Set to NULL if pdwBufferSize is zero.
 func PdhGetCounterInfo(hCounter PDH_HCOUNTER, bRetrieveExplainText int, pdwBufferSize *uint32, lpBuffer *byte) uint32 {
-	ret, _, _ := pdh_GetCounterInfoW.Call(
-		uintptr(hCounter),
-		uintptr(bRetrieveExplainText),
-		uintptr(unsafe.Pointer(pdwBufferSize)),
-		uintptr(unsafe.Pointer(lpBuffer)))
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhGetRawCounterValue retrieves the current raw value of the specified counter.
@@ -513,13 +426,8 @@ func PdhGetCounterInfo(hCounter PDH_HCOUNTER, bRetrieveExplainText int, pdwBuffe
 // pValue [out]
 // Pointer to a PDH_RAW_COUNTER structure that receives the raw counter value.
 func PdhGetRawCounterValue(hCounter PDH_HCOUNTER, lpdwType *uint32, pValue *PDH_RAW_COUNTER) uint32 {
-	ret, _, _ := pdh_GetRawCounterValue.Call(
-		uintptr(hCounter),
-		uintptr(unsafe.Pointer(lpdwType)),
-		uintptr(unsafe.Pointer(pValue)),
-	)
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 // PdhGetRawCounterArrayW retrieves an array of raw counter values for all instances of the specified counter.
@@ -535,12 +443,6 @@ func PdhGetRawCounterValue(hCounter PDH_HCOUNTER, lpdwType *uint32, pValue *PDH_
 // itemBuffer [out]
 // Pointer to a buffer that receives an array of PDH_RAW_COUNTER_ITEM structures. Each structure contains the raw counter value for an instance.
 func PdhGetRawCounterArrayW(hCounter PDH_HCOUNTER, lpdwBufferSize, lpdwBufferCount *uint32, itemBuffer *byte) uint32 {
-	ret, _, _ := pdh_GetRawCounterArrayW.Call(
-		uintptr(hCounter),
-		uintptr(unsafe.Pointer(lpdwBufferSize)),
-		uintptr(unsafe.Pointer(lpdwBufferCount)),
-		uintptr(unsafe.Pointer(itemBuffer)),
-	)
-
-	return uint32(ret)
+	_ = "STUB: not implemented"
+	return 0
 }

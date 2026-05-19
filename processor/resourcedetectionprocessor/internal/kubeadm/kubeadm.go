@@ -5,11 +5,9 @@ package kubeadm // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/kubeadm"
@@ -33,37 +31,11 @@ type detector struct {
 }
 
 func NewDetector(set processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-
-	kubeadmProvider, err := kubeadm.NewProvider(defaultConfigMapName, defaultKubeSystemNamespace, cfg.APIConfig)
-	if err != nil {
-		return nil, fmt.Errorf("failed creating kubeadm provider: %w", err)
-	}
-
-	return &detector{
-		provider: kubeadmProvider,
-		logger:   set.Logger,
-		ra:       &cfg.ResourceAttributes,
-		rb:       metadata.NewResourceBuilder(cfg.ResourceAttributes),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 func (d *detector) Detect(ctx context.Context) (resource pcommon.Resource, schemaURL string, err error) {
-	if d.ra.K8sClusterName.Enabled {
-		clusterName, err := d.provider.ClusterName(ctx)
-		if err != nil {
-			return pcommon.NewResource(), "", fmt.Errorf("failed getting k8s cluster name: %w", err)
-		}
-		d.rb.SetK8sClusterName(clusterName)
-	}
-
-	if d.ra.K8sClusterUID.Enabled {
-		clusterUID, err := d.provider.ClusterUID(ctx)
-		if err != nil {
-			return pcommon.NewResource(), "", fmt.Errorf("failed getting k8s cluster uid: %w", err)
-		}
-		d.rb.SetK8sClusterUID(clusterUID)
-	}
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }

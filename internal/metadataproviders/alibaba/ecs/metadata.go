@@ -5,14 +5,9 @@ package ecs // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"fmt"
-	"io"
 	"net/http"
-	"strconv"
 	"sync"
 	"time"
-
-	"golang.org/x/sync/errgroup"
 )
 
 const (
@@ -53,112 +48,24 @@ type metadataClient struct {
 var _ Provider = (*metadataClient)(nil)
 
 // NewProvider returns a new Alibaba Cloud ECS metadata provider.
-func NewProvider() Provider {
-	return &metadataClient{
-		client: &http.Client{
-			Timeout: 5 * time.Second,
-		},
-	}
-}
+func NewProvider() Provider { _ = "STUB: not implemented"; return *new(Provider) }
 
 // getToken retrieves a metadata token, refreshing if necessary.
 func (c *metadataClient) getToken(ctx context.Context) (string, error) {
-	c.tokenMu.Lock()
-	defer c.tokenMu.Unlock()
-
-	// Return cached token if still valid
-	if c.token != "" && time.Now().Before(c.tokenExpiry) {
-		return c.token, nil
-	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodPut, tokenURL, http.NoBody)
-	if err != nil {
-		return "", fmt.Errorf("failed to create token request: %w", err)
-	}
-	req.Header.Set(tokenTTLHeader, strconv.Itoa(defaultTokenTTL))
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return "", fmt.Errorf("failed to get metadata token: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(io.LimitReader(resp.Body, maxResponseSize))
-		return "", fmt.Errorf("token request returned %d: %s", resp.StatusCode, string(body))
-	}
-
-	tokenBytes, err := io.ReadAll(io.LimitReader(resp.Body, maxResponseSize))
-	if err != nil {
-		return "", fmt.Errorf("failed to read token response: %w", err)
-	}
-
-	c.token = string(tokenBytes)
-	c.tokenExpiry = time.Now().Add(time.Duration(defaultTokenTTL)*time.Second - tokenRefreshBuffer)
-
-	return c.token, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// Return cached token if still valid
 
 // getMetadata retrieves a single metadata value from the given path.
 func (c *metadataClient) getMetadata(ctx context.Context, path string) (string, error) {
-	token, err := c.getToken(ctx)
-	if err != nil {
-		return "", err
-	}
-
-	fullURL := metadataBaseURL + path
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fullURL, http.NoBody)
-	if err != nil {
-		return "", fmt.Errorf("failed to create request for %s: %w", path, err)
-	}
-	req.Header.Set(tokenHeader, token)
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return "", fmt.Errorf("failed to get metadata %s: %w", path, err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(io.LimitReader(resp.Body, maxResponseSize))
-		return "", fmt.Errorf("metadata %s returned %d: %s", path, resp.StatusCode, string(body))
-	}
-
-	data, err := io.ReadAll(io.LimitReader(resp.Body, maxResponseSize))
-	if err != nil {
-		return "", fmt.Errorf("failed to read metadata %s: %w", path, err)
-	}
-
-	return string(data), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // Metadata retrieves all ECS instance metadata.
 func (c *metadataClient) Metadata(ctx context.Context) (*Metadata, error) {
-	g, ctx := errgroup.WithContext(ctx)
-	var md Metadata
-
-	fetch := func(dst *string, key string) {
-		g.Go(func() error {
-			val, err := c.getMetadata(ctx, key)
-			if err != nil {
-				return fmt.Errorf("failed to get %s: %w", key, err)
-			}
-			*dst = val
-			return nil
-		})
-	}
-
-	fetch(&md.Hostname, "hostname")
-	fetch(&md.ImageID, "image-id")
-	fetch(&md.InstanceID, "instance-id")
-	fetch(&md.InstanceType, "instance/instance-type")
-	fetch(&md.OwnerAccountID, "owner-account-id")
-	fetch(&md.RegionID, "region-id")
-	fetch(&md.ZoneID, "zone-id")
-
-	if err := g.Wait(); err != nil {
-		return nil, err
-	}
-
-	return &md, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

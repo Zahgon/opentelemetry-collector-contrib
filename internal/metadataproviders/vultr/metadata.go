@@ -5,11 +5,7 @@ package vultr // import "github.com/open-telemetry/opentelemetry-collector-contr
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"time"
 )
 
 const (
@@ -28,12 +24,7 @@ type vultrProviderImpl struct {
 }
 
 // NewProvider creates a new Vultr metadata provider.
-func NewProvider() Provider {
-	return &vultrProviderImpl{
-		endpoint: metadataEndpoint,
-		client:   &http.Client{Timeout: 2 * time.Second},
-	}
-}
+func NewProvider() Provider { _ = "STUB: not implemented"; return *new(Provider) }
 
 type Region struct {
 	RegionCode string `json:"regioncode"`
@@ -48,27 +39,6 @@ type Metadata struct {
 
 // Metadata fetches and decodes Vultr instance metadata.
 func (p *vultrProviderImpl) Metadata(ctx context.Context) (*Metadata, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, p.endpoint, http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("create request: %w", err)
-	}
-	resp, err := p.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("query Vultr metadata: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Vultr metadata replied with status code: %s", resp.Status)
-	}
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("read Vultr metadata: %w", err)
-	}
-
-	var md Metadata
-	if err := json.Unmarshal(body, &md); err != nil {
-		return nil, fmt.Errorf("decode Vultr metadata: %w", err)
-	}
-	return &md, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

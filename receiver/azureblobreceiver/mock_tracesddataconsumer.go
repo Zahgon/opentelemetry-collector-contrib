@@ -16,25 +16,14 @@ type mockTracesDataConsumer struct {
 
 // ConsumeTracesJSON provides a mock function with given fields: ctx, json
 func (_m *mockTracesDataConsumer) consumeTracesJSON(ctx context.Context, json []byte) error {
-	ret := _m.Called(ctx, json)
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func(context.Context, []byte) error); ok {
-		r0 = rf(ctx, json)
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetNextTracesConsumer provides a mock function with given fields: nextracesConsumer
 func (_m *mockTracesDataConsumer) setNextTracesConsumer(nextracesConsumer consumer.Traces) {
-	_m.Called(nextracesConsumer)
+	_ = "STUB: not implemented"
+	return
 }
 
-func newMockTracesDataConsumer() *mockTracesDataConsumer {
-	tracesDataConsumer := &mockTracesDataConsumer{}
-	tracesDataConsumer.On("consumeTracesJSON", mock.Anything, mock.Anything).Return(nil)
-	return tracesDataConsumer
-}
+func newMockTracesDataConsumer() *mockTracesDataConsumer { _ = "STUB: not implemented"; return nil }

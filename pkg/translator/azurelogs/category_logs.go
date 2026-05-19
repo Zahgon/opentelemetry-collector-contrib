@@ -5,15 +5,8 @@ package azurelogs // import "github.com/open-telemetry/opentelemetry-collector-c
 
 import (
 	"errors"
-	"fmt"
-	"net"
-	"net/url"
-	"strconv"
-	"strings"
 
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/plog"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 const (
@@ -199,95 +192,30 @@ var (
 )
 
 func addRecordAttributes(category string, data []byte, record plog.LogRecord) error {
-	var err error
-
-	switch category {
-	case categoryAzureCdnAccessLog:
-		err = addAzureCdnAccessLogProperties(data, record)
-	case categoryFrontDoorAccessLog:
-		err = addFrontDoorAccessLogProperties(data, record)
-	case categoryFrontDoorHealthProbeLog:
-		err = addFrontDoorHealthProbeLogProperties(data, record)
-	case categoryFrontdoorWebApplicationFirewallLog:
-		err = addFrontDoorWAFLogProperties(data, record)
-	case categoryAppServiceAppLogs:
-		err = addAppServiceAppLogsProperties(data, record)
-	case categoryAppServiceAuditLogs:
-		err = addAppServiceAuditLogsProperties(data, record)
-	case categoryAppServiceAuthenticationLogs:
-		err = addAppServiceAuthenticationLogsProperties(data, record)
-	case categoryAppServiceConsoleLogs:
-		err = addAppServiceConsoleLogsProperties(data, record)
-	case categoryAppServiceHTTPLogs:
-		err = addAppServiceHTTPLogsProperties(data, record)
-	case categoryAppServiceIPSecAuditLogs:
-		err = addAppServiceIPSecAuditLogsProperties(data, record)
-	case categoryAppServicePlatformLogs:
-		err = addAppServicePlatformLogsProperties(data, record)
-	case categoryAdministrative:
-		err = addAdministrativeLogProperties(data, record)
-	case categoryAlert:
-		err = addAlertLogProperties(data, record)
-	case categoryAutoscale:
-		err = addAutoscaleLogProperties(data, record)
-	case categorySecurity:
-		err = addSecurityLogProperties(data, record)
-	case categoryPolicy:
-		err = addPolicyLogProperties(data, record)
-	case categoryRecommendation:
-		err = addRecommendationLogProperties(data, record)
-	case categoryServiceHealth:
-		err = addServiceHealthLogProperties(data, record)
-	case categoryResourceHealth:
-		err = addResourceHealthLogProperties(data, record)
-	default:
-		err = errUnsupportedCategory
-	}
-
-	if err != nil {
-		return fmt.Errorf("failed to parse logs from category %q: %w", category, err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // putInt parses value as an int and puts it in the record
 func putInt(field, value string, record plog.LogRecord) error {
-	n, err := strconv.ParseInt(value, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to get number in %q for field %q: %w", value, field, err)
-	}
-	record.Attributes().PutInt(field, n)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // putStr puts the value in the record if the value holds
 // meaningful data. Meaningful data is defined as not being empty
 // or "N/A".
-func putStr(field, value string, record plog.LogRecord) {
-	switch value {
-	case "", "N/A":
-		// ignore
-	default:
-		record.Attributes().PutStr(field, value)
-	}
-}
+func putStr(field, value string, record plog.LogRecord) { _ = "STUB: not implemented"; return }
 
-func putBool(field, value string, record plog.LogRecord) {
-	if b, err := strconv.ParseBool(value); err == nil {
-		record.Attributes().PutBool(field, b)
-	}
-}
+// ignore
+
+func putBool(field, value string, record plog.LogRecord) { _ = "STUB: not implemented"; return }
 
 // handleTime parses the time value and always multiplies it by
 // 1e3. This is so we don't loose so much data if the time is for
 // example "0.154". In that case, the output would be "154".
 func handleTime(field, value string, record plog.LogRecord) error {
-	n, err := strconv.ParseFloat(value, 64)
-	if err != nil {
-		return fmt.Errorf("failed to get number in %q for field %q: %w", value, field, err)
-	}
-	ns := int64(n * 1e3)
-	record.Attributes().PutInt(field, ns)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -321,57 +249,21 @@ type azureCdnAccessLogProperties struct {
 // addRequestURIProperties parses the request URI and adds the
 // relevant attributes to the record
 func addRequestURIProperties(uri string, record plog.LogRecord) error {
-	if uri == "" {
-		return nil
-	}
-
-	u, errURL := url.Parse(uri)
-	if errURL != nil {
-		return fmt.Errorf("failed to parse request URI %q: %w", uri, errURL)
-	}
-	record.Attributes().PutStr(string(conventions.URLOriginalKey), uri)
-
-	if port := u.Port(); port != "" {
-		if err := putInt(string(conventions.URLPortKey), u.Port(), record); err != nil {
-			return fmt.Errorf("failed to get port number from value %q: %w", port, err)
-		}
-	}
-
-	putStr(string(conventions.URLSchemeKey), u.Scheme, record)
-	putStr(string(conventions.URLPathKey), u.Path, record)
-	putStr(string(conventions.URLQueryKey), u.RawQuery, record)
-	putStr(string(conventions.URLFragmentKey), u.Fragment, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // addSecurityProtocolProperties based on the security protocol
 func addSecurityProtocolProperties(securityProtocol string, record plog.LogRecord) error {
-	if securityProtocol == "" {
-		return nil
-	}
-	name, remaining, _ := strings.Cut(securityProtocol, " ")
-	if remaining == "" {
-		return fmt.Errorf(`security protocol %q is missing version, expects format "<name> <version>"`, securityProtocol)
-	}
-	version, remaining, _ := strings.Cut(remaining, " ")
-	if remaining != "" {
-		return fmt.Errorf(`security protocol %q has invalid format, expects "<name> <version>"`, securityProtocol)
-	}
-
-	record.Attributes().PutStr(string(conventions.TLSProtocolNameKey), name)
-	record.Attributes().PutStr(string(conventions.TLSProtocolVersionKey), version)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // addErrorInfoProperties checks if there is an error and adds it
 // to the record attributes as an exception in case it exists.
 func addErrorInfoProperties(errorInfo string, record plog.LogRecord) {
-	if errorInfo == noError {
-		return
-	}
-	record.Attributes().PutStr(string(conventions.ExceptionTypeKey), errorInfo)
+	_ = "STUB: not implemented"
+	return
 }
 
 // handleDestination puts the value for the backend host name and endpoint
@@ -381,116 +273,16 @@ func addErrorInfoProperties(errorInfo string, record plog.LogRecord) {
 // it. If both are filled but different, then the endpoint will cover the
 // network address and port.
 func handleDestination(backendHostname, endpoint string, record plog.LogRecord) error {
-	addFields := func(full, addressField, portField string) error {
-		host, port, err := net.SplitHostPort(full)
-		if err != nil && strings.HasSuffix(err.Error(), missingPort) {
-			// there is no port, so let's keep using the full endpoint for the address
-			host = full
-		} else if err != nil {
-			return err
-		}
-		if host != "" {
-			record.Attributes().PutStr(addressField, host)
-		}
-		if port != "" {
-			err = putInt(portField, port, record)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	}
-
-	if backendHostname == "" {
-		if endpoint == "" {
-			return nil
-		}
-		err := addFields(endpoint, string(conventions.DestinationAddressKey), string(conventions.DestinationPortKey))
-		if err != nil {
-			return fmt.Errorf("failed to parse endpoint %q: %w", endpoint, err)
-		}
-	} else {
-		err := addFields(backendHostname, string(conventions.DestinationAddressKey), string(conventions.DestinationPortKey))
-		if err != nil {
-			return fmt.Errorf("failed to parse backend hostname %q: %w", backendHostname, err)
-		}
-
-		if endpoint != backendHostname && endpoint != "" {
-			err = addFields(endpoint, string(conventions.NetworkPeerAddressKey), string(conventions.NetworkPeerPortKey))
-			if err != nil {
-				return fmt.Errorf("failed to parse endpoint %q: %w", endpoint, err)
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// there is no port, so let's keep using the full endpoint for the address
 
 // addAzureCdnAccessLogProperties parses the Azure CDN access log, and adds
 // the relevant attributes to the record
 func addAzureCdnAccessLogProperties(data []byte, record plog.LogRecord) error {
-	var properties azureCdnAccessLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse AzureCdnAccessLog properties: %w", err)
-	}
-
-	if err := putInt(string(conventions.HTTPRequestSizeKey), properties.RequestBytes, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.HTTPResponseSizeKey), properties.ResponseBytes, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.ClientPortKey), properties.ClientPort, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.HTTPResponseStatusCodeKey), properties.HTTPStatusCode, record); err != nil {
-		return err
-	}
-
-	if err := handleTime(attributeTimeToFirstByte, properties.TimeToFirstByte, record); err != nil {
-		return err
-	}
-	if err := handleTime(attributeDuration, properties.TimeTaken, record); err != nil {
-		return err
-	}
-
-	if err := addRequestURIProperties(properties.RequestURI, record); err != nil {
-		return fmt.Errorf(`failed to handle "requestUri" field: %w`, err)
-	}
-	if err := addSecurityProtocolProperties(properties.SecurityProtocol, record); err != nil {
-		return err
-	}
-	if err := handleDestination(properties.BackendHostname, properties.Endpoint, record); err != nil {
-		return err
-	}
-
-	if properties.ErrorInfo != properties.ErrorInfo1 && properties.ErrorInfo != "" && properties.ErrorInfo1 != "" {
-		return errors.New(`unexpected: "errorInfo" and "ErrorInfo" JSON fields have different values`)
-	}
-	if properties.ErrorInfo1 != "" {
-		addErrorInfoProperties(properties.ErrorInfo1, record)
-	} else if properties.ErrorInfo != "" {
-		addErrorInfoProperties(properties.ErrorInfo, record)
-	}
-
-	putStr(attributeAzureRef, properties.TrackingReference, record)
-	putStr(string(conventions.HTTPRequestMethodKey), properties.HTTPMethod, record)
-	putStr(string(conventions.NetworkProtocolVersionKey), properties.HTTPVersion, record)
-	putStr(string(conventions.NetworkProtocolNameKey), properties.RequestProtocol, record)
-	putStr(attributeTLSServerName, properties.SNI, record)
-	putStr(string(conventions.UserAgentOriginalKey), properties.UserAgent, record)
-	putStr(string(conventions.ClientAddressKey), properties.ClientIP, record)
-	putStr(string(conventions.SourceAddressKey), properties.SocketIP, record)
-
-	putStr(attributeAzurePop, properties.Pop, record)
-	putStr(attributeCacheStatus, properties.CacheStatus, record)
-
-	if properties.IsReceivedFromClient {
-		record.Attributes().PutStr(string(conventions.NetworkIODirectionKey), "receive")
-	} else {
-		record.Attributes().PutStr(string(conventions.NetworkIODirectionKey), "transmit")
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -527,83 +319,16 @@ type frontDoorAccessLog struct {
 // addFrontDoorAccessLogProperties parses the Front Door access log, and adds
 // the relevant attributes to the record
 func addFrontDoorAccessLogProperties(data []byte, record plog.LogRecord) error {
-	var properties frontDoorAccessLog
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse FrontDoorAccessLog properties: %w", err)
-	}
-
-	if err := putInt(string(conventions.HTTPRequestSizeKey), properties.RequestBytes, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.HTTPResponseSizeKey), properties.ResponseBytes, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.ClientPortKey), properties.ClientPort, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.HTTPResponseStatusCodeKey), properties.HTTPStatusCode, record); err != nil {
-		return err
-	}
-
-	if err := handleTime(attributeTimeToFirstByte, properties.TimeToFirstByte, record); err != nil {
-		return err
-	}
-	if err := handleTime(attributeDuration, properties.TimeTaken, record); err != nil {
-		return err
-	}
-
-	if err := addRequestURIProperties(properties.RequestURI, record); err != nil {
-		return fmt.Errorf(`failed to handle "requestUri" field: %w`, err)
-	}
-	if err := addSecurityProtocolProperties(properties.SecurityProtocol, record); err != nil {
-		return err
-	}
-	if err := handleDestination(properties.HostName, properties.Endpoint, record); err != nil {
-		return err
-	}
-
-	if properties.ErrorInfo != properties.ErrorInfo1 && properties.ErrorInfo != "" && properties.ErrorInfo1 != "" {
-		return errors.New(`unexpected: "errorInfo" and "ErrorInfo" JSON fields have different values`)
-	}
-	if properties.ErrorInfo1 != "" {
-		addErrorInfoProperties(properties.ErrorInfo1, record)
-	} else if properties.ErrorInfo != "" {
-		addErrorInfoProperties(properties.ErrorInfo, record)
-	}
-
-	if properties.OriginIP != "" && properties.OriginIP != "N/A" {
-		address, port, _ := strings.Cut(properties.OriginIP, ":")
-		putStr(string(conventions.ServerAddressKey), address, record)
-		if port != "" {
-			if err := putInt(string(conventions.ServerPortKey), port, record); err != nil {
-				return err
-			}
-		}
-	}
-
-	putStr(attributeAzureRef, properties.TrackingReference, record)
-	putStr(string(conventions.HTTPRequestMethodKey), properties.HTTPMethod, record)
-	putStr(string(conventions.NetworkProtocolVersionKey), properties.HTTPVersion, record)
-	putStr(string(conventions.NetworkProtocolNameKey), properties.RequestProtocol, record)
-	putStr(attributeTLSServerName, properties.SNI, record)
-	putStr(string(conventions.UserAgentOriginalKey), properties.UserAgent, record)
-	putStr(string(conventions.ClientAddressKey), properties.ClientIP, record)
-	putStr(string(conventions.SourceAddressKey), properties.SocketIP, record)
-
-	putStr(attributeAzurePop, properties.Pop, record)
-	putStr(attributeCacheStatus, properties.CacheStatus, record)
-
-	putStr(string(conventions.TLSCurveKey), properties.SecurityCurves, record)
-	putStr(string(conventions.TLSCipherKey), properties.SecurityCipher, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // addFrontDoorHealthProbeLogProperties parses the Front Door access log, and adds
 // the relevant attributes to the record
 func addFrontDoorHealthProbeLogProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // See https://learn.microsoft.com/en-us/azure/web-application-firewall/afds/waf-front-door-monitor?pivots=front-door-standard-premium#waf-logs
@@ -623,78 +348,64 @@ type frontDoorWAFLogProperties struct {
 // addFrontDoorWAFLogProperties parses the Front Door access log, and adds
 // the relevant attributes to the record
 func addFrontDoorWAFLogProperties(data []byte, record plog.LogRecord) error {
-	var properties frontDoorWAFLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse AzureCdnAccessLog properties: %w", err)
-	}
-
-	if err := putInt(string(conventions.ClientPortKey), properties.ClientPort, record); err != nil {
-		return err
-	}
-
-	if err := addRequestURIProperties(properties.RequestURI, record); err != nil {
-		return fmt.Errorf(`failed to handle "requestUri" field: %w`, err)
-	}
-
-	putStr(string(conventions.ClientAddressKey), properties.ClientIP, record)
-	putStr(string(conventions.SourceAddressKey), properties.SocketIP, record)
-	putStr(attributeAzureRef, properties.TrackingReference, record)
-	putStr("http.request.header.host", properties.Host, record)
-	putStr(attributeAzureFrontDoorWAFPolicyName, properties.Policy, record)
-	putStr(attributeAzureFrontDoorWAFPolicyMode, properties.PolicyMode, record)
-	putStr(attributeAzureFrontDoorWAFRuleName, properties.RuleName, record)
-	putStr(attributeAzureFrontDoorWAFAction, properties.Action, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // addAppServiceAppLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceAppLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServiceAuditLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceAuditLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServiceAuthenticationLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceAuthenticationLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServiceConsoleLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceConsoleLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServiceHTTPLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceHTTPLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServiceIPSecAuditLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServiceIPSecAuditLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // addAppServicePlatformLogsProperties parses the App Service access log, and adds
 // the relevant attributes to the record
 func addAppServicePlatformLogsProperties(_ []byte, _ plog.LogRecord) error {
+	_ = "STUB: not implemented"
 	// TODO @constanca-m implement this the same way as addAzureCdnAccessLogProperties
-	return errStillToImplement
+	return nil
 }
 
 // ------------------------------------------------------------
@@ -713,15 +424,7 @@ type administrativeLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#administrative-category
 func addAdministrativeLogProperties(data []byte, record plog.LogRecord) error {
-	var properties administrativeLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Administrative properties: %w", err)
-	}
-
-	putStr(attributeAzureAdministrativeEntity, properties.Entity, record)
-	putStr(attributeAzureAdministrativeMessage, properties.Message, record)
-	putStr(attributeAzureAdministrativeHierarchy, properties.Hierarchy, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -748,22 +451,7 @@ type alertLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#alert-category
 func addAlertLogProperties(data []byte, record plog.LogRecord) error {
-	var properties alertLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Alert properties: %w", err)
-	}
-
-	putStr(attributeAzureAlertWebhookURI, properties.WebHookURI, record)
-	putStr(attributeAzureAlertRuleURI, properties.RuleURI, record)
-	putStr(attributeAzureAlertRuleName, properties.RuleName, record)
-	putStr(attributeAzureAlertRuleDescription, properties.RuleDescription, record)
-	putStr(attributeAzureAlertThreshold, properties.Threshold, record)
-	putStr(attributeAzureAlertWindowSize, properties.WindowSizeInMinutes, record)
-	putStr(attributeAzureAlertAggregation, properties.Aggregation, record)
-	putStr(attributeAzureAlertOperator, properties.Operator, record)
-	putStr(attributeAzureAlertMetricName, properties.MetricName, record)
-	putStr(attributeAzureAlertMetricUnit, properties.MetricUnit, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -785,17 +473,7 @@ type autoscaleLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#autoscale-category
 func addAutoscaleLogProperties(data []byte, record plog.LogRecord) error {
-	var properties autoscaleLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Autoscale properties: %w", err)
-	}
-
-	putStr(attributeAzureAutoscaleDescription, properties.Description, record)
-	putStr(attributeAzureAutoscaleResourceName, properties.ResourceName, record)
-	putStr(attributeAzureAutoscaleOldInstances, properties.OldInstancesCount, record)
-	putStr(attributeAzureAutoscaleNewInstances, properties.NewInstancesCount, record)
-	putStr(attributeAzureAutoscaleLastScaleAction, properties.LastScaleActionTime, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -831,47 +509,14 @@ type policyLogProperties struct {
 }
 
 func addPolicyLogProperties(data []byte, record plog.LogRecord) error {
-	var properties policyLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Policy properties: %w", err)
-	}
-
-	// check if Policies is a string and unmarshal the embedded JSON
-	// object in the `policyElement` struct
-	var policies []policyElement
-	if err := gojson.Unmarshal([]byte(properties.Policies), &policies); err != nil {
-		return fmt.Errorf("failed to parse Policy properties: %w", err)
-	}
-
-	putBool(attributeAzurePolicyIsComplianceCheck, properties.IsComplianceCheck, record)
-	putStr(attributeAzureLocation, properties.ResourceLocation, record)
-	putStr(attributeAzurePolicyAncestors, properties.Ancestors, record)
-	putStr(attributeAzurePolicyHierarchy, properties.Hierarchy, record)
-
-	// Add policies as a slice of maps
-	if len(policies) > 0 {
-		policiesSlice := record.Attributes().PutEmptySlice("azure.policy.policies")
-		for i := range policies {
-			policyMap := policiesSlice.AppendEmpty().SetEmptyMap()
-			policyMap.PutStr("definition.id", policies[i].DefinitionID)
-			policyMap.PutStr("definition.name", policies[i].DefinitionName)
-			policyMap.PutStr("definition.display_name", policies[i].DefinitionDisplayName)
-			policyMap.PutStr("definition.version", policies[i].DefinitionVersion)
-			policyMap.PutStr("definition.effect", policies[i].DefinitionEffect)
-			policyMap.PutStr("definition.reference_id", policies[i].ReferenceID)
-			policyMap.PutStr("set_definition.id", policies[i].SetDefinitionID)
-			policyMap.PutStr("set_definition.name", policies[i].SetDefinitionName)
-			policyMap.PutStr("set_definition.display_name", policies[i].SetDefinitionDisplayName)
-			policyMap.PutStr("set_definition.version", policies[i].SetDefinitionVersion)
-			policyMap.PutStr("assignment.id", policies[i].AssignmentID)
-			policyMap.PutStr("assignment.name", policies[i].AssignmentName)
-			policyMap.PutStr("assignment.display_name", policies[i].AssignmentDisplayName)
-			policyMap.PutStr("assignment.scope", policies[i].AssignmentScope)
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// check if Policies is a string and unmarshal the embedded JSON
+// object in the `policyElement` struct
+
+// Add policies as a slice of maps
 
 // ------------------------------------------------------------
 // Activity Log - Recommendation category
@@ -892,18 +537,7 @@ type recommendationLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#recommendation-category
 func addRecommendationLogProperties(data []byte, record plog.LogRecord) error {
-	var properties recommendationLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Recommendation properties: %w", err)
-	}
-
-	putStr(attributeAzureRecommendationCategory, properties.RecommendationCategory, record)
-	putStr(attributeAzureRecommendationImpact, properties.RecommendationImpact, record)
-	putStr(attributeAzureRecommendationName, properties.RecommendationName, record)
-	putStr(attributeAzureRecommendationType, properties.RecommendationType, record)
-	putStr(attributeAzureRecommendationSchemaVersion, properties.RecommendationSchemaVersion, record)
-	putStr(attributeAzureRecommendationLink, properties.RecommendationResourceLink, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -931,31 +565,13 @@ type securityLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#security-category
 func addSecurityLogProperties(data []byte, record plog.LogRecord) error {
-	var properties securityLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Security properties: %w", err)
-	}
-
-	// Map to OTel process semantic conventions
-	putStr(string(conventions.ProcessCommandLineKey), properties.CommandLine, record)
-	if err := putInt(string(conventions.ProcessPIDKey), properties.ProcessID, record); err != nil {
-		return err
-	}
-	if err := putInt(string(conventions.ProcessParentPIDKey), properties.ParentProcessID, record); err != nil {
-		return err
-	}
-	putStr(string(conventions.ProcessExecutablePathKey), properties.ProcessName, record)
-	putStr(string(conventions.ProcessOwnerKey), properties.UserName, record)
-	putStr(string(conventions.EnduserIDKey), properties.UserSID, record)
-
-	// Azure-specific fields that don't have OTel equivalents
-	putStr(attributeAzureSecurityAccountLogonID, properties.AccountLogonID, record)
-	putStr(attributeAzureSecurityDomainName, properties.DomainName, record)
-	putStr(attributeAzureSecurityActionTaken, properties.ActionTaken, record)
-	putStr(attributeAzureSecuritySeverity, properties.Severity, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Map to OTel process semantic conventions
+
+// Azure-specific fields that don't have OTel equivalents
 
 // ------------------------------------------------------------
 // Activity Log - Service Health category
@@ -999,60 +615,14 @@ type impactedService struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#service-health-category
 func addServiceHealthLogProperties(data []byte, record plog.LogRecord) error {
-	var properties serviceHealthLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Service Health properties: %w", err)
-	}
-
-	// check if Policies is a string and unmarshal the embedded JSON
-	// object in the `policyElement` struct
-	var impactedServices []impactedService
-	if err := gojson.Unmarshal([]byte(properties.ImpactedServices), &impactedServices); err != nil {
-		return fmt.Errorf("failed to parse Impacted Services properties: %w", err)
-	}
-
-	// Add impacted services as a slice of maps
-	if len(impactedServices) > 0 {
-		impactedServicesSlice := record.Attributes().PutEmptySlice(attributeAzureServiceHealthImpactedServices)
-		for _, s := range impactedServices {
-			impactedServiceMap := impactedServicesSlice.AppendEmpty().SetEmptyMap()
-			impactedServiceMap.PutStr("name", s.Name)
-			impactedServiceMap.PutStr("id", s.ID)
-			impactedServiceMap.PutStr("guid", s.GUID)
-
-			if len(s.Regions) > 0 {
-				regionsSlice := impactedServiceMap.PutEmptySlice("regions")
-				for _, r := range s.Regions {
-					regionMap := regionsSlice.AppendEmpty().SetEmptyMap()
-					regionMap.PutStr("name", r.Name)
-					regionMap.PutStr("id", r.ID)
-				}
-			}
-		}
-	}
-
-	putStr(attributeAzureServiceHealthTitle, properties.Title, record)
-	putStr(attributeAzureServiceHealthService, properties.Service, record)
-	putStr(attributeAzureServiceHealthRegion, properties.Region, record)
-	putStr(attributeAzureServiceHealthCommunicationBody, properties.CommunicationText, record)
-	putStr(attributeAzureServiceHealthCommunicationID, properties.CommunicationID, record)
-	putStr(attributeAzureServiceHealthIncidentType, properties.IncidentType, record)
-	putStr(attributeAzureServiceHealthTrackingID, properties.TrackingID, record)
-	putStr(attributeAzureServiceHealthImpactStartTime, properties.ImpactStartTime, record)
-	putStr(attributeAzureServiceHealthImpactMitigationTime, properties.ImpactMitigationTime, record)
-	putStr(attributeAzureServiceHealthDefaultLanguageTitle, properties.DefaultLanguageTitle, record)
-	putStr(attributeAzureServiceHealthDefaultLanguageContent, properties.DefaultLanguageContent, record)
-	putStr(attributeAzureServiceHealthState, properties.Stage, record)
-	putStr(attributeAzureServiceHealthMaintenanceID, properties.MaintenanceID, record)
-	putStr(attributeAzureServiceHealthMaintenanceType, properties.MaintenanceType, record)
-	if properties.IsHIR {
-		record.Attributes().PutBool(attributeAzureServiceHealthIsHIR, properties.IsHIR)
-	}
-	putBool(attributeAzureServiceHealthIsSynthetic, properties.IsSynthetic, record)
-	putStr(attributeAzureServiceHealthImpactType, properties.ImpactType, record)
-	putStr(attributeAzureServiceHealthImpactCategory, properties.ImpactCategory, record)
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// check if Policies is a string and unmarshal the embedded JSON
+// object in the `policyElement` struct
+
+// Add impacted services as a slice of maps
 
 // ------------------------------------------------------------
 // Activity Log - Resource Health category
@@ -1073,17 +643,6 @@ type resourceHealthLogProperties struct {
 // and maps them to OpenTelemetry semantic conventions.
 // See: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log-schema#resource-health-category
 func addResourceHealthLogProperties(data []byte, record plog.LogRecord) error {
-	var properties resourceHealthLogProperties
-	if err := gojson.Unmarshal(data, &properties); err != nil {
-		return fmt.Errorf("failed to parse Resource Health properties: %w", err)
-	}
-
-	putStr(attributeAzureResourceHealthTitle, properties.Title, record)
-	putStr(attributeAzureResourceHealthDetails, properties.Details, record)
-	putStr(attributeAzureResourceHealthCurrentHealthStatus, properties.CurrentHealthStatus, record)
-	putStr(attributeAzureResourceHealthPreviousHealthStatus, properties.PreviousHealthStatus, record)
-	putStr(attributeAzureResourceHealthType, properties.Type, record)
-	putStr(attributeAzureResourceHealthCause, properties.Cause, record)
-
+	_ = "STUB: not implemented"
 	return nil
 }

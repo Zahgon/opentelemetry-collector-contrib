@@ -4,8 +4,6 @@
 package sumologicprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/sumologicprocessor"
 
 import (
-	"encoding/hex"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -33,21 +31,11 @@ type LogFieldAttributesConfig struct {
 
 // spanIDToHexOrEmptyString returns a hex string from SpanID.
 // An empty string is returned, if SpanID is empty.
-func spanIDToHexOrEmptyString(id pcommon.SpanID) string {
-	if id.IsEmpty() {
-		return ""
-	}
-	return hex.EncodeToString(id[:])
-}
+func spanIDToHexOrEmptyString(id pcommon.SpanID) string { _ = "STUB: not implemented"; return "" }
 
 // traceIDToHexOrEmptyString returns a hex string from TraceID.
 // An empty string is returned, if TraceID is empty.
-func traceIDToHexOrEmptyString(id pcommon.TraceID) string {
-	if id.IsEmpty() {
-		return ""
-	}
-	return hex.EncodeToString(id[:])
-}
+func traceIDToHexOrEmptyString(id pcommon.TraceID) string { _ = "STUB: not implemented"; return "" }
 
 var severityNumberToLevel = map[string]string{
 	plog.SeverityNumberUnspecified.String(): "UNSPECIFIED",
@@ -84,69 +72,35 @@ type logFieldsConversionProcessor struct {
 }
 
 func newLogFieldConversionProcessor(logFieldsAttributes *LogFieldAttributesConfig) *logFieldsConversionProcessor {
-	return &logFieldsConversionProcessor{
-		logFieldsAttributes,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (proc *logFieldsConversionProcessor) addAttributes(log plog.LogRecord) {
-	if log.SeverityNumber() != plog.SeverityNumberUnspecified {
-		if _, found := log.Attributes().Get(SeverityNumberAttributeName); !found &&
-			proc.LogFieldsAttributes.SeverityNumberAttribute.Enabled {
-			level := severityNumberToLevel[log.SeverityNumber().String()]
-			log.Attributes().PutStr(proc.LogFieldsAttributes.SeverityNumberAttribute.Name, level)
-		}
-	}
-	if _, found := log.Attributes().Get(SeverityTextAttributeName); !found &&
-		proc.LogFieldsAttributes.SeverityTextAttribute.Enabled {
-		log.Attributes().PutStr(proc.LogFieldsAttributes.SeverityTextAttribute.Name, log.SeverityText())
-	}
-	if _, found := log.Attributes().Get(SpanIDAttributeName); !found &&
-		proc.LogFieldsAttributes.SpanIDAttribute.Enabled {
-		log.Attributes().PutStr(proc.LogFieldsAttributes.SpanIDAttribute.Name, spanIDToHexOrEmptyString(log.SpanID()))
-	}
-	if _, found := log.Attributes().Get(TraceIDAttributeName); !found &&
-		proc.LogFieldsAttributes.TraceIDAttribute.Enabled {
-		log.Attributes().PutStr(proc.LogFieldsAttributes.TraceIDAttribute.Name, traceIDToHexOrEmptyString(log.TraceID()))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (proc *logFieldsConversionProcessor) processLogs(logs plog.Logs) error {
-	if !proc.isEnabled() {
-		return nil
-	}
-
-	rls := logs.ResourceLogs()
-	for i := 0; i < rls.Len(); i++ {
-		ills := rls.At(i).ScopeLogs()
-
-		for j := 0; j < ills.Len(); j++ {
-			logs := ills.At(j).LogRecords()
-			for k := 0; k < logs.Len(); k++ {
-				proc.addAttributes(logs.At(k))
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*logFieldsConversionProcessor) processMetrics(pmetric.Metrics) error {
+	_ = "STUB: not implemented"
 	// No-op. Metrics should not be translated.
 	return nil
 }
 
 func (*logFieldsConversionProcessor) processTraces(ptrace.Traces) error {
+	_ = "STUB: not implemented"
 	// No-op. Traces should not be translated.
 	return nil
 }
 
-func (proc *logFieldsConversionProcessor) isEnabled() bool {
-	return proc.LogFieldsAttributes.SeverityNumberAttribute.Enabled ||
-		proc.LogFieldsAttributes.SeverityTextAttribute.Enabled ||
-		proc.LogFieldsAttributes.SpanIDAttribute.Enabled ||
-		proc.LogFieldsAttributes.TraceIDAttribute.Enabled
-}
+func (proc *logFieldsConversionProcessor) isEnabled() bool { _ = "STUB: not implemented"; return false }
 
 func (*logFieldsConversionProcessor) ConfigPropertyName() string {
-	return "field_attributes"
+	_ = "STUB: not implemented"
+	return ""
 }

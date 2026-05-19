@@ -4,13 +4,6 @@
 package protocol // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/protocol"
 
 import (
-	"errors"
-	"fmt"
-	"math"
-	"strconv"
-	"strings"
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -65,12 +58,8 @@ var _ Parser = (*pathParserHelper)(nil)
 // newParser creates a new Parser instance that receives plaintext
 // Carbon data.
 func newParser(pathParser pathParser) (Parser, error) {
-	if pathParser == nil {
-		return nil, errors.New("nil pathParser")
-	}
-	return &pathParserHelper{
-		pathParser: pathParser,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(Parser), nil
 }
 
 // Parse receives the string with plaintext data, aka line, in the Carbon
@@ -90,58 +79,6 @@ func newParser(pathParser pathParser) (Parser, error) {
 // The <metric_timestamp> is the Unix time text of when the measurement was
 // made.
 func (pph *pathParserHelper) Parse(line string) (pmetric.Metric, error) {
-	parts := strings.SplitN(line, " ", 4)
-	if len(parts) != 3 {
-		return pmetric.Metric{}, fmt.Errorf("invalid carbon metric [%s]", line)
-	}
-
-	path := parts[0]
-	valueStr := parts[1]
-	timestampStr := parts[2]
-
-	pp := parsedPath{}
-	err := pph.pathParser.parsePath(path, &pp)
-	if err != nil {
-		return pmetric.Metric{}, fmt.Errorf("invalid carbon metric [%s]: %w", line, err)
-	}
-
-	var unixTimeNs int64
-	var dblVal float64
-	unixTime, errIsFloat := strconv.ParseInt(timestampStr, 10, 64)
-	if errIsFloat != nil {
-		dblVal, err = strconv.ParseFloat(timestampStr, 64)
-		if err != nil {
-			return pmetric.Metric{}, fmt.Errorf("invalid carbon metric time [%s]: %w", line, err)
-		}
-		sec, frac := math.Modf(dblVal)
-		unixTime = int64(sec)
-		unixTimeNs = int64(frac * (1e9))
-	}
-
-	intVal, errIsFloat := strconv.ParseInt(valueStr, 10, 64)
-	if errIsFloat != nil {
-		dblVal, err = strconv.ParseFloat(valueStr, 64)
-		if err != nil {
-			return pmetric.Metric{}, fmt.Errorf("invalid carbon metric value [%s]: %w", line, err)
-		}
-	}
-
-	m := pmetric.NewMetric()
-	m.SetName(pp.MetricName)
-	var dp pmetric.NumberDataPoint
-	if pp.MetricType == CumulativeMetricType {
-		sum := m.SetEmptySum()
-		sum.SetIsMonotonic(true)
-		dp = sum.DataPoints().AppendEmpty()
-	} else {
-		dp = m.SetEmptyGauge().DataPoints().AppendEmpty()
-	}
-	dp.SetTimestamp(pcommon.NewTimestampFromTime(time.Unix(unixTime, unixTimeNs)))
-	if errIsFloat != nil {
-		dp.SetDoubleValue(dblVal)
-	} else {
-		dp.SetIntValue(intVal)
-	}
-	pp.Attributes.CopyTo(dp.Attributes())
-	return m, nil
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric), nil
 }

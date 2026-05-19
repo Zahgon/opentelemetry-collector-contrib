@@ -6,21 +6,14 @@ package filelogreceiver // import "github.com/open-telemetry/opentelemetry-colle
 import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/consumerretry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/file"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/filelogreceiver/internal/metadata"
 )
 
 // NewFactory creates a factory for file_log receiver
-func NewFactory() receiver.Factory {
-	return adapter.NewFactory(ReceiverType{}, metadata.LogsStability,
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // ReceiverType implements stanza.LogReceiverType
 // to create a file tailing receiver
@@ -28,27 +21,24 @@ type ReceiverType struct{}
 
 // Type is the receiver type
 func (ReceiverType) Type() component.Type {
-	return metadata.Type
+	_ = "STUB: not implemented"
+	return *
+
+	// CreateDefaultConfig creates a config with type and version
+	new(component.Type)
 }
 
-// CreateDefaultConfig creates a config with type and version
 func (ReceiverType) CreateDefaultConfig() component.Config {
-	return createDefaultConfig()
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
-func createDefaultConfig() *FileLogConfig {
-	return &FileLogConfig{
-		BaseConfig: adapter.BaseConfig{
-			Operators:      []operator.Config{},
-			RetryOnFailure: consumerretry.NewDefaultConfig(),
-		},
-		InputConfig: *file.NewConfig(),
-	}
-}
+func createDefaultConfig() *FileLogConfig { _ = "STUB: not implemented"; return nil }
 
 // BaseConfig gets the base config from config, for now
 func (ReceiverType) BaseConfig(cfg component.Config) adapter.BaseConfig {
-	return cfg.(*FileLogConfig).BaseConfig
+	_ = "STUB: not implemented"
+	return *new(adapter.BaseConfig)
 }
 
 // FileLogConfig defines configuration for the file_log receiver
@@ -62,5 +52,6 @@ type FileLogConfig struct {
 
 // InputConfig unmarshals the input operator
 func (ReceiverType) InputConfig(cfg component.Config) operator.Config {
-	return operator.NewConfig(&cfg.(*FileLogConfig).InputConfig)
+	_ = "STUB: not implemented"
+	return *new(operator.Config)
 }

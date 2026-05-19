@@ -8,7 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/receiverhelper"
-	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/internal/transport"
@@ -25,20 +24,8 @@ type reporter struct {
 var _ transport.Reporter = (*reporter)(nil)
 
 func newReporter(set receiver.Settings) (transport.Reporter, error) {
-	obsrecv, err := receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{
-		ReceiverID:             set.ID,
-		Transport:              "tcp",
-		ReceiverCreateSettings: set,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return &reporter{
-		logger:        set.Logger,
-		sugaredLogger: set.Logger.Sugar(),
-		obsrecv:       obsrecv,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(transport.Reporter), nil
 }
 
 // OnDataReceived is called when a message or request is received from
@@ -46,20 +33,16 @@ func newReporter(set receiver.Settings) (transport.Reporter, error) {
 // reporter instance. The caller code should include a call to end the
 // returned span.
 func (r *reporter) OnDataReceived(ctx context.Context) context.Context {
-	return r.obsrecv.StartMetricsOp(ctx)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
 // OnTranslationError is used to report a translation error from original
 // format to the internal format of the Collector. The context and span
 // passed to it should be the ones returned by OnDataReceived.
 func (r *reporter) OnTranslationError(ctx context.Context, err error) {
-	if err == nil {
-		return
-	}
-
-	r.logger.Debug("Carbon translation error", zap.Error(err))
-
-	trace.SpanFromContext(ctx).RecordError(err)
+	_ = "STUB: not implemented"
+	return
 }
 
 // OnMetricsProcessed is called when the received data is passed to next
@@ -71,18 +54,8 @@ func (r *reporter) OnMetricsProcessed(
 	numReceivedMetricPoints int,
 	err error,
 ) {
-	if err != nil {
-		r.logger.Debug(
-			"Carbon receiver failed to push metrics into pipeline",
-			zap.Int("numReceivedMetricPoints", numReceivedMetricPoints),
-			zap.Error(err))
-	}
-
-	r.obsrecv.EndMetricsOp(ctx, "carbon", numReceivedMetricPoints, err)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (r *reporter) OnDebugf(template string, args ...any) {
-	if r.logger.Check(zap.DebugLevel, "debug") != nil {
-		r.sugaredLogger.Debugf(template, args...)
-	}
-}
+func (r *reporter) OnDebugf(template string, args ...any) { _ = "STUB: not implemented"; return }

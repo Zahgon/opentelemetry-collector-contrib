@@ -6,27 +6,13 @@ package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry
 import (
 	"context"
 	"errors"
-	"fmt"
-	"net"
-	"os"
-	"sort"
-	"strconv"
-	"strings"
 	"sync"
 	"time"
 
 	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/metric"
 	"go.uber.org/zap"
-	discoveryv1 "k8s.io/api/discovery/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
-	"k8s.io/utils/ptr"
-	"k8s.io/utils/strings/slices"
-	"sigs.k8s.io/controller-runtime/pkg/client/config"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter/internal/metadata"
 )
@@ -80,203 +66,41 @@ func newK8sResolver(clt kubernetes.Interface,
 	returnNames bool,
 	tb *metadata.TelemetryBuilder,
 ) (*k8sResolver, error) {
-	if service == "" {
-		return nil, errNoSvc
-	}
-
-	if timeout == 0 {
-		timeout = defaultListWatchTimeout
-	}
-
-	parts := strings.Split(service, ".")
-	if len(parts) == 0 || parts[0] == "" {
-		return nil, errNoSvc
-	}
-
-	name, namespace := parts[0], "default"
-	switch {
-	case len(parts) > 1 && parts[1] != "":
-		namespace = parts[1]
-	case len(parts) > 2:
-		return nil, fmt.Errorf("%w: namespace segment missing in %q", errInvalidSvcFQDN, service)
-	default:
-		logger.Info("the namespace for the Kubernetes service wasn't provided, trying to determine the current namespace", zap.String("name", name))
-		if ns, err := getInClusterNamespace(); err == nil {
-			namespace = ns
-			logger.Info("namespace for the Collector determined", zap.String("namespace", namespace))
-		} else {
-			logger.Warn(`could not determine the namespace for this collector, will use "default" as the namespace`, zap.Error(err))
-		}
-	}
-
-	if len(parts) > 2 {
-		if parts[2] != "svc" {
-			return nil, fmt.Errorf("%w: expected third DNS label to be 'svc' in %q", errInvalidSvcFQDN, service)
-		}
-		if len(parts) == 3 {
-			return nil, fmt.Errorf("%w: missing cluster domain in %q", errInvalidSvcFQDN, service)
-		}
-	}
-
-	epsSelector := fmt.Sprintf("kubernetes.io/service-name=%s", name)
-	epsListWatcher := &cache.ListWatch{
-		ListFunc: func(options metav1.ListOptions) (runtime.Object, error) {
-			options.LabelSelector = epsSelector
-			options.TimeoutSeconds = ptr.To[int64](int64(timeout.Seconds()))
-			return clt.DiscoveryV1().EndpointSlices(namespace).List(context.Background(), options)
-		},
-		WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
-			options.LabelSelector = epsSelector
-			options.TimeoutSeconds = ptr.To[int64](int64(timeout.Seconds()))
-			return clt.DiscoveryV1().EndpointSlices(namespace).Watch(context.Background(), options)
-		},
-	}
-
-	epsStore := &sync.Map{}
-	h := &handler{
-		endpoints:   epsStore,
-		logger:      logger,
-		telemetry:   tb,
-		returnNames: returnNames,
-	}
-	r := &k8sResolver{
-		logger:         logger,
-		svcName:        name,
-		svcNs:          namespace,
-		port:           ports,
-		once:           &sync.Once{},
-		endpointsStore: epsStore,
-		epsListWatcher: epsListWatcher,
-		handler:        h,
-		stopCh:         make(chan struct{}),
-		lwTimeout:      timeout,
-		telemetry:      tb,
-		returnNames:    returnNames,
-	}
-	h.callback = r.resolve
-
-	return r, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (r *k8sResolver) start(_ context.Context) error {
-	var initErr error
-	r.once.Do(func() {
-		if r.epsListWatcher != nil {
-			r.logger.Debug("creating and starting endpoints informer")
-			epsInformer := cache.NewSharedInformer(r.epsListWatcher, &discoveryv1.EndpointSlice{}, 0)
-			if _, err := epsInformer.AddEventHandler(r.handler); err != nil {
-				r.logger.Error("unable to start watching for changes to the specified service names", zap.Error(err))
-			}
-			go epsInformer.Run(r.stopCh)
-			if !cache.WaitForCacheSync(r.stopCh, epsInformer.HasSynced) {
-				initErr = errors.New("endpoints informer not sync")
-			}
-		}
-	})
-	if initErr != nil {
-		return initErr
-	}
+func (r *k8sResolver) start(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
-	r.logger.Debug("K8s service resolver started",
-		zap.String("service", r.svcName),
-		zap.String("namespace", r.svcNs),
-		zap.Int32s("ports", r.port),
-		zap.Duration("timeout", r.lwTimeout))
-	return nil
-}
-
-func (r *k8sResolver) shutdown(_ context.Context) error {
-	r.changeCallbackLock.Lock()
-	r.onChangeCallbacks = nil
-	r.changeCallbackLock.Unlock()
-
-	close(r.stopCh)
-	r.shutdownWg.Wait()
-	return nil
-}
+func (r *k8sResolver) shutdown(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func newInClusterClient() (kubernetes.Interface, error) {
-	cfg, err := config.GetConfig()
-	if err != nil {
-		return nil, err
-	}
-	return kubernetes.NewForConfig(cfg)
+	_ = "STUB: not implemented"
+	return *new(kubernetes.Interface), nil
 }
 
 func (r *k8sResolver) resolve(ctx context.Context) ([]string, error) {
-	r.shutdownWg.Add(1)
-	defer r.shutdownWg.Done()
-
-	var backends []string
-	var ep string
-	r.endpointsStore.Range(func(host, _ any) bool {
-		switch r.returnNames {
-		case true:
-			ep = fmt.Sprintf("%s.%s.%s", host, r.svcName, r.svcNs)
-		default:
-			ep = host.(string)
-		}
-		if len(r.port) == 0 {
-			backends = append(backends, ep)
-		} else {
-			for _, port := range r.port {
-				backends = append(backends, net.JoinHostPort(ep, strconv.FormatInt(int64(port), 10)))
-			}
-		}
-		return true
-	})
-	r.telemetry.LoadbalancerNumResolutions.Add(ctx, 1, metric.WithAttributeSet(k8sResolverSuccessAttrSet))
-
-	// keep it always in the same order
-	sort.Strings(backends)
-
-	if slices.Equal(r.Endpoints(), backends) {
-		return r.Endpoints(), nil
-	}
-
-	// the list has changed!
-	r.updateLock.Lock()
-	r.endpoints = backends
-	r.updateLock.Unlock()
-	r.telemetry.LoadbalancerNumBackends.Record(ctx, int64(len(backends)), metric.WithAttributeSet(k8sResolverAttrSet))
-	r.telemetry.LoadbalancerNumBackendUpdates.Add(ctx, 1, metric.WithAttributeSet(k8sResolverAttrSet))
-
-	// propagate the change
-	r.changeCallbackLock.RLock()
-	for _, callback := range r.onChangeCallbacks {
-		callback(r.Endpoints())
-	}
-	r.changeCallbackLock.RUnlock()
-	return r.Endpoints(), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (r *k8sResolver) onChange(f func([]string)) {
-	r.changeCallbackLock.Lock()
-	defer r.changeCallbackLock.Unlock()
-	r.onChangeCallbacks = append(r.onChangeCallbacks, f)
-}
+// keep it always in the same order
 
-func (r *k8sResolver) Endpoints() []string {
-	r.updateLock.RLock()
-	defer r.updateLock.RUnlock()
-	return r.endpoints
-}
+// the list has changed!
+
+// propagate the change
+
+func (r *k8sResolver) onChange(f func([]string)) { _ = "STUB: not implemented"; return }
+
+func (r *k8sResolver) Endpoints() []string { _ = "STUB: not implemented"; return nil }
 
 const inClusterNamespacePath = "/var/run/secrets/kubernetes.io/serviceaccount/namespace"
 
 func getInClusterNamespace() (string, error) {
+	_ = "STUB: not implemented"
 	// Check whether the namespace file exists.
 	// If not, we are not running in cluster so can't guess the namespace.
-	if _, err := os.Stat(inClusterNamespacePath); os.IsNotExist(err) {
-		return "", errors.New("not running in-cluster, please specify namespace")
-	} else if err != nil {
-		return "", fmt.Errorf("error checking namespace file: %w", err)
-	}
-
-	// Load the namespace file and return its content
-	namespace, err := os.ReadFile(inClusterNamespacePath)
-	if err != nil {
-		return "", fmt.Errorf("error reading namespace file: %w", err)
-	}
-	return string(namespace), nil
+	return "", nil
 }
+
+// Load the namespace file and return its content

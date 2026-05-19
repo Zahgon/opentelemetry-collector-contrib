@@ -6,9 +6,6 @@ package postgresqlreceiver // import "github.com/open-telemetry/opentelemetry-co
 import (
 	"database/sql"
 	"sync"
-
-	"github.com/lib/pq"
-	"go.uber.org/multierr"
 )
 
 type postgreSQLClientFactory interface {
@@ -22,29 +19,22 @@ type defaultClientFactory struct {
 }
 
 func newDefaultClientFactory(cfg *Config) *defaultClientFactory {
-	return &defaultClientFactory{
-		baseConfig: postgreSQLConfig{
-			username: cfg.Username,
-			password: string(cfg.Password),
-			address:  cfg.AddrConfig,
-			tls:      cfg.ClientConfig,
-		},
-	}
-}
-
-func (d *defaultClientFactory) getClient(database string) (client, error) {
-	db, err := getDB(d.baseConfig, database)
-	if err != nil {
-		return nil, err
-	}
-	return &postgreSQLClient{client: db, closeFn: db.Close}, nil
-}
-
-func (*defaultClientFactory) close() error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-// poolClientFactory creates one PG connection per database, keeping a pool of connections
+func (d *defaultClientFactory) getClient(database string) (client, error) {
+	_ = "STUB: not implemented"
+	return *new(client), nil
+}
+
+func (*defaultClientFactory) close() error {
+	_ = "STUB: not implemented"
+
+	// poolClientFactory creates one PG connection per database, keeping a pool of connections
+	return nil
+}
+
 type poolClientFactory struct {
 	sync.Mutex
 	baseConfig postgreSQLConfig
@@ -53,90 +43,18 @@ type poolClientFactory struct {
 	closed     bool
 }
 
-func newPoolClientFactory(cfg *Config) *poolClientFactory {
-	poolCfg := cfg.ConnectionPool
-	return &poolClientFactory{
-		baseConfig: postgreSQLConfig{
-			username: cfg.Username,
-			password: string(cfg.Password),
-			address:  cfg.AddrConfig,
-			tls:      cfg.ClientConfig,
-		},
-		poolConfig: &poolCfg,
-		pool:       make(map[string]*sql.DB),
-		closed:     false,
-	}
-}
+func newPoolClientFactory(cfg *Config) *poolClientFactory { _ = "STUB: not implemented"; return nil }
 
 func (p *poolClientFactory) getClient(database string) (client, error) {
-	p.Lock()
-	defer p.Unlock()
-	db, ok := p.pool[database]
-	if !ok {
-		var err error
-		db, err = getDB(p.baseConfig, database)
-		p.setPoolSettings(db)
-		if err != nil {
-			return nil, err
-		}
-		p.pool[database] = db
-	}
-	return &postgreSQLClient{client: db, closeFn: nil}, nil
+	_ = "STUB: not implemented"
+	return *new(client), nil
 }
 
-func (p *poolClientFactory) close() error {
-	p.Lock()
-	defer p.Unlock()
+func (p *poolClientFactory) close() error { _ = "STUB: not implemented"; return nil }
 
-	if p.closed {
-		return nil
-	}
-
-	if p.pool != nil {
-		var err error
-		for _, db := range p.pool {
-			if closeErr := db.Close(); closeErr != nil {
-				err = multierr.Append(err, closeErr)
-			}
-		}
-		if err != nil {
-			return err
-		}
-	}
-
-	p.closed = true
-	return nil
-}
-
-func (p *poolClientFactory) setPoolSettings(db *sql.DB) {
-	if p.poolConfig == nil {
-		return
-	}
-	if p.poolConfig.MaxIdleTime != nil {
-		db.SetConnMaxIdleTime(*p.poolConfig.MaxIdleTime)
-	}
-	if p.poolConfig.MaxLifetime != nil {
-		db.SetConnMaxLifetime(*p.poolConfig.MaxLifetime)
-	}
-	if p.poolConfig.MaxIdle != nil {
-		db.SetMaxIdleConns(*p.poolConfig.MaxIdle)
-	}
-	if p.poolConfig.MaxOpen != nil {
-		db.SetMaxOpenConns(*p.poolConfig.MaxOpen)
-	}
-}
+func (p *poolClientFactory) setPoolSettings(db *sql.DB) { _ = "STUB: not implemented"; return }
 
 func getDB(cfg postgreSQLConfig, database string) (*sql.DB, error) {
-	if database != "" {
-		cfg.database = database
-	}
-	connectionString, err := cfg.ConnectionString()
-	if err != nil {
-		return nil, err
-	}
-	conn, err := pq.NewConnector(connectionString)
-	if err != nil {
-		return nil, err
-	}
-	return sql.OpenDB(conn), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

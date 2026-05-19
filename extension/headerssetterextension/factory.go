@@ -8,22 +8,14 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/headerssetterextension/internal/metadata"
 )
 
 // NewFactory creates a factory for the headers setter extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(
@@ -31,5 +23,6 @@ func createExtension(
 	settings extension.Settings,
 	cfg component.Config,
 ) (extension.Extension, error) {
-	return newHeadersSetterExtension(cfg.(*Config), settings.Logger)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

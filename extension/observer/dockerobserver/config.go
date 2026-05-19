@@ -4,7 +4,6 @@
 package dockerobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/dockerobserver"
 
 import (
-	"errors"
 	"time"
 
 	"go.opentelemetry.io/collector/confmap"
@@ -45,30 +44,6 @@ type Config struct {
 	CacheSyncInterval time.Duration `mapstructure:"cache_sync_interval"`
 }
 
-func (config Config) Validate() error {
-	if config.DockerAPIVersion != "" {
-		if err := docker.VersionIsValidAndGTE(config.DockerAPIVersion, minimumRequiredDockerAPIVersion); err != nil {
-			return err
-		}
-	}
-	if config.Timeout == 0 {
-		return errors.New("timeout must be specified")
-	}
-	if config.CacheSyncInterval == 0 {
-		return errors.New("cache_sync_interval must be specified")
-	}
-	return nil
-}
+func (config Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (config *Config) Unmarshal(conf *confmap.Conf) error {
-	err := conf.Unmarshal(config)
-	if err != nil {
-		return err
-	}
-
-	if len(config.ExcludedImages) == 0 {
-		config.ExcludedImages = nil
-	}
-
-	return err
-}
+func (config *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }

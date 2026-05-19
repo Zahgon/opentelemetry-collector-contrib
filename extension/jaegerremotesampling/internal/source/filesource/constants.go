@@ -25,18 +25,8 @@ const (
 // defaultStrategy is the default sampling strategy the Strategy Store will return
 // if none is provided.
 func defaultStrategyResponse() *api_v2.SamplingStrategyResponse {
-	return &api_v2.SamplingStrategyResponse{
-		StrategyType: api_v2.SamplingStrategyType_PROBABILISTIC,
-		ProbabilisticSampling: &api_v2.ProbabilisticSamplingStrategy{
-			SamplingRate: defaultSamplingProbability,
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func defaultStrategies() *storedStrategies {
-	s := &storedStrategies{
-		serviceStrategies: make(map[string]*api_v2.SamplingStrategyResponse),
-	}
-	s.defaultStrategy = defaultStrategyResponse()
-	return s
-}
+func defaultStrategies() *storedStrategies { _ = "STUB: not implemented"; return nil }

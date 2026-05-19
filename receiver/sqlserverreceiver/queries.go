@@ -5,9 +5,6 @@ package sqlserverreceiver // import "github.com/open-telemetry/opentelemetry-col
 
 import (
 	_ "embed"
-	"fmt"
-	"slices"
-	"strings"
 )
 
 // Direct access to queries is not recommended: The receiver allows filtering based on
@@ -73,14 +70,7 @@ FROM sys.dm_io_virtual_file_stats(NULL, NULL) AS vfs'
 EXEC sp_executesql @SqlStatement
 `
 
-func getSQLServerDatabaseIOQuery(instanceName string) string {
-	if instanceName != "" {
-		whereClause := fmt.Sprintf("WHERE @@SERVERNAME = ''%s''", instanceName)
-		return fmt.Sprintf(sqlServerDatabaseIOQuery, whereClause)
-	}
-
-	return fmt.Sprintf(sqlServerDatabaseIOQuery, "")
-}
+func getSQLServerDatabaseIOQuery(instanceName string) string { _ = "STUB: not implemented"; return "" }
 
 const sqlServerPerformanceCountersQuery string = `
 SET DEADLOCK_PRIORITY -10;
@@ -284,14 +274,8 @@ OPTION(RECOMPILE)
 `
 
 func getSQLServerPerformanceCounterQuery(instanceName string) string {
-	if instanceName != "" {
-		whereClause := fmt.Sprintf("\tAND @@SERVERNAME = '%s'", instanceName)
-		r := strings.NewReplacer("{filter_instance_name}", whereClause)
-		return r.Replace(sqlServerPerformanceCountersQuery)
-	}
-
-	r := strings.NewReplacer("{filter_instance_name}", "")
-	return r.Replace(sqlServerPerformanceCountersQuery)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 const sqlServerProperties = `
@@ -379,48 +363,26 @@ SELECT
 EXEC sp_executesql @SqlStatement
 `
 
-func getSQLServerPropertiesQuery(instanceName string) string {
-	if instanceName != "" {
-		whereClause := fmt.Sprintf("WHERE @@SERVERNAME = ''%s''", instanceName)
-		return fmt.Sprintf(sqlServerProperties, whereClause)
-	}
-
-	return fmt.Sprintf(sqlServerProperties, "")
-}
+func getSQLServerPropertiesQuery(instanceName string) string { _ = "STUB: not implemented"; return "" }
 
 //go:embed templates/dbQueryAndTextQuery.tmpl
 var sqlServerQueryTextAndPlanQueryTemplate string
 
-func getSQLServerQueryTextAndPlanQuery() string {
-	return sqlServerQueryTextAndPlanQueryTemplate
-}
+func getSQLServerQueryTextAndPlanQuery() string { _ = "STUB: not implemented"; return "" }
 
 //go:embed templates/sqlServerQuerySample.tmpl
 var sqlServerQuerySamples string
 
-func getSQLServerQuerySamplesQuery() string {
-	return sqlServerQuerySamples
-}
+func getSQLServerQuerySamplesQuery() string { _ = "STUB: not implemented"; return "" }
 
 //go:embed templates/sqlServerIdleBlockerQuerySample.tmpl
 var sqlServerIdleBlockingQuerySamples string
 
-func getSQLServerIdleBlockingSessionsQuery() string {
-	return sqlServerIdleBlockingQuerySamples
-}
+func getSQLServerIdleBlockingSessionsQuery() string { _ = "STUB: not implemented"; return "" }
 
 func formatSQLServerSessionIDsParam(sessionIDs map[int64]struct{}) string {
-	idValues := make([]int64, 0, len(sessionIDs))
-	for sessionID := range sessionIDs {
-		idValues = append(idValues, sessionID)
-	}
-	slices.Sort(idValues)
-
-	filterParts := make([]string, 0, len(idValues))
-	for _, sessionID := range idValues {
-		filterParts = append(filterParts, fmt.Sprintf("%d", sessionID))
-	}
-	return strings.Join(filterParts, ",")
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // Conditional check based on Azure SQL DB v/s the rest aka (Azure SQL Managed instance OR On-prem SQL Server)
@@ -1041,13 +1003,4 @@ ELSE
 {filter_instance_name};
 `
 
-func getSQLServerWaitStatsQuery(instanceName string) string {
-	if instanceName != "" {
-		whereClause := fmt.Sprintf("\tAND @@SERVERNAME = '%s'", instanceName)
-		r := strings.NewReplacer("{filter_instance_name}", whereClause)
-		return r.Replace(sqlServerWaitStatsQuery)
-	}
-
-	r := strings.NewReplacer("{filter_instance_name}", "")
-	return r.Replace(sqlServerWaitStatsQuery)
-}
+func getSQLServerWaitStatsQuery(instanceName string) string { _ = "STUB: not implemented"; return "" }

@@ -4,12 +4,6 @@
 package faro // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/faro"
 
 import (
-	"fmt"
-	"maps"
-	"slices"
-	"strconv"
-	"strings"
-
 	faroTypes "github.com/grafana/faro/pkg/go"
 	om "github.com/wk8/go-ordered-map/v2"
 )
@@ -18,340 +12,99 @@ import (
 type keyVal = om.OrderedMap[string, any]
 
 // newKeyVal creates new empty keyVal
-func newKeyVal() *keyVal {
-	return om.New[string, any]()
-}
+func newKeyVal() *keyVal { _ = "STUB: not implemented"; return nil }
 
 // keyValFromMap will instantiate keyVal from a map[string]string
-func keyValFromMap(m map[string]string) *keyVal {
-	kv := newKeyVal()
-	for _, k := range slices.Sorted(maps.Keys(m)) {
-		keyValAdd(kv, k, m[k])
-	}
-	return kv
-}
+func keyValFromMap(m map[string]string) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // keyValFromFloatMap will instantiate keyVal from a map[string]float64
-func keyValFromFloatMap(m map[string]float64) *keyVal {
-	kv := newKeyVal()
-	for _, k := range slices.Sorted(maps.Keys(m)) {
-		kv.Set(k, m[k])
-	}
-	return kv
-}
+func keyValFromFloatMap(m map[string]float64) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // mergeKeyVal will merge source in target
-func mergeKeyVal(target, source *keyVal) {
-	for el := source.Oldest(); el != nil; el = el.Next() {
-		target.Set(el.Key, el.Value)
-	}
-}
+func mergeKeyVal(target, source *keyVal) { _ = "STUB: not implemented"; return }
 
 // mergeKeyValWithPrefix will merge source in target, adding a prefix to each key being merged in
 func mergeKeyValWithPrefix(target, source *keyVal, prefix string) {
-	for el := source.Oldest(); el != nil; el = el.Next() {
-		target.Set(fmt.Sprintf("%s%s", prefix, el.Key), el.Value)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // keyValAdd adds a key + value string pair to kv
-func keyValAdd(kv *keyVal, key, value string) {
-	if value != "" {
-		kv.Set(key, value)
-	}
-}
+func keyValAdd(kv *keyVal, key, value string) { _ = "STUB: not implemented"; return }
 
 // keyValToInterfaceSlice converts keyVal to []interface{}, typically used for logging
-func keyValToInterfaceSlice(kv *keyVal) []any {
-	slice := make([]any, kv.Len()*2)
-	idx := 0
-	for el := kv.Oldest(); el != nil; el = el.Next() {
-		slice[idx] = el.Key
-		idx++
-		slice[idx] = el.Value
-		idx++
-	}
-	return slice
-}
+func keyValToInterfaceSlice(kv *keyVal) []any { _ = "STUB: not implemented"; return nil }
 
 // logToKeyVal represents a Log object as keyVal
 func logToKeyVal(l *faroTypes.Log) *keyVal {
-	kv := newKeyVal()
+	_ = "STUB: not implemented"
 
 	// default to info level, prioritize log level if set
-	level := string(faroTypes.LogLevelInfo)
-	if l.LogLevel != "" {
-		level = string(l.LogLevel)
-	}
-
-	keyValAdd(kv, faroTimestamp, l.Timestamp.Format(string(faroTypes.TimeFormatRFC3339Milli)))
-	keyValAdd(kv, faroKind, string(faroTypes.KindLog))
-	keyValAdd(kv, faroLogLevel, level)
-	keyValAdd(kv, faroLogMessage, l.Message)
-	mergeKeyValWithPrefix(kv, keyValFromMap(l.Context), faroContextPrefix)
-	mergeKeyVal(kv, traceToKeyVal(l.Trace))
-	mergeKeyVal(kv, actionToKeyVal(l.Action))
-	return kv
+	return nil
 }
 
 // exceptionToKeyVal represents an Exception object as keyVal
-func exceptionToKeyVal(e *faroTypes.Exception) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroTimestamp, e.Timestamp.Format(string(faroTypes.TimeFormatRFC3339Milli)))
-	keyValAdd(kv, faroKind, string(faroTypes.KindException))
-	keyValAdd(kv, faroLogLevel, string(faroTypes.LogLevelError))
-	keyValAdd(kv, faroExceptionType, e.Type)
-	keyValAdd(kv, faroExceptionValue, e.Value)
-	if e.Fatal {
-		keyValAdd(kv, faroExceptionFatal, strconv.FormatBool(e.Fatal))
-	}
-	keyValAdd(kv, faroExceptionStacktrace, exceptionToString(e))
-	mergeKeyVal(kv, traceToKeyVal(e.Trace))
-	mergeKeyValWithPrefix(kv, keyValFromMap(e.Context), faroContextPrefix)
-	mergeKeyVal(kv, actionToKeyVal(e.Action))
-	return kv
-}
+func exceptionToKeyVal(e *faroTypes.Exception) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // exceptionMessage string is concatenating of the Exception.Type and Exception.Value
-func exceptionMessage(e *faroTypes.Exception) string {
-	return fmt.Sprintf("%s: %s", e.Type, e.Value)
-}
+func exceptionMessage(e *faroTypes.Exception) string { _ = "STUB: not implemented"; return "" }
 
 // exceptionToString is the string representation of an Exception
-func exceptionToString(e *faroTypes.Exception) string {
-	var stacktrace strings.Builder
-	stacktrace.WriteString(exceptionMessage(e))
-	if e.Stacktrace != nil {
-		for i := range e.Stacktrace.Frames {
-			stacktrace.WriteString(frameToString(&e.Stacktrace.Frames[i]))
-		}
-	}
-	return stacktrace.String()
-}
+func exceptionToString(e *faroTypes.Exception) string { _ = "STUB: not implemented"; return "" }
 
 // frameToString function converts a Frame into a human readable string
-func frameToString(frame *faroTypes.Frame) string {
-	module := ""
-	if frame.Module != "" {
-		module = frame.Module + "|"
-	}
-	return fmt.Sprintf("\n  at %s (%s%s:%v:%v)", frame.Function, module, frame.Filename, frame.Lineno, frame.Colno)
-}
+func frameToString(frame *faroTypes.Frame) string { _ = "STUB: not implemented"; return "" }
 
 // measurementToKeyVal representation of the measurement object
-func measurementToKeyVal(m *faroTypes.Measurement) *keyVal {
-	kv := newKeyVal()
-
-	keyValAdd(kv, faroTimestamp, m.Timestamp.Format(string(faroTypes.TimeFormatRFC3339Milli)))
-	keyValAdd(kv, faroKind, string(faroTypes.KindMeasurement))
-	keyValAdd(kv, faroLogLevel, string(faroTypes.LogLevelInfo))
-	keyValAdd(kv, faroMeasurementType, m.Type)
-	mergeKeyValWithPrefix(kv, keyValFromMap(m.Context), faroContextPrefix)
-
-	for _, k := range slices.Sorted(maps.Keys(m.Values)) {
-		keyValAdd(kv, k, fmt.Sprintf("%f", m.Values[k]))
-	}
-	mergeKeyVal(kv, traceToKeyVal(m.Trace))
-
-	values := make(map[string]float64, len(m.Values))
-	maps.Copy(values, m.Values)
-
-	mergeKeyValWithPrefix(kv, keyValFromFloatMap(values), faroMeasurementValuePrefix)
-	mergeKeyVal(kv, actionToKeyVal(m.Action))
-	return kv
-}
+func measurementToKeyVal(m *faroTypes.Measurement) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // eventToKeyVal produces key -> value representation of Event metadata
-func eventToKeyVal(e *faroTypes.Event) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroTimestamp, e.Timestamp.Format(string(faroTypes.TimeFormatRFC3339Milli)))
-	keyValAdd(kv, faroKind, string(faroTypes.KindEvent))
-	keyValAdd(kv, faroLogLevel, string(faroTypes.LogLevelInfo))
-	keyValAdd(kv, faroEventName, e.Name)
-	keyValAdd(kv, faroEventDomain, e.Domain)
-	if e.Attributes != nil {
-		mergeKeyValWithPrefix(kv, keyValFromMap(e.Attributes), faroEventDataPrefix)
-	}
-	mergeKeyVal(kv, actionToKeyVal(e.Action))
-	mergeKeyVal(kv, traceToKeyVal(e.Trace))
-	return kv
-}
+func eventToKeyVal(e *faroTypes.Event) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // actionToKeyVal produces key->value representation of the Action metadata
-func actionToKeyVal(a faroTypes.Action) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroActionID, a.ID)
-	keyValAdd(kv, faroActionName, a.Name)
-	keyValAdd(kv, faroActionParentID, a.ParentID)
-	return kv
-}
+func actionToKeyVal(a faroTypes.Action) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // metaToKeyVal produces key->value representation of the metadata
-func metaToKeyVal(m faroTypes.Meta) *keyVal {
-	kv := newKeyVal()
-	mergeKeyVal(kv, sdkToKeyVal(m.SDK))
-	mergeKeyVal(kv, appToKeyVal(m.App))
-	mergeKeyVal(kv, userToKeyVal(m.User))
-	mergeKeyVal(kv, sessionToKeyVal(m.Session))
-	mergeKeyVal(kv, pageToKeyVal(m.Page))
-	mergeKeyVal(kv, browserToKeyVal(m.Browser))
-	mergeKeyVal(kv, deviceToKeyVal(m.Device))
-	mergeKeyVal(kv, osToKeyVal(m.OS))
-	mergeKeyVal(kv, k6ToKeyVal(m.K6))
-	mergeKeyVal(kv, viewToKeyVal(m.View))
-	mergeKeyVal(kv, geoToKeyVal(m.Geo))
-	return kv
-}
+func metaToKeyVal(m faroTypes.Meta) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // sdkToKeyVal produces key->value representation of Sdk metadata
-func sdkToKeyVal(sdk faroTypes.SDK) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroSDKName, sdk.Name)
-	keyValAdd(kv, faroSDKVersion, sdk.Version)
-
-	if len(sdk.Integrations) > 0 {
-		integrations := make([]string, len(sdk.Integrations))
-
-		for i, integration := range sdk.Integrations {
-			integrations[i] = sdkIntegrationToString(integration)
-		}
-
-		keyValAdd(kv, faroSDKIntegrations, strings.Join(integrations, ","))
-	}
-
-	return kv
-}
+func sdkToKeyVal(sdk faroTypes.SDK) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // sdkIntegrationToString is the string representation of an SDKIntegration
 func sdkIntegrationToString(i faroTypes.SDKIntegration) string {
-	return fmt.Sprintf("%s:%s", i.Name, i.Version)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // appToKeyVal produces key-> value representation of App metadata
-func appToKeyVal(a faroTypes.App) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroAppName, a.Name)
-	keyValAdd(kv, faroAppNamespace, a.Namespace)
-	keyValAdd(kv, faroAppRelease, a.Release)
-	keyValAdd(kv, faroAppVersion, a.Version)
-	keyValAdd(kv, faroAppEnvironment, a.Environment)
-	keyValAdd(kv, faroAppInstallationID, a.InstallationID)
-	return kv
-}
+func appToKeyVal(a faroTypes.App) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // userToKeyVal produces a key->value representation User metadata
-func userToKeyVal(u faroTypes.User) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroUserEmail, u.Email)
-	keyValAdd(kv, faroUserID, u.ID)
-	keyValAdd(kv, faroUsername, u.Username)
-	mergeKeyValWithPrefix(kv, keyValFromMap(u.Attributes), faroUserAttrPrefix)
-	return kv
-}
+func userToKeyVal(u faroTypes.User) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // sessionToKeyVal produces key->value representation of the Session metadata
-func sessionToKeyVal(s faroTypes.Session) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroSessionID, s.ID)
-	mergeKeyValWithPrefix(kv, keyValFromMap(s.Attributes), faroSessionAttrPrefix)
-	return kv
-}
+func sessionToKeyVal(s faroTypes.Session) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // pageToKeyVal produces key->val representation of Page metadata
-func pageToKeyVal(p faroTypes.Page) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroPageID, p.ID)
-	keyValAdd(kv, faroPageURL, p.URL)
-	mergeKeyValWithPrefix(kv, keyValFromMap(p.Attributes), faroPageAttrPrefix)
-
-	return kv
-}
+func pageToKeyVal(p faroTypes.Page) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // browserToKeyVal produces key->value representation of the Browser metadata
-func browserToKeyVal(b faroTypes.Browser) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroBrowserName, b.Name)
-	keyValAdd(kv, faroBrowserVersion, b.Version)
-	keyValAdd(kv, faroBrowserOS, b.OS)
-	keyValAdd(kv, faroBrowserMobile, fmt.Sprintf("%v", b.Mobile))
-	keyValAdd(kv, faroBrowserUserAgent, b.UserAgent)
-	keyValAdd(kv, faroBrowserLanguage, b.Language)
-	keyValAdd(kv, faroBrowserViewportWidth, b.ViewportWidth)
-	keyValAdd(kv, faroBrowserViewportHeight, b.ViewportHeight)
-
-	if brandsArray, err := b.Brands.AsBrandsArray(); err == nil {
-		for i, brand := range brandsArray {
-			keyValAdd(kv, fmt.Sprintf("%s%d_%s", faroBrowserBrandPrefix, i, faroBrand), brand.Brand)
-			keyValAdd(kv, fmt.Sprintf("%s%d_%s", faroBrowserBrandPrefix, i, faroBrandVersion), brand.Version)
-		}
-		return kv
-	}
-
-	if brandsString, err := b.Brands.AsBrandsString(); err == nil {
-		keyValAdd(kv, faroBrowserBrands, brandsString)
-		return kv
-	}
-
-	return kv
-}
+func browserToKeyVal(b faroTypes.Browser) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // deviceToKeyVal produces key->value representation of Device metadata
-func deviceToKeyVal(d faroTypes.Device) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroDeviceManufacturer, d.Manufacturer)
-	keyValAdd(kv, faroDeviceModelIdentifier, d.ModelIdentifier)
-	keyValAdd(kv, faroDeviceModelName, d.ModelName)
-	keyValAdd(kv, faroDeviceBrand, d.Brand)
-	if d.IsPhysical {
-		keyValAdd(kv, faroDeviceIsPhysical, strconv.FormatBool(d.IsPhysical))
-	}
-	keyValAdd(kv, faroDeviceType, d.Type)
-	return kv
-}
+func deviceToKeyVal(d faroTypes.Device) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // osToKeyVal produces key->value representation of OS metadata
-func osToKeyVal(o faroTypes.OS) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroOSName, o.Name)
-	keyValAdd(kv, faroOSVersion, o.Version)
-	keyValAdd(kv, faroOSBuildID, o.BuildID)
-	keyValAdd(kv, faroOSDetail, o.Detail)
-	return kv
-}
+func osToKeyVal(o faroTypes.OS) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // k6ToKeyVal produces a key->value representation K6 metadata
-func k6ToKeyVal(k faroTypes.K6) *keyVal {
-	kv := newKeyVal()
-	if k.IsK6Browser {
-		keyValAdd(kv, faroIsK6Browser, strconv.FormatBool(k.IsK6Browser))
-	}
-	keyValAdd(kv, faroK6TestRunID, k.TestRunID)
-	return kv
-}
+func k6ToKeyVal(k faroTypes.K6) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // viewToKeyVal produces a key->value representation View metadata
-func viewToKeyVal(v faroTypes.View) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroViewName, v.Name)
-	return kv
-}
+func viewToKeyVal(v faroTypes.View) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // geoToKeyVal produces a key->value representation Geo metadata
-func geoToKeyVal(g faroTypes.Geo) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroGeoContinentIso, g.ContinentISOCode)
-	keyValAdd(kv, faroGeoCountryIso, g.CountryISOCode)
-	keyValAdd(kv, faroGeoSubdivisionIso, g.SubdivisionISO)
-	keyValAdd(kv, faroGeoCity, g.City)
-	keyValAdd(kv, faroGeoASNOrg, g.ASNOrg)
-	keyValAdd(kv, faroGeoASNID, g.ASNID)
-	return kv
-}
+func geoToKeyVal(g faroTypes.Geo) *keyVal { _ = "STUB: not implemented"; return nil }
 
 // traceToKeyVal produces a key->value representation of the trace context object
-func traceToKeyVal(tc faroTypes.TraceContext) *keyVal {
-	kv := newKeyVal()
-	keyValAdd(kv, faroTraceID, tc.TraceID)
-	keyValAdd(kv, faroSpanID, tc.SpanID)
-	return kv
-}
+func traceToKeyVal(tc faroTypes.TraceContext) *keyVal { _ = "STUB: not implemented"; return nil }

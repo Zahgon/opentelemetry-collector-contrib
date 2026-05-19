@@ -4,7 +4,6 @@
 package protocol // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/protocol"
 
 import (
-	"fmt"
 	"slices"
 
 	"go.opentelemetry.io/collector/confmap"
@@ -53,20 +52,7 @@ type ParserConfig interface {
 // Unmarshal is used to load the parser configuration according to the
 // specified parser type.
 func (cfg *Config) Unmarshal(cp *confmap.Conf) error {
+	_ = "STUB: not implemented"
 	// If type is configured then use that, otherwise use default.
-	if configuredType, ok := cp.Get("type").(string); ok {
-		cfg.Type = configuredType
-	}
-
-	defaultCfgFn, ok := parserMap[cfg.Type]
-	if !ok {
-		return fmt.Errorf(
-			"unknown parser type %q, valid parser types: %v",
-			cfg.Type,
-			validParsers)
-	}
-
-	cfg.Config = defaultCfgFn()
-
-	return cp.Unmarshal(cfg)
+	return nil
 }

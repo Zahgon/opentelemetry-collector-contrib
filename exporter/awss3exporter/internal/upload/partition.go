@@ -4,14 +4,8 @@
 package upload // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awss3exporter/internal/upload"
 
 import (
-	"math/rand/v2"
-	"path"
-	"strconv"
-	"strings"
 	"time"
 
-	"github.com/google/uuid"
-	"github.com/itchyny/timefmt-go"
 	"go.opentelemetry.io/collector/config/configcompression"
 )
 
@@ -57,78 +51,33 @@ type PartitionKeyBuilder struct {
 }
 
 func (pki *PartitionKeyBuilder) Build(ts time.Time, overridePrefix string) string {
-	return path.Join(pki.bucketKeyPrefix(ts, overridePrefix), pki.fileName())
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (pki *PartitionKeyBuilder) bucketKeyPrefix(ts time.Time, overridePrefix string) string {
+	_ = "STUB: not implemented"
 	// Don't want to overwrite the actual value
-	prefix := pki.PartitionPrefix
-	// Only override when it's not empty string
-	if overridePrefix != "" {
-		prefix = overridePrefix
-	}
-
-	var pathParts []string
-
-	if pki.PartitionBasePrefix != "" {
-		pathParts = append(pathParts, pki.PartitionBasePrefix)
-	}
-
-	if prefix != "" {
-		pathParts = append(pathParts, prefix)
-	}
-
-	location := pki.PartitionTimeLocation
-	if location == nil {
-		location = time.Local
-	}
-	pathParts = append(pathParts, timefmt.Format(ts.In(location), pki.PartitionFormat))
-
-	return strings.Join(pathParts, "/")
+	return ""
 }
 
-func (pki *PartitionKeyBuilder) fileName() string {
-	var suffix string
+// Only override when it's not empty string
 
-	if pki.FileFormat != "" {
-		suffix = "." + pki.FileFormat
-	}
-
-	if ext, ok := compressionFileExtensions[pki.Compression]; ok {
-		suffix += ext
-	}
-
-	return pki.FilePrefix + pki.Metadata + "_" + pki.uniqueKey() + suffix
-}
+func (pki *PartitionKeyBuilder) fileName() string { _ = "STUB: not implemented"; return "" }
 
 func (pki *PartitionKeyBuilder) uniqueKey() string {
+	_ = "STUB: not implemented"
 	// If a custom function is provided, use it to generate the unique key.
 	// If it fails, fall back to the default random integer generation
 	// so that uploads are not blocked.
-	if pki.UniqueKeyFunc != nil {
-		if k := pki.UniqueKeyFunc(); k != "" {
-			return k
-		}
-	}
-
-	return pki.randInt()
+	return ""
 }
 
-func GenerateUUIDv7() string {
-	id, err := uuid.NewV7()
-	if err != nil {
-		return ""
-	}
-	return id.String()
-}
+func GenerateUUIDv7() string { _ = "STUB: not implemented"; return "" }
 
 func (*PartitionKeyBuilder) randInt() string {
+	_ = "STUB: not implemented"
 	// This follows the original "uniqueness" algorithm
 	// to avoid collisions on file uploads across different nodes.
-	const (
-		uniqueValues = 999999999
-		minOffset    = 100000000
-	)
-
-	return strconv.Itoa(minOffset + rand.IntN(uniqueValues-minOffset))
+	return ""
 }

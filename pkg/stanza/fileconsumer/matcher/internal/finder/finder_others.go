@@ -7,20 +7,9 @@ package finder // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import "github.com/bmatcuk/doublestar/v4"
 
-func getDefaultDoublestarOptions() []doublestar.GlobOption {
-	return []doublestar.GlobOption{}
-}
+func getDefaultDoublestarOptions() []doublestar.GlobOption { _ = "STUB: not implemented"; return nil }
 
-func pathExcluded(excludes []string, path string) bool {
-	for _, exclude := range excludes {
-		if itMatches, _ := doublestar.PathMatch(exclude, path); itMatches {
-			return true
-		}
-	}
-	return false
-}
+func pathExcluded(excludes []string, path string) bool { _ = "STUB: not implemented"; return false }
 
 // fixUNCPath is a no-op on non-Windows platforms
-func fixUNCPath(_, match string) string {
-	return match
-}
+func fixUNCPath(_, match string) string { _ = "STUB: not implemented"; return "" }

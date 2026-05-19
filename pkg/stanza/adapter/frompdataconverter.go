@@ -4,16 +4,11 @@
 package adapter // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
 
 import (
-	"encoding/binary"
-	"math"
-	"runtime"
 	"sync"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 )
@@ -57,42 +52,18 @@ type FromPdataConverter struct {
 }
 
 func NewFromPdataConverter(set component.TelemetrySettings, workerCount int) *FromPdataConverter {
-	if set.Logger == nil {
-		set.Logger = zap.NewNop()
-	}
-	if workerCount <= 0 {
-		workerCount = int(math.Max(1, float64(runtime.NumCPU())))
-	}
-
-	return &FromPdataConverter{
-		set:         set,
-		workerChan:  make(chan fromConverterWorkerItem, workerCount),
-		entriesChan: make(chan []*entry.Entry),
-		stopChan:    make(chan struct{}),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *FromPdataConverter) Start() {
-	c.set.Logger.Debug("Starting log converter from pdata", zap.Int("worker_count", cap(c.workerChan)))
+func (c *FromPdataConverter) Start() { _ = "STUB: not implemented"; return }
 
-	for i := 0; i < cap(c.workerChan); i++ {
-		c.wg.Add(1)
-		go c.workerLoop()
-	}
-}
-
-func (c *FromPdataConverter) Stop() {
-	c.stopOnce.Do(func() {
-		close(c.stopChan)
-		c.wg.Wait()
-		close(c.entriesChan)
-		close(c.workerChan)
-	})
-}
+func (c *FromPdataConverter) Stop() { _ = "STUB: not implemented"; return }
 
 // OutChannel returns the channel on which converted entries will be sent to.
 func (c *FromPdataConverter) OutChannel() <-chan []*entry.Entry {
-	return c.entriesChan
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type fromConverterWorkerItem struct {
@@ -103,99 +74,22 @@ type fromConverterWorkerItem struct {
 
 // workerLoop is responsible for obtaining pdata logs from Batch() calls,
 // converting them to []*entry.Entry and sending them out
-func (c *FromPdataConverter) workerLoop() {
-	defer c.wg.Done()
-
-	for {
-		select {
-		case <-c.stopChan:
-			return
-
-		case workerItem, ok := <-c.workerChan:
-			if !ok {
-				return
-			}
-
-			select {
-			case c.entriesChan <- convertFromLogs(workerItem):
-			case <-c.stopChan:
-				return
-			}
-		}
-	}
-}
+func (c *FromPdataConverter) workerLoop() { _ = "STUB: not implemented"; return }
 
 // Batch takes in an set of plog.Logs and sends it to an available worker for processing.
-func (c *FromPdataConverter) Batch(pLogs plog.Logs) error {
-	for i := 0; i < pLogs.ResourceLogs().Len(); i++ {
-		rls := pLogs.ResourceLogs().At(i)
-		for j := 0; j < rls.ScopeLogs().Len(); j++ {
-			scope := rls.ScopeLogs().At(j)
-			item := fromConverterWorkerItem{
-				Resource:       rls.Resource(),
-				Scope:          scope,
-				LogRecordSlice: scope.LogRecords(),
-			}
-			select {
-			case c.workerChan <- item:
-				continue
-			case <-c.stopChan:
-				return nil
-			}
-		}
-	}
-
-	return nil
-}
+func (c *FromPdataConverter) Batch(pLogs plog.Logs) error { _ = "STUB: not implemented"; return nil }
 
 // convertFromLogs converts the contents of a fromConverterWorkerItem into a slice of entry.Entry
 func convertFromLogs(workerItem fromConverterWorkerItem) []*entry.Entry {
-	result := make([]*entry.Entry, 0, workerItem.LogRecordSlice.Len())
-	for i := 0; i < workerItem.LogRecordSlice.Len(); i++ {
-		record := workerItem.LogRecordSlice.At(i)
-		e := entry.New()
-		e.ObservedTimestamp = time.Time{}
-
-		e.ScopeName = workerItem.Scope.Scope().Name()
-		e.Resource = workerItem.Resource.Attributes().AsRaw()
-		convertFrom(record, e)
-		result = append(result, e)
-	}
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // convertFrom converts plog.LogRecord into provided entry.Entry.
 func convertFrom(src plog.LogRecord, ent *entry.Entry) {
+	_ = "STUB: not implemented"
 	// if src.Timestamp == 0, then leave ent.Timestamp as nil
-	if src.Timestamp() != 0 {
-		ent.Timestamp = src.Timestamp().AsTime()
-	}
-
-	if src.ObservedTimestamp() == 0 {
-		ent.ObservedTimestamp = time.Now()
-	} else {
-		ent.ObservedTimestamp = src.ObservedTimestamp().AsTime()
-	}
-
-	ent.Severity = fromPdataSevMap[src.SeverityNumber()]
-	ent.SeverityText = src.SeverityText()
-
-	ent.Attributes = src.Attributes().AsRaw()
-	ent.Body = src.Body().AsRaw()
-
-	if !src.TraceID().IsEmpty() {
-		buffer := src.TraceID()
-		ent.TraceID = buffer[:]
-	}
-	if !src.SpanID().IsEmpty() {
-		buffer := src.SpanID()
-		ent.SpanID = buffer[:]
-	}
-	if src.Flags() != 0 {
-		a := make([]byte, 4)
-		binary.LittleEndian.PutUint32(a, uint32(src.Flags()))
-		ent.TraceFlags = []byte{a[0]}
-	}
+	return
 }
 
 var fromPdataSevMap = map[plog.SeverityNumber]entry.Severity{

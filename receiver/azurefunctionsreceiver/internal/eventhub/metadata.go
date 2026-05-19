@@ -3,8 +3,6 @@
 
 package eventhub // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azurefunctionsreceiver/internal/eventhub"
 
-import "encoding/json"
-
 // Resource attribute keys for Event Hub trigger metadata on log resources.
 const (
 	AttrEventHubName          = "azure.eventhub.name"
@@ -32,44 +30,15 @@ type Metadata struct {
 // ParseMetadata unmarshals the raw invoke Metadata JSON (e.g. from protocol.InvokeRequest.Metadata)
 // into Event Hub metadata. If the trigger is not Event Hub or metadata is empty, returned attributes may be empty.
 func ParseMetadata(raw []byte) (Metadata, error) {
-	var m Metadata
-	if len(raw) == 0 {
-		return m, nil
-	}
-	if err := json.Unmarshal(raw, &m); err != nil {
-		return Metadata{}, err
-	}
-	return m, nil
+	_ = "STUB: not implemented"
+	return *new(Metadata), nil
 }
 
 // ResourceAttributes returns resource attributes to add to logs when include_metadata is true.
 // Uses TriggerPartitionContext when present (Event Hub trigger).
-func (m *Metadata) ResourceAttributes() map[string]string {
-	attrs := make(map[string]string)
-	ctx := m.TriggerPartitionContext
-	if ctx.EventHubName == "" {
-		return attrs
-	}
-	if ctx.FullyQualifiedNamespace != "" {
-		attrs[AttrEventHubNamespace] = ctx.FullyQualifiedNamespace
-	}
-	attrs[AttrEventHubName] = ctx.EventHubName
-	if ctx.PartitionID != "" {
-		attrs[AttrEventHubPartitionID] = ctx.PartitionID
-	}
-	if ctx.ConsumerGroup != "" {
-		attrs[AttrEventHubConsumerGroup] = ctx.ConsumerGroup
-	}
-	return attrs
-}
+func (m *Metadata) ResourceAttributes() map[string]string { _ = "STUB: not implemented"; return nil }
 
 // ExtractMetadata parses the raw invoke Metadata JSON and returns Event Hub resource
 // attributes. Intended for use as a MetadataExtractor when include_metadata is true.
 // Returns nil on parse error or when no Event Hub context is present.
-func ExtractMetadata(raw []byte) map[string]string {
-	m, err := ParseMetadata(raw)
-	if err != nil {
-		return nil
-	}
-	return m.ResourceAttributes()
-}
+func ExtractMetadata(raw []byte) map[string]string { _ = "STUB: not implemented"; return nil }

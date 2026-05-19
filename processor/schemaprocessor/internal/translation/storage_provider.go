@@ -23,39 +23,16 @@ type StorageProvider struct {
 // delegating to the wrapped provider. Fetched schemas are persisted to storage
 // for use across collector restarts.
 func NewStorageProvider(wrapped Provider, client storage.Client, log *zap.Logger) *StorageProvider {
-	return &StorageProvider{
-		wrapped: wrapped,
-		client:  client,
-		log:     log,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (p *StorageProvider) Retrieve(ctx context.Context, schemaURL string) (string, error) {
+	_ = "STUB: not implemented"
 	// Check persistent storage first.
-	data, err := p.client.Get(ctx, schemaURL)
-	if err == nil && len(data) > 0 {
-		p.log.Debug("schema loaded from storage", zap.String("url", schemaURL))
-		return string(data), nil
-	}
-	if err != nil {
-		p.log.Debug("storage read failed, falling back to HTTP", zap.String("url", schemaURL), zap.Error(err))
-	}
-
-	// Fall through to the wrapped provider (typically HTTP).
-	content, err := p.wrapped.Retrieve(ctx, schemaURL)
-	if err != nil {
-		return "", err
-	}
-
-	if content == "" {
-		p.log.Warn("schema URL returned empty content, skipping storage cache", zap.String("url", schemaURL))
-		return "", nil
-	}
-
-	// Persist to storage for next time. Best-effort — don't fail on storage errors.
-	if err := p.client.Set(ctx, schemaURL, []byte(content)); err != nil {
-		p.log.Warn("failed to persist schema to storage", zap.String("url", schemaURL), zap.Error(err))
-	}
-
-	return content, nil
+	return "", nil
 }
+
+// Fall through to the wrapped provider (typically HTTP).
+
+// Persist to storage for next time. Best-effort — don't fail on storage errors.

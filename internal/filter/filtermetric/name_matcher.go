@@ -17,21 +17,13 @@ type nameMatcher struct {
 }
 
 func newNameMatcher(mp *filterconfig.MetricMatchProperties) (*nameMatcher, error) {
-	nameFS, err := filterset.CreateFilterSet(
-		mp.MetricNames,
-		&filterset.Config{
-			MatchType:    filterset.MatchType(mp.MatchType),
-			RegexpConfig: mp.RegexpConfig,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &nameMatcher{nameFilters: nameFS}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Eval matches a metric using the metric properties configured on the nameMatcher.
 // A metric only matches if every metric property configured on the nameMatcher is a match.
 func (m *nameMatcher) Eval(_ context.Context, tCtx *ottlmetric.TransformContext) (bool, error) {
-	return m.nameFilters.Matches(tCtx.GetMetric().Name()), nil
+	_ = "STUB: not implemented"
+	return false, nil
 }

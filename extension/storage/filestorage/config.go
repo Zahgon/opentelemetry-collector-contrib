@@ -5,10 +5,6 @@ package filestorage // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"errors"
-	"fmt"
-	"io/fs"
-	"os"
-	"strconv"
 	"time"
 )
 
@@ -64,45 +60,4 @@ type CompactionConfig struct {
 	CleanupOnStart bool `mapstructure:"cleanup_on_start,omitempty"`
 }
 
-func (cfg *Config) Validate() error {
-	var dirs []string
-	if cfg.Compaction.OnStart || cfg.Compaction.OnRebound {
-		dirs = []string{cfg.Directory, cfg.Compaction.Directory}
-	} else {
-		dirs = []string{cfg.Directory}
-	}
-	for _, dir := range dirs {
-		if info, err := os.Stat(dir); err != nil {
-			if !cfg.CreateDirectory && os.IsNotExist(err) {
-				return fmt.Errorf("directory must exist: %w. You can enable the create_directory option to automatically create it", err)
-			}
-
-			fsErr := &fs.PathError{}
-			if errors.As(err, &fsErr) && !os.IsNotExist(err) {
-				return fmt.Errorf("problem accessing configured directory: %s, err: %w", dir, fsErr)
-			}
-		} else if !info.IsDir() {
-			return fmt.Errorf("%s is not a directory", dir)
-		}
-	}
-
-	if cfg.Compaction.MaxTransactionSize < 0 {
-		return errors.New("max transaction size for compaction cannot be less than 0")
-	}
-
-	if cfg.Compaction.OnRebound && cfg.Compaction.CheckInterval <= 0 {
-		return errors.New("compaction check interval must be positive when rebound compaction is set")
-	}
-
-	if cfg.CreateDirectory {
-		permissions, err := strconv.ParseInt(cfg.DirectoryPermissions, 8, 32)
-		if err != nil {
-			return errInvalidOctal
-		} else if permissions&int64(os.ModePerm) != permissions {
-			return errInvalidPermissionBits
-		}
-		cfg.directoryPermissionsParsed = permissions
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

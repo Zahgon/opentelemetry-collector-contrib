@@ -5,7 +5,6 @@ package ttlmap // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"sync"
-	"time"
 )
 
 // TTLMap is a map that evicts entries after the configured ttl has elapsed.
@@ -22,48 +21,23 @@ type TTLMap struct {
 // as needed.
 // done is the channel that will be used to signal to the timer to stop its work.
 func New(sweepIntervalSeconds, maxAgeSeconds int64, done chan struct{}) *TTLMap {
-	return &TTLMap{
-		sweepInterval: sweepIntervalSeconds,
-		md:            newTTLMapData(maxAgeSeconds),
-		done:          done,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start starts periodic sweeps for expired entries in the underlying map.
-func (m *TTLMap) Start() {
-	go func() {
-		ticker := time.NewTicker(time.Duration(m.sweepInterval) * time.Second)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case now := <-ticker.C:
-				m.md.sweep(now.Unix())
-			case <-m.done:
-				return
-			}
-		}
-	}()
-}
+func (m *TTLMap) Start() { _ = "STUB: not implemented"; return }
 
 // Put adds the passed-in key and value to the underlying map. The current time
 // is attached to the entry for periodic expiration checking and eviction when
 // necessary.
-func (m *TTLMap) Put(k string, v any) {
-	m.md.put(k, v, time.Now().Unix())
-}
+func (m *TTLMap) Put(k string, v any) { _ = "STUB: not implemented"; return }
 
 // Get returns the object in the underlying map at the given key. If there is no
 // value at that key, Get returns nil.
-func (m *TTLMap) Get(k string) any {
-	return m.md.get(k)
-}
+func (m *TTLMap) Get(k string) any { _ = "STUB: not implemented"; return *new(any) }
 
-func (m *TTLMap) Shutdown() {
-	if m.done != nil {
-		close(m.done)
-	}
-}
+func (m *TTLMap) Shutdown() { _ = "STUB: not implemented"; return }
 
 type entry struct {
 	v          any
@@ -76,36 +50,10 @@ type ttlMapData struct {
 	mux    sync.Mutex
 }
 
-func newTTLMapData(maxAgeSeconds int64) *ttlMapData {
-	return &ttlMapData{
-		maxAge: maxAgeSeconds,
-		m:      map[string]entry{},
-		mux:    sync.Mutex{},
-	}
-}
+func newTTLMapData(maxAgeSeconds int64) *ttlMapData { _ = "STUB: not implemented"; return nil }
 
-func (d *ttlMapData) put(k string, v any, currTime int64) {
-	d.mux.Lock()
-	d.m[k] = entry{v: v, createTime: currTime}
-	d.mux.Unlock()
-}
+func (d *ttlMapData) put(k string, v any, currTime int64) { _ = "STUB: not implemented"; return }
 
-func (d *ttlMapData) get(k string) any {
-	d.mux.Lock()
-	defer d.mux.Unlock()
-	entry, ok := d.m[k]
-	if !ok {
-		return nil
-	}
-	return entry.v
-}
+func (d *ttlMapData) get(k string) any { _ = "STUB: not implemented"; return *new(any) }
 
-func (d *ttlMapData) sweep(currTime int64) {
-	d.mux.Lock()
-	for k, v := range d.m {
-		if currTime-v.createTime > d.maxAge {
-			delete(d.m, k)
-		}
-	}
-	d.mux.Unlock()
-}
+func (d *ttlMapData) sweep(currTime int64) { _ = "STUB: not implemented"; return }

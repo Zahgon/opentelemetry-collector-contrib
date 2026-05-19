@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -40,57 +41,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.LoadbalancerBackendLatency, err = builder.meter.Int64Histogram(
-		"otelcol_loadbalancer_backend_latency",
-		metric.WithDescription("Response latency in ms for the backends. [Development]"),
-		metric.WithUnit("ms"),
-		metric.WithExplicitBucketBoundaries([]float64{5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000}...),
-	)
-	errs = errors.Join(errs, err)
-	builder.LoadbalancerBackendOutcome, err = builder.meter.Int64Counter(
-		"otelcol_loadbalancer_backend_outcome",
-		metric.WithDescription("Number of successes and failures for each endpoint. [Development]"),
-		metric.WithUnit("{outcomes}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.LoadbalancerNumBackendUpdates, err = builder.meter.Int64Counter(
-		"otelcol_loadbalancer_num_backend_updates",
-		metric.WithDescription("Number of times the list of backends was updated. [Development]"),
-		metric.WithUnit("{updates}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.LoadbalancerNumBackends, err = builder.meter.Int64Gauge(
-		"otelcol_loadbalancer_num_backends",
-		metric.WithDescription("Current number of backends in use. [Development]"),
-		metric.WithUnit("{backends}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.LoadbalancerNumResolutions, err = builder.meter.Int64Counter(
-		"otelcol_loadbalancer_num_resolutions",
-		metric.WithDescription("Number of times the resolver has triggered new resolutions. [Development]"),
-		metric.WithUnit("{resolutions}"),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

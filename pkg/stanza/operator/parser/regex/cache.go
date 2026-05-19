@@ -4,7 +4,6 @@
 package regex // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/parser/regex"
 
 import (
-	"maps"
 	"math"
 	"sync"
 	"sync/atomic"
@@ -23,14 +22,9 @@ type cache interface {
 // newMemoryCache takes a cache size and a limiter interval and
 // returns a new memory backed cache
 func newMemoryCache(maxSize uint16, interval uint64) *memoryCache {
+	_ = "STUB: not implemented"
 	// start throttling when cache turnover is above 100%
-	limit := uint64(maxSize) + 1
-
-	return &memoryCache{
-		cache:   make(map[string]any),
-		keys:    make(chan string, maxSize),
-		limiter: newStartedAtomicLimiter(limit, interval),
-	}
+	return nil
 }
 
 // memoryCache is an in memory cache of items with a pre defined
@@ -60,63 +54,38 @@ var _ cache = (&memoryCache{})
 
 // get returns a cached entry, nil if it does not exist
 func (m *memoryCache) get(key string) any {
+	_ = "STUB: not implemented"
 	// Read and unlock as fast as possible
-	m.mutex.RLock()
-	data := m.cache[key]
-	m.mutex.RUnlock()
-
-	return data
+	return *new(any)
 }
 
 // add inserts an item into the cache, if the cache is full, the
 // oldest item is removed
-func (m *memoryCache) add(key string, data any) bool {
-	if m.limiter.throttled() {
-		return false
-	}
+func (m *memoryCache) add(key string, data any) bool { _ = "STUB: not implemented"; return false }
 
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
+// Pop the oldest key from the channel
+// and remove it from the cache
 
-	if len(m.keys) == cap(m.keys) {
-		// Pop the oldest key from the channel
-		// and remove it from the cache
-		delete(m.cache, <-m.keys)
+// notify the rate limiter that an entry
+// was evicted
 
-		// notify the rate limiter that an entry
-		// was evicted
-		m.limiter.increment()
-	}
-
-	// Write the cached entry and add the key
-	// to the channel
-	m.cache[key] = data
-	m.keys <- key
-	return true
-}
+// Write the cached entry and add the key
+// to the channel
 
 // copy returns a deep copy of the cache
-func (m *memoryCache) copy() map[string]any {
-	cp := make(map[string]any, cap(m.keys))
-
-	m.mutex.Lock()
-	defer m.mutex.Unlock()
-
-	maps.Copy(cp, m.cache)
-	return cp
-}
+func (m *memoryCache) copy() map[string]any { _ = "STUB: not implemented"; return nil }
 
 // maxSize returns the max size of the cache
-func (m *memoryCache) maxSize() uint16 {
-	return uint16(cap(m.keys))
-}
+func (m *memoryCache) maxSize() uint16 { _ = "STUB: not implemented"; return 0 }
 
 func (m *memoryCache) stop() {
-	m.limiter.stop()
+	_ = "STUB: not implemented"
+
+	// limiter provides rate limiting methods for
+	// the cache
+	return
 }
 
-// limiter provides rate limiting methods for
-// the cache
 type limiter interface {
 	init()
 	increment()
@@ -129,19 +98,8 @@ type limiter interface {
 
 // newStartedAtomicLimiter returns a started atomicLimiter
 func newStartedAtomicLimiter(maxVal, interval uint64) *atomicLimiter {
-	if interval == 0 {
-		interval = 5
-	}
-
-	a := &atomicLimiter{
-		count:    &atomic.Uint64{},
-		max:      maxVal,
-		interval: time.Second * time.Duration(interval),
-		done:     make(chan struct{}),
-	}
-
-	a.init()
-	return a
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // atomicLimiter enables rate limiting using an atomic
@@ -182,34 +140,22 @@ func (l *atomicLimiter) init() {
 }
 
 // increment increments the atomic counter
-func (l *atomicLimiter) increment() {
-	if l.count.Load() == l.max {
-		return
-	}
-	l.count.Add(1)
-}
+func (l *atomicLimiter) increment() { _ = "STUB: not implemented"; return }
 
 // Returns true if the cache is currently throttled, meaning a high
 // number of evictions have recently occurred due to the cache being
 // full. When the cache is constantly locked, reads and writes are
 // blocked, causing the regex parser to be slower than if it was
 // not caching at all.
-func (l *atomicLimiter) throttled() bool {
-	return l.currentCount() >= l.max
-}
+func (l *atomicLimiter) throttled() bool { _ = "STUB: not implemented"; return false }
 
-func (l *atomicLimiter) currentCount() uint64 {
-	return l.count.Load()
-}
+func (l *atomicLimiter) currentCount() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (l *atomicLimiter) limit() uint64 {
-	return l.max
-}
+func (l *atomicLimiter) limit() uint64 { _ = "STUB: not implemented"; return 0 }
 
 func (l *atomicLimiter) resetInterval() time.Duration {
-	return l.interval
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }
 
-func (l *atomicLimiter) stop() {
-	close(l.done)
-}
+func (l *atomicLimiter) stop() { _ = "STUB: not implemented"; return }

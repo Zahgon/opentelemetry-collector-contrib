@@ -15,11 +15,4 @@ const (
 )
 
 // IsValidDriver checks if the given driver name is supported
-func IsValidDriver(driver string) bool {
-	switch driver {
-	case DriverClickHouse, DriverHDB, DriverMySQL, DriverOracle, DriverPostgres, DriverSnowflake, DriverSQLServer, DriverTDS:
-		return true
-	default:
-		return false
-	}
-}
+func IsValidDriver(driver string) bool { _ = "STUB: not implemented"; return false }

@@ -6,9 +6,7 @@ package snowflakereceiver // import "github.com/open-telemetry/opentelemetry-col
 import (
 	"context"
 	"database/sql"
-	"fmt"
 
-	sf "github.com/snowflakedb/gosnowflake/v2"
 	"go.opentelemetry.io/collector/component"
 	"go.uber.org/zap"
 )
@@ -35,377 +33,58 @@ type snowflakeClient struct {
 }
 
 // build snowflake db connection string
-func buildDSN(cfg Config) (string, error) {
-	conf := &sf.Config{
-		Account:   cfg.Account,
-		User:      cfg.Username,
-		Password:  string(cfg.Password),
-		Database:  cfg.Database,
-		Schema:    cfg.Schema,
-		Role:      cfg.Role,
-		Warehouse: cfg.Warehouse,
-	}
-
-	return sf.DSN(conf)
-}
+func buildDSN(cfg Config) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 func newDefaultClient(settings component.TelemetrySettings, c Config) (*snowflakeClient, error) {
-	dsn, err := buildDSN(c)
-	if err != nil {
-		return nil, err
-	}
-	db, err := sql.Open("snowflake", dsn)
-	if err != nil {
-		return nil, err
-	}
-
-	return &snowflakeClient{
-		client: db,
-		dsn:    &dsn,
-		logger: settings.Logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // queries database and returns resulting rows
 func (c snowflakeClient) readDB(ctx context.Context, q string) (*sql.Rows, error) {
-	rows, err := c.client.QueryContext(ctx, q)
-	if err != nil {
-		c.logger.Error(fmt.Sprintf("Query failed with %v", err))
-		return nil, err
-	}
-
-	return rows, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // these wrap readDB and return the associated data type which the scraper will
 // use to generate and emit metrics. Which of these are called will be based on which metrics
 // are enabled in the Config (default is all of them)
 func (c snowflakeClient) FetchBillingMetrics(ctx context.Context) (*[]billingMetric, error) {
-	rows, err := c.readDB(ctx, billingMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", billingMetricsQuery)
-		return nil, err
-	}
-
-	var res []billingMetric
-
-	for rows.Next() {
-		var serviceType, serviceName sql.NullString
-		var totalCloudService, totalTotalCredits, totalVirtualWarehouseCredits float64
-
-		err := rows.Scan(&serviceType, &serviceName, &totalVirtualWarehouseCredits, &totalCloudService, &totalTotalCredits)
-		if err != nil {
-			return nil, err
-		}
-
-		res = append(res, billingMetric{
-			serviceType:                  serviceType,
-			serviceName:                  serviceName,
-			totalCloudService:            totalCloudService,
-			totalCredits:                 totalTotalCredits,
-			totalVirtualWarehouseCredits: totalVirtualWarehouseCredits,
-		})
-	}
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchWarehouseBillingMetrics(ctx context.Context) (*[]whBillingMetric, error) {
-	rows, err := c.readDB(ctx, warehouseBillingMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", warehouseBillingMetricsQuery)
-		return nil, err
-	}
-
-	var res []whBillingMetric
-
-	for rows.Next() {
-		var warehouseName sql.NullString
-		var totalCloudService, totalTotalCredit, totalVirtualWarehouse float64
-
-		err := rows.Scan(&warehouseName, &totalVirtualWarehouse, &totalCloudService, &totalTotalCredit)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, whBillingMetric{
-			warehouseName:         warehouseName,
-			totalCloudService:     totalCloudService,
-			totalCredit:           totalTotalCredit,
-			totalVirtualWarehouse: totalVirtualWarehouse,
-		})
-	}
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchLoginMetrics(ctx context.Context) (*[]loginMetric, error) {
-	rows, err := c.readDB(ctx, loginMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", loginMetricsQuery)
-		return nil, err
-	}
-
-	var res []loginMetric
-
-	for rows.Next() {
-		var (
-			userName           sql.NullString
-			errorMessage       sql.NullString
-			reportedClientType sql.NullString
-			isSuccess          sql.NullString
-		)
-		var loginsTotal int64
-
-		err := rows.Scan(&userName, &errorMessage, &reportedClientType, &isSuccess, &loginsTotal)
-		if err != nil {
-			return nil, err
-		}
-
-		res = append(res, loginMetric{
-			userName:           userName,
-			loginsTotal:        loginsTotal,
-			errorMessage:       errorMessage,
-			reportedClientType: reportedClientType,
-			isSuccess:          isSuccess,
-		})
-	}
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchHighLevelQueryMetrics(ctx context.Context) (*[]hlQueryMetric, error) {
-	rows, err := c.readDB(ctx, highLevelQueryMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", highLevelQueryMetricsQuery)
-		return nil, err
-	}
-
-	var res []hlQueryMetric
-
-	for rows.Next() {
-		var (
-			avgQueryExecuted        float64
-			avgQueryBlocked         float64
-			avgQueryQueuedOverload  float64
-			avgQueryQueuedProvision float64
-		)
-		var warehouseName sql.NullString
-
-		err := rows.Scan(&warehouseName, &avgQueryExecuted, &avgQueryQueuedOverload,
-			&avgQueryQueuedProvision, &avgQueryBlocked)
-		if err != nil {
-			return nil, err
-		}
-
-		res = append(res,
-			hlQueryMetric{
-				warehouseName:           warehouseName,
-				avgQueryExecuted:        avgQueryExecuted,
-				avgQueryBlocked:         avgQueryBlocked,
-				avgQueryQueuedOverload:  avgQueryQueuedOverload,
-				avgQueryQueuedProvision: avgQueryQueuedProvision,
-			})
-	}
-
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchDbMetrics(ctx context.Context) (*[]dbMetric, error) {
-	rows, err := c.readDB(ctx, dbMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", dbMetricsQuery)
-		return nil, err
-	}
-
-	var res []dbMetric
-
-	for rows.Next() {
-		var (
-			schemaName      sql.NullString
-			executionStatus sql.NullString
-			errorMessage    sql.NullString
-			queryType       sql.NullString
-			warehouseName   sql.NullString
-			databaseName    sql.NullString
-			warehouseSize   sql.NullString
-			userName        sql.NullString
-		)
-		var (
-			avgBytesScanned           float64
-			avgDataScannedCache       float64
-			avgQueuedOverloadTime     float64
-			avgQueuedProvisioningTime float64
-			avgQueuedRepairTime       float64
-			databaseQueryCount        int64
-			avgBytesDeleted           float64
-			avgBytesSpilledRemote     float64
-			avgBytesSpilledLocal      float64
-			avgBytesWritten           float64
-			avgCompilationTime        float64
-			avgExecutionTime          float64
-			avgPartitionsScanned      float64
-			avgRowsInserted           float64
-			avgRowsDeleted            float64
-			avgRowsProduced           float64
-			avgRowsUnloaded           float64
-			avgRowsUpdated            float64
-			avgTotalElapsedTime       float64
-		)
-		var attributes dbMetricAttributes
-		var db dbMetric
-
-		err := rows.Scan(&schemaName, &executionStatus,
-			&errorMessage, &queryType, &warehouseName, &databaseName,
-			&warehouseSize, &userName, &databaseQueryCount, &avgQueuedOverloadTime,
-			&avgQueuedRepairTime, &avgQueuedProvisioningTime, &avgTotalElapsedTime,
-			&avgExecutionTime, &avgCompilationTime, &avgBytesScanned, &avgBytesWritten,
-			&avgBytesDeleted, &avgBytesSpilledLocal, &avgBytesSpilledRemote,
-			&avgDataScannedCache, &avgPartitionsScanned, &avgRowsUnloaded,
-			&avgRowsDeleted, &avgRowsUpdated, &avgRowsInserted, &avgRowsProduced)
-		if err != nil {
-			return nil, err
-		}
-		attributes = dbMetricAttributes{
-			userName:        userName,
-			schemaName:      schemaName,
-			executionStatus: executionStatus,
-			errorMessage:    errorMessage,
-			queryType:       queryType,
-			warehouseName:   warehouseName,
-			databaseName:    databaseName,
-			warehouseSize:   warehouseSize,
-		}
-		db = dbMetric{
-			attributes:                attributes,
-			databaseQueryCount:        databaseQueryCount,
-			avgBytesScanned:           avgBytesScanned,
-			avgBytesDeleted:           avgBytesDeleted,
-			avgBytesSpilledRemote:     avgBytesSpilledRemote,
-			avgBytesSpilledLocal:      avgBytesSpilledLocal,
-			avgBytesWritten:           avgBytesWritten,
-			avgCompilationTime:        avgCompilationTime,
-			avgDataScannedCache:       avgDataScannedCache,
-			avgExecutionTime:          avgExecutionTime,
-			avgPartitionsScanned:      avgPartitionsScanned,
-			avgQueuedOverloadTime:     avgQueuedOverloadTime,
-			avgQueuedProvisioningTime: avgQueuedProvisioningTime,
-			avgQueuedRepairTime:       avgQueuedRepairTime,
-			avgRowsInserted:           avgRowsInserted,
-			avgRowsDeleted:            avgRowsDeleted,
-			avgRowsProduced:           avgRowsProduced,
-			avgRowsUnloaded:           avgRowsUnloaded,
-			avgRowsUpdated:            avgRowsUpdated,
-			avgTotalElapsedTime:       avgTotalElapsedTime,
-		}
-		res = append(res, db)
-	}
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchSessionMetrics(ctx context.Context) (*[]sessionMetric, error) {
-	rows, err := c.readDB(ctx, sessionMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", sessionMetricsQuery)
-		return nil, err
-	}
-
-	var res []sessionMetric
-
-	for rows.Next() {
-		var userName sql.NullString
-		var distinctSessionID int64
-
-		err := rows.Scan(&userName, &distinctSessionID)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, sessionMetric{
-			userName:          userName,
-			distinctSessionID: distinctSessionID,
-		})
-	}
-
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchSnowpipeMetrics(ctx context.Context) (*[]snowpipeMetric, error) {
-	rows, err := c.readDB(ctx, snowpipeMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", snowpipeMetricsQuery)
-		return nil, err
-	}
-
-	var res []snowpipeMetric
-
-	for rows.Next() {
-		var pipeName sql.NullString
-		var creditsUsed, bytesInserted float64
-		var filesInserted int64
-
-		err := rows.Scan(&pipeName, &creditsUsed, &bytesInserted, &filesInserted)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, snowpipeMetric{
-			pipeName:      pipeName,
-			creditsUsed:   creditsUsed,
-			bytesInserted: bytesInserted,
-			filesInserted: filesInserted,
-		})
-	}
-
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c snowflakeClient) FetchStorageMetrics(ctx context.Context) (*[]storageMetric, error) {
-	rows, err := c.readDB(ctx, storageMetricsQuery)
-	if err != nil {
-		return nil, err
-	}
-
-	if rows == nil {
-		err = fmt.Errorf("no rows returned by query: %v", storageMetricsQuery)
-		return nil, err
-	}
-
-	var res []storageMetric
-
-	for rows.Next() {
-		var storageBytes, stageBytes, failsafeBytes float64
-		err := rows.Scan(&storageBytes, &stageBytes, &failsafeBytes)
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, storageMetric{
-			storageBytes:  storageBytes,
-			stageBytes:    stageBytes,
-			failsafeBytes: failsafeBytes,
-		})
-	}
-	return &res, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

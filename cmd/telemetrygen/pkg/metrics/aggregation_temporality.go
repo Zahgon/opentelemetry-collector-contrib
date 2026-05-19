@@ -4,35 +4,19 @@
 package metrics
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 )
 
 type AggregationTemporality metricdata.Temporality
 
-func (t *AggregationTemporality) Set(v string) error {
-	switch v {
-	case "delta":
-		*t = AggregationTemporality(metricdata.DeltaTemporality)
-		return nil
-	case "cumulative":
-		*t = AggregationTemporality(metricdata.CumulativeTemporality)
-		return nil
-	default:
-		return errors.New(`temporality must be one of "delta" or "cumulative"`)
-	}
-}
+func (t *AggregationTemporality) Set(v string) error { _ = "STUB: not implemented"; return nil }
 
-func (t *AggregationTemporality) String() string {
-	return string(metricdata.Temporality(*t))
-}
+func (t *AggregationTemporality) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*AggregationTemporality) Type() string {
-	return "temporality"
-}
+func (*AggregationTemporality) Type() string { _ = "STUB: not implemented"; return "" }
 
 // AsTemporality converts the AggregationTemporality to metricdata.Temporality
 func (t AggregationTemporality) AsTemporality() metricdata.Temporality {
-	return metricdata.Temporality(t)
+	_ = "STUB: not implemented"
+	return *new(metricdata.Temporality)
 }

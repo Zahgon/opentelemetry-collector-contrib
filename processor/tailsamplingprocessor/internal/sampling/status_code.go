@@ -5,9 +5,6 @@ package sampling // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"slices"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -27,42 +24,14 @@ var _ samplingpolicy.Evaluator = (*statusCodeFilter)(nil)
 // NewStatusCodeFilter creates a policy evaluator that samples all traces with
 // a given status code.
 func NewStatusCodeFilter(settings component.TelemetrySettings, statusCodeString []string) (samplingpolicy.Evaluator, error) {
-	if len(statusCodeString) == 0 {
-		return nil, errors.New("expected at least one status code to filter on")
-	}
-
-	statusCodes := make([]ptrace.StatusCode, len(statusCodeString))
-
-	for i := range statusCodeString {
-		switch statusCodeString[i] {
-		case "OK":
-			statusCodes[i] = ptrace.StatusCodeOk
-		case "ERROR":
-			statusCodes[i] = ptrace.StatusCodeError
-		case "UNSET":
-			statusCodes[i] = ptrace.StatusCodeUnset
-		default:
-			return nil, fmt.Errorf("unknown status code %q, supported: OK, ERROR, UNSET", statusCodeString[i])
-		}
-	}
-
-	return &statusCodeFilter{
-		logger:      settings.Logger,
-		statusCodes: statusCodes,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator), nil
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 func (r *statusCodeFilter) Evaluate(_ context.Context, _ pcommon.TraceID, trace *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	r.logger.Debug("Evaluating spans in status code filter")
-
-	batches := trace.ReceivedBatches
-
-	return hasSpanWithCondition(batches, func(span ptrace.Span) bool {
-		return slices.Contains(r.statusCodes, span.Status().Code())
-	}), nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (*statusCodeFilter) IsStateful() bool {
-	return false
-}
+func (*statusCodeFilter) IsStateful() bool { _ = "STUB: not implemented"; return false }

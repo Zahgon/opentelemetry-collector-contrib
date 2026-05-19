@@ -8,7 +8,6 @@ import (
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 // cloudNamespaceProcessor adds the `cloud.namespace` resource attribute to logs, metrics and traces.
@@ -24,56 +23,31 @@ const (
 )
 
 func newCloudNamespaceProcessor(addCloudNamespace bool) *cloudNamespaceProcessor {
-	return &cloudNamespaceProcessor{
-		addCloudNamespace: addCloudNamespace,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*cloudNamespaceProcessor) processLogs(logs plog.Logs) error {
-	for i := 0; i < logs.ResourceLogs().Len(); i++ {
-		addCloudNamespaceAttribute(logs.ResourceLogs().At(i).Resource().Attributes())
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*cloudNamespaceProcessor) processMetrics(metrics pmetric.Metrics) error {
-	for i := 0; i < metrics.ResourceMetrics().Len(); i++ {
-		addCloudNamespaceAttribute(metrics.ResourceMetrics().At(i).Resource().Attributes())
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*cloudNamespaceProcessor) processTraces(traces ptrace.Traces) error {
-	for i := 0; i < traces.ResourceSpans().Len(); i++ {
-		addCloudNamespaceAttribute(traces.ResourceSpans().At(i).Resource().Attributes())
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (proc *cloudNamespaceProcessor) isEnabled() bool {
-	return proc.addCloudNamespace
-}
+func (proc *cloudNamespaceProcessor) isEnabled() bool { _ = "STUB: not implemented"; return false }
 
-func (*cloudNamespaceProcessor) ConfigPropertyName() string {
-	return "add_cloud_namespace"
-}
+func (*cloudNamespaceProcessor) ConfigPropertyName() string { _ = "STUB: not implemented"; return "" }
 
 // addCloudNamespaceAttribute adds the `cloud.namespace` attribute
 // to a collection of attributes that already contains a `cloud.platform` attribute.
 // It does not add the `cloud.namespace` attribute for all `cloud.platform` values,
 // but only for a few specific ones - namely AWS EC2, AWS ECS, and AWS Elastic Beanstalk.
-func addCloudNamespaceAttribute(attributes pcommon.Map) {
-	cloudPlatformAttributeValue, found := attributes.Get(string(conventions.CloudPlatformKey))
-	if !found {
-		return
-	}
-
-	switch cloudPlatformAttributeValue.Str() {
-	case conventions.CloudPlatformAWSEC2.Value.AsString():
-		attributes.PutStr(cloudNamespaceAttributeName, cloudNamespaceAwsEc2)
-	case conventions.CloudPlatformAWSECS.Value.AsString():
-		attributes.PutStr(cloudNamespaceAttributeName, cloudNamespaceAwsEcs)
-	case conventions.CloudPlatformAWSElasticBeanstalk.Value.AsString():
-		attributes.PutStr(cloudNamespaceAttributeName, cloudNamespaceAwsBeanstalk)
-	}
-}
+func addCloudNamespaceAttribute(attributes pcommon.Map) { _ = "STUB: not implemented"; return }

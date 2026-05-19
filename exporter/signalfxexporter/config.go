@@ -4,7 +4,6 @@
 package signalfxexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter"
 
 import (
-	"errors"
 	"fmt"
 	"net/url"
 	"time"
@@ -21,7 +20,6 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/correlation"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/translation"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/translation/dpfilters"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/gopsutilenv"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/splunk"
 )
 
@@ -167,107 +165,31 @@ type DimensionClientConfig struct {
 }
 
 func (cfg *Config) getMetricTranslator(done chan struct{}) (*translation.MetricTranslator, error) {
-	var rules []translation.Rule
-	// The new way to disable default translation rules. This override any setting of the default TranslationRules.
-	if cfg.DisableDefaultTranslationRules {
-		rules = []translation.Rule{}
-	} else {
-		rules = defaultTranslationRules
-	}
-	metricTranslator, err := translation.NewMetricTranslator(rules, cfg.DeltaTranslationTTL, done)
-	if err != nil {
-		return nil, fmt.Errorf("invalid default translation rules: %w", err)
-	}
+	_ = "STUB: not implemented"
+	return nil,
 
-	return metricTranslator, nil
+		// The new way to disable default translation rules. This override any setting of the default TranslationRules.
+		nil
 }
 
-func (cfg *Config) getIngestURL() (*url.URL, error) {
-	strURL := cfg.IngestURL
-	if cfg.IngestURL == "" {
-		strURL = fmt.Sprintf("https://ingest.%s.observability.splunkcloud.com", cfg.Realm)
-	}
+func (cfg *Config) getIngestURL() (*url.URL, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	ingestURL, err := url.Parse(strURL)
-	if err != nil {
-		return nil, fmt.Errorf("invalid \"ingest_url\": %w", err)
-	}
-	return ingestURL, nil
-}
-
-func (cfg *Config) getAPIURL() (*url.URL, error) {
-	strURL := cfg.APIURL
-	if cfg.APIURL == "" {
-		strURL = fmt.Sprintf("https://api.%s.observability.splunkcloud.com", cfg.Realm)
-	}
-
-	apiURL, err := url.Parse(strURL)
-	if err != nil {
-		return nil, fmt.Errorf("invalid \"api_url\": %w", err)
-	}
-	return apiURL, nil
-}
+func (cfg *Config) getAPIURL() (*url.URL, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		// Nothing to do if there is no config given.
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 
-	if err := componentParser.Unmarshal(cfg, confmap.WithIgnoreUnused()); err != nil {
-		return err
-	}
-
-	return setDefaultExcludes(cfg)
+	// Nothing to do if there is no config given.
 }
 
 // Validate checks if the exporter configuration is valid.
-func (cfg *Config) Validate() error {
-	if cfg.AccessToken == "" {
-		return errors.New(`requires a non-empty "access_token"`)
-	}
-
-	if cfg.Realm == "" && (cfg.IngestURL == "" || cfg.APIURL == "") {
-		return errors.New(`requires a non-empty "realm", or` +
-			` "ingest_url" and "api_url" should be explicitly set`)
-	}
-
-	if cfg.Timeout < 0 {
-		return errors.New(`cannot have a negative "timeout"`)
-	}
-
-	if cfg.SyncHostMetadata {
-		if err := gopsutilenv.ValidateRootPath(cfg.RootPath); err != nil {
-			return fmt.Errorf("invalid root_path: %w", err)
-		}
-	}
-
-	for k, v := range cfg.DefaultProperties {
-		if v == "" {
-			return fmt.Errorf(`"default_properties" contains an empty value under key %q`, k)
-		}
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func setDefaultExcludes(cfg *Config) error {
+	_ = "STUB: not implemented"
 	// If ExcludeMetrics is not set to empty, append defaults.
-	if cfg.ExcludeMetrics == nil || len(cfg.ExcludeMetrics) > 0 {
-		cfg.ExcludeMetrics = append(cfg.ExcludeMetrics, defaultExcludeMetrics...)
-	}
 	return nil
 }
 
-func loadConfig(bytes []byte) (Config, error) {
-	var cfg Config
-	var data map[string]any
-	if err := yaml.Unmarshal(bytes, &data); err != nil {
-		return cfg, err
-	}
-
-	if err := confmap.NewFromStringMap(data).Unmarshal(&cfg); err != nil {
-		return cfg, fmt.Errorf("failed to load default exclude metrics: %w", err)
-	}
-
-	return cfg, nil
-}
+func loadConfig(bytes []byte) (Config, error) { _ = "STUB: not implemented"; return *new(Config), nil }

@@ -4,15 +4,10 @@
 package elasticsearchexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter"
 
 import (
-	"encoding/base64"
 	"errors"
-	"fmt"
 	"net/url"
-	"os"
-	"strings"
 	"time"
 
-	"go.opentelemetry.io/collector/config/configcompression"
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
@@ -310,21 +305,7 @@ const (
 	NumMappingModes
 )
 
-func (m MappingMode) String() string {
-	switch m {
-	case MappingNone:
-		return "none"
-	case MappingECS:
-		return "ecs"
-	case MappingOTel:
-		return "otel"
-	case MappingRaw:
-		return "raw"
-	case MappingBodyMap:
-		return "bodymap"
-	}
-	return ""
-}
+func (m MappingMode) String() string { _ = "STUB: not implemented"; return "" }
 
 var (
 	errConfigEndpointRequired = errors.New("exactly one of [endpoint, endpoints, cloudid] must be specified")
@@ -333,92 +314,17 @@ var (
 
 const defaultElasticsearchEnvName = "ELASTICSEARCH_URL"
 
-func (cfg *Config) Unmarshal(conf *confmap.Conf) error {
-	if err := conf.Unmarshal(cfg); err != nil {
-		return err
-	}
-	if !conf.IsSet("sending_queue::num_consumers") && conf.IsSet("num_workers") {
-		cfg.QueueBatchConfig.Get().NumConsumers = cfg.NumWorkers
-	}
-	if cfg.QueueBatchConfig.HasValue() && cfg.QueueBatchConfig.Get().Batch.HasValue() {
-		qbCfg := cfg.QueueBatchConfig.Get().Batch.Get()
-		if !conf.IsSet("sending_queue::batch::flush_timeout") && conf.IsSet("flush::interval") {
-			qbCfg.FlushTimeout = cfg.Flush.Interval
-		}
-		if !conf.IsSet("sending_queue::batch::max_size") && conf.IsSet("flush::bytes") {
-			qbCfg.MaxSize = int64(cfg.Flush.Bytes)
-		}
-	}
-	return nil
-}
+func (cfg *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // Validate validates the elasticsearch server configuration.
-func (cfg *Config) Validate() error {
-	endpoints, err := cfg.endpoints()
-	if err != nil {
-		return err
-	}
-	for _, endpoint := range endpoints {
-		if err := validateEndpoint(endpoint); err != nil {
-			return fmt.Errorf("invalid endpoint %q: %w", endpoint, err)
-		}
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	canonicalAllowedModes := make([]string, len(cfg.Mapping.AllowedModes))
-	for i, name := range cfg.Mapping.AllowedModes {
-		canonicalName := canonicalMappingModeName(name)
-		if _, ok := canonicalMappingModes[canonicalName]; !ok {
-			return fmt.Errorf("unknown allowed mapping mode name %q", name)
-		}
-		canonicalAllowedModes[i] = canonicalName
-	}
-
-	if cfg.Compression != "none" && cfg.Compression != configcompression.TypeGzip {
-		return errors.New("compression must be one of [none, gzip]")
-	}
-
-	if cfg.Retry.MaxRequests != 0 && cfg.Retry.MaxRetries != 0 {
-		return errors.New("must not specify both retry::max_requests and retry::max_retries")
-	}
-	if cfg.Retry.MaxRequests < 0 {
-		return errors.New("retry::max_requests should be non-negative")
-	}
-	if cfg.Retry.MaxRetries < 0 {
-		return errors.New("retry::max_retries should be non-negative")
-	}
-
-	if cfg.LogsIndex != "" && cfg.LogsDynamicIndex.Enabled {
-		return errors.New("must not specify both logs_index and logs_dynamic_index; logs_index should be empty unless all documents should be sent to the same index")
-	}
-	if cfg.MetricsIndex != "" && cfg.MetricsDynamicIndex.Enabled {
-		return errors.New("must not specify both metrics_index and metrics_dynamic_index; metrics_index should be empty unless all documents should be sent to the same index")
-	}
-	if cfg.TracesIndex != "" && cfg.TracesDynamicIndex.Enabled {
-		return errors.New("must not specify both traces_index and traces_dynamic_index; traces_index should be empty unless all documents should be sent to the same index")
-	}
-
-	uniq := map[string]struct{}{}
-	for i, k := range cfg.MetadataKeys {
-		kl := strings.ToLower(k)
-		if _, has := uniq[kl]; has {
-			return fmt.Errorf("metadata_keys must be case-insenstive and unique, found duplicate: %s", kl)
-		}
-		uniq[kl] = struct{}{}
-		// convert metadata keys to lower case as these are case insensitive
-		cfg.MetadataKeys[i] = kl
-	}
-
-	return nil
-}
+// convert metadata keys to lower case as these are case insensitive
 
 // allowedMappingModes returns a map from canonical mapping mode names to MappingModes.
 func (cfg *Config) allowedMappingModes() map[string]MappingMode {
-	modes := make(map[string]MappingMode)
-	for _, name := range cfg.Mapping.AllowedModes {
-		canonical := canonicalMappingModeName(name)
-		modes[canonical] = canonicalMappingModes[canonical]
-	}
-	return modes
+	_ = "STUB: not implemented"
+	return nil
 }
 
 var canonicalMappingModes = map[string]MappingMode{
@@ -429,122 +335,24 @@ var canonicalMappingModes = map[string]MappingMode{
 	MappingBodyMap.String(): MappingBodyMap,
 }
 
-func canonicalMappingModeName(name string) string {
-	lower := strings.ToLower(name)
-	switch lower {
-	case "", "no": // aliases for "none"
-		return "none"
-	default:
-		return lower
-	}
-}
+func canonicalMappingModeName(name string) string { _ = "STUB: not implemented"; return "" }
+
+// aliases for "none"
 
 func (cfg *Config) endpoints() ([]string, error) {
+	_ = "STUB: not implemented"
 	// Exactly one of endpoint, endpoints, or cloudid must be configured.
 	// If none are set, then $ELASTICSEARCH_URL may be specified instead.
-	var endpoints []string
-	var numEndpointConfigs int
-	if cfg.Endpoint != "" {
-		numEndpointConfigs++
-		endpoints = []string{cfg.Endpoint}
-	}
-	if len(cfg.Endpoints) > 0 {
-		numEndpointConfigs++
-		endpoints = cfg.Endpoints
-	}
-	if cfg.CloudID != "" {
-		numEndpointConfigs++
-		u, err := parseCloudID(cfg.CloudID)
-		if err != nil {
-			return nil, err
-		}
-		endpoints = []string{u.String()}
-	}
-	if numEndpointConfigs == 0 {
-		if v := os.Getenv(defaultElasticsearchEnvName); v != "" {
-			numEndpointConfigs++
-			endpoints = strings.Split(v, ",")
-			for i, endpoint := range endpoints {
-				endpoints[i] = strings.TrimSpace(endpoint)
-			}
-		}
-	}
-	if numEndpointConfigs != 1 {
-		return nil, errConfigEndpointRequired
-	}
-	return endpoints, nil
+	return nil, nil
 }
 
-func validateEndpoint(endpoint string) error {
-	if endpoint == "" {
-		return errConfigEmptyEndpoint
-	}
-
-	u, err := url.Parse(endpoint)
-	if err != nil {
-		return err
-	}
-	switch u.Scheme {
-	case "http", "https":
-	default:
-		return fmt.Errorf(`invalid scheme %q, expected "http" or "https"`, u.Scheme)
-	}
-	return nil
-}
+func validateEndpoint(endpoint string) error { _ = "STUB: not implemented"; return nil }
 
 // Based on "addrFromCloudID" in go-elasticsearch.
-func parseCloudID(input string) (*url.URL, error) {
-	_, after, ok := strings.Cut(input, ":")
-	if !ok {
-		return nil, fmt.Errorf("invalid CloudID %q", input)
-	}
+func parseCloudID(input string) (*url.URL, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	decoded, err := base64.StdEncoding.DecodeString(after)
-	if err != nil {
-		return nil, err
-	}
+func handleDeprecatedConfig(cfg *Config, logger *zap.Logger) { _ = "STUB: not implemented"; return }
 
-	parts := strings.Split(string(decoded), "$")
-	if len(parts) < 2 {
-		return nil, fmt.Errorf("invalid decoded CloudID %q", string(decoded))
-	}
-	return url.Parse(fmt.Sprintf("https://%s.%s", parts[1], parts[0]))
-}
+// Do not set cfg.Retry.Enabled = false if cfg.Retry.MaxRequest = 1 to avoid breaking change on behavior
 
-func handleDeprecatedConfig(cfg *Config, logger *zap.Logger) {
-	if cfg.Retry.MaxRequests != 0 {
-		cfg.Retry.MaxRetries = cfg.Retry.MaxRequests - 1
-		// Do not set cfg.Retry.Enabled = false if cfg.Retry.MaxRequest = 1 to avoid breaking change on behavior
-		logger.Warn("retry::max_requests has been deprecated, and will be removed in a future version. Use retry::max_retries instead.")
-	}
-	if canonicalMappingModeName(cfg.Mapping.Mode) != MappingOTel.String() {
-		logger.Warn("mapping::mode config option is deprecated and ignored. Use the `X-Elastic-Mapping-Mode` client metadata key or the `elastic.mapping.mode` scope attribute instead. See the README for migration instructions.")
-	}
-	if cfg.LogsDynamicIndex.Enabled {
-		logger.Warn("logs_dynamic_index::enabled has been deprecated, and will be removed in a future version. It is now a no-op. Dynamic document routing is now the default. See Elasticsearch Exporter README.")
-	}
-	if cfg.MetricsDynamicIndex.Enabled {
-		logger.Warn("metrics_dynamic_index::enabled has been deprecated, and will be removed in a future version. It is now a no-op. Dynamic document routing is now the default. See Elasticsearch Exporter README.")
-	}
-	if cfg.TracesDynamicIndex.Enabled {
-		logger.Warn("traces_dynamic_index::enabled has been deprecated, and will be removed in a future version. It is now a no-op. Dynamic document routing is now the default. See Elasticsearch Exporter README.")
-	}
-	if cfg.Flush.Bytes > 0 || cfg.Flush.Interval > 0 {
-		logger.Warn("flush settings are now deprecated and ignored. Use `sending_queue` instead.")
-	}
-	if cfg.NumWorkers > 0 {
-		logger.Warn("num_workers is now deprecated and ignored. Use `sending_queue` instead.")
-	}
-}
-
-func handleTelemetryConfig(cfg *Config, logger *zap.Logger) {
-	if cfg.LogRequestBody {
-		logger.Warn("telemetry::log_request_body is enabled, and may expose sensitive data; It should only be used for testing or debugging.")
-	}
-	if cfg.LogResponseBody {
-		logger.Warn("telemetry::log_response_body is enabled, and may expose sensitive data; It should only be used for testing or debugging.")
-	}
-	if cfg.LogFailedDocsInput {
-		logger.Warn("telemetry::log_failed_docs_input is enabled, and may expose sensitive data; It should only be used for testing or debugging.")
-	}
-}
+func handleTelemetryConfig(cfg *Config, logger *zap.Logger) { _ = "STUB: not implemented"; return }

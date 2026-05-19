@@ -8,24 +8,17 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/asapauthextension/internal/metadata"
 )
 
 // NewFactory creates a factory for asapauthextension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(_ context.Context, _ extension.Settings, cfg component.Config) (extension.Extension, error) {
-	return createASAPClientAuthenticator(cfg.(*Config))
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

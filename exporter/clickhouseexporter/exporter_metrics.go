@@ -5,14 +5,12 @@ package clickhouseexporter // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"context"
-	"errors"
 
 	"github.com/ClickHouse/clickhouse-go/v2/lib/driver"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter/internal"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/clickhouseexporter/internal/metrics"
 )
 
@@ -25,86 +23,24 @@ type metricsExporter struct {
 }
 
 func newMetricsExporter(logger *zap.Logger, cfg *Config) *metricsExporter {
-	tablesConfig := generateMetricTablesConfigMapper(cfg)
-
-	return &metricsExporter{
-		logger:       logger,
-		cfg:          cfg,
-		tablesConfig: tablesConfig,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *metricsExporter) start(ctx context.Context, _ component.Host) error {
-	metrics.SetLogger(e.logger)
-
-	opt, err := e.cfg.buildClickHouseOptions()
-	if err != nil {
-		return err
-	}
-
-	e.db, err = internal.NewClickhouseClientFromOptions(opt)
-	if err != nil {
-		return err
-	}
-
-	if e.cfg.shouldCreateSchema() {
-		database := e.cfg.database()
-		clusterStr := e.cfg.clusterString()
-		if err := internal.CreateDatabase(ctx, e.db, database, clusterStr); err != nil {
-			return err
-		}
-
-		ttlExpr := internal.GenerateTTLExpr(e.cfg.TTL, "toDateTime(TimeUnix)")
-		err := metrics.NewMetricsTable(ctx, e.tablesConfig, database, clusterStr, e.cfg.tableEngineString(), ttlExpr, e.db)
-		if err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func generateMetricTablesConfigMapper(cfg *Config) metrics.MetricTablesConfigMapper {
-	return metrics.MetricTablesConfigMapper{
-		pmetric.MetricTypeGauge:                cfg.MetricsTables.Gauge,
-		pmetric.MetricTypeSum:                  cfg.MetricsTables.Sum,
-		pmetric.MetricTypeSummary:              cfg.MetricsTables.Summary,
-		pmetric.MetricTypeHistogram:            cfg.MetricsTables.Histogram,
-		pmetric.MetricTypeExponentialHistogram: cfg.MetricsTables.ExponentialHistogram,
-	}
+	_ = "STUB: not implemented"
+	return *new(metrics.MetricTablesConfigMapper)
 }
 
 // shutdown will shut down the exporter.
-func (e *metricsExporter) shutdown(_ context.Context) error {
-	if e.db != nil {
-		return e.db.Close()
-	}
-
-	return nil
-}
+func (e *metricsExporter) shutdown(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (e *metricsExporter) pushMetricsData(ctx context.Context, md pmetric.Metrics) error {
-	metricsMap := metrics.NewMetricsModel(e.tablesConfig, e.cfg.database())
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		metrics := md.ResourceMetrics().At(i)
-		resAttr := metrics.Resource().Attributes()
-		for j := 0; j < metrics.ScopeMetrics().Len(); j++ {
-			rs := metrics.ScopeMetrics().At(j).Metrics()
-			scopeInstr := metrics.ScopeMetrics().At(j).Scope()
-			scopeURL := metrics.ScopeMetrics().At(j).SchemaUrl()
-			for k := 0; k < rs.Len(); k++ {
-				r := rs.At(k)
-				if r.Type() == pmetric.MetricTypeEmpty {
-					return errors.New("metrics type is unset")
-				}
-				m, ok := metricsMap[r.Type()]
-				if !ok {
-					return errors.New("unsupported metrics type")
-				}
-				m.Add(resAttr, metrics.SchemaUrl(), scopeInstr, scopeURL, r)
-			}
-		}
-	}
-
-	return metrics.InsertMetrics(ctx, e.db, metricsMap)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -5,14 +5,9 @@ package httpforwarderextension // import "github.com/open-telemetry/opentelemetr
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/httpforwarderextension/internal/metadata"
 )
 
 const (
@@ -21,26 +16,11 @@ const (
 )
 
 // NewFactory creates a factory for HostObserver extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	httpClientSettings := confighttp.NewDefaultClientConfig()
-	httpClientSettings.Timeout = 10 * time.Second
-	return &Config{
-		Ingress: confighttp.ServerConfig{
-			NetAddr: confignet.AddrConfig{
-				Transport: confignet.TransportTypeTCP,
-				Endpoint:  defaultEndpoint,
-			},
-		},
-		Egress: httpClientSettings,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(
@@ -48,5 +28,6 @@ func createExtension(
 	params extension.Settings,
 	cfg component.Config,
 ) (extension.Extension, error) {
-	return newHTTPForwarder(cfg.(*Config), params.TelemetrySettings)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

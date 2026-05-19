@@ -9,22 +9,14 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/fluentforwardreceiver/internal/metadata"
 )
 
 // NewFactory return a new receiver.Factory for fluentd forwarder.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsReceiver(
@@ -33,6 +25,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	rCfg := cfg.(*Config)
-	return newFluentReceiver(params, rCfg, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

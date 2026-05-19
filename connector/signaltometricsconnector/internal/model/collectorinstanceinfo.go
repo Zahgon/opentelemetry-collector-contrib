@@ -29,31 +29,14 @@ type CollectorInstanceInfo struct {
 func NewCollectorInstanceInfo(
 	set component.TelemetrySettings,
 ) CollectorInstanceInfo {
-	var info CollectorInstanceInfo
-	for k, v := range set.Resource.Attributes().All() {
-		if k == string(conventions.ServiceInstanceIDKey) {
-			if str := v.Str(); str != "" {
-				info.serviceInstanceID = v.Str()
-				info.size++
-			}
-		}
-	}
-	return info
+	_ = "STUB: not implemented"
+	return *new(CollectorInstanceInfo)
 }
 
 // Size returns the max number of attributes that defines a collector's
 // instance information. Can be used to presize the attributes.
-func (info CollectorInstanceInfo) Size() int {
-	return info.size
-}
+func (info CollectorInstanceInfo) Size() int { _ = "STUB: not implemented"; return 0 }
 
-func (info CollectorInstanceInfo) Copy(to pcommon.Map) {
-	to.EnsureCapacity(info.Size())
-	if info.serviceInstanceID != "" {
-		to.PutStr(prefixedServiceInstanceIDKey, info.serviceInstanceID)
-	}
-}
+func (info CollectorInstanceInfo) Copy(to pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func keyWithPrefix(key string) string {
-	return prefix + "." + key
-}
+func keyWithPrefix(key string) string { _ = "STUB: not implemented"; return "" }

@@ -6,7 +6,6 @@ package solacereceiver // import "github.com/open-telemetry/opentelemetry-collec
 import (
 	"context"
 	"crypto/tls"
-	"fmt"
 	"time"
 
 	"github.com/Azure/go-amqp"
@@ -30,46 +29,14 @@ type messagingServiceFactory func() messagingService
 
 // newAMQPMessagingServiceFactory creates a new messagingServiceFactory backed by AMQP
 func newAMQPMessagingServiceFactory(cfg *Config, logger *zap.Logger) (messagingServiceFactory, error) {
-	saslConnOption, authErr := toAMQPAuthentication(cfg)
-	if authErr != nil {
-		return nil, authErr
-	}
-
-	// Use the default load config for TLS. Note that in the case where "insecure" is true and no
-	// ca file is provided, tlsConfig will be nil representing a plaintext connection.
-	loadedTLSConfig, err := cfg.TLS.LoadTLSConfig(context.Background())
-	if err != nil {
-		return nil, err
-	}
-
-	broker := cfg.Broker[0]
-	// If the TLS config is nil, insecure is true and we should use amqp rather than amqps
-	scheme := "amqp"
-	if loadedTLSConfig != nil {
-		scheme = "amqps"
-	}
-	amqpHostAddress := fmt.Sprintf("%s://%s", scheme, broker)
-
-	connectConfig := &amqpConnectConfig{
-		addr:       amqpHostAddress,
-		tlsConfig:  loadedTLSConfig,
-		saslConfig: saslConnOption,
-	}
-
-	receiverConfig := &amqpReceiverConfig{
-		queue:       cfg.Queue,
-		maxUnacked:  cfg.MaxUnacked,
-		batchMaxAge: 1 * time.Second,
-	}
-
-	return func() messagingService {
-		return &amqpMessagingService{
-			connectConfig:  connectConfig,
-			receiverConfig: receiverConfig,
-			logger:         logger,
-		}
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(messagingServiceFactory), nil
 }
+
+// Use the default load config for TLS. Note that in the case where "insecure" is true and no
+// ca file is provided, tlsConfig will be nil representing a plaintext connection.
+
+// If the TLS config is nil, insecure is true and we should use amqp rather than amqps
 
 type amqpConnectConfig struct {
 	// connect config
@@ -104,73 +71,25 @@ var dialFunc = amqp.Dial
 const telemetryLinkName = "rx"
 
 func (m *amqpMessagingService) dial(ctx context.Context) (err error) {
-	opts := &amqp.ConnOptions{}
-	opts.SASLType = m.connectConfig.saslConfig
-	if m.connectConfig.tlsConfig != nil {
-		opts.TLSConfig = m.connectConfig.tlsConfig
-	}
-	m.logger.Debug("Dialing AMQP", zap.String("addr", m.connectConfig.addr))
-	m.client, err = dialFunc(ctx, m.connectConfig.addr, opts)
-	if err != nil {
-		m.logger.Debug("Dial AMQP failure", zap.Error(err))
-		return err
-	}
-	m.logger.Debug("Creating new AMQP Session")
-	m.session, err = m.client.NewSession(ctx, &amqp.SessionOptions{})
-	if err != nil {
-		m.logger.Debug("Create AMQP Session failure", zap.Error(err))
-		return err
-	}
-	m.logger.Debug("Creating new AMQP Receive Link", zap.String("source", m.receiverConfig.queue))
-	m.receiver, err = m.session.NewReceiver(ctx, m.receiverConfig.queue, &amqp.ReceiverOptions{
-		Credit: m.receiverConfig.maxUnacked,
-		Name:   telemetryLinkName,
-	})
-	if err != nil {
-		m.logger.Debug("Create AMQP Receiver Link failure", zap.Error(err))
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (m *amqpMessagingService) close(ctx context.Context) {
-	if m.receiver != nil {
-		m.logger.Debug("Closing AMQP Receiver")
-		err := m.receiver.Close(ctx)
-		if err != nil {
-			m.logger.Debug("Receiver close failed", zap.Error(err))
-		}
-	}
-	if m.session != nil {
-		m.logger.Debug("Closing AMQP Session")
-		err := m.session.Close(ctx)
-		if err != nil {
-			m.logger.Debug("Session closed failed", zap.Error(err))
-		}
-	}
-	if m.client != nil {
-		m.logger.Debug("Closing AMQP Client")
-		err := m.client.Close()
-		if err != nil {
-			m.logger.Debug("Client closed failed", zap.Error(err))
-		}
-	}
-}
+func (m *amqpMessagingService) close(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 func (m *amqpMessagingService) receiveMessage(ctx context.Context) (*inboundMessage, error) {
-	return m.receiver.Receive(ctx, &amqp.ReceiveOptions{})
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *amqpMessagingService) accept(ctx context.Context, msg *inboundMessage) error {
-	return m.receiver.AcceptMessage(ctx, msg)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *amqpMessagingService) failed(ctx context.Context, msg *inboundMessage) error {
-	return m.receiver.ModifyMessage(ctx, msg, &amqp.ModifyMessageOptions{
-		DeliveryFailed:    true,
-		UndeliverableHere: false,
-		Annotations:       nil,
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Allow for substitution in testing to assert correct data is passed to AMQP
@@ -185,22 +104,6 @@ var (
 
 // toAMQPAuthentication configures authentication in amqp.ConnOption slice
 func toAMQPAuthentication(config *Config) (amqp.SASLType, error) {
-	if config.Auth.PlainText.HasValue() {
-		plaintext := config.Auth.PlainText.Get()
-		if plaintext.Password == "" || plaintext.Username == "" {
-			return nil, errMissingPlainTextParams
-		}
-		return connSASLPlain(plaintext.Username, string(plaintext.Password)), nil
-	}
-	if config.Auth.XAuth2.HasValue() {
-		xauth := config.Auth.XAuth2.Get()
-		if xauth.Bearer == "" || xauth.Username == "" {
-			return nil, errMissingXauth2Params
-		}
-		return connSASLXOAUTH2(xauth.Username, xauth.Bearer, saslMaxInitFrameSizeOverride), nil
-	}
-	if config.Auth.External.HasValue() {
-		return connSASLExternal(""), nil
-	}
-	return nil, errMissingAuthDetails
+	_ = "STUB: not implemented"
+	return *new(amqp.SASLType), nil
 }

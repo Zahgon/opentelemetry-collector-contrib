@@ -41,42 +41,16 @@ const (
 
 var _ component.Config = (*Config)(nil)
 
-func defaultNestingInclude() []string {
-	return []string{}
-}
+func defaultNestingInclude() []string { _ = "STUB: not implemented"; return nil }
 
-func defaultNestingExclude() []string {
-	return []string{}
-}
+func defaultNestingExclude() []string { _ = "STUB: not implemented"; return nil }
 
-func defaultAggregateAttributes() []AggregationPair {
-	return []AggregationPair{}
-}
+func defaultAggregateAttributes() []AggregationPair { _ = "STUB: not implemented"; return nil }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		AddCloudNamespace:           defaultAddCloudNamespace,
-		TranslateAttributes:         defaultTranslateAttributes,
-		TranslateTelegrafAttributes: defaultTranslateTelegrafAttributes,
-		NestAttributes: NestingProcessorConfig{
-			Separator:          defaultNestingSeparator,
-			Enabled:            defaultNestingEnabled,
-			Include:            defaultNestingInclude(),
-			Exclude:            defaultNestingExclude(),
-			SquashSingleValues: defaultNestingSquashSingleValues,
-		},
-		AggregateAttributes: defaultAggregateAttributes(),
-		LogFieldsAttributes: LogFieldAttributesConfig{
-			SeverityNumberAttribute: &LogFieldAttribute{defaultAddSeverityNumberAttribute, SeverityNumberAttributeName},
-			SeverityTextAttribute:   &LogFieldAttribute{defaultAddSeverityTextAttribute, SeverityTextAttributeName},
-			SpanIDAttribute:         &LogFieldAttribute{defaultAddSpanIDAttribute, SpanIDAttributeName},
-			TraceIDAttribute:        &LogFieldAttribute{defaultAddTraceIDAttribute, TraceIDAttributeName},
-		},
-		TranslateDockerMetrics: defaultTranslateDockerMetrics,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // Validate config
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }

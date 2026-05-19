@@ -6,6 +6,4 @@
 package datadogextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/datadogextension"
 import "go.opentelemetry.io/collector/extension"
 
-func NewFactory() extension.Factory {
-	panic("aix is not supported")
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }

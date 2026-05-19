@@ -7,7 +7,6 @@
 package v1
 
 import (
-	reflect "reflect"
 	sync "sync"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -59,30 +58,31 @@ var (
 )
 
 func (x SpanData_SendSpan_Outcome) Enum() *SpanData_SendSpan_Outcome {
-	p := new(SpanData_SendSpan_Outcome)
-	*p = x
-	return p
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (x SpanData_SendSpan_Outcome) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_SendSpan_Outcome) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_SendSpan_Outcome) Descriptor() protoreflect.EnumDescriptor {
-	return file_egress_v1_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_SendSpan_Outcome) Type() protoreflect.EnumType {
-	return &file_egress_v1_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_SendSpan_Outcome) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_SendSpan_Outcome.Descriptor instead.
 func (SpanData_SendSpan_Outcome) EnumDescriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 1, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type SpanData_TransactionEvent_Type int32
@@ -144,30 +144,31 @@ var (
 )
 
 func (x SpanData_TransactionEvent_Type) Enum() *SpanData_TransactionEvent_Type {
-	p := new(SpanData_TransactionEvent_Type)
-	*p = x
-	return p
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (x SpanData_TransactionEvent_Type) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_TransactionEvent_Type) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_TransactionEvent_Type) Descriptor() protoreflect.EnumDescriptor {
-	return file_egress_v1_proto_enumTypes[1].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_TransactionEvent_Type) Type() protoreflect.EnumType {
-	return &file_egress_v1_proto_enumTypes[1]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_TransactionEvent_Type) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Type.Descriptor instead.
 func (SpanData_TransactionEvent_Type) EnumDescriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 13, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type SpanData_TransactionEvent_Initiator int32
@@ -193,30 +194,31 @@ var (
 )
 
 func (x SpanData_TransactionEvent_Initiator) Enum() *SpanData_TransactionEvent_Initiator {
-	p := new(SpanData_TransactionEvent_Initiator)
-	*p = x
-	return p
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (x SpanData_TransactionEvent_Initiator) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_TransactionEvent_Initiator) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_TransactionEvent_Initiator) Descriptor() protoreflect.EnumDescriptor {
-	return file_egress_v1_proto_enumTypes[2].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_TransactionEvent_Initiator) Type() protoreflect.EnumType {
-	return &file_egress_v1_proto_enumTypes[2]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_TransactionEvent_Initiator) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Initiator.Descriptor instead.
 func (SpanData_TransactionEvent_Initiator) EnumDescriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 13, 1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Messages with the following topic contain a message matching this
@@ -253,65 +255,27 @@ type SpanData struct {
 	SolosVersion string `protobuf:"bytes,4,opt,name=solos_version,json=solosVersion,proto3" json:"solos_version,omitempty"`
 }
 
-func (x *SpanData) Reset() {
-	*x = SpanData{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData) ProtoMessage() {}
+func (*SpanData) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData.ProtoReflect.Descriptor instead.
-func (*SpanData) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0}
-}
+func (*SpanData) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *SpanData) GetEgressSpans() []*SpanData_EgressSpan {
-	if x != nil {
-		return x.EgressSpans
-	}
-	return nil
-}
+func (x *SpanData) GetEgressSpans() []*SpanData_EgressSpan { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetRouterName() string {
-	if x != nil {
-		return x.RouterName
-	}
-	return ""
-}
+func (x *SpanData) GetRouterName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetMessageVpnName() string {
-	if x != nil && x.MessageVpnName != nil {
-		return *x.MessageVpnName
-	}
-	return ""
-}
+func (x *SpanData) GetMessageVpnName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetSolosVersion() string {
-	if x != nil {
-		return x.SolosVersion
-	}
-	return ""
-}
+func (x *SpanData) GetSolosVersion() string { _ = "STUB: not implemented"; return "" }
 
 type SpanData_EgressSpan struct {
 	state         protoimpl.MessageState
@@ -339,105 +303,52 @@ type SpanData_EgressSpan struct {
 	TypeData isSpanData_EgressSpan_TypeData `protobuf_oneof:"type_data"`
 }
 
-func (x *SpanData_EgressSpan) Reset() {
-	*x = SpanData_EgressSpan{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_EgressSpan) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_EgressSpan) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_EgressSpan) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_EgressSpan) ProtoMessage() {}
+func (*SpanData_EgressSpan) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_EgressSpan) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_EgressSpan.ProtoReflect.Descriptor instead.
 func (*SpanData_EgressSpan) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_EgressSpan) GetTraceId() []byte {
-	if x != nil {
-		return x.TraceId
-	}
-	return nil
-}
+func (x *SpanData_EgressSpan) GetTraceId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData_EgressSpan) GetSpanId() []byte {
-	if x != nil {
-		return x.SpanId
-	}
-	return nil
-}
+func (x *SpanData_EgressSpan) GetSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData_EgressSpan) GetParentSpanId() []byte {
-	if x != nil {
-		return x.ParentSpanId
-	}
-	return nil
-}
+func (x *SpanData_EgressSpan) GetParentSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData_EgressSpan) GetStartTimeUnixNano() int64 {
-	if x != nil {
-		return x.StartTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData_EgressSpan) GetStartTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_EgressSpan) GetEndTimeUnixNano() int64 {
-	if x != nil {
-		return x.EndTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData_EgressSpan) GetEndTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_EgressSpan) GetTransactionEvent() *SpanData_TransactionEvent {
-	if x != nil {
-		return x.TransactionEvent
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_EgressSpan) GetErrorDescription() string {
-	if x != nil && x.ErrorDescription != nil {
-		return *x.ErrorDescription
-	}
-	return ""
-}
+func (x *SpanData_EgressSpan) GetErrorDescription() string { _ = "STUB: not implemented"; return "" }
 
 func (m *SpanData_EgressSpan) GetTypeData() isSpanData_EgressSpan_TypeData {
-	if m != nil {
-		return m.TypeData
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_EgressSpan_TypeData)
 }
 
 func (x *SpanData_EgressSpan) GetSendSpan() *SpanData_SendSpan {
-	if x, ok := x.GetTypeData().(*SpanData_EgressSpan_SendSpan); ok {
-		return x.SendSpan
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_EgressSpan) GetDeleteSpan() *SpanData_DeleteSpan {
-	if x, ok := x.GetTypeData().(*SpanData_EgressSpan_DeleteSpan); ok {
-		return x.DeleteSpan
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -453,11 +364,18 @@ type SpanData_EgressSpan_DeleteSpan struct {
 	DeleteSpan *SpanData_DeleteSpan `protobuf:"bytes,9,opt,name=delete_span,json=deleteSpan,proto3,oneof"`
 }
 
-func (*SpanData_EgressSpan_SendSpan) isSpanData_EgressSpan_TypeData() {}
+func (*SpanData_EgressSpan_SendSpan) isSpanData_EgressSpan_TypeData() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_EgressSpan_DeleteSpan) isSpanData_EgressSpan_TypeData() {}
+func (*SpanData_EgressSpan_DeleteSpan) isSpanData_EgressSpan_TypeData() {
+	_ = "STUB: not implemented"
 
-// This message contains information unique to a SendSpan.
+	// This message contains information unique to a SendSpan.
+	return
+}
+
 type SpanData_SendSpan struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -482,107 +400,48 @@ type SpanData_SendSpan struct {
 	PartitionNumber *uint32 `protobuf:"varint,9,opt,name=partition_number,json=partitionNumber,proto3,oneof" json:"partition_number,omitempty"`
 }
 
-func (x *SpanData_SendSpan) Reset() {
-	*x = SpanData_SendSpan{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_SendSpan) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_SendSpan) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_SendSpan) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_SendSpan) ProtoMessage() {}
+func (*SpanData_SendSpan) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_SendSpan) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_SendSpan.ProtoReflect.Descriptor instead.
-func (*SpanData_SendSpan) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 1}
-}
+func (*SpanData_SendSpan) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 func (m *SpanData_SendSpan) GetSource() isSpanData_SendSpan_Source {
-	if m != nil {
-		return m.Source
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_SendSpan_Source)
 }
 
-func (x *SpanData_SendSpan) GetQueueName() string {
-	if x, ok := x.GetSource().(*SpanData_SendSpan_QueueName); ok {
-		return x.QueueName
-	}
-	return ""
-}
+func (x *SpanData_SendSpan) GetQueueName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_SendSpan) GetTopicEndpointName() string {
-	if x, ok := x.GetSource().(*SpanData_SendSpan_TopicEndpointName); ok {
-		return x.TopicEndpointName
-	}
-	return ""
-}
+func (x *SpanData_SendSpan) GetTopicEndpointName() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData_SendSpan) GetOutcome() SpanData_SendSpan_Outcome {
-	if x != nil {
-		return x.Outcome
-	}
-	return SpanData_SendSpan_ACCEPTED
+	_ = "STUB: not implemented"
+	return *new(SpanData_SendSpan_Outcome)
 }
 
-func (x *SpanData_SendSpan) GetReplayedMsg() bool {
-	if x != nil {
-		return x.ReplayedMsg
-	}
-	return false
-}
+func (x *SpanData_SendSpan) GetReplayedMsg() bool { _ = "STUB: not implemented"; return false }
 
 func (x *SpanData_SendSpan) GetConsumerClientUsername() string {
-	if x != nil {
-		return x.ConsumerClientUsername
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
-func (x *SpanData_SendSpan) GetConsumerClientName() string {
-	if x != nil {
-		return x.ConsumerClientName
-	}
-	return ""
-}
+func (x *SpanData_SendSpan) GetConsumerClientName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_SendSpan) GetProtocol() string {
-	if x != nil {
-		return x.Protocol
-	}
-	return ""
-}
+func (x *SpanData_SendSpan) GetProtocol() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_SendSpan) GetProtocolVersion() string {
-	if x != nil && x.ProtocolVersion != nil {
-		return *x.ProtocolVersion
-	}
-	return ""
-}
+func (x *SpanData_SendSpan) GetProtocolVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_SendSpan) GetPartitionNumber() uint32 {
-	if x != nil && x.PartitionNumber != nil {
-		return *x.PartitionNumber
-	}
-	return 0
-}
+func (x *SpanData_SendSpan) GetPartitionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
 type isSpanData_SendSpan_Source interface {
 	isSpanData_SendSpan_Source()
@@ -596,11 +455,15 @@ type SpanData_SendSpan_TopicEndpointName struct {
 	TopicEndpointName string `protobuf:"bytes,2,opt,name=topic_endpoint_name,json=topicEndpointName,proto3,oneof"`
 }
 
-func (*SpanData_SendSpan_QueueName) isSpanData_SendSpan_Source() {}
+func (*SpanData_SendSpan_QueueName) isSpanData_SendSpan_Source() { _ = "STUB: not implemented"; return }
 
-func (*SpanData_SendSpan_TopicEndpointName) isSpanData_SendSpan_Source() {}
+func (*SpanData_SendSpan_TopicEndpointName) isSpanData_SendSpan_Source() {
+	_ = "STUB: not implemented"
 
-// This message contains information unique to a DeleteSpan.
+	// This message contains information unique to a DeleteSpan.
+	return
+}
+
 type SpanData_DeleteSpan struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -634,114 +497,68 @@ type SpanData_DeleteSpan struct {
 	PartitionNumber *uint32 `protobuf:"varint,9,opt,name=partition_number,json=partitionNumber,proto3,oneof" json:"partition_number,omitempty"`
 }
 
-func (x *SpanData_DeleteSpan) Reset() {
-	*x = SpanData_DeleteSpan{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_DeleteSpan) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_DeleteSpan) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_DeleteSpan) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_DeleteSpan) ProtoMessage() {}
+func (*SpanData_DeleteSpan) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_DeleteSpan) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_DeleteSpan.ProtoReflect.Descriptor instead.
 func (*SpanData_DeleteSpan) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 2}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *SpanData_DeleteSpan) GetEndpointName() isSpanData_DeleteSpan_EndpointName {
-	if m != nil {
-		return m.EndpointName
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_DeleteSpan_EndpointName)
 }
 
-func (x *SpanData_DeleteSpan) GetQueueName() string {
-	if x, ok := x.GetEndpointName().(*SpanData_DeleteSpan_QueueName); ok {
-		return x.QueueName
-	}
-	return ""
-}
+func (x *SpanData_DeleteSpan) GetQueueName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_DeleteSpan) GetTopicEndpointName() string {
-	if x, ok := x.GetEndpointName().(*SpanData_DeleteSpan_TopicEndpointName); ok {
-		return x.TopicEndpointName
-	}
-	return ""
-}
+func (x *SpanData_DeleteSpan) GetTopicEndpointName() string { _ = "STUB: not implemented"; return "" }
 
 func (m *SpanData_DeleteSpan) GetTypeInfo() isSpanData_DeleteSpan_TypeInfo {
-	if m != nil {
-		return m.TypeInfo
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_DeleteSpan_TypeInfo)
 }
 
 func (x *SpanData_DeleteSpan) GetMaxRedeliveriesInfo() *SpanData_MaxRedeliveriesInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_MaxRedeliveriesInfo); ok {
-		return x.MaxRedeliveriesInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_DeleteSpan) GetTtlExpiredInfo() *SpanData_TtlExpiredInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_TtlExpiredInfo); ok {
-		return x.TtlExpiredInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_DeleteSpan) GetRejectedOutcomeInfo() *SpanData_RejectedOutcomeInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_RejectedOutcomeInfo); ok {
-		return x.RejectedOutcomeInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_DeleteSpan) GetHopCountExceededInfo() *SpanData_HopCountExceededInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_HopCountExceededInfo); ok {
-		return x.HopCountExceededInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_DeleteSpan) GetIngressSelectorInfo() *SpanData_IngressSelectorInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_IngressSelectorInfo); ok {
-		return x.IngressSelectorInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_DeleteSpan) GetAdminActionInfo() *SpanData_AdminActionInfo {
-	if x, ok := x.GetTypeInfo().(*SpanData_DeleteSpan_AdminActionInfo); ok {
-		return x.AdminActionInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_DeleteSpan) GetPartitionNumber() uint32 {
-	if x != nil && x.PartitionNumber != nil {
-		return *x.PartitionNumber
-	}
-	return 0
-}
+func (x *SpanData_DeleteSpan) GetPartitionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
 type isSpanData_DeleteSpan_EndpointName interface {
 	isSpanData_DeleteSpan_EndpointName()
@@ -755,9 +572,15 @@ type SpanData_DeleteSpan_TopicEndpointName struct {
 	TopicEndpointName string `protobuf:"bytes,2,opt,name=topic_endpoint_name,json=topicEndpointName,proto3,oneof"`
 }
 
-func (*SpanData_DeleteSpan_QueueName) isSpanData_DeleteSpan_EndpointName() {}
+func (*SpanData_DeleteSpan_QueueName) isSpanData_DeleteSpan_EndpointName() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_TopicEndpointName) isSpanData_DeleteSpan_EndpointName() {}
+func (*SpanData_DeleteSpan_TopicEndpointName) isSpanData_DeleteSpan_EndpointName() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type isSpanData_DeleteSpan_TypeInfo interface {
 	isSpanData_DeleteSpan_TypeInfo()
@@ -787,56 +610,60 @@ type SpanData_DeleteSpan_AdminActionInfo struct {
 	AdminActionInfo *SpanData_AdminActionInfo `protobuf:"bytes,8,opt,name=admin_action_info,json=adminActionInfo,proto3,oneof"`
 }
 
-func (*SpanData_DeleteSpan_MaxRedeliveriesInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_MaxRedeliveriesInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_TtlExpiredInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_TtlExpiredInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_RejectedOutcomeInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_RejectedOutcomeInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_HopCountExceededInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_HopCountExceededInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_IngressSelectorInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_IngressSelectorInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_DeleteSpan_AdminActionInfo) isSpanData_DeleteSpan_TypeInfo() {}
+func (*SpanData_DeleteSpan_AdminActionInfo) isSpanData_DeleteSpan_TypeInfo() {
+	_ = "STUB: not implemented"
 
-// The presence of this message implies the reason for the span is that a
-// message exceeded the maximum number of redeliveries.
+	// The presence of this message implies the reason for the span is that a
+	// message exceeded the maximum number of redeliveries.
+	return
+}
+
 type SpanData_MaxRedeliveriesInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SpanData_MaxRedeliveriesInfo) Reset() {
-	*x = SpanData_MaxRedeliveriesInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_MaxRedeliveriesInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_MaxRedeliveriesInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_MaxRedeliveriesInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_MaxRedeliveriesInfo) ProtoMessage() {}
+func (*SpanData_MaxRedeliveriesInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_MaxRedeliveriesInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_MaxRedeliveriesInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_MaxRedeliveriesInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 3}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the span is that the
@@ -847,36 +674,21 @@ type SpanData_TtlExpiredInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SpanData_TtlExpiredInfo) Reset() {
-	*x = SpanData_TtlExpiredInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TtlExpiredInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_TtlExpiredInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_TtlExpiredInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_TtlExpiredInfo) ProtoMessage() {}
+func (*SpanData_TtlExpiredInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TtlExpiredInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TtlExpiredInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_TtlExpiredInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 4}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the span is that a
@@ -887,36 +699,21 @@ type SpanData_RejectedOutcomeInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SpanData_RejectedOutcomeInfo) Reset() {
-	*x = SpanData_RejectedOutcomeInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_RejectedOutcomeInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_RejectedOutcomeInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_RejectedOutcomeInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_RejectedOutcomeInfo) ProtoMessage() {}
+func (*SpanData_RejectedOutcomeInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_RejectedOutcomeInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_RejectedOutcomeInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_RejectedOutcomeInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 5}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the span is that the
@@ -932,36 +729,21 @@ type SpanData_HopCountExceededInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SpanData_HopCountExceededInfo) Reset() {
-	*x = SpanData_HopCountExceededInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_HopCountExceededInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_HopCountExceededInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_HopCountExceededInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_HopCountExceededInfo) ProtoMessage() {}
+func (*SpanData_HopCountExceededInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_HopCountExceededInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_HopCountExceededInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_HopCountExceededInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 6}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the span is that the
@@ -976,36 +758,21 @@ type SpanData_IngressSelectorInfo struct {
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *SpanData_IngressSelectorInfo) Reset() {
-	*x = SpanData_IngressSelectorInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_IngressSelectorInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_IngressSelectorInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_IngressSelectorInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_IngressSelectorInfo) ProtoMessage() {}
+func (*SpanData_IngressSelectorInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_IngressSelectorInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_IngressSelectorInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_IngressSelectorInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 7}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The presence of this message implies the reason for the discard was an
@@ -1028,63 +795,37 @@ type SpanData_AdminActionInfo struct {
 	SessionInfo isSpanData_AdminActionInfo_SessionInfo `protobuf_oneof:"session_info"`
 }
 
-func (x *SpanData_AdminActionInfo) Reset() {
-	*x = SpanData_AdminActionInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_AdminActionInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_AdminActionInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_AdminActionInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_AdminActionInfo) ProtoMessage() {}
+func (*SpanData_AdminActionInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_AdminActionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_AdminActionInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_AdminActionInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 8}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_AdminActionInfo) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
+func (x *SpanData_AdminActionInfo) GetUsername() string { _ = "STUB: not implemented"; return "" }
 
 func (m *SpanData_AdminActionInfo) GetSessionInfo() isSpanData_AdminActionInfo_SessionInfo {
-	if m != nil {
-		return m.SessionInfo
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_AdminActionInfo_SessionInfo)
 }
 
 func (x *SpanData_AdminActionInfo) GetCliSessionInfo() *SpanData_CliSessionInfo {
-	if x, ok := x.GetSessionInfo().(*SpanData_AdminActionInfo_CliSessionInfo); ok {
-		return x.CliSessionInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_AdminActionInfo) GetSempSessionInfo() *SpanData_SempSessionInfo {
-	if x, ok := x.GetSessionInfo().(*SpanData_AdminActionInfo_SempSessionInfo); ok {
-		return x.SempSessionInfo
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1100,9 +841,15 @@ type SpanData_AdminActionInfo_SempSessionInfo struct {
 	SempSessionInfo *SpanData_SempSessionInfo `protobuf:"bytes,3,opt,name=semp_session_info,json=sempSessionInfo,proto3,oneof"`
 }
 
-func (*SpanData_AdminActionInfo_CliSessionInfo) isSpanData_AdminActionInfo_SessionInfo() {}
+func (*SpanData_AdminActionInfo_CliSessionInfo) isSpanData_AdminActionInfo_SessionInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_AdminActionInfo_SempSessionInfo) isSpanData_AdminActionInfo_SessionInfo() {}
+func (*SpanData_AdminActionInfo_SempSessionInfo) isSpanData_AdminActionInfo_SessionInfo() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type SpanData_CliSessionInfo struct {
 	state         protoimpl.MessageState
@@ -1121,65 +868,39 @@ type SpanData_CliSessionInfo struct {
 	SessionNumber uint32 `protobuf:"varint,3,opt,name=sessionNumber,proto3" json:"sessionNumber,omitempty"`
 }
 
-func (x *SpanData_CliSessionInfo) Reset() {
-	*x = SpanData_CliSessionInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[10]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_CliSessionInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_CliSessionInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_CliSessionInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_CliSessionInfo) ProtoMessage() {}
+func (*SpanData_CliSessionInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_CliSessionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[10]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_CliSessionInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_CliSessionInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 9}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *SpanData_CliSessionInfo) GetDescriptor_() isSpanData_CliSessionInfo_Descriptor_ {
-	if m != nil {
-		return m.Descriptor_
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_CliSessionInfo_Descriptor_)
 }
 
 func (x *SpanData_CliSessionInfo) GetLocalSession() *SpanData_TerminalCliSessionDescriptor {
-	if x, ok := x.GetDescriptor_().(*SpanData_CliSessionInfo_LocalSession); ok {
-		return x.LocalSession
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_CliSessionInfo) GetRemoteSession() *SpanData_SshCliSessionDescriptor {
-	if x, ok := x.GetDescriptor_().(*SpanData_CliSessionInfo_RemoteSession); ok {
-		return x.RemoteSession
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_CliSessionInfo) GetSessionNumber() uint32 {
-	if x != nil {
-		return x.SessionNumber
-	}
-	return 0
-}
+func (x *SpanData_CliSessionInfo) GetSessionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
 type isSpanData_CliSessionInfo_Descriptor_ interface {
 	isSpanData_CliSessionInfo_Descriptor_()
@@ -1193,9 +914,15 @@ type SpanData_CliSessionInfo_RemoteSession struct {
 	RemoteSession *SpanData_SshCliSessionDescriptor `protobuf:"bytes,2,opt,name=remote_session,json=remoteSession,proto3,oneof"`
 }
 
-func (*SpanData_CliSessionInfo_LocalSession) isSpanData_CliSessionInfo_Descriptor_() {}
+func (*SpanData_CliSessionInfo_LocalSession) isSpanData_CliSessionInfo_Descriptor_() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_CliSessionInfo_RemoteSession) isSpanData_CliSessionInfo_Descriptor_() {}
+func (*SpanData_CliSessionInfo_RemoteSession) isSpanData_CliSessionInfo_Descriptor_() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type SpanData_TerminalCliSessionDescriptor struct {
 	state         protoimpl.MessageState
@@ -1205,42 +932,28 @@ type SpanData_TerminalCliSessionDescriptor struct {
 	TerminalName string `protobuf:"bytes,1,opt,name=terminal_name,json=terminalName,proto3" json:"terminal_name,omitempty"`
 }
 
-func (x *SpanData_TerminalCliSessionDescriptor) Reset() {
-	*x = SpanData_TerminalCliSessionDescriptor{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[11]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TerminalCliSessionDescriptor) Reset() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TerminalCliSessionDescriptor) String() string {
-	return protoimpl.X.MessageStringOf(x)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func (*SpanData_TerminalCliSessionDescriptor) ProtoMessage() {}
+func (*SpanData_TerminalCliSessionDescriptor) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TerminalCliSessionDescriptor) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[11]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TerminalCliSessionDescriptor.ProtoReflect.Descriptor instead.
 func (*SpanData_TerminalCliSessionDescriptor) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 10}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *SpanData_TerminalCliSessionDescriptor) GetTerminalName() string {
-	if x != nil {
-		return x.TerminalName
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -1255,42 +968,25 @@ type SpanData_SshCliSessionDescriptor struct {
 	PeerIp []byte `protobuf:"bytes,1,opt,name=peer_ip,json=peerIp,proto3" json:"peer_ip,omitempty"`
 }
 
-func (x *SpanData_SshCliSessionDescriptor) Reset() {
-	*x = SpanData_SshCliSessionDescriptor{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[12]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_SshCliSessionDescriptor) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_SshCliSessionDescriptor) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_SshCliSessionDescriptor) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_SshCliSessionDescriptor) ProtoMessage() {}
+func (*SpanData_SshCliSessionDescriptor) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_SshCliSessionDescriptor) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[12]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_SshCliSessionDescriptor.ProtoReflect.Descriptor instead.
 func (*SpanData_SshCliSessionDescriptor) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 11}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *SpanData_SshCliSessionDescriptor) GetPeerIp() []byte {
-	if x != nil {
-		return x.PeerIp
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1306,51 +1002,26 @@ type SpanData_SempSessionInfo struct {
 	PeerIp []byte `protobuf:"bytes,2,opt,name=peer_ip,json=peerIp,proto3" json:"peer_ip,omitempty"`
 }
 
-func (x *SpanData_SempSessionInfo) Reset() {
-	*x = SpanData_SempSessionInfo{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[13]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_SempSessionInfo) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_SempSessionInfo) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_SempSessionInfo) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_SempSessionInfo) ProtoMessage() {}
+func (*SpanData_SempSessionInfo) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_SempSessionInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[13]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_SempSessionInfo.ProtoReflect.Descriptor instead.
 func (*SpanData_SempSessionInfo) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 12}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_SempSessionInfo) GetSempVersion() uint32 {
-	if x != nil {
-		return x.SempVersion
-	}
-	return 0
-}
+func (x *SpanData_SempSessionInfo) GetSempVersion() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_SempSessionInfo) GetPeerIp() []byte {
-	if x != nil {
-		return x.PeerIp
-	}
-	return nil
-}
+func (x *SpanData_SempSessionInfo) GetPeerIp() []byte { _ = "STUB: not implemented"; return nil }
 
 // When a span has a transaction event, it indicates the span occurs as part
 // of processing a transaction, and includes the *current* state of of the
@@ -1372,84 +1043,52 @@ type SpanData_TransactionEvent struct {
 	ErrorDescription *string                                   `protobuf:"bytes,6,opt,name=error_description,json=errorDescription,proto3,oneof" json:"error_description,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent) Reset() {
-	*x = SpanData_TransactionEvent{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[14]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_TransactionEvent) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_TransactionEvent) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_TransactionEvent) ProtoMessage() {}
+func (*SpanData_TransactionEvent) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[14]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 13}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_TransactionEvent) GetTimeUnixNano() int64 {
-	if x != nil {
-		return x.TimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData_TransactionEvent) GetTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_TransactionEvent) GetType() SpanData_TransactionEvent_Type {
-	if x != nil {
-		return x.Type
-	}
-	return SpanData_TransactionEvent_COMMIT
+	_ = "STUB: not implemented"
+	return *new(SpanData_TransactionEvent_Type)
 }
 
 func (x *SpanData_TransactionEvent) GetInitiator() SpanData_TransactionEvent_Initiator {
-	if x != nil {
-		return x.Initiator
-	}
-	return SpanData_TransactionEvent_CLIENT
+	_ = "STUB: not implemented"
+	return *new(SpanData_TransactionEvent_Initiator)
 }
 
 func (m *SpanData_TransactionEvent) GetTransactionId() isSpanData_TransactionEvent_TransactionId {
-	if m != nil {
-		return m.TransactionId
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_TransactionEvent_TransactionId)
 }
 
 func (x *SpanData_TransactionEvent) GetXid() *SpanData_TransactionEvent_Xid {
-	if x, ok := x.GetTransactionId().(*SpanData_TransactionEvent_Xid_); ok {
-		return x.Xid
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_TransactionEvent) GetLocalId() *SpanData_TransactionEvent_LocalTransactionId {
-	if x, ok := x.GetTransactionId().(*SpanData_TransactionEvent_LocalId); ok {
-		return x.LocalId
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_TransactionEvent) GetErrorDescription() string {
-	if x != nil && x.ErrorDescription != nil {
-		return *x.ErrorDescription
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -1465,9 +1104,15 @@ type SpanData_TransactionEvent_LocalId struct {
 	LocalId *SpanData_TransactionEvent_LocalTransactionId `protobuf:"bytes,5,opt,name=local_id,json=localId,proto3,oneof"`
 }
 
-func (*SpanData_TransactionEvent_Xid_) isSpanData_TransactionEvent_TransactionId() {}
+func (*SpanData_TransactionEvent_Xid_) isSpanData_TransactionEvent_TransactionId() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_TransactionEvent_LocalId) isSpanData_TransactionEvent_TransactionId() {}
+func (*SpanData_TransactionEvent_LocalId) isSpanData_TransactionEvent_TransactionId() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type SpanData_TransactionEvent_Xid struct {
 	state         protoimpl.MessageState
@@ -1479,58 +1124,31 @@ type SpanData_TransactionEvent_Xid struct {
 	GlobalId        []byte `protobuf:"bytes,3,opt,name=global_id,json=globalId,proto3" json:"global_id,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent_Xid) Reset() {
-	*x = SpanData_TransactionEvent_Xid{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[15]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent_Xid) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_TransactionEvent_Xid) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_TransactionEvent_Xid) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_TransactionEvent_Xid) ProtoMessage() {}
+func (*SpanData_TransactionEvent_Xid) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent_Xid) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[15]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Xid.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent_Xid) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 13, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_TransactionEvent_Xid) GetFormatId() int32 {
-	if x != nil {
-		return x.FormatId
-	}
-	return 0
-}
+func (x *SpanData_TransactionEvent_Xid) GetFormatId() int32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_TransactionEvent_Xid) GetBranchQualifier() []byte {
-	if x != nil {
-		return x.BranchQualifier
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_TransactionEvent_Xid) GetGlobalId() []byte {
-	if x != nil {
-		return x.GlobalId
-	}
-	return nil
-}
+func (x *SpanData_TransactionEvent_Xid) GetGlobalId() []byte { _ = "STUB: not implemented"; return nil }
 
 type SpanData_TransactionEvent_LocalTransactionId struct {
 	state         protoimpl.MessageState
@@ -1542,56 +1160,41 @@ type SpanData_TransactionEvent_LocalTransactionId struct {
 	SessionName   string `protobuf:"bytes,3,opt,name=session_name,json=sessionName,proto3" json:"session_name,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent_LocalTransactionId) Reset() {
-	*x = SpanData_TransactionEvent_LocalTransactionId{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_egress_v1_proto_msgTypes[16]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent_LocalTransactionId) Reset() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) String() string {
-	return protoimpl.X.MessageStringOf(x)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func (*SpanData_TransactionEvent_LocalTransactionId) ProtoMessage() {}
+func (*SpanData_TransactionEvent_LocalTransactionId) ProtoMessage() {
+	_ = "STUB: not implemented"
+	return
+}
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) ProtoReflect() protoreflect.Message {
-	mi := &file_egress_v1_proto_msgTypes[16]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_LocalTransactionId.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent_LocalTransactionId) Descriptor() ([]byte, []int) {
-	return file_egress_v1_proto_rawDescGZIP(), []int{0, 13, 1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetTransactionId() uint32 {
-	if x != nil {
-		return x.TransactionId
-	}
+	_ = "STUB: not implemented"
 	return 0
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetSessionId() uint32 {
-	if x != nil {
-		return x.SessionId
-	}
+	_ = "STUB: not implemented"
 	return 0
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetSessionName() string {
-	if x != nil {
-		return x.SessionName
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -1888,12 +1491,7 @@ var (
 	file_egress_v1_proto_rawDescData = file_egress_v1_proto_rawDesc
 )
 
-func file_egress_v1_proto_rawDescGZIP() []byte {
-	file_egress_v1_proto_rawDescOnce.Do(func() {
-		file_egress_v1_proto_rawDescData = protoimpl.X.CompressGZIP(file_egress_v1_proto_rawDescData)
-	})
-	return file_egress_v1_proto_rawDescData
-}
+func file_egress_v1_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_egress_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_egress_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
@@ -1946,265 +1544,5 @@ var file_egress_v1_proto_depIdxs = []int32{
 	0,  // [0:19] is the sub-list for field type_name
 }
 
-func init() { file_egress_v1_proto_init() }
-func file_egress_v1_proto_init() {
-	if File_egress_v1_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_egress_v1_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_EgressSpan); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_SendSpan); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_DeleteSpan); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_MaxRedeliveriesInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TtlExpiredInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_RejectedOutcomeInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_HopCountExceededInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_IngressSelectorInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_AdminActionInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_CliSessionInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TerminalCliSessionDescriptor); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_SshCliSessionDescriptor); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_SempSessionInfo); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent_Xid); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_egress_v1_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent_LocalTransactionId); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	file_egress_v1_proto_msgTypes[0].OneofWrappers = []interface{}{}
-	file_egress_v1_proto_msgTypes[1].OneofWrappers = []interface{}{
-		(*SpanData_EgressSpan_SendSpan)(nil),
-		(*SpanData_EgressSpan_DeleteSpan)(nil),
-	}
-	file_egress_v1_proto_msgTypes[2].OneofWrappers = []interface{}{
-		(*SpanData_SendSpan_QueueName)(nil),
-		(*SpanData_SendSpan_TopicEndpointName)(nil),
-	}
-	file_egress_v1_proto_msgTypes[3].OneofWrappers = []interface{}{
-		(*SpanData_DeleteSpan_QueueName)(nil),
-		(*SpanData_DeleteSpan_TopicEndpointName)(nil),
-		(*SpanData_DeleteSpan_MaxRedeliveriesInfo)(nil),
-		(*SpanData_DeleteSpan_TtlExpiredInfo)(nil),
-		(*SpanData_DeleteSpan_RejectedOutcomeInfo)(nil),
-		(*SpanData_DeleteSpan_HopCountExceededInfo)(nil),
-		(*SpanData_DeleteSpan_IngressSelectorInfo)(nil),
-		(*SpanData_DeleteSpan_AdminActionInfo)(nil),
-	}
-	file_egress_v1_proto_msgTypes[9].OneofWrappers = []interface{}{
-		(*SpanData_AdminActionInfo_CliSessionInfo)(nil),
-		(*SpanData_AdminActionInfo_SempSessionInfo)(nil),
-	}
-	file_egress_v1_proto_msgTypes[10].OneofWrappers = []interface{}{
-		(*SpanData_CliSessionInfo_LocalSession)(nil),
-		(*SpanData_CliSessionInfo_RemoteSession)(nil),
-	}
-	file_egress_v1_proto_msgTypes[14].OneofWrappers = []interface{}{
-		(*SpanData_TransactionEvent_Xid_)(nil),
-		(*SpanData_TransactionEvent_LocalId)(nil),
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_egress_v1_proto_rawDesc,
-			NumEnums:      3,
-			NumMessages:   17,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_egress_v1_proto_goTypes,
-		DependencyIndexes: file_egress_v1_proto_depIdxs,
-		EnumInfos:         file_egress_v1_proto_enumTypes,
-		MessageInfos:      file_egress_v1_proto_msgTypes,
-	}.Build()
-	File_egress_v1_proto = out.File
-	file_egress_v1_proto_rawDesc = nil
-	file_egress_v1_proto_goTypes = nil
-	file_egress_v1_proto_depIdxs = nil
-}
+func init()                      { file_egress_v1_proto_init() }
+func file_egress_v1_proto_init() { _ = "STUB: not implemented"; return }

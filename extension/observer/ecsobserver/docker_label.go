@@ -4,11 +4,6 @@
 package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/ecsobserver"
 
 import (
-	"errors"
-	"fmt"
-	"strconv"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
 	ecstypes "github.com/aws/aws-sdk-go-v2/service/ecs/types"
 	"go.uber.org/zap"
 )
@@ -29,40 +24,21 @@ type DockerLabelConfig struct {
 	MetricsPathLabel string `mapstructure:"metrics_path_label" yaml:"metrics_path_label"`
 }
 
-func (d *DockerLabelConfig) validate() error {
-	_, err := d.newMatcher(matcherOptions{})
-	return err
-}
+func (d *DockerLabelConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 func (d *DockerLabelConfig) newMatcher(options matcherOptions) (targetMatcher, error) {
+	_ = "STUB: not implemented"
 	// It's possible to support it in the future, but for now just fail at config,
 	// so user don't need to wonder which port is used in the exported target.
-	if len(d.MetricsPorts) != 0 {
-		return nil, fmt.Errorf("metrics_ports is not supported in docker_labels, got %v", d.MetricsPorts)
-	}
-	if d.PortLabel == "" {
-		return nil, errors.New("port_label is empty")
-	}
-	expSetting, err := d.newExportSetting()
-	if err != nil {
-		return nil, err
-	}
-	return &dockerLabelMatcher{
-		logger:        options.Logger,
-		cfg:           *d,
-		exportSetting: expSetting,
-	}, nil
+	return *new(targetMatcher), nil
 }
 
 func dockerLabelConfigToMatchers(cfgs []DockerLabelConfig) []matcherConfig {
-	matchers := make([]matcherConfig, len(cfgs))
-	for i, cfg := range cfgs {
-		// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
-		copied := cfg
-		matchers[i] = &copied
-	}
-	return matchers
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// NOTE: &cfg points to the temp var, whose value would end up be the last one in the slice.
 
 // dockerLabelMatcher implements targetMatcher interface.
 // It checks PortLabel from config and only matches if the label value is a valid number.
@@ -73,53 +49,25 @@ type dockerLabelMatcher struct {
 }
 
 func (*dockerLabelMatcher) matcherType() matcherType {
-	return matcherTypeDockerLabel
+	_ = "STUB: not implemented"
+	return *new(matcherType)
 }
 
 // MatchTargets first checks the port label to find the expected port value.
 // Then it checks if that port is specified in container definition.
 // It only returns match target when both conditions are met.
 func (d *dockerLabelMatcher) matchTargets(_ *taskAnnotated, c ecstypes.ContainerDefinition) ([]matchedTarget, error) {
-	portLabel := d.cfg.PortLabel
+	_ = "STUB: not implemented"
+	return nil,
 
-	// Only check port label
-	ps, ok := c.DockerLabels[portLabel]
-	if !ok {
-		return nil, errNotMatched
-	}
-
-	// Convert port
-	port, err := strconv.ParseInt(ps, 10, 32)
-	if err != nil {
-		return nil, fmt.Errorf("invalid port_label value, container=%s labelKey=%s labelValue=%s: %w",
-			aws.ToString(c.Name), d.cfg.PortLabel, ps, err)
-	}
-
-	// Checks if the task does have the container port
-	portExists := false
-	for _, portMapping := range c.PortMappings {
-		if int64(aws.ToInt32(portMapping.ContainerPort)) == port {
-			portExists = true
-			break
-		}
-	}
-	if !portExists {
-		return nil, errNotMatched
-	}
-
-	// Export only one target based on docker port label.
-	target := matchedTarget{
-		Port: int(port),
-	}
-	if v, ok := c.DockerLabels[d.cfg.MetricsPathLabel]; ok {
-		target.MetricsPath = v
-	}
-	if v, ok := c.DockerLabels[d.cfg.JobNameLabel]; ok {
-		target.Job = v
-	}
-	// NOTE: we only override job name but keep port and metrics from docker label instead of using common export config.
-	if d.cfg.JobName != "" {
-		target.Job = d.cfg.JobName
-	}
-	return []matchedTarget{target}, nil
+		// Only check port label
+		nil
 }
+
+// Convert port
+
+// Checks if the task does have the container port
+
+// Export only one target based on docker port label.
+
+// NOTE: we only override job name but keep port and metrics from docker label instead of using common export config.

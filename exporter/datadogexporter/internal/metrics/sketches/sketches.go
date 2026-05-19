@@ -9,7 +9,6 @@
 package sketches // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/datadogexporter/internal/metrics/sketches"
 
 import (
-	"github.com/DataDog/agent-payload/v5/gogen"
 	"github.com/DataDog/datadog-agent/pkg/util/quantile"
 )
 
@@ -36,35 +35,4 @@ type SketchPoint struct {
 type SketchSeriesList []SketchSeries
 
 // Marshal encodes this series list.
-func (sl SketchSeriesList) Marshal() ([]byte, error) {
-	pb := &gogen.SketchPayload{
-		Sketches: make([]gogen.SketchPayload_Sketch, 0, len(sl)),
-	}
-
-	for _, ss := range sl {
-		dsl := make([]gogen.SketchPayload_Sketch_Dogsketch, 0, len(ss.Points))
-
-		for _, p := range ss.Points {
-			b := p.Sketch.Basic
-			k, n := p.Sketch.Cols()
-			dsl = append(dsl, gogen.SketchPayload_Sketch_Dogsketch{
-				Ts:  p.Ts,
-				Cnt: b.Cnt,
-				Min: b.Min,
-				Max: b.Max,
-				Avg: b.Avg,
-				Sum: b.Sum,
-				K:   k,
-				N:   n,
-			})
-		}
-
-		pb.Sketches = append(pb.Sketches, gogen.SketchPayload_Sketch{
-			Metric:      ss.Name,
-			Host:        ss.Host,
-			Tags:        ss.Tags,
-			Dogsketches: dsl,
-		})
-	}
-	return pb.Marshal()
-}
+func (sl SketchSeriesList) Marshal() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }

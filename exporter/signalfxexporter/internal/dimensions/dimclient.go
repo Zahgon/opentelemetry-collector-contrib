@@ -4,18 +4,10 @@
 package dimensions // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/dimensions"
 
 import (
-	"bytes"
 	"context"
 	"crypto/tls"
-	"encoding/json"
-	"errors"
-	"fmt"
-	"maps"
-	"net"
 	"net/http"
 	"net/url"
-	"reflect"
-	"strings"
 	"sync"
 	"time"
 
@@ -23,7 +15,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/signalfxexporter/internal/translation/dpfilters"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/common/sanitize"
 )
 
 // DimensionClient sends updates to dimensions to the SignalFx API
@@ -97,291 +88,77 @@ type DimensionClientOptions struct {
 
 // NewDimensionClient returns a new client
 func NewDimensionClient(options DimensionClientOptions) *DimensionClient {
-	client := &http.Client{
-		Timeout: options.Timeout,
-		Transport: &http.Transport{
-			Proxy: http.ProxyFromEnvironment,
-			DialContext: (&net.Dialer{
-				Timeout:   5 * time.Second,
-				KeepAlive: 30 * time.Second,
-				DualStack: true,
-			}).DialContext,
-			MaxConnsPerHost:     options.MaxConnsPerHost,
-			MaxIdleConns:        options.MaxIdleConns,
-			MaxIdleConnsPerHost: options.MaxIdleConnsPerHost,
-			IdleConnTimeout:     options.IdleConnTimeout,
-			TLSHandshakeTimeout: 10 * time.Second,
-			TLSClientConfig:     options.APITLSConfig,
-		},
-	}
-	sender := NewReqSender(client, 20, map[string]string{"client": "dimension"})
-
-	return &DimensionClient{
-		Token:                   options.Token,
-		APIURL:                  options.APIURL,
-		sendDelay:               options.SendDelay,
-		delayedSet:              make(map[DimensionKey]*DimensionUpdate),
-		delayedQueue:            make(chan *queuedDimension, options.MaxBuffered),
-		requestSender:           sender,
-		client:                  client,
-		now:                     time.Now,
-		logger:                  options.Logger,
-		logUpdates:              options.LogUpdates,
-		nonAlphanumericDimChars: options.NonAlphanumericDimChars,
-		DefaultProperties:       options.DefaultProperties,
-		ExcludeProperties:       options.ExcludeProperties,
-		dropTags:                options.DropTags,
-		stripK8sLabelPrefix:     options.StripK8sLabelPrefix,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start the client's processing queue
-func (dc *DimensionClient) Start() {
-	var ctx context.Context
-	// The dimension client is started during the exporter's startup functionality.
-	// The collector spec states that for long-running operations, components should
-	// use the background context, rather than the passed in context.
-	ctx, dc.cancel = context.WithCancel(context.Background())
-	go dc.processQueue(ctx)
-}
+func (dc *DimensionClient) Start() { _ = "STUB: not implemented"; return }
 
-func (dc *DimensionClient) Shutdown() {
-	if dc.cancel != nil {
-		dc.cancel()
-	}
-}
+// The dimension client is started during the exporter's startup functionality.
+// The collector spec states that for long-running operations, components should
+// use the background context, rather than the passed in context.
+
+func (dc *DimensionClient) Shutdown() { _ = "STUB: not implemented"; return }
 
 // AcceptDimension to be sent to the API.  This will return fairly quickly and
 // won't block. If the buffer is full, the dim update will be dropped.
 func (dc *DimensionClient) AcceptDimension(dimUpdate *DimensionUpdate) error {
-	if dimUpdate = dc.filterDimensionUpdate(dimUpdate); dimUpdate == nil {
-		return nil
-	}
-
-	dc.Lock()
-	defer dc.Unlock()
-
-	if delayedDimUpdate := dc.delayedSet[dimUpdate.Key()]; delayedDimUpdate != nil {
-		if !reflect.DeepEqual(delayedDimUpdate, dimUpdate) {
-			// Merge the latest updates into existing one.
-			delayedDimUpdate.Properties = mergeProperties(delayedDimUpdate.Properties, dimUpdate.Properties)
-			delayedDimUpdate.Tags = mergeTags(delayedDimUpdate.Tags, dimUpdate.Tags)
-		}
-	} else {
-		dc.delayedSet[dimUpdate.Key()] = dimUpdate
-		select {
-		case dc.delayedQueue <- &queuedDimension{
-			DimensionUpdate: dimUpdate,
-			TimeToSend:      dc.now().Add(dc.sendDelay),
-		}:
-			break
-		default:
-			return errors.New("dropped dimension update, propertiesMaxBuffered exceeded")
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Merge the latest updates into existing one.
 
 // mergeProperties merges 2 or more maps of properties. This method gives
 // precedence to values of properties in later maps. i.e., if more than one
 // map has the same key, the last value seen will be the effective value in
 // the output.
 func mergeProperties(propMaps ...map[string]*string) map[string]*string {
-	out := map[string]*string{}
-	for _, propMap := range propMaps {
-		maps.Copy(out, propMap)
-	}
-	return out
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // mergeTags merges 2 or more sets of tags. This method gives precedence to
 // tags seen in later sets. i.e., if more than one set has the same tag, the
 // last value seen will be the effective value in the output.
-func mergeTags(tagSets ...map[string]bool) map[string]bool {
-	out := map[string]bool{}
-	for _, tagSet := range tagSets {
-		maps.Copy(out, tagSet)
-	}
-	return out
-}
+func mergeTags(tagSets ...map[string]bool) map[string]bool { _ = "STUB: not implemented"; return nil }
 
-func (dc *DimensionClient) processQueue(ctx context.Context) {
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case delayedDimUpdate := <-dc.delayedQueue:
-			now := dc.now()
-			if now.Before(delayedDimUpdate.TimeToSend) {
-				// dims are always in the channel in order of TimeToSend
-				time.Sleep(delayedDimUpdate.TimeToSend.Sub(now))
-			}
+func (dc *DimensionClient) processQueue(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-			dc.Lock()
-			delete(dc.delayedSet, delayedDimUpdate.Key())
-			dc.Unlock()
-
-			if err := dc.handleDimensionUpdate(ctx, delayedDimUpdate.DimensionUpdate); err != nil {
-				dc.logger.Error(
-					"Could not send dimension update",
-					zap.Error(err),
-					zap.String("dimensionUpdate", delayedDimUpdate.String()),
-				)
-			}
-		}
-	}
-}
+// dims are always in the channel in order of TimeToSend
 
 // handleDimensionUpdate will set custom properties on a specific dimension value.
 func (dc *DimensionClient) handleDimensionUpdate(ctx context.Context, dimUpdate *DimensionUpdate) error {
-	var (
-		req *http.Request
-		err error
-	)
-
-	req, err = dc.makePatchRequest(ctx, dimUpdate)
-	if err != nil {
-		return err
-	}
-
-	req = req.WithContext(
-		context.WithValue(req.Context(), RequestFailedCallbackKey, RequestFailedCallback(func(statusCode int, err error) {
-			retry := false
-			retryMsg := "not retrying"
-			if statusCode == 400 && len(dimUpdate.Tags) > 0 {
-				// It's possible that number of tags is too large. In this case,
-				// we should retry the request without tags to update the dimension properties at least.
-				dimUpdate.Tags = nil
-				retry = true
-				retryMsg = "retrying without tags"
-			} else if statusCode == 404 || statusCode >= 500 {
-				// Retry on 5xx server errors or 404s which can occur due to races within the dimension patch endpoint.
-				retry = true
-				retryMsg = "retrying"
-			}
-
-			dc.logger.Error(
-				"Unable to update dimension, "+retryMsg,
-				zap.Error(err),
-				zap.String("URL", sanitize.URL(req.URL)),
-				zap.String("dimensionUpdate", dimUpdate.String()),
-				zap.Int("statusCode", statusCode),
-			)
-
-			if !retry {
-				return
-			}
-
-			// The retry is meant to provide some measure of robustness against
-			// temporary API failures.  If the API is down for significant
-			// periods of time, dimension updates will probably eventually back
-			// up beyond PropertiesMaxBuffered and start dropping.
-			if err := dc.AcceptDimension(dimUpdate); err != nil {
-				dc.logger.Error(
-					"Failed to retry dimension update",
-					zap.Error(err),
-					zap.String("URL", sanitize.URL(req.URL)),
-					zap.String("dimensionUpdate", dimUpdate.String()),
-					zap.Int("statusCode", statusCode),
-				)
-			}
-		})))
-
-	req = req.WithContext(
-		context.WithValue(req.Context(), RequestSuccessCallbackKey, RequestSuccessCallback(func([]byte) {
-			if dc.logUpdates {
-				dc.logger.Info(
-					"Updated dimension",
-					zap.String("dimensionUpdate", dimUpdate.String()),
-				)
-			}
-		})))
-
-	dc.requestSender.Send(ctx, req)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (dc *DimensionClient) makeDimURL(key, value string) (*url.URL, error) {
-	url, err := dc.APIURL.Parse(fmt.Sprintf("/v2/dimension/%s/%s", url.PathEscape(key), url.PathEscape(value)))
-	if err != nil {
-		return nil, fmt.Errorf("could not construct dimension property PATCH URL with %s / %s: %w", key, value, err)
-	}
+// It's possible that number of tags is too large. In this case,
+// we should retry the request without tags to update the dimension properties at least.
 
-	return url, nil
+// Retry on 5xx server errors or 404s which can occur due to races within the dimension patch endpoint.
+
+// The retry is meant to provide some measure of robustness against
+// temporary API failures.  If the API is down for significant
+// periods of time, dimension updates will probably eventually back
+// up beyond PropertiesMaxBuffered and start dropping.
+
+func (dc *DimensionClient) makeDimURL(key, value string) (*url.URL, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (dc *DimensionClient) makePatchRequest(ctx context.Context, dim *DimensionUpdate) (*http.Request, error) {
-	var (
-		tagsToAdd    []string
-		tagsToRemove []string
-	)
-
-	for tag, shouldAdd := range dim.Tags {
-		if shouldAdd {
-			tagsToAdd = append(tagsToAdd, tag)
-		} else {
-			tagsToRemove = append(tagsToRemove, tag)
-		}
-	}
-
-	json, err := json.Marshal(map[string]any{
-		"customProperties": dim.Properties,
-		"tags":             tagsToAdd,
-		"tagsToRemove":     tagsToRemove,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	url, err := dc.makeDimURL(dim.Name, dim.Value)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequestWithContext(
-		ctx,
-		http.MethodPatch,
-		strings.TrimRight(url.String(), "/")+"/_/sfxagent",
-		bytes.NewReader(json))
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("X-SF-TOKEN", string(dc.Token))
-
-	return req, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (dc *DimensionClient) filterDimensionUpdate(update *DimensionUpdate) *DimensionUpdate {
+	_ = "STUB: not implemented"
 	// clear tags list if dropTags option is set
-	if dc.dropTags {
-		update.Tags = nil
-	}
-
-	for _, excludeRule := range dc.ExcludeProperties {
-		if excludeRule.DimensionName.Matches(update.Name) && excludeRule.DimensionValue.Matches(update.Value) {
-			for k, v := range update.Properties {
-				if excludeRule.PropertyName.Matches(k) {
-					vVal := ""
-					if v != nil {
-						vVal = *v
-					}
-					if excludeRule.PropertyValue.Matches(vVal) {
-						delete(update.Properties, k)
-					}
-				}
-			}
-		}
-	}
-
-	// Prevent needless dimension updates if all content has been filtered.
-	// Based on https://github.com/signalfx/signalfx-agent/blob/a10f69ec6b95d7426adaf639773628fa034628b8/pkg/core/propfilters/dimfilter.go#L95
-	if len(update.Properties) == 0 && len(update.Tags) == 0 {
-		return nil
-	}
-
-	return update
+	return nil
 }
+
+// Prevent needless dimension updates if all content has been filtered.
+// Based on https://github.com/signalfx/signalfx-agent/blob/a10f69ec6b95d7426adaf639773628fa034628b8/pkg/core/propfilters/dimfilter.go#L95

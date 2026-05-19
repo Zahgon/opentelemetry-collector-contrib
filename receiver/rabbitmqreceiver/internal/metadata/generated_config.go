@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type RabbitmqConsumerCountMetricConfig struct {
 }
 
 func (ms *RabbitmqConsumerCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type RabbitmqMessageAcknowledgedMetricConfig struct {
 }
 
 func (ms *RabbitmqMessageAcknowledgedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -66,34 +46,12 @@ type RabbitmqMessageCurrentMetricConfig struct {
 }
 
 func (ms *RabbitmqMessageCurrentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *RabbitmqMessageCurrentMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RabbitmqMessageCurrentMetricAttributeKeyMessageState:
-		default:
-			return fmt.Errorf("metric rabbitmq.message.current doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -104,16 +62,7 @@ type RabbitmqMessageDeliveredMetricConfig struct {
 }
 
 func (ms *RabbitmqMessageDeliveredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -124,16 +73,7 @@ type RabbitmqMessageDroppedMetricConfig struct {
 }
 
 func (ms *RabbitmqMessageDroppedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -144,16 +84,7 @@ type RabbitmqMessagePublishedMetricConfig struct {
 }
 
 func (ms *RabbitmqMessagePublishedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -164,16 +95,7 @@ type RabbitmqNodeChannelClosedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeChannelClosedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -184,16 +106,7 @@ type RabbitmqNodeChannelClosedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeChannelClosedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -204,16 +117,7 @@ type RabbitmqNodeChannelCreatedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeChannelCreatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -224,16 +128,7 @@ type RabbitmqNodeChannelCreatedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeChannelCreatedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -244,16 +139,7 @@ type RabbitmqNodeConnectionClosedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeConnectionClosedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -264,16 +150,7 @@ type RabbitmqNodeConnectionClosedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeConnectionClosedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -284,16 +161,7 @@ type RabbitmqNodeConnectionCreatedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeConnectionCreatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -304,16 +172,7 @@ type RabbitmqNodeConnectionCreatedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeConnectionCreatedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -324,16 +183,7 @@ type RabbitmqNodeContextSwitchesMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeContextSwitchesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -344,16 +194,7 @@ type RabbitmqNodeContextSwitchesDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeContextSwitchesDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -364,16 +205,7 @@ type RabbitmqNodeDiskFreeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeDiskFreeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -384,16 +216,7 @@ type RabbitmqNodeDiskFreeAlarmMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeDiskFreeAlarmMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -404,16 +227,7 @@ type RabbitmqNodeDiskFreeDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeDiskFreeDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -424,16 +238,7 @@ type RabbitmqNodeDiskFreeLimitMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeDiskFreeLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -444,16 +249,7 @@ type RabbitmqNodeFdTotalMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeFdTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -464,16 +260,7 @@ type RabbitmqNodeFdUsedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeFdUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -484,16 +271,7 @@ type RabbitmqNodeFdUsedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeFdUsedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -504,16 +282,7 @@ type RabbitmqNodeGcBytesReclaimedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeGcBytesReclaimedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -524,16 +293,7 @@ type RabbitmqNodeGcBytesReclaimedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeGcBytesReclaimedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -544,16 +304,7 @@ type RabbitmqNodeGcNumMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeGcNumMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -564,16 +315,7 @@ type RabbitmqNodeGcNumDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeGcNumDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -584,16 +326,7 @@ type RabbitmqNodeIoReadAvgTimeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadAvgTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -604,16 +337,7 @@ type RabbitmqNodeIoReadAvgTimeDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadAvgTimeDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -624,16 +348,7 @@ type RabbitmqNodeIoReadBytesMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -644,16 +359,7 @@ type RabbitmqNodeIoReadBytesDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadBytesDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -664,16 +370,7 @@ type RabbitmqNodeIoReadCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -684,16 +381,7 @@ type RabbitmqNodeIoReadCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReadCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -704,16 +392,7 @@ type RabbitmqNodeIoReopenCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReopenCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -724,16 +403,7 @@ type RabbitmqNodeIoReopenCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoReopenCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -744,16 +414,7 @@ type RabbitmqNodeIoSeekAvgTimeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSeekAvgTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -764,16 +425,7 @@ type RabbitmqNodeIoSeekAvgTimeDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSeekAvgTimeDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -784,16 +436,7 @@ type RabbitmqNodeIoSeekCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSeekCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -804,16 +447,7 @@ type RabbitmqNodeIoSeekCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSeekCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -824,16 +458,7 @@ type RabbitmqNodeIoSyncAvgTimeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSyncAvgTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -844,16 +469,7 @@ type RabbitmqNodeIoSyncAvgTimeDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSyncAvgTimeDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -864,16 +480,7 @@ type RabbitmqNodeIoSyncCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSyncCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -884,16 +491,7 @@ type RabbitmqNodeIoSyncCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoSyncCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -904,16 +502,7 @@ type RabbitmqNodeIoWriteAvgTimeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteAvgTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -924,16 +513,7 @@ type RabbitmqNodeIoWriteAvgTimeDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteAvgTimeDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -944,16 +524,7 @@ type RabbitmqNodeIoWriteBytesMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteBytesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -964,16 +535,7 @@ type RabbitmqNodeIoWriteBytesDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteBytesDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -984,16 +546,7 @@ type RabbitmqNodeIoWriteCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1004,16 +557,7 @@ type RabbitmqNodeIoWriteCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeIoWriteCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1024,16 +568,7 @@ type RabbitmqNodeMemAlarmMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMemAlarmMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1044,16 +579,7 @@ type RabbitmqNodeMemLimitMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMemLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1064,16 +590,7 @@ type RabbitmqNodeMemUsedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMemUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1084,16 +601,7 @@ type RabbitmqNodeMemUsedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMemUsedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1104,16 +612,7 @@ type RabbitmqNodeMnesiaDiskTxCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMnesiaDiskTxCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1124,16 +623,7 @@ type RabbitmqNodeMnesiaDiskTxCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMnesiaDiskTxCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1144,16 +634,7 @@ type RabbitmqNodeMnesiaRAMTxCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMnesiaRAMTxCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1164,16 +645,7 @@ type RabbitmqNodeMnesiaRAMTxCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMnesiaRAMTxCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1184,16 +656,7 @@ type RabbitmqNodeMsgStoreReadCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMsgStoreReadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1204,16 +667,7 @@ type RabbitmqNodeMsgStoreReadCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMsgStoreReadCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1224,16 +678,7 @@ type RabbitmqNodeMsgStoreWriteCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMsgStoreWriteCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1244,16 +689,7 @@ type RabbitmqNodeMsgStoreWriteCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeMsgStoreWriteCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1264,16 +700,7 @@ type RabbitmqNodeProcTotalMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeProcTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1284,16 +711,7 @@ type RabbitmqNodeProcUsedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeProcUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1304,16 +722,7 @@ type RabbitmqNodeProcUsedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeProcUsedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1324,16 +733,7 @@ type RabbitmqNodeProcessorsMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeProcessorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1344,16 +744,7 @@ type RabbitmqNodeQueueCreatedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueCreatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1364,16 +755,7 @@ type RabbitmqNodeQueueCreatedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueCreatedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1384,16 +766,7 @@ type RabbitmqNodeQueueDeclaredMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueDeclaredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1404,16 +777,7 @@ type RabbitmqNodeQueueDeclaredDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueDeclaredDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1424,16 +788,7 @@ type RabbitmqNodeQueueDeletedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueDeletedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1444,16 +799,7 @@ type RabbitmqNodeQueueDeletedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueDeletedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1464,16 +810,7 @@ type RabbitmqNodeQueueIndexReadCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueIndexReadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1484,16 +821,7 @@ type RabbitmqNodeQueueIndexReadCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueIndexReadCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1504,16 +832,7 @@ type RabbitmqNodeQueueIndexWriteCountMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueIndexWriteCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1524,16 +843,7 @@ type RabbitmqNodeQueueIndexWriteCountDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeQueueIndexWriteCountDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1544,16 +854,7 @@ type RabbitmqNodeRunQueueMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeRunQueueMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1564,16 +865,7 @@ type RabbitmqNodeSocketsTotalMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeSocketsTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1584,16 +876,7 @@ type RabbitmqNodeSocketsUsedMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeSocketsUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1604,16 +887,7 @@ type RabbitmqNodeSocketsUsedDetailsRateMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeSocketsUsedDetailsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1624,16 +898,7 @@ type RabbitmqNodeUptimeMetricConfig struct {
 }
 
 func (ms *RabbitmqNodeUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1721,252 +986,7 @@ type MetricsConfig struct {
 	RabbitmqNodeUptime                          RabbitmqNodeUptimeMetricConfig                          `mapstructure:"rabbitmq.node.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		RabbitmqConsumerCount: RabbitmqConsumerCountMetricConfig{
-			Enabled: true,
-		},
-		RabbitmqMessageAcknowledged: RabbitmqMessageAcknowledgedMetricConfig{
-			Enabled: true,
-		},
-		RabbitmqMessageCurrent: RabbitmqMessageCurrentMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []RabbitmqMessageCurrentMetricAttributeKey{RabbitmqMessageCurrentMetricAttributeKeyMessageState},
-		},
-		RabbitmqMessageDelivered: RabbitmqMessageDeliveredMetricConfig{
-			Enabled: true,
-		},
-		RabbitmqMessageDropped: RabbitmqMessageDroppedMetricConfig{
-			Enabled: true,
-		},
-		RabbitmqMessagePublished: RabbitmqMessagePublishedMetricConfig{
-			Enabled: true,
-		},
-		RabbitmqNodeChannelClosed: RabbitmqNodeChannelClosedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeChannelClosedDetailsRate: RabbitmqNodeChannelClosedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeChannelCreated: RabbitmqNodeChannelCreatedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeChannelCreatedDetailsRate: RabbitmqNodeChannelCreatedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeConnectionClosed: RabbitmqNodeConnectionClosedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeConnectionClosedDetailsRate: RabbitmqNodeConnectionClosedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeConnectionCreated: RabbitmqNodeConnectionCreatedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeConnectionCreatedDetailsRate: RabbitmqNodeConnectionCreatedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeContextSwitches: RabbitmqNodeContextSwitchesMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeContextSwitchesDetailsRate: RabbitmqNodeContextSwitchesDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeDiskFree: RabbitmqNodeDiskFreeMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeDiskFreeAlarm: RabbitmqNodeDiskFreeAlarmMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeDiskFreeDetailsRate: RabbitmqNodeDiskFreeDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeDiskFreeLimit: RabbitmqNodeDiskFreeLimitMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeFdTotal: RabbitmqNodeFdTotalMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeFdUsed: RabbitmqNodeFdUsedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeFdUsedDetailsRate: RabbitmqNodeFdUsedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeGcBytesReclaimed: RabbitmqNodeGcBytesReclaimedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeGcBytesReclaimedDetailsRate: RabbitmqNodeGcBytesReclaimedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeGcNum: RabbitmqNodeGcNumMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeGcNumDetailsRate: RabbitmqNodeGcNumDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadAvgTime: RabbitmqNodeIoReadAvgTimeMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadAvgTimeDetailsRate: RabbitmqNodeIoReadAvgTimeDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadBytes: RabbitmqNodeIoReadBytesMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadBytesDetailsRate: RabbitmqNodeIoReadBytesDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadCount: RabbitmqNodeIoReadCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReadCountDetailsRate: RabbitmqNodeIoReadCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReopenCount: RabbitmqNodeIoReopenCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoReopenCountDetailsRate: RabbitmqNodeIoReopenCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSeekAvgTime: RabbitmqNodeIoSeekAvgTimeMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSeekAvgTimeDetailsRate: RabbitmqNodeIoSeekAvgTimeDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSeekCount: RabbitmqNodeIoSeekCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSeekCountDetailsRate: RabbitmqNodeIoSeekCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSyncAvgTime: RabbitmqNodeIoSyncAvgTimeMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSyncAvgTimeDetailsRate: RabbitmqNodeIoSyncAvgTimeDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSyncCount: RabbitmqNodeIoSyncCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoSyncCountDetailsRate: RabbitmqNodeIoSyncCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteAvgTime: RabbitmqNodeIoWriteAvgTimeMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteAvgTimeDetailsRate: RabbitmqNodeIoWriteAvgTimeDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteBytes: RabbitmqNodeIoWriteBytesMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteBytesDetailsRate: RabbitmqNodeIoWriteBytesDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteCount: RabbitmqNodeIoWriteCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeIoWriteCountDetailsRate: RabbitmqNodeIoWriteCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMemAlarm: RabbitmqNodeMemAlarmMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMemLimit: RabbitmqNodeMemLimitMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMemUsed: RabbitmqNodeMemUsedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMemUsedDetailsRate: RabbitmqNodeMemUsedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMnesiaDiskTxCount: RabbitmqNodeMnesiaDiskTxCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMnesiaDiskTxCountDetailsRate: RabbitmqNodeMnesiaDiskTxCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMnesiaRAMTxCount: RabbitmqNodeMnesiaRAMTxCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMnesiaRAMTxCountDetailsRate: RabbitmqNodeMnesiaRAMTxCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMsgStoreReadCount: RabbitmqNodeMsgStoreReadCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMsgStoreReadCountDetailsRate: RabbitmqNodeMsgStoreReadCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMsgStoreWriteCount: RabbitmqNodeMsgStoreWriteCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeMsgStoreWriteCountDetailsRate: RabbitmqNodeMsgStoreWriteCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeProcTotal: RabbitmqNodeProcTotalMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeProcUsed: RabbitmqNodeProcUsedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeProcUsedDetailsRate: RabbitmqNodeProcUsedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeProcessors: RabbitmqNodeProcessorsMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueCreated: RabbitmqNodeQueueCreatedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueCreatedDetailsRate: RabbitmqNodeQueueCreatedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueDeclared: RabbitmqNodeQueueDeclaredMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueDeclaredDetailsRate: RabbitmqNodeQueueDeclaredDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueDeleted: RabbitmqNodeQueueDeletedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueDeletedDetailsRate: RabbitmqNodeQueueDeletedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueIndexReadCount: RabbitmqNodeQueueIndexReadCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueIndexReadCountDetailsRate: RabbitmqNodeQueueIndexReadCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueIndexWriteCount: RabbitmqNodeQueueIndexWriteCountMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeQueueIndexWriteCountDetailsRate: RabbitmqNodeQueueIndexWriteCountDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeRunQueue: RabbitmqNodeRunQueueMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeSocketsTotal: RabbitmqNodeSocketsTotalMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeSocketsUsed: RabbitmqNodeSocketsUsedMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeSocketsUsedDetailsRate: RabbitmqNodeSocketsUsedDetailsRateMetricConfig{
-			Enabled: false,
-		},
-		RabbitmqNodeUptime: RabbitmqNodeUptimeMetricConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1983,14 +1003,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2002,17 +1015,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		RabbitmqNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		RabbitmqQueueName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		RabbitmqVhostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for rabbitmq metrics builder.
@@ -2022,13 +1026,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

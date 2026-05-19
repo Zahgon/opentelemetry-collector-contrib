@@ -4,8 +4,6 @@
 package prometheusexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusexporter"
 
 import (
-	"fmt"
-
 	"go.uber.org/zap"
 )
 
@@ -13,12 +11,6 @@ type promLogger struct {
 	realLog *zap.Logger
 }
 
-func newPromLogger(zapLog *zap.Logger) *promLogger {
-	return &promLogger{
-		realLog: zapLog,
-	}
-}
+func newPromLogger(zapLog *zap.Logger) *promLogger { _ = "STUB: not implemented"; return nil }
 
-func (l *promLogger) Println(v ...any) {
-	l.realLog.Error(fmt.Sprintln(v...))
-}
+func (l *promLogger) Println(v ...any) { _ = "STUB: not implemented"; return }

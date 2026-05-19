@@ -10,8 +10,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/systemscraper/internal/metadata"
 )
 
 var (
@@ -20,15 +18,12 @@ var (
 )
 
 // NewFactory for System scraper.
-func NewFactory() scraper.Factory {
-	return scraper.NewFactory(metadata.Type, createDefaultConfig, scraper.WithMetrics(createMetricsScraper, metadata.MetricsStability))
-}
+func NewFactory() scraper.Factory { _ = "STUB: not implemented"; return *new(scraper.Factory) }
 
 // createDefaultConfig creates the default configuration for the Scraper.
 func createDefaultConfig() component.Config {
-	return &Config{
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createMetricsScraper creates a resource scraper based on provided config.
@@ -37,14 +32,6 @@ func createMetricsScraper(
 	settings scraper.Settings,
 	cfg component.Config,
 ) (scraper.Metrics, error) {
-	if !supportedOS {
-		return nil, errUnsupportedOS
-	}
-
-	systemScraper := newSystemScraper(ctx, settings, cfg.(*Config))
-
-	return scraper.NewMetrics(
-		systemScraper.scrape,
-		scraper.WithStart(systemScraper.start),
-	)
+	_ = "STUB: not implemented"
+	return *new(scraper.Metrics), nil
 }

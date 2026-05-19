@@ -13,7 +13,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/otelarrow/admission2"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/otelarrowreceiver/internal/statuserr"
 )
 
 const dataFormatProtobuf = "protobuf"
@@ -30,46 +29,21 @@ type Receiver struct {
 
 // New creates a new Receiver reference.
 func New(logger *zap.Logger, nextConsumer consumer.Logs, obsrecv *receiverhelper.ObsReport, bq admission2.Queue) *Receiver {
-	return &Receiver{
-		nextConsumer: nextConsumer,
-		obsrecv:      obsrecv,
-		boundedQueue: bq,
-		sizer:        &plog.ProtoMarshaler{},
-		logger:       logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Export implements the service Export logs func.
 func (r *Receiver) Export(ctx context.Context, req plogotlp.ExportRequest) (plogotlp.ExportResponse, error) {
-	ld := req.Logs()
-	numRecords := ld.LogRecordCount()
-	if numRecords == 0 {
-		return plogotlp.NewExportResponse(), nil
-	}
-
-	ctx = r.obsrecv.StartLogsOp(ctx)
-
-	var err error
-	sizeBytes := uint64(r.sizer.LogsSize(req.Logs()))
-	if releaser, acqErr := r.boundedQueue.Acquire(ctx, sizeBytes); acqErr == nil {
-		err = r.nextConsumer.ConsumeLogs(ctx, ld)
-		releaser() // immediate release
-	} else {
-		err = acqErr
-	}
-
-	r.obsrecv.EndLogsOp(ctx, dataFormatProtobuf, numRecords, err)
-
-	// Use appropriate status codes for permanent/non-permanent errors.
-	// If we return the error straightaway, then the grpc implementation will
-	// set status code to Unknown, which is not retryable.
-	// See: https://github.com/grpc/grpc-go/blob/v1.59.0/server.go#L1345
-	if err != nil {
-		return plogotlp.NewExportResponse(), statuserr.GetStatusFromError(err)
-	}
-	return plogotlp.NewExportResponse(), nil
+	_ = "STUB: not implemented"
+	return *new(plogotlp.ExportResponse), nil
 }
 
-func (r *Receiver) Consumer() consumer.Logs {
-	return r.nextConsumer
-}
+// immediate release
+
+// Use appropriate status codes for permanent/non-permanent errors.
+// If we return the error straightaway, then the grpc implementation will
+// set status code to Unknown, which is not retryable.
+// See: https://github.com/grpc/grpc-go/blob/v1.59.0/server.go#L1345
+
+func (r *Receiver) Consumer() consumer.Logs { _ = "STUB: not implemented"; return *new(consumer.Logs) }

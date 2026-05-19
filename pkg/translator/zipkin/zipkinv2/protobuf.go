@@ -4,7 +4,6 @@
 package zipkinv2 // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/zipkin/zipkinv2"
 
 import (
-	"github.com/openzipkin/zipkin-go/proto/zipkin_proto3"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 )
 
@@ -18,24 +17,18 @@ type protobufUnmarshaler struct {
 
 // UnmarshalTraces from protobuf bytes.
 func (p protobufUnmarshaler) UnmarshalTraces(buf []byte) (ptrace.Traces, error) {
-	spans, err := zipkin_proto3.ParseSpans(buf, p.debugWasSet)
-	if err != nil {
-		return ptrace.Traces{}, err
-	}
-	return p.toTranslator.ToTraces(spans)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
 // NewProtobufTracesUnmarshaler returns an ptrace.Unmarshaler of protobuf bytes.
 func NewProtobufTracesUnmarshaler(debugWasSet, parseStringTags bool) ptrace.Unmarshaler {
-	return protobufUnmarshaler{
-		debugWasSet:  debugWasSet,
-		toTranslator: ToTranslator{ParseStringTags: parseStringTags},
-	}
+	_ = "STUB: not implemented"
+	return *new(ptrace.Unmarshaler)
 }
 
 // NewProtobufTracesMarshaler returns a new ptrace.Marshaler to protobuf bytes.
 func NewProtobufTracesMarshaler() ptrace.Marshaler {
-	return marshaler{
-		serializer: zipkin_proto3.SpanSerializer{},
-	}
+	_ = "STUB: not implemented"
+	return *new(ptrace.Marshaler)
 }

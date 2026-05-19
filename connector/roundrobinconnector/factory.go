@@ -10,37 +10,28 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
-	"go.opentelemetry.io/collector/connector/xconnector"
 	"go.opentelemetry.io/collector/consumer"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/roundrobinconnector/internal/metadata"
 )
 
 // NewFactory returns a ConnectorFactory.
-func NewFactory() connector.Factory {
-	return xconnector.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xconnector.WithTracesToTraces(createTracesToTraces, metadata.TracesToTracesStability),
-		xconnector.WithMetricsToMetrics(createMetricsToMetrics, metadata.MetricsToMetricsStability),
-		xconnector.WithLogsToLogs(createLogsToLogs, metadata.LogsToLogsStability),
-		xconnector.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }
 
 // createDefaultConfig creates the default configuration.
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+
+	// createLogsToLogs creates a log receiver based on provided config.
+	return *new(component.Config)
 }
 
-// createLogsToLogs creates a log receiver based on provided config.
 func createLogsToLogs(
 	_ context.Context,
 	_ connector.Settings,
 	_ component.Config,
 	nextConsumer consumer.Logs,
 ) (connector.Logs, error) {
-	return newLogs(nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(connector.Logs), nil
 }
 
 // createMetricsToMetrics creates a metrics receiver based on provided config.
@@ -50,7 +41,8 @@ func createMetricsToMetrics(
 	_ component.Config,
 	nextConsumer consumer.Metrics,
 ) (connector.Metrics, error) {
-	return newMetrics(nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(connector.Metrics), nil
 }
 
 // createTracesToTraces creates a trace receiver based on provided config.
@@ -60,5 +52,6 @@ func createTracesToTraces(
 	_ component.Config,
 	nextConsumer consumer.Traces,
 ) (connector.Traces, error) {
-	return newTraces(nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }

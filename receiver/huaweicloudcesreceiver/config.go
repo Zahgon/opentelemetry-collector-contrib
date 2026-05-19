@@ -5,8 +5,6 @@ package huaweicloudcesreceiver // import "github.com/open-telemetry/opentelemetr
 
 import (
 	"errors"
-	"fmt"
-	"slices"
 
 	"github.com/huaweicloud/huaweicloud-sdk-go-v3/services/ces/v1/model"
 	"go.opentelemetry.io/collector/component"
@@ -14,7 +12,6 @@ import (
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 )
 
 var (
@@ -94,33 +91,6 @@ var validFilters = map[string]model.ShowMetricDataRequestFilter{
 }
 
 // Validate config
-func (config *Config) Validate() error {
-	var err error
-	if config.RegionID == "" {
-		err = multierr.Append(err, errMissingRegionID)
-	}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if config.ProjectID == "" {
-		err = multierr.Append(err, errMissingProjectID)
-	}
-	if index := slices.Index(validPeriods, config.Period); index == -1 {
-		err = multierr.Append(err, fmt.Errorf("invalid period: got %d; must be one of %v", config.Period, validPeriods))
-	}
-	if _, ok := validFilters[config.Filter]; !ok {
-		var validFiltersSlice []string
-		for key := range validFilters {
-			validFiltersSlice = append(validFiltersSlice, key)
-		}
-		err = multierr.Append(err, fmt.Errorf("invalid filter: got %s; must be one of %v", config.Filter, validFiltersSlice))
-	}
-	if config.Period >= int32(config.CollectionInterval.Seconds()) {
-		err = multierr.Append(err, errInvalidCollectionInterval)
-	}
-
-	// Validate that ProxyAddress is provided if ProxyUser or ProxyPassword is set
-	if (config.ProxyUser != "" || config.ProxyPassword != "") && config.ProxyAddress == "" {
-		err = multierr.Append(err, errInvalidProxy)
-	}
-
-	return err
-}
+// Validate that ProxyAddress is provided if ProxyUser or ProxyPassword is set

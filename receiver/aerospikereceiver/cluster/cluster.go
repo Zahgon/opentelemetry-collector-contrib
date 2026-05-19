@@ -18,24 +18,10 @@ type Cluster struct {
 }
 
 func NewCluster(policy *as.ClientPolicy, hosts []*as.Host) (*Cluster, error) {
-	c, err := as.NewClientWithPolicyAndHost(policy, hosts...)
-	if err != nil {
-		return nil, err
-	}
-
-	return &Cluster{c}, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (c *Cluster) GetNodes() []Node {
-	asNodes := c.conn.GetNodes()
-	nodes := make([]Node, len(asNodes))
-	for i, n := range asNodes {
-		nodes[i] = n
-	}
+func (c *Cluster) GetNodes() []Node { _ = "STUB: not implemented"; return nil }
 
-	return nodes
-}
-
-func (c *Cluster) Close() {
-	c.conn.Close()
-}
+func (c *Cluster) Close() { _ = "STUB: not implemented"; return }

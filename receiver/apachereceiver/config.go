@@ -5,7 +5,6 @@ package apachereceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"fmt"
-	"net/url"
 
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
@@ -30,19 +29,4 @@ var (
 	defaultEndpoint = fmt.Sprintf("%s%s:%s/%s?auto", defaultProtocol, defaultHost, defaultPort, defaultPath)
 )
 
-func (cfg *Config) Validate() error {
-	u, err := url.Parse(cfg.Endpoint)
-	if err != nil {
-		return fmt.Errorf("invalid endpoint: '%s': %w", cfg.Endpoint, err)
-	}
-
-	if u.Hostname() == "" {
-		return fmt.Errorf("missing hostname: '%s'", cfg.Endpoint)
-	}
-
-	if u.RawQuery != "auto" {
-		return fmt.Errorf("query must be 'auto': '%s'", cfg.Endpoint)
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -45,51 +38,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		AwsEcsClusterArn: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsEcsLaunchtype: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsEcsTaskArn: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsEcsTaskFamily: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsEcsTaskID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsEcsTaskRevision: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsLogGroupArns: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsLogGroupNames: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsLogStreamArns: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AwsLogStreamNames: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudAccountID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudAvailabilityZone: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudPlatform: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudProvider: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudRegion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -26,34 +24,12 @@ type MysqlBufferPoolDataPagesMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolDataPagesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlBufferPoolDataPagesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlBufferPoolDataPagesMetricAttributeKeyBufferPoolData:
-		default:
-			return fmt.Errorf("metric mysql.buffer_pool.data_pages doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -64,16 +40,7 @@ type MysqlBufferPoolLimitMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -94,34 +61,12 @@ type MysqlBufferPoolOperationsMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlBufferPoolOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlBufferPoolOperationsMetricAttributeKeyBufferPoolOperations:
-		default:
-			return fmt.Errorf("metric mysql.buffer_pool.operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -132,16 +77,7 @@ type MysqlBufferPoolPageFlushesMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolPageFlushesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -162,36 +98,11 @@ type MysqlBufferPoolPagesMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolPagesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlBufferPoolPagesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlBufferPoolPagesMetricAttributeKeyBufferPoolPages:
-		default:
-			return fmt.Errorf("metric mysql.buffer_pool.pages doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlBufferPoolPagesMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlBufferPoolUsageMetricAttributeKey specifies the key of an attribute for the mysql.buffer_pool.usage metric.
 type MysqlBufferPoolUsageMetricAttributeKey string
@@ -210,36 +121,11 @@ type MysqlBufferPoolUsageMetricConfig struct {
 }
 
 func (ms *MysqlBufferPoolUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlBufferPoolUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlBufferPoolUsageMetricAttributeKeyBufferPoolData:
-		default:
-			return fmt.Errorf("metric mysql.buffer_pool.usage doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlBufferPoolUsageMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlClientNetworkIoMetricAttributeKey specifies the key of an attribute for the mysql.client.network.io metric.
 type MysqlClientNetworkIoMetricAttributeKey string
@@ -258,36 +144,11 @@ type MysqlClientNetworkIoMetricConfig struct {
 }
 
 func (ms *MysqlClientNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlClientNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlClientNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric mysql.client.network.io doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlClientNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlCommandsMetricAttributeKey specifies the key of an attribute for the mysql.commands metric.
 type MysqlCommandsMetricAttributeKey string
@@ -306,36 +167,11 @@ type MysqlCommandsMetricConfig struct {
 }
 
 func (ms *MysqlCommandsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlCommandsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlCommandsMetricAttributeKeyCommand:
-		default:
-			return fmt.Errorf("metric mysql.commands doesn't have an attribute %v, valid attributes: [command]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlCommandsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlConnectionCountMetricConfig provides config for the mysql.connection.count metric.
 type MysqlConnectionCountMetricConfig struct {
@@ -344,16 +180,7 @@ type MysqlConnectionCountMetricConfig struct {
 }
 
 func (ms *MysqlConnectionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -374,34 +201,12 @@ type MysqlConnectionErrorsMetricConfig struct {
 }
 
 func (ms *MysqlConnectionErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlConnectionErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlConnectionErrorsMetricAttributeKeyConnectionError:
-		default:
-			return fmt.Errorf("metric mysql.connection.errors doesn't have an attribute %v, valid attributes: [error]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -422,36 +227,11 @@ type MysqlDoubleWritesMetricConfig struct {
 }
 
 func (ms *MysqlDoubleWritesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlDoubleWritesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlDoubleWritesMetricAttributeKeyDoubleWrites:
-		default:
-			return fmt.Errorf("metric mysql.double_writes doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlDoubleWritesMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlHandlersMetricAttributeKey specifies the key of an attribute for the mysql.handlers metric.
 type MysqlHandlersMetricAttributeKey string
@@ -470,36 +250,11 @@ type MysqlHandlersMetricConfig struct {
 }
 
 func (ms *MysqlHandlersMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlHandlersMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlHandlersMetricAttributeKeyHandler:
-		default:
-			return fmt.Errorf("metric mysql.handlers doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlHandlersMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlIndexIoWaitCountMetricAttributeKey specifies the key of an attribute for the mysql.index.io.wait.count metric.
 type MysqlIndexIoWaitCountMetricAttributeKey string
@@ -521,34 +276,12 @@ type MysqlIndexIoWaitCountMetricConfig struct {
 }
 
 func (ms *MysqlIndexIoWaitCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlIndexIoWaitCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlIndexIoWaitCountMetricAttributeKeyIoWaitsOperations, MysqlIndexIoWaitCountMetricAttributeKeyTableName, MysqlIndexIoWaitCountMetricAttributeKeySchema, MysqlIndexIoWaitCountMetricAttributeKeyIndexName:
-		default:
-			return fmt.Errorf("metric mysql.index.io.wait.count doesn't have an attribute %v, valid attributes: [operation, table, schema, index]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -572,36 +305,11 @@ type MysqlIndexIoWaitTimeMetricConfig struct {
 }
 
 func (ms *MysqlIndexIoWaitTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlIndexIoWaitTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlIndexIoWaitTimeMetricAttributeKeyIoWaitsOperations, MysqlIndexIoWaitTimeMetricAttributeKeyTableName, MysqlIndexIoWaitTimeMetricAttributeKeySchema, MysqlIndexIoWaitTimeMetricAttributeKeyIndexName:
-		default:
-			return fmt.Errorf("metric mysql.index.io.wait.time doesn't have an attribute %v, valid attributes: [operation, table, schema, index]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlIndexIoWaitTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlJoinsMetricAttributeKey specifies the key of an attribute for the mysql.joins metric.
 type MysqlJoinsMetricAttributeKey string
@@ -620,36 +328,11 @@ type MysqlJoinsMetricConfig struct {
 }
 
 func (ms *MysqlJoinsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlJoinsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlJoinsMetricAttributeKeyJoinKind:
-		default:
-			return fmt.Errorf("metric mysql.joins doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlJoinsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlLocksMetricAttributeKey specifies the key of an attribute for the mysql.locks metric.
 type MysqlLocksMetricAttributeKey string
@@ -668,36 +351,11 @@ type MysqlLocksMetricConfig struct {
 }
 
 func (ms *MysqlLocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlLocksMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlLocksMetricAttributeKeyLocks:
-		default:
-			return fmt.Errorf("metric mysql.locks doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlLocksMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlLogOperationsMetricAttributeKey specifies the key of an attribute for the mysql.log_operations metric.
 type MysqlLogOperationsMetricAttributeKey string
@@ -716,36 +374,11 @@ type MysqlLogOperationsMetricConfig struct {
 }
 
 func (ms *MysqlLogOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlLogOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlLogOperationsMetricAttributeKeyLogOperations:
-		default:
-			return fmt.Errorf("metric mysql.log_operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlLogOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlMaxUsedConnectionsMetricConfig provides config for the mysql.max_used_connections metric.
 type MysqlMaxUsedConnectionsMetricConfig struct {
@@ -754,16 +387,7 @@ type MysqlMaxUsedConnectionsMetricConfig struct {
 }
 
 func (ms *MysqlMaxUsedConnectionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -784,34 +408,12 @@ type MysqlMysqlxConnectionsMetricConfig struct {
 }
 
 func (ms *MysqlMysqlxConnectionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlMysqlxConnectionsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlMysqlxConnectionsMetricAttributeKeyConnectionStatus:
-		default:
-			return fmt.Errorf("metric mysql.mysqlx_connections doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -832,34 +434,12 @@ type MysqlMysqlxWorkerThreadsMetricConfig struct {
 }
 
 func (ms *MysqlMysqlxWorkerThreadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlMysqlxWorkerThreadsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlMysqlxWorkerThreadsMetricAttributeKeyMysqlxThreads:
-		default:
-			return fmt.Errorf("metric mysql.mysqlx_worker_threads doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -880,36 +460,11 @@ type MysqlOpenedResourcesMetricConfig struct {
 }
 
 func (ms *MysqlOpenedResourcesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlOpenedResourcesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlOpenedResourcesMetricAttributeKeyOpenedResources:
-		default:
-			return fmt.Errorf("metric mysql.opened_resources doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlOpenedResourcesMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlOperationsMetricAttributeKey specifies the key of an attribute for the mysql.operations metric.
 type MysqlOperationsMetricAttributeKey string
@@ -928,36 +483,11 @@ type MysqlOperationsMetricConfig struct {
 }
 
 func (ms *MysqlOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlOperationsMetricAttributeKeyOperations:
-		default:
-			return fmt.Errorf("metric mysql.operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlPageOperationsMetricAttributeKey specifies the key of an attribute for the mysql.page_operations metric.
 type MysqlPageOperationsMetricAttributeKey string
@@ -976,36 +506,11 @@ type MysqlPageOperationsMetricConfig struct {
 }
 
 func (ms *MysqlPageOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlPageOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlPageOperationsMetricAttributeKeyPageOperations:
-		default:
-			return fmt.Errorf("metric mysql.page_operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlPageOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlPageSizeMetricConfig provides config for the mysql.page_size metric.
 type MysqlPageSizeMetricConfig struct {
@@ -1014,16 +519,7 @@ type MysqlPageSizeMetricConfig struct {
 }
 
 func (ms *MysqlPageSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1044,34 +540,12 @@ type MysqlPreparedStatementsMetricConfig struct {
 }
 
 func (ms *MysqlPreparedStatementsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlPreparedStatementsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlPreparedStatementsMetricAttributeKeyPreparedStatementsCommand:
-		default:
-			return fmt.Errorf("metric mysql.prepared_statements doesn't have an attribute %v, valid attributes: [command]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1082,16 +556,7 @@ type MysqlQueryClientCountMetricConfig struct {
 }
 
 func (ms *MysqlQueryClientCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1102,16 +567,7 @@ type MysqlQueryCountMetricConfig struct {
 }
 
 func (ms *MysqlQueryCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1122,16 +578,7 @@ type MysqlQuerySlowCountMetricConfig struct {
 }
 
 func (ms *MysqlQuerySlowCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1142,16 +589,7 @@ type MysqlReplicaSQLDelayMetricConfig struct {
 }
 
 func (ms *MysqlReplicaSQLDelayMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1162,16 +600,7 @@ type MysqlReplicaTimeBehindSourceMetricConfig struct {
 }
 
 func (ms *MysqlReplicaTimeBehindSourceMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1192,36 +621,11 @@ type MysqlRowLocksMetricConfig struct {
 }
 
 func (ms *MysqlRowLocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlRowLocksMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlRowLocksMetricAttributeKeyRowLocks:
-		default:
-			return fmt.Errorf("metric mysql.row_locks doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlRowLocksMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlRowOperationsMetricAttributeKey specifies the key of an attribute for the mysql.row_operations metric.
 type MysqlRowOperationsMetricAttributeKey string
@@ -1240,36 +644,11 @@ type MysqlRowOperationsMetricConfig struct {
 }
 
 func (ms *MysqlRowOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlRowOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlRowOperationsMetricAttributeKeyRowOperations:
-		default:
-			return fmt.Errorf("metric mysql.row_operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlRowOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlSortsMetricAttributeKey specifies the key of an attribute for the mysql.sorts metric.
 type MysqlSortsMetricAttributeKey string
@@ -1288,36 +667,11 @@ type MysqlSortsMetricConfig struct {
 }
 
 func (ms *MysqlSortsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlSortsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlSortsMetricAttributeKeySorts:
-		default:
-			return fmt.Errorf("metric mysql.sorts doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlSortsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlStatementEventCountMetricAttributeKey specifies the key of an attribute for the mysql.statement_event.count metric.
 type MysqlStatementEventCountMetricAttributeKey string
@@ -1339,34 +693,12 @@ type MysqlStatementEventCountMetricConfig struct {
 }
 
 func (ms *MysqlStatementEventCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlStatementEventCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlStatementEventCountMetricAttributeKeySchema, MysqlStatementEventCountMetricAttributeKeyDigest, MysqlStatementEventCountMetricAttributeKeyDigestText, MysqlStatementEventCountMetricAttributeKeyEventState:
-		default:
-			return fmt.Errorf("metric mysql.statement_event.count doesn't have an attribute %v, valid attributes: [schema, digest, digest_text, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1389,34 +721,12 @@ type MysqlStatementEventWaitTimeMetricConfig struct {
 }
 
 func (ms *MysqlStatementEventWaitTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlStatementEventWaitTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlStatementEventWaitTimeMetricAttributeKeySchema, MysqlStatementEventWaitTimeMetricAttributeKeyDigest, MysqlStatementEventWaitTimeMetricAttributeKeyDigestText:
-		default:
-			return fmt.Errorf("metric mysql.statement_event.wait.time doesn't have an attribute %v, valid attributes: [schema, digest, digest_text]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1438,34 +748,12 @@ type MysqlTableAverageRowLengthMetricConfig struct {
 }
 
 func (ms *MysqlTableAverageRowLengthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableAverageRowLengthMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableAverageRowLengthMetricAttributeKeyTableName, MysqlTableAverageRowLengthMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric mysql.table.average_row_length doesn't have an attribute %v, valid attributes: [table, schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1488,34 +776,12 @@ type MysqlTableIoWaitCountMetricConfig struct {
 }
 
 func (ms *MysqlTableIoWaitCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableIoWaitCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableIoWaitCountMetricAttributeKeyIoWaitsOperations, MysqlTableIoWaitCountMetricAttributeKeyTableName, MysqlTableIoWaitCountMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric mysql.table.io.wait.count doesn't have an attribute %v, valid attributes: [operation, table, schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1538,36 +804,11 @@ type MysqlTableIoWaitTimeMetricConfig struct {
 }
 
 func (ms *MysqlTableIoWaitTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlTableIoWaitTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableIoWaitTimeMetricAttributeKeyIoWaitsOperations, MysqlTableIoWaitTimeMetricAttributeKeyTableName, MysqlTableIoWaitTimeMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric mysql.table.io.wait.time doesn't have an attribute %v, valid attributes: [operation, table, schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlTableIoWaitTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlTableLockWaitReadCountMetricAttributeKey specifies the key of an attribute for the mysql.table.lock_wait.read.count metric.
 type MysqlTableLockWaitReadCountMetricAttributeKey string
@@ -1588,34 +829,12 @@ type MysqlTableLockWaitReadCountMetricConfig struct {
 }
 
 func (ms *MysqlTableLockWaitReadCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableLockWaitReadCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableLockWaitReadCountMetricAttributeKeySchema, MysqlTableLockWaitReadCountMetricAttributeKeyTableName, MysqlTableLockWaitReadCountMetricAttributeKeyReadLockType:
-		default:
-			return fmt.Errorf("metric mysql.table.lock_wait.read.count doesn't have an attribute %v, valid attributes: [schema, table, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1638,34 +857,12 @@ type MysqlTableLockWaitReadTimeMetricConfig struct {
 }
 
 func (ms *MysqlTableLockWaitReadTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableLockWaitReadTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableLockWaitReadTimeMetricAttributeKeySchema, MysqlTableLockWaitReadTimeMetricAttributeKeyTableName, MysqlTableLockWaitReadTimeMetricAttributeKeyReadLockType:
-		default:
-			return fmt.Errorf("metric mysql.table.lock_wait.read.time doesn't have an attribute %v, valid attributes: [schema, table, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1688,34 +885,12 @@ type MysqlTableLockWaitWriteCountMetricConfig struct {
 }
 
 func (ms *MysqlTableLockWaitWriteCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableLockWaitWriteCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableLockWaitWriteCountMetricAttributeKeySchema, MysqlTableLockWaitWriteCountMetricAttributeKeyTableName, MysqlTableLockWaitWriteCountMetricAttributeKeyWriteLockType:
-		default:
-			return fmt.Errorf("metric mysql.table.lock_wait.write.count doesn't have an attribute %v, valid attributes: [schema, table, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1738,34 +913,12 @@ type MysqlTableLockWaitWriteTimeMetricConfig struct {
 }
 
 func (ms *MysqlTableLockWaitWriteTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *MysqlTableLockWaitWriteTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableLockWaitWriteTimeMetricAttributeKeySchema, MysqlTableLockWaitWriteTimeMetricAttributeKeyTableName, MysqlTableLockWaitWriteTimeMetricAttributeKeyWriteLockType:
-		default:
-			return fmt.Errorf("metric mysql.table.lock_wait.write.time doesn't have an attribute %v, valid attributes: [schema, table, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1787,36 +940,11 @@ type MysqlTableRowsMetricConfig struct {
 }
 
 func (ms *MysqlTableRowsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlTableRowsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableRowsMetricAttributeKeyTableName, MysqlTableRowsMetricAttributeKeySchema:
-		default:
-			return fmt.Errorf("metric mysql.table.rows doesn't have an attribute %v, valid attributes: [table, schema]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlTableRowsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlTableSizeMetricAttributeKey specifies the key of an attribute for the mysql.table.size metric.
 type MysqlTableSizeMetricAttributeKey string
@@ -1837,36 +965,11 @@ type MysqlTableSizeMetricConfig struct {
 }
 
 func (ms *MysqlTableSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlTableSizeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableSizeMetricAttributeKeyTableName, MysqlTableSizeMetricAttributeKeySchema, MysqlTableSizeMetricAttributeKeyTableSizeType:
-		default:
-			return fmt.Errorf("metric mysql.table.size doesn't have an attribute %v, valid attributes: [table, schema, kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlTableSizeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlTableOpenCacheMetricAttributeKey specifies the key of an attribute for the mysql.table_open_cache metric.
 type MysqlTableOpenCacheMetricAttributeKey string
@@ -1885,36 +988,11 @@ type MysqlTableOpenCacheMetricConfig struct {
 }
 
 func (ms *MysqlTableOpenCacheMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlTableOpenCacheMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTableOpenCacheMetricAttributeKeyCacheStatus:
-		default:
-			return fmt.Errorf("metric mysql.table_open_cache doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlTableOpenCacheMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlThreadsMetricAttributeKey specifies the key of an attribute for the mysql.threads metric.
 type MysqlThreadsMetricAttributeKey string
@@ -1933,36 +1011,11 @@ type MysqlThreadsMetricConfig struct {
 }
 
 func (ms *MysqlThreadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlThreadsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlThreadsMetricAttributeKeyThreads:
-		default:
-			return fmt.Errorf("metric mysql.threads doesn't have an attribute %v, valid attributes: [kind]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlThreadsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlTmpResourcesMetricAttributeKey specifies the key of an attribute for the mysql.tmp_resources metric.
 type MysqlTmpResourcesMetricAttributeKey string
@@ -1981,36 +1034,11 @@ type MysqlTmpResourcesMetricConfig struct {
 }
 
 func (ms *MysqlTmpResourcesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *MysqlTmpResourcesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case MysqlTmpResourcesMetricAttributeKeyTmpResource:
-		default:
-			return fmt.Errorf("metric mysql.tmp_resources doesn't have an attribute %v, valid attributes: [resource]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *MysqlTmpResourcesMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MysqlUptimeMetricConfig provides config for the mysql.uptime metric.
 type MysqlUptimeMetricConfig struct {
@@ -2019,16 +1047,7 @@ type MysqlUptimeMetricConfig struct {
 }
 
 func (ms *MysqlUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2084,228 +1103,7 @@ type MetricsConfig struct {
 	MysqlUptime                  MysqlUptimeMetricConfig                  `mapstructure:"mysql.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		MysqlBufferPoolDataPages: MysqlBufferPoolDataPagesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlBufferPoolDataPagesMetricAttributeKey{MysqlBufferPoolDataPagesMetricAttributeKeyBufferPoolData},
-		},
-		MysqlBufferPoolLimit: MysqlBufferPoolLimitMetricConfig{
-			Enabled: true,
-		},
-		MysqlBufferPoolOperations: MysqlBufferPoolOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlBufferPoolOperationsMetricAttributeKey{MysqlBufferPoolOperationsMetricAttributeKeyBufferPoolOperations},
-		},
-		MysqlBufferPoolPageFlushes: MysqlBufferPoolPageFlushesMetricConfig{
-			Enabled: true,
-		},
-		MysqlBufferPoolPages: MysqlBufferPoolPagesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlBufferPoolPagesMetricAttributeKey{MysqlBufferPoolPagesMetricAttributeKeyBufferPoolPages},
-		},
-		MysqlBufferPoolUsage: MysqlBufferPoolUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlBufferPoolUsageMetricAttributeKey{MysqlBufferPoolUsageMetricAttributeKeyBufferPoolData},
-		},
-		MysqlClientNetworkIo: MysqlClientNetworkIoMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlClientNetworkIoMetricAttributeKey{MysqlClientNetworkIoMetricAttributeKeyDirection},
-		},
-		MysqlCommands: MysqlCommandsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlCommandsMetricAttributeKey{MysqlCommandsMetricAttributeKeyCommand},
-		},
-		MysqlConnectionCount: MysqlConnectionCountMetricConfig{
-			Enabled: false,
-		},
-		MysqlConnectionErrors: MysqlConnectionErrorsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlConnectionErrorsMetricAttributeKey{MysqlConnectionErrorsMetricAttributeKeyConnectionError},
-		},
-		MysqlDoubleWrites: MysqlDoubleWritesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlDoubleWritesMetricAttributeKey{MysqlDoubleWritesMetricAttributeKeyDoubleWrites},
-		},
-		MysqlHandlers: MysqlHandlersMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlHandlersMetricAttributeKey{MysqlHandlersMetricAttributeKeyHandler},
-		},
-		MysqlIndexIoWaitCount: MysqlIndexIoWaitCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlIndexIoWaitCountMetricAttributeKey{MysqlIndexIoWaitCountMetricAttributeKeyIoWaitsOperations, MysqlIndexIoWaitCountMetricAttributeKeyTableName, MysqlIndexIoWaitCountMetricAttributeKeySchema, MysqlIndexIoWaitCountMetricAttributeKeyIndexName},
-		},
-		MysqlIndexIoWaitTime: MysqlIndexIoWaitTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlIndexIoWaitTimeMetricAttributeKey{MysqlIndexIoWaitTimeMetricAttributeKeyIoWaitsOperations, MysqlIndexIoWaitTimeMetricAttributeKeyTableName, MysqlIndexIoWaitTimeMetricAttributeKeySchema, MysqlIndexIoWaitTimeMetricAttributeKeyIndexName},
-		},
-		MysqlJoins: MysqlJoinsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlJoinsMetricAttributeKey{MysqlJoinsMetricAttributeKeyJoinKind},
-		},
-		MysqlLocks: MysqlLocksMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlLocksMetricAttributeKey{MysqlLocksMetricAttributeKeyLocks},
-		},
-		MysqlLogOperations: MysqlLogOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlLogOperationsMetricAttributeKey{MysqlLogOperationsMetricAttributeKeyLogOperations},
-		},
-		MysqlMaxUsedConnections: MysqlMaxUsedConnectionsMetricConfig{
-			Enabled: false,
-		},
-		MysqlMysqlxConnections: MysqlMysqlxConnectionsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlMysqlxConnectionsMetricAttributeKey{MysqlMysqlxConnectionsMetricAttributeKeyConnectionStatus},
-		},
-		MysqlMysqlxWorkerThreads: MysqlMysqlxWorkerThreadsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlMysqlxWorkerThreadsMetricAttributeKey{MysqlMysqlxWorkerThreadsMetricAttributeKeyMysqlxThreads},
-		},
-		MysqlOpenedResources: MysqlOpenedResourcesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlOpenedResourcesMetricAttributeKey{MysqlOpenedResourcesMetricAttributeKeyOpenedResources},
-		},
-		MysqlOperations: MysqlOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlOperationsMetricAttributeKey{MysqlOperationsMetricAttributeKeyOperations},
-		},
-		MysqlPageOperations: MysqlPageOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlPageOperationsMetricAttributeKey{MysqlPageOperationsMetricAttributeKeyPageOperations},
-		},
-		MysqlPageSize: MysqlPageSizeMetricConfig{
-			Enabled: false,
-		},
-		MysqlPreparedStatements: MysqlPreparedStatementsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlPreparedStatementsMetricAttributeKey{MysqlPreparedStatementsMetricAttributeKeyPreparedStatementsCommand},
-		},
-		MysqlQueryClientCount: MysqlQueryClientCountMetricConfig{
-			Enabled: false,
-		},
-		MysqlQueryCount: MysqlQueryCountMetricConfig{
-			Enabled: false,
-		},
-		MysqlQuerySlowCount: MysqlQuerySlowCountMetricConfig{
-			Enabled: false,
-		},
-		MysqlReplicaSQLDelay: MysqlReplicaSQLDelayMetricConfig{
-			Enabled: false,
-		},
-		MysqlReplicaTimeBehindSource: MysqlReplicaTimeBehindSourceMetricConfig{
-			Enabled: false,
-		},
-		MysqlRowLocks: MysqlRowLocksMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlRowLocksMetricAttributeKey{MysqlRowLocksMetricAttributeKeyRowLocks},
-		},
-		MysqlRowOperations: MysqlRowOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlRowOperationsMetricAttributeKey{MysqlRowOperationsMetricAttributeKeyRowOperations},
-		},
-		MysqlSorts: MysqlSortsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlSortsMetricAttributeKey{MysqlSortsMetricAttributeKeySorts},
-		},
-		MysqlStatementEventCount: MysqlStatementEventCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlStatementEventCountMetricAttributeKey{MysqlStatementEventCountMetricAttributeKeySchema, MysqlStatementEventCountMetricAttributeKeyDigest, MysqlStatementEventCountMetricAttributeKeyDigestText, MysqlStatementEventCountMetricAttributeKeyEventState},
-		},
-		MysqlStatementEventWaitTime: MysqlStatementEventWaitTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlStatementEventWaitTimeMetricAttributeKey{MysqlStatementEventWaitTimeMetricAttributeKeySchema, MysqlStatementEventWaitTimeMetricAttributeKeyDigest, MysqlStatementEventWaitTimeMetricAttributeKeyDigestText},
-		},
-		MysqlTableAverageRowLength: MysqlTableAverageRowLengthMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableAverageRowLengthMetricAttributeKey{MysqlTableAverageRowLengthMetricAttributeKeyTableName, MysqlTableAverageRowLengthMetricAttributeKeySchema},
-		},
-		MysqlTableIoWaitCount: MysqlTableIoWaitCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableIoWaitCountMetricAttributeKey{MysqlTableIoWaitCountMetricAttributeKeyIoWaitsOperations, MysqlTableIoWaitCountMetricAttributeKeyTableName, MysqlTableIoWaitCountMetricAttributeKeySchema},
-		},
-		MysqlTableIoWaitTime: MysqlTableIoWaitTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableIoWaitTimeMetricAttributeKey{MysqlTableIoWaitTimeMetricAttributeKeyIoWaitsOperations, MysqlTableIoWaitTimeMetricAttributeKeyTableName, MysqlTableIoWaitTimeMetricAttributeKeySchema},
-		},
-		MysqlTableLockWaitReadCount: MysqlTableLockWaitReadCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableLockWaitReadCountMetricAttributeKey{MysqlTableLockWaitReadCountMetricAttributeKeySchema, MysqlTableLockWaitReadCountMetricAttributeKeyTableName, MysqlTableLockWaitReadCountMetricAttributeKeyReadLockType},
-		},
-		MysqlTableLockWaitReadTime: MysqlTableLockWaitReadTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableLockWaitReadTimeMetricAttributeKey{MysqlTableLockWaitReadTimeMetricAttributeKeySchema, MysqlTableLockWaitReadTimeMetricAttributeKeyTableName, MysqlTableLockWaitReadTimeMetricAttributeKeyReadLockType},
-		},
-		MysqlTableLockWaitWriteCount: MysqlTableLockWaitWriteCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableLockWaitWriteCountMetricAttributeKey{MysqlTableLockWaitWriteCountMetricAttributeKeySchema, MysqlTableLockWaitWriteCountMetricAttributeKeyTableName, MysqlTableLockWaitWriteCountMetricAttributeKeyWriteLockType},
-		},
-		MysqlTableLockWaitWriteTime: MysqlTableLockWaitWriteTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableLockWaitWriteTimeMetricAttributeKey{MysqlTableLockWaitWriteTimeMetricAttributeKeySchema, MysqlTableLockWaitWriteTimeMetricAttributeKeyTableName, MysqlTableLockWaitWriteTimeMetricAttributeKeyWriteLockType},
-		},
-		MysqlTableRows: MysqlTableRowsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableRowsMetricAttributeKey{MysqlTableRowsMetricAttributeKeyTableName, MysqlTableRowsMetricAttributeKeySchema},
-		},
-		MysqlTableSize: MysqlTableSizeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableSizeMetricAttributeKey{MysqlTableSizeMetricAttributeKeyTableName, MysqlTableSizeMetricAttributeKeySchema, MysqlTableSizeMetricAttributeKeyTableSizeType},
-		},
-		MysqlTableOpenCache: MysqlTableOpenCacheMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTableOpenCacheMetricAttributeKey{MysqlTableOpenCacheMetricAttributeKeyCacheStatus},
-		},
-		MysqlThreads: MysqlThreadsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlThreadsMetricAttributeKey{MysqlThreadsMetricAttributeKeyThreads},
-		},
-		MysqlTmpResources: MysqlTmpResourcesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []MysqlTmpResourcesMetricAttributeKey{MysqlTmpResourcesMetricAttributeKeyTmpResource},
-		},
-		MysqlUptime: MysqlUptimeMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // EventConfig provides common config for a particular event.
 type EventConfig struct {
@@ -2314,17 +1112,7 @@ type EventConfig struct {
 	enabledSetByUser bool
 }
 
-func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(ec)
-	if err != nil {
-		return err
-	}
-	ec.enabledSetByUser = parser.IsSet("enabled")
-	return nil
-}
+func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // EventsConfig provides config for mysql events.
 type EventsConfig struct {
@@ -2332,16 +1120,7 @@ type EventsConfig struct {
 	DbServerTopQuery    EventConfig `mapstructure:"db.server.top_query"`
 }
 
-func DefaultEventsConfig() EventsConfig {
-	return EventsConfig{
-		DbServerQuerySample: EventConfig{
-			Enabled: false,
-		},
-		DbServerTopQuery: EventConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultEventsConfig() EventsConfig { _ = "STUB: not implemented"; return *new(EventsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -2365,14 +1144,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2382,11 +1154,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		MysqlInstanceEndpoint: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for mysql metrics builder.
@@ -2396,15 +1165,14 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // LogsBuilderConfig is a configuration for mysql logs builder.
@@ -2414,8 +1182,6 @@ type LogsBuilderConfig struct {
 }
 
 func DefaultLogsBuilderConfig() LogsBuilderConfig {
-	return LogsBuilderConfig{
-		Events:             DefaultEventsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsBuilderConfig)
 }

@@ -17,9 +17,4 @@ type Config struct {
 }
 
 // CreateDefaultConfig returns the default configuration for the IBM Cloud VPC detector.
-func CreateDefaultConfig() Config {
-	return Config{
-		Protocol:           "http",
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

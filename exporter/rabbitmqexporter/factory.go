@@ -5,18 +5,10 @@ package rabbitmqexporter // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"crypto/tls"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configretry"
-	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/rabbitmqexporter/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/rabbitmqexporter/internal/publisher"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/rabbitmq"
 )
 
 const (
@@ -33,29 +25,11 @@ const (
 	defaultLogsConnectionName    = "otel-collector-logs"
 )
 
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		exporter.WithMetrics(createMetricsExporter, metadata.TracesStability),
-		exporter.WithTraces(createTracesExporter, metadata.LogsStability),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	retrySettings := configretry.BackOffConfig{
-		Enabled: false,
-	}
-	return &Config{
-		Durable:       true,
-		RetrySettings: retrySettings,
-		Connection: ConnectionConfig{
-			ConnectionTimeout:          defaultConnectionTimeout,
-			Heartbeat:                  defaultConnectionHeartbeat,
-			PublishConfirmationTimeout: defaultPublishConfirmationTimeout,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -63,25 +37,8 @@ func createTracesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	config := cfg.(*Config)
-
-	routingKey := getRoutingKeyOrDefault(config, spansRoutingKey)
-	connectionName := defaultSpansConnectionName
-	if config.Connection.Name != "" {
-		connectionName = config.Connection.Name
-	}
-	r := newRabbitmqExporter(config, set.TelemetrySettings, newPublisherFactory(set), newTLSFactory(config), routingKey, connectionName)
-
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		r.publishTraces,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-		exporterhelper.WithStart(r.start),
-		exporterhelper.WithShutdown(r.shutdown),
-		exporterhelper.WithRetry(config.RetrySettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
 func createMetricsExporter(
@@ -89,26 +46,8 @@ func createMetricsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Metrics, error) {
-	config := (cfg.(*Config))
-
-	routingKey := getRoutingKeyOrDefault(config, metricsRoutingKey)
-
-	connectionName := defaultMetricsConnectionName
-	if config.Connection.Name != "" {
-		connectionName = config.Connection.Name
-	}
-	r := newRabbitmqExporter(config, set.TelemetrySettings, newPublisherFactory(set), newTLSFactory(config), routingKey, connectionName)
-
-	return exporterhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		r.publishMetrics,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-		exporterhelper.WithStart(r.start),
-		exporterhelper.WithShutdown(r.shutdown),
-		exporterhelper.WithRetry(config.RetrySettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createLogsExporter(
@@ -116,46 +55,18 @@ func createLogsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	config := (cfg.(*Config))
-
-	routingKey := getRoutingKeyOrDefault(config, logsRoutingKey)
-	connectionName := defaultLogsConnectionName
-	if config.Connection.Name != "" {
-		connectionName = config.Connection.Name
-	}
-	r := newRabbitmqExporter(config, set.TelemetrySettings, newPublisherFactory(set), newTLSFactory(config), routingKey, connectionName)
-
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		r.publishLogs,
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-		exporterhelper.WithStart(r.start),
-		exporterhelper.WithShutdown(r.shutdown),
-		exporterhelper.WithRetry(config.RetrySettings),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func getRoutingKeyOrDefault(config *Config, fallback string) string {
-	routingKey := fallback
-	if config.Routing.RoutingKey != "" {
-		routingKey = config.Routing.RoutingKey
-	}
-	return routingKey
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func newPublisherFactory(set exporter.Settings) publisherFactory {
-	return func(dialConfig publisher.DialConfig) (publisher.Publisher, error) {
-		return publisher.NewConnection(set.Logger, rabbitmq.NewAmqpClient(set.Logger), dialConfig)
-	}
+	_ = "STUB: not implemented"
+	return *new(publisherFactory)
 }
 
-func newTLSFactory(config *Config) tlsFactory {
-	if config.Connection.TLSConfig != nil {
-		return config.Connection.TLSConfig.LoadTLSConfig
-	}
-	return func(context.Context) (*tls.Config, error) {
-		return nil, nil
-	}
-}
+func newTLSFactory(config *Config) tlsFactory { _ = "STUB: not implemented"; return *new(tlsFactory) }

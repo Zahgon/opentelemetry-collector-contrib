@@ -5,18 +5,14 @@ package countconnector // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/pprofile"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/countconnector/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottldatapoint"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottllog"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlmetric"
@@ -41,233 +37,36 @@ type count struct {
 }
 
 func (*count) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
 func (c *count) ConsumeTraces(ctx context.Context, td ptrace.Traces) error {
-	var multiError error
-	countMetrics := pmetric.NewMetrics()
-	countMetrics.ResourceMetrics().EnsureCapacity(td.ResourceSpans().Len())
-	for i := 0; i < td.ResourceSpans().Len(); i++ {
-		resourceSpan := td.ResourceSpans().At(i)
-		resourceAttrs := resourceSpan.Resource().Attributes()
-		spansCounter := newCounter[*ottlspan.TransformContext](c.spansMetricDefs)
-		spanEventsCounter := newCounter[*ottlspanevent.TransformContext](c.spanEventsMetricDefs)
-
-		for j := 0; j < resourceSpan.ScopeSpans().Len(); j++ {
-			scopeSpan := resourceSpan.ScopeSpans().At(j)
-			scopeAttrs := scopeSpan.Scope().Attributes()
-
-			for k := 0; k < scopeSpan.Spans().Len(); k++ {
-				span := scopeSpan.Spans().At(k)
-				spansCounter.updateTimestamp(span.StartTimestamp())
-				spansCounter.updateTimestamp(span.EndTimestamp())
-				sCtx := ottlspan.NewTransformContextPtr(resourceSpan, scopeSpan, span)
-				multiError = errors.Join(multiError, spansCounter.update(ctx, span.Attributes(), scopeAttrs, resourceAttrs, sCtx))
-				sCtx.Close()
-
-				for l := 0; l < span.Events().Len(); l++ {
-					event := span.Events().At(l)
-					spanEventsCounter.updateTimestamp(event.Timestamp())
-					eCtx := ottlspanevent.NewTransformContextPtr(resourceSpan, scopeSpan, span, event)
-					multiError = errors.Join(multiError, spanEventsCounter.update(ctx, event.Attributes(), scopeAttrs, resourceAttrs, eCtx))
-					eCtx.Close()
-				}
-			}
-		}
-
-		if len(spansCounter.counts)+len(spanEventsCounter.counts) == 0 {
-			continue // don't add an empty resource
-		}
-
-		countResource := countMetrics.ResourceMetrics().AppendEmpty()
-		resourceSpan.Resource().Attributes().CopyTo(countResource.Resource().Attributes())
-
-		countResource.ScopeMetrics().EnsureCapacity(resourceSpan.ScopeSpans().Len())
-		countScope := countResource.ScopeMetrics().AppendEmpty()
-		countScope.Scope().SetName(metadata.ScopeName)
-
-		spansCounter.appendMetricsTo(countScope.Metrics())
-		spanEventsCounter.appendMetricsTo(countScope.Metrics())
-	}
-	if multiError != nil {
-		return multiError
-	}
-	return c.metricsConsumer.ConsumeMetrics(ctx, countMetrics)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// don't add an empty resource
 
 func (c *count) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	var multiError error
-	countMetrics := pmetric.NewMetrics()
-	countMetrics.ResourceMetrics().EnsureCapacity(md.ResourceMetrics().Len())
-	for i := 0; i < md.ResourceMetrics().Len(); i++ {
-		resourceMetric := md.ResourceMetrics().At(i)
-		resourceAttrs := resourceMetric.Resource().Attributes()
-		metricsCounter := newCounter[*ottlmetric.TransformContext](c.metricsMetricDefs)
-		dataPointsCounter := newCounter[*ottldatapoint.TransformContext](c.dataPointsMetricDefs)
-
-		for j := 0; j < resourceMetric.ScopeMetrics().Len(); j++ {
-			scopeMetrics := resourceMetric.ScopeMetrics().At(j)
-			scopeAttrs := scopeMetrics.Scope().Attributes()
-
-			for k := 0; k < scopeMetrics.Metrics().Len(); k++ {
-				metric := scopeMetrics.Metrics().At(k)
-				mCtx := ottlmetric.NewTransformContextPtr(resourceMetric, scopeMetrics, metric)
-				multiError = errors.Join(multiError, metricsCounter.update(ctx, pcommon.NewMap(), scopeAttrs, resourceAttrs, mCtx))
-				mCtx.Close()
-
-				//exhaustive:enforce
-				switch metric.Type() {
-				case pmetric.MetricTypeGauge:
-					dps := metric.Gauge().DataPoints()
-					for i := 0; i < dps.Len(); i++ {
-						dp := dps.At(i)
-						dataPointsCounter.updateTimestamp(dp.Timestamp())
-						dCtx := ottldatapoint.NewTransformContextPtr(resourceMetric, scopeMetrics, metric, dp)
-						multiError = errors.Join(multiError, dataPointsCounter.update(ctx, dp.Attributes(), scopeAttrs, resourceAttrs, dCtx))
-						dCtx.Close()
-					}
-				case pmetric.MetricTypeSum:
-					dps := metric.Sum().DataPoints()
-					for i := 0; i < dps.Len(); i++ {
-						dp := dps.At(i)
-						dataPointsCounter.updateTimestamp(dp.Timestamp())
-						dCtx := ottldatapoint.NewTransformContextPtr(resourceMetric, scopeMetrics, metric, dp)
-						multiError = errors.Join(multiError, dataPointsCounter.update(ctx, dp.Attributes(), scopeAttrs, resourceAttrs, dCtx))
-						dCtx.Close()
-					}
-				case pmetric.MetricTypeSummary:
-					dps := metric.Summary().DataPoints()
-					for i := 0; i < dps.Len(); i++ {
-						dp := dps.At(i)
-						dataPointsCounter.updateTimestamp(dp.Timestamp())
-						dCtx := ottldatapoint.NewTransformContextPtr(resourceMetric, scopeMetrics, metric, dp)
-						multiError = errors.Join(multiError, dataPointsCounter.update(ctx, dp.Attributes(), scopeAttrs, resourceAttrs, dCtx))
-						dCtx.Close()
-					}
-				case pmetric.MetricTypeHistogram:
-					dps := metric.Histogram().DataPoints()
-					for i := 0; i < dps.Len(); i++ {
-						dp := dps.At(i)
-						dataPointsCounter.updateTimestamp(dp.Timestamp())
-						dCtx := ottldatapoint.NewTransformContextPtr(resourceMetric, scopeMetrics, metric, dp)
-						multiError = errors.Join(multiError, dataPointsCounter.update(ctx, dp.Attributes(), scopeAttrs, resourceAttrs, dCtx))
-						dCtx.Close()
-					}
-				case pmetric.MetricTypeExponentialHistogram:
-					dps := metric.ExponentialHistogram().DataPoints()
-					for i := 0; i < dps.Len(); i++ {
-						dp := dps.At(i)
-						dataPointsCounter.updateTimestamp(dp.Timestamp())
-						dCtx := ottldatapoint.NewTransformContextPtr(resourceMetric, scopeMetrics, metric, dp)
-						multiError = errors.Join(multiError, dataPointsCounter.update(ctx, dp.Attributes(), scopeAttrs, resourceAttrs, dCtx))
-						dCtx.Close()
-					}
-				case pmetric.MetricTypeEmpty:
-					multiError = errors.Join(multiError, fmt.Errorf("metric %q: invalid metric type: %v", metric.Name(), metric.Type()))
-				}
-			}
-		}
-
-		if len(metricsCounter.counts)+len(dataPointsCounter.counts) == 0 {
-			continue // don't add an empty resource
-		}
-
-		countResource := countMetrics.ResourceMetrics().AppendEmpty()
-		resourceMetric.Resource().Attributes().CopyTo(countResource.Resource().Attributes())
-
-		countResource.ScopeMetrics().EnsureCapacity(resourceMetric.ScopeMetrics().Len())
-		countScope := countResource.ScopeMetrics().AppendEmpty()
-		countScope.Scope().SetName(metadata.ScopeName)
-
-		metricsCounter.appendMetricsTo(countScope.Metrics())
-		dataPointsCounter.appendMetricsTo(countScope.Metrics())
-	}
-	if multiError != nil {
-		return multiError
-	}
-	return c.metricsConsumer.ConsumeMetrics(ctx, countMetrics)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+//exhaustive:enforce
+
+// don't add an empty resource
 
 func (c *count) ConsumeLogs(ctx context.Context, ld plog.Logs) error {
-	var multiError error
-	countMetrics := pmetric.NewMetrics()
-	countMetrics.ResourceMetrics().EnsureCapacity(ld.ResourceLogs().Len())
-	for i := 0; i < ld.ResourceLogs().Len(); i++ {
-		resourceLog := ld.ResourceLogs().At(i)
-		resourceAttrs := resourceLog.Resource().Attributes()
-		counter := newCounter[*ottllog.TransformContext](c.logsMetricDefs)
-
-		for j := 0; j < resourceLog.ScopeLogs().Len(); j++ {
-			scopeLogs := resourceLog.ScopeLogs().At(j)
-			scopeAttrs := scopeLogs.Scope().Attributes()
-
-			for k := 0; k < scopeLogs.LogRecords().Len(); k++ {
-				logRecord := scopeLogs.LogRecords().At(k)
-				counter.updateTimestamp(logRecord.Timestamp())
-				lCtx := ottllog.NewTransformContextPtr(resourceLog, scopeLogs, logRecord)
-				multiError = errors.Join(multiError, counter.update(ctx, logRecord.Attributes(), scopeAttrs, resourceAttrs, lCtx))
-				lCtx.Close()
-			}
-		}
-
-		if len(counter.counts) == 0 {
-			continue // don't add an empty resource
-		}
-
-		countResource := countMetrics.ResourceMetrics().AppendEmpty()
-		resourceLog.Resource().Attributes().CopyTo(countResource.Resource().Attributes())
-
-		countResource.ScopeMetrics().EnsureCapacity(resourceLog.ScopeLogs().Len())
-		countScope := countResource.ScopeMetrics().AppendEmpty()
-		countScope.Scope().SetName(metadata.ScopeName)
-
-		counter.appendMetricsTo(countScope.Metrics())
-	}
-	if multiError != nil {
-		return multiError
-	}
-	return c.metricsConsumer.ConsumeMetrics(ctx, countMetrics)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// don't add an empty resource
 
 func (c *count) ConsumeProfiles(ctx context.Context, ld pprofile.Profiles) error {
-	var multiError error
-	countMetrics := pmetric.NewMetrics()
-	countMetrics.ResourceMetrics().EnsureCapacity(ld.ResourceProfiles().Len())
-	for i := 0; i < ld.ResourceProfiles().Len(); i++ {
-		resourceProfile := ld.ResourceProfiles().At(i)
-		resourceAttrs := resourceProfile.Resource().Attributes()
-		counter := newCounter[*ottlprofile.TransformContext](c.profilesMetricDefs)
-
-		for j := 0; j < resourceProfile.ScopeProfiles().Len(); j++ {
-			scopeProfile := resourceProfile.ScopeProfiles().At(j)
-			scopeAttrs := scopeProfile.Scope().Attributes()
-
-			for k := 0; k < scopeProfile.Profiles().Len(); k++ {
-				profile := scopeProfile.Profiles().At(k)
-				counter.updateTimestamp(profile.Time())
-				pCtx := ottlprofile.NewTransformContextPtr(resourceProfile, scopeProfile, profile, ld.Dictionary())
-				attributes := pprofile.FromAttributeIndices(ld.Dictionary().AttributeTable(), profile, ld.Dictionary())
-				multiError = errors.Join(multiError, counter.update(ctx, attributes, scopeAttrs, resourceAttrs, pCtx))
-				pCtx.Close()
-			}
-		}
-
-		if len(counter.counts) == 0 {
-			continue // don't add an empty resource
-		}
-
-		countResource := countMetrics.ResourceMetrics().AppendEmpty()
-		resourceProfile.Resource().Attributes().CopyTo(countResource.Resource().Attributes())
-
-		countResource.ScopeMetrics().EnsureCapacity(resourceProfile.ScopeProfiles().Len())
-		countScope := countResource.ScopeMetrics().AppendEmpty()
-		countScope.Scope().SetName(metadata.ScopeName)
-
-		counter.appendMetricsTo(countScope.Metrics())
-	}
-	if multiError != nil {
-		return multiError
-	}
-	return c.metricsConsumer.ConsumeMetrics(ctx, countMetrics)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// don't add an empty resource

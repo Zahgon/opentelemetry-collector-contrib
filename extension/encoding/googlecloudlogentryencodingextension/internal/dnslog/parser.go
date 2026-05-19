@@ -6,15 +6,7 @@
 package dnslog // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/dnslog"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
-
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -92,67 +84,30 @@ type dnslog struct {
 	VMZoneName             string   `json:"vmZoneName"`
 }
 
-func handleQueryAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutStr(string(conventions.DNSQuestionNameKey), log.QueryName, attr)
-	shared.PutStr(gcpDNSQueryType, log.QueryType, attr) // TBD in SemConv
-}
+func handleQueryAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func handleResponseAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutStr(gcpDNSResponseCode, log.ResponseCode, attr) // TBD in SemConv
-	shared.PutStr(gcpDNSAliasQueryResponseCode, log.AliasQueryResponseCode, attr)
-	shared.PutBool(gcpDNSAuthAnswer, log.AuthAnswer, attr)
-	shared.PutStr(gcpDNSAnswerData, log.Rdata, attr) // TBD in SemConv
-}
+// TBD in SemConv
 
-func handleNetworkAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutStr(string(conventions.ServerAddressKey), log.DestinationIP, attr)
-	shared.PutStr(gcpDNSClientVPCNetwork, log.SourceNetwork, attr)
-	shared.PutStr(gcpDNSClientType, log.SourceType, attr)
-	shared.PutStr(string(conventions.ClientAddressKey), log.SourceIP, attr)
-	shared.PutStr(string(conventions.NetworkTransportKey), strings.ToLower(log.Protocol), attr)
-	shared.PutStr(string(conventions.CloudRegionKey), log.Location, attr)
-}
+func handleResponseAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func handleTargetAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutStr(gcpDNSServerName, log.TargetName, attr)
-	shared.PutStr(gcpDNServerType, log.TargetType, attr)
-}
+// TBD in SemConv
+
+// TBD in SemConv
+
+func handleNetworkAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
+
+func handleTargetAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func handlePerformanceAndErrorAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutDouble(gcpDNSServerLatency, log.ServerLatency, attr)
-	shared.PutStr(gcpDNSEgressError, log.EgressError, attr)
-	shared.PutStr(gcpDNSHealthyIPs, log.HealthyIps, attr)
-	shared.PutStr(gcpDNSUnhealthyIPs, log.UnhealthyIps, attr)
+	_ = "STUB: not implemented"
+	return
 }
 
-func handleDNSFeatureAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutBool(gcpDNSDNS64Translated, log.DNS64Translated, attr)
-}
+func handleDNSFeatureAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func handleVMInstanceAttributes(log *dnslog, attr pcommon.Map) {
-	shared.PutInt(string(conventions.HostIDKey), log.VMInstanceID, attr)
-	shared.PutStr(string(conventions.HostNameKey), log.VMInstanceName, attr)
-	shared.PutStr(gcpProjectID, log.VMProjectID, attr)
-	shared.PutStr(string(conventions.CloudAvailabilityZoneKey), log.VMZoneName, attr)
-}
+func handleVMInstanceAttributes(log *dnslog, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log *dnslog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("failed to unmarshal DNS log: %w", err)
-	}
-
-	if log == nil {
-		return errors.New("DNS cannot be nil after detecting payload as DNS log")
-	}
-
-	handleQueryAttributes(log, attr)
-	handleResponseAttributes(log, attr)
-	handleNetworkAttributes(log, attr)
-	handleTargetAttributes(log, attr)
-	handlePerformanceAndErrorAttributes(log, attr)
-	handleDNSFeatureAttributes(log, attr)
-	handleVMInstanceAttributes(log, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }

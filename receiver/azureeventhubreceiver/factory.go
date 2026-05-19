@@ -11,10 +11,8 @@ import (
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/pipeline"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azureeventhubreceiver/internal/metadata"
 )
 
 var errUnexpectedConfigurationType = errors.New("failed to cast configuration to azure event hub config")
@@ -24,23 +22,11 @@ type eventhubReceiverFactory struct {
 }
 
 // NewFactory creates a factory for the Azure Event Hub receiver.
-func NewFactory() receiver.Factory {
-	f := &eventhubReceiverFactory{
-		receivers: sharedcomponent.NewSharedComponents(),
-	}
-
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithLogs(f.createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithMetrics(f.createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithTraces(f.createTracesReceiver, metadata.TracesStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func (f *eventhubReceiverFactory) createLogsReceiver(
@@ -49,14 +35,8 @@ func (f *eventhubReceiverFactory) createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	receiver, err := f.getReceiver(pipeline.SignalLogs, cfg, settings)
-	if err != nil {
-		return nil, err
-	}
-
-	receiver.(dataConsumer).setNextLogsConsumer(nextConsumer)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func (f *eventhubReceiverFactory) createMetricsReceiver(
@@ -65,14 +45,8 @@ func (f *eventhubReceiverFactory) createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	receiver, err := f.getReceiver(pipeline.SignalMetrics, cfg, settings)
-	if err != nil {
-		return nil, err
-	}
-
-	receiver.(dataConsumer).setNextMetricsConsumer(nextConsumer)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func (f *eventhubReceiverFactory) createTracesReceiver(
@@ -81,14 +55,8 @@ func (f *eventhubReceiverFactory) createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	receiver, err := f.getReceiver(pipeline.SignalTraces, cfg, settings)
-	if err != nil {
-		return nil, err
-	}
-
-	receiver.(dataConsumer).setNextTracesConsumer(nextConsumer)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func (f *eventhubReceiverFactory) getReceiver(
@@ -96,54 +64,6 @@ func (f *eventhubReceiverFactory) getReceiver(
 	cfg component.Config,
 	settings receiver.Settings,
 ) (component.Component, error) {
-	var err error
-	r := f.receivers.GetOrAdd(cfg, func() component.Component {
-		receiverConfig, ok := cfg.(*Config)
-		if !ok {
-			err = errUnexpectedConfigurationType
-			return nil
-		}
-
-		var logsUnmarshaler eventLogsUnmarshaler
-		var metricsUnmarshaler eventMetricsUnmarshaler
-		var tracesUnmarshaler eventTracesUnmarshaler
-		switch signal {
-		case pipeline.SignalLogs:
-			if logFormat(receiverConfig.Format) == rawLogFormat {
-				logsUnmarshaler = newRawLogsUnmarshaler(settings.Logger)
-			} else {
-				logsUnmarshaler = newAzureResourceLogsUnmarshaler(settings.BuildInfo, settings.Logger, receiverConfig.ApplySemanticConventions, receiverConfig.TimeFormats.Logs)
-			}
-		case pipeline.SignalMetrics:
-			if logFormat(receiverConfig.Format) == rawLogFormat {
-				metricsUnmarshaler = nil
-				err = errors.New("raw format not supported for Metrics")
-			} else {
-				metricsUnmarshaler = newAzureResourceMetricsUnmarshaler(settings.BuildInfo, settings.Logger, receiverConfig)
-			}
-		case pipeline.SignalTraces:
-			if logFormat(receiverConfig.Format) == rawLogFormat {
-				tracesUnmarshaler = nil
-				err = errors.New("raw format not supported for Traces")
-			} else {
-				tracesUnmarshaler = newAzureTracesUnmarshaler(settings.BuildInfo, settings.Logger, receiverConfig.TimeFormats.Traces)
-			}
-		}
-
-		if err != nil {
-			return nil
-		}
-
-		eventHandler := newEventhubHandler(receiverConfig, settings)
-
-		var rcvr component.Component
-		rcvr, err = newReceiver(signal, logsUnmarshaler, metricsUnmarshaler, tracesUnmarshaler, eventHandler, settings)
-		return rcvr
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return r.Unwrap(), err
+	_ = "STUB: not implemented"
+	return *new(component.Component), nil
 }

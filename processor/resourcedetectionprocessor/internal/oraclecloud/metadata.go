@@ -5,21 +5,17 @@ package oraclecloud // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"go.opentelemetry.io/collector/component"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/oraclecloud/internal/metadata"
 )
 
 type dummyFactory struct{}
 
-func (dummyFactory) Type() component.Type {
-	return metadata.Type
-}
+func (dummyFactory) Type() component.Type { _ = "STUB: not implemented"; return *new(component.Type) }
 
 func (dummyFactory) CreateDefaultConfig() component.Config {
-	return struct{}{}
+	_ = "STUB: not implemented"
+
+	// Necessary to satisfy mdatagen tests
+	return *new(component.Config)
 }
 
-// Necessary to satisfy mdatagen tests
-func NewFactory() component.Factory {
-	return dummyFactory{}
-}
+func NewFactory() component.Factory { _ = "STUB: not implemented"; return *new(component.Factory) }

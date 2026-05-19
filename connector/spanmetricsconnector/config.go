@@ -4,15 +4,12 @@
 package spanmetricsconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/confmap/xconfmap"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/spanmetricsconnector/internal/metrics"
 )
 
@@ -152,93 +149,22 @@ type EventsConfig struct {
 var _ xconfmap.Validator = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (c Config) Validate() error {
-	if err := validateDimensions(c.Dimensions); err != nil {
-		return fmt.Errorf("failed validating dimensions: %w", err)
-	}
-	if err := validateEventDimensions(c.Events.Enabled, c.Events.Dimensions); err != nil {
-		return fmt.Errorf("failed validating event dimensions: %w", err)
-	}
-
-	if c.Histogram.Explicit.HasValue() && c.Histogram.Exponential.HasValue() {
-		return errors.New("use either `explicit` or `exponential` buckets histogram")
-	}
-
-	if c.MetricsFlushInterval < 0 {
-		return fmt.Errorf("invalid metrics_flush_interval: %v, the duration should be positive", c.MetricsFlushInterval)
-	}
-
-	if c.MetricsExpiration < 0 {
-		return fmt.Errorf("invalid metrics_expiration: %v, the duration should be positive", c.MetricsExpiration)
-	}
-
-	if c.SeriesExpiration < 0 {
-		return fmt.Errorf("invalid series_expiration: %v, the duration should be positive", c.SeriesExpiration)
-	}
-
-	if c.GetAggregationTemporality() == pmetric.AggregationTemporalityDelta && c.GetDeltaTimestampCacheSize() <= 0 {
-		return fmt.Errorf(
-			"invalid delta timestamp cache size: %v, the maximum number of the items in the cache should be positive",
-			c.GetDeltaTimestampCacheSize(),
-		)
-	}
-
-	if c.AggregationCardinalityLimit < 0 {
-		return fmt.Errorf("invalid aggregation_cardinality_limit: %v, the limit should be positive", c.AggregationCardinalityLimit)
-	}
-
-	if c.Exemplars.Enabled && c.Exemplars.MaxPerDataPoint < 0 {
-		return fmt.Errorf("invalid max_per_data_point: %v, the value should be positive", c.Exemplars.MaxPerDataPoint)
-	}
-
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // GetAggregationTemporality converts the string value given in the config into a AggregationTemporality.
 // Returns cumulative, unless delta is correctly specified.
 func (c Config) GetAggregationTemporality() pmetric.AggregationTemporality {
-	if c.AggregationTemporality == delta {
-		return pmetric.AggregationTemporalityDelta
-	}
-	return pmetric.AggregationTemporalityCumulative
+	_ = "STUB: not implemented"
+	return *new(pmetric.AggregationTemporality)
 }
 
-func (c Config) GetDeltaTimestampCacheSize() int {
-	if c.TimestampCacheSize != nil {
-		return *c.TimestampCacheSize
-	}
-	return defaultDeltaTimestampCacheSize
-}
+func (c Config) GetDeltaTimestampCacheSize() int { _ = "STUB: not implemented"; return 0 }
 
 // validateDimensions checks duplicates for reserved dimensions and additional dimensions.
-func validateDimensions(dimensions []Dimension) error {
-	labelNames := make(map[string]struct{})
-	intervalLabels := []string{serviceNameKey, spanKindKey, statusCodeKey, spanNameKey}
-	if metadata.ConnectorSpanmetricsIncludeCollectorInstanceIDFeatureGate.IsEnabled() {
-		intervalLabels = append(intervalLabels, collectorInstanceKey)
-	}
-
-	for _, key := range intervalLabels {
-		labelNames[key] = struct{}{}
-	}
-
-	for _, key := range dimensions {
-		if _, ok := labelNames[key.Name]; ok {
-			return fmt.Errorf("duplicate dimension name %s", key.Name)
-		}
-		labelNames[key.Name] = struct{}{}
-	}
-
-	return nil
-}
+func validateDimensions(dimensions []Dimension) error { _ = "STUB: not implemented"; return nil }
 
 // validateEventDimensions checks for empty and duplicates for the dimensions configured.
 func validateEventDimensions(enabled bool, dimensions []Dimension) error {
-	if !enabled {
-		return nil
-	}
-	if len(dimensions) == 0 {
-		return errors.New("no dimensions configured for events")
-	}
-	return validateDimensions(dimensions)
+	_ = "STUB: not implemented"
+	return nil
 }

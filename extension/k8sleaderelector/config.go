@@ -4,7 +4,6 @@
 package k8sleaderelector // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/k8sleaderelector"
 
 import (
-	"errors"
 	"time"
 
 	"k8s.io/client-go/kubernetes"
@@ -24,16 +23,9 @@ type Config struct {
 }
 
 func (cfg *Config) getK8sClient() (kubernetes.Interface, error) {
-	if cfg.makeClient == nil {
-		cfg.makeClient = k8sconfig.MakeClient
-	}
-	return cfg.makeClient(cfg.APIConfig)
+	_ = "STUB: not implemented"
+	return *new(kubernetes.Interface), nil
 }
 
 // Validate checks if the extension configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.LeaseName == "" || cfg.LeaseNamespace == "" {
-		return errors.New("lease name and namespace must be set")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

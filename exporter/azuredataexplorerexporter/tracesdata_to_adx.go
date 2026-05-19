@@ -4,13 +4,8 @@
 package azuredataexplorerexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azuredataexplorerexporter"
 
 import (
-	"maps"
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/traceutil"
 )
 
 type adxTrace struct {
@@ -43,51 +38,10 @@ type link struct {
 }
 
 func mapToAdxTrace(resource pcommon.Resource, scope pcommon.InstrumentationScope, spanData ptrace.Span) *adxTrace {
-	traceAttrib := spanData.Attributes().AsRaw()
-	clonedTraceAttrib := maps.Clone(traceAttrib)
-	maps.Copy(clonedTraceAttrib, getScopeMap(scope))
-
-	return &adxTrace{
-		TraceID:            traceutil.TraceIDToHexOrEmptyString(spanData.TraceID()),
-		SpanID:             traceutil.SpanIDToHexOrEmptyString(spanData.SpanID()),
-		ParentID:           traceutil.SpanIDToHexOrEmptyString(spanData.ParentSpanID()),
-		SpanName:           spanData.Name(),
-		SpanStatus:         traceutil.StatusCodeStr(spanData.Status().Code()),
-		SpanStatusMessage:  spanData.Status().Message(),
-		SpanKind:           traceutil.SpanKindStr(spanData.Kind()),
-		StartTime:          spanData.StartTimestamp().AsTime().Format(time.RFC3339Nano),
-		EndTime:            spanData.EndTimestamp().AsTime().Format(time.RFC3339Nano),
-		ResourceAttributes: resource.Attributes().AsRaw(),
-		TraceAttributes:    clonedTraceAttrib,
-		Events:             getEventsData(spanData),
-		Links:              getLinksData(spanData),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func getEventsData(sd ptrace.Span) []*event {
-	events := make([]*event, sd.Events().Len())
+func getEventsData(sd ptrace.Span) []*event { _ = "STUB: not implemented"; return nil }
 
-	for i := 0; i < sd.Events().Len(); i++ {
-		event := &event{
-			Timestamp:       sd.Events().At(i).Timestamp().AsTime().Format(time.RFC3339Nano),
-			EventName:       sd.Events().At(i).Name(),
-			EventAttributes: sd.Events().At(i).Attributes().AsRaw(),
-		}
-		events[i] = event
-	}
-	return events
-}
-
-func getLinksData(sd ptrace.Span) []*link {
-	links := make([]*link, sd.Links().Len())
-	for i := 0; i < sd.Links().Len(); i++ {
-		link := &link{
-			TraceID:            traceutil.TraceIDToHexOrEmptyString(sd.Links().At(i).TraceID()),
-			SpanID:             traceutil.SpanIDToHexOrEmptyString(sd.Links().At(i).SpanID()),
-			TraceState:         sd.Links().At(i).TraceState().AsRaw(),
-			SpanLinkAttributes: sd.Links().At(i).Attributes().AsRaw(),
-		}
-		links[i] = link
-	}
-	return links
-}
+func getLinksData(sd ptrace.Span) []*link { _ = "STUB: not implemented"; return nil }

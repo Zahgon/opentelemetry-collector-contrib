@@ -8,25 +8,16 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jaegerencodingextension/internal/metadata"
 )
 
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(_ context.Context, _ extension.Settings, config component.Config) (extension.Extension, error) {
-	return &jaegerExtension{
-		config: config.(*Config),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{Protocol: JaegerProtocolProtobuf}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

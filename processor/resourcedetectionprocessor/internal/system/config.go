@@ -4,8 +4,6 @@
 package system // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/system"
 
 import (
-	"fmt"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/system/internal/metadata"
 )
 
@@ -20,18 +18,6 @@ type Config struct {
 }
 
 // Validate config
-func (cfg *Config) Validate() error {
-	for _, hostnameSource := range cfg.HostnameSources {
-		_, exists := hostnameSourcesMap[hostnameSource]
-		if !exists {
-			return fmt.Errorf("hostname_sources contains invalid value: %q", hostnameSource)
-		}
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

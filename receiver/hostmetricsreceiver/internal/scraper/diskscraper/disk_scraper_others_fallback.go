@@ -13,4 +13,6 @@ import (
 const systemSpecificMetricsLen = 0
 
 func (*diskScraper) recordSystemSpecificDataPoints(_ pcommon.Timestamp, _ map[string]disk.IOCountersStat) {
+	_ = "STUB: not implemented"
+	return
 }

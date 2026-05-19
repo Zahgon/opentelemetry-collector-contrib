@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type VcenterClusterCPUEffectiveMetricConfig struct {
 }
 
 func (ms *VcenterClusterCPUEffectiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type VcenterClusterCPULimitMetricConfig struct {
 }
 
 func (ms *VcenterClusterCPULimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -66,34 +46,12 @@ type VcenterClusterHostCountMetricConfig struct {
 }
 
 func (ms *VcenterClusterHostCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterClusterHostCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterClusterHostCountMetricAttributeKeyHostEffective:
-		default:
-			return fmt.Errorf("metric vcenter.cluster.host.count doesn't have an attribute %v, valid attributes: [effective]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -104,16 +62,7 @@ type VcenterClusterMemoryEffectiveMetricConfig struct {
 }
 
 func (ms *VcenterClusterMemoryEffectiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -124,16 +73,7 @@ type VcenterClusterMemoryLimitMetricConfig struct {
 }
 
 func (ms *VcenterClusterMemoryLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -154,34 +94,12 @@ type VcenterClusterVMCountMetricConfig struct {
 }
 
 func (ms *VcenterClusterVMCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterClusterVMCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterClusterVMCountMetricAttributeKeyVMCountPowerState:
-		default:
-			return fmt.Errorf("metric vcenter.cluster.vm.count doesn't have an attribute %v, valid attributes: [power_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -192,16 +110,7 @@ type VcenterClusterVMTemplateCountMetricConfig struct {
 }
 
 func (ms *VcenterClusterVMTemplateCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -212,16 +121,7 @@ type VcenterClusterVsanCongestionsMetricConfig struct {
 }
 
 func (ms *VcenterClusterVsanCongestionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -242,34 +142,12 @@ type VcenterClusterVsanLatencyAvgMetricConfig struct {
 }
 
 func (ms *VcenterClusterVsanLatencyAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterClusterVsanLatencyAvgMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterClusterVsanLatencyAvgMetricAttributeKeyVsanLatencyType:
-		default:
-			return fmt.Errorf("metric vcenter.cluster.vsan.latency.avg doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -290,34 +168,12 @@ type VcenterClusterVsanOperationsMetricConfig struct {
 }
 
 func (ms *VcenterClusterVsanOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterClusterVsanOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterClusterVsanOperationsMetricAttributeKeyVsanOperationType:
-		default:
-			return fmt.Errorf("metric vcenter.cluster.vsan.operations doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -338,34 +194,12 @@ type VcenterClusterVsanThroughputMetricConfig struct {
 }
 
 func (ms *VcenterClusterVsanThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterClusterVsanThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterClusterVsanThroughputMetricAttributeKeyVsanThroughputDirection:
-		default:
-			return fmt.Errorf("metric vcenter.cluster.vsan.throughput doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -386,34 +220,12 @@ type VcenterDatacenterClusterCountMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterClusterCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterDatacenterClusterCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterDatacenterClusterCountMetricAttributeKeyEntityStatus:
-		default:
-			return fmt.Errorf("metric vcenter.datacenter.cluster.count doesn't have an attribute %v, valid attributes: [status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -424,16 +236,7 @@ type VcenterDatacenterCPULimitMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterCPULimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -444,16 +247,7 @@ type VcenterDatacenterDatastoreCountMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterDatastoreCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -474,34 +268,12 @@ type VcenterDatacenterDiskSpaceMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterDiskSpaceMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterDatacenterDiskSpaceMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterDatacenterDiskSpaceMetricAttributeKeyDiskState:
-		default:
-			return fmt.Errorf("metric vcenter.datacenter.disk.space doesn't have an attribute %v, valid attributes: [disk_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -523,34 +295,12 @@ type VcenterDatacenterHostCountMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterHostCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterDatacenterHostCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterDatacenterHostCountMetricAttributeKeyEntityStatus, VcenterDatacenterHostCountMetricAttributeKeyHostPowerState:
-		default:
-			return fmt.Errorf("metric vcenter.datacenter.host.count doesn't have an attribute %v, valid attributes: [status, power_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -561,16 +311,7 @@ type VcenterDatacenterMemoryLimitMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterMemoryLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -592,34 +333,12 @@ type VcenterDatacenterVMCountMetricConfig struct {
 }
 
 func (ms *VcenterDatacenterVMCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterDatacenterVMCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterDatacenterVMCountMetricAttributeKeyEntityStatus, VcenterDatacenterVMCountMetricAttributeKeyVMCountPowerState:
-		default:
-			return fmt.Errorf("metric vcenter.datacenter.vm.count doesn't have an attribute %v, valid attributes: [status, power_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -640,34 +359,12 @@ type VcenterDatastoreDiskUsageMetricConfig struct {
 }
 
 func (ms *VcenterDatastoreDiskUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterDatastoreDiskUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterDatastoreDiskUsageMetricAttributeKeyDiskState:
-		default:
-			return fmt.Errorf("metric vcenter.datastore.disk.usage doesn't have an attribute %v, valid attributes: [disk_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -678,16 +375,7 @@ type VcenterDatastoreDiskUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterDatastoreDiskUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -698,16 +386,7 @@ type VcenterHostCPUCapacityMetricConfig struct {
 }
 
 func (ms *VcenterHostCPUCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -728,34 +407,12 @@ type VcenterHostCPUReservedMetricConfig struct {
 }
 
 func (ms *VcenterHostCPUReservedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostCPUReservedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostCPUReservedMetricAttributeKeyCPUReservationType:
-		default:
-			return fmt.Errorf("metric vcenter.host.cpu.reserved doesn't have an attribute %v, valid attributes: [cpu_reservation_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -766,16 +423,7 @@ type VcenterHostCPUUsageMetricConfig struct {
 }
 
 func (ms *VcenterHostCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -786,16 +434,7 @@ type VcenterHostCPUUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterHostCPUUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -817,34 +456,12 @@ type VcenterHostDiskLatencyAvgMetricConfig struct {
 }
 
 func (ms *VcenterHostDiskLatencyAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostDiskLatencyAvgMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostDiskLatencyAvgMetricAttributeKeyDiskDirection, VcenterHostDiskLatencyAvgMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.disk.latency.avg doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -865,34 +482,12 @@ type VcenterHostDiskLatencyMaxMetricConfig struct {
 }
 
 func (ms *VcenterHostDiskLatencyMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostDiskLatencyMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostDiskLatencyMaxMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.disk.latency.max doesn't have an attribute %v, valid attributes: [object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -914,34 +509,12 @@ type VcenterHostDiskThroughputMetricConfig struct {
 }
 
 func (ms *VcenterHostDiskThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostDiskThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostDiskThroughputMetricAttributeKeyDiskDirection, VcenterHostDiskThroughputMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.disk.throughput doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -952,16 +525,7 @@ type VcenterHostMemoryCapacityMetricConfig struct {
 }
 
 func (ms *VcenterHostMemoryCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -972,16 +536,7 @@ type VcenterHostMemoryUsageMetricConfig struct {
 }
 
 func (ms *VcenterHostMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -992,16 +547,7 @@ type VcenterHostMemoryUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterHostMemoryUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1023,34 +569,12 @@ type VcenterHostNetworkPacketDropRateMetricConfig struct {
 }
 
 func (ms *VcenterHostNetworkPacketDropRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostNetworkPacketDropRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostNetworkPacketDropRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketDropRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.network.packet.drop.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1072,34 +596,12 @@ type VcenterHostNetworkPacketErrorRateMetricConfig struct {
 }
 
 func (ms *VcenterHostNetworkPacketErrorRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostNetworkPacketErrorRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostNetworkPacketErrorRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketErrorRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.network.packet.error.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1121,34 +623,12 @@ type VcenterHostNetworkPacketRateMetricConfig struct {
 }
 
 func (ms *VcenterHostNetworkPacketRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostNetworkPacketRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostNetworkPacketRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.network.packet.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1170,34 +650,12 @@ type VcenterHostNetworkThroughputMetricConfig struct {
 }
 
 func (ms *VcenterHostNetworkThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostNetworkThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostNetworkThroughputMetricAttributeKeyThroughputDirection, VcenterHostNetworkThroughputMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.network.throughput doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1218,34 +676,12 @@ type VcenterHostNetworkUsageMetricConfig struct {
 }
 
 func (ms *VcenterHostNetworkUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostNetworkUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostNetworkUsageMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.host.network.usage doesn't have an attribute %v, valid attributes: [object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1256,16 +692,7 @@ type VcenterHostVsanCacheHitRateMetricConfig struct {
 }
 
 func (ms *VcenterHostVsanCacheHitRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1276,16 +703,7 @@ type VcenterHostVsanCongestionsMetricConfig struct {
 }
 
 func (ms *VcenterHostVsanCongestionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1306,34 +724,12 @@ type VcenterHostVsanLatencyAvgMetricConfig struct {
 }
 
 func (ms *VcenterHostVsanLatencyAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostVsanLatencyAvgMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostVsanLatencyAvgMetricAttributeKeyVsanLatencyType:
-		default:
-			return fmt.Errorf("metric vcenter.host.vsan.latency.avg doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1354,34 +750,12 @@ type VcenterHostVsanOperationsMetricConfig struct {
 }
 
 func (ms *VcenterHostVsanOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostVsanOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostVsanOperationsMetricAttributeKeyVsanOperationType:
-		default:
-			return fmt.Errorf("metric vcenter.host.vsan.operations doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1402,34 +776,12 @@ type VcenterHostVsanThroughputMetricConfig struct {
 }
 
 func (ms *VcenterHostVsanThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterHostVsanThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterHostVsanThroughputMetricAttributeKeyVsanThroughputDirection:
-		default:
-			return fmt.Errorf("metric vcenter.host.vsan.throughput doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1440,16 +792,7 @@ type VcenterResourcePoolCPUSharesMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolCPUSharesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1460,16 +803,7 @@ type VcenterResourcePoolCPUUsageMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1480,16 +814,7 @@ type VcenterResourcePoolMemoryBalloonedMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolMemoryBalloonedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1510,34 +835,12 @@ type VcenterResourcePoolMemoryGrantedMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolMemoryGrantedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterResourcePoolMemoryGrantedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterResourcePoolMemoryGrantedMetricAttributeKeyMemoryGrantedType:
-		default:
-			return fmt.Errorf("metric vcenter.resource_pool.memory.granted doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1548,16 +851,7 @@ type VcenterResourcePoolMemorySharesMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolMemorySharesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1568,16 +862,7 @@ type VcenterResourcePoolMemorySwappedMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolMemorySwappedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1598,34 +883,12 @@ type VcenterResourcePoolMemoryUsageMetricConfig struct {
 }
 
 func (ms *VcenterResourcePoolMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterResourcePoolMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterResourcePoolMemoryUsageMetricAttributeKeyMemoryUsageType:
-		default:
-			return fmt.Errorf("metric vcenter.resource_pool.memory.usage doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1636,16 +899,7 @@ type VcenterVMCPUReadinessMetricConfig struct {
 }
 
 func (ms *VcenterVMCPUReadinessMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1667,36 +921,11 @@ type VcenterVMCPUTimeMetricConfig struct {
 }
 
 func (ms *VcenterVMCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *VcenterVMCPUTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMCPUTimeMetricAttributeKeyCPUState, VcenterVMCPUTimeMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.cpu.time doesn't have an attribute %v, valid attributes: [cpu_state, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *VcenterVMCPUTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // VcenterVMCPUUsageMetricConfig provides config for the vcenter.vm.cpu.usage metric.
 type VcenterVMCPUUsageMetricConfig struct {
@@ -1705,16 +934,7 @@ type VcenterVMCPUUsageMetricConfig struct {
 }
 
 func (ms *VcenterVMCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1725,16 +945,7 @@ type VcenterVMCPUUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterVMCPUUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1757,34 +968,12 @@ type VcenterVMDiskLatencyAvgMetricConfig struct {
 }
 
 func (ms *VcenterVMDiskLatencyAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMDiskLatencyAvgMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMDiskLatencyAvgMetricAttributeKeyDiskDirection, VcenterVMDiskLatencyAvgMetricAttributeKeyDiskType, VcenterVMDiskLatencyAvgMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.disk.latency.avg doesn't have an attribute %v, valid attributes: [direction, disk_type, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1805,34 +994,12 @@ type VcenterVMDiskLatencyMaxMetricConfig struct {
 }
 
 func (ms *VcenterVMDiskLatencyMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMDiskLatencyMaxMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMDiskLatencyMaxMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.disk.latency.max doesn't have an attribute %v, valid attributes: [object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1854,34 +1021,12 @@ type VcenterVMDiskThroughputMetricConfig struct {
 }
 
 func (ms *VcenterVMDiskThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMDiskThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMDiskThroughputMetricAttributeKeyDiskDirection, VcenterVMDiskThroughputMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.disk.throughput doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1902,36 +1047,11 @@ type VcenterVMDiskUsageMetricConfig struct {
 }
 
 func (ms *VcenterVMDiskUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *VcenterVMDiskUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMDiskUsageMetricAttributeKeyDiskState:
-		default:
-			return fmt.Errorf("metric vcenter.vm.disk.usage doesn't have an attribute %v, valid attributes: [disk_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *VcenterVMDiskUsageMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // VcenterVMDiskUtilizationMetricConfig provides config for the vcenter.vm.disk.utilization metric.
 type VcenterVMDiskUtilizationMetricConfig struct {
@@ -1940,16 +1060,7 @@ type VcenterVMDiskUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterVMDiskUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1960,16 +1071,7 @@ type VcenterVMMemoryBalloonedMetricConfig struct {
 }
 
 func (ms *VcenterVMMemoryBalloonedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1980,16 +1082,7 @@ type VcenterVMMemoryGrantedMetricConfig struct {
 }
 
 func (ms *VcenterVMMemoryGrantedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2000,16 +1093,7 @@ type VcenterVMMemorySwappedMetricConfig struct {
 }
 
 func (ms *VcenterVMMemorySwappedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2020,16 +1104,7 @@ type VcenterVMMemorySwappedSsdMetricConfig struct {
 }
 
 func (ms *VcenterVMMemorySwappedSsdMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2040,16 +1115,7 @@ type VcenterVMMemoryUsageMetricConfig struct {
 }
 
 func (ms *VcenterVMMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2060,16 +1126,7 @@ type VcenterVMMemoryUtilizationMetricConfig struct {
 }
 
 func (ms *VcenterVMMemoryUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2091,34 +1148,12 @@ type VcenterVMNetworkBroadcastPacketRateMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkBroadcastPacketRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkBroadcastPacketRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkBroadcastPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkBroadcastPacketRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.broadcast.packet.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2140,34 +1175,12 @@ type VcenterVMNetworkMulticastPacketRateMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkMulticastPacketRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkMulticastPacketRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkMulticastPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkMulticastPacketRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.multicast.packet.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2189,34 +1202,12 @@ type VcenterVMNetworkPacketDropRateMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkPacketDropRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkPacketDropRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkPacketDropRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkPacketDropRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.packet.drop.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2238,34 +1229,12 @@ type VcenterVMNetworkPacketRateMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkPacketRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkPacketRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkPacketRateMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.packet.rate doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2287,34 +1256,12 @@ type VcenterVMNetworkThroughputMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkThroughputMetricAttributeKeyThroughputDirection, VcenterVMNetworkThroughputMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.throughput doesn't have an attribute %v, valid attributes: [direction, object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2335,34 +1282,12 @@ type VcenterVMNetworkUsageMetricConfig struct {
 }
 
 func (ms *VcenterVMNetworkUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMNetworkUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMNetworkUsageMetricAttributeKeyObjectName:
-		default:
-			return fmt.Errorf("metric vcenter.vm.network.usage doesn't have an attribute %v, valid attributes: [object]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2383,34 +1308,12 @@ type VcenterVMVsanLatencyAvgMetricConfig struct {
 }
 
 func (ms *VcenterVMVsanLatencyAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMVsanLatencyAvgMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMVsanLatencyAvgMetricAttributeKeyVsanLatencyType:
-		default:
-			return fmt.Errorf("metric vcenter.vm.vsan.latency.avg doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2431,34 +1334,12 @@ type VcenterVMVsanOperationsMetricConfig struct {
 }
 
 func (ms *VcenterVMVsanOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMVsanOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMVsanOperationsMetricAttributeKeyVsanOperationType:
-		default:
-			return fmt.Errorf("metric vcenter.vm.vsan.operations doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2479,34 +1360,12 @@ type VcenterVMVsanThroughputMetricConfig struct {
 }
 
 func (ms *VcenterVMVsanThroughputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *VcenterVMVsanThroughputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case VcenterVMVsanThroughputMetricAttributeKeyVsanThroughputDirection:
-		default:
-			return fmt.Errorf("metric vcenter.vm.vsan.throughput doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2585,299 +1444,7 @@ type MetricsConfig struct {
 	VcenterVMVsanThroughput             VcenterVMVsanThroughputMetricConfig             `mapstructure:"vcenter.vm.vsan.throughput"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		VcenterClusterCPUEffective: VcenterClusterCPUEffectiveMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterCPULimit: VcenterClusterCPULimitMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterHostCount: VcenterClusterHostCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterClusterHostCountMetricAttributeKey{VcenterClusterHostCountMetricAttributeKeyHostEffective},
-		},
-		VcenterClusterMemoryEffective: VcenterClusterMemoryEffectiveMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterMemoryLimit: VcenterClusterMemoryLimitMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterVMCount: VcenterClusterVMCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterClusterVMCountMetricAttributeKey{VcenterClusterVMCountMetricAttributeKeyVMCountPowerState},
-		},
-		VcenterClusterVMTemplateCount: VcenterClusterVMTemplateCountMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterVsanCongestions: VcenterClusterVsanCongestionsMetricConfig{
-			Enabled: true,
-		},
-		VcenterClusterVsanLatencyAvg: VcenterClusterVsanLatencyAvgMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterClusterVsanLatencyAvgMetricAttributeKey{VcenterClusterVsanLatencyAvgMetricAttributeKeyVsanLatencyType},
-		},
-		VcenterClusterVsanOperations: VcenterClusterVsanOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterClusterVsanOperationsMetricAttributeKey{VcenterClusterVsanOperationsMetricAttributeKeyVsanOperationType},
-		},
-		VcenterClusterVsanThroughput: VcenterClusterVsanThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterClusterVsanThroughputMetricAttributeKey{VcenterClusterVsanThroughputMetricAttributeKeyVsanThroughputDirection},
-		},
-		VcenterDatacenterClusterCount: VcenterDatacenterClusterCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterDatacenterClusterCountMetricAttributeKey{VcenterDatacenterClusterCountMetricAttributeKeyEntityStatus},
-		},
-		VcenterDatacenterCPULimit: VcenterDatacenterCPULimitMetricConfig{
-			Enabled: true,
-		},
-		VcenterDatacenterDatastoreCount: VcenterDatacenterDatastoreCountMetricConfig{
-			Enabled: true,
-		},
-		VcenterDatacenterDiskSpace: VcenterDatacenterDiskSpaceMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterDatacenterDiskSpaceMetricAttributeKey{VcenterDatacenterDiskSpaceMetricAttributeKeyDiskState},
-		},
-		VcenterDatacenterHostCount: VcenterDatacenterHostCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterDatacenterHostCountMetricAttributeKey{VcenterDatacenterHostCountMetricAttributeKeyEntityStatus, VcenterDatacenterHostCountMetricAttributeKeyHostPowerState},
-		},
-		VcenterDatacenterMemoryLimit: VcenterDatacenterMemoryLimitMetricConfig{
-			Enabled: true,
-		},
-		VcenterDatacenterVMCount: VcenterDatacenterVMCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterDatacenterVMCountMetricAttributeKey{VcenterDatacenterVMCountMetricAttributeKeyEntityStatus, VcenterDatacenterVMCountMetricAttributeKeyVMCountPowerState},
-		},
-		VcenterDatastoreDiskUsage: VcenterDatastoreDiskUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterDatastoreDiskUsageMetricAttributeKey{VcenterDatastoreDiskUsageMetricAttributeKeyDiskState},
-		},
-		VcenterDatastoreDiskUtilization: VcenterDatastoreDiskUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostCPUCapacity: VcenterHostCPUCapacityMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostCPUReserved: VcenterHostCPUReservedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterHostCPUReservedMetricAttributeKey{VcenterHostCPUReservedMetricAttributeKeyCPUReservationType},
-		},
-		VcenterHostCPUUsage: VcenterHostCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostCPUUtilization: VcenterHostCPUUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostDiskLatencyAvg: VcenterHostDiskLatencyAvgMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostDiskLatencyAvgMetricAttributeKey{VcenterHostDiskLatencyAvgMetricAttributeKeyDiskDirection, VcenterHostDiskLatencyAvgMetricAttributeKeyObjectName},
-		},
-		VcenterHostDiskLatencyMax: VcenterHostDiskLatencyMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostDiskLatencyMaxMetricAttributeKey{VcenterHostDiskLatencyMaxMetricAttributeKeyObjectName},
-		},
-		VcenterHostDiskThroughput: VcenterHostDiskThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterHostDiskThroughputMetricAttributeKey{VcenterHostDiskThroughputMetricAttributeKeyDiskDirection, VcenterHostDiskThroughputMetricAttributeKeyObjectName},
-		},
-		VcenterHostMemoryCapacity: VcenterHostMemoryCapacityMetricConfig{
-			Enabled: false,
-		},
-		VcenterHostMemoryUsage: VcenterHostMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostMemoryUtilization: VcenterHostMemoryUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostNetworkPacketDropRate: VcenterHostNetworkPacketDropRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostNetworkPacketDropRateMetricAttributeKey{VcenterHostNetworkPacketDropRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketDropRateMetricAttributeKeyObjectName},
-		},
-		VcenterHostNetworkPacketErrorRate: VcenterHostNetworkPacketErrorRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostNetworkPacketErrorRateMetricAttributeKey{VcenterHostNetworkPacketErrorRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketErrorRateMetricAttributeKeyObjectName},
-		},
-		VcenterHostNetworkPacketRate: VcenterHostNetworkPacketRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostNetworkPacketRateMetricAttributeKey{VcenterHostNetworkPacketRateMetricAttributeKeyThroughputDirection, VcenterHostNetworkPacketRateMetricAttributeKeyObjectName},
-		},
-		VcenterHostNetworkThroughput: VcenterHostNetworkThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterHostNetworkThroughputMetricAttributeKey{VcenterHostNetworkThroughputMetricAttributeKeyThroughputDirection, VcenterHostNetworkThroughputMetricAttributeKeyObjectName},
-		},
-		VcenterHostNetworkUsage: VcenterHostNetworkUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterHostNetworkUsageMetricAttributeKey{VcenterHostNetworkUsageMetricAttributeKeyObjectName},
-		},
-		VcenterHostVsanCacheHitRate: VcenterHostVsanCacheHitRateMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostVsanCongestions: VcenterHostVsanCongestionsMetricConfig{
-			Enabled: true,
-		},
-		VcenterHostVsanLatencyAvg: VcenterHostVsanLatencyAvgMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostVsanLatencyAvgMetricAttributeKey{VcenterHostVsanLatencyAvgMetricAttributeKeyVsanLatencyType},
-		},
-		VcenterHostVsanOperations: VcenterHostVsanOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostVsanOperationsMetricAttributeKey{VcenterHostVsanOperationsMetricAttributeKeyVsanOperationType},
-		},
-		VcenterHostVsanThroughput: VcenterHostVsanThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterHostVsanThroughputMetricAttributeKey{VcenterHostVsanThroughputMetricAttributeKeyVsanThroughputDirection},
-		},
-		VcenterResourcePoolCPUShares: VcenterResourcePoolCPUSharesMetricConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolCPUUsage: VcenterResourcePoolCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolMemoryBallooned: VcenterResourcePoolMemoryBalloonedMetricConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolMemoryGranted: VcenterResourcePoolMemoryGrantedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterResourcePoolMemoryGrantedMetricAttributeKey{VcenterResourcePoolMemoryGrantedMetricAttributeKeyMemoryGrantedType},
-		},
-		VcenterResourcePoolMemoryShares: VcenterResourcePoolMemorySharesMetricConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolMemorySwapped: VcenterResourcePoolMemorySwappedMetricConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolMemoryUsage: VcenterResourcePoolMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterResourcePoolMemoryUsageMetricAttributeKey{VcenterResourcePoolMemoryUsageMetricAttributeKeyMemoryUsageType},
-		},
-		VcenterVMCPUReadiness: VcenterVMCPUReadinessMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMCPUTime: VcenterVMCPUTimeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMCPUTimeMetricAttributeKey{VcenterVMCPUTimeMetricAttributeKeyCPUState, VcenterVMCPUTimeMetricAttributeKeyObjectName},
-		},
-		VcenterVMCPUUsage: VcenterVMCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMCPUUtilization: VcenterVMCPUUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMDiskLatencyAvg: VcenterVMDiskLatencyAvgMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMDiskLatencyAvgMetricAttributeKey{VcenterVMDiskLatencyAvgMetricAttributeKeyDiskDirection, VcenterVMDiskLatencyAvgMetricAttributeKeyDiskType, VcenterVMDiskLatencyAvgMetricAttributeKeyObjectName},
-		},
-		VcenterVMDiskLatencyMax: VcenterVMDiskLatencyMaxMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMDiskLatencyMaxMetricAttributeKey{VcenterVMDiskLatencyMaxMetricAttributeKeyObjectName},
-		},
-		VcenterVMDiskThroughput: VcenterVMDiskThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMDiskThroughputMetricAttributeKey{VcenterVMDiskThroughputMetricAttributeKeyDiskDirection, VcenterVMDiskThroughputMetricAttributeKeyObjectName},
-		},
-		VcenterVMDiskUsage: VcenterVMDiskUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterVMDiskUsageMetricAttributeKey{VcenterVMDiskUsageMetricAttributeKeyDiskState},
-		},
-		VcenterVMDiskUtilization: VcenterVMDiskUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMMemoryBallooned: VcenterVMMemoryBalloonedMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMMemoryGranted: VcenterVMMemoryGrantedMetricConfig{
-			Enabled: false,
-		},
-		VcenterVMMemorySwapped: VcenterVMMemorySwappedMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMMemorySwappedSsd: VcenterVMMemorySwappedSsdMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMMemoryUsage: VcenterVMMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMMemoryUtilization: VcenterVMMemoryUtilizationMetricConfig{
-			Enabled: true,
-		},
-		VcenterVMNetworkBroadcastPacketRate: VcenterVMNetworkBroadcastPacketRateMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMNetworkBroadcastPacketRateMetricAttributeKey{VcenterVMNetworkBroadcastPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkBroadcastPacketRateMetricAttributeKeyObjectName},
-		},
-		VcenterVMNetworkMulticastPacketRate: VcenterVMNetworkMulticastPacketRateMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMNetworkMulticastPacketRateMetricAttributeKey{VcenterVMNetworkMulticastPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkMulticastPacketRateMetricAttributeKeyObjectName},
-		},
-		VcenterVMNetworkPacketDropRate: VcenterVMNetworkPacketDropRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMNetworkPacketDropRateMetricAttributeKey{VcenterVMNetworkPacketDropRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkPacketDropRateMetricAttributeKeyObjectName},
-		},
-		VcenterVMNetworkPacketRate: VcenterVMNetworkPacketRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMNetworkPacketRateMetricAttributeKey{VcenterVMNetworkPacketRateMetricAttributeKeyThroughputDirection, VcenterVMNetworkPacketRateMetricAttributeKeyObjectName},
-		},
-		VcenterVMNetworkThroughput: VcenterVMNetworkThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterVMNetworkThroughputMetricAttributeKey{VcenterVMNetworkThroughputMetricAttributeKeyThroughputDirection, VcenterVMNetworkThroughputMetricAttributeKeyObjectName},
-		},
-		VcenterVMNetworkUsage: VcenterVMNetworkUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []VcenterVMNetworkUsageMetricAttributeKey{VcenterVMNetworkUsageMetricAttributeKeyObjectName},
-		},
-		VcenterVMVsanLatencyAvg: VcenterVMVsanLatencyAvgMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMVsanLatencyAvgMetricAttributeKey{VcenterVMVsanLatencyAvgMetricAttributeKeyVsanLatencyType},
-		},
-		VcenterVMVsanOperations: VcenterVMVsanOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMVsanOperationsMetricAttributeKey{VcenterVMVsanOperationsMetricAttributeKeyVsanOperationType},
-		},
-		VcenterVMVsanThroughput: VcenterVMVsanThroughputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []VcenterVMVsanThroughputMetricAttributeKey{VcenterVMVsanThroughputMetricAttributeKeyVsanThroughputDirection},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -2894,14 +1461,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -2922,44 +1482,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		VcenterClusterName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterDatacenterName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterDatastoreName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterHostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolInventoryPath: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterResourcePoolName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVirtualAppInventoryPath: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVirtualAppName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVMID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVMName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVMTemplateID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		VcenterVMTemplateName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for vcenter metrics builder.
@@ -2969,13 +1493,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

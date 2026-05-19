@@ -5,9 +5,6 @@ package fileexporter // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"errors"
-	"os"
-	"strconv"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -109,82 +106,23 @@ type GroupBy struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.Path == "" {
-		return errors.New("path must be non-empty")
-	}
-	if cfg.Append && cfg.Rotation != nil {
-		return errors.New("append and rotation enabled at the same time is not supported")
-	}
-	if cfg.FormatType != formatTypeJSON && cfg.FormatType != formatTypeProto {
-		return errors.New("format type is not supported")
-	}
-	if cfg.Compression != "" && cfg.Compression != compressionZSTD {
-		return errors.New("compression is not supported")
-	}
-	if cfg.FlushInterval < 0 {
-		return errors.New("flush_interval must be larger than zero")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.GroupBy != nil && cfg.GroupBy.Enabled {
-		pathParts := strings.Split(cfg.Path, "*")
-		if len(pathParts) != 2 {
-			return errors.New("path must contain exactly one * when group_by is enabled")
-		}
+// If directory auto-creation is enabled, validate and parse permissions.
 
-		if pathParts[0] == "" {
-			return errors.New("path must not start with * when group_by is enabled")
-		}
+// Default to 0755 if not provided.
 
-		if cfg.GroupBy.ResourceAttribute == "" {
-			return errors.New("resource_attribute must not be empty when group_by is enabled")
-		}
-	}
-
-	// If directory auto-creation is enabled, validate and parse permissions.
-	if cfg.CreateDirectory {
-		permStr := cfg.DirectoryPermissions
-		// Default to 0755 if not provided.
-		if permStr == "" {
-			permStr = "0755"
-			cfg.DirectoryPermissions = permStr
-		}
-		permissions, err := strconv.ParseInt(permStr, 8, 32)
-		if err != nil {
-			return errInvalidOctal
-		}
-		if permissions&int64(os.ModePerm) != permissions {
-			return errInvalidPermissionBits
-		}
-		cfg.directoryPermissionsParsed = permissions
-	} else if cfg.DirectoryPermissions != "" {
-		// If not creating directories, directory_permissions must not be set.
-		return errDirPermsRequireCreate
-	}
-
-	return nil
-}
+// If not creating directories, directory_permissions must not be set.
 
 // Unmarshal a confmap.Conf into the config struct.
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		return errors.New("empty config for file exporter")
-	}
-	// first load the config normally
-	err := componentParser.Unmarshal(cfg)
-	if err != nil {
-		return err
-	}
-
-	// next manually search for protocols in the confmap.Conf,
-	// if rotation is not present it means it is disabled.
-	if !componentParser.IsSet(rotationFieldName) {
-		cfg.Rotation = nil
-	}
-
-	// set flush interval to 1 second if not set.
-	if cfg.FlushInterval == 0 {
-		cfg.FlushInterval = time.Second
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// first load the config normally
+
+// next manually search for protocols in the confmap.Conf,
+// if rotation is not present it means it is disabled.
+
+// set flush interval to 1 second if not set.

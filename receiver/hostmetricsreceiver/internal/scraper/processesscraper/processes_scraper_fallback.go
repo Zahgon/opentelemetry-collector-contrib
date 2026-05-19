@@ -15,5 +15,6 @@ const (
 )
 
 func (*processesScraper) getProcessesMetadata(context.Context) (processesMetadata, error) {
-	return processesMetadata{}, nil
+	_ = "STUB: not implemented"
+	return *new(processesMetadata), nil
 }

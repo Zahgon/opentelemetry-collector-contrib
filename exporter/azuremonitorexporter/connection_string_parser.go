@@ -3,15 +3,6 @@
 
 package azuremonitorexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azuremonitorexporter"
 
-import (
-	"errors"
-	"fmt"
-	"net/url"
-	"os"
-	"path"
-	"strings"
-)
-
 type connectionVars struct {
 	InstrumentationKey string
 	IngestionURL       string
@@ -26,69 +17,11 @@ const (
 )
 
 func parseConnectionString(exporterConfig *Config) (*connectionVars, error) {
+	_ = "STUB: not implemented"
 	// First, try to get the connection string from the environment variable
-	connectionString := os.Getenv(ApplicationInsightsConnectionString)
-
-	// If not found in the environment, use the one from the configuration
-	if connectionString == "" {
-		connectionString = string(exporterConfig.ConnectionString)
-	}
-
-	instrumentationKey := string(exporterConfig.InstrumentationKey)
-	connectionVars := &connectionVars{}
-
-	if connectionString == "" && instrumentationKey == "" {
-		return nil, errors.New("ConnectionString and InstrumentationKey cannot be empty")
-	}
-	if len(connectionString) > ConnectionStringMaxLength {
-		return nil, fmt.Errorf("ConnectionString exceeds maximum length of %d characters", ConnectionStringMaxLength)
-	}
-	if connectionString == "" {
-		connectionVars.InstrumentationKey = instrumentationKey
-		if exporterConfig.ClientConfig.Endpoint == "" {
-			connectionVars.IngestionURL = getIngestionURL(DefaultIngestionEndpoint)
-		} else {
-			connectionVars.IngestionURL = getIngestionURL(exporterConfig.ClientConfig.Endpoint)
-		}
-		return connectionVars, nil
-	}
-
-	pairs := strings.Split(connectionString, ";")
-	values := make(map[string]string)
-	for _, pair := range pairs {
-		kv := strings.SplitN(strings.TrimSpace(pair), "=", 2)
-		if len(kv) != 2 {
-			return nil, fmt.Errorf("invalid format for connection string: %s", pair)
-		}
-
-		key, value := strings.TrimSpace(kv[0]), strings.TrimSpace(kv[1])
-		if key == "" {
-			return nil, errors.New("key cannot be empty")
-		}
-		values[key] = value
-	}
-
-	var ok bool
-	if connectionVars.InstrumentationKey, ok = values[InstrumentationKey]; !ok || connectionVars.InstrumentationKey == "" {
-		return nil, fmt.Errorf("%s is required", InstrumentationKey)
-	}
-
-	var ingestionEndpoint string
-	if ingestionEndpoint, ok = values[IngestionEndpointKey]; !ok || ingestionEndpoint == "" {
-		ingestionEndpoint = DefaultIngestionEndpoint
-	}
-
-	connectionVars.IngestionURL = getIngestionURL(ingestionEndpoint)
-
-	return connectionVars, nil
+	return nil, nil
 }
 
-func getIngestionURL(ingestionEndpoint string) string {
-	ingestionURL, err := url.Parse(ingestionEndpoint)
-	if err != nil {
-		ingestionURL, _ = url.Parse(DefaultIngestionEndpoint)
-	}
+// If not found in the environment, use the one from the configuration
 
-	ingestionURL.Path = path.Join(ingestionURL.Path, "/v2.1/track")
-	return ingestionURL.String()
-}
+func getIngestionURL(ingestionEndpoint string) string { _ = "STUB: not implemented"; return "" }

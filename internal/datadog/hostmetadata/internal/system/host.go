@@ -6,11 +6,9 @@ package system // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"os"
 	"sync"
 
 	"github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/attributes/source"
-	"github.com/DataDog/datadog-agent/pkg/util/hostname/validate"
 	"go.uber.org/zap"
 )
 
@@ -20,35 +18,14 @@ type HostInfo struct {
 }
 
 // GetHostInfo gets system information about the hostname
-func GetHostInfo(logger *zap.Logger) (hostInfo *HostInfo) {
-	hostInfo = &HostInfo{}
-
-	if hostname, err := getSystemFQDN(); err == nil {
-		hostInfo.FQDN = hostname
-	} else {
-		logger.Warn("Could not get FQDN Hostname", zap.Error(err))
-	}
-
-	if hostname, err := os.Hostname(); err == nil {
-		hostInfo.OS = hostname
-	} else {
-		logger.Warn("Could not get OS Hostname", zap.Error(err))
-	}
-
-	return hostInfo
-}
+func GetHostInfo(logger *zap.Logger) (hostInfo *HostInfo) { _ = "STUB: not implemented"; return nil }
 
 // GetHostname gets the hostname provided by the system
 func (hi *HostInfo) GetHostname(logger *zap.Logger) string {
-	if hi.FQDN == "" {
-		// Don't report failure since FQDN was just not available
-		return hi.OS
-	} else if err := validate.ValidHostname(hi.FQDN); err != nil {
-		logger.Info("FQDN is not valid", zap.Error(err))
-		return hi.OS
-	}
+	_ = "STUB: not implemented"
 
-	return hi.FQDN
+	// Don't report failure since FQDN was just not available
+	return ""
 }
 
 var _ source.Provider = (*Provider)(nil)
@@ -60,20 +37,13 @@ type Provider struct {
 	logger *zap.Logger
 }
 
-func (p *Provider) fillHostInfo() {
-	p.once.Do(func() { p.hostInfo = *GetHostInfo(p.logger) })
-}
+func (p *Provider) fillHostInfo() { _ = "STUB: not implemented"; return }
 
 func (p *Provider) Source(context.Context) (source.Source, error) {
-	p.fillHostInfo()
-	return source.Source{Kind: source.HostnameKind, Identifier: p.hostInfo.GetHostname(p.logger)}, nil
+	_ = "STUB: not implemented"
+	return *new(source.Source), nil
 }
 
-func (p *Provider) HostInfo() *HostInfo {
-	p.fillHostInfo()
-	return &p.hostInfo
-}
+func (p *Provider) HostInfo() *HostInfo { _ = "STUB: not implemented"; return nil }
 
-func NewProvider(logger *zap.Logger) *Provider {
-	return &Provider{logger: logger}
-}
+func NewProvider(logger *zap.Logger) *Provider { _ = "STUB: not implemented"; return nil }

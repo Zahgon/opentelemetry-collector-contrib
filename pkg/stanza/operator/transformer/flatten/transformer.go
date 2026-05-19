@@ -5,7 +5,6 @@ package flatten // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
@@ -23,38 +22,19 @@ type Transformer[T interface {
 }
 
 func (t *Transformer[T]) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will process an entry with a flatten transformation.
 func (t *Transformer[T]) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Transform will apply the flatten operation to an entry
-func (t *Transformer[T]) Transform(entry *entry.Entry) error {
-	parent := t.Field.Parent()
-	val, ok := entry.Delete(t.Field)
-	if !ok {
-		// The field doesn't exist, so ignore it
-		return fmt.Errorf("apply flatten: field %s does not exist on entry", t.Field)
-	}
+func (t *Transformer[T]) Transform(entry *entry.Entry) error { _ = "STUB: not implemented"; return nil }
 
-	valMap, ok := val.(map[string]any)
-	if !ok {
-		// The field we were asked to flatten was not a map, so put it back
-		err := entry.Set(t.Field, val)
-		if err != nil {
-			return fmt.Errorf("reset non-map field: %w", err)
-		}
-		return fmt.Errorf("apply flatten: field %s is not a map", t.Field)
-	}
+// The field doesn't exist, so ignore it
 
-	for k, v := range valMap {
-		err := entry.Set(parent.Child(k), v)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
-}
+// The field we were asked to flatten was not a map, so put it back

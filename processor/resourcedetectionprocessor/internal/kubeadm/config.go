@@ -13,9 +13,4 @@ type Config struct {
 	ResourceAttributes  metadata.ResourceAttributesConfig `mapstructure:"resource_attributes"`
 }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		APIConfig:          k8sconfig.APIConfig{AuthType: k8sconfig.AuthTypeServiceAccount},
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

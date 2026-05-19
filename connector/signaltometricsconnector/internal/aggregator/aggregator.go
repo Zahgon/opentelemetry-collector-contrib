@@ -5,18 +5,14 @@ package aggregator // import "github.com/open-telemetry/opentelemetry-collector-
 
 import (
 	"context"
-	"fmt"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/signaltometricsconnector/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/signaltometricsconnector/internal/model"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatautil"
 )
 
 // FilterAttrsFunc is a lazy function that produces a filtered attribute map.
@@ -43,16 +39,8 @@ type Aggregator[K any] struct {
 
 // NewAggregator creates a new instance of aggregator.
 func NewAggregator[K any](metrics pmetric.Metrics, errorMode ottl.ErrorMode, logger *zap.Logger) *Aggregator[K] {
-	return &Aggregator[K]{
-		result:      metrics,
-		smLookup:    make(map[[16]byte]pmetric.ScopeMetrics),
-		valueCounts: make(map[model.MetricKey]map[[16]byte]map[[16]byte]*valueCountDP),
-		sums:        make(map[model.MetricKey]map[[16]byte]map[[16]byte]*sumDP),
-		gauges:      make(map[model.MetricKey]map[[16]byte]map[[16]byte]*gaugeDP),
-		timestamp:   time.Now(),
-		errorMode:   errorMode,
-		logger:      logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (a *Aggregator[K]) Aggregate(
@@ -64,174 +52,25 @@ func (a *Aggregator[K]) Aggregate(
 	filterAttrs FilterAttrsFunc,
 	defaultCount int64,
 ) error {
-	switch md.Key.Type {
-	case pmetric.MetricTypeExponentialHistogram:
-		val, count, err := getValueCount(
-			ctx, tCtx,
-			md.ExponentialHistogram.Value,
-			md.ExponentialHistogram.Count,
-			defaultCount,
-		)
-		if err != nil {
-			return a.handleError(err)
-		}
-		if err := a.aggregateValueCount(md, resAttrs, attrID, filterAttrs, val, count); err != nil {
-			return a.handleError(err)
-		}
-	case pmetric.MetricTypeHistogram:
-		val, count, err := getValueCount(
-			ctx, tCtx,
-			md.ExplicitHistogram.Value,
-			md.ExplicitHistogram.Count,
-			defaultCount,
-		)
-		if err != nil {
-			return a.handleError(err)
-		}
-		if err := a.aggregateValueCount(md, resAttrs, attrID, filterAttrs, val, count); err != nil {
-			return a.handleError(err)
-		}
-	case pmetric.MetricTypeSum:
-		raw, err := md.Sum.Value.Eval(ctx, tCtx)
-		if err != nil {
-			return a.handleError(fmt.Errorf("failed to execute OTTL value for sum: %w", err))
-		}
-		switch v := raw.(type) {
-		case int64:
-			if err := a.aggregateInt(md, resAttrs, attrID, filterAttrs, v); err != nil {
-				return a.handleError(err)
-			}
-		case float64:
-			if err := a.aggregateDouble(md, resAttrs, attrID, filterAttrs, v); err != nil {
-				return a.handleError(err)
-			}
-		default:
-			return a.handleError(fmt.Errorf(
-				"failed to parse sum OTTL value of type %T into int64 or float64: %v",
-				v, v,
-			))
-		}
-	case pmetric.MetricTypeGauge:
-		raw, err := md.Gauge.Value.Eval(ctx, tCtx)
-		if err != nil {
-			if strings.Contains(err.Error(), "key not found in map") {
-				// Gracefully skip missing keys in ExtractGrokPatterns
-				return nil
-			}
-			return a.handleError(fmt.Errorf("failed to execute OTTL value for gauge: %w", err))
-		}
-		if raw == nil {
-			return nil
-		}
-		switch v := raw.(type) {
-		case int64, float64:
-			if err := a.aggregateGauge(md, resAttrs, attrID, filterAttrs, v); err != nil {
-				return a.handleError(err)
-			}
-		default:
-			return a.handleError(fmt.Errorf(
-				"failed to parse gauge OTTL value of type %T into int64 or float64: %v",
-				v, v,
-			))
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Gracefully skip missing keys in ExtractGrokPatterns
+
 // handleError handles errors based on the configured ErrorMode.
 // It returns nil for ignore/silent modes and returns the error for propagate mode.
-func (a *Aggregator[K]) handleError(err error) error {
-	switch a.errorMode {
-	case ottl.PropagateError:
-		return err
-	case ottl.IgnoreError:
-		a.logger.Error("Error processing data", zap.Error(err))
-		return nil
-	case ottl.SilentError:
-		return nil
-	default:
-		return err
-	}
-}
+func (a *Aggregator[K]) handleError(err error) error { _ = "STUB: not implemented"; return nil }
 
 // Finalize finalizes the aggregations performed by the aggregator so far into
 // the pmetric.Metrics used to create this instance of the aggregator. Finalize
 // should be called once per aggregator instance and the aggregator instance
 // should not be used after Finalize is called.
-func (a *Aggregator[K]) Finalize(mds []model.MetricDef[K]) {
-	for _, md := range mds {
-		for resID, dpMap := range a.valueCounts[md.Key] {
-			metrics := a.smLookup[resID].Metrics()
-			var (
-				destExpHist      pmetric.ExponentialHistogram
-				destExplicitHist pmetric.Histogram
-			)
-			switch md.Key.Type {
-			case pmetric.MetricTypeExponentialHistogram:
-				destMetric := metrics.AppendEmpty()
-				destMetric.SetName(md.Key.Name)
-				destMetric.SetUnit(md.Key.Unit)
-				destMetric.SetDescription(md.Key.Description)
-				destExpHist = destMetric.SetEmptyExponentialHistogram()
-				destExpHist.SetAggregationTemporality(pmetric.AggregationTemporalityDelta)
-				destExpHist.DataPoints().EnsureCapacity(len(dpMap))
-			case pmetric.MetricTypeHistogram:
-				destMetric := metrics.AppendEmpty()
-				destMetric.SetName(md.Key.Name)
-				destMetric.SetUnit(md.Key.Unit)
-				destMetric.SetDescription(md.Key.Description)
-				destExplicitHist = destMetric.SetEmptyHistogram()
-				destExplicitHist.SetAggregationTemporality(pmetric.AggregationTemporalityDelta)
-				destExplicitHist.DataPoints().EnsureCapacity(len(dpMap))
-			}
-			for _, dp := range dpMap {
-				dp.Copy(
-					a.timestamp,
-					destExpHist,
-					destExplicitHist,
-				)
-			}
-		}
-		for resID, dpMap := range a.sums[md.Key] {
-			if md.Sum == nil {
-				continue
-			}
-			metrics := a.smLookup[resID].Metrics()
-			destMetric := metrics.AppendEmpty()
-			destMetric.SetName(md.Key.Name)
-			destMetric.SetUnit(md.Key.Unit)
-			destMetric.SetDescription(md.Key.Description)
-			destCounter := destMetric.SetEmptySum()
-			destCounter.SetAggregationTemporality(pmetric.AggregationTemporalityDelta)
-			destCounter.SetIsMonotonic(md.Sum.IsMonotonic)
-			destCounter.DataPoints().EnsureCapacity(len(dpMap))
-			for _, dp := range dpMap {
-				dp.Copy(a.timestamp, destCounter.DataPoints().AppendEmpty())
-			}
-		}
-		for resID, dpMap := range a.gauges[md.Key] {
-			if md.Gauge == nil {
-				continue
-			}
-			metrics := a.smLookup[resID].Metrics()
-			destMetric := metrics.AppendEmpty()
-			destMetric.SetName(md.Key.Name)
-			destMetric.SetUnit(md.Key.Unit)
-			destMetric.SetDescription(md.Key.Description)
-			destGauge := destMetric.SetEmptyGauge()
-			destGauge.DataPoints().EnsureCapacity(len(dpMap))
-			for _, dp := range dpMap {
-				dp.Copy(a.timestamp, destGauge.DataPoints().AppendEmpty())
-			}
-		}
-		// If there are two metric defined with the same key required by metricKey
-		// then they will be aggregated within the same metric and produced
-		// together. Deleting the key ensures this while preventing duplicates.
-		delete(a.valueCounts, md.Key)
-		delete(a.sums, md.Key)
-		delete(a.gauges, md.Key)
-	}
-}
+func (a *Aggregator[K]) Finalize(mds []model.MetricDef[K]) { _ = "STUB: not implemented"; return }
+
+// If there are two metric defined with the same key required by metricKey
+// then they will be aggregated within the same metric and produced
+// together. Deleting the key ensures this while preventing duplicates.
 
 func (a *Aggregator[K]) aggregateInt(
 	md model.MetricDef[K],
@@ -240,21 +79,7 @@ func (a *Aggregator[K]) aggregateInt(
 	filterAttrs FilterAttrsFunc,
 	v int64,
 ) error {
-	resID := a.getResourceID(resAttrs)
-	if _, ok := a.sums[md.Key]; !ok {
-		a.sums[md.Key] = make(map[[16]byte]map[[16]byte]*sumDP)
-	}
-	if _, ok := a.sums[md.Key][resID]; !ok {
-		a.sums[md.Key][resID] = make(map[[16]byte]*sumDP)
-	}
-	if _, ok := a.sums[md.Key][resID][attrID]; !ok {
-		filtered, err := filterAttrs()
-		if err != nil {
-			return err
-		}
-		a.sums[md.Key][resID][attrID] = newSumDP(filtered, false)
-	}
-	a.sums[md.Key][resID][attrID].AggregateInt(v)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -265,21 +90,7 @@ func (a *Aggregator[K]) aggregateDouble(
 	filterAttrs FilterAttrsFunc,
 	v float64,
 ) error {
-	resID := a.getResourceID(resAttrs)
-	if _, ok := a.sums[md.Key]; !ok {
-		a.sums[md.Key] = make(map[[16]byte]map[[16]byte]*sumDP)
-	}
-	if _, ok := a.sums[md.Key][resID]; !ok {
-		a.sums[md.Key][resID] = make(map[[16]byte]*sumDP)
-	}
-	if _, ok := a.sums[md.Key][resID][attrID]; !ok {
-		filtered, err := filterAttrs()
-		if err != nil {
-			return err
-		}
-		a.sums[md.Key][resID][attrID] = newSumDP(filtered, true)
-	}
-	a.sums[md.Key][resID][attrID].AggregateDouble(v)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -290,21 +101,7 @@ func (a *Aggregator[K]) aggregateGauge(
 	filterAttrs FilterAttrsFunc,
 	v any,
 ) error {
-	resID := a.getResourceID(resAttrs)
-	if _, ok := a.gauges[md.Key]; !ok {
-		a.gauges[md.Key] = make(map[[16]byte]map[[16]byte]*gaugeDP)
-	}
-	if _, ok := a.gauges[md.Key][resID]; !ok {
-		a.gauges[md.Key][resID] = make(map[[16]byte]*gaugeDP)
-	}
-	if _, ok := a.gauges[md.Key][resID][attrID]; !ok {
-		filtered, err := filterAttrs()
-		if err != nil {
-			return err
-		}
-		a.gauges[md.Key][resID][attrID] = newGaugeDP(filtered)
-	}
-	a.gauges[md.Key][resID][attrID].Aggregate(v)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -315,40 +112,15 @@ func (a *Aggregator[K]) aggregateValueCount(
 	filterAttrs FilterAttrsFunc,
 	value float64, count int64,
 ) error {
-	if count == 0 {
-		// Nothing to record as count is zero
-		return nil
-	}
-	resID := a.getResourceID(resAttrs)
-	if _, ok := a.valueCounts[md.Key]; !ok {
-		a.valueCounts[md.Key] = make(map[[16]byte]map[[16]byte]*valueCountDP)
-	}
-	if _, ok := a.valueCounts[md.Key][resID]; !ok {
-		a.valueCounts[md.Key][resID] = make(map[[16]byte]*valueCountDP)
-	}
-	if _, ok := a.valueCounts[md.Key][resID][attrID]; !ok {
-		filtered, err := filterAttrs()
-		if err != nil {
-			return err
-		}
-		a.valueCounts[md.Key][resID][attrID] = newValueCountDP(md, filtered)
-	}
-	a.valueCounts[md.Key][resID][attrID].Aggregate(value, count)
+	_ = "STUB: not implemented"
+
+	// Nothing to record as count is zero
 	return nil
 }
 
 func (a *Aggregator[K]) getResourceID(resourceAttrs pcommon.Map) [16]byte {
-	resID := pdatautil.MapHash(resourceAttrs)
-	if _, ok := a.smLookup[resID]; !ok {
-		destResourceMetric := a.result.ResourceMetrics().AppendEmpty()
-		destResAttrs := destResourceMetric.Resource().Attributes()
-		destResAttrs.EnsureCapacity(resourceAttrs.Len() + 1)
-		resourceAttrs.CopyTo(destResAttrs)
-		destScopeMetric := destResourceMetric.ScopeMetrics().AppendEmpty()
-		destScopeMetric.Scope().SetName(metadata.ScopeName)
-		a.smLookup[resID] = destScopeMetric
-	}
-	return resID
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getValueCount evaluates OTTL to get count and value respectively. Count is
@@ -360,18 +132,8 @@ func getValueCount[K any](
 	valueExpr, countExpr *ottl.ValueExpression[K],
 	defaultCount int64,
 ) (float64, int64, error) {
-	val, err := getDoubleFromOTTL(ctx, tCtx, valueExpr)
-	if err != nil {
-		return 0, 0, fmt.Errorf("failed to get value from OTTL: %w", err)
-	}
-	count := defaultCount
-	if countExpr != nil {
-		count, err = getIntFromOTTL(ctx, tCtx, countExpr)
-		if err != nil {
-			return 0, 0, fmt.Errorf("failed to get count from OTTL: %w", err)
-		}
-	}
-	return val, count, nil
+	_ = "STUB: not implemented"
+	return 0, 0, nil
 }
 
 func getIntFromOTTL[K any](
@@ -379,24 +141,8 @@ func getIntFromOTTL[K any](
 	tCtx K,
 	s *ottl.ValueExpression[K],
 ) (int64, error) {
-	if s == nil {
-		return 0, nil
-	}
-	raw, err := s.Eval(ctx, tCtx)
-	if err != nil {
-		return 0, err
-	}
-	switch v := raw.(type) {
-	case int64:
-		return v, nil
-	case float64:
-		return int64(v), nil
-	default:
-		return 0, fmt.Errorf(
-			"failed to parse int OTTL value, expression returned value of type %T: %v",
-			v, v,
-		)
-	}
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func getDoubleFromOTTL[K any](
@@ -404,22 +150,6 @@ func getDoubleFromOTTL[K any](
 	tCtx K,
 	s *ottl.ValueExpression[K],
 ) (float64, error) {
-	if s == nil {
-		return 0, nil
-	}
-	raw, err := s.Eval(ctx, tCtx)
-	if err != nil {
-		return 0, err
-	}
-	switch v := raw.(type) {
-	case float64:
-		return v, nil
-	case int64:
-		return float64(v), nil
-	default:
-		return 0, fmt.Errorf(
-			"failed to parse double OTTL value, expression returned value of type %T: %v",
-			v, v,
-		)
-	}
+	_ = "STUB: not implemented"
+	return 0, nil
 }

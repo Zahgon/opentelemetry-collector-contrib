@@ -8,12 +8,10 @@ import (
 )
 
 func WithTopic(ctx context.Context, topic string) context.Context {
-	return context.WithValue(ctx, topicContextKey{}, topic)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
-func FromContext(ctx context.Context) (string, bool) {
-	contextTopic, ok := ctx.Value(topicContextKey{}).(string)
-	return contextTopic, ok
-}
+func FromContext(ctx context.Context) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 type topicContextKey struct{}

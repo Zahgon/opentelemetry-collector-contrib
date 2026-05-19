@@ -9,18 +9,10 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/cloudflarereceiver/internal/metadata"
 )
 
 // NewFactory returns the component factory for the cloudflarereceiver
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createLogsReceiver(
 	_ context.Context,
@@ -28,16 +20,11 @@ func createLogsReceiver(
 	rConf component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	cfg := rConf.(*Config)
-	return newLogsReceiver(params, cfg, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Logs: LogsConfig{
-			TimestampField:  defaultTimestampField,
-			TimestampFormat: defaultTimestampFormat,
-			Separator:       defaultSeparator,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

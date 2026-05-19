@@ -13,10 +13,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if c.Schema == "" {
-		return errNoSchema
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

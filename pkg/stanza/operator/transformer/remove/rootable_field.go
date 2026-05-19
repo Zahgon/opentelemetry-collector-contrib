@@ -4,8 +4,6 @@
 package remove // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/transformer/remove"
 
 import (
-	"encoding/json"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 )
 
@@ -22,57 +20,23 @@ type rootableField struct {
 }
 
 // UnmarshalJSON will unmarshal a field from JSON
-func (f *rootableField) UnmarshalJSON(raw []byte) error {
-	var s string
-	err := json.Unmarshal(raw, &s)
-	if err != nil {
-		return err
-	}
-	return f.unmarshalCheckString(s)
-}
+func (f *rootableField) UnmarshalJSON(raw []byte) error { _ = "STUB: not implemented"; return nil }
 
 // UnmarshalYAML will unmarshal a field from YAML
 func (f *rootableField) UnmarshalYAML(unmarshal func(any) error) error {
-	var s string
-	err := unmarshal(&s)
-	if err != nil {
-		return err
-	}
-	return f.unmarshalCheckString(s)
-}
-
-// UnmarshalText will unmarshal a field from text
-func (f *rootableField) UnmarshalText(text []byte) error {
-	return f.unmarshalCheckString(string(text))
-}
-
-func (f *rootableField) unmarshalCheckString(s string) error {
-	if s == entry.ResourcePrefix {
-		*f = rootableField{allResource: true}
-		return nil
-	}
-
-	if s == entry.AttributesPrefix {
-		*f = rootableField{allAttributes: true}
-		return nil
-	}
-
-	field, err := entry.NewField(s)
-	if err != nil {
-		return err
-	}
-	*f = rootableField{Field: field}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// UnmarshalText will unmarshal a field from text
+func (f *rootableField) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
+
+func (f *rootableField) unmarshalCheckString(s string) error { _ = "STUB: not implemented"; return nil }
+
 // Get gets the value of the field if the flags for 'allAttributes' or 'allResource' isn't set
 func (f *rootableField) Get(entry *entry.Entry) (any, bool) {
-	if f.allAttributes || f.allResource {
-		return nil, false
-	}
-	return f.Field.Get(entry)
+	_ = "STUB: not implemented"
+	return *new(any), false
 }
 
-func (f *rootableField) IsEmpty() bool {
-	return f.Field.IsEmpty() && !f.allAttributes && !f.allResource
-}
+func (f *rootableField) IsEmpty() bool { _ = "STUB: not implemented"; return false }

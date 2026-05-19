@@ -11,7 +11,6 @@ package internal
 
 import (
 	context "context"
-	reflect "reflect"
 
 	gomock "go.uber.org/mock/gomock"
 )
@@ -30,83 +29,69 @@ type MockCustomTriggerHandlerMockRecorder struct {
 
 // NewMockCustomTriggerHandler creates a new mock instance.
 func NewMockCustomTriggerHandler(ctrl *gomock.Controller) *MockCustomTriggerHandler {
-	mock := &MockCustomTriggerHandler{ctrl: ctrl}
-	mock.recorder = &MockCustomTriggerHandlerMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockCustomTriggerHandler) EXPECT() *MockCustomTriggerHandlerMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Error mocks base method.
+	return nil
 }
 
-// Error mocks base method.
-func (m *MockCustomTriggerHandler) Error() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Error")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockCustomTriggerHandler) Error() error { _ = "STUB: not implemented"; return nil }
 
 // Error indicates an expected call of Error.
 func (mr *MockCustomTriggerHandlerMockRecorder) Error() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Error", reflect.TypeOf((*MockCustomTriggerHandler)(nil).Error))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetNext mocks base method.
 func (m *MockCustomTriggerHandler) GetNext(arg0 context.Context) ([]byte, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNext", arg0)
-	ret0, _ := ret[0].([]byte)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetNext indicates an expected call of GetNext.
 func (mr *MockCustomTriggerHandlerMockRecorder) GetNext(arg0 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNext", reflect.TypeOf((*MockCustomTriggerHandler)(nil).GetNext), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // HasNext mocks base method.
 func (m *MockCustomTriggerHandler) HasNext(arg0 context.Context) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "HasNext", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
+	_ = "STUB: not implemented"
+	return false
 }
 
 // HasNext indicates an expected call of HasNext.
 func (mr *MockCustomTriggerHandlerMockRecorder) HasNext(arg0 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HasNext", reflect.TypeOf((*MockCustomTriggerHandler)(nil).HasNext), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsDryRun mocks base method.
-func (m *MockCustomTriggerHandler) IsDryRun() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsDryRun")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockCustomTriggerHandler) IsDryRun() bool { _ = "STUB: not implemented"; return false }
 
 // IsDryRun indicates an expected call of IsDryRun.
 func (mr *MockCustomTriggerHandlerMockRecorder) IsDryRun() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsDryRun", reflect.TypeOf((*MockCustomTriggerHandler)(nil).IsDryRun))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PostProcess mocks base method.
 func (m *MockCustomTriggerHandler) PostProcess(arg0 context.Context) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "PostProcess", arg0)
+	_ = "STUB: not implemented"
+	return
 }
 
 // PostProcess indicates an expected call of PostProcess.
 func (mr *MockCustomTriggerHandlerMockRecorder) PostProcess(arg0 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PostProcess", reflect.TypeOf((*MockCustomTriggerHandler)(nil).PostProcess), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockIterator is a mock of Iterator interface.
@@ -123,55 +108,43 @@ type MockIteratorMockRecorder[T any] struct {
 
 // NewMockIterator creates a new mock instance.
 func NewMockIterator[T any](ctrl *gomock.Controller) *MockIterator[T] {
-	mock := &MockIterator[T]{ctrl: ctrl}
-	mock.recorder = &MockIteratorMockRecorder[T]{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockIterator[T]) EXPECT() *MockIteratorMockRecorder[T] {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Error mocks base method.
+	return nil
 }
 
-// Error mocks base method.
-func (m *MockIterator[T]) Error() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Error")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockIterator[T]) Error() error { _ = "STUB: not implemented"; return nil }
 
 // Error indicates an expected call of Error.
-func (mr *MockIteratorMockRecorder[T]) Error() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Error", reflect.TypeOf((*MockIterator[T])(nil).Error))
-}
+func (mr *MockIteratorMockRecorder[T]) Error() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetNext mocks base method.
 func (m *MockIterator[T]) GetNext(arg0 context.Context) (T, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNext", arg0)
-	ret0, _ := ret[0].(T)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(T), nil
 }
 
 // GetNext indicates an expected call of GetNext.
 func (mr *MockIteratorMockRecorder[T]) GetNext(arg0 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNext", reflect.TypeOf((*MockIterator[T])(nil).GetNext), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // HasNext mocks base method.
 func (m *MockIterator[T]) HasNext(arg0 context.Context) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "HasNext", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
+	_ = "STUB: not implemented"
+	return false
 }
 
 // HasNext indicates an expected call of HasNext.
 func (mr *MockIteratorMockRecorder[T]) HasNext(arg0 any) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HasNext", reflect.TypeOf((*MockIterator[T])(nil).HasNext), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }

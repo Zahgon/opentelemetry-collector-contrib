@@ -5,13 +5,9 @@ package traces // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"encoding/json"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -41,34 +37,22 @@ type azureAppDependencies struct {
 
 // GetSpanKind determines the SpanKind based on the Azure Dependency Type
 func (r *azureAppDependencies) GetSpanKind() ptrace.SpanKind {
+	_ = "STUB: not implemented"
 	// `DependencyType` == "Queue Message | <name of messaging system>" => Producer Span Kind
-	if strings.HasPrefix(r.DependencyType, "Queue") {
-		return ptrace.SpanKindProducer
-	}
-
-	// `Data` field is set - we can assume that it's "Client" SpanKind,
-	// as according to Azure docs - `Data` field contains URI/DB Statement
-	if r.Data != "" {
-		return ptrace.SpanKindClient
-	}
-
-	// By default - returns "Internal" Span Kind as of OpenTelemetry SemConv Spec
-	return ptrace.SpanKindInternal
+	return *new(ptrace.SpanKind)
 }
+
+// `Data` field is set - we can assume that it's "Client" SpanKind,
+// as according to Azure docs - `Data` field contains URI/DB Statement
+
+// By default - returns "Internal" Span Kind as of OpenTelemetry SemConv Spec
 
 // PutCommonAttributes puts already parsed common attributes into provided Attributes Map/Body
 func (r *azureAppDependencies) PutCommonAttributes(attrs pcommon.Map) {
-	r.azureTracesRecordBase.PutCommonAttributes(attrs)
-
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureDependencyType, r.DependencyType)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureDependencyTarget, r.Target)
-
-	// AppDependencies doesn't have "URL" field, it is using "Data" field instead
-	if r.Data != "" && strings.HasPrefix(r.Data, "http") {
-		unmarshaler.AttrPutURLParsed(attrs, r.Data)
-		unmarshaler.AttrPutIntNumberPtrIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.ResultCode)
-	} else {
-		// Otherwise, we will save Data field as is
-		unmarshaler.AttrPutStrIf(attrs, attributeAzureDependencyData, r.Data)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// AppDependencies doesn't have "URL" field, it is using "Data" field instead
+
+// Otherwise, we will save Data field as is

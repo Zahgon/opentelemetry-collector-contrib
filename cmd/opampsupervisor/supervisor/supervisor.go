@@ -4,54 +4,25 @@
 package supervisor
 
 import (
-	"bufio"
-	"bytes"
 	"context"
-	"crypto/tls"
 	_ "embed"
-	"encoding/hex"
 	"errors"
-	"fmt"
-	"net"
 	"net/http"
-	"net/url"
-	"os"
-	"path/filepath"
-	"slices"
-	"sort"
-	"strings"
 	"sync"
 	"sync/atomic"
 	"text/template"
 	"time"
 
-	"github.com/google/uuid"
-	"github.com/knadh/koanf/maps"
-	"github.com/knadh/koanf/parsers/yaml"
-	"github.com/knadh/koanf/providers/rawbytes"
-	"github.com/knadh/koanf/v2"
 	"github.com/open-telemetry/opamp-go/client"
 	"github.com/open-telemetry/opamp-go/client/types"
 	"github.com/open-telemetry/opamp-go/protobufs"
 	"github.com/open-telemetry/opamp-go/server"
 	serverTypes "github.com/open-telemetry/opamp-go/server/types"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configopaque"
-	"go.opentelemetry.io/collector/config/configtelemetry"
-	"go.opentelemetry.io/collector/config/configtls"
-	"go.opentelemetry.io/collector/confmap"
-	"go.opentelemetry.io/contrib/bridges/otelzap"
-	telemetryconfig "go.opentelemetry.io/contrib/otelconf/v0.3.0"
-	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/log"
 	"go.opentelemetry.io/otel/trace"
-	"go.uber.org/multierr"
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"google.golang.org/protobuf/proto"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor/supervisor/commander"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor/supervisor/config"
 	supervisorTelemetry "github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor/supervisor/telemetry"
@@ -91,9 +62,7 @@ type configState struct {
 	configMapIsEmpty bool
 }
 
-func (c *configState) equal(other *configState) bool {
-	return other.mergedConfig == c.mergedConfig && other.configMapIsEmpty == c.configMapIsEmpty
-}
+func (c *configState) equal(other *configState) bool { _ = "STUB: not implemented"; return false }
 
 type agentStartStatus string
 
@@ -194,1501 +163,321 @@ type Supervisor struct {
 }
 
 func NewSupervisor(ctx context.Context, logger *zap.Logger, cfg config.Supervisor) (*Supervisor, error) {
-	s := &Supervisor{
-		pidProvider:                    defaultPIDProvider{},
-		hasNewConfig:                   make(chan struct{}, 1),
-		agentConfigOwnTelemetrySection: &atomic.Value{},
-		cfgState:                       &atomic.Value{},
-		effectiveConfig:                &atomic.Value{},
-		agentDescription:               &atomic.Value{},
-		availableComponents:            &atomic.Value{},
-		doneChan:                       make(chan struct{}),
-		customMessageToServer:          make(chan *protobufs.CustomMessage, maxBufferedCustomMessages),
-		agentConn:                      &atomic.Value{},
-		featureGates:                   map[string]struct{}{},
-		agentReady:                     atomic.Bool{},
-		agentReadyChan:                 make(chan struct{}, 1),
-		metrics:                        &supervisorTelemetry.Metrics{},
-		heartbeatIntervalSeconds:       30,
-	}
-
-	s.runCtx, s.runCtxCancel = context.WithCancel(ctx)
-
-	// Validate extensions feature gate before continuing
-	if len(cfg.Extensions) > 0 && !metadata.OpampsupervisorExtensionsFeatureGate.IsEnabled() {
-		return nil, fmt.Errorf(
-			"extensions are configured but the %q feature gate is not enabled; enable it with --feature-gates=%s",
-			metadata.OpampsupervisorExtensionsFeatureGate.ID(), metadata.OpampsupervisorExtensionsFeatureGate.ID(),
-		)
-	}
-
-	if err := s.createTemplates(); err != nil {
-		return nil, err
-	}
-
-	if err := confmap.Validate(cfg); err != nil {
-		return nil, fmt.Errorf("error validating config: %w", err)
-	}
-	s.config = cfg
-
-	if err := os.MkdirAll(s.config.Storage.Directory, 0o700); err != nil {
-		return nil, fmt.Errorf("error creating storage dir: %w", err)
-	}
-
-	var err error
-
-	s.telemetrySettings, err = initTelemetrySettings(ctx, logger, s.config.Telemetry)
-	if err != nil {
-		return nil, err
-	}
-
-	s.metrics, err = supervisorTelemetry.NewMetrics(s.telemetrySettings.MeterProvider)
-	if err != nil {
-		return nil, fmt.Errorf("error creating internal metrics: %w", err)
-	}
-
-	s.configApplyTimeout = s.config.Agent.ConfigApplyTimeout
-
-	return s, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Validate extensions feature gate before continuing
 
 func initTelemetrySettings(ctx context.Context, logger *zap.Logger, cfg config.Telemetry) (telemetrySettings, error) {
-	readers := cfg.Metrics.Readers
-	if cfg.Metrics.Level == configtelemetry.LevelNone {
-		readers = []telemetryconfig.MetricReader{}
-	}
-
-	resourceCfg, err := buildSupervisorResourceConfig(&cfg.Resource)
-	if err != nil {
-		return telemetrySettings{}, err
-	}
-	pcommonRes, err := resourceConfigToPcommon(ctx, resourceCfg)
-	if err != nil {
-		return telemetrySettings{}, err
-	}
-
-	sdk, err := telemetryconfig.NewSDK(
-		telemetryconfig.WithContext(ctx),
-		telemetryconfig.WithOpenTelemetryConfiguration(
-			telemetryconfig.OpenTelemetryConfiguration{
-				MeterProvider: &telemetryconfig.MeterProvider{
-					Readers: readers,
-				},
-				TracerProvider: &telemetryconfig.TracerProvider{
-					Processors: cfg.Traces.Processors,
-				},
-				LoggerProvider: &telemetryconfig.LoggerProvider{
-					Processors: cfg.Logs.Processors,
-				},
-				Resource: resourceCfg,
-			},
-		),
-	)
-	if err != nil {
-		return telemetrySettings{}, err
-	}
-
-	var lp log.LoggerProvider
-	if len(cfg.Logs.Processors) > 0 {
-		lp = sdk.LoggerProvider()
-		logger = logger.WithOptions(zap.WrapCore(func(c zapcore.Core) zapcore.Core {
-			core, err := zapcore.NewIncreaseLevelCore(zapcore.NewTee(
-				c,
-				otelzap.NewCore("github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor",
-					otelzap.WithLoggerProvider(lp),
-				),
-			), zap.NewAtomicLevelAt(cfg.Logs.Level))
-			if err != nil {
-				panic(err)
-			}
-			return core
-		}))
-	}
-
-	return telemetrySettings{
-		component.TelemetrySettings{
-			Logger:         logger,
-			TracerProvider: sdk.TracerProvider(),
-			MeterProvider:  sdk.MeterProvider(),
-			Resource:       pcommonRes,
-		},
-		lp,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(telemetrySettings), nil
 }
 
-func (s *Supervisor) Start(ctx context.Context) error {
-	var err error
+func (s *Supervisor) Start(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
-	s.runCtx, s.runCtxCancel = context.WithCancel(ctx)
+func (s *Supervisor) getFeatureGates() error { _ = "STUB: not implemented"; return nil }
 
-	if err = s.startHealthCheckServer(); err != nil {
-		return fmt.Errorf("failed to start health check server: %w", err)
-	}
+// First line only contains headers, discard it.
 
-	s.persistentState, err = loadOrCreatePersistentState(s.persistentStateFilePath(), s.config.Agent.InstanceID, s.telemetrySettings.Logger)
-	if err != nil {
-		return err
-	}
-
-	if s.config.Capabilities.AcceptsPackages || s.config.Capabilities.ReportsPackageStatuses {
-		s.telemetrySettings.Logger.Error(
-			"accepts_packages and reports_package_statuses capabilities are not yet fully implemented. " +
-				"See https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/47272 for progress.",
-		)
-		return errors.New("accepts_packages and reports_package_statuses capabilities are not yet fully implemented")
-	}
-
-	if err = s.getFeatureGates(); err != nil {
-		return fmt.Errorf("could not get feature gates from the Collector: %w", err)
-	}
-
-	if err = s.getBootstrapInfo(); err != nil {
-		return fmt.Errorf("could not get bootstrap info from the Collector: %w", err)
-	}
-
-	s.telemetrySettings.Logger.Info("Supervisor starting",
-		zap.String("id", s.persistentState.InstanceID.String()))
-
-	if err = s.startOpAMP(); err != nil {
-		return fmt.Errorf("cannot start OpAMP client: %w", err)
-	}
-
-	err = s.loadAndWriteInitialMergedConfig()
-	if err != nil {
-		return fmt.Errorf("failed loading initial config: %w", err)
-	}
-
-	flags := []string{
-		"--config", s.agentConfigFilePath(),
-	}
-	featureGateFlag := s.getFeatureGateFlag()
-	if len(featureGateFlag) > 0 {
-		flags = append(flags, featureGateFlag...)
-	}
-	s.commander, err = commander.NewCommander(
-		s.telemetrySettings.Logger,
-		s.config.Storage.Directory,
-		s.config.Agent,
-		flags...,
-	)
-	if err != nil {
-		return err
-	}
-
-	s.agentWG.Go(func() {
-		s.runAgentProcess()
-	})
-
-	s.customMessageWG.Go(func() {
-		s.forwardCustomMessagesToServerLoop()
-	})
-
-	return nil
-}
-
-func (s *Supervisor) getFeatureGates() error {
-	cmd, err := commander.NewCommander(
-		s.telemetrySettings.Logger,
-		s.config.Storage.Directory,
-		s.config.Agent,
-		"featuregate",
-	)
-	if err != nil {
-		return err
-	}
-
-	stdout, _, err := cmd.StartOneShot()
-	if err != nil {
-		return err
-	}
-	scanner := bufio.NewScanner(bytes.NewBuffer(stdout))
-
-	// First line only contains headers, discard it.
-	_ = scanner.Scan()
-	for scanner.Scan() {
-		line := scanner.Text()
-		before, _, _ := strings.Cut(line, " ")
-		flag := before
-
-		if flag == AllowNoPipelinesFeatureGate {
-			s.featureGates[AllowNoPipelinesFeatureGate] = struct{}{}
-		}
-	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
-
-	return nil
-}
-
-func (s *Supervisor) createTemplates() error {
-	var err error
-
-	if s.noopPipelineTemplate, err = template.New("nooppipeline").Parse(noopPipelineTpl); err != nil {
-		return err
-	}
-	if s.extraTelemetryConfigTemplate, err = template.New("extratelemetryconfig").Parse(extraConfigTpl); err != nil {
-		return err
-	}
-	if s.opampextensionTemplate, err = template.New("opampextension").Parse(opampextensionTpl); err != nil {
-		return err
-	}
-	if s.ownTelemetryTemplate, err = template.New("owntelemetry").Parse(ownTelemetryTpl); err != nil {
-		return err
-	}
-
-	return nil
-}
+func (s *Supervisor) createTemplates() error { _ = "STUB: not implemented"; return nil }
 
 // getBootstrapInfo obtains the Collector's agent description by
 // starting a Collector with a specific config that only starts
 // an OpAMP extension, obtains the agent description, then
 // shuts down the Collector. This only needs to happen
 // once per Collector binary.
-func (s *Supervisor) getBootstrapInfo() (err error) {
-	_, span := s.getTracer().Start(s.runCtx, "GetBootstrapInfo")
-	defer span.End()
+func (s *Supervisor) getBootstrapInfo() (err error) { _ = "STUB: not implemented"; return nil }
 
-	s.opampServerPort, err = s.getSupervisorOpAMPServerPort()
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not get supervisor opamp service port: %v", err))
-		return err
-	}
+// Start a one-shot server to get the Collector's agent description
+// and available components using the Collector's OpAMP extension.
 
-	bootstrapConfig, err := s.composeNoopConfig()
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not compose noop config config: %v", err))
-		return err
-	}
+// agent description must be defined
 
-	err = os.WriteFile(s.agentConfigFilePath(), bootstrapConfig, 0o600)
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Failed to write agent config: %v", err))
-		return fmt.Errorf("failed to write agent config: %w", err)
-	}
+// if available components have not been reported, agent description is sufficient to continue
 
-	srv := server.New(newLoggerFromZap(s.telemetrySettings.Logger, "opamp-server"))
+// must have a full list of components if available components have been reported
 
-	done := make(chan error, 1)
-	var connected atomic.Bool
-	var doneReported atomic.Bool
+// if we don't have a full component list, ask for it
 
-	// Start a one-shot server to get the Collector's agent description
-	// and available components using the Collector's OpAMP extension.
-	err = srv.Start(flattenedSettings{
-		endpoint: fmt.Sprintf("localhost:%d", s.opampServerPort),
-		onConnecting: func(*http.Request) (bool, int) {
-			connected.Store(true)
-			return true, http.StatusOK
-		},
-		onMessage: func(_ serverTypes.Connection, message *protobufs.AgentToServer) *protobufs.ServerToAgent {
-			response := &protobufs.ServerToAgent{}
+// need to only report done once, not on each message - otherwise, we get a hung thread
 
-			if !slices.Equal(message.GetInstanceUid(), s.persistentState.InstanceID[:]) {
-				done <- fmt.Errorf(
-					"the Collector's instance ID (%s) does not match with the instance ID set by the Supervisor (%s): %w",
-					hex.EncodeToString(message.GetInstanceUid()),
-					s.persistentState.InstanceID.String(),
-					errNonMatchingInstanceUID,
-				)
-				return response
-			}
+// try to report the issue to the OpAMP server
 
-			if message.GetAvailableComponents() != nil {
-				s.setAvailableComponents(message.AvailableComponents)
-			}
-
-			if message.AgentDescription != nil {
-				s.setAgentDescription(message.AgentDescription)
-			}
-
-			// agent description must be defined
-			_, ok := s.agentDescription.Load().(*protobufs.AgentDescription)
-			if !ok {
-				return response
-			}
-
-			// if available components have not been reported, agent description is sufficient to continue
-			availableComponents, availableComponentsOk := s.availableComponents.Load().(*protobufs.AvailableComponents)
-			if availableComponentsOk {
-				// must have a full list of components if available components have been reported
-				if availableComponents.GetComponents() != nil {
-					if !doneReported.Load() {
-						done <- nil
-						doneReported.Store(true)
-					}
-				} else {
-					// if we don't have a full component list, ask for it
-					response.Flags = uint64(protobufs.ServerToAgentFlags_ServerToAgentFlags_ReportAvailableComponents)
-				}
-				return response
-			}
-
-			// need to only report done once, not on each message - otherwise, we get a hung thread
-			if !doneReported.Load() {
-				done <- nil
-				doneReported.Store(true)
-			}
-
-			return response
-		},
-	}.toServerSettings())
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not start OpAMP server: %v", err))
-		return err
-	}
-
-	defer func() {
-		if stopErr := srv.Stop(s.runCtx); stopErr != nil {
-			err = errors.Join(err, fmt.Errorf("error when stopping the opamp server: %w", stopErr))
-		}
-	}()
-
-	flags := []string{
-		"--config", s.agentConfigFilePath(),
-	}
-	featuregateFlag := s.getFeatureGateFlag()
-	if len(featuregateFlag) > 0 {
-		flags = append(flags, featuregateFlag...)
-	}
-	cmd, err := commander.NewCommander(
-		s.telemetrySettings.Logger,
-		s.config.Storage.Directory,
-		s.config.Agent,
-		flags...,
-	)
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not start Agent: %v", err))
-		return err
-	}
-
-	if err = cmd.Start(s.runCtx); err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not start Agent: %v", err))
-		return err
-	}
-
-	defer func() {
-		if stopErr := cmd.Stop(s.runCtx); stopErr != nil {
-			err = errors.Join(err, fmt.Errorf("error when stopping the collector: %w", stopErr))
-		}
-	}()
-
-	select {
-	case <-time.After(s.config.Agent.BootstrapTimeout):
-		if connected.Load() {
-			msg := "collector connected but never responded with an AgentDescription message"
-			span.SetStatus(codes.Error, msg)
-			return errors.New(msg)
-		} else {
-			msg := "collector's OpAMP client never connected to the Supervisor"
-			span.SetStatus(codes.Error, msg)
-			return errors.New(msg)
-		}
-	case err = <-done:
-		if errors.Is(err, errNonMatchingInstanceUID) {
-			// try to report the issue to the OpAMP server
-			if startOpAMPErr := s.startOpAMPClient(); startOpAMPErr == nil {
-				defer func(s *Supervisor) {
-					if stopErr := s.stopOpAMPClient(); stopErr != nil {
-						s.telemetrySettings.Logger.Error("Could not stop OpAmp client", zap.Error(stopErr))
-					}
-				}(s)
-				err = s.SetHealth(&protobufs.ComponentHealth{Healthy: false, LastError: err.Error()})
-				if err != nil {
-					s.telemetrySettings.Logger.Error("Could not complete bootstrap", zap.Error(err))
-				}
-			} else {
-				s.telemetrySettings.Logger.Error("Could not start OpAMP client to report health to server", zap.Error(startOpAMPErr))
-			}
-		}
-		if err != nil {
-			span.SetStatus(codes.Error, err.Error())
-		} else {
-			span.SetStatus(codes.Ok, "")
-		}
-		return err
-	}
-}
-
-func (s *Supervisor) startOpAMP() error {
-	if err := s.startOpAMPClient(); err != nil {
-		return err
-	}
-
-	if err := s.startOpAMPServer(); err != nil {
-		return err
-	}
-
-	return nil
-}
+func (s *Supervisor) startOpAMP() error { _ = "STUB: not implemented"; return nil }
 
 func (s *Supervisor) startOpAMPClient() error {
+	_ = "STUB: not implemented"
 	// determine if we need to load a TLS config or not
-	var tlsConfig *tls.Config
-	parsedURL, err := url.Parse(s.config.Server.Endpoint)
-	if err != nil {
-		return fmt.Errorf("parse server endpoint: %w", err)
-	}
-	if parsedURL.Scheme == "wss" || parsedURL.Scheme == "https" {
-		tlsConfig, err = s.config.Server.TLS.LoadTLSConfig(s.runCtx)
-		if err != nil {
-			return err
-		}
-	}
-	logger := newLoggerFromZap(s.telemetrySettings.Logger, "opamp-client")
-	switch parsedURL.Scheme {
-	case "ws", "wss":
-		s.opampClient = client.NewWebSocket(logger)
-	case "http", "https":
-		s.opampClient = client.NewHTTP(logger)
-	default:
-		return fmt.Errorf("unsupported scheme in server endpoint: %q", parsedURL.Scheme)
-	}
-
-	s.telemetrySettings.Logger.Debug("Connecting to OpAMP server...", zap.String("endpoint", s.config.Server.Endpoint), zap.Any("headers", s.config.Server.OpaqueHeaders()))
-	settings := types.StartSettings{
-		OpAMPServerURL:     s.config.Server.Endpoint,
-		Header:             s.config.Server.Headers,
-		TLSConfig:          tlsConfig,
-		InstanceUid:        types.InstanceUid(s.persistentState.InstanceID),
-		RemoteConfigStatus: s.persistentState.GetLastRemoteConfigStatus(),
-		Callbacks: types.Callbacks{
-			OnConnect: func(context.Context) {
-				s.telemetrySettings.Logger.Info("Connected to the server.")
-			},
-			OnConnectFailed: func(_ context.Context, err error) {
-				s.telemetrySettings.Logger.Error("Failed to connect to the server", zap.Error(err))
-			},
-			OnError: func(_ context.Context, err *protobufs.ServerErrorResponse) {
-				s.telemetrySettings.Logger.Error("Server returned an error response", zap.String("message", err.ErrorMessage))
-			},
-			OnMessage: s.onMessage,
-			OnOpampConnectionSettings: func(ctx context.Context, settings *protobufs.OpAMPConnectionSettings) error {
-				//nolint:errcheck
-				go s.onOpampConnectionSettings(ctx, settings)
-				return nil
-			},
-			OnCommand: func(_ context.Context, command *protobufs.ServerToAgentCommand) error {
-				cmdType := command.GetType()
-				if *cmdType.Enum() == protobufs.CommandType_CommandType_Restart {
-					return s.handleRestartCommand()
-				}
-				return nil
-			},
-			SaveRemoteConfigStatus: func(context.Context, *protobufs.RemoteConfigStatus) {
-				// TODO: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/21079
-			},
-			GetEffectiveConfig: func(context.Context) (*protobufs.EffectiveConfig, error) {
-				return s.createEffectiveConfigMsg(), nil
-			},
-		},
-	}
-	ad := s.agentDescription.Load().(*protobufs.AgentDescription)
-	if err := s.opampClient.SetAgentDescription(ad); err != nil {
-		return err
-	}
-
-	if err := s.SetHealth(&protobufs.ComponentHealth{Healthy: false}); err != nil {
-		return err
-	}
-
-	if ac, ok := s.availableComponents.Load().(*protobufs.AvailableComponents); ok && ac != nil {
-		if err := s.opampClient.SetAvailableComponents(ac); err != nil {
-			return err
-		}
-	}
-
-	supportedCapabilities := s.config.Capabilities.SupportedCapabilities()
-	if err := s.opampClient.SetCapabilities(&supportedCapabilities); err != nil {
-		return err
-	}
-
-	// Set heartbeat interval if the agent supports it
-	if s.config.Capabilities.ReportsHeartbeat {
-		d := time.Duration(s.heartbeatIntervalSeconds) * time.Second
-		settings.HeartbeatInterval = &d
-	}
-
-	s.telemetrySettings.Logger.Debug("Starting OpAMP client...")
-	if err := s.opampClient.Start(s.runCtx, settings); err != nil {
-		return err
-	}
-	s.telemetrySettings.Logger.Debug("OpAMP client started.")
-
 	return nil
 }
 
-func (s *Supervisor) startHealthCheckServer() error {
-	if s.config.HealthCheck.Port() == 0 {
-		return nil
-	}
+//nolint:errcheck
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/health", func(w http.ResponseWriter, _ *http.Request) {
-		if s.persistentState == nil {
-			w.WriteHeader(http.StatusServiceUnavailable)
-			_, _ = w.Write([]byte("persistent state is nil"))
-			return
-		}
+// TODO: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/21079
 
-		cfg, ok := s.cfgState.Load().(*configState)
-		if !ok {
-			w.WriteHeader(http.StatusServiceUnavailable)
-			_, _ = w.Write([]byte("config state is nil"))
-			return
-		}
-		if cfg == nil {
-			w.WriteHeader(http.StatusServiceUnavailable)
-			_, _ = w.Write([]byte("config state is nil"))
-			return
-		}
+// Set heartbeat interval if the agent supports it
 
-		w.WriteHeader(http.StatusOK)
-	})
-
-	healthCheckServerPort := s.config.HealthCheck.Port()
-	server, err := s.config.HealthCheck.ToServer(
-		s.runCtx,
-		nil,
-		s.telemetrySettings.TelemetrySettings,
-		mux,
-	)
-	if err != nil {
-		return fmt.Errorf("failed to create health check server: %w", err)
-	}
-	s.healthCheckServer = server
-
-	listener, err := s.config.HealthCheck.ToListener(s.runCtx)
-	if err != nil {
-		return fmt.Errorf("failed to listen on port %d: %w", healthCheckServerPort, err)
-	}
-
-	s.healthCheckServerWG.Go(func() {
-		s.telemetrySettings.Logger.Debug("Starting health check server", zap.Int64("port", healthCheckServerPort))
-		if err := s.healthCheckServer.Serve(listener); err != nil && err != http.ErrServerClosed {
-			s.telemetrySettings.Logger.Error("Health check server failed", zap.Error(err))
-		}
-	})
-
-	return nil
-}
+func (s *Supervisor) startHealthCheckServer() error { _ = "STUB: not implemented"; return nil }
 
 type nopHost struct{}
 
 var _ component.Host = nopHost{}
 
 func (nopHost) GetExtensions() map[component.ID]component.Component {
+	_ = "STUB: not implemented"
+
+	// startOpAMPServer starts an OpAMP server that will communicate
+	// with an OpAMP extension running inside a Collector to receive
+	// data from inside the Collector. The internal server's lifetime is not
+	// matched to the Collector's process, but may be restarted
+	// depending on information received by the Supervisor from the remote
+	// OpAMP server.
 	return nil
 }
 
-// startOpAMPServer starts an OpAMP server that will communicate
-// with an OpAMP extension running inside a Collector to receive
-// data from inside the Collector. The internal server's lifetime is not
-// matched to the Collector's process, but may be restarted
-// depending on information received by the Supervisor from the remote
-// OpAMP server.
-func (s *Supervisor) startOpAMPServer() error {
-	s.opampServer = server.New(newLoggerFromZap(s.telemetrySettings.Logger, "opamp-server"))
+func (s *Supervisor) startOpAMPServer() error { _ = "STUB: not implemented"; return nil }
 
-	var err error
-	s.opampServerPort, err = s.getSupervisorOpAMPServerPort()
-	if err != nil {
-		return err
-	}
-
-	s.telemetrySettings.Logger.Debug("Starting OpAMP server...")
-
-	connected := &atomic.Bool{}
-
-	err = s.opampServer.Start(flattenedSettings{
-		endpoint: fmt.Sprintf("localhost:%d", s.opampServerPort),
-		onConnecting: func(*http.Request) (bool, int) {
-			// Only allow one agent to be connected the this server at a time.
-			alreadyConnected := connected.Swap(true)
-			return !alreadyConnected, http.StatusConflict
-		},
-		onMessage: s.handleAgentOpAMPMessage,
-		onConnectionClose: func(serverTypes.Connection) {
-			connected.Store(false)
-		},
-	}.toServerSettings())
-	if err != nil {
-		return err
-	}
-
-	s.telemetrySettings.Logger.Debug("OpAMP server started.")
-
-	return nil
-}
+// Only allow one agent to be connected the this server at a time.
 
 func (s *Supervisor) handleAgentOpAMPMessage(conn serverTypes.Connection, message *protobufs.AgentToServer) *protobufs.ServerToAgent {
-	ctx, span := s.getTracer().Start(s.runCtx, "handleAgentOpAMPMessage")
-	defer span.End()
-
-	s.agentConn.Store(conn)
-
-	s.telemetrySettings.Logger.Debug("Received OpAMP message from the agent")
-	if message.AgentDescription != nil {
-		s.setAgentDescription(message.AgentDescription)
-	}
-
-	if message.EffectiveConfig != nil {
-		span.AddEvent("Received effectiveConfig")
-		if cfg, ok := message.EffectiveConfig.GetConfigMap().GetConfigMap()[""]; ok {
-			s.telemetrySettings.Logger.Debug("Received effective config from agent")
-			s.effectiveConfig.Store(string(cfg.Body))
-			err := s.opampClient.UpdateEffectiveConfig(ctx)
-			if err != nil {
-				span.SetStatus(codes.Error, fmt.Sprintf("Could not update effective config: %s", err.Error()))
-				s.telemetrySettings.Logger.Error("The OpAMP client failed to update the effective config", zap.Error(err))
-			}
-		} else {
-			msg := "Got effective config message, but the instance config was not present. Ignoring effective config."
-			span.SetStatus(codes.Error, msg)
-			s.telemetrySettings.Logger.Error(msg)
-		}
-	}
-
-	// Proxy client capabilities to server
-	if message.CustomCapabilities != nil {
-		span.AddEvent("Received customCapabilities")
-		err := s.opampClient.SetCustomCapabilities(message.CustomCapabilities)
-		if err != nil {
-			span.SetStatus(codes.Error, fmt.Sprintf("Failed to send custom capabilities to OpAMP server: %s", err.Error()))
-			s.telemetrySettings.Logger.Error("Failed to send custom capabilities to OpAMP server")
-		}
-	}
-
-	// Proxy agent custom messages to server
-	if message.CustomMessage != nil {
-		select {
-		case s.customMessageToServer <- message.CustomMessage:
-		default:
-			s.telemetrySettings.Logger.Warn(
-				"Buffer full, skipping forwarding custom message to server",
-				zap.String("capability", message.CustomMessage.Capability),
-				zap.String("type", message.CustomMessage.Type),
-			)
-		}
-	}
-
-	if message.Health != nil {
-		span.AddEvent("Received health", trace.WithAttributes(attribute.KeyValue{
-			Key:   "health",
-			Value: attribute.BoolValue(message.Health.Healthy),
-		}))
-		s.telemetrySettings.Logger.Debug("Received health status from agent", zap.Bool("healthy", message.Health.Healthy))
-		s.lastHealthFromClient.Store(message.Health)
-		err := s.SetHealth(message.Health)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not report health to OpAMP server", zap.Error(err))
-		}
-		if !s.agentReady.Load() && message.Health.Healthy {
-			s.markAgentReady()
-		}
-	}
-
-	return &protobufs.ServerToAgent{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *Supervisor) forwardCustomMessagesToServerLoop() {
-	for {
-		select {
-		case cm := <-s.customMessageToServer:
-			for {
-				sendingChan, err := s.opampClient.SendCustomMessage(cm)
-				switch {
-				case errors.Is(err, types.ErrCustomMessagePending):
-					s.telemetrySettings.Logger.Debug("Custom message pending, waiting to send...")
-					<-sendingChan
-					continue
-				case err == nil: // OK
-					s.telemetrySettings.Logger.Debug("Custom message forwarded to server.")
-				default:
-					s.telemetrySettings.Logger.Error("Failed to send custom message to OpAMP server")
-				}
-				break
-			}
-		case <-s.doneChan:
-			return
-		}
-	}
-}
+// Proxy client capabilities to server
+
+// Proxy agent custom messages to server
+
+func (s *Supervisor) forwardCustomMessagesToServerLoop() { _ = "STUB: not implemented"; return }
+
+// OK
 
 // setAgentDescription sets the agent description, merging in any user-specified attributes from the supervisor configuration.
 func (s *Supervisor) setAgentDescription(ad *protobufs.AgentDescription) {
-	ad.IdentifyingAttributes = applyKeyValueOverrides(s.config.Agent.Description.IdentifyingAttributes, ad.IdentifyingAttributes)
-	ad.NonIdentifyingAttributes = applyKeyValueOverrides(s.config.Agent.Description.NonIdentifyingAttributes, ad.NonIdentifyingAttributes)
-	s.agentDescription.Store(ad)
+	_ = "STUB: not implemented"
+	return
 }
 
 // setAvailableComponents sets the available components of the OpAMP agent
 func (s *Supervisor) setAvailableComponents(ac *protobufs.AvailableComponents) {
-	s.availableComponents.Store(ac)
+	_ = "STUB: not implemented"
+	return
 }
 
 // applyKeyValueOverrides merges the overrides map into the array of key value pairs.
 // If a key from overrides already exists in the array of key value pairs, it is overwritten by the value from the overrides map.
 // An array of KeyValue pair is returned, with each key value pair having a distinct key.
 func applyKeyValueOverrides(overrides map[string]string, orig []*protobufs.KeyValue) []*protobufs.KeyValue {
-	kvMap := make(map[string]*protobufs.KeyValue, len(orig)+len(overrides))
-
-	for _, kv := range orig {
-		kvMap[kv.Key] = kv
-	}
-
-	for k, v := range overrides {
-		kvMap[k] = &protobufs.KeyValue{
-			Key: k,
-			Value: &protobufs.AnyValue{
-				Value: &protobufs.AnyValue_StringValue{
-					StringValue: v,
-				},
-			},
-		}
-	}
-
-	// Sort keys for stable output, makes it easier to test.
-	keys := make([]string, 0, len(kvMap))
-	for k := range kvMap {
-		keys = append(keys, k)
-	}
-
-	sort.Strings(keys)
-
-	kvOut := make([]*protobufs.KeyValue, 0, len(kvMap))
-	for _, k := range keys {
-		v := kvMap[k]
-		kvOut = append(kvOut, v)
-	}
-
-	return kvOut
-}
-
-func (s *Supervisor) stopOpAMPClient() error {
-	s.telemetrySettings.Logger.Debug("Stopping OpAMP client...")
-	ctx, cancel := context.WithTimeout(s.runCtx, 5*time.Second)
-	defer cancel()
-	err := s.opampClient.Stop(ctx)
-	// TODO(srikanthccv): remove context.DeadlineExceeded after https://github.com/open-telemetry/opamp-go/pull/213
-	if err != nil && !errors.Is(err, context.DeadlineExceeded) {
-		return err
-	}
-	s.telemetrySettings.Logger.Debug("OpAMP client stopped.")
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Sort keys for stable output, makes it easier to test.
+
+func (s *Supervisor) stopOpAMPClient() error { _ = "STUB: not implemented"; return nil }
+
+// TODO(srikanthccv): remove context.DeadlineExceeded after https://github.com/open-telemetry/opamp-go/pull/213
+
 func (*Supervisor) getHeadersFromSettings(protoHeaders *protobufs.Headers) http.Header {
-	headers := make(http.Header)
-	for _, header := range protoHeaders.Headers {
-		headers.Add(header.Key, header.Value)
-	}
-	return headers
+	_ = "STUB: not implemented"
+	return *new(http.Header)
 }
 
 func (s *Supervisor) onOpampConnectionSettings(_ context.Context, settings *protobufs.OpAMPConnectionSettings) error {
-	if settings == nil {
-		s.telemetrySettings.Logger.Debug("Received ConnectionSettings request with nil settings")
-		return nil
-	}
-
-	newServerConfig := config.OpAMPServer{}
-
-	if settings.DestinationEndpoint != "" {
-		newServerConfig.Endpoint = settings.DestinationEndpoint
-	}
-	if settings.Headers != nil {
-		newServerConfig.Headers = s.getHeadersFromSettings(settings.Headers)
-	}
-	if settings.Certificate != nil {
-		if len(settings.Certificate.CaCert) != 0 {
-			newServerConfig.TLS.CAPem = configopaque.String(settings.Certificate.CaCert)
-		}
-		if len(settings.Certificate.Cert) != 0 {
-			newServerConfig.TLS.CertPem = configopaque.String(settings.Certificate.Cert)
-		}
-		if len(settings.Certificate.PrivateKey) != 0 {
-			newServerConfig.TLS.KeyPem = configopaque.String(settings.Certificate.PrivateKey)
-		}
-	} else {
-		newServerConfig.TLS = configtls.NewDefaultClientConfig()
-		newServerConfig.TLS.InsecureSkipVerify = true
-	}
-
-	if err := newServerConfig.Validate(); err != nil {
-		s.telemetrySettings.Logger.Error("New OpAMP settings resulted in invalid configuration", zap.Error(err))
-		return err
-	}
-
-	// Update the heartbeat interval if the agent supports it
-	if s.config.Capabilities.ReportsHeartbeat {
-		s.heartbeatIntervalSeconds = settings.HeartbeatIntervalSeconds
-	}
-
-	if err := s.stopOpAMPClient(); err != nil {
-		s.telemetrySettings.Logger.Error("Cannot stop the OpAMP client", zap.Error(err))
-		return err
-	}
-
-	// take a copy of the current OpAMP server config
-	oldServerConfig := s.config.Server
-	// update the OpAMP server config
-	s.config.Server = newServerConfig
-
-	if err := s.startOpAMPClient(); err != nil {
-		s.telemetrySettings.Logger.Error("Cannot connect to the OpAMP server using the new settings", zap.Error(err))
-		// revert the OpAMP server config
-		s.config.Server = oldServerConfig
-		// start the OpAMP client with the old settings
-		if err := s.startOpAMPClient(); err != nil {
-			s.telemetrySettings.Logger.Error("Cannot reconnect to the OpAMP server after restoring old settings", zap.Error(err))
-			return err
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (s *Supervisor) addSpecialConfigFiles() {
-	missingSpecialConfigFiles := make(map[config.SpecialConfigFile]struct{}, len(config.SpecialConfigFiles))
-	for _, file := range config.SpecialConfigFiles {
-		missingSpecialConfigFiles[file] = struct{}{}
-	}
-	for _, file := range s.config.Agent.ConfigFiles {
-		if strings.HasPrefix(file, "$") {
-			delete(missingSpecialConfigFiles, config.SpecialConfigFile(file))
-		}
-	}
+// Update the heartbeat interval if the agent supports it
 
-	// if missing builtin, add it to the beginning
-	if _, ok := missingSpecialConfigFiles[config.SpecialConfigFileOwnTelemetry]; ok {
-		s.config.Agent.ConfigFiles = slices.Insert(s.config.Agent.ConfigFiles, 0, string(config.SpecialConfigFileOwnTelemetry))
-	}
+// take a copy of the current OpAMP server config
 
-	// if missing opamp extension, add it to the end
-	if _, ok := missingSpecialConfigFiles[config.SpecialConfigFileOpAMPExtension]; ok {
-		s.config.Agent.ConfigFiles = append(s.config.Agent.ConfigFiles, string(config.SpecialConfigFileOpAMPExtension))
-	}
+// update the OpAMP server config
 
-	// if missing remote config, add it to the end
-	if _, ok := missingSpecialConfigFiles[config.SpecialConfigFileRemoteConfig]; ok {
-		s.config.Agent.ConfigFiles = append(s.config.Agent.ConfigFiles, string(config.SpecialConfigFileRemoteConfig))
-	}
-}
+// revert the OpAMP server config
+
+// start the OpAMP client with the old settings
+
+func (s *Supervisor) addSpecialConfigFiles() { _ = "STUB: not implemented"; return }
+
+// if missing builtin, add it to the beginning
+
+// if missing opamp extension, add it to the end
+
+// if missing remote config, add it to the end
 
 func (s *Supervisor) composeNoopPipeline() ([]byte, error) {
-	var cfg bytes.Buffer
-
-	if !s.isFeatureGateSupported(AllowNoPipelinesFeatureGate) {
-		err := s.noopPipelineTemplate.Execute(&cfg, map[string]any{})
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return cfg.Bytes(), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *Supervisor) createRemoteConfigComposers(incomingConfig *protobufs.AgentRemoteConfig) []configComposer {
-	if !s.config.Capabilities.AcceptsRemoteConfig {
-		return []configComposer{}
-	}
-
-	hasIncomingConfigMap := len(incomingConfig.GetConfig().GetConfigMap()) != 0
-	remoteConfigComposers := []configComposer{}
-	if hasIncomingConfigMap {
-		c := incomingConfig.GetConfig()
-
-		// Sort to make sure the order of merging is stable.
-		var names []string
-		for name := range c.ConfigMap {
-			if name == "" {
-				// skip instance config
-				continue
-			}
-			names = append(names, name)
-		}
-
-		sort.Strings(names)
-
-		// Append instance config as the last item.
-		names = append(names, "")
-
-		// Merge received configs.
-		for _, name := range names {
-			item := c.ConfigMap[name]
-			if item == nil {
-				continue
-			}
-			remoteConfigComposers = append(remoteConfigComposers, func() []byte {
-				return item.Body
-			})
-		}
-	}
-	return remoteConfigComposers
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Sort to make sure the order of merging is stable.
+
+// skip instance config
+
+// Append instance config as the last item.
+
+// Merge received configs.
 
 func (s *Supervisor) composeNoopConfig() ([]byte, error) {
-	k := koanf.New("::")
-
-	cfg, err := s.composeNoopPipeline()
-	if err != nil {
-		return nil, err
-	}
-	if err := k.Load(rawbytes.Provider(cfg), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc)); err != nil {
-		return nil, err
-	}
-	if err := k.Load(rawbytes.Provider(s.composeOpAMPExtensionConfig()), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc)); err != nil {
-		return nil, err
-	}
-
-	return k.Marshal(yaml.Parser())
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (s *Supervisor) composeOwnTelemetryConfig() []byte {
-	ownMetricsCfg, ok := s.agentConfigOwnTelemetrySection.Load().(string)
-	if !ok {
-		return nil
-	}
-	return []byte(ownMetricsCfg)
-}
+func (s *Supervisor) composeOwnTelemetryConfig() []byte { _ = "STUB: not implemented"; return nil }
 
-func (s *Supervisor) composeExtraTelemetryConfig() []byte {
-	var cfg bytes.Buffer
-	resourceAttrs := map[string]string{}
-	ad := s.agentDescription.Load().(*protobufs.AgentDescription)
-	for _, attr := range ad.IdentifyingAttributes {
-		resourceAttrs[attr.Key] = attr.Value.GetStringValue()
-	}
-	for _, attr := range ad.NonIdentifyingAttributes {
-		resourceAttrs[attr.Key] = attr.Value.GetStringValue()
-	}
-	tplVars := map[string]any{
-		"ResourceAttributes": resourceAttrs,
-		"SupervisorPort":     s.opampServerPort,
-	}
-	err := s.extraTelemetryConfigTemplate.Execute(
-		&cfg,
-		tplVars,
-	)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Could not compose local config", zap.Error(err))
-		return nil
-	}
+func (s *Supervisor) composeExtraTelemetryConfig() []byte { _ = "STUB: not implemented"; return nil }
 
-	return cfg.Bytes()
-}
-
-func (s *Supervisor) composeOpAMPExtensionConfig() []byte {
-	orphanPollInterval := 5 * time.Second
-	if s.config.Agent.OrphanDetectionInterval > 0 {
-		orphanPollInterval = s.config.Agent.OrphanDetectionInterval
-	}
-
-	var cfg bytes.Buffer
-	tplVars := map[string]any{
-		"InstanceUid":                s.persistentState.InstanceID.String(),
-		"SupervisorPort":             s.opampServerPort,
-		"PID":                        s.pidProvider.PID(),
-		"PPIDPollInterval":           orphanPollInterval,
-		"ReportsAvailableComponents": s.config.Capabilities.ReportsAvailableComponents,
-	}
-	err := s.opampextensionTemplate.Execute(
-		&cfg,
-		tplVars,
-	)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Could not compose local config", zap.Error(err))
-		return nil
-	}
-
-	return cfg.Bytes()
-}
+func (s *Supervisor) composeOpAMPExtensionConfig() []byte { _ = "STUB: not implemented"; return nil }
 
 type configComposer func() []byte
 
 func (s *Supervisor) composeAgentConfigFiles(incomingConfig *protobufs.AgentRemoteConfig) ([]byte, error) {
-	conf := koanf.New("::")
-
-	specialConfigComposers := map[config.SpecialConfigFile][]configComposer{
-		config.SpecialConfigFileOwnTelemetry:   {s.composeOwnTelemetryConfig, s.composeExtraTelemetryConfig},
-		config.SpecialConfigFileOpAMPExtension: {s.composeOpAMPExtensionConfig},
-		config.SpecialConfigFileRemoteConfig:   s.createRemoteConfigComposers(incomingConfig),
-	}
-
-	for _, file := range s.config.Agent.ConfigFiles {
-		// The special config files should always be valid yaml and most of them
-		// will be due to the typing in the Supervisor's config struct and its
-		// validation function.
-		// The special config file for the remote configuration is the exception
-		// here: it could be invalid yaml. In case it is, the `koanf` loader
-		// will return an error.
-		// Normal config files with invalid yaml should be just ignored.
-		if strings.HasPrefix(file, "$") {
-			cfgProviders := specialConfigComposers[config.SpecialConfigFile(file)]
-			for _, cfgProvider := range cfgProviders {
-				cfgBytes := cfgProvider()
-				err := conf.Load(rawbytes.Provider(cfgBytes), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc))
-				if err != nil {
-					s.telemetrySettings.Logger.Error("Could not merge special config file", zap.String("specialConfig", file), zap.Error(err))
-					return nil, err
-				}
-			}
-			continue
-		}
-
-		cfgBytes, err := os.ReadFile(file)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not read local config file", zap.Error(err))
-			continue
-		}
-
-		err = conf.Load(rawbytes.Provider(cfgBytes), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc))
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not merge local config file: "+file, zap.Error(err))
-			continue
-		}
-	}
-
-	b, err := conf.Marshal(yaml.Parser())
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Could not marshal merged local config files", zap.Error(err))
-		return []byte(""), err
-	}
-	return b, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// The special config files should always be valid yaml and most of them
+// will be due to the typing in the Supervisor's config struct and its
+// validation function.
+// The special config file for the remote configuration is the exception
+// here: it could be invalid yaml. In case it is, the `koanf` loader
+// will return an error.
+// Normal config files with invalid yaml should be just ignored.
 
 // loadAndWriteInitialMergedConfig loads and writes the initial config by
 // merging the last received remote config, last received own metrics config,
 // and any local configs.
 func (s *Supervisor) loadAndWriteInitialMergedConfig() error {
+	_ = "STUB: not implemented"
 	// load the last received remote config
-	s.loadRemoteConfig()
-
-	// load the last received own telemetry config
-	s.loadLastReceivedOwnTelemetryConfig()
-
-	// compose the initial merged config
-	_, err := s.composeMergedConfig(s.remoteConfig.Load())
-	if err != nil {
-		return fmt.Errorf("could not compose initial merged config: %w", err)
-	}
-
-	// write the initial merged config to disk
-	cfgState := s.cfgState.Load().(*configState)
-	if err := os.WriteFile(s.agentConfigFilePath(), []byte(cfgState.mergedConfig), 0o600); err != nil {
-		s.telemetrySettings.Logger.Error("Failed to write agent config.", zap.Error(err))
-	}
-
 	return nil
 }
 
-// loadRemoteConfig loads the last received remote config from file if the capability is supported.
-func (s *Supervisor) loadRemoteConfig() {
-	if !s.config.Capabilities.AcceptsRemoteConfig {
-		s.telemetrySettings.Logger.Debug("Remote config is not supported, will not attempt to load config from file")
-		return
-	}
+// load the last received own telemetry config
 
-	// Try to load the last received remote config if it exists.
-	var lastRecvRemoteConfig []byte
-	var err error
-	lastRecvRemoteConfig, err = os.ReadFile(filepath.Join(s.config.Storage.Directory, lastRecvRemoteConfigFile))
-	switch {
-	case err == nil:
-		config := &protobufs.AgentRemoteConfig{}
-		err = proto.Unmarshal(lastRecvRemoteConfig, config)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Cannot parse last received remote config", zap.Error(err))
-		} else {
-			s.remoteConfig.Store(config)
-		}
-	case errors.Is(err, os.ErrNotExist):
-		s.telemetrySettings.Logger.Info("No last received remote config found")
-	default:
-		s.telemetrySettings.Logger.Error("error while reading last received config", zap.Error(err))
-	}
-}
+// compose the initial merged config
+
+// write the initial merged config to disk
+
+// loadRemoteConfig loads the last received remote config from file if the capability is supported.
+func (s *Supervisor) loadRemoteConfig() { _ = "STUB: not implemented"; return }
+
+// Try to load the last received remote config if it exists.
 
 // loadLastReceivedOwnTelemetryConfig loads the last received own telemetry config from file if the capability is supported.
 func (s *Supervisor) loadLastReceivedOwnTelemetryConfig() {
+	_ = "STUB: not implemented"
 	// If none of the own telemetry capabilities are supported, do nothing.
-	if !s.config.Capabilities.ReportsOwnMetrics && !s.config.Capabilities.ReportsOwnTraces && !s.config.Capabilities.ReportsOwnLogs {
-		s.telemetrySettings.Logger.Debug("Own telemetry is not supported, will not attempt to load config from file")
-		return
-	}
-
-	// Try to load the last received own metrics config if it exists.
-	var lastRecvOwnTelemetryConfig []byte
-	var err error
-	lastRecvOwnTelemetryConfig, err = os.ReadFile(filepath.Join(s.config.Storage.Directory, lastRecvOwnTelemetryConfigFile))
-	if err == nil {
-		set := &protobufs.ConnectionSettingsOffers{}
-		err = proto.Unmarshal(lastRecvOwnTelemetryConfig, set)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Cannot parse last received own telemetry config", zap.Error(err))
-		} else {
-			s.setupOwnTelemetry(s.runCtx, set)
-		}
-	}
+	return
 }
+
+// Try to load the last received own metrics config if it exists.
 
 // createEffectiveConfigMsg create an EffectiveConfig with the content of the
 // current effective config.
 func (s *Supervisor) createEffectiveConfigMsg() *protobufs.EffectiveConfig {
-	cfgStr, ok := s.effectiveConfig.Load().(string)
-	if !ok {
-		cfgState, ok := s.cfgState.Load().(*configState)
-		if !ok {
-			cfgStr = ""
-		} else {
-			cfgStr = cfgState.mergedConfig
-		}
-	}
-
-	cfg := &protobufs.EffectiveConfig{
-		ConfigMap: &protobufs.AgentConfigMap{
-			ConfigMap: map[string]*protobufs.AgentConfigFile{
-				"": {Body: []byte(cfgStr)},
-			},
-		},
-	}
-
-	return cfg
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*Supervisor) updateOwnTelemetryData(data map[string]any, signal string, settings *protobufs.TelemetryConnectionSettings) map[string]any {
-	if settings == nil || settings.DestinationEndpoint == "" {
-		return data
-	}
-	data[fmt.Sprintf("%sEndpoint", signal)] = settings.DestinationEndpoint
-	data[fmt.Sprintf("%sHeaders", signal)] = []protobufs.Header{}
-
-	if settings.Headers != nil {
-		data[fmt.Sprintf("%sHeaders", signal)] = settings.Headers.Headers
-	}
-	return data
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *Supervisor) setupOwnTelemetry(_ context.Context, settings *protobufs.ConnectionSettingsOffers) (configChanged bool) {
-	var cfg bytes.Buffer
-
-	data := s.updateOwnTelemetryData(map[string]any{}, "Metrics", settings.GetOwnMetrics())
-	data = s.updateOwnTelemetryData(data, "Logs", settings.GetOwnLogs())
-	data = s.updateOwnTelemetryData(data, "Traces", settings.GetOwnTraces())
-
-	if len(data) == 0 {
-		s.telemetrySettings.Logger.Debug("Disabling own telemetry pipeline in the config")
-	} else {
-		err := s.ownTelemetryTemplate.Execute(&cfg, data)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not setup own telemetry", zap.Error(err))
-			return configChanged
-		}
-	}
-	s.agentConfigOwnTelemetrySection.Store(cfg.String())
-
-	// Need to recalculate the Agent config so that the metric config is included in it.
-	configChanged, err := s.composeMergedConfig(s.remoteConfig.Load())
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Error composing merged config for own metrics. Ignoring agent self metrics config", zap.Error(err))
-		return configChanged
-	}
-
-	return configChanged
+	_ = "STUB: not implemented"
+	return false
 }
+
+// Need to recalculate the Agent config so that the metric config is included in it.
 
 // composeMergedConfig composes the merged config from multiple sources:
 // 1) the remote config from OpAMP Server
 // 2) the own metrics config section
 // 3) the local override config that is hard-coded in the Supervisor.
 func (s *Supervisor) composeMergedConfig(incomingConfig *protobufs.AgentRemoteConfig) (configChanged bool, err error) {
-	k := koanf.New("::")
-
-	s.addSpecialConfigFiles()
-
-	hasIncomingConfigMap := len(incomingConfig.GetConfig().GetConfigMap()) != 0
-	if s.config.Capabilities.AcceptsRemoteConfig && !hasIncomingConfigMap {
-		// Add noop pipeline
-		var noopConfig []byte
-		noopConfig, err = s.composeNoopPipeline()
-		if err != nil {
-			return false, fmt.Errorf("could not compose noop pipeline: %w", err)
-		}
-
-		if err = k.Load(rawbytes.Provider(noopConfig), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc)); err != nil {
-			return false, fmt.Errorf("could not merge noop pipeline: %w", err)
-		}
-	}
-
-	agentConfigBytes, err := s.composeAgentConfigFiles(incomingConfig)
-	if err != nil {
-		return false, err
-	}
-
-	err = k.Load(rawbytes.Provider(agentConfigBytes), yaml.Parser(), koanf.WithMergeFunc(configMergeFunc))
-	if err != nil {
-		return false, err
-	}
-
-	// The merged final result is our new merged config.
-	newMergedConfigBytes, err := k.Marshal(yaml.Parser())
-	if err != nil {
-		return false, err
-	}
-
-	// Check if supervisor's merged config is changed.
-	newConfigState := &configState{
-		mergedConfig:     string(newMergedConfigBytes),
-		configMapIsEmpty: (incomingConfig != nil && !hasIncomingConfigMap),
-	}
-
-	configChanged = false
-
-	oldConfigStateInterface := s.cfgState.Load()
-	var oldConfigState *configState
-	if oldConfigStateInterface != nil {
-		oldConfigState = oldConfigStateInterface.(*configState)
-	}
-
-	if oldConfigState == nil || !oldConfigState.equal(newConfigState) {
-		s.telemetrySettings.Logger.Debug("Merged config changed.")
-
-		// Validate BEFORE storing to prevent race condition where other goroutines read invalid config
-		if s.config.Agent.ValidateConfig && !newConfigState.configMapIsEmpty {
-			if err := s.validateConfig(newConfigState.mergedConfig); err != nil {
-				s.telemetrySettings.Logger.Warn(
-					"New configuration failed validation, keeping previous config. "+
-						"Note: Validation may fail for valid configs if resources (e.g., ports) are temporarily unavailable.",
-					zap.Error(err),
-				)
-				return false, fmt.Errorf("configuration validation failed: %w", err)
-			}
-		}
-
-		// Only store after successful validation (or if validation is disabled/skipped)
-		s.cfgState.Store(newConfigState)
-		configChanged = true
-	}
-
-	return configChanged, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
-func (s *Supervisor) handleRestartCommand() error {
-	s.agentRestarting.Store(true)
-	defer s.agentRestarting.Store(false)
-	s.telemetrySettings.Logger.Debug("Received restart command")
-	err := s.commander.Restart(s.runCtx)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Could not restart agent process", zap.Error(err))
-	}
-	s.resetAgentReady()
-	return err
-}
+// Add noop pipeline
+
+// The merged final result is our new merged config.
+
+// Check if supervisor's merged config is changed.
+
+// Validate BEFORE storing to prevent race condition where other goroutines read invalid config
+
+// Only store after successful validation (or if validation is disabled/skipped)
+
+func (s *Supervisor) handleRestartCommand() error { _ = "STUB: not implemented"; return nil }
 
 func (s *Supervisor) startAgent() (agentStartStatus, error) {
-	if s.cfgState.Load().(*configState).configMapIsEmpty {
-		// Don't start the agent if there is no config to run
-		s.telemetrySettings.Logger.Info("No config present, not starting agent.")
-		// need to manually trigger updating effective config
-		err := s.opampClient.UpdateEffectiveConfig(s.runCtx)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("The OpAMP client failed to update the effective config", zap.Error(err))
-		}
-		return agentNotStarting, nil
-	}
-
-	err := s.commander.Start(s.runCtx)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Cannot start the agent", zap.Error(err))
-		startErr := fmt.Errorf("cannot start the agent: %w", err)
-		if err := s.SetHealth(&protobufs.ComponentHealth{Healthy: false, LastError: startErr.Error()}); err != nil {
-			s.telemetrySettings.Logger.Error("Could not report health to OpAMP server", zap.Error(err))
-		}
-		return "", startErr
-	}
-
-	return agentStarting, nil
+	_ = "STUB: not implemented"
+	return *new(agentStartStatus), nil
 }
 
-func (s *Supervisor) runAgentProcess() {
-	if _, err := os.Stat(s.agentConfigFilePath()); err == nil {
-		// We have an effective config file saved previously. Use it to start the agent.
-		s.telemetrySettings.Logger.Debug("Effective config found, starting agent initial time")
-		_, err := s.startAgent()
-		if err != nil {
-			s.telemetrySettings.Logger.Error("starting agent failed", zap.Error(err))
-			s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, err.Error())
-		}
-	}
+// Don't start the agent if there is no config to run
 
-	restartTimer := time.NewTimer(0)
-	restartTimer.Stop()
+// need to manually trigger updating effective config
 
-	configApplyTimeoutTimer := time.NewTimer(0)
-	configApplyTimeoutTimer.Stop()
+func (s *Supervisor) runAgentProcess() { _ = "STUB: not implemented"; return }
 
-	for {
-		select {
-		case <-s.hasNewConfig:
-			s.lastHealthFromClient.Store(nil)
-			s.telemetrySettings.Logger.Debug("agent has new config", zap.String("previous_health", s.lastHealthFromClient.Load().String()))
-			if !configApplyTimeoutTimer.Stop() {
-				select {
-				case <-configApplyTimeoutTimer.C: // Try to drain the channel
-				default:
-				}
-			}
-			configApplyTimeoutTimer.Reset(s.config.Agent.ConfigApplyTimeout)
-			restartTimer.Stop()
+// We have an effective config file saved previously. Use it to start the agent.
 
-			if s.config.Agent.UseHUPConfigReload {
-				if err := s.hupReloadAgent(); err != nil {
-					s.telemetrySettings.Logger.Error("Failed to HUP restart agent", zap.Error(err))
-					s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, err.Error())
-					continue
-				}
-			} else {
-				s.stopAgentApplyConfig()
-			}
+// Try to drain the channel
 
-			s.telemetrySettings.Logger.Debug("Agent is not running, starting new instance")
-			// This call to [startAgent] is useful for both the normal config reload
-			// and the HUP one. It takes care of not starting the agent if the config
-			// is empty and also of starting it when the config changes from empty
-			// to non-empty.
-			status, err := s.startAgent()
-			if err != nil {
-				s.telemetrySettings.Logger.Error("starting agent with new config failed", zap.Error(err))
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, err.Error())
-			}
-			if status == agentNotStarting {
-				// not starting agent because of nop config: clear timer, report applied status, report healthy status
-				s.telemetrySettings.Logger.Debug("No config present, nothing to apply")
-				configApplyTimeoutTimer.Stop()
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_APPLIED, "")
-				if err := s.opampClient.SetHealth(&protobufs.ComponentHealth{Healthy: true, LastError: ""}); err != nil {
-					s.telemetrySettings.Logger.Error("Could not report healthy status to OpAMP server", zap.Error(err))
-				}
-				// need to clear exit channel to avoid triggering `s.commander.Exited()` case
-				// because we stopped the agent and aren't restarting it this case will trigger
-				// and report an unhealthy status (collector would be healthy, just choosing to not run)
-				if len(s.commander.Exited()) > 0 {
-					select {
-					case <-s.commander.Exited():
-					default:
-					}
-				}
-			}
-		case <-s.commander.Exited():
-			// the agent process exit is expected for restart command and will not attempt to restart
-			if s.agentRestarting.Load() {
-				s.telemetrySettings.Logger.Debug("Agent restarted")
-				continue
-			}
+// This call to [startAgent] is useful for both the normal config reload
+// and the HUP one. It takes care of not starting the agent if the config
+// is empty and also of starting it when the config changes from empty
+// to non-empty.
 
-			s.telemetrySettings.Logger.Debug("Agent process exited unexpectedly. Will restart in a bit...", zap.Int("pid", s.commander.Pid()), zap.Int("exit_code", s.commander.ExitCode()))
-			errMsg := fmt.Sprintf(
-				"Agent process PID=%d exited unexpectedly, exit code=%d. Will restart in a bit...",
-				s.commander.Pid(), s.commander.ExitCode(),
-			)
-			if err := s.SetHealth(&protobufs.ComponentHealth{Healthy: false, LastError: errMsg}); err != nil {
-				s.telemetrySettings.Logger.Error("Could not report health to OpAMP server", zap.Error(err))
-			}
+// not starting agent because of nop config: clear timer, report applied status, report healthy status
 
-			// If agent crashed while we were waiting for config to be applied (timeout timer is running),
-			// report the config as FAILED immediately rather than waiting for the timeout.
-			// Stop the timer and drain the channel to prevent it from firing later.
-			if !configApplyTimeoutTimer.Stop() {
-				// Timer already fired or was stopped, drain the channel
-				select {
-				case <-configApplyTimeoutTimer.C:
-					// Timer had already fired but we handled the crash first
-				default:
-					// Timer was already stopped
-				}
-			} else {
-				// Timer was running, which means we were waiting for config to be applied.
-				// Report FAILED status immediately.
-				s.telemetrySettings.Logger.Info("Agent crashed during config application, reporting FAILED status")
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED,
-					fmt.Sprintf("Agent exited unexpectedly with exit code %d while applying configuration", s.commander.ExitCode()))
-			}
+// need to clear exit channel to avoid triggering `s.commander.Exited()` case
+// because we stopped the agent and aren't restarting it this case will trigger
+// and report an unhealthy status (collector would be healthy, just choosing to not run)
 
-			// Wait 5 seconds before starting again.
-			if !restartTimer.Stop() {
-				select {
-				case <-restartTimer.C: // Try to drain the channel
-				default:
-				}
-			}
-			restartTimer.Reset(5 * time.Second)
+// the agent process exit is expected for restart command and will not attempt to restart
 
-		case <-restartTimer.C:
-			s.telemetrySettings.Logger.Debug("Agent starting after start backoff")
-			_, err := s.startAgent()
-			if err != nil {
-				s.telemetrySettings.Logger.Error("restarting agent failed", zap.Error(err))
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, err.Error())
-			}
+// If agent crashed while we were waiting for config to be applied (timeout timer is running),
+// report the config as FAILED immediately rather than waiting for the timeout.
+// Stop the timer and drain the channel to prevent it from firing later.
 
-		case <-configApplyTimeoutTimer.C:
-			lastHealth := s.lastHealthFromClient.Load()
-			if lastHealth == nil || !lastHealth.Healthy {
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, "Config apply timeout exceeded")
-			} else {
-				s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_APPLIED, "")
-			}
+// Timer already fired or was stopped, drain the channel
 
-		case <-s.doneChan:
-			err := s.commander.Stop(s.runCtx)
-			if err != nil {
-				s.telemetrySettings.Logger.Error("Could not stop agent process", zap.Error(err))
-			}
-			return
-		}
-	}
-}
+// Timer had already fired but we handled the crash first
+
+// Timer was already stopped
+
+// Timer was running, which means we were waiting for config to be applied.
+// Report FAILED status immediately.
+
+// Wait 5 seconds before starting again.
+
+// Try to drain the channel
 
 // markAgentReady marks the agent as ready and sends a signal to
 // [agentReadyChan].
-func (s *Supervisor) markAgentReady() {
-	s.agentReady.Store(true)
-	select {
-	case s.agentReadyChan <- struct{}{}:
-	default:
-	}
-}
+func (s *Supervisor) markAgentReady() { _ = "STUB: not implemented"; return }
 
 // resetAgentReady resets the agent as not ready and drains [agentReadyChan].
-func (s *Supervisor) resetAgentReady() {
-	s.agentReady.Store(false)
-	select {
-	case <-s.agentReadyChan:
-	default:
-	}
-}
+func (s *Supervisor) resetAgentReady() { _ = "STUB: not implemented"; return }
 
 // waitForAgentReady waits for the agent to be ready. The agent is considered to
 // be ready when its first health report is received by the Supervisor's opamp
 // server.
 // WARNING: this is not thread-safe! If there are two goroutines waiting for
 // the agent to be ready, only one of them will be able to proceed.
-func (s *Supervisor) waitForAgentReady() error {
-	if s.agentReady.Load() {
-		return nil
-	}
-
-	bootstrapTimer := time.NewTimer(s.config.Agent.BootstrapTimeout)
-	defer bootstrapTimer.Stop()
-
-	select {
-	case <-s.agentReadyChan:
-		return nil
-	case <-bootstrapTimer.C:
-		return fmt.Errorf("agent has not started after %s", s.config.Agent.BootstrapTimeout)
-	}
-}
+func (s *Supervisor) waitForAgentReady() error { _ = "STUB: not implemented"; return nil }
 
 // hupReloadAgent sends a HUP signal to the agent process  with the intent of
 // triggering a configuration reload. There are 3 possible outcomes of this:
@@ -1701,490 +490,133 @@ func (s *Supervisor) waitForAgentReady() error {
 // 3. The agent traps the HUP signal, but does nothing. On the next health
 // report the agent will be consiered healthy and ready, even though it might
 // be running on old configuration.
-func (s *Supervisor) hupReloadAgent() error {
-	s.agentRestarting.Store(true)
-	defer s.agentRestarting.Store(false)
-	defer s.resetAgentReady()
+func (s *Supervisor) hupReloadAgent() error { _ = "STUB: not implemented"; return nil }
 
-	// If we have an empty config, the agent should be stopped.
-	if s.cfgState.Load().(*configState).configMapIsEmpty {
-		s.stopAgentApplyConfig()
-		return nil
-	}
+// If we have an empty config, the agent should be stopped.
 
-	if err := s.writeAgentConfig(); err != nil {
-		return fmt.Errorf("failed to write agent new config: %w", err)
-	}
+// If the agent is not running, we can't send a HUP signal to it, so we
+// return and let it be started by the caller.
 
-	// If the agent is not running, we can't send a HUP signal to it, so we
-	// return and let it be started by the caller.
-	if !s.commander.IsRunning() {
-		return nil
-	}
+func (s *Supervisor) reloadAgentConfig() error { _ = "STUB: not implemented"; return nil }
 
-	if err := s.waitForAgentReady(); err != nil {
-		return err
-	}
-
-	s.telemetrySettings.Logger.Debug("agent is running, reloading config")
-	if err := s.reloadAgentConfig(); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (s *Supervisor) reloadAgentConfig() error {
-	s.telemetrySettings.Logger.Debug("Reloading the agent config")
-	err := s.commander.ReloadConfigFile()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *Supervisor) writeAgentConfig() error {
-	cfgState := s.cfgState.Load().(*configState)
-	if err := os.WriteFile(s.agentConfigFilePath(), []byte(cfgState.mergedConfig), 0o600); err != nil {
-		return err
-	}
-	return nil
-}
+func (s *Supervisor) writeAgentConfig() error { _ = "STUB: not implemented"; return nil }
 
 // validateConfig validates a configuration string without storing it in cfgState.
 // This prevents race conditions where other goroutines might read invalid config during validation.
 // Returns an error if validation fails.
 func (s *Supervisor) validateConfig(configContent string) error {
-	if s.commander == nil {
-		s.telemetrySettings.Logger.Debug("Skipping config validation: commander not initialized")
-		return nil
-	}
-
-	// Write config to a temporary file for validation
-	tempFile, err := os.CreateTemp(s.config.Storage.Directory, "validate-config-*.yaml")
-	if err != nil {
-		return fmt.Errorf("failed to create temp config file for validation: %w", err)
-	}
-	defer os.Remove(tempFile.Name())
-
-	if _, err := tempFile.WriteString(configContent); err != nil {
-		tempFile.Close()
-		return fmt.Errorf("failed to write temp config file for validation: %w", err)
-	}
-
-	if err := tempFile.Close(); err != nil {
-		return fmt.Errorf("failed to close temp config file: %w", err)
-	}
-
-	parentCtx := s.runCtx
-	if parentCtx == nil {
-		parentCtx = context.Background()
-	}
-	ctx, cancel := context.WithTimeout(parentCtx, 10*time.Second)
-	defer cancel()
-
-	if err := s.commander.ValidateConfig(ctx, tempFile.Name()); err != nil {
-		return fmt.Errorf("configuration validation failed: %w", err)
-	}
-
-	s.telemetrySettings.Logger.Debug("Configuration validation succeeded")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (s *Supervisor) stopAgentApplyConfig() {
-	s.telemetrySettings.Logger.Debug("Stopping the agent to apply new config")
-	err := s.commander.Stop(s.runCtx)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Could not stop agent process", zap.Error(err))
-	}
+// Write config to a temporary file for validation
 
-	if err := s.writeAgentConfig(); err != nil {
-		s.telemetrySettings.Logger.Error("Failed to write agent config", zap.Error(err))
-	}
-}
+func (s *Supervisor) stopAgentApplyConfig() { _ = "STUB: not implemented"; return }
 
-func (s *Supervisor) Shutdown() {
-	defer s.runCtxCancel()
+func (s *Supervisor) Shutdown() { _ = "STUB: not implemented"; return }
 
-	s.telemetrySettings.Logger.Debug("Supervisor shutting down...")
-	close(s.doneChan)
+// Shutdown in order from producer to consumer (agent -> customMessageForwarder -> local OpAMP server -> client to remote OpAMP server).
 
-	// Shutdown in order from producer to consumer (agent -> customMessageForwarder -> local OpAMP server -> client to remote OpAMP server).
-	s.agentWG.Wait()
-	s.customMessageWG.Wait()
+func (s *Supervisor) shutdownTelemetry() error { _ = "STUB: not implemented"; return nil }
 
-	if s.opampServer != nil {
-		s.telemetrySettings.Logger.Debug("Stopping OpAMP server...")
-		ctx, cancel := context.WithTimeout(s.runCtx, 5*time.Second)
-		defer cancel()
-
-		err := s.opampServer.Stop(ctx)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not stop the OpAMP Server")
-		} else {
-			s.telemetrySettings.Logger.Debug("OpAMP server stopped.")
-		}
-	}
-
-	if s.healthCheckServer != nil {
-		s.telemetrySettings.Logger.Debug("Stopping health check server...")
-		ctx, cancel := context.WithTimeout(s.runCtx, 5*time.Second)
-		defer cancel()
-
-		err := s.healthCheckServer.Shutdown(ctx)
-
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not stop the health check server", zap.Error(err))
-		} else {
-			s.healthCheckServerWG.Wait()
-			s.telemetrySettings.Logger.Debug("Health check server stopped.")
-		}
-	}
-
-	if s.opampClient != nil {
-		err := s.opampClient.SetHealth(
-			&protobufs.ComponentHealth{
-				Healthy: false, LastError: "Supervisor is shutdown",
-			},
-		)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not report health to OpAMP server", zap.Error(err))
-		}
-
-		err = s.stopOpAMPClient()
-		if err != nil {
-			s.telemetrySettings.Logger.Error("Could not stop the OpAMP client", zap.Error(err))
-		}
-	}
-
-	if err := s.shutdownTelemetry(); err != nil {
-		s.telemetrySettings.Logger.Error("Could not shut down self telemetry", zap.Error(err))
-	}
-}
-
-func (s *Supervisor) shutdownTelemetry() error {
-	ctx, cancel := context.WithTimeout(s.runCtx, 5*time.Second)
-	defer cancel()
-	// The metric.MeterProvider and trace.TracerProvider interfaces do not have a Shutdown method.
-	// To shutdown the providers we try to cast to this interface, which matches the type signature used in the SDK.
-	type shutdownable interface {
-		Shutdown(context.Context) error
-	}
-
-	var err error
-
-	if prov, ok := s.telemetrySettings.MeterProvider.(shutdownable); ok {
-		if shutdownErr := prov.Shutdown(ctx); shutdownErr != nil {
-			err = multierr.Append(err, fmt.Errorf("failed to shutdown meter provider: %w", shutdownErr))
-		}
-	}
-
-	if prov, ok := s.telemetrySettings.TracerProvider.(shutdownable); ok {
-		if shutdownErr := prov.Shutdown(ctx); shutdownErr != nil {
-			err = multierr.Append(err, fmt.Errorf("failed to shutdown tracer provider: %w", shutdownErr))
-		}
-	}
-
-	if prov, ok := s.telemetrySettings.loggerProvider.(shutdownable); ok {
-		if shutdownErr := prov.Shutdown(ctx); shutdownErr != nil {
-			err = multierr.Append(err, fmt.Errorf("failed to shutdown logger provider: %w", shutdownErr))
-		}
-	}
-
-	return err
-}
+// The metric.MeterProvider and trace.TracerProvider interfaces do not have a Shutdown method.
+// To shutdown the providers we try to cast to this interface, which matches the type signature used in the SDK.
 
 func (s *Supervisor) saveLastReceivedConfig(config *protobufs.AgentRemoteConfig) error {
-	cfg, err := proto.Marshal(config)
-	if err != nil {
-		return err
-	}
-
-	return os.WriteFile(filepath.Join(s.config.Storage.Directory, lastRecvRemoteConfigFile), cfg, 0o600)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *Supervisor) saveLastReceivedOwnTelemetrySettings(set *protobufs.ConnectionSettingsOffers, filePath string) error {
-	cfg, err := proto.Marshal(set)
-	if err != nil {
-		return err
-	}
-
-	return os.WriteFile(filepath.Join(s.config.Storage.Directory, filePath), cfg, 0o600)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // saveAndReportConfigStatus saves the config status to the persistent state and reports it to the server.
 func (s *Supervisor) saveAndReportConfigStatus(status protobufs.RemoteConfigStatuses, errorMessage string) {
-	if !s.config.Capabilities.ReportsRemoteConfig {
-		s.telemetrySettings.Logger.Debug("supervisor is not configured to report remote config status")
-	}
-	remoteConfig := s.remoteConfig.Load()
-	var configHash []byte
-	if remoteConfig != nil {
-		configHash = remoteConfig.GetConfigHash()
-	}
-	rcs := &protobufs.RemoteConfigStatus{
-		LastRemoteConfigHash: configHash,
-		Status:               status,
-		ErrorMessage:         errorMessage,
-	}
-
-	// save status to persistent state
-	if err := s.persistentState.SetLastRemoteConfigStatus(rcs); err != nil {
-		s.telemetrySettings.Logger.Error("Could not save last remote config status", zap.Error(err))
-	}
-	// report status to server
-	if err := s.opampClient.SetRemoteConfigStatus(rcs); err != nil {
-		s.telemetrySettings.Logger.Error("Could not report OpAMP remote config status", zap.Error(err))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (s *Supervisor) SetHealth(componentHealth *protobufs.ComponentHealth) error {
-	s.telemetrySettings.Logger.Debug(
-		"Setting health",
-		zap.Bool("healthy", componentHealth.Healthy),
-		zap.String("lastError", componentHealth.LastError),
-	)
-	s.metrics.SetCollectorHealthStatus(s.runCtx, componentHealth.Healthy)
+// save status to persistent state
 
-	err := s.opampClient.SetHealth(componentHealth)
-	if err != nil {
-		return fmt.Errorf("failed to set health to OpAMP server: %w", err)
-	}
+// report status to server
+
+func (s *Supervisor) SetHealth(componentHealth *protobufs.ComponentHealth) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (s *Supervisor) onMessage(ctx context.Context, msg *types.MessageData) {
-	ctx, span := s.getTracer().Start(ctx, "onMessage")
-	defer span.End()
-	configChanged := false
-
-	if msg.AgentIdentification != nil {
-		configChanged = s.processAgentIdentificationMessage(msg.AgentIdentification) || configChanged
-	}
-
-	if msg.RemoteConfig != nil {
-		configChanged = s.processRemoteConfigMessage(ctx, msg.RemoteConfig) || configChanged
-	}
-
-	if msg.OwnMetricsConnSettings != nil || msg.OwnTracesConnSettings != nil || msg.OwnLogsConnSettings != nil {
-		configChanged = s.processOwnTelemetryConnSettingsMessage(ctx, &protobufs.ConnectionSettingsOffers{
-			OwnMetrics: msg.OwnMetricsConnSettings,
-			OwnTraces:  msg.OwnTracesConnSettings,
-			OwnLogs:    msg.OwnLogsConnSettings,
-		}) || configChanged
-	}
-
-	// Update the agent config if any messages have touched the config
-	if configChanged {
-		span.AddEvent("Config changed")
-		err := s.opampClient.UpdateEffectiveConfig(ctx)
-		if err != nil {
-			s.telemetrySettings.Logger.Error("The OpAMP client failed to update the effective config", zap.Error(err))
-		}
-
-		s.telemetrySettings.Logger.Debug("Config is changed. Signal to restart the agent")
-		// Signal that there is a new config.
-		select {
-		case s.hasNewConfig <- struct{}{}:
-		default:
-		}
-	}
-
-	messageToAgent := &protobufs.ServerToAgent{
-		InstanceUid: s.persistentState.InstanceID[:],
-	}
-	haveMessageForAgent := false
-	// Proxy server capabilities to opamp extension
-	if msg.CustomCapabilities != nil {
-		messageToAgent.CustomCapabilities = msg.CustomCapabilities
-		haveMessageForAgent = true
-	}
-
-	// Proxy server messages to opamp extension
-	if msg.CustomMessage != nil {
-		messageToAgent.CustomMessage = msg.CustomMessage
-		haveMessageForAgent = true
-	}
-
-	// Send any messages that need proxying to the agent.
-	if haveMessageForAgent {
-		conn, ok := s.agentConn.Load().(serverTypes.Connection)
-		if ok {
-			err := conn.Send(ctx, messageToAgent)
-			if err != nil {
-				s.telemetrySettings.Logger.Error("Error forwarding message to agent from server", zap.Error(err))
-			}
-		}
-	}
-
-	span.SetStatus(codes.Ok, "")
+	_ = "STUB: not implemented"
+	return
 }
+
+// Update the agent config if any messages have touched the config
+
+// Signal that there is a new config.
+
+// Proxy server capabilities to opamp extension
+
+// Proxy server messages to opamp extension
+
+// Send any messages that need proxying to the agent.
 
 // processRemoteConfigMessage processes an AgentRemoteConfig message, returning true if the agent config has changed.
 func (s *Supervisor) processRemoteConfigMessage(ctx context.Context, msg *protobufs.AgentRemoteConfig) bool {
-	_, span := s.getTracer().Start(ctx, "processRemoteConfigMessage")
-	defer span.End()
-	if !s.config.Capabilities.AcceptsRemoteConfig {
-		s.telemetrySettings.Logger.Warn("Got remote config message, but the agent does not accept remote config. Ignoring remote config.")
-		return false
-	}
-
-	if err := s.saveLastReceivedConfig(msg); err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Could not save last received remote config: %s", err.Error()))
-		s.telemetrySettings.Logger.Error("Could not save last received remote config", zap.Error(err))
-	}
-
-	// Clone the message to avoid race conditions when the protobuf is being unmarshaled
-	// while another goroutine reads from it
-	clonedMsg := proto.Clone(msg).(*protobufs.AgentRemoteConfig)
-	s.remoteConfig.Store(clonedMsg)
-	s.telemetrySettings.Logger.Debug("Received remote config from server", zap.String("hash", fmt.Sprintf("%x", msg.ConfigHash)))
-
-	var err error
-	configChanged, err := s.composeMergedConfig(s.remoteConfig.Load())
-	if err != nil {
-		span.SetStatus(codes.Error, fmt.Sprintf("Error composing merged config. Reporting failed remote config status: %s", err.Error()))
-		s.telemetrySettings.Logger.Error("Error composing merged config. Reporting failed remote config status.", zap.Error(err))
-		s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_FAILED, err.Error())
-		return false
-	}
-	if configChanged {
-		// only report applying if the config has changed and will run agent with new config
-		s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_APPLYING, "")
-	} else {
-		// if the config has not changed report applied status, we should still report a status to the server in this case
-		s.saveAndReportConfigStatus(protobufs.RemoteConfigStatuses_RemoteConfigStatuses_APPLIED, "")
-	}
-
-	span.SetStatus(codes.Ok, "")
-	return configChanged
+	_ = "STUB: not implemented"
+	return false
 }
+
+// Clone the message to avoid race conditions when the protobuf is being unmarshaled
+// while another goroutine reads from it
+
+// only report applying if the config has changed and will run agent with new config
+
+// if the config has not changed report applied status, we should still report a status to the server in this case
 
 // processOwnTelemetryConnSettingsMessage processes a TelemetryConnectionSettings message, returning true if the agent config has changed.
 func (s *Supervisor) processOwnTelemetryConnSettingsMessage(ctx context.Context, msg *protobufs.ConnectionSettingsOffers) bool {
-	if err := s.saveLastReceivedOwnTelemetrySettings(msg, lastRecvOwnTelemetryConfigFile); err != nil {
-		s.telemetrySettings.Logger.Error("Could not save last received own telemetry settings", zap.Error(err))
-	}
-	return s.setupOwnTelemetry(ctx, msg)
+	_ = "STUB: not implemented"
+	return false
 }
 
 // processAgentIdentificationMessage processes an AgentIdentification message, returning true if the agent config has changed.
 func (s *Supervisor) processAgentIdentificationMessage(msg *protobufs.AgentIdentification) bool {
-	newInstanceID, err := uuid.FromBytes(msg.NewInstanceUid)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Failed to parse instance UUID", zap.Error(err))
-		return false
-	}
-
-	s.telemetrySettings.Logger.Debug("Agent identity is changing",
-		zap.String("old_id", s.persistentState.InstanceID.String()),
-		zap.String("new_id", newInstanceID.String()))
-
-	err = s.persistentState.SetInstanceID(newInstanceID)
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Failed to persist new instance ID, instance ID will revert on restart.", zap.String("new_id", newInstanceID.String()), zap.Error(err))
-	}
-
-	err = s.opampClient.SetAgentDescription(s.agentDescription.Load().(*protobufs.AgentDescription))
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Failed to send agent description to OpAMP server")
-	}
-
-	// Need to recalculate the Agent config so that the new agent identification is included in it.
-	configChanged, err := s.composeMergedConfig(s.remoteConfig.Load())
-	if err != nil {
-		s.telemetrySettings.Logger.Error("Error composing merged config with new instance ID", zap.Error(err))
-		return false
-	}
-
-	return configChanged
+	_ = "STUB: not implemented"
+	return false
 }
 
-func (s *Supervisor) persistentStateFilePath() string {
-	return filepath.Join(s.config.Storage.Directory, persistentStateFileName)
-}
+// Need to recalculate the Agent config so that the new agent identification is included in it.
 
-func (s *Supervisor) agentConfigFilePath() string {
-	return filepath.Join(s.config.Storage.Directory, agentConfigFileName)
-}
+func (s *Supervisor) persistentStateFilePath() string { _ = "STUB: not implemented"; return "" }
+
+func (s *Supervisor) agentConfigFilePath() string { _ = "STUB: not implemented"; return "" }
 
 func (s *Supervisor) getSupervisorOpAMPServerPort() (int, error) {
-	if s.config.Agent.OpAMPServerPort != 0 {
-		return s.config.Agent.OpAMPServerPort, nil
-	}
-	return s.findRandomPort()
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
-func (s *Supervisor) getFeatureGateFlag() []string {
-	flags := []string{}
-	for k := range s.featureGates {
-		flags = append(flags, k)
-	}
-
-	if len(flags) == 0 {
-		return []string{}
-	}
-
-	return []string{"--feature-gates", strings.Join(flags, ",")}
-}
+func (s *Supervisor) getFeatureGateFlag() []string { _ = "STUB: not implemented"; return nil }
 
 func (s *Supervisor) isFeatureGateSupported(gate string) bool {
-	_, ok := s.featureGates[gate]
-	return ok
+	_ = "STUB: not implemented"
+	return false
 }
 
-func (*Supervisor) findRandomPort() (int, error) {
-	l, err := net.Listen("tcp", "localhost:0")
-	if err != nil {
-		return 0, err
-	}
+func (*Supervisor) findRandomPort() (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
-	port := l.Addr().(*net.TCPAddr).Port
-
-	err = l.Close()
-	if err != nil {
-		return 0, err
-	}
-
-	return port, nil
-}
-
-func (s *Supervisor) getTracer() trace.Tracer {
-	tracer := s.telemetrySettings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/cmd/opampsupervisor")
-	return tracer
-}
+func (s *Supervisor) getTracer() trace.Tracer { _ = "STUB: not implemented"; return *new(trace.Tracer) }
 
 // The default koanf behavior is to override lists in the config.
 // Instead, we provide this function, which merges the source and destination config's
 // extension lists by concatenating the two.
 // Will be resolved by https://github.com/open-telemetry/opentelemetry-collector/issues/8754
-func configMergeFunc(src, dest map[string]any) error {
-	srcExtensions := maps.Search(src, []string{"service", "extensions"})
-	destExtensions := maps.Search(dest, []string{"service", "extensions"})
+func configMergeFunc(src, dest map[string]any) error { _ = "STUB: not implemented"; return nil }
 
-	maps.Merge(src, dest)
-
-	if destExt, ok := destExtensions.([]any); ok {
-		if srcExt, ok := srcExtensions.([]any); ok {
-			if service, ok := dest["service"].(map[string]any); ok {
-				allExt := slices.Concat(destExt, srcExt)
-				// This is a small hack to ensure that the order is consitent and
-				// follows this simple rule: extensions from [src], then from [dest],
-				// in the order that they appear.
-				// We cannot use other simpler methods, like [sort.Strings], because
-				// we work with a `[]any` that cannot be cast to `[]string`.
-				seenExt := make(map[any]struct{}, len(allExt))
-				var uniqueExts []any
-				for _, ext := range allExt {
-					if _, ok := seenExt[ext]; !ok {
-						seenExt[ext] = struct{}{}
-						uniqueExts = append(uniqueExts, ext)
-					}
-				}
-				service["extensions"] = uniqueExts
-			}
-		}
-	}
-
-	return nil
-}
+// This is a small hack to ensure that the order is consitent and
+// follows this simple rule: extensions from [src], then from [dest],
+// in the order that they appear.
+// We cannot use other simpler methods, like [sort.Strings], because
+// we work with a `[]any` that cannot be cast to `[]string`.

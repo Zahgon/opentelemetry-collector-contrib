@@ -5,8 +5,6 @@ package mongodbreceiver // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/hashicorp/go-version"
 	"go.mongodb.org/mongo-driver/v2/bson"
@@ -51,71 +49,49 @@ var newClient = func(_ context.Context, config *Config, logger *zap.Logger, seco
 
 // RunCommand executes a query against a database. Relies on connection to be established via `Connect()`
 func (c *mongodbClient) RunCommand(ctx context.Context, database string, command bson.M) (bson.M, error) {
-	db := c.Database(database)
-	result := db.RunCommand(ctx, command)
-
-	var document bson.M
-	err := result.Decode(&document)
-	return document, err
+	_ = "STUB: not implemented"
+	return *new(bson.M), nil
 }
 
 // ServerStatus returns the result of db.runCommand({ serverStatus: 1 })
 // more information can be found here: https://docs.mongodb.com/manual/reference/command/serverStatus/
 func (c *mongodbClient) ServerStatus(ctx context.Context, database string) (bson.M, error) {
-	return c.RunCommand(ctx, database, bson.M{"serverStatus": 1})
+	_ = "STUB: not implemented"
+	return *new(bson.M), nil
 }
 
 // DBStats returns the result of db.runCommand({ dbStats: 1 })
 // more information can be found here: https://docs.mongodb.com/manual/reference/command/dbStats/
 func (c *mongodbClient) DBStats(ctx context.Context, database string) (bson.M, error) {
-	return c.RunCommand(ctx, database, bson.M{"dbStats": 1})
+	_ = "STUB: not implemented"
+	return *new(bson.M), nil
 }
 
 // TopStats is an admin command that return the result of db.adminCommand({ top: 1 })
 // more information can be found here: https://www.mongodb.com/docs/manual/reference/command/top/
 func (c *mongodbClient) TopStats(ctx context.Context) (bson.M, error) {
-	return c.RunCommand(ctx, "admin", bson.M{"top": 1})
+	_ = "STUB: not implemented"
+	return *new(bson.M), nil
 }
 
 // ListCollectionNames returns a list of collection names for a given database
 // SetAuthorizedCollections allows a user without the required privilege to run the command ListCollections.
 // more information can be found here: https://pkg.go.dev/go.mongodb.org/mongo-driver@v1.9.0/mongo#Database.ListCollectionNames
 func (c *mongodbClient) ListCollectionNames(ctx context.Context, database string) ([]string, error) {
-	lcOpts := options.ListCollections().SetAuthorizedCollections(true)
-	return c.Database(database).ListCollectionNames(ctx, bson.D{}, lcOpts)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // IndexStats returns the index stats per collection for a given database
 // more information can be found here: https://www.mongodb.com/docs/manual/reference/operator/aggregation/indexStats/
 func (c *mongodbClient) IndexStats(ctx context.Context, database, collectionName string) ([]bson.M, error) {
-	db := c.Database(database)
-	collection := db.Collection(collectionName)
-	cursor, err := collection.Aggregate(context.Background(), mongo.Pipeline{bson.D{bson.E{Key: "$indexStats", Value: bson.M{}}}})
-	if err != nil {
-		return nil, err
-	}
-	defer cursor.Close(ctx)
-
-	var indexStats []bson.M
-	err = cursor.All(context.Background(), &indexStats)
-	if err != nil {
-		return nil, err
-	}
-	return indexStats, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetVersion returns a result of the version of mongo the client is connected to so adjustments in collection protocol can
 // be determined
 func (c *mongodbClient) GetVersion(ctx context.Context) (*version.Version, error) {
-	res, err := c.RunCommand(ctx, "admin", bson.M{"buildInfo": 1})
-	if err != nil {
-		return nil, fmt.Errorf("unable to get build info: %w", err)
-	}
-
-	v, ok := res["version"].(string)
-	if !ok {
-		return nil, errors.New("unable to parse mongo version from server")
-	}
-
-	return version.NewVersion(v)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

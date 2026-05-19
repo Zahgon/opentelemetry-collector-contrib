@@ -5,12 +5,10 @@ package akamai // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"strconv"
 
 	linodemeta "github.com/linode/go-metadata"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal"
@@ -42,38 +40,13 @@ type Detector struct {
 
 // NewDetector creates a new Akamai metadata detector.
 func NewDetector(p processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-
-	cli, err := newAkamaiClient(context.Background())
-	if err != nil {
-		return nil, err
-	}
-
-	return &Detector{
-		client: cli,
-		logger: p.Logger,
-		rb:     metadata.NewResourceBuilder(cfg.ResourceAttributes),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 // Detect detects system metadata and returns a resource with the available ones.
 func (d *Detector) Detect(ctx context.Context) (pcommon.Resource, string, error) {
+	_ = "STUB: not implemented"
 	// Try to fetch instance metadata; if it fails we're not on Akamai (or metadata unreachable).
-	inst, err := d.client.GetInstance(ctx)
-	if err != nil {
-		d.logger.Debug("Akamai detector: not running on Akamai or metadata unavailable", zap.Error(err))
-		return pcommon.NewResource(), "", nil
-	}
-
-	d.rb.SetCloudAccountID(inst.AccountEUUID)
-	d.rb.SetCloudProvider(conventions.CloudProviderAkamaiCloud.Value.AsString())
-	d.rb.SetCloudPlatform(conventions.CloudPlatformAkamaiCloudCompute.Value.AsString())
-	d.rb.SetCloudRegion(inst.Region)
-	d.rb.SetHostID(strconv.Itoa(inst.ID))
-	d.rb.SetHostImageID(inst.Image.ID)
-	d.rb.SetHostImageName(inst.Image.Label)
-	d.rb.SetHostName(inst.Label)
-	d.rb.SetHostType(inst.Type)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	return *new(pcommon.Resource), "", nil
 }

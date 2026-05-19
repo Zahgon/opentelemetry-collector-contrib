@@ -4,13 +4,10 @@
 package awsemfexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awsemfexporter"
 
 import (
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/awsutil"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/cwlogs"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/resourcetotelemetry"
 )
 
@@ -104,60 +101,8 @@ type MetricDescriptor struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate filters out invalid metricDeclarations and metricDescriptors
-func (config *Config) Validate() error {
-	var validDeclarations []*MetricDeclaration
-	for _, declaration := range config.MetricDeclarations {
-		err := declaration.init(config.logger)
-		if err != nil {
-			config.logger.Warn("Dropped metric declaration.", zap.Error(err))
-		} else {
-			validDeclarations = append(validDeclarations, declaration)
-		}
-	}
-	config.MetricDeclarations = validDeclarations
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	var validDescriptors []MetricDescriptor
-	for _, descriptor := range config.MetricDescriptors {
-		if descriptor.MetricName == "" {
-			continue
-		}
-		if _, ok := eMFSupportedUnits[descriptor.Unit]; ok {
-			validDescriptors = append(validDescriptors, descriptor)
-		} else {
-			config.logger.Warn("Dropped unsupported metric descriptor.", zap.String("unit", descriptor.Unit))
-		}
-	}
-	config.MetricDescriptors = validDescriptors
+func (config *Config) isAppSignalsEnabled() bool { _ = "STUB: not implemented"; return false }
 
-	if retErr := cwlogs.ValidateRetentionValue(config.LogRetention); retErr != nil {
-		return retErr
-	}
-
-	return cwlogs.ValidateTagsInput(config.Tags)
-}
-
-func (config *Config) isAppSignalsEnabled() bool {
-	if config.LogGroupName == "" || config.Namespace == "" {
-		return false
-	}
-
-	if config.Namespace == appSignalsMetricNamespace && strings.HasPrefix(config.LogGroupName, appSignalsLogGroupNamePrefix) {
-		return true
-	}
-
-	return false
-}
-
-func newEMFSupportedUnits() map[string]any {
-	unitIndexer := map[string]any{}
-	for _, unit := range []string{
-		"Seconds", "Microseconds", "Milliseconds", "Bytes", "Kilobytes", "Megabytes",
-		"Gigabytes", "Terabytes", "Bits", "Kilobits", "Megabits", "Gigabits", "Terabits",
-		"Percent", "Count", "Bytes/Second", "Kilobytes/Second", "Megabytes/Second",
-		"Gigabytes/Second", "Terabytes/Second", "Bits/Second", "Kilobits/Second",
-		"Megabits/Second", "Gigabits/Second", "Terabits/Second", "Count/Second", "None",
-	} {
-		unitIndexer[unit] = nil
-	}
-	return unitIndexer
-}
+func newEMFSupportedUnits() map[string]any { _ = "STUB: not implemented"; return nil }

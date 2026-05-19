@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -95,78 +92,25 @@ func (m *metricHttpcheckClientConnectionDuration) init() {
 }
 
 func (m *metricHttpcheckClientConnectionDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, networkTransportAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckClientConnectionDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckClientConnectionDurationMetricAttributeKeyNetworkTransport) {
-		dp.Attributes().PutStr("network.transport", networkTransportAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricHttpcheckClientConnectionDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckClientConnectionDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckClientConnectionDuration(cfg HttpcheckClientConnectionDurationMetricConfig) metricHttpcheckClientConnectionDuration {
-	m := metricHttpcheckClientConnectionDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckClientConnectionDuration)
 }
 
 type metricHttpcheckClientRequestDuration struct {
@@ -187,75 +131,22 @@ func (m *metricHttpcheckClientRequestDuration) init() {
 }
 
 func (m *metricHttpcheckClientRequestDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckClientRequestDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckClientRequestDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckClientRequestDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckClientRequestDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckClientRequestDuration(cfg HttpcheckClientRequestDurationMetricConfig) metricHttpcheckClientRequestDuration {
-	m := metricHttpcheckClientRequestDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckClientRequestDuration)
 }
 
 type metricHttpcheckDNSLookupDuration struct {
@@ -276,75 +167,22 @@ func (m *metricHttpcheckDNSLookupDuration) init() {
 }
 
 func (m *metricHttpcheckDNSLookupDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckDNSLookupDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckDNSLookupDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckDNSLookupDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckDNSLookupDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckDNSLookupDuration(cfg HttpcheckDNSLookupDurationMetricConfig) metricHttpcheckDNSLookupDuration {
-	m := metricHttpcheckDNSLookupDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckDNSLookupDuration)
 }
 
 type metricHttpcheckDuration struct {
@@ -365,75 +203,22 @@ func (m *metricHttpcheckDuration) init() {
 }
 
 func (m *metricHttpcheckDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckDuration(cfg HttpcheckDurationMetricConfig) metricHttpcheckDuration {
-	m := metricHttpcheckDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckDuration)
 }
 
 type metricHttpcheckError struct {
@@ -456,78 +241,19 @@ func (m *metricHttpcheckError) init() {
 }
 
 func (m *metricHttpcheckError) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, errorMessageAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckErrorMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckErrorMetricAttributeKeyErrorMessage) {
-		dp.Attributes().PutStr("error.message", errorMessageAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckError) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckError) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricHttpcheckError) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricHttpcheckError) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricHttpcheckError(cfg HttpcheckErrorMetricConfig) metricHttpcheckError {
-	m := metricHttpcheckError{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckError)
 }
 
 type metricHttpcheckResponseDuration struct {
@@ -548,75 +274,22 @@ func (m *metricHttpcheckResponseDuration) init() {
 }
 
 func (m *metricHttpcheckResponseDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckResponseDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckResponseDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckResponseDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckResponseDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckResponseDuration(cfg HttpcheckResponseDurationMetricConfig) metricHttpcheckResponseDuration {
-	m := metricHttpcheckResponseDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckResponseDuration)
 }
 
 type metricHttpcheckResponseSize struct {
@@ -637,75 +310,22 @@ func (m *metricHttpcheckResponseSize) init() {
 }
 
 func (m *metricHttpcheckResponseSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckResponseSizeMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckResponseSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckResponseSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckResponseSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckResponseSize(cfg HttpcheckResponseSizeMetricConfig) metricHttpcheckResponseSize {
-	m := metricHttpcheckResponseSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckResponseSize)
 }
 
 type metricHttpcheckStatus struct {
@@ -728,84 +348,22 @@ func (m *metricHttpcheckStatus) init() {
 }
 
 func (m *metricHttpcheckStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, httpStatusCodeAttributeValue int64, httpMethodAttributeValue string, httpStatusClassAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckStatusMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckStatusMetricAttributeKeyHTTPStatusCode) {
-		dp.Attributes().PutInt("http.status_code", httpStatusCodeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckStatusMetricAttributeKeyHTTPMethod) {
-		dp.Attributes().PutStr("http.method", httpMethodAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckStatusMetricAttributeKeyHTTPStatusClass) {
-		dp.Attributes().PutStr("http.status_class", httpStatusClassAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckStatus) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckStatus(cfg HttpcheckStatusMetricConfig) metricHttpcheckStatus {
-	m := metricHttpcheckStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckStatus)
 }
 
 type metricHttpcheckTLSCertRemaining struct {
@@ -826,84 +384,22 @@ func (m *metricHttpcheckTLSCertRemaining) init() {
 }
 
 func (m *metricHttpcheckTLSCertRemaining) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, httpTLSIssuerAttributeValue string, httpTLSCnAttributeValue string, httpTLSSanAttributeValue []any) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSIssuer) {
-		dp.Attributes().PutStr("http.tls.issuer", httpTLSIssuerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSCn) {
-		dp.Attributes().PutStr("http.tls.cn", httpTLSCnAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckTLSCertRemainingMetricAttributeKeyHTTPTLSSan) {
-		dp.Attributes().PutEmptySlice("http.tls.san").FromRaw(httpTLSSanAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckTLSCertRemaining) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckTLSCertRemaining) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckTLSCertRemaining) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckTLSCertRemaining(cfg HttpcheckTLSCertRemainingMetricConfig) metricHttpcheckTLSCertRemaining {
-	m := metricHttpcheckTLSCertRemaining{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckTLSCertRemaining)
 }
 
 type metricHttpcheckTLSHandshakeDuration struct {
@@ -924,75 +420,22 @@ func (m *metricHttpcheckTLSHandshakeDuration) init() {
 }
 
 func (m *metricHttpcheckTLSHandshakeDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckTLSHandshakeDurationMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckTLSHandshakeDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckTLSHandshakeDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckTLSHandshakeDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckTLSHandshakeDuration(cfg HttpcheckTLSHandshakeDurationMetricConfig) metricHttpcheckTLSHandshakeDuration {
-	m := metricHttpcheckTLSHandshakeDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckTLSHandshakeDuration)
 }
 
 type metricHttpcheckValidationFailed struct {
@@ -1015,78 +458,22 @@ func (m *metricHttpcheckValidationFailed) init() {
 }
 
 func (m *metricHttpcheckValidationFailed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, validationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckValidationFailedMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckValidationFailedMetricAttributeKeyValidationType) {
-		dp.Attributes().PutStr("validation.type", validationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckValidationFailed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckValidationFailed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckValidationFailed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckValidationFailed(cfg HttpcheckValidationFailedMetricConfig) metricHttpcheckValidationFailed {
-	m := metricHttpcheckValidationFailed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckValidationFailed)
 }
 
 type metricHttpcheckValidationPassed struct {
@@ -1109,78 +496,22 @@ func (m *metricHttpcheckValidationPassed) init() {
 }
 
 func (m *metricHttpcheckValidationPassed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, httpURLAttributeValue string, validationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckValidationPassedMetricAttributeKeyHTTPURL) {
-		dp.Attributes().PutStr("http.url", httpURLAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, HttpcheckValidationPassedMetricAttributeKeyValidationType) {
-		dp.Attributes().PutStr("validation.type", validationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHttpcheckValidationPassed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHttpcheckValidationPassed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHttpcheckValidationPassed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHttpcheckValidationPassed(cfg HttpcheckValidationPassedMetricConfig) metricHttpcheckValidationPassed {
-	m := metricHttpcheckValidationPassed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHttpcheckValidationPassed)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1213,46 +544,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                  mbc,
-		startTime:                               pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                           pmetric.NewMetrics(),
-		buildInfo:                               settings.BuildInfo,
-		metricHttpcheckClientConnectionDuration: newMetricHttpcheckClientConnectionDuration(mbc.Metrics.HttpcheckClientConnectionDuration),
-		metricHttpcheckClientRequestDuration:    newMetricHttpcheckClientRequestDuration(mbc.Metrics.HttpcheckClientRequestDuration),
-		metricHttpcheckDNSLookupDuration:        newMetricHttpcheckDNSLookupDuration(mbc.Metrics.HttpcheckDNSLookupDuration),
-		metricHttpcheckDuration:                 newMetricHttpcheckDuration(mbc.Metrics.HttpcheckDuration),
-		metricHttpcheckError:                    newMetricHttpcheckError(mbc.Metrics.HttpcheckError),
-		metricHttpcheckResponseDuration:         newMetricHttpcheckResponseDuration(mbc.Metrics.HttpcheckResponseDuration),
-		metricHttpcheckResponseSize:             newMetricHttpcheckResponseSize(mbc.Metrics.HttpcheckResponseSize),
-		metricHttpcheckStatus:                   newMetricHttpcheckStatus(mbc.Metrics.HttpcheckStatus),
-		metricHttpcheckTLSCertRemaining:         newMetricHttpcheckTLSCertRemaining(mbc.Metrics.HttpcheckTLSCertRemaining),
-		metricHttpcheckTLSHandshakeDuration:     newMetricHttpcheckTLSHandshakeDuration(mbc.Metrics.HttpcheckTLSHandshakeDuration),
-		metricHttpcheckValidationFailed:         newMetricHttpcheckValidationFailed(mbc.Metrics.HttpcheckValidationFailed),
-		metricHttpcheckValidationPassed:         newMetricHttpcheckValidationPassed(mbc.Metrics.HttpcheckValidationPassed),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1263,35 +574,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1300,109 +599,90 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricHttpcheckClientConnectionDuration.emit(ils.Metrics())
-	mb.metricHttpcheckClientRequestDuration.emit(ils.Metrics())
-	mb.metricHttpcheckDNSLookupDuration.emit(ils.Metrics())
-	mb.metricHttpcheckDuration.emit(ils.Metrics())
-	mb.metricHttpcheckError.emit(ils.Metrics())
-	mb.metricHttpcheckResponseDuration.emit(ils.Metrics())
-	mb.metricHttpcheckResponseSize.emit(ils.Metrics())
-	mb.metricHttpcheckStatus.emit(ils.Metrics())
-	mb.metricHttpcheckTLSCertRemaining.emit(ils.Metrics())
-	mb.metricHttpcheckTLSHandshakeDuration.emit(ils.Metrics())
-	mb.metricHttpcheckValidationFailed.emit(ils.Metrics())
-	mb.metricHttpcheckValidationPassed.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordHttpcheckClientConnectionDurationDataPoint adds a data point to httpcheck.client.connection.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckClientConnectionDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, networkTransportAttributeValue string) {
-	mb.metricHttpcheckClientConnectionDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, networkTransportAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckClientRequestDurationDataPoint adds a data point to httpcheck.client.request.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckClientRequestDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckClientRequestDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckDNSLookupDurationDataPoint adds a data point to httpcheck.dns.lookup.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckDNSLookupDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckDNSLookupDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckDurationDataPoint adds a data point to httpcheck.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckErrorDataPoint adds a data point to httpcheck.error metric.
 func (mb *MetricsBuilder) RecordHttpcheckErrorDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, errorMessageAttributeValue string) {
-	mb.metricHttpcheckError.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, errorMessageAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckResponseDurationDataPoint adds a data point to httpcheck.response.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckResponseDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckResponseDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckResponseSizeDataPoint adds a data point to httpcheck.response.size metric.
 func (mb *MetricsBuilder) RecordHttpcheckResponseSizeDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckResponseSize.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckStatusDataPoint adds a data point to httpcheck.status metric.
 func (mb *MetricsBuilder) RecordHttpcheckStatusDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, httpStatusCodeAttributeValue int64, httpMethodAttributeValue string, httpStatusClassAttributeValue string) {
-	mb.metricHttpcheckStatus.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, httpStatusCodeAttributeValue, httpMethodAttributeValue, httpStatusClassAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckTLSCertRemainingDataPoint adds a data point to httpcheck.tls.cert_remaining metric.
 func (mb *MetricsBuilder) RecordHttpcheckTLSCertRemainingDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, httpTLSIssuerAttributeValue string, httpTLSCnAttributeValue string, httpTLSSanAttributeValue []any) {
-	mb.metricHttpcheckTLSCertRemaining.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, httpTLSIssuerAttributeValue, httpTLSCnAttributeValue, httpTLSSanAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckTLSHandshakeDurationDataPoint adds a data point to httpcheck.tls.handshake.duration metric.
 func (mb *MetricsBuilder) RecordHttpcheckTLSHandshakeDurationDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string) {
-	mb.metricHttpcheckTLSHandshakeDuration.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckValidationFailedDataPoint adds a data point to httpcheck.validation.failed metric.
 func (mb *MetricsBuilder) RecordHttpcheckValidationFailedDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, validationTypeAttributeValue string) {
-	mb.metricHttpcheckValidationFailed.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, validationTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHttpcheckValidationPassedDataPoint adds a data point to httpcheck.validation.passed metric.
 func (mb *MetricsBuilder) RecordHttpcheckValidationPassedDataPoint(ts pcommon.Timestamp, val int64, httpURLAttributeValue string, validationTypeAttributeValue string) {
-	mb.metricHttpcheckValidationPassed.recordDataPoint(mb.startTime, ts, val, httpURLAttributeValue, validationTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

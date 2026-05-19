@@ -5,12 +5,8 @@ package flinkmetricsreceiver // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 
 	"go.opentelemetry.io/collector/component"
@@ -56,299 +52,126 @@ type flinkClient struct {
 }
 
 func newClient(ctx context.Context, cfg *Config, host component.Host, settings component.TelemetrySettings, logger *zap.Logger) (client, error) {
-	httpClient, err := cfg.ToClient(ctx, host.GetExtensions(), settings)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create HTTP Client: %w", err)
-	}
-
-	hostName, err := getHostname()
-	if err != nil {
-		return nil, err
-	}
-
-	return &flinkClient{
-		client:       httpClient,
-		hostName:     hostName,
-		hostEndpoint: cfg.Endpoint,
-		logger:       logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(client), nil
 }
 
 func (c *flinkClient) get(ctx context.Context, path string) ([]byte, error) {
+	_ = "STUB: not implemented"
 	// Construct endpoint and create request
-	url := c.hostEndpoint + path
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create get request for path %s: %w", path, err)
-	}
-
-	// Make request
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("failed to make http request: %w", err)
-	}
-
-	// Defer body close
-	defer func() {
-		if closeErr := resp.Body.Close(); closeErr != nil {
-			c.logger.Warn("failed to close response body", zap.Error(closeErr))
-		}
-	}()
-
-	// Check for OK status code
-	if resp.StatusCode != http.StatusOK {
-		c.logger.Debug("flink API non-200", zap.Error(err), zap.Int("status_code", resp.StatusCode))
-
-		// Attempt to extract the error payload
-		payloadData, err := io.ReadAll(resp.Body)
-		if err != nil {
-			c.logger.Debug("failed to read payload error message", zap.Error(err))
-		} else {
-			c.logger.Debug("flink API Error", zap.ByteString("api_error", payloadData))
-		}
-
-		return nil, fmt.Errorf("non 200 code returned %d", resp.StatusCode)
-	}
-
-	return io.ReadAll(resp.Body)
+	return nil, nil
 }
+
+// Make request
+
+// Defer body close
+
+// Check for OK status code
+
+// Attempt to extract the error payload
 
 // getMetrics makes a request to a metric endpoint to get the metric names, the another request building a query to get the metric values.
 func (c *flinkClient) getMetrics(ctx context.Context, path string) (*models.MetricsResponse, error) {
+	_ = "STUB: not implemented"
 	// Get the metric names
-	var metrics *models.MetricsResponse
-	body, err := c.get(ctx, path)
-	if err != nil {
-		c.logger.Debug("failed to retrieve metric names", zap.Error(err))
-		return nil, err
-	}
-
-	// Populates the metric names
-	err = json.Unmarshal(body, &metrics)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-	}
-
-	// Construct a get query parameter using comma-separated list of string values to select specific metrics
-	query := make([]string, len(*metrics))
-	for i, metricName := range *metrics {
-		query[i] = metricName.ID
-	}
-	metricsPath := path + "?get=" + strings.Join(query, ",")
-
-	// Get the metric values using the query
-	body, err = c.get(ctx, metricsPath)
-	if err != nil {
-		c.logger.Debug("failed to retrieve metric values", zap.Error(err))
-		return nil, err
-	}
-
-	// Populates metric values
-	err = json.Unmarshal(body, &metrics)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-	}
-
-	return metrics, nil
+	return nil, nil
 }
+
+// Populates the metric names
+
+// Construct a get query parameter using comma-separated list of string values to select specific metrics
+
+// Get the metric values using the query
+
+// Populates metric values
 
 // GetJobManagerMetrics gets the jobmanager metrics.
 func (c *flinkClient) GetJobmanagerMetrics(ctx context.Context) (*models.JobmanagerMetrics, error) {
+	_ = "STUB: not implemented"
 	// Get the metric names and values for jobmanager
-	metrics, err := c.getMetrics(ctx, jobmanagerMetricEndpoint)
-	if err != nil {
-		return nil, err
-	}
-
-	// Add a hostname used to identify between multiple jobmanager instances
-	return &models.JobmanagerMetrics{
-		Host:    c.hostName,
-		Metrics: *metrics,
-	}, nil
+	return nil, nil
 }
+
+// Add a hostname used to identify between multiple jobmanager instances
 
 // GetTaskmanagersMetrics gets the Taskmanager metrics for each taskmanager.
 func (c *flinkClient) GetTaskmanagersMetrics(ctx context.Context) ([]*models.TaskmanagerMetrics, error) {
+	_ = "STUB: not implemented"
 	// Get the taskmanager id list
-	var taskmanagerIDs *models.TaskmanagerIDsResponse
-	body, err := c.get(ctx, taskmanagersEndpoint)
-	if err != nil {
-		c.logger.Debug("failed to retrieve taskmanager IDs", zap.Error(err))
-		return nil, err
-	}
-
-	// Populates taskmanager id names
-	err = json.Unmarshal(body, &taskmanagerIDs)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-	}
-
-	// Get taskmanager metrics for each taskmanager id
-	return c.getTaskmanagersMetricsByIDs(ctx, taskmanagerIDs)
+	return nil, nil
 }
+
+// Populates taskmanager id names
+
+// Get taskmanager metrics for each taskmanager id
 
 // getTaskmanagersMetricsByIDs gets taskmanager metrics for each task manager id.
 func (c *flinkClient) getTaskmanagersMetricsByIDs(ctx context.Context, taskmanagerIDs *models.TaskmanagerIDsResponse) ([]*models.TaskmanagerMetrics, error) {
-	taskmanagerInstances := make([]*models.TaskmanagerMetrics, len(taskmanagerIDs.Taskmanagers))
-	for i, taskmanager := range taskmanagerIDs.Taskmanagers {
-		query := fmt.Sprintf(taskmanagersMetricEndpoint, taskmanager.ID)
-		metrics, err := c.getMetrics(ctx, query)
-		if err != nil {
-			return nil, err
-		}
-
-		taskmanagerInstance := &models.TaskmanagerMetrics{
-			TaskmanagerID: getTaskmanagerID(taskmanager.ID),
-			Host:          getTaskmanagerHost(taskmanager.ID),
-			Metrics:       *metrics,
-		}
-		taskmanagerInstances[i] = taskmanagerInstance
-	}
-	return taskmanagerInstances, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetJobsMetrics gets the job metrics for each job.
 func (c *flinkClient) GetJobsMetrics(ctx context.Context) ([]*models.JobMetrics, error) {
+	_ = "STUB: not implemented"
 	// Get the job id and name list
-	var jobIDs *models.JobOverviewResponse
-	body, err := c.get(ctx, jobsOverviewEndpoint)
-	if err != nil {
-		c.logger.Debug("failed to retrieve job IDs", zap.Error(err))
-		return nil, err
-	}
-
-	// Populates job id and names
-	err = json.Unmarshal(body, &jobIDs)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-	}
-
-	// Get job metrics for each job id
-	return c.getJobsMetricsByIDs(ctx, jobIDs)
+	return nil, nil
 }
+
+// Populates job id and names
+
+// Get job metrics for each job id
 
 // getJobsMetricsByIDs gets jobs metrics for each job id.
 func (c *flinkClient) getJobsMetricsByIDs(ctx context.Context, jobIDs *models.JobOverviewResponse) ([]*models.JobMetrics, error) {
-	jobInstances := make([]*models.JobMetrics, len(jobIDs.Jobs))
-	for i, job := range jobIDs.Jobs {
-		query := fmt.Sprintf(jobsMetricEndpoint, job.Jid)
-		metrics, err := c.getMetrics(ctx, query)
-		if err != nil {
-			return nil, err
-		}
-		jobInstance := models.JobMetrics{
-			Host:    c.hostName,
-			JobName: job.Name,
-			Metrics: *metrics,
-		}
-		jobInstances[i] = &jobInstance
-	}
-	return jobInstances, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetSubtasksMetrics gets subtask metrics for each job id, vertex id and subtask index.
 func (c *flinkClient) GetSubtasksMetrics(ctx context.Context) ([]*models.SubtaskMetrics, error) {
+	_ = "STUB: not implemented"
 	// Get the job id's
-	var jobsResponse *models.JobsResponse
-	body, err := c.get(ctx, jobsEndpoint)
-	if err != nil {
-		c.logger.Debug("failed to retrieve job IDs", zap.Error(err))
-		return nil, err
-	}
-
-	// Populates the job id
-	err = json.Unmarshal(body, &jobsResponse)
-	if err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-	}
-	return c.getSubtasksMetricsByIDs(ctx, jobsResponse)
+	return nil, nil
 }
+
+// Populates the job id
 
 // getSubtasksMetricsByIDs gets subtask metrics for each job id, vertex id and subtask index.
 func (c *flinkClient) getSubtasksMetricsByIDs(ctx context.Context, jobsResponse *models.JobsResponse) ([]*models.SubtaskMetrics, error) {
-	var subtaskInstances []*models.SubtaskMetrics
-	// Get vertices for each job
-	for _, job := range jobsResponse.Jobs {
-		var jobsWithIDResponse *models.JobsWithIDResponse
-		query := fmt.Sprintf(jobsWithIDEndpoint, job.ID)
-		body, err := c.get(ctx, query)
-		if err != nil {
-			c.logger.Debug("failed to retrieve job with ID", zap.Error(err))
-			return nil, err
-		}
-
-		// Populates the job response with vertices info
-		err = json.Unmarshal(body, &jobsWithIDResponse)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-		}
-		// Gets subtask info for each vertex id
-		for _, vertex := range jobsWithIDResponse.Vertices {
-			var vertexResponse *models.VerticesResponse
-			query := fmt.Sprintf(verticesEndpoint, job.ID, vertex.ID)
-			body, err = c.get(ctx, query)
-			if err != nil {
-				c.logger.Debug("failed to retrieve vertex with ID", zap.Error(err))
-				return nil, err
-			}
-
-			// Populates the vertex response with subtask info
-			err = json.Unmarshal(body, &vertexResponse)
-			if err != nil {
-				return nil, fmt.Errorf("failed to unmarshal response body: %w", err)
-			}
-
-			// Gets subtask metrics for each vertex id
-			for _, subtask := range vertexResponse.Subtasks {
-				query := fmt.Sprintf(subtaskMetricEndpoint, job.ID, vertex.ID, subtask.Subtask)
-				subtaskMetrics, err := c.getMetrics(ctx, query)
-				if err != nil {
-					c.logger.Debug("failed to retrieve subtasks metrics", zap.Error(err))
-					return nil, err
-				}
-
-				// Stores subtask info with additional attribute values to uniquely identify metrics
-				subtaskInstances = append(subtaskInstances,
-					&models.SubtaskMetrics{
-						Host:          getTaskmanagerHost(subtask.TaskmanagerID),
-						TaskmanagerID: getTaskmanagerID(subtask.TaskmanagerID),
-						JobName:       jobsWithIDResponse.Name,
-						TaskName:      vertex.Name,
-						SubtaskIndex:  strconv.Itoa(subtask.Subtask),
-						Metrics:       *subtaskMetrics,
-					})
-			}
-		}
-	}
-	return subtaskInstances, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Get vertices for each job
+
+// Populates the job response with vertices info
+
+// Gets subtask info for each vertex id
+
+// Populates the vertex response with subtask info
+
+// Gets subtask metrics for each vertex id
+
+// Stores subtask info with additional attribute values to uniquely identify metrics
 
 // Override for testing
 var osHostname = os.Hostname
 
-func getHostname() (string, error) {
-	host, err := osHostname()
-	if err != nil {
-		return "", err
-	}
-	return host, nil
-}
+func getHostname() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // Override for testing
 var taskmanagerHost = strings.Split
 
-func getTaskmanagerHost(id string) string {
-	host := taskmanagerHost(id, ":")
-	return host[0]
-}
+func getTaskmanagerHost(id string) string { _ = "STUB: not implemented"; return "" }
 
 func reflect(s string) string {
-	return s
+	_ = "STUB: not implemented"
+
+	// Override for testing
+	return ""
 }
 
-// Override for testing
 var taskmanagerID = reflect
 
-func getTaskmanagerID(id string) string {
-	return taskmanagerID(id)
-}
+func getTaskmanagerID(id string) string { _ = "STUB: not implemented"; return "" }

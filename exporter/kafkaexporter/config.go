@@ -5,9 +5,6 @@ package kafkaexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	"errors"
-	"fmt"
-	"maps"
-	"slices"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configoptional"
@@ -81,51 +78,16 @@ type StickyKeyPartitionerConfig struct {
 	_ struct{}
 }
 
-func (c *StickyKeyPartitionerConfig) Validate() error {
-	switch c.Hasher {
-	case HasherSaramaCompat, HasherMurmur2:
-		return nil
-	default:
-		return fmt.Errorf("sticky_key: unknown hasher %q, valid values are %q, %q",
-			c.Hasher, HasherSaramaCompat, HasherMurmur2)
-	}
-}
+func (c *StickyKeyPartitionerConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (c *RecordPartitionerConfig) Validate() error {
-	set := 0
-	if c.StickyKey != nil {
-		set++
-	}
-	if c.RoundRobin != nil {
-		set++
-	}
-	if c.LeastBackup != nil {
-		set++
-	}
-	if c.Extension != nil {
-		set++
-	}
-	if set > 1 {
-		return errRecordPartitionerMultipleSet
-	}
-	if set == 0 {
-		return errRecordPartitionerMissing
-	}
-	if c.StickyKey != nil {
-		return c.StickyKey.Validate()
-	}
+func (c *RecordPartitionerConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
+func (c *RecordPartitionerConfig) Unmarshal(conf *confmap.Conf) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (c *RecordPartitionerConfig) Unmarshal(conf *confmap.Conf) error {
-	if len(conf.ToStringMap()) == 0 {
-		// no partitioner configured, will use default.
-		return nil
-	}
-	*c = RecordPartitionerConfig{}
-	return conf.Unmarshal(c)
-}
+// no partitioner configured, will use default.
 
 // Config defines configuration for Kafka exporter.
 type Config struct {
@@ -187,27 +149,7 @@ type Config struct {
 	RecordPartitioner RecordPartitionerConfig `mapstructure:"record_partitioner"`
 }
 
-func (c *Config) Validate() error {
-	if c.PartitionLogsByResourceAttributes && c.PartitionLogsByTraceID {
-		return errLogsPartitionExclusive
-	}
-	if c.Traces.MessageKeyFromMetadataKey != "" && c.PartitionTracesByID {
-		return errTracesMessageKeyExclusive
-	}
-	if c.Metrics.MessageKeyFromMetadataKey != "" && c.PartitionMetricsByResourceAttributes {
-		return errMetricsMessageKeyExclusive
-	}
-	if c.Logs.MessageKeyFromMetadataKey != "" && (c.PartitionLogsByResourceAttributes || c.PartitionLogsByTraceID) {
-		return errLogsMessageKeyExclusive
-	}
-	if err := c.RecordPartitioner.Validate(); err != nil {
-		return fmt.Errorf("record_partitioner: %w", err)
-	}
-	if err := validateBatchPartitionerKeys(c); err != nil {
-		return err
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SignalConfig holds signal-specific configuration for the Kafka exporter.
 type SignalConfig struct {
@@ -242,96 +184,25 @@ type SignalConfig struct {
 // The exporter relies on a few client metadata keys to be present, if configured, in the final
 // batch that needs to be exported, however, since batching removes all client metadata keys by
 // default we need to ensure proper partitioning is configured to keep the required metadata.
-func validateBatchPartitionerKeys(c *Config) error {
-	if !isBatchingEnabled(c.QueueBatchConfig) {
-		return nil
-	}
+func validateBatchPartitionerKeys(c *Config) error { _ = "STUB: not implemented"; return nil }
 
-	partitionMetadataKeys := c.QueueBatchConfig.Get().Batch.Get().Partition.MetadataKeys
-	partitionMetadataKeySet := make(map[string]struct{}, len(partitionMetadataKeys))
-	for _, key := range partitionMetadataKeys {
-		partitionMetadataKeySet[key] = struct{}{}
-	}
+// Validate if include_metadata_keys are included in partition keys
 
-	// Validate if include_metadata_keys are included in partition keys
-	if len(c.IncludeMetadataKeys) != 0 {
-		if len(partitionMetadataKeys) == 0 {
-			return errBatchPartitionMetadataKeysRequired
-		}
-		for _, includeKey := range c.IncludeMetadataKeys {
-			if _, ok := partitionMetadataKeySet[includeKey]; !ok {
-				return fmt.Errorf("%w: missing %q from sending_queue::batch::partition::metadata_keys=%v",
-					errIncludeMetadataKeysNotPartitioned,
-					includeKey,
-					partitionMetadataKeys,
-				)
-			}
-		}
-	}
+// Validate if topic_from_metadata_key is included in partition_keys
 
-	// Validate if topic_from_metadata_key is included in partition_keys
-	if err := validateTopicFromMetadataKey(c.Logs.TopicFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("logs::topic_from_metadata_key: %w", err)
-	}
-	if err := validateTopicFromMetadataKey(c.Metrics.TopicFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("metrics::topic_from_metadata_key: %w", err)
-	}
-	if err := validateTopicFromMetadataKey(c.Traces.TopicFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("traces::topic_from_metadata_key: %w", err)
-	}
-	if err := validateTopicFromMetadataKey(c.Profiles.TopicFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("profiles::topic_from_metadata_key: %w", err)
-	}
-
-	// Validate if message_key_from_metadata_key is included in partition_keys
-	if err := validateMessageKeyFromMetadataKey(c.Logs.MessageKeyFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("logs::message_key_from_metadata_key: %w", err)
-	}
-	if err := validateMessageKeyFromMetadataKey(c.Metrics.MessageKeyFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("metrics::message_key_from_metadata_key: %w", err)
-	}
-	if err := validateMessageKeyFromMetadataKey(c.Traces.MessageKeyFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("traces::message_key_from_metadata_key: %w", err)
-	}
-	if err := validateMessageKeyFromMetadataKey(c.Profiles.MessageKeyFromMetadataKey, partitionMetadataKeySet); err != nil {
-		return fmt.Errorf("profiles::message_key_from_metadata_key: %w", err)
-	}
-
-	return nil
-}
+// Validate if message_key_from_metadata_key is included in partition_keys
 
 func isBatchingEnabled(queueBatchConfig configoptional.Optional[exporterhelper.QueueBatchConfig]) bool {
-	if !queueBatchConfig.HasValue() {
-		return false
-	}
-
-	return queueBatchConfig.Get().Batch.HasValue()
+	_ = "STUB: not implemented"
+	return false
 }
 
 func validateTopicFromMetadataKey(topicFromMetadataKey string, partitionKeysSet map[string]struct{}) error {
-	if topicFromMetadataKey == "" {
-		return nil
-	}
-	if _, ok := partitionKeysSet[topicFromMetadataKey]; !ok {
-		return fmt.Errorf("%w: %q not found in partition keys=%v",
-			errTopicMetadataKeyNotIncluded,
-			topicFromMetadataKey,
-			slices.Collect(maps.Keys(partitionKeysSet)),
-		)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func validateMessageKeyFromMetadataKey(messageKeyFromMetadataKey string, partitionKeysSet map[string]struct{}) error {
-	if messageKeyFromMetadataKey == "" {
-		return nil
-	}
-	if _, ok := partitionKeysSet[messageKeyFromMetadataKey]; !ok {
-		return fmt.Errorf("%w: %q not found in partition keys=%v",
-			errMessageKeyMetadataKeyNotIncluded,
-			messageKeyFromMetadataKey,
-			slices.Collect(maps.Keys(partitionKeysSet)),
-		)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }

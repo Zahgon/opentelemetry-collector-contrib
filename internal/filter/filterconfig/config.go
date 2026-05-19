@@ -5,8 +5,6 @@ package filterconfig // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"errors"
-	"fmt"
-	"sort"
 
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/ptrace"
@@ -142,79 +140,13 @@ var (
 )
 
 // ValidateForSpans validates properties for spans.
-func (mp *MatchProperties) ValidateForSpans() error {
-	if len(mp.LogBodies) > 0 {
-		return errors.New("log_bodies should not be specified for trace spans")
-	}
-
-	if len(mp.LogSeverityTexts) > 0 {
-		return errors.New("log_severity_texts should not be specified for trace spans")
-	}
-
-	if mp.LogSeverityNumber != nil {
-		return errors.New("log_severity_number should not be specified for trace spans")
-	}
-
-	if len(mp.MetricNames) > 0 {
-		return errors.New("metric_names should not be specified for trace spans")
-	}
-
-	if len(mp.Services) == 0 && len(mp.SpanNames) == 0 && len(mp.Attributes) == 0 &&
-		len(mp.Libraries) == 0 && len(mp.Resources) == 0 && len(mp.SpanKinds) == 0 {
-		return ErrMissingRequiredSpanField
-	}
-
-	if len(mp.SpanKinds) > 0 && mp.MatchType == "strict" {
-		for _, kind := range mp.SpanKinds {
-			if !spanKinds[kind] {
-				validSpanKinds := make([]string, len(spanKinds))
-				for k := range spanKinds {
-					validSpanKinds = append(validSpanKinds, k)
-				}
-				sort.Strings(validSpanKinds)
-				return fmt.Errorf("span_kinds string must match one of the standard span kinds when match_type=strict: %v", validSpanKinds)
-			}
-		}
-	}
-
-	return nil
-}
+func (mp *MatchProperties) ValidateForSpans() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateForLogs validates properties for logs.
-func (mp *MatchProperties) ValidateForLogs() error {
-	if len(mp.SpanNames) > 0 || len(mp.Services) > 0 || len(mp.SpanKinds) > 0 || len(mp.MetricNames) > 0 {
-		return ErrInvalidLogField
-	}
-
-	if len(mp.Attributes) == 0 && len(mp.Libraries) == 0 &&
-		len(mp.Resources) == 0 && len(mp.LogBodies) == 0 &&
-		len(mp.LogSeverityTexts) == 0 && mp.LogSeverityNumber == nil &&
-		len(mp.SpanKinds) == 0 {
-		return ErrMissingRequiredLogField
-	}
-
-	return nil
-}
+func (mp *MatchProperties) ValidateForLogs() error { _ = "STUB: not implemented"; return nil }
 
 // ValidateForMetrics validates properties for metrics.
-func (mp *MatchProperties) ValidateForMetrics() error {
-	if len(mp.LogBodies) > 0 ||
-		len(mp.LogSeverityTexts) > 0 ||
-		len(mp.SpanNames) > 0 ||
-		len(mp.Services) > 0 ||
-		len(mp.SpanKinds) > 0 ||
-		len(mp.Attributes) > 0 ||
-		len(mp.Libraries) > 0 ||
-		mp.LogSeverityNumber != nil {
-		return ErrInvalidMetricField
-	}
-
-	if len(mp.MetricNames) == 0 && len(mp.Resources) == 0 {
-		return ErrMissingRequiredMetricField
-	}
-
-	return nil
-}
+func (mp *MatchProperties) ValidateForMetrics() error { _ = "STUB: not implemented"; return nil }
 
 // Attribute specifies the attribute key and optional value to match against.
 type Attribute struct {
@@ -288,18 +220,6 @@ type MetricMatchProperties struct {
 }
 
 func CreateMetricMatchPropertiesFromDefault(properties *MatchProperties) (*MetricMatchProperties, error) {
-	if properties == nil {
-		return nil, nil
-	}
-
-	if err := properties.ValidateForMetrics(); err != nil {
-		return nil, err
-	}
-
-	return &MetricMatchProperties{
-		MatchType:          MetricMatchType(properties.MatchType),
-		RegexpConfig:       properties.RegexpConfig,
-		MetricNames:        properties.MetricNames,
-		ResourceAttributes: properties.Resources,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

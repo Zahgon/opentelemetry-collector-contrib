@@ -3,13 +3,6 @@
 
 package windows // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/windows"
 
-import (
-	"bytes"
-	"fmt"
-
-	"golang.org/x/text/encoding/unicode"
-)
-
 // defaultBufferSize is the default size of the buffer.
 const defaultBufferSize = 16384
 
@@ -23,60 +16,36 @@ type Buffer struct {
 
 // ReadBytes will read UTF-8 bytes from the buffer, where offset is the number of bytes to be read
 func (b *Buffer) ReadBytes(offset uint32) ([]byte, error) {
-	if offset > uint32(len(b.buffer)) {
-		offset = uint32(len(b.buffer))
-	}
-	utf16 := b.buffer[:offset]
-	utf8, err := unicode.UTF16(unicode.LittleEndian, unicode.UseBOM).NewDecoder().Bytes(utf16)
-	if err != nil {
-		return nil, fmt.Errorf("failed to convert buffer contents to utf8: %w", err)
-	}
-
-	return bytes.Trim(utf8, "\u0000"), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ReadWideChars will read UTF-8 bytes from the buffer, where offset is the number of wchars to read
 func (b *Buffer) ReadWideChars(offset uint32) ([]byte, error) {
-	return b.ReadBytes(offset * bytesPerWChar)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ReadString will read a UTF-8 string from the buffer.
 func (b *Buffer) ReadString(offset uint32) (string, error) {
-	bytes, err := b.ReadBytes(offset)
-	if err != nil {
-		return "", err
-	}
-	return string(bytes), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // UpdateSizeBytes will update the size of the buffer to fit size bytes.
-func (b *Buffer) UpdateSizeBytes(size uint32) {
-	b.buffer = make([]byte, size)
-}
+func (b *Buffer) UpdateSizeBytes(size uint32) { _ = "STUB: not implemented"; return }
 
 // UpdateSizeWide will update the size of the buffer to fit size wchars.
-func (b *Buffer) UpdateSizeWide(size uint32) {
-	b.buffer = make([]byte, bytesPerWChar*size)
-}
+func (b *Buffer) UpdateSizeWide(size uint32) { _ = "STUB: not implemented"; return }
 
 // SizeBytes will return the size of the buffer as number of bytes.
-func (b *Buffer) SizeBytes() uint32 {
-	return uint32(len(b.buffer))
-}
+func (b *Buffer) SizeBytes() uint32 { _ = "STUB: not implemented"; return 0 }
 
 // SizeWide returns the size of the buffer as number of wchars
-func (b *Buffer) SizeWide() uint32 {
-	return uint32(len(b.buffer) / bytesPerWChar)
-}
+func (b *Buffer) SizeWide() uint32 { _ = "STUB: not implemented"; return 0 }
 
 // FirstByte will return a pointer to the first byte.
-func (b *Buffer) FirstByte() *byte {
-	return &b.buffer[0]
-}
+func (b *Buffer) FirstByte() *byte { _ = "STUB: not implemented"; return nil }
 
 // NewBuffer creates a new buffer with the default buffer size
-func NewBuffer() *Buffer {
-	return &Buffer{
-		buffer: make([]byte, defaultBufferSize),
-	}
-}
+func NewBuffer() *Buffer { _ = "STUB: not implemented"; return nil }

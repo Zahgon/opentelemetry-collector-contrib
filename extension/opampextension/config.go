@@ -6,10 +6,6 @@ package opampextension // import "github.com/open-telemetry/opentelemetry-collec
 import (
 	"context"
 	"crypto/tls"
-	"errors"
-	"fmt"
-	"net/url"
-	"runtime"
 	"time"
 
 	"github.com/open-telemetry/opamp-go/client"
@@ -18,8 +14,6 @@ import (
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/opampextension/internal/metadata"
 )
 
 // Default value for HTTP client's polling interval, set to 30 seconds in
@@ -72,23 +66,9 @@ type Capabilities struct {
 }
 
 func (caps Capabilities) toAgentCapabilities() protobufs.AgentCapabilities {
+	_ = "STUB: not implemented"
 	// All Agents MUST report status.
-	agentCapabilities := protobufs.AgentCapabilities_AgentCapabilities_ReportsStatus
-
-	if caps.ReportsEffectiveConfig {
-		agentCapabilities |= protobufs.AgentCapabilities_AgentCapabilities_ReportsEffectiveConfig
-	}
-	if caps.ReportsHealth {
-		agentCapabilities |= protobufs.AgentCapabilities_AgentCapabilities_ReportsHealth
-	}
-	if caps.ReportsAvailableComponents {
-		agentCapabilities |= protobufs.AgentCapabilities_AgentCapabilities_ReportsAvailableComponents
-	}
-	if caps.AcceptsRestartCommand {
-		agentCapabilities |= protobufs.AgentCapabilities_AgentCapabilities_AcceptsRestartCommand
-	}
-
-	return agentCapabilities
+	return *new(protobufs.AgentCapabilities)
 }
 
 type commonFields struct {
@@ -98,20 +78,9 @@ type commonFields struct {
 	Auth     component.ID                   `mapstructure:"auth,omitempty"`
 }
 
-func (c *commonFields) Scheme() string {
-	uri, err := url.ParseRequestURI(c.Endpoint)
-	if err != nil {
-		return ""
-	}
-	return uri.Scheme
-}
+func (c *commonFields) Scheme() string { _ = "STUB: not implemented"; return "" }
 
-func (c *commonFields) Validate() error {
-	if c.Endpoint == "" {
-		return errors.New("opamp server endpoint must be provided")
-	}
-	return nil
-}
+func (c *commonFields) Validate() error { _ = "STUB: not implemented"; return nil }
 
 type httpFields struct {
 	commonFields `mapstructure:",squash"`
@@ -119,17 +88,7 @@ type httpFields struct {
 	PollingInterval time.Duration `mapstructure:"polling_interval"`
 }
 
-func (h *httpFields) Validate() error {
-	if err := h.commonFields.Validate(); err != nil {
-		return err
-	}
-
-	if h.PollingInterval < 0 {
-		return errors.New("polling interval must be 0 or greater")
-	}
-
-	return nil
-}
+func (h *httpFields) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // OpAMPServer contains the OpAMP transport configuration.
 type OpAMPServer struct {
@@ -138,102 +97,37 @@ type OpAMPServer struct {
 }
 
 func (s OpAMPServer) GetClient(logger *zap.Logger) client.OpAMPClient {
-	if s.WS != nil {
-		return client.NewWebSocket(newLoggerFromZap(logger.With(zap.String("client", "ws"))))
-	}
-
-	httpClient := client.NewHTTP(newLoggerFromZap(logger.With(zap.String("client", "http"))))
-	httpClient.SetPollingInterval(s.GetPollingInterval())
-	return httpClient
+	_ = "STUB: not implemented"
+	return *new(client.OpAMPClient)
 }
 
 func (s OpAMPServer) GetHeaders() map[string]configopaque.String {
-	if s.WS != nil {
-		return s.WS.Headers
-	} else if s.HTTP != nil {
-		return s.HTTP.Headers
-	}
-	return map[string]configopaque.String{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetTLSConfig returns a TLS config if the endpoint is secure (wss or https)
 func (s OpAMPServer) GetTLSConfig(ctx context.Context) (*tls.Config, error) {
-	parsedURL, err := url.Parse(s.GetEndpoint())
-	if err != nil {
-		return nil, fmt.Errorf("parse server endpoint: %w", err)
-	}
-
-	if parsedURL.Scheme != "wss" && parsedURL.Scheme != "https" {
-		return nil, nil
-	}
-
-	return s.getTLS().LoadTLSConfig(ctx)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s OpAMPServer) getTLS() configtls.ClientConfig {
-	if s.WS != nil {
-		return s.WS.TLS
-	} else if s.HTTP != nil {
-		return s.HTTP.TLS
-	}
-	return configtls.ClientConfig{}
+	_ = "STUB: not implemented"
+	return *new(configtls.ClientConfig)
 }
 
-func (s OpAMPServer) GetEndpoint() string {
-	if s.WS != nil {
-		return s.WS.Endpoint
-	} else if s.HTTP != nil {
-		return s.HTTP.Endpoint
-	}
-	return ""
-}
+func (s OpAMPServer) GetEndpoint() string { _ = "STUB: not implemented"; return "" }
 
 func (s OpAMPServer) GetAuthExtensionID() component.ID {
-	if s.WS != nil {
-		return s.WS.Auth
-	} else if s.HTTP != nil {
-		return s.HTTP.Auth
-	}
-
-	var emptyComponentID component.ID
-	return emptyComponentID
+	_ = "STUB: not implemented"
+	return *new(component.ID)
 }
 
 func (s OpAMPServer) GetPollingInterval() time.Duration {
-	if s.HTTP != nil && s.HTTP.PollingInterval > 0 {
-		return s.HTTP.PollingInterval
-	}
-
-	return httpPollingIntervalDefault
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }
 
 // Validate checks if the extension configuration is valid
-func (cfg *Config) Validate() error {
-	switch {
-	case cfg.Capabilities.AcceptsRestartCommand && !metadata.ExtensionOpampextensionRemoteRestartsFeatureGate.IsEnabled():
-		return errors.New("extension.opampextension.RemoteRestarts feature gate must be enabled to use the accepts_restart_command capability")
-	case cfg.Capabilities.AcceptsRestartCommand && metadata.ExtensionOpampextensionRemoteRestartsFeatureGate.IsEnabled() && runtime.GOOS == "windows":
-		return errors.New("remote restart functionality is not available on the windows operating system")
-	case cfg.Server.WS == nil && cfg.Server.HTTP == nil:
-		return errors.New("opamp server must have at least ws or http set")
-	case cfg.Server.WS != nil && cfg.Server.HTTP != nil:
-		return errors.New("opamp server must have only ws or http set")
-	case cfg.Server.WS != nil:
-		if err := cfg.Server.WS.Validate(); err != nil {
-			return err
-		}
-	case cfg.Server.HTTP != nil:
-		if err := cfg.Server.HTTP.Validate(); err != nil {
-			return err
-		}
-	}
-
-	if cfg.InstanceUID != "" {
-		_, err := parseInstanceIDString(cfg.InstanceUID)
-		if err != nil {
-			return errors.New("opamp instance_uid is invalid")
-		}
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

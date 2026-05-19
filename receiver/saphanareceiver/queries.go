@@ -5,8 +5,6 @@ package saphanareceiver // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -23,27 +21,7 @@ type queryStat struct {
 func (q *queryStat) collectStat(s *sapHanaScraper, m *monitoringQuery, now pcommon.Timestamp,
 	row map[string]string,
 ) error {
-	if val, ok := row[q.key]; ok {
-		resourceAttributes := map[string]string{}
-		for _, attr := range m.orderedResourceLabels {
-			attrValue, ok := row[attr]
-			if !ok {
-				return fmt.Errorf("unable to parse metric for key %s, missing resource attribute '%s'", q.key, attr)
-			}
-			resourceAttributes[attr] = attrValue
-		}
-		mb, err := s.getMetricsBuilder(resourceAttributes)
-		if err != nil {
-			return fmt.Errorf("unable to parse metric for key %s: %w", q.key, err)
-		}
-
-		if q.addMetricFunction == nil {
-			return errors.New("incorrectly configured query, addMetricFunction must be provided")
-		}
-		if err = q.addMetricFunction(mb, now, val, row); err != nil {
-			return fmt.Errorf("failed to record metric for key %s: %w", q.key, err)
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -906,16 +884,6 @@ var queries = []monitoringQuery{
 func (m *monitoringQuery) CollectMetrics(ctx context.Context, s *sapHanaScraper, client client, now pcommon.Timestamp,
 	errs *scrapererror.ScrapeErrors,
 ) {
-	rows, err := client.collectDataFromQuery(ctx, m)
-	if err != nil {
-		errs.AddPartial(len(m.orderedStats), fmt.Errorf("error running query '%s': %w", m.query, err))
-		return
-	}
-	for _, data := range rows {
-		for _, stat := range m.orderedStats {
-			if err := stat.collectStat(s, m, now, data); err != nil {
-				errs.AddPartial(1, err)
-			}
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }

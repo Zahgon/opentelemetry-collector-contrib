@@ -8,9 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"strconv"
 	"sync"
-	"time"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
@@ -19,14 +17,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/kubernetes"
-	"k8s.io/client-go/kubernetes/scheme"
-	corev1 "k8s.io/client-go/kubernetes/typed/core/v1"
-	"k8s.io/client-go/tools/leaderelection"
 	"k8s.io/client-go/tools/leaderelection/resourcelock"
 	"k8s.io/client-go/tools/record"
-	"k8s.io/klog/v2"
 
-	ci "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/containerinsight"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/k8s/k8sclient"
 )
 
@@ -85,110 +78,20 @@ type k8sAPIServerOption func(*K8sAPIServer)
 
 // New creates a k8sApiServer which can generate cluster-level metrics
 func New(clusterNameProvider clusterNameProvider, logger *zap.Logger, options ...k8sAPIServerOption) (*K8sAPIServer, error) {
-	k := &K8sAPIServer{
-		logger:              logger,
-		clusterNameProvider: clusterNameProvider,
-		k8sClient:           k8sclient.Get(logger),
-		broadcaster:         record.NewBroadcaster(),
-	}
-
-	for _, opt := range options {
-		opt(k)
-	}
-
-	if k.k8sClient == nil {
-		return nil, errors.New("failed to start k8sapiserver because k8sclient is nil")
-	}
-
-	if err := k.init(); err != nil {
-		return nil, fmt.Errorf("fail to initialize k8sapiserver, err: %w", err)
-	}
-
-	return k, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetMetrics returns an array of metrics
-func (k *K8sAPIServer) GetMetrics() []pmetric.Metrics {
-	var result []pmetric.Metrics
+func (k *K8sAPIServer) GetMetrics() []pmetric.Metrics { _ = "STUB: not implemented"; return nil }
 
-	// don't generate any metrics if the current collector is not the leader
-	k.mu.Lock()
-	defer k.mu.Unlock()
-	if !k.leading {
-		return result
-	}
+// don't generate any metrics if the current collector is not the leader
 
-	// don't emit metrics if the cluster name is not detected
-	clusterName := k.clusterNameProvider.GetClusterName()
-	if clusterName == "" {
-		k.logger.Warn("Failed to detect cluster name. Drop all metrics")
-		return result
-	}
+// don't emit metrics if the cluster name is not detected
 
-	k.logger.Info("collect data from K8s API Server...")
-	timestampNs := strconv.FormatInt(time.Now().UnixNano(), 10)
+//nolint:gocritic //sprintfQuotedString for JSON
 
-	fields := map[string]any{
-		"cluster_failed_node_count": k.nodeClient.ClusterFailedNodeCount(),
-		"cluster_node_count":        k.nodeClient.ClusterNodeCount(),
-	}
-	attributes := map[string]string{
-		ci.ClusterNameKey: clusterName,
-		ci.MetricType:     ci.TypeCluster,
-		ci.Timestamp:      timestampNs,
-		ci.Version:        "0",
-	}
-	if k.nodeName != "" {
-		attributes["NodeName"] = k.nodeName
-	}
-	attributes[ci.SourcesKey] = "[\"apiserver\"]"
-	md := ci.ConvertToOTLPMetrics(fields, attributes, k.logger)
-	result = append(result, md)
-
-	for service, podNum := range k.epClient.ServiceToPodNum() {
-		fields := map[string]any{
-			"service_number_of_running_pods": podNum,
-		}
-		attributes := map[string]string{
-			ci.ClusterNameKey: clusterName,
-			ci.MetricType:     ci.TypeClusterService,
-			ci.Timestamp:      timestampNs,
-			ci.TypeService:    service.ServiceName,
-			ci.K8sNamespace:   service.Namespace,
-			ci.Version:        "0",
-		}
-		if k.nodeName != "" {
-			attributes["NodeName"] = k.nodeName
-		}
-		attributes[ci.SourcesKey] = "[\"apiserver\"]"
-		attributes[ci.Kubernetes] = fmt.Sprintf("{\"namespace_name\":\"%s\",\"service_name\":\"%s\"}", //nolint:gocritic //sprintfQuotedString for JSON
-			service.Namespace, service.ServiceName)
-		md := ci.ConvertToOTLPMetrics(fields, attributes, k.logger)
-		result = append(result, md)
-	}
-
-	for namespace, podNum := range k.podClient.NamespaceToRunningPodNum() {
-		fields := map[string]any{
-			"namespace_number_of_running_pods": podNum,
-		}
-		attributes := map[string]string{
-			ci.ClusterNameKey: clusterName,
-			ci.MetricType:     ci.TypeClusterNamespace,
-			ci.Timestamp:      timestampNs,
-			ci.K8sNamespace:   namespace,
-			ci.Version:        "0",
-		}
-		if k.nodeName != "" {
-			attributes["NodeName"] = k.nodeName
-		}
-		attributes[ci.SourcesKey] = "[\"apiserver\"]"
-		attributes[ci.Kubernetes] = fmt.Sprintf("{\"namespace_name\":\"%s\"}", namespace) //nolint:gocritic //sprintfQuotedString for JSON
-		md := ci.ConvertToOTLPMetrics(fields, attributes, k.logger)
-		result = append(result, md)
-	}
-
-	return result
-}
+//nolint:gocritic //sprintfQuotedString for JSON
 
 func (k *K8sAPIServer) init() error {
 	var ctx context.Context
@@ -238,87 +141,33 @@ func (k *K8sAPIServer) init() error {
 }
 
 // Shutdown stops the k8sApiServer
-func (k *K8sAPIServer) Shutdown() error {
-	if k.cancel != nil {
-		k.cancel()
-	}
-	return nil
-}
+func (k *K8sAPIServer) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
 func (k *K8sAPIServer) startLeaderElection(ctx context.Context, lock resourcelock.Interface) {
-	for {
-		leaderelection.RunOrDie(ctx, leaderelection.LeaderElectionConfig{
-			Lock: lock,
-			// IMPORTANT: you MUST ensure that any code you have that
-			// is protected by the lease must terminate **before**
-			// you call cancel. Otherwise, you could have a background
-			// loop still running and another process could
-			// get elected before your background loop finished, violating
-			// the stated goal of the lease.
-			LeaseDuration: 60 * time.Second,
-			RenewDeadline: 15 * time.Second,
-			RetryPeriod:   5 * time.Second,
-			Callbacks: leaderelection.LeaderCallbacks{
-				OnStartedLeading: func(ctx context.Context) {
-					k.logger.Info("k8sapiserver OnStartedLeading: " + k.nodeName)
-					// we're notified when we start
-					k.mu.Lock()
-					k.leading = true
-					// always retrieve clients in case previous ones shut down during leader switching
-					k.nodeClient = k.k8sClient.GetNodeClient()
-					k.podClient = k.k8sClient.GetPodClient()
-					k.epClient = k.k8sClient.GetEpClient()
-					k.mu.Unlock()
-
-					if k.isLeadingC != nil {
-						// this executes only in testing
-						close(k.isLeadingC)
-					}
-
-					for {
-						k.mu.Lock()
-						leading := k.leading
-						k.mu.Unlock()
-						if !leading {
-							k.logger.Info("no longer leading")
-							return
-						}
-						select {
-						case <-ctx.Done():
-							k.logger.Info("ctx cancelled")
-							return
-						case <-time.After(time.Second):
-						}
-					}
-				},
-				OnStoppedLeading: func() {
-					k.logger.Info("k8sapiserver OnStoppedLeading: " + k.nodeName)
-					// we can do cleanup here, or after the RunOrDie method returns
-					k.mu.Lock()
-					defer k.mu.Unlock()
-					k.leading = false
-					// node and pod are only used for cluster level metrics, endpoint is used for decorator too.
-					k.k8sClient.ShutdownNodeClient()
-					k.k8sClient.ShutdownPodClient()
-				},
-				OnNewLeader: func(identity string) {
-					k.logger.Info("k8sapiserver Switch New Leader: " + identity)
-				},
-			},
-		})
-
-		select {
-		case <-ctx.Done(): // when leader election ends, the channel ctx.Done() will be closed
-			k.logger.Info("k8sapiserver shutdown Leader Election: " + k.nodeName)
-			return
-		default:
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
+// IMPORTANT: you MUST ensure that any code you have that
+// is protected by the lease must terminate **before**
+// you call cancel. Otherwise, you could have a background
+// loop still running and another process could
+// get elected before your background loop finished, violating
+// the stated goal of the lease.
+
+// we're notified when we start
+
+// always retrieve clients in case previous ones shut down during leader switching
+
+// this executes only in testing
+
+// we can do cleanup here, or after the RunOrDie method returns
+
+// node and pod are only used for cluster level metrics, endpoint is used for decorator too.
+
+// when leader election ends, the channel ctx.Done() will be closed
+
 func (k *K8sAPIServer) createRecorder(name, namespace string) record.EventRecorder {
-	k.broadcaster.StartLogging(klog.Infof)
-	clientSet := k.k8sClient.GetClientSet()
-	k.broadcaster.StartRecordingToSink(&corev1.EventSinkImpl{Interface: corev1.New(clientSet.CoreV1().RESTClient()).Events(namespace)})
-	return k.broadcaster.NewRecorder(scheme.Scheme, v1.EventSource{Component: name})
+	_ = "STUB: not implemented"
+	return *new(record.EventRecorder)
 }

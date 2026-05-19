@@ -18,40 +18,31 @@ type PerfCounterWatcherMock struct {
 
 // ScrapeRawValue implements winperfcounters.PerfCounterWatcher.
 func (w *PerfCounterWatcherMock) ScrapeRawValue(rawValue *int64) (bool, error) {
-	*rawValue = 0
-	if w.ScrapeErr != nil {
-		return false, w.ScrapeErr
-	}
-
-	*rawValue = w.Val
-	return true, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // ScrapeRawValues implements winperfcounters.PerfCounterWatcher.
 func (w *PerfCounterWatcherMock) ScrapeRawValues() ([]winperfcounters.RawCounterValue, error) {
-	return nil, w.ScrapeErr
+	_ = "STUB: not implemented"
+	return nil,
+
+		// ScrapeData returns scrapeErr if it's set, otherwise it returns a single countervalue with the mock's val
+		nil
 }
 
-// ScrapeData returns scrapeErr if it's set, otherwise it returns a single countervalue with the mock's val
 func (PerfCounterWatcherMock) ScrapeData() ([]winperfcounters.CounterValue, error) {
-	panic("unimplemented")
+	_ = "STUB: not implemented"
+	return nil,
+
+		// Reset panics; it should not be called
+		nil
 }
 
-// Reset panics; it should not be called
-func (PerfCounterWatcherMock) Reset() error {
-	panic("unimplemented")
-}
+func (PerfCounterWatcherMock) Reset() error { _ = "STUB: not implemented"; return nil }
 
 // Path panics; It should not be called
-func (PerfCounterWatcherMock) Path() string {
-	panic("unimplemented")
-}
+func (PerfCounterWatcherMock) Path() string { _ = "STUB: not implemented"; return "" }
 
 // Close all counters/handles related to the query and free all associated memory.
-func (w *PerfCounterWatcherMock) Close() error {
-	if w.closed {
-		panic("mockPerfCounterWatcher was already closed!")
-	}
-	w.closed = true
-	return w.CloseErr
-}
+func (w *PerfCounterWatcherMock) Close() error { _ = "STUB: not implemented"; return nil }

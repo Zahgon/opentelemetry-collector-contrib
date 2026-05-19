@@ -21,29 +21,8 @@ type TraceVisitor interface {
 }
 
 // accept method is called to start the iteration process
-func accept(traces ptrace.Traces, v TraceVisitor) {
-	resourceSpans := traces.ResourceSpans()
+func accept(traces ptrace.Traces, v TraceVisitor) { _ = "STUB: not implemented"; return }
 
-	// Walk each ResourceSpans instance
-	for i := 0; i < resourceSpans.Len(); i++ {
-		rs := resourceSpans.At(i)
-		resource := rs.Resource()
-		scopeSpansSlice := rs.ScopeSpans()
+// Walk each ResourceSpans instance
 
-		for j := 0; j < scopeSpansSlice.Len(); j++ {
-			scopeSpans := scopeSpansSlice.At(j)
-			// instrumentation library is optional
-			scope := scopeSpans.Scope()
-			spansSlice := scopeSpans.Spans()
-			if spansSlice.Len() == 0 {
-				continue
-			}
-
-			for k := 0; k < spansSlice.Len(); k++ {
-				if ok := v.visit(resource, scope, spansSlice.At(k)); !ok {
-					return
-				}
-			}
-		}
-	}
-}
+// instrumentation library is optional

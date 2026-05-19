@@ -4,8 +4,6 @@
 package drainprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/drainprocessor"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -80,21 +78,4 @@ type Config struct {
 }
 
 // Validate checks the Config for invalid values.
-func (cfg *Config) Validate() error {
-	if cfg.TreeDepth < 3 {
-		return fmt.Errorf("tree_depth must be >= 3, got %d", cfg.TreeDepth)
-	}
-	if cfg.MergeThreshold < 0.0 || cfg.MergeThreshold > 1.0 {
-		return fmt.Errorf("merge_threshold must be in [0.0, 1.0], got %f", cfg.MergeThreshold)
-	}
-	if cfg.WarmupMinClusters < 0 {
-		return fmt.Errorf("warmup_min_clusters must be >= 0, got %d", cfg.WarmupMinClusters)
-	}
-	if cfg.SaveInterval < 0 {
-		return fmt.Errorf("save_interval must be >= 0, got %s", cfg.SaveInterval)
-	}
-	if cfg.SaveInterval > 0 && cfg.Storage == nil {
-		return errors.New("save_interval requires storage to be set")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

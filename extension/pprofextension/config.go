@@ -33,6 +33,4 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the extension configuration is valid
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }

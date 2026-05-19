@@ -4,12 +4,10 @@
 package purefbreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/purefbreceiver"
 
 import (
-	"errors"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/purefbreceiver/internal"
 )
@@ -52,18 +50,4 @@ type ReloadIntervals struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	var err error
-
-	if c.Settings.ReloadIntervals.Array == 0 {
-		err = multierr.Append(err, errors.New("reload interval for 'arrays' must be provided"))
-	}
-	if c.Settings.ReloadIntervals.Clients == 0 {
-		err = multierr.Append(err, errors.New("reload interval for 'clients' must be provided"))
-	}
-	if c.Settings.ReloadIntervals.Usage == 0 {
-		err = multierr.Append(err, errors.New("reload interval for 'usage' must be provided"))
-	}
-
-	return err
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

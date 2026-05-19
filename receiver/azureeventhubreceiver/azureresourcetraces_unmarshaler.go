@@ -16,13 +16,8 @@ type azureTracesEventUnmarshaler struct {
 }
 
 func newAzureTracesUnmarshaler(buildInfo component.BuildInfo, logger *zap.Logger, timeFormat []string) eventTracesUnmarshaler {
-	return azureTracesEventUnmarshaler{
-		unmarshaler: &azure.TracesUnmarshaler{
-			Version:     buildInfo.Version,
-			Logger:      logger,
-			TimeFormats: timeFormat,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(eventTracesUnmarshaler)
 }
 
 // UnmarshalTraces takes a byte array containing a JSON-encoded
@@ -32,5 +27,6 @@ func newAzureTracesUnmarshaler(buildInfo component.BuildInfo, logger *zap.Logger
 // OpenTelemetry representation; the bodies of the
 // OpenTelemetry trace records are empty.
 func (r azureTracesEventUnmarshaler) UnmarshalTraces(event *azureEvent) (ptrace.Traces, error) {
-	return r.unmarshaler.UnmarshalTraces(event.Data())
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }

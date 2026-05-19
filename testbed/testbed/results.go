@@ -4,11 +4,7 @@
 package testbed // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 
 import (
-	"encoding/json"
-	"fmt"
-	"log"
 	"os"
-	"path"
 	"time"
 )
 
@@ -65,125 +61,23 @@ type PerformanceTestResult struct {
 	errorCause         string
 }
 
-func (r *PerformanceResults) Init(resultsDir string) {
-	r.resultsDir = resultsDir
-	r.perTestResults = []*PerformanceTestResult{}
-	r.benchmarkResults = []*benchmarkResult{}
+func (r *PerformanceResults) Init(resultsDir string) { _ = "STUB: not implemented"; return }
 
-	// Create resultsSummary file
-	if err := os.MkdirAll(resultsDir, os.FileMode(0o755)); err != nil {
-		log.Fatal(err)
-	}
-	var err error
-	r.resultsFile, err = os.Create(path.Join(r.resultsDir, "TESTRESULTS.md"))
-	if err != nil {
-		log.Fatal(err)
-	}
+// Create resultsSummary file
 
-	// Write the header
-	_, _ = fmt.Fprintf(r.resultsFile, `# Test PerformanceResults
-Started: %s
-
-Test                                    |Result|Duration|CPU Avg%%|CPU Max%%|CPU Limit|RAM Avg MiB|RAM Max MiB|RAM Limit MiB|Sent Items|Received Items|
-----------------------------------------|------|-------:|-------:|-------:|--------:|----------:|----------:|------------:|---------:|-------------:|
-`, time.Now().Format(time.RFC1123Z))
-}
+// Write the header
 
 // Save the total results and close the file.
-func (r *PerformanceResults) Save() {
-	_, _ = fmt.Fprintf(r.resultsFile,
-		"\nTotal duration: %.0fs\n",
-		r.totalDuration.Seconds())
-	r.resultsFile.Close()
-	r.saveBenchmarks()
-}
+func (r *PerformanceResults) Save() { _ = "STUB: not implemented"; return }
 
 // Add results for one test.
-func (r *PerformanceResults) Add(_ string, result any) {
-	testResult, ok := result.(*PerformanceTestResult)
-	if !ok {
-		return
-	}
+func (r *PerformanceResults) Add(_ string, result any) { _ = "STUB: not implemented"; return }
 
-	_, _ = fmt.Fprintf(r.resultsFile,
-		"%-40s|%-6s|%7.0fs|%8.1f|%8.1f|%8.1f|%11d|%11d|%11d|%10d|%14d|%s\n",
-		testResult.testName,
-		testResult.result,
-		testResult.duration.Seconds(),
-		testResult.cpuPercentageAvg,
-		testResult.cpuPercentageMax,
-		testResult.cpuPercentageLimit,
-		testResult.ramMibAvg,
-		testResult.ramMibMax,
-		testResult.ramMibLimit,
-		testResult.sentSpanCount,
-		testResult.receivedSpanCount,
-		testResult.errorCause,
-	)
-	r.totalDuration += testResult.duration
-
-	// individual benchmark results
-	cpuChartName := fmt.Sprintf("%s - Cpu Percentage", testResult.testName)
-	memoryChartName := fmt.Sprintf("%s - RAM (MiB)", testResult.testName)
-	droppedSpansChartName := fmt.Sprintf("%s - Dropped Span Count", testResult.testName)
-
-	r.benchmarkResults = append(r.benchmarkResults,
-		&benchmarkResult{
-			Name:  "cpu_percentage_avg",
-			Value: testResult.cpuPercentageAvg,
-			Unit:  "%",
-			Extra: cpuChartName,
-		},
-		&benchmarkResult{
-			Name:  "cpu_percentage_max",
-			Value: testResult.cpuPercentageMax,
-			Unit:  "%",
-			Extra: cpuChartName,
-		})
-	if testResult.cpuPercentageLimit > 0 {
-		r.benchmarkResults = append(r.benchmarkResults, &benchmarkResult{
-			Name:  "cpu_percentage_limit",
-			Value: testResult.cpuPercentageLimit,
-			Unit:  "%",
-			Extra: cpuChartName,
-		})
-	}
-	r.benchmarkResults = append(r.benchmarkResults,
-		&benchmarkResult{
-			Name:  "ram_mib_avg",
-			Value: float64(testResult.ramMibAvg),
-			Unit:  "MiB",
-			Extra: memoryChartName,
-		},
-		&benchmarkResult{
-			Name:  "ram_mib_max",
-			Value: float64(testResult.ramMibMax),
-			Unit:  "MiB",
-			Extra: memoryChartName,
-		})
-	if testResult.ramMibLimit > 0 {
-		r.benchmarkResults = append(r.benchmarkResults, &benchmarkResult{
-			Name:  "ram_mib_limit",
-			Value: float64(testResult.ramMibLimit),
-			Unit:  "MiB",
-			Extra: memoryChartName,
-		})
-	}
-	r.benchmarkResults = append(r.benchmarkResults, &benchmarkResult{
-		Name:  "dropped_span_count",
-		Value: float64(testResult.sentSpanCount - testResult.receivedSpanCount),
-		Unit:  "spans",
-		Extra: droppedSpansChartName,
-	})
-}
+// individual benchmark results
 
 // saveBenchmarks writes benchmarks to file as json to be stored by
 // benchmark-action
-func (r *PerformanceResults) saveBenchmarks() {
-	path := path.Join(r.resultsDir, "benchmarks.json")
-	j, _ := json.MarshalIndent(r.benchmarkResults, "", "  ")
-	_ = os.WriteFile(path, j, 0o600)
-}
+func (r *PerformanceResults) saveBenchmarks() { _ = "STUB: not implemented"; return }
 
 // CorrectnessResults implements the TestResultsSummary interface with fields suitable for reporting data translation
 // correctness test results.
@@ -215,79 +109,19 @@ type TraceAssertionFailure struct {
 	sumCount      int
 }
 
-func (af TraceAssertionFailure) String() string {
-	return fmt.Sprintf("%s/%s e=%#v a=%#v ", af.dataComboName, af.fieldPath, af.expectedValue, af.actualValue)
-}
+func (af TraceAssertionFailure) String() string { _ = "STUB: not implemented"; return "" }
 
-func (r *CorrectnessResults) Init(resultsDir string) {
-	r.resultsDir = resultsDir
-	r.perTestResults = []*CorrectnessTestResult{}
+func (r *CorrectnessResults) Init(resultsDir string) { _ = "STUB: not implemented"; return }
 
-	// Create resultsSummary file
-	if err := os.MkdirAll(resultsDir, os.FileMode(0o755)); err != nil {
-		log.Fatal(err)
-	}
-	var err error
-	r.resultsFile, err = os.Create(path.Join(r.resultsDir, "CORRECTNESSRESULTS.md"))
-	if err != nil {
-		log.Fatal(err)
-	}
+// Create resultsSummary file
 
-	// Write the header
-	_, _ = fmt.Fprintf(r.resultsFile, `# Test Results
-Started: %s
+// Write the header
 
-Test                                    |Result|Duration|Sent Items|Received Items|Failure Count|Failures
-----------------------------------------|------|-------:|---------:|-------------:|------------:|--------
-`, time.Now().Format(time.RFC1123Z))
-}
+func (r *CorrectnessResults) Add(_ string, result any) { _ = "STUB: not implemented"; return }
 
-func (r *CorrectnessResults) Add(_ string, result any) {
-	testResult, ok := result.(*CorrectnessTestResult)
-	if !ok {
-		return
-	}
-	consolidated := consolidateAssertionFailures(testResult.traceAssertionFailures)
-	failuresStr := ""
-	for _, af := range consolidated {
-		failuresStr = fmt.Sprintf("%s%s,%#v!=%#v,count=%d; ", failuresStr, af.fieldPath, af.expectedValue,
-			af.actualValue, af.sumCount)
-	}
-	_, _ = fmt.Fprintf(r.resultsFile, "%-40s|%-6s|%7.0fs|%10d|%14d|%13d|%s\n",
-		testResult.testName,
-		testResult.result,
-		testResult.duration.Seconds(),
-		testResult.sentSpanCount,
-		testResult.receivedSpanCount,
-		testResult.traceAssertionFailureCount,
-		failuresStr,
-	)
-	r.perTestResults = append(r.perTestResults, testResult)
-	r.totalAssertionFailures += testResult.traceAssertionFailureCount
-	r.totalDuration += testResult.duration
-}
-
-func (r *CorrectnessResults) Save() {
-	_, _ = fmt.Fprintf(r.resultsFile, "\nTotal assertion failures: %d\n", r.totalAssertionFailures)
-	_, _ = fmt.Fprintf(r.resultsFile, "\nTotal duration: %.0fs\n", r.totalDuration.Seconds())
-	r.resultsFile.Close()
-}
+func (r *CorrectnessResults) Save() { _ = "STUB: not implemented"; return }
 
 func consolidateAssertionFailures(failures []*TraceAssertionFailure) map[string]*TraceAssertionFailure {
-	afMap := make(map[string]*TraceAssertionFailure)
-	for _, f := range failures {
-		summary := afMap[f.fieldPath]
-		if summary == nil {
-			summary = &TraceAssertionFailure{
-				typeName:      f.typeName,
-				dataComboName: f.dataComboName + "...",
-				fieldPath:     f.fieldPath,
-				expectedValue: f.expectedValue,
-				actualValue:   f.actualValue,
-			}
-			afMap[f.fieldPath] = summary
-		}
-		summary.sumCount++
-	}
-	return afMap
+	_ = "STUB: not implemented"
+	return nil
 }

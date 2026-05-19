@@ -7,34 +7,16 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/prometheusremotewritereceiver/internal/metadata"
 )
 
 // NewFactory creates a new Prometheus receiver factory.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = "localhost:9090"
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{
-			NetAddr: netAddr,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createMetrics creates a metrics receiver based on provided config.
@@ -44,6 +26,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	rCfg := cfg.(*Config)
-	return newRemoteWriteReceiver(set, rCfg, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

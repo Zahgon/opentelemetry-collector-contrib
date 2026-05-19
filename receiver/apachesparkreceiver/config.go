@@ -5,7 +5,6 @@ package apachesparkreceiver // import "github.com/open-telemetry/opentelemetry-c
 
 import (
 	"errors"
-	"net/url"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -33,10 +32,4 @@ type Config struct {
 }
 
 // Validate validates missing and invalid configuration fields.
-func (cfg *Config) Validate() error {
-	_, parseErr := url.Parse(cfg.Endpoint)
-	if parseErr != nil {
-		return errInvalidEndpoint
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

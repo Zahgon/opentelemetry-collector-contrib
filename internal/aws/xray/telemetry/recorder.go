@@ -4,14 +4,9 @@
 package telemetry // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/xray/telemetry"
 
 import (
-	"errors"
 	"sync/atomic"
-	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
-	awshttp "github.com/aws/aws-sdk-go-v2/aws/transport/http"
 	"github.com/aws/aws-sdk-go-v2/service/xray/types"
-	smithyhttp "github.com/aws/smithy-go/transport/http"
 )
 
 type Recorder interface {
@@ -43,104 +38,30 @@ type telemetryRecorder struct {
 }
 
 // NewRecorder creates a new Recorder with a default interval and queue size.
-func NewRecorder() Recorder {
-	return &telemetryRecorder{
-		record:       NewRecord(),
-		hasRecording: &atomic.Bool{},
-	}
-}
+func NewRecorder() Recorder { _ = "STUB: not implemented"; return *new(Recorder) }
 
 // NewRecord creates a new xray.TelemetryRecord with all of its fields initialized
 // and set to 0.
 func NewRecord() types.TelemetryRecord {
-	return types.TelemetryRecord{
-		SegmentsReceivedCount:  aws.Int32(0),
-		SegmentsRejectedCount:  aws.Int32(0),
-		SegmentsSentCount:      aws.Int32(0),
-		SegmentsSpilloverCount: aws.Int32(0),
-		BackendConnectionErrors: &types.BackendConnectionErrors{
-			HTTPCode4XXCount:       aws.Int32(0),
-			HTTPCode5XXCount:       aws.Int32(0),
-			ConnectionRefusedCount: aws.Int32(0),
-			OtherCount:             aws.Int32(0),
-			TimeoutCount:           aws.Int32(0),
-			UnknownHostCount:       aws.Int32(0),
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(types.TelemetryRecord)
 }
 
-func (tr *telemetryRecorder) HasRecording() bool {
-	return tr.hasRecording.Load()
-}
+func (tr *telemetryRecorder) HasRecording() bool { _ = "STUB: not implemented"; return false }
 
 // Rotate the current record and swaps it out with a new record.
 // Sets the timestamp and returns the old record.
 func (tr *telemetryRecorder) Rotate() types.TelemetryRecord {
-	snapshot := types.TelemetryRecord{
-		Timestamp: aws.Time(time.Now()),
-		BackendConnectionErrors: &types.BackendConnectionErrors{
-			HTTPCode4XXCount:       aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.HTTPCode4XXCount, 0)),
-			HTTPCode5XXCount:       aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.HTTPCode5XXCount, 0)),
-			ConnectionRefusedCount: aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.ConnectionRefusedCount, 0)),
-			OtherCount:             aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.OtherCount, 0)),
-			TimeoutCount:           aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.TimeoutCount, 0)),
-			UnknownHostCount:       aws.Int32(atomic.SwapInt32(tr.record.BackendConnectionErrors.UnknownHostCount, 0)),
-		},
-		SegmentsReceivedCount:  aws.Int32(atomic.SwapInt32(tr.record.SegmentsReceivedCount, 0)),
-		SegmentsRejectedCount:  aws.Int32(atomic.SwapInt32(tr.record.SegmentsRejectedCount, 0)),
-		SegmentsSentCount:      aws.Int32(atomic.SwapInt32(tr.record.SegmentsSentCount, 0)),
-		SegmentsSpilloverCount: aws.Int32(atomic.SwapInt32(tr.record.SegmentsSpilloverCount, 0)),
-	}
-
-	tr.hasRecording.Store(false)
-	return snapshot
+	_ = "STUB: not implemented"
+	return *new(types.TelemetryRecord)
 }
 
-func (tr *telemetryRecorder) RecordSegmentsReceived(count int) {
-	atomic.AddInt32(tr.record.SegmentsReceivedCount, int32(count))
-	tr.hasRecording.Store(true)
-}
+func (tr *telemetryRecorder) RecordSegmentsReceived(count int) { _ = "STUB: not implemented"; return }
 
-func (tr *telemetryRecorder) RecordSegmentsSent(count int) {
-	atomic.AddInt32(tr.record.SegmentsSentCount, int32(count))
-	tr.hasRecording.Store(true)
-}
+func (tr *telemetryRecorder) RecordSegmentsSent(count int) { _ = "STUB: not implemented"; return }
 
-func (tr *telemetryRecorder) RecordSegmentsSpillover(count int) {
-	atomic.AddInt32(tr.record.SegmentsSpilloverCount, int32(count))
-	tr.hasRecording.Store(true)
-}
+func (tr *telemetryRecorder) RecordSegmentsSpillover(count int) { _ = "STUB: not implemented"; return }
 
-func (tr *telemetryRecorder) RecordSegmentsRejected(count int) {
-	atomic.AddInt32(tr.record.SegmentsRejectedCount, int32(count))
-	tr.hasRecording.Store(true)
-}
+func (tr *telemetryRecorder) RecordSegmentsRejected(count int) { _ = "STUB: not implemented"; return }
 
-func (tr *telemetryRecorder) RecordConnectionError(err error) {
-	if err == nil {
-		return
-	}
-
-	var (
-		responseErr *awshttp.ResponseError
-		requestErr  *smithyhttp.RequestSendError
-		timeoutErr  *awshttp.ResponseTimeoutError
-	)
-	if ok := errors.As(err, &responseErr); ok {
-		switch responseErr.HTTPStatusCode() / 100 {
-		case 5:
-			atomic.AddInt32(tr.record.BackendConnectionErrors.HTTPCode5XXCount, 1)
-		case 4:
-			atomic.AddInt32(tr.record.BackendConnectionErrors.HTTPCode4XXCount, 1)
-		default:
-			atomic.AddInt32(tr.record.BackendConnectionErrors.OtherCount, 1)
-		}
-	} else if ok := errors.As(err, &timeoutErr); ok {
-		atomic.AddInt32(tr.record.BackendConnectionErrors.TimeoutCount, 1)
-	} else if ok := errors.As(err, &requestErr); ok {
-		atomic.AddInt32(tr.record.BackendConnectionErrors.UnknownHostCount, 1)
-	} else {
-		atomic.AddInt32(tr.record.BackendConnectionErrors.OtherCount, 1)
-	}
-	tr.hasRecording.Store(true)
-}
+func (tr *telemetryRecorder) RecordConnectionError(err error) { _ = "STUB: not implemented"; return }

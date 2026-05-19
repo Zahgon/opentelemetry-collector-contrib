@@ -5,7 +5,6 @@ package dorisexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	_ "embed"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -35,46 +34,13 @@ type metricModelSummary struct {
 }
 
 func (*metricModelSummary) metricType() pmetric.MetricType {
-	return pmetric.MetricTypeSummary
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType)
 }
 
-func (*metricModelSummary) tableSuffix() string {
-	return "_summary"
-}
+func (*metricModelSummary) tableSuffix() string { _ = "STUB: not implemented"; return "" }
 
 func (m *metricModelSummary) add(pm pmetric.Metric, dm *dMetric, e *metricsExporter) error {
-	if pm.Type() != pmetric.MetricTypeSummary {
-		return fmt.Errorf("metric type is not summary: %v", pm.Type().String())
-	}
-
-	dataPoints := pm.Summary().DataPoints()
-	for i := 0; i < dataPoints.Len(); i++ {
-		dp := dataPoints.At(i)
-
-		quantileValues := dp.QuantileValues()
-		newQuantileValues := make([]*dQuantileValue, 0, quantileValues.Len())
-		for j := 0; j < quantileValues.Len(); j++ {
-			quantileValue := quantileValues.At(j)
-
-			newQuantileValue := &dQuantileValue{
-				Quantile: quantileValue.Quantile(),
-				Value:    quantileValue.Value(),
-			}
-
-			newQuantileValues = append(newQuantileValues, newQuantileValue)
-		}
-
-		metric := &dMetricSummary{
-			dMetric:        dm,
-			Timestamp:      e.formatTime(dp.Timestamp().AsTime()),
-			Attributes:     dp.Attributes().AsRaw(),
-			StartTime:      e.formatTime(dp.StartTimestamp().AsTime()),
-			Count:          int64(dp.Count()),
-			Sum:            dp.Sum(),
-			QuantileValues: newQuantileValues,
-		}
-		m.data = append(m.data, metric)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

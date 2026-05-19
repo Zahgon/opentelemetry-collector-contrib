@@ -16,13 +16,10 @@ type SpanEventSignalNameChange struct {
 	SignalNameChange migrate.SignalNameChange
 }
 
-func (SpanEventSignalNameChange) IsMigrator() {}
+func (SpanEventSignalNameChange) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (c SpanEventSignalNameChange) Do(ss migrate.StateSelector, span ptrace.Span) error {
-	for e := 0; e < span.Events().Len(); e++ {
-		event := span.Events().At(e)
-		c.SignalNameChange.Do(ss, event)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -32,9 +29,9 @@ type MetricSignalNameChange struct {
 	SignalNameChange migrate.SignalNameChange
 }
 
-func (MetricSignalNameChange) IsMigrator() {}
+func (MetricSignalNameChange) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (c MetricSignalNameChange) Do(ss migrate.StateSelector, metric pmetric.Metric) error {
-	c.SignalNameChange.Do(ss, metric)
+	_ = "STUB: not implemented"
 	return nil
 }

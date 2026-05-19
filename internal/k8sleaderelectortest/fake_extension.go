@@ -17,13 +17,12 @@ type FakeHost struct {
 }
 
 func (fh *FakeHost) GetExtensions() map[component.ID]component.Component {
-	extID := component.MustNewID("k8s_leader_elector")
-	return map[component.ID]component.Component{
-		extID: fh.FakeLeaderElection,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*FakeHost) GetExporters() map[pipeline.Signal]map[component.ID]component.Component {
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -33,22 +32,17 @@ type FakeLeaderElection struct {
 }
 
 func (fle *FakeLeaderElection) SetCallBackFuncs(onLeading k8sleaderelector.StartCallback, onStopping k8sleaderelector.StopCallback) {
-	fle.OnLeading = onLeading
-	fle.OnStopping = onStopping
+	_ = "STUB: not implemented"
+	return
 }
 
-func (fle *FakeLeaderElection) InvokeOnLeading() {
-	if fle.OnLeading != nil {
-		fle.OnLeading(context.Background())
-	}
+func (fle *FakeLeaderElection) InvokeOnLeading() { _ = "STUB: not implemented"; return }
+
+func (*FakeLeaderElection) Start(context.Context, component.Host) error {
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (*FakeLeaderElection) Start(context.Context, component.Host) error { return nil }
+func (*FakeLeaderElection) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
-func (*FakeLeaderElection) Shutdown(context.Context) error { return nil }
-
-func (fle *FakeLeaderElection) InvokeOnStopping() {
-	if fle.OnStopping != nil {
-		fle.OnStopping()
-	}
-}
+func (fle *FakeLeaderElection) InvokeOnStopping() { _ = "STUB: not implemented"; return }

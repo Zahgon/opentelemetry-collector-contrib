@@ -5,11 +5,7 @@ package upcloud // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"time"
 )
 
 const (
@@ -28,12 +24,7 @@ type upcloudProviderImpl struct {
 }
 
 // NewProvider creates a new Upcloud metadata provider.
-func NewProvider() Provider {
-	return &upcloudProviderImpl{
-		endpoint: metadataEndpoint,
-		client:   &http.Client{Timeout: 2 * time.Second},
-	}
-}
+func NewProvider() Provider { _ = "STUB: not implemented"; return *new(Provider) }
 
 type Metadata struct {
 	CloudName  string `json:"cloud_name"`
@@ -44,27 +35,6 @@ type Metadata struct {
 
 // Metadata fetches and decodes Upcloud instance metadata.
 func (p *upcloudProviderImpl) Metadata(ctx context.Context) (*Metadata, error) {
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, p.endpoint, http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("create request: %w", err)
-	}
-	resp, err := p.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("query Upcloud metadata: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Upcloud metadata replied with status code: %s", resp.Status)
-	}
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("read Upcloud metadata: %w", err)
-	}
-
-	var md Metadata
-	if err := json.Unmarshal(body, &md); err != nil {
-		return nil, fmt.Errorf("decode Upcloud metadata: %w", err)
-	}
-	return &md, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

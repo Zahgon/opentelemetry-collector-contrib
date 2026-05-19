@@ -5,7 +5,6 @@ package metricstransformprocessor // import "github.com/open-telemetry/opentelem
 
 import (
 	"regexp"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -52,42 +51,28 @@ type StringMatcher interface {
 
 type strictMatcher string
 
-func (s strictMatcher) MatchString(cmp string) bool {
-	return string(s) == cmp
-}
+func (s strictMatcher) MatchString(cmp string) bool { _ = "STUB: not implemented"; return false }
 
 type internalFilterStrict struct {
 	include      string
 	attrMatchers map[string]StringMatcher
 }
 
-func (internalFilterStrict) getSubexpNames() []string {
-	return nil
-}
+func (internalFilterStrict) getSubexpNames() []string { _ = "STUB: not implemented"; return nil }
 
 type internalFilterRegexp struct {
 	include      *regexp.Regexp
 	attrMatchers map[string]StringMatcher
 }
 
-func (f internalFilterRegexp) getSubexpNames() []string {
-	return f.include.SubexpNames()
-}
+func (f internalFilterRegexp) getSubexpNames() []string { _ = "STUB: not implemented"; return nil }
 
 func newMetricsTransformProcessor(logger *zap.Logger, internalTransforms []internalTransform) *metricsTransformProcessor {
-	return &metricsTransformProcessor{
-		transforms: internalTransforms,
-		logger:     logger,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func replaceCaseOfSubmatch(replacement submatchCase, submatch string) string {
-	switch replacement {
-	case lower:
-		return strings.ToLower(submatch)
-	case upper:
-		return strings.ToUpper(submatch)
-	}
-
-	return submatch
+	_ = "STUB: not implemented"
+	return ""
 }

@@ -4,8 +4,6 @@
 package sumologicprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/sumologicprocessor"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -17,78 +15,16 @@ type attributesProcessor interface {
 }
 
 func processMetricLevelAttributes(proc attributesProcessor, metric pmetric.Metric) error {
-	switch metric.Type() {
-	case pmetric.MetricTypeEmpty:
-		return nil
-
-	case pmetric.MetricTypeSum:
-		dp := metric.Sum().DataPoints()
-		for i := 0; i < dp.Len(); i++ {
-			err := proc.processAttributes(dp.At(i).Attributes())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-
-	case pmetric.MetricTypeGauge:
-		dp := metric.Gauge().DataPoints()
-		for i := 0; i < dp.Len(); i++ {
-			err := proc.processAttributes(dp.At(i).Attributes())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-
-	case pmetric.MetricTypeHistogram:
-		dp := metric.Histogram().DataPoints()
-		for i := 0; i < dp.Len(); i++ {
-			err := proc.processAttributes(dp.At(i).Attributes())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-
-	case pmetric.MetricTypeExponentialHistogram:
-		dp := metric.ExponentialHistogram().DataPoints()
-		for i := 0; i < dp.Len(); i++ {
-			err := proc.processAttributes(dp.At(i).Attributes())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-
-	case pmetric.MetricTypeSummary:
-		dp := metric.Summary().DataPoints()
-		for i := 0; i < dp.Len(); i++ {
-			err := proc.processAttributes(dp.At(i).Attributes())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	}
-
-	return fmt.Errorf("unknown metric type: %s", metric.Type().String())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func mapToPcommonMap(m map[string]pcommon.Value) pcommon.Map {
-	attrs := pcommon.NewMap()
-	for k, v := range m {
-		v.CopyTo(attrs.PutEmpty(k))
-	}
-
-	return attrs
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 func mapToPcommonValue(m map[string]pcommon.Value) pcommon.Value {
-	attrs := pcommon.NewValueMap()
-	for k, v := range m {
-		v.CopyTo(attrs.Map().PutEmpty(k))
-	}
-
-	return attrs
+	_ = "STUB: not implemented"
+	return *new(pcommon.Value)
 }

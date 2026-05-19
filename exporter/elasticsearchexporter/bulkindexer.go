@@ -5,31 +5,18 @@ package elasticsearchexporter // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"io"
-	"net/http"
-	"net/url"
-	"runtime"
-	"slices"
-	"strings"
 	"sync"
 	"time"
 
 	"github.com/elastic/elastic-transport-go/v8/elastictransport"
 	"github.com/elastic/go-docappender/v2"
-	"go.opentelemetry.io/collector/client"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configcompression"
-	"go.opentelemetry.io/collector/consumer/consumererror"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/metric"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/logging"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/metadata"
 )
 
@@ -80,64 +67,26 @@ func newBulkIndexer(
 	logger *zap.Logger,
 	getErrorHintFunc func(index, errorType string) string,
 ) bulkIndexer {
-	return newSyncBulkIndexer(client, config, requireDataStream, tb, logger, getErrorHintFunc)
+	_ = "STUB: not implemented"
+	return *new(bulkIndexer)
 }
 
 func bulkIndexerConfig(client elastictransport.Interface, config *Config, requireDataStream bool, logger *zap.Logger) docappender.BulkIndexerConfig {
-	var maxDocRetries int
-	if config.Retry.Enabled {
-		maxDocRetries = defaultMaxRetries
-		if config.Retry.MaxRetries != 0 {
-			maxDocRetries = config.Retry.MaxRetries
-		}
-	}
-	var compressionLevel int
-	if config.Compression == configcompression.TypeGzip {
-		compressionLevel = int(config.CompressionParams.Level)
-	}
-	return docappender.BulkIndexerConfig{
-		Client:                  client,
-		MaxDocumentRetries:      maxDocRetries,
-		Pipeline:                config.Pipeline,
-		RetryOnDocumentStatus:   config.Retry.RetryOnStatus,
-		RequireDataStream:       requireDataStream,
-		CompressionLevel:        compressionLevel,
-		PopulateFailedDocsInput: config.LogFailedDocsInput,
-		IncludeSourceOnError:    bulkIndexerIncludeSourceOnError(config.IncludeSourceOnError),
-		QueryParams:             getQueryParamsFromEndpoint(config, logger),
-		FilterPath:              config.BulkResponseFilterPath,
-	}
+	_ = "STUB: not implemented"
+	return *new(docappender.BulkIndexerConfig)
 }
 
 func getQueryParamsFromEndpoint(config *Config, logger *zap.Logger) (queryParams map[string][]string) {
-	endpoints, _ := config.endpoints()
-
-	if len(endpoints) != 0 {
-		// we check the query params set on the first endpoint only
-		// this is enough to replicate to all requests
-		parsedURL, err := url.Parse(endpoints[0])
-		if err != nil {
-			logger.Warn("Failed to parse URL from endpoint", zap.Error(err))
-		}
-
-		rawQuery := parsedURL.RawQuery
-		queryParams, err = url.ParseQuery(rawQuery)
-		if err != nil {
-			logger.Warn("Failed to parse query parameters from endpoint", zap.Error(err))
-		}
-		return queryParams
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// we check the query params set on the first endpoint only
+// this is enough to replicate to all requests
+
 func bulkIndexerIncludeSourceOnError(includeSourceOnError *bool) docappender.Value {
-	if includeSourceOnError == nil {
-		return docappender.Unset
-	}
-	if *includeSourceOnError {
-		return docappender.True
-	}
-	return docappender.False
+	_ = "STUB: not implemented"
+	return *new(docappender.Value)
 }
 
 func newSyncBulkIndexer(
@@ -148,26 +97,8 @@ func newSyncBulkIndexer(
 	logger *zap.Logger,
 	getErrorHintFunc func(index, errorType string) string,
 ) *syncBulkIndexer {
-	var maxFlushBytes int64
-	if config.QueueBatchConfig.HasValue() && config.QueueBatchConfig.Get().Batch.HasValue() {
-		batch := config.QueueBatchConfig.Get().Batch.Get()
-		if batch.Sizer == exporterhelper.RequestSizerTypeBytes {
-			maxFlushBytes = batch.MaxSize
-		}
-	}
-	return &syncBulkIndexer{
-		config:                 bulkIndexerConfig(client, config, false, logger),
-		maxFlushBytes:          maxFlushBytes,
-		flushTimeout:           config.Timeout,
-		retryConfig:            config.Retry,
-		metadataKeys:           config.MetadataKeys,
-		telemetryBuilder:       tb,
-		logger:                 logger,
-		failedDocsInputLogger:  newFailedDocsInputLogger(logger, config),
-		getErrorHintFunc:       getErrorHintFunc,
-		requireDataStream:      requireDataStream,
-		suppressConflictErrors: config.SuppressConflictErrors,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type syncBulkIndexer struct {
@@ -187,27 +118,21 @@ type syncBulkIndexer struct {
 // StartSession creates a new docappender.BulkIndexer, and wraps
 // it with a syncBulkIndexerSession.
 func (s *syncBulkIndexer) StartSession(ctx context.Context) bulkIndexerSession {
-	bi, err := docappender.NewBulkIndexer(s.config)
-	if err != nil {
-		// This should never happen in practice:
-		// NewBulkIndexer should only fail if the
-		// config is invalid, and we expect it to
-		// always be valid at this point.
-		return errBulkIndexerSession{err: err}
-	}
-	// Compute the docs received attribute set once per session.
-	// Metadata keys are constant within a single request context,
-	// so recomputing them per document is wasteful.
-	docsReceivedAttr := metric.WithAttributeSet(attribute.NewSet(
-		getAttributesFromMetadataKeys(ctx, s.metadataKeys)...,
-	))
-	return &syncBulkIndexerSession{s: s, bi: bi, docsReceivedAttr: docsReceivedAttr}
+	_ = "STUB: not implemented"
+	return *new(bulkIndexerSession)
 }
 
+// This should never happen in practice:
+// NewBulkIndexer should only fail if the
+// config is invalid, and we expect it to
+// always be valid at this point.
+
+// Compute the docs received attribute set once per session.
+// Metadata keys are constant within a single request context,
+// so recomputing them per document is wasteful.
+
 // Close is a no-op.
-func (*syncBulkIndexer) Close(context.Context) error {
-	return nil
-}
+func (*syncBulkIndexer) Close(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 type syncBulkIndexerSession struct {
 	s                *syncBulkIndexer
@@ -217,75 +142,34 @@ type syncBulkIndexerSession struct {
 
 // Add adds an item to the sync bulk indexer session.
 func (s *syncBulkIndexerSession) Add(ctx context.Context, index, docID, pipeline string, document io.WriterTo, dynamicTemplates map[string]string, action string) error {
-	doc := docappender.BulkIndexerItem{
-		Index:             index,
-		Body:              document,
-		DocumentID:        docID,
-		DynamicTemplates:  dynamicTemplates,
-		Action:            action,
-		Pipeline:          pipeline,
-		RequireDataStream: s.s.requireDataStream,
-	}
-	err := s.bi.Add(doc)
-	if err != nil {
-		return err
-	}
-	s.s.telemetryBuilder.ElasticsearchDocsReceived.Add(ctx, 1, s.docsReceivedAttr)
-	// sending_queue operates on flush sizes based on pdata model whereas bulk
-	// indexers operate on ndjson. Force a flush if the ndjson size is too large.
-	// when the uncompressed length exceeds the configured max flush size.
-	if s.s.maxFlushBytes > 0 && int64(s.bi.UncompressedLen()) >= s.s.maxFlushBytes {
-		return s.Flush(ctx)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// sending_queue operates on flush sizes based on pdata model whereas bulk
+// indexers operate on ndjson. Force a flush if the ndjson size is too large.
+// when the uncompressed length exceeds the configured max flush size.
+
 // End is a no-op.
 func (*syncBulkIndexerSession) End() {
+	_ = "STUB: not implemented"
 	// TODO acquire docappender.BulkIndexer from pool in StartSession, release here
+	return
 }
 
 // Flush flushes documents added to the bulk indexer session.
 func (s *syncBulkIndexerSession) Flush(ctx context.Context) error {
-	var retryBackoff func(int) time.Duration
-	for attempts := 0; ; attempts++ {
-		if err := flushBulkIndexer(
-			ctx,
-			s.bi,
-			s.s.flushTimeout,
-			s.s.retryConfig.RetryOnStatus,
-			s.s.metadataKeys,
-			s.s.telemetryBuilder,
-			s.s.logger,
-			s.s.failedDocsInputLogger,
-			s.s.getErrorHintFunc,
-			s.s.suppressConflictErrors,
-		); err != nil {
-			return err
-		}
-		if s.bi.Items() == 0 {
-			// No documents in buffer waiting for per-document retry, exit retry loop.
-			return nil
-		}
-		if retryBackoff == nil {
-			retryBackoff = createElasticsearchBackoffFunc(&s.s.retryConfig)
-			if retryBackoff == nil {
-				// BUG: This should never happen in practice.
-				// When retry is disabled / document level retry limit is reached,
-				// documents should go into FailedDocs instead of indexer buffer.
-				return errors.New("bulk indexer contains documents pending retry but retry is disabled")
-			}
-		}
-		backoff := retryBackoff(attempts + 1) // TODO: use exporterhelper retry_sender
-		timer := time.NewTimer(backoff)
-		select {
-		case <-ctx.Done():
-			timer.Stop()
-			return ctx.Err()
-		case <-timer.C:
-		}
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// No documents in buffer waiting for per-document retry, exit retry loop.
+
+// BUG: This should never happen in practice.
+// When retry is disabled / document level retry limit is reached,
+// documents should go into FailedDocs instead of indexer buffer.
+
+// TODO: use exporterhelper retry_sender
 
 func flushBulkIndexer(
 	ctx context.Context,
@@ -299,231 +183,45 @@ func flushBulkIndexer(
 	getErrorHintFunc func(index, errorType string) string,
 	suppressConflictErrors bool,
 ) error {
-	itemsCount := bi.Items()
-	if itemsCount == 0 {
-		return nil
-	}
-	if timeout > 0 {
-		var cancel context.CancelFunc
-		ctx, cancel = context.WithTimeout(ctx, timeout)
-		defer cancel()
-	}
-
-	// Create context with attempt counter to track http requests
-	ctxWithAttempts, counter := newAttemptContext(ctx)
-	startTime := time.Now()
-	stat, err := bi.Flush(ctxWithAttempts)
-	latency := time.Since(startTime).Seconds()
-	defaultMetaAttrs := getAttributesFromMetadataKeys(ctx, tMetaKeys)
-	defaultAttrsSet := attribute.NewSet(defaultMetaAttrs...)
-	if flushed := bi.BytesFlushed(); flushed > 0 {
-		tb.ElasticsearchFlushedBytes.Add(ctx, int64(flushed), metric.WithAttributeSet(defaultAttrsSet))
-	}
-	if flushed := bi.BytesUncompressedFlushed(); flushed > 0 {
-		tb.ElasticsearchFlushedUncompressedBytes.Add(
-			ctx, int64(flushed), metric.WithAttributeSet(defaultAttrsSet),
-		)
-	}
-	if retryCount := counter.Retries(); retryCount > 0 {
-		tb.ElasticsearchDocsRetriedHTTPRequest.Add(ctx, int64(retryCount*itemsCount), metric.WithAttributeSet(defaultAttrsSet))
-	}
-
-	var fields []zap.Field
-	// append metadata attributes to error log fields
-	for _, kv := range defaultMetaAttrs {
-		switch kv.Value.Type() {
-		case attribute.STRINGSLICE:
-			fields = append(fields, zap.Strings(string(kv.Key), kv.Value.AsStringSlice()))
-		default:
-			// For other types, convert to string
-			fields = append(fields, zap.String(string(kv.Key), kv.Value.AsString()))
-		}
-	}
-	if err != nil {
-		logger.Error("bulk indexer flush error", append(fields, zap.Error(err))...)
-		var bulkFailedErr docappender.ErrorFlushFailed
-		switch {
-		case errors.Is(err, context.Canceled) || errors.Is(err, context.DeadlineExceeded):
-			attrSet := metric.WithAttributeSet(attribute.NewSet(append(
-				defaultMetaAttrs, withOutcome("timeout"),
-			)...))
-			tb.ElasticsearchDocsProcessed.Add(ctx, int64(itemsCount), attrSet)
-			tb.ElasticsearchBulkRequestsCount.Add(ctx, int64(1), attrSet)
-			tb.ElasticsearchBulkRequestsLatency.Record(ctx, latency, attrSet)
-		case errors.As(err, &bulkFailedErr):
-			code := bulkFailedErr.StatusCode()
-			outcome := statusToOutcome(code)
-			attrSet := metric.WithAttributeSet(attribute.NewSet(
-				append(defaultMetaAttrs,
-					conventions.HTTPResponseStatusCode(code),
-					withOutcome(outcome),
-				)...,
-			))
-			tb.ElasticsearchDocsProcessed.Add(ctx, int64(itemsCount), attrSet)
-			tb.ElasticsearchBulkRequestsCount.Add(ctx, int64(1), attrSet)
-			tb.ElasticsearchBulkRequestsLatency.Record(ctx, latency, attrSet)
-		default:
-			attrSet := metric.WithAttributeSet(attribute.NewSet(
-				append(defaultMetaAttrs,
-					withOutcome("internal_server_error"),
-					conventions.HTTPResponseStatusCode(http.StatusInternalServerError),
-				)...,
-			))
-			tb.ElasticsearchDocsProcessed.Add(ctx, int64(itemsCount), attrSet)
-			tb.ElasticsearchBulkRequestsCount.Add(ctx, int64(1), attrSet)
-			tb.ElasticsearchBulkRequestsLatency.Record(ctx, latency, attrSet)
-		}
-	} else {
-		// Record a successful completed bulk request
-		successAttrSet := metric.WithAttributeSet(attribute.NewSet(
-			append(defaultMetaAttrs,
-				withOutcome("success"),
-				conventions.HTTPResponseStatusCode(http.StatusOK),
-			)...,
-		))
-
-		tb.ElasticsearchBulkRequestsCount.Add(ctx, int64(1), successAttrSet)
-		tb.ElasticsearchBulkRequestsLatency.Record(ctx, latency, successAttrSet)
-	}
-
-	for _, resp := range stat.FailedDocs {
-		// Collect telemetry
-		outcome := statusToOutcome(resp.Status)
-		tb.ElasticsearchDocsProcessed.Add(
-			ctx,
-			int64(1),
-			metric.WithAttributeSet(attribute.NewSet(append(defaultMetaAttrs,
-				withOutcome(outcome),
-				conventions.HTTPResponseStatusCode(resp.Status),
-				attribute.String("error.type", resp.Error.Type),
-			)...)),
-		)
-
-		if resp.Error.Type == "version_conflict_engine_exception" {
-			if suppressConflictErrors ||
-				strings.HasPrefix(resp.Index, ".profiling-stackframes-") ||
-				strings.HasPrefix(resp.Index, ".profiling-stacktraces-") {
-				// Rejection of duplicates are either expected (Profiling indices)
-				// or globally suppressed by the user. Do not log them.
-				continue
-			}
-		}
-
-		// Log failed docs
-		fields = append(fields,
-			zap.String("index", resp.Index),
-			zap.String("error.type", resp.Error.Type),
-			zap.String("error.reason", resp.Error.Reason),
-			zap.Int("http.response.status_code", resp.Status),
-		)
-
-		if getErrorHintFunc != nil {
-			if hint := getErrorHintFunc(resp.Index, resp.Error.Type); hint != "" {
-				fields = append(fields, zap.String("hint", hint))
-			}
-		}
-		logger.Error("failed to index document", fields...)
-
-		if resp.Input != "" {
-			fields = append(fields, zap.String("input", resp.Input))
-		}
-		failedDocsInputLogger.Debug("failed to index document; input may contain sensitive data", fields...)
-	}
-	if stat.Indexed > 0 {
-		tb.ElasticsearchDocsProcessed.Add(
-			ctx,
-			stat.Indexed,
-			metric.WithAttributeSet(attribute.NewSet(append(defaultMetaAttrs,
-				withOutcome("success"),
-				conventions.HTTPResponseStatusCode(http.StatusOK),
-			)...)),
-		)
-	}
-	if stat.FailureStoreDocs.Used > 0 {
-		tb.ElasticsearchDocsProcessed.Add(
-			ctx,
-			stat.FailureStoreDocs.Used,
-			metric.WithAttributeSet(attribute.NewSet(append(defaultMetaAttrs,
-				withOutcome("failure_store"),
-				attribute.String("failure_store",
-					string(docappender.FailureStoreStatusUsed),
-				),
-			)...)),
-		)
-	}
-	if stat.FailureStoreDocs.Failed > 0 {
-		tb.ElasticsearchDocsProcessed.Add(
-			ctx,
-			stat.FailureStoreDocs.Failed,
-			metric.WithAttributeSet(attribute.NewSet(append(defaultMetaAttrs,
-				withOutcome("failure_store"),
-				attribute.String("failure_store", string(
-					docappender.FailureStoreStatusFailed,
-				)),
-			)...)),
-		)
-	}
-	if stat.FailureStoreDocs.NotEnabled > 0 {
-		tb.ElasticsearchDocsProcessed.Add(
-			ctx,
-			stat.FailureStoreDocs.NotEnabled,
-			metric.WithAttributeSet(attribute.NewSet(append(defaultMetaAttrs,
-				withOutcome("failure_store"),
-				attribute.String("failure_store", string(
-					docappender.FailureStoreStatusNotEnabled,
-				)),
-			)...)),
-		)
-	}
-	if stat.RetriedDocs > 0 {
-		tb.ElasticsearchDocsRetried.Add(ctx, stat.RetriedDocs,
-			metric.WithAttributeSet(defaultAttrsSet),
-		)
-	}
-	var bulkFailedErr docappender.ErrorFlushFailed
-	if errors.As(err, &bulkFailedErr) && !retryableStatusCode(bulkFailedErr.StatusCode(), retryOnStatus) {
-		return consumererror.NewPermanent(err)
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
+// Create context with attempt counter to track http requests
+
+// append metadata attributes to error log fields
+
+// For other types, convert to string
+
+// Record a successful completed bulk request
+
+// Collect telemetry
+
+// Rejection of duplicates are either expected (Profiling indices)
+// or globally suppressed by the user. Do not log them.
+
+// Log failed docs
+
 func retryableStatusCode(statusCode int, retryOnStatus []int) bool {
-	return slices.Contains(retryOnStatus, statusCode)
+	_ = "STUB: not implemented"
+	return false
 }
 
 func getAttributesFromMetadataKeys(ctx context.Context, keys []string) []attribute.KeyValue {
-	clientInfo := client.FromContext(ctx)
-	attrs := make([]attribute.KeyValue, 0, len(keys))
-	for _, k := range keys {
-		if values := clientInfo.Metadata.Get(k); len(values) != 0 {
-			attrs = append(attrs, attribute.StringSlice(k, values))
-		}
-	}
-	return attrs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getErrorHint(mode MappingMode, index, errorType string) string {
-	if strings.HasPrefix(index, ".ds-metrics-") && errorType == "version_conflict_engine_exception" {
-		return errorHintKnownIssues
-	}
-	if errorType == "illegal_argument_exception" {
-		switch mode {
-		case MappingOTel:
-			return errorHintOTelMappingMode
-		case MappingECS:
-			return errorHintECSMappingMode
-		default:
-			//  no error hint for this mapping mode
-		}
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
+//  no error hint for this mapping mode
+
 func newFailedDocsInputLogger(logger *zap.Logger, config *Config) *zap.Logger {
-	if !config.LogFailedDocsInput {
-		return zap.NewNop()
-	}
-	return logger.WithOptions(logging.WithRateLimit(config.LogFailedDocsInputRateLimit))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type bulkIndexers struct {
@@ -552,88 +250,11 @@ func (b *bulkIndexers) start(
 	host component.Host,
 	allowedMappingModes map[string]MappingMode,
 ) error {
-	userAgent := fmt.Sprintf(
-		"%s/%s (%s/%s)",
-		set.BuildInfo.Description,
-		set.BuildInfo.Version,
-		runtime.GOOS,
-		runtime.GOARCH,
-	)
-
-	esClient, err := newElasticsearchClient(ctx, cfg, host, set.TelemetrySettings, userAgent)
-	if err != nil {
-		return err
-	}
-
-	for _, mode := range allowedMappingModes {
-		requireDataStream := mode == MappingOTel || mode == MappingECS
-		modeSpecificErrorHintFunc := func(index, errorType string) string {
-			return getErrorHint(mode, index, errorType)
-		}
-		bi := newBulkIndexer(esClient, cfg, requireDataStream, b.telemetryBuilder, set.Logger, modeSpecificErrorHintFunc)
-		b.modes[mode] = &wgTrackingBulkIndexer{bulkIndexer: bi, wg: &b.wg}
-	}
-
-	mappingModeNoneErrorHintFunc := func(index, errorType string) string {
-		return getErrorHint(MappingNone, index, errorType)
-	}
-
-	profilingEvents := newBulkIndexer(esClient, cfg, true, b.telemetryBuilder, set.Logger, mappingModeNoneErrorHintFunc)
-	b.profilingEvents = &wgTrackingBulkIndexer{bulkIndexer: profilingEvents, wg: &b.wg}
-
-	profilingStackTraces := newBulkIndexer(esClient, cfg, false, b.telemetryBuilder, set.Logger, mappingModeNoneErrorHintFunc)
-	b.profilingStackTraces = &wgTrackingBulkIndexer{bulkIndexer: profilingStackTraces, wg: &b.wg}
-
-	profilingStackFrames := newBulkIndexer(esClient, cfg, false, b.telemetryBuilder, set.Logger, mappingModeNoneErrorHintFunc)
-	b.profilingStackFrames = &wgTrackingBulkIndexer{bulkIndexer: profilingStackFrames, wg: &b.wg}
-
-	profilingExecutables := newBulkIndexer(esClient, cfg, false, b.telemetryBuilder, set.Logger, mappingModeNoneErrorHintFunc)
-	b.profilingExecutables = &wgTrackingBulkIndexer{bulkIndexer: profilingExecutables, wg: &b.wg}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (b *bulkIndexers) shutdown(ctx context.Context) error {
-	for _, bi := range b.modes {
-		if bi == nil {
-			continue
-		}
-		if err := bi.Close(ctx); err != nil {
-			return err
-		}
-	}
-	if b.profilingEvents != nil {
-		if err := b.profilingEvents.Close(ctx); err != nil {
-			return err
-		}
-	}
-	if b.profilingStackTraces != nil {
-		if err := b.profilingStackTraces.Close(ctx); err != nil {
-			return err
-		}
-	}
-	if b.profilingStackFrames != nil {
-		if err := b.profilingStackFrames.Close(ctx); err != nil {
-			return err
-		}
-	}
-	if b.profilingExecutables != nil {
-		if err := b.profilingExecutables.Close(ctx); err != nil {
-			return err
-		}
-	}
-
-	doneCh := make(chan struct{})
-	go func() {
-		b.wg.Wait()
-		close(doneCh)
-	}()
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	case <-doneCh:
-	}
-	return nil
-}
+func (b *bulkIndexers) shutdown(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 type wgTrackingBulkIndexer struct {
 	bulkIndexer
@@ -641,9 +262,8 @@ type wgTrackingBulkIndexer struct {
 }
 
 func (w *wgTrackingBulkIndexer) StartSession(ctx context.Context) bulkIndexerSession {
-	w.wg.Add(1)
-	session := w.bulkIndexer.StartSession(ctx)
-	return &wgTrackingBulkIndexerSession{bulkIndexerSession: session, wg: w.wg}
+	_ = "STUB: not implemented"
+	return *new(bulkIndexerSession)
 }
 
 type wgTrackingBulkIndexerSession struct {
@@ -651,42 +271,24 @@ type wgTrackingBulkIndexerSession struct {
 	wg *sync.WaitGroup
 }
 
-func (w *wgTrackingBulkIndexerSession) End() {
-	defer w.wg.Done()
-	w.bulkIndexerSession.End()
-}
+func (w *wgTrackingBulkIndexerSession) End() { _ = "STUB: not implemented"; return }
 
 type errBulkIndexerSession struct {
 	err error
 }
 
 func (s errBulkIndexerSession) Add(context.Context, string, string, string, io.WriterTo, map[string]string, string) error {
-	return fmt.Errorf("creating bulk indexer session failed, cannot add item: %w", s.err)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (errBulkIndexerSession) End() {}
+func (errBulkIndexerSession) End() { _ = "STUB: not implemented"; return }
 
-func (s errBulkIndexerSession) Flush(context.Context) error {
-	return fmt.Errorf("creating bulk indexer session failed, cannot flush: %w", s.err)
-}
+func (s errBulkIndexerSession) Flush(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func withOutcome(outcome string) attribute.KeyValue {
-	return attribute.String("outcome", outcome)
+	_ = "STUB: not implemented"
+	return *new(attribute.KeyValue)
 }
 
-func statusToOutcome(statusCode int) string {
-	switch statusCode {
-	case http.StatusTooManyRequests:
-		return "too_many"
-	case http.StatusOK:
-		return "success"
-	}
-	switch {
-	case statusCode >= 500:
-		return "failed_server"
-	case statusCode >= 400:
-		return "failed_client"
-	default:
-		return "unknown"
-	}
-}
+func statusToOutcome(statusCode int) string { _ = "STUB: not implemented"; return "" }

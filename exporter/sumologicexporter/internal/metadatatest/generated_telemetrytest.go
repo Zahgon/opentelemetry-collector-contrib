@@ -5,82 +5,33 @@ package metadatatest
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componenttest"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exportertest"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata"
 	"go.opentelemetry.io/otel/sdk/metric/metricdata/metricdatatest"
 )
 
 func NewSettings(tt *componenttest.Telemetry) exporter.Settings {
-	set := exportertest.NewNopSettings(exportertest.NopType)
-	set.ID = component.NewID(component.MustNewType("sumologic"))
-	set.TelemetrySettings = tt.NewTelemetrySettings()
-	return set
+	_ = "STUB: not implemented"
+	return *new(exporter.Settings)
 }
 
 func AssertEqualExporterRequestsBytes(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_exporter_requests_bytes",
-		Description: "Total size of requests (in bytes) [Development]",
-		Unit:        "By",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_exporter_requests_bytes")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualExporterRequestsDuration(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_exporter_requests_duration",
-		Description: "Duration of HTTP requests (in milliseconds) [Development]",
-		Unit:        "ms",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_exporter_requests_duration")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualExporterRequestsRecords(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_exporter_requests_records",
-		Description: "Total size of requests (in number of records) [Development]",
-		Unit:        "{records}",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_exporter_requests_records")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func AssertEqualExporterRequestsSent(t *testing.T, tt *componenttest.Telemetry, dps []metricdata.DataPoint[int64], opts ...metricdatatest.Option) {
-	want := metricdata.Metrics{
-		Name:        "otelcol_exporter_requests_sent",
-		Description: "Number of requests [Development]",
-		Unit:        "1",
-		Data: metricdata.Sum[int64]{
-			Temporality: metricdata.CumulativeTemporality,
-			IsMonotonic: true,
-			DataPoints:  dps,
-		},
-	}
-	got, err := tt.GetMetric("otelcol_exporter_requests_sent")
-	require.NoError(t, err)
-	metricdatatest.AssertEqual(t, want, got, opts...)
+	_ = "STUB: not implemented"
+	return
 }

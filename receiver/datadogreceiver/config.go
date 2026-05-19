@@ -5,7 +5,6 @@
 package datadogreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/datadogreceiver"
 
 import (
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -70,11 +69,4 @@ type ProxyConfig struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	behavior := c.Intake.Behavior
-	isValidBehavior := behavior == "" || behavior == configIntakeBehaviorDisable || behavior == configIntakeBehaviorProxy
-	if !isValidBehavior {
-		return fmt.Errorf(`"intake.behavior" has an invalid value "%s"`, behavior)
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

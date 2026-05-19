@@ -25,102 +25,38 @@ type blobEventHandler struct {
 
 var _ eventHandler = (*blobEventHandler)(nil)
 
-func (p *blobEventHandler) run(ctx context.Context) error {
-	ctx, p.cancelFunc = context.WithCancel(ctx)
+func (p *blobEventHandler) run(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
-	p.wg.Add(1)
-	go p.pollBlobs(ctx)
-
-	return nil
-}
-
-func (p *blobEventHandler) pollBlobs(ctx context.Context) {
-	defer p.wg.Done()
-
-	ticker := time.NewTicker(p.pollInterval)
-	defer ticker.Stop()
-
-	p.processContainers(ctx)
-
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-ticker.C:
-			p.processContainers(ctx)
-		}
-	}
-}
+func (p *blobEventHandler) pollBlobs(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 func (p *blobEventHandler) processContainers(ctx context.Context) {
-	if p.logsContainerName != "" && p.logsDataConsumer != nil {
-		p.processContainer(ctx, p.logsContainerName, func(ctx context.Context, data []byte) error {
-			return p.logsDataConsumer.consumeLogsJSON(ctx, data)
-		})
-	}
-
-	if p.tracesContainerName != "" && p.tracesDataConsumer != nil {
-		p.processContainer(ctx, p.tracesContainerName, func(ctx context.Context, data []byte) error {
-			return p.tracesDataConsumer.consumeTracesJSON(ctx, data)
-		})
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (p *blobEventHandler) processContainer(ctx context.Context, containerName string, consume func(context.Context, []byte) error) {
-	blobs, err := p.blobClient.listBlobs(ctx, containerName)
-	if err != nil {
-		p.logger.Error("failed to list blobs", zap.String("container", containerName), zap.Error(err))
-		return
-	}
-
-	for _, blobName := range blobs {
-		p.processBlob(ctx, containerName, blobName, consume)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (p *blobEventHandler) processBlob(ctx context.Context, containerName, blobName string, consume func(context.Context, []byte) error) {
-	if ctx.Err() != nil {
-		return
-	}
-
-	blobData, err := p.blobClient.readBlob(ctx, containerName, blobName)
-	if err != nil {
-		p.logger.Error("failed to read blob", zap.String("container", containerName), zap.String("blob", blobName), zap.Error(err))
-		return
-	}
-
-	if err := consume(ctx, blobData.Bytes()); err != nil {
-		p.logger.Error("failed to consume blob data", zap.String("container", containerName), zap.String("blob", blobName), zap.Error(err))
-		return
-	}
-
-	if err := p.blobClient.deleteBlob(ctx, containerName, blobName); err != nil {
-		p.logger.Error("failed to delete blob", zap.String("container", containerName), zap.String("blob", blobName), zap.Error(err))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (p *blobEventHandler) close(_ context.Context) error {
-	if p.cancelFunc != nil {
-		p.cancelFunc()
-	}
-	p.wg.Wait()
-	return nil
-}
+func (p *blobEventHandler) close(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (p *blobEventHandler) setLogsDataConsumer(logsDataConsumer logsDataConsumer) {
-	p.logsDataConsumer = logsDataConsumer
+	_ = "STUB: not implemented"
+	return
 }
 
 func (p *blobEventHandler) setTracesDataConsumer(tracesDataConsumer tracesDataConsumer) {
-	p.tracesDataConsumer = tracesDataConsumer
+	_ = "STUB: not implemented"
+	return
 }
 
 func newBlobEventHandler(logsContainerName, tracesContainerName string, blobClient blobClient, logger *zap.Logger) *blobEventHandler {
-	return &blobEventHandler{
-		blobClient:          blobClient,
-		logsContainerName:   logsContainerName,
-		tracesContainerName: tracesContainerName,
-		logger:              logger,
-		pollInterval:        10 * time.Second,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

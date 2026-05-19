@@ -13,16 +13,7 @@ type SystemCPULoadAverage15mMetricConfig struct {
 }
 
 func (ms *SystemCPULoadAverage15mMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -33,16 +24,7 @@ type SystemCPULoadAverage1mMetricConfig struct {
 }
 
 func (ms *SystemCPULoadAverage1mMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -53,16 +35,7 @@ type SystemCPULoadAverage5mMetricConfig struct {
 }
 
 func (ms *SystemCPULoadAverage5mMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -73,19 +46,7 @@ type MetricsConfig struct {
 	SystemCPULoadAverage5m  SystemCPULoadAverage5mMetricConfig  `mapstructure:"system.cpu.load_average.5m"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SystemCPULoadAverage15m: SystemCPULoadAverage15mMetricConfig{
-			Enabled: true,
-		},
-		SystemCPULoadAverage1m: SystemCPULoadAverage1mMetricConfig{
-			Enabled: true,
-		},
-		SystemCPULoadAverage5m: SystemCPULoadAverage5mMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for load metrics builder.
 type MetricsBuilderConfig struct {
@@ -93,12 +54,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

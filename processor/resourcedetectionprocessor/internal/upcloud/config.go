@@ -12,8 +12,4 @@ type Config struct {
 	FailOnMissingMetadata bool                              `mapstructure:"fail_on_missing_metadata"`
 }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

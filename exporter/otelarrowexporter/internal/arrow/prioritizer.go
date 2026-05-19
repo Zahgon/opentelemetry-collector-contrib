@@ -5,9 +5,6 @@ package arrow // import "github.com/open-telemetry/opentelemetry-collector-contr
 
 import (
 	"context"
-	"fmt"
-	"strconv"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/confmap/xconfmap"
@@ -52,43 +49,24 @@ type streamWriter interface {
 }
 
 func newStreamPrioritizer(dc doneCancel, name PrioritizerName, numStreams int, maxLifetime time.Duration) (streamPrioritizer, []*streamWorkState) {
-	if name == unsetPrioritizer {
-		name = DefaultPrioritizer
-	}
-	if strings.HasPrefix(string(name), llPrefix) {
-		// error was checked and reported in Validate
-		n, err := strconv.Atoi(string(name[len(llPrefix):]))
-		if err == nil {
-			return newBestOfNPrioritizer(dc, n, numStreams, pendingRequests, maxLifetime)
-		}
-	}
-	return newBestOfNPrioritizer(dc, numStreams, numStreams, pendingRequests, maxLifetime)
+	_ = "STUB: not implemented"
+	return *new(streamPrioritizer), nil
 }
 
+// error was checked and reported in Validate
+
 // pendingRequests is the load function used by leastloadedN.
-func pendingRequests(sws *streamWorkState) float64 {
-	sws.lock.Lock()
-	defer sws.lock.Unlock()
-	return float64(len(sws.waiters) + len(sws.toWrite))
-}
+func pendingRequests(sws *streamWorkState) float64 { _ = "STUB: not implemented"; return 0 }
 
 // Validate implements xconfmap.Validator
 func (p PrioritizerName) Validate() error {
-	switch p {
+	_ = "STUB: not implemented"
+
 	// Exact match cases
-	case LeastLoadedPrioritizer, unsetPrioritizer:
-		return nil
-	}
-	// "leastloadedN" cases
-	if !strings.HasPrefix(string(p), llPrefix) {
-		return fmt.Errorf("unrecognized prioritizer: %q", string(p))
-	}
-	_, err := strconv.Atoi(string(p[len(llPrefix):]))
-	if err != nil {
-		return fmt.Errorf("invalid prioritizer: %q", string(p))
-	}
 	return nil
 }
+
+// "leastloadedN" cases
 
 // drain helps avoid a race condition when downgrade happens, it ensures that
 // any late-arriving work will immediately see ErrStreamRestarting, and this
@@ -96,13 +74,4 @@ func (p PrioritizerName) Validate() error {
 //
 // Note: the downgrade function is a major source of complexity and it is
 // probably best removed, instead of having this level of complexity.
-func drain(ch <-chan writeItem, done <-chan struct{}) {
-	for {
-		select {
-		case <-done:
-			return
-		case item := <-ch:
-			item.errCh <- ErrStreamRestarting
-		}
-	}
-}
+func drain(ch <-chan writeItem, done <-chan struct{}) { _ = "STUB: not implemented"; return }

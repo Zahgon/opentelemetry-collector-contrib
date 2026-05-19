@@ -20,21 +20,21 @@ type metricValueDataType struct {
 func NewMetricType(dataType pmetric.MetricType, aggregationTemporality pmetric.AggregationTemporality,
 	isMonotonic bool,
 ) MetricType {
-	return metricValueDataType{
-		dataType:               dataType,
-		aggregationTemporality: aggregationTemporality,
-		isMonotonic:            isMonotonic,
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricType)
 }
 
 func (metricValueDataType metricValueDataType) MetricType() pmetric.MetricType {
-	return metricValueDataType.dataType
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType)
 }
 
 func (metricValueDataType metricValueDataType) AggregationTemporality() pmetric.AggregationTemporality {
-	return metricValueDataType.aggregationTemporality
+	_ = "STUB: not implemented"
+	return *new(pmetric.AggregationTemporality)
 }
 
 func (metricValueDataType metricValueDataType) IsMonotonic() bool {
-	return metricValueDataType.isMonotonic
+	_ = "STUB: not implemented"
+	return false
 }

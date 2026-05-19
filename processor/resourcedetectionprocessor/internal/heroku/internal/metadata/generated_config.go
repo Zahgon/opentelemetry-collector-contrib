@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -38,30 +31,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		CloudProvider: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HerokuAppID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HerokuDynoID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HerokuReleaseCommit: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HerokuReleaseCreationTimestamp: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceVersion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

@@ -4,21 +4,13 @@
 package splunk // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/splunk"
 
 import (
-	"encoding/json"
 	"regexp"
-	"strconv"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/splunk"
 )
 
 // nanoToEpochSeconds converts a nanosecond timestamp to epoch seconds.
-func nanoToEpochSeconds(ts pcommon.Timestamp) float64 {
-	return float64(ts) / 1e9
-}
+func nanoToEpochSeconds(ts pcommon.Timestamp) float64 { _ = "STUB: not implemented"; return 0 }
 
 const (
 	// hecEventMetricType is the type of HEC event. Set to metric, as per https://docs.splunk.com/Documentation/Splunk/8.0.3/Metrics/GetMetricsInOther.
@@ -43,14 +35,7 @@ type HecToOtelAttrs struct {
 	Host string `mapstructure:"host"`
 }
 
-func DefaultHecToOtelAttrs() HecToOtelAttrs {
-	return HecToOtelAttrs{
-		Source:     splunk.DefaultSourceLabel,
-		SourceType: splunk.DefaultSourceTypeLabel,
-		Index:      splunk.DefaultIndexLabel,
-		Host:       string(conventions.HostNameKey),
-	}
-}
+func DefaultHecToOtelAttrs() HecToOtelAttrs { _ = "STUB: not implemented"; return *new(HecToOtelAttrs) }
 
 // OtelToHecFields defines the mapping of attributes to HEC fields
 type OtelToHecFields struct {
@@ -61,10 +46,8 @@ type OtelToHecFields struct {
 }
 
 func DefaultOtelToHecFields() OtelToHecFields {
-	return OtelToHecFields{
-		SeverityText:   splunk.DefaultSeverityTextLabel,
-		SeverityNumber: splunk.DefaultSeverityNumberLabel,
-	}
+	_ = "STUB: not implemented"
+	return *new(OtelToHecFields)
 }
 
 // Event represents a metric in Splunk HEC format
@@ -86,69 +69,20 @@ type Event struct {
 }
 
 // IsMetric returns true if the Splunk event is a metric.
-func (e *Event) IsMetric() bool {
-	return e.Event == hecEventMetricType || len(e.GetMetricValues()) > 0
-}
+func (e *Event) IsMetric() bool { _ = "STUB: not implemented"; return false }
 
 // checks if the field name matches the requirements for a metric datapoint field,
 // and returns the metric name and a bool indicating whether the field is a metric.
 func getMetricNameFromField(fieldName string) (string, bool) {
+	_ = "STUB: not implemented"
 	// only consider metric name if it fits regex criteria.
 	// use matches[1] since first element contains entire string.
 	// first subgroup will be the actual metric name.
-	if matches := metricNameRegexp.FindStringSubmatch(fieldName); len(matches) > 1 {
-		return matches[1], !strings.Contains(matches[1], "metric_name")
-	}
 	return "", false
 }
 
 // GetMetricValues extracts metric key value pairs from a Splunk HEC metric.
-func (e *Event) GetMetricValues() map[string]any {
-	if v, ok := e.Fields["metric_name"]; ok {
-		return map[string]any{v.(string): e.Fields["_value"]}
-	}
-
-	values := map[string]any{}
-	for k, v := range e.Fields {
-		if metricName, ok := getMetricNameFromField(k); ok {
-			values[metricName] = v
-		}
-	}
-	return values
-}
+func (e *Event) GetMetricValues() map[string]any { _ = "STUB: not implemented"; return nil }
 
 // UnmarshalJSON unmarshals the JSON representation of an event
-func (e *Event) UnmarshalJSON(b []byte) error {
-	rawEvent := struct {
-		Time       any            `json:"time,omitempty"`
-		Event      any            `json:"event"`
-		Fields     map[string]any `json:"fields,omitempty"`
-		Host       string         `json:"host"`
-		Source     string         `json:"source,omitempty"`
-		SourceType string         `json:"sourcetype,omitempty"`
-		Index      string         `json:"index,omitempty"`
-	}{}
-	err := json.Unmarshal(b, &rawEvent)
-	if err != nil {
-		return err
-	}
-	*e = Event{
-		Host:       rawEvent.Host,
-		Source:     rawEvent.Source,
-		SourceType: rawEvent.SourceType,
-		Index:      rawEvent.Index,
-		Event:      rawEvent.Event,
-		Fields:     rawEvent.Fields,
-	}
-	switch t := rawEvent.Time.(type) {
-	case float64:
-		e.Time = t
-	case string:
-		time, err := strconv.ParseFloat(t, 64)
-		if err != nil {
-			return err
-		}
-		e.Time = time
-	}
-	return nil
-}
+func (e *Event) UnmarshalJSON(b []byte) error { _ = "STUB: not implemented"; return nil }

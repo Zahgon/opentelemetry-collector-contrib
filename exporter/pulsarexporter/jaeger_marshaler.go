@@ -6,15 +6,10 @@
 package pulsarexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/pulsarexporter"
 
 import (
-	"bytes"
-
 	"github.com/apache/pulsar-client-go/pulsar"
 	"github.com/gogo/protobuf/jsonpb"
 	jaegerproto "github.com/jaegertracing/jaeger-idl/model/v1"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	"go.uber.org/multierr"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/jaeger"
 )
 
 type jaegerMarshaler struct {
@@ -24,29 +19,11 @@ type jaegerMarshaler struct {
 var _ TracesMarshaler = (*jaegerMarshaler)(nil)
 
 func (j jaegerMarshaler) Marshal(traces ptrace.Traces, _ string) ([]*pulsar.ProducerMessage, error) {
-	batches := jaeger.ProtoFromTraces(traces)
-
-	var errs error
-	messages := make([]*pulsar.ProducerMessage, 0, len(batches))
-
-	for _, batch := range batches {
-		bts, err := j.marshaler.marshal(batch)
-		if err != nil {
-			errs = multierr.Append(errs, err)
-			continue
-		}
-
-		messages = append(messages, &pulsar.ProducerMessage{
-			Payload: bts,
-		})
-	}
-
-	return messages, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (j jaegerMarshaler) Encoding() string {
-	return j.marshaler.encoding()
-}
+func (j jaegerMarshaler) Encoding() string { _ = "STUB: not implemented"; return "" }
 
 type jaegerBatchMarshaler interface {
 	marshal(batch *jaegerproto.Batch) ([]byte, error)
@@ -58,12 +35,11 @@ type jaegerProtoBatchMarshaler struct{}
 var _ jaegerBatchMarshaler = (*jaegerProtoBatchMarshaler)(nil)
 
 func (jaegerProtoBatchMarshaler) marshal(batch *jaegerproto.Batch) ([]byte, error) {
-	return batch.Marshal()
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (jaegerProtoBatchMarshaler) encoding() string {
-	return "jaeger_proto"
-}
+func (jaegerProtoBatchMarshaler) encoding() string { _ = "STUB: not implemented"; return "" }
 
 type jaegerJSONBatchMarshaler struct {
 	pbMarshaler *jsonpb.Marshaler
@@ -71,18 +47,11 @@ type jaegerJSONBatchMarshaler struct {
 
 var _ jaegerBatchMarshaler = (*jaegerJSONBatchMarshaler)(nil)
 
-func newJaegerJSONMarshaler() *jaegerJSONBatchMarshaler {
-	return &jaegerJSONBatchMarshaler{
-		pbMarshaler: &jsonpb.Marshaler{},
-	}
-}
+func newJaegerJSONMarshaler() *jaegerJSONBatchMarshaler { _ = "STUB: not implemented"; return nil }
 
 func (p jaegerJSONBatchMarshaler) marshal(batch *jaegerproto.Batch) ([]byte, error) {
-	out := new(bytes.Buffer)
-	err := p.pbMarshaler.Marshal(out, batch)
-	return out.Bytes(), err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (jaegerJSONBatchMarshaler) encoding() string {
-	return "jaeger_json"
-}
+func (jaegerJSONBatchMarshaler) encoding() string { _ = "STUB: not implemented"; return "" }

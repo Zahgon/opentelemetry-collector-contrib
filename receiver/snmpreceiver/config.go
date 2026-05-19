@@ -4,10 +4,6 @@ package snmpreceiver // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"errors"
-	"fmt"
-	"net/url"
-	"slices"
-	"strings"
 	"time"
 
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -254,385 +250,115 @@ type Attribute struct {
 }
 
 // Validate validates the given config, returning an error specifying any issues with the config.
-func (cfg *Config) Validate() error {
-	var combinedErr error
-
-	combinedErr = errors.Join(combinedErr, validateEndpoint(cfg))
-	combinedErr = errors.Join(combinedErr, validateVersion(cfg))
-	if strings.EqualFold(cfg.Version, "V3") {
-		combinedErr = errors.Join(combinedErr, validateSecurity(cfg))
-	}
-	combinedErr = errors.Join(combinedErr, validateMetricConfigs(cfg))
-
-	return combinedErr
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // validateEndpoint validates the Endpoint
-func validateEndpoint(cfg *Config) error {
-	if cfg.Endpoint == "" {
-		return errEmptyEndpoint
-	}
+func validateEndpoint(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid endpoint
-	u, err := url.Parse(cfg.Endpoint)
-	if err != nil {
-		return fmt.Errorf(errMsgInvalidEndpointWError, cfg.Endpoint, err)
-	}
-	if u.Host == "" || u.Port() == "" {
-		return fmt.Errorf(errMsgInvalidEndpoint, cfg.Endpoint)
-	}
+// Ensure valid endpoint
 
-	// Ensure valid scheme
-	switch strings.ToUpper(u.Scheme) {
-	case "TCP", "TCP4", "TCP6", "UDP", "UDP4", "UDP6": // ok
-	default:
-		return errEndpointBadScheme
-	}
+// Ensure valid scheme
 
-	return nil
-}
+// ok
 
 // validateVersion validates the Version
-func validateVersion(cfg *Config) error {
-	if cfg.Version == "" {
-		return errEmptyVersion
-	}
+func validateVersion(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid version
-	switch strings.ToUpper(cfg.Version) {
-	case "V1", "V2C", "V3": // ok
-	default:
-		return errBadVersion
-	}
+// Ensure valid version
 
-	return nil
-}
+// ok
 
 // validateSecurity validates all v3 related security configs
-func validateSecurity(cfg *Config) error {
-	var combinedErr error
+func validateSecurity(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid user
-	if cfg.User == "" {
-		combinedErr = errors.Join(combinedErr, errEmptyUser)
-	}
+// Ensure valid user
 
-	if cfg.SecurityLevel == "" {
-		return errors.Join(combinedErr, errEmptySecurityLevel)
-	}
+// Ensure valid security level
 
-	// Ensure valid security level
-	switch strings.ToUpper(cfg.SecurityLevel) {
-	case "NO_AUTH_NO_PRIV":
-		return combinedErr
-	case "AUTH_NO_PRIV":
-		// Ensure valid auth configs
-		return errors.Join(combinedErr, validateAuth(cfg))
-	case "AUTH_PRIV": // ok
-		// Ensure valid auth and privacy configs
-		combinedErr = errors.Join(combinedErr, validateAuth(cfg))
-		return errors.Join(combinedErr, validatePrivacy(cfg))
-	default:
-		return errors.Join(combinedErr, errBadSecurityLevel)
-	}
-}
+// Ensure valid auth configs
+
+// ok
+// Ensure valid auth and privacy configs
 
 // validateAuth validates the AuthType and AuthPassword
-func validateAuth(cfg *Config) error {
-	var combinedErr error
+func validateAuth(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid auth password
-	if cfg.AuthPassword == "" {
-		combinedErr = errors.Join(combinedErr, errEmptyAuthPassword)
-	}
+// Ensure valid auth password
 
-	// Ensure valid auth type
-	if cfg.AuthType == "" {
-		return errors.Join(combinedErr, errEmptyAuthType)
-	}
+// Ensure valid auth type
 
-	switch strings.ToUpper(cfg.AuthType) {
-	case "MD5", "SHA", "SHA224", "SHA256", "SHA384", "SHA512": // ok
-	default:
-		combinedErr = errors.Join(combinedErr, errBadAuthType)
-	}
-
-	return combinedErr
-}
+// ok
 
 // validatePrivacy validates the PrivacyType and PrivacyPassword
-func validatePrivacy(cfg *Config) error {
-	var combinedErr error
+func validatePrivacy(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid privacy password
-	if cfg.PrivacyPassword == "" {
-		combinedErr = errors.Join(combinedErr, errEmptyPrivacyPassword)
-	}
+// Ensure valid privacy password
 
-	// Ensure valid privacy type
-	if cfg.PrivacyType == "" {
-		return errors.Join(combinedErr, errEmptyPrivacyType)
-	}
+// Ensure valid privacy type
 
-	switch strings.ToUpper(cfg.PrivacyType) {
-	case "DES", "AES", "AES192", "AES192C", "AES256", "AES256C": // ok
-	default:
-		combinedErr = errors.Join(combinedErr, errBadPrivacyType)
-	}
-
-	return combinedErr
-}
+// ok
 
 // validateMetricConfigs validates all MetricConfigs, AttributeConfigs, and ResourceAttributeConfigs
-func validateMetricConfigs(cfg *Config) error {
-	var combinedErr error
+func validateMetricConfigs(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	// Validate the Attribute and ResourceAttribute configs up front
-	combinedErr = errors.Join(combinedErr, validateAttributeConfigs(cfg))
-	combinedErr = errors.Join(combinedErr, validateResourceAttributeConfigs(cfg))
+// Validate the Attribute and ResourceAttribute configs up front
 
-	// Ensure there is at least one MetricConfig
-	metrics := cfg.Metrics
-	if len(metrics) == 0 {
-		return errors.Join(combinedErr, errMetricRequired)
-	}
+// Ensure there is at least one MetricConfig
 
-	// Make sure each MetricConfig has valid info
-	for metricName, metricCfg := range metrics {
-		if metricCfg.Unit == "" {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMetricNoUnit, metricName))
-		}
-
-		if metricCfg.Gauge == nil && metricCfg.Sum == nil {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMetricNoGaugeOrSum, metricName))
-		}
-
-		if len(metricCfg.ScalarOIDs) == 0 && len(metricCfg.ColumnOIDs) == 0 {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMetricNoOIDs, metricName))
-		}
-
-		if metricCfg.Gauge != nil {
-			combinedErr = errors.Join(combinedErr, validateGauge(metricName, metricCfg.Gauge))
-		}
-
-		if metricCfg.Sum != nil {
-			combinedErr = errors.Join(combinedErr, validateSum(metricName, metricCfg.Sum))
-		}
-
-		for _, scalarOID := range metricCfg.ScalarOIDs {
-			combinedErr = errors.Join(combinedErr, validateScalarOID(metricName, scalarOID, cfg))
-		}
-
-		for _, columnOID := range metricCfg.ColumnOIDs {
-			combinedErr = errors.Join(combinedErr, validateColumnOID(metricName, columnOID, cfg))
-		}
-	}
-
-	return combinedErr
-}
+// Make sure each MetricConfig has valid info
 
 // validateColumnOID validates a ColumnOID
 func validateColumnOID(metricName string, columnOID ColumnOID, cfg *Config) error {
-	var combinedErr error
+	_ = "STUB: not implemented"
+	return nil
 
 	// Ensure that it contains an OID
-	if columnOID.OID == "" {
-		combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnOIDNoOID, metricName))
-	}
-
-	// Keep track of whether the different indexed values can be differentiated by either attribute within the same metric
-	// or by different resource attributes (in different resources)
-	hasIndexedIdentifier := false
-
-	// Check that any Attributes have a valid Name and a valid Value (if applicable)
-	if len(columnOID.Attributes) > 0 {
-		for _, attribute := range columnOID.Attributes {
-			if attribute.Name == "" {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnAttributeNoName, metricName))
-				continue
-			}
-
-			attrCfg, ok := cfg.Attributes[attribute.Name]
-			if !ok {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnAttributeBadName, metricName, attribute.Name))
-				continue
-			}
-
-			if len(attrCfg.Enum) > 0 {
-				if !slices.Contains(attrCfg.Enum, attribute.Value) {
-					combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnAttributeBadValue, metricName, attribute.Name, attribute.Value))
-				}
-				continue
-			}
-
-			hasIndexedIdentifier = true
-		}
-	}
-
-	// Check that any ResourceAttributes have a valid value
-	for _, name := range columnOID.ResourceAttributes {
-		resourceAttribute, ok := cfg.ResourceAttributes[name]
-		if !ok {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnResourceAttributeBadName, metricName, name))
-			continue
-		}
-
-		if resourceAttribute.OID != "" || resourceAttribute.IndexedValuePrefix != "" {
-			hasIndexedIdentifier = true
-		}
-	}
-
-	// Check that there is either a column based attribute or resource attribute associated with it
-	if !hasIndexedIdentifier {
-		combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnIndexedIdentifierRequired, metricName))
-	}
-
-	return combinedErr
 }
+
+// Keep track of whether the different indexed values can be differentiated by either attribute within the same metric
+// or by different resource attributes (in different resources)
+
+// Check that any Attributes have a valid Name and a valid Value (if applicable)
+
+// Check that any ResourceAttributes have a valid value
+
+// Check that there is either a column based attribute or resource attribute associated with it
 
 // validateScalarOID validates a ScalarOID
 func validateScalarOID(metricName string, scalarOID ScalarOID, cfg *Config) error {
-	var combinedErr error
+	_ = "STUB: not implemented"
+	return nil
 
 	// Ensure that it contains an OID
-	if scalarOID.OID == "" {
-		combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarOIDNoOID, metricName))
-	}
-
-	// Check that any Resource Attributes have a valid Value
-	for _, name := range scalarOID.ResourceAttributes {
-		resourceAttribute, ok := cfg.ResourceAttributes[name]
-		if !ok {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgColumnResourceAttributeBadName, metricName, name))
-			continue
-		}
-
-		// Scalar OID metrics should only have Scalar OID resource attributes
-		// ResourceAttributeConfig validation ensures that (only) one of ScalarOID, OID, or IndexedValuePrefix is set before reaching this
-		if resourceAttribute.OID != "" || resourceAttribute.IndexedValuePrefix != "" {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarMetricHasIndexedResourceAttribute, metricName, name))
-			continue
-		}
-	}
-
-	if len(scalarOID.Attributes) == 0 {
-		return combinedErr
-	}
-
-	// Check that any Attributes have a valid Name and a valid Value
-	for _, attribute := range scalarOID.Attributes {
-		if attribute.Name == "" {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarAttributeNoName, metricName))
-			continue
-		}
-
-		attrCfg, ok := cfg.Attributes[attribute.Name]
-		if !ok {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarAttributeBadName, metricName, attribute.Name))
-			continue
-		}
-
-		if len(attrCfg.Enum) == 0 {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarOIDBadAttribute, metricName, attribute.Name))
-			continue
-		}
-
-		if !slices.Contains(attrCfg.Enum, attribute.Value) {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgScalarAttributeBadValue, metricName, attribute.Name, attribute.Value))
-		}
-	}
-
-	return combinedErr
 }
+
+// Check that any Resource Attributes have a valid Value
+
+// Scalar OID metrics should only have Scalar OID resource attributes
+// ResourceAttributeConfig validation ensures that (only) one of ScalarOID, OID, or IndexedValuePrefix is set before reaching this
+
+// Check that any Attributes have a valid Name and a valid Value
 
 // validateGauge validates a GaugeMetric
 func validateGauge(metricName string, gauge *GaugeMetric) error {
+	_ = "STUB: not implemented"
 	// Ensure valid values for ValueType
-	upperValType := strings.ToUpper(gauge.ValueType)
-	if upperValType != "INT" && upperValType != "DOUBLE" {
-		return fmt.Errorf(errMsgGaugeBadValueType, metricName)
-	}
-
 	return nil
 }
 
 // validateSum validates a SumMetric
-func validateSum(metricName string, sum *SumMetric) error {
-	var combinedErr error
+func validateSum(metricName string, sum *SumMetric) error { _ = "STUB: not implemented"; return nil }
 
-	// Ensure valid values for ValueType
-	upperValType := strings.ToUpper(sum.ValueType)
-	if upperValType != "INT" && upperValType != "DOUBLE" {
-		combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgSumBadValueType, metricName))
-	}
+// Ensure valid values for ValueType
 
-	// Ensure valid values for Aggregation
-	upperAggregation := strings.ToUpper(sum.Aggregation)
-	if upperAggregation != "CUMULATIVE" && upperAggregation != "DELTA" {
-		combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgSumBadAggregation, metricName))
-	}
-
-	return combinedErr
-}
+// Ensure valid values for Aggregation
 
 // validateAttributeConfigs validates the AttributeConfigs
-func validateAttributeConfigs(cfg *Config) error {
-	var combinedErr error
+func validateAttributeConfigs(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	attributes := cfg.Attributes
-	if len(attributes) == 0 {
-		return nil
-	}
-
-	// Make sure each Attribute has either an OID, Enum, or IndexedValuePrefix
-	for attrName, attrCfg := range attributes {
-		if len(attrCfg.Enum) == 0 && attrCfg.OID == "" && attrCfg.IndexedValuePrefix == "" {
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgAttributeConfigNoEnumOIDOrPrefix, attrName))
-		}
-	}
-
-	return combinedErr
-}
+// Make sure each Attribute has either an OID, Enum, or IndexedValuePrefix
 
 // validateResourceAttributeConfigs validates the ResourceAttributeConfigs
-func validateResourceAttributeConfigs(cfg *Config) error {
-	var combinedErr error
+func validateResourceAttributeConfigs(cfg *Config) error { _ = "STUB: not implemented"; return nil }
 
-	resourceAttributes := cfg.ResourceAttributes
-	if len(resourceAttributes) == 0 {
-		return nil
-	}
-
-	// Make sure each Resource Attribute has exactly one of OID or ScalarOID or IndexedValuePrefix, and check that scalar and column OIDs end in the right digit
-	for attrName, attrCfg := range resourceAttributes {
-		hasOID := attrCfg.OID != ""
-		hasScalarOID := attrCfg.ScalarOID != ""
-		hasIVP := attrCfg.IndexedValuePrefix != ""
-
-		switch {
-		case hasOID:
-			if hasScalarOID || hasIVP {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMultipleKeysSetOnResourceAttribute, attrName))
-			}
-			nums := strings.Split(attrCfg.OID, ".")
-			if nums[len(nums)-1] == "0" {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errColumnOIDResourceAttributeEndsInZero, attrName, attrCfg.OID))
-			}
-		case hasScalarOID:
-			if hasOID || hasIVP {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMultipleKeysSetOnResourceAttribute, attrName))
-			}
-			nums := strings.Split(attrCfg.ScalarOID, ".")
-			if nums[len(nums)-1] != "0" {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errScalarOIDResourceAttributeEndsInNonzeroDigit, attrName, attrCfg.ScalarOID))
-			}
-		case hasIVP:
-			if hasScalarOID || hasOID {
-				combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgMultipleKeysSetOnResourceAttribute, attrName))
-			}
-		default:
-			combinedErr = errors.Join(combinedErr, fmt.Errorf(errMsgResourceAttributeNoOIDOrScalarOIDOrPrefix, attrName))
-		}
-	}
-	return combinedErr
-}
+// Make sure each Resource Attribute has exactly one of OID or ScalarOID or IndexedValuePrefix, and check that scalar and column OIDs end in the right digit

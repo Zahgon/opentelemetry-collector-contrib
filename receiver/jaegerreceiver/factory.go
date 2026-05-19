@@ -9,14 +9,8 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configgrpc"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
-	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jaegerreceiver/internal/metadata"
 )
 
 const (
@@ -28,39 +22,12 @@ const (
 )
 
 // NewFactory creates a new Jaeger receiver factory.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithTraces(createTracesReceiver, metadata.TracesStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // CreateDefaultConfig creates the default configuration for Jaeger receiver.
 func createDefaultConfig() component.Config {
-	return &Config{
-		Protocols: Protocols{
-			GRPC: configoptional.Default(configgrpc.ServerConfig{
-				NetAddr: confignet.AddrConfig{
-					Endpoint:  defaultGRPCEndpoint,
-					Transport: confignet.TransportTypeTCP,
-				},
-			}),
-			ThriftHTTP: configoptional.Default(confighttp.ServerConfig{
-				NetAddr: confignet.AddrConfig{
-					Endpoint:  defaultHTTPEndpoint,
-					Transport: confignet.TransportTypeTCP,
-				},
-			}),
-			ThriftBinaryUDP: configoptional.Default(ProtocolUDP{
-				Endpoint:        defaultThriftBinaryEndpoint,
-				ServerConfigUDP: defaultServerConfigUDP(),
-			}),
-			ThriftCompactUDP: configoptional.Default(ProtocolUDP{
-				Endpoint:        defaultThriftCompactEndpoint,
-				ServerConfigUDP: defaultServerConfigUDP(),
-			}),
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createTracesReceiver creates a trace receiver based on provided config.
@@ -70,16 +37,11 @@ func createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
+	_ = "STUB: not implemented"
 	// Convert settings in the source config to configuration struct
 	// that Jaeger receiver understands.
 	// Error handling for the conversion is done in the Validate function from the Config object itself.
-
-	rCfg := cfg.(*Config)
-
-	if rCfg.RemoteSampling != nil {
-		set.Logger.Warn("You are using a deprecated no-op `remote_sampling` option which will be removed soon; use a `jaegerremotesampling` extension instead")
-	}
-
-	// Create the receiver.
-	return newJaegerReceiver(set.ID, rCfg.Protocols, nextConsumer, set)
+	return *new(receiver.Traces), nil
 }
+
+// Create the receiver.

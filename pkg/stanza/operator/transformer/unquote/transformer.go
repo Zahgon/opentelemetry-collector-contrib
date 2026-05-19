@@ -5,8 +5,6 @@ package unquote // import "github.com/open-telemetry/opentelemetry-collector-con
 
 import (
 	"context"
-	"fmt"
-	"strconv"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
@@ -19,29 +17,15 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.unquote)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will unquote a string
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.unquote)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // unquote will unquote a string
-func (t *Transformer) unquote(e *entry.Entry) error {
-	value, ok := t.field.Get(e)
-	if !ok {
-		return nil
-	}
-
-	switch v := value.(type) {
-	case string:
-		s, err := strconv.Unquote(v)
-		if err != nil {
-			return err
-		}
-		return t.field.Set(e, s)
-	default:
-		return fmt.Errorf("type %T cannot be unquoted", value)
-	}
-}
+func (t *Transformer) unquote(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }

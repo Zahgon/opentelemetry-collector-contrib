@@ -6,11 +6,8 @@ package batch // import "github.com/open-telemetry/opentelemetry-collector-contr
 import (
 	"errors"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/kinesis/types"
 	"go.opentelemetry.io/collector/consumer/consumererror"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/awskinesisexporter/internal/compress"
 )
 
 const (
@@ -36,85 +33,23 @@ type Batch struct {
 
 type Option func(bt *Batch)
 
-func WithMaxRecordsPerBatch(limit int) Option {
-	return func(bt *Batch) {
-		if MaxBatchedRecords < limit {
-			limit = MaxBatchedRecords
-		}
-		bt.maxBatchSize = limit
-	}
-}
+func WithMaxRecordsPerBatch(limit int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
-func WithMaxRecordSize(size int) Option {
-	return func(bt *Batch) {
-		if MaxRecordSize < size {
-			size = MaxRecordSize
-		}
-		bt.maxRecordSize = size
-	}
-}
+func WithMaxRecordSize(size int) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 func WithCompressionType(compressionType string) Option {
-	return func(bt *Batch) {
-		bt.compressionType = compressionType
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
-func New(opts ...Option) *Batch {
-	bt := &Batch{
-		maxBatchSize:    MaxBatchedRecords,
-		maxRecordSize:   MaxRecordSize,
-		compressionType: "none",
-		records:         make([]types.PutRecordsRequestEntry, 0, MaxBatchedRecords),
-	}
+func New(opts ...Option) *Batch { _ = "STUB: not implemented"; return nil }
 
-	for _, op := range opts {
-		op(bt)
-	}
-
-	return bt
-}
-
-func (b *Batch) AddRecord(raw []byte, key string) error {
-	compressor, err := compress.NewCompressor(b.compressionType)
-	if err != nil {
-		return err
-	}
-
-	record, err := compressor(raw)
-	if err != nil {
-		return err
-	}
-
-	if l := len(key); l == 0 || l > 256 {
-		return ErrPartitionKeyLength
-	}
-
-	if l := len(record); l == 0 || l > b.maxRecordSize {
-		return ErrRecordLength
-	}
-
-	b.records = append(b.records, types.PutRecordsRequestEntry{
-		Data:         record,
-		PartitionKey: aws.String(key),
-	})
-	return nil
-}
+func (b *Batch) AddRecord(raw []byte, key string) error { _ = "STUB: not implemented"; return nil }
 
 // Chunk breaks up the internal queue into blocks that can be used
 // to be written to he kinesis.PutRecords endpoint
 func (b *Batch) Chunk() (chunks [][]types.PutRecordsRequestEntry) {
+	_ = "STUB: not implemented"
 	// Using local copies to avoid mutating internal data
-	var (
-		slice = b.records
-		size  = b.maxBatchSize
-	)
-	for len(slice) != 0 {
-		if len(slice) < size {
-			size = len(slice)
-		}
-		chunks = append(chunks, slice[0:size])
-		slice = slice[size:]
-	}
-	return chunks
+	return nil
 }

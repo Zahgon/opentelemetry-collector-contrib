@@ -5,12 +5,8 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"encoding/json"
-	"strings"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // Non-SemConv attributes that are used for common Azure Log Record fields
@@ -78,12 +74,7 @@ type appServiceAppLogProperties struct {
 }
 
 func (p *appServiceAppLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceAppLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceAppLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -97,18 +88,7 @@ type azureAppServiceAppLog struct {
 }
 
 func (r *azureAppServiceAppLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ContainerIDKey), r.Properties.ContainerID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureOriginalLogLevel, r.Properties.CustomLevel)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionTypeKey), r.Properties.ExceptionClass)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.Host)
-	unmarshaler.AttrPutStrIf(attrs, attributeLogLogger, r.Properties.Logger)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.CodeFunctionNameKey), r.Properties.Method)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.LogFilePathKey), r.Properties.Source)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionStacktraceKey), r.Properties.StackTrace)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureWebInstanceID, r.Properties.WebSiteInstanceID)
-
-	body.SetStr(r.Properties.Message)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -120,12 +100,7 @@ type appServiceAuditLogProperties struct {
 }
 
 func (p *appServiceAuditLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceAuditLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceAuditLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -137,11 +112,7 @@ type azureAppServiceAuditLog struct {
 }
 
 func (r *azureAppServiceAuditLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserIDKey), r.Properties.User)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserNameKey), r.Properties.UserDisplayName)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.SourceAddressKey), r.Properties.UserAddress)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolNameKey), strings.ToLower(r.Properties.Protocol))
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -157,12 +128,7 @@ type appServiceAuthenticationLogProperties struct {
 }
 
 func (p *appServiceAuthenticationLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceAuthenticationLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceAuthenticationLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -176,15 +142,7 @@ type azureAppServiceAuthenticationLog struct {
 }
 
 func (r *azureAppServiceAuthenticationLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAuthEventDetails, r.Properties.Details)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.Host)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureModuleRuntimeVersion, r.Properties.ModuleRuntimeVersion)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSiteName, r.Properties.SiteName)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.Properties.StatusCode)
-	unmarshaler.AttrPutIntNumberIf(attrs, attributeAzureSubStatusCode, r.Properties.SubStatusCode)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureTaskName, r.Properties.TaskName)
-	body.SetStr(r.Properties.Message)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -194,12 +152,7 @@ type appServiceConsoleLogProperties struct {
 }
 
 func (p *appServiceConsoleLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceConsoleLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceConsoleLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -213,9 +166,7 @@ type azureAppServiceConsoleLog struct {
 }
 
 func (r *azureAppServiceConsoleLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ContainerIDKey), r.Properties.ContainerID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.Host)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -243,13 +194,8 @@ type appServiceHTTPLogProperties struct {
 }
 
 func (p *appServiceHTTPLogProperties) UnmarshalJSON(data []byte) error {
+	_ = "STUB: not implemented"
 	// Define an alias type to avoid infinite recursion
-	type alias appServiceHTTPLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceHTTPLogProperties(temp)
 	return nil
 }
 
@@ -263,28 +209,10 @@ type azureAppServiceHTTPLog struct {
 }
 
 func (r *azureAppServiceHTTPLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
+	_ = "STUB: not implemented"
 	// In general it's unsafe to put Cookie values in Log Attributes as it may contain sensitive information,
 	// and there is no generic masking available for it as well
 	// So we will skip "Cookie" field here
-
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.ClientAddressKey), string(conventions.ClientPortKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ServerAddressKey), r.Properties.Host)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.ServerPortKey), r.Properties.ServerPort)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPRequestSizeKey), r.Properties.RequestBytes)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderHost, r.Properties.HostHeader)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HTTPRequestMethodKey), r.Properties.RequestMethod)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLQueryKey), r.Properties.URIQuery)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.URLPathKey), r.Properties.RequestPath)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserNameKey), r.Properties.UserName)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderReferer, r.Properties.Referer)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseSizeKey), r.Properties.ResponseBytes)
-	unmarshaler.AttrPutIntNumberIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.Properties.HTTPStatusCode)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureSubStatusCode, r.Properties.HTTPSubStatus)
-	unmarshaler.AttrPutFloatNumberIf(attrs, attributeAzureRequestDuration, r.Properties.TimeTaken)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.UserAgentOriginalKey), r.Properties.UserAgent)
-
-	body.SetStr(r.Properties.Result)
-
 	return nil
 }
 
@@ -301,12 +229,7 @@ type appServiceIPSecAuditLogProperties struct {
 }
 
 func (p *appServiceIPSecAuditLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceIPSecAuditLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceIPSecAuditLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -320,17 +243,7 @@ type azureAppServiceIPSecAuditLog struct {
 }
 
 func (r *azureAppServiceIPSecAuditLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutHostPortIf(attrs, string(conventions.SourceAddressKey), string(conventions.SourcePortKey), r.Properties.ClientIP)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderHost, r.Properties.HostHeader)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureAuthEventDetails, r.Properties.Details)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureIsServiceEndpoint, r.Properties.IsServiceEndpoint)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderAzureFDID, r.Properties.XAzureFDID)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderFDHealthProbe, r.Properties.XFDHealthProbe)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderForwardedFor, r.Properties.XForwardedFor)
-	unmarshaler.AttrPutStrIf(attrs, attributeHTTPHeaderForwardedHost, r.Properties.XForwardedHost)
-
-	body.SetStr(r.Properties.Result)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -344,12 +257,7 @@ type appServicePlatformLogProperties struct {
 }
 
 func (p *appServicePlatformLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServicePlatformLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServicePlatformLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -363,14 +271,7 @@ type azureAppServicePlatformLog struct {
 }
 
 func (r *azureAppServicePlatformLog) PutProperties(attrs pcommon.Map, body pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ContainerIDKey), r.Properties.ContainerID)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureDeploymentID, r.Properties.DeploymentID)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionMessageKey), r.Properties.Exception)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ExceptionStacktraceKey), r.Properties.StackTrace)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.HostNameKey), r.Properties.Host)
-
-	body.SetStr(r.Properties.Message)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -380,12 +281,7 @@ type appServiceFileAuditLogProperties struct {
 }
 
 func (p *appServiceFileAuditLogProperties) UnmarshalJSON(data []byte) error {
-	type alias appServiceFileAuditLogProperties
-	var temp alias
-	if err := unmarshalStringOrObjectJSON(data, &temp); err != nil {
-		return err
-	}
-	*p = appServiceFileAuditLogProperties(temp)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -399,8 +295,6 @@ type azureAppServiceFileAuditLog struct {
 }
 
 func (r *azureAppServiceFileAuditLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.FilePathKey), r.Properties.Path)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.ProcessTitleKey), r.Properties.Process)
-
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -4,8 +4,6 @@
 package mezmoexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/mezmoexporter"
 
 import (
-	"errors"
-	"net/url"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -47,23 +45,8 @@ type Config struct {
 
 // returns default http client settings
 func createDefaultClientConfig() confighttp.ClientConfig {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Timeout = defaultTimeout
-	return clientConfig
+	_ = "STUB: not implemented"
+	return *new(confighttp.ClientConfig)
 }
 
-func (c *Config) Validate() error {
-	var err error
-	var parsed *url.URL
-
-	parsed, err = url.Parse(c.IngestURL)
-	if c.IngestURL == "" || err != nil {
-		return errors.New(`"ingest_url" must be a valid URL`)
-	}
-
-	if parsed.Host == "" {
-		return errors.New(`"ingest_url" must contain a valid host`)
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -15,13 +15,13 @@ type skywalkingExtension struct {
 }
 
 func (e *skywalkingExtension) UnmarshalTraces(buf []byte) (ptrace.Traces, error) {
-	return e.unmarshaler.UnmarshalTraces(buf)
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), nil
 }
 
 func (*skywalkingExtension) Start(context.Context, component.Host) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (*skywalkingExtension) Shutdown(context.Context) error {
-	return nil
-}
+func (*skywalkingExtension) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }

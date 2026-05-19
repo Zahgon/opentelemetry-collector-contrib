@@ -21,47 +21,53 @@ var _ thrift.TTransport = (*TBufferedReadTransport)(nil)
 
 // NewTBufferedReadTransport creates a buffer backed TTransport
 func NewTBufferedReadTransport(readBuf *bytes.Buffer) (*TBufferedReadTransport, error) {
-	return &TBufferedReadTransport{readBuf: readBuf}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // IsOpen does nothing as transport is not maintaining the connection
 // Required to maintain thrift.TTransport interface
 func (*TBufferedReadTransport) IsOpen() bool {
-	return true
+	_ = "STUB: not implemented"
+
+	// Open does nothing as transport is not maintaining the connection
+	// Required to maintain thrift.TTransport interface
+	return false
 }
 
-// Open does nothing as transport is not maintaining the connection
-// Required to maintain thrift.TTransport interface
 func (*TBufferedReadTransport) Open() error {
+	_ = "STUB: not implemented"
+
+	// Close does nothing as transport is not maintaining the connection
+	// Required to maintain thrift.TTransport interface
 	return nil
 }
 
-// Close does nothing as transport is not maintaining the connection
-// Required to maintain thrift.TTransport interface
 func (*TBufferedReadTransport) Close() error {
+	_ = "STUB: not implemented"
+
+	// Read reads bytes from the local buffer and puts them in the specified buf
 	return nil
 }
 
-// Read reads bytes from the local buffer and puts them in the specified buf
 func (p *TBufferedReadTransport) Read(buf []byte) (int, error) {
-	in, err := p.readBuf.Read(buf)
-	return in, thrift.NewTTransportExceptionFromError(err)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // RemainingBytes returns the number of bytes left to be read from the readBuf
-func (p *TBufferedReadTransport) RemainingBytes() uint64 {
-	return uint64(p.readBuf.Len())
-}
+func (p *TBufferedReadTransport) RemainingBytes() uint64 { _ = "STUB: not implemented"; return 0 }
 
 // Write writes bytes into the read buffer
 // Required to maintain thrift.TTransport interface
 func (p *TBufferedReadTransport) Write(buf []byte) (int, error) {
-	p.readBuf = bytes.NewBuffer(buf)
-	return len(buf), nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // Flush does nothing as udp server does not write responses back
 // Required to maintain thrift.TTransport interface
 func (*TBufferedReadTransport) Flush(_ context.Context) error {
+	_ = "STUB: not implemented"
 	return nil
 }

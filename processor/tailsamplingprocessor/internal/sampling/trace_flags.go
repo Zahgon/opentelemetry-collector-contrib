@@ -8,8 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	"go.opentelemetry.io/collector/pdata/ptrace"
-	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/pkg/samplingpolicy"
@@ -23,22 +21,17 @@ var _ samplingpolicy.Evaluator = (*traceFlags)(nil)
 
 // NewTraceFlags creates a policy evaluator that samples all traces with the sampled flag set in the trace flags.
 func NewTraceFlags(settings component.TelemetrySettings) samplingpolicy.Evaluator {
-	return &traceFlags{
-		logger: settings.Logger,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 // Spans are sampled if any span in the trace has the sampled flag set in the trace flags.
 func (tf *traceFlags) Evaluate(_ context.Context, _ pcommon.TraceID, td *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	tf.logger.Debug("Evaluating spans in trace-flags filter")
-
-	return hasSpanWithCondition(td.ReceivedBatches, func(span ptrace.Span) bool {
-		// Get first 8 bits for trace flags byte from span flags, then bit mask for sampled flag.
-		return (byte(span.Flags()) & byte(trace.FlagsSampled)) != 0
-	}), nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (*traceFlags) IsStateful() bool {
-	return false
-}
+// Get first 8 bits for trace flags byte from span flags, then bit mask for sampled flag.
+
+func (*traceFlags) IsStateful() bool { _ = "STUB: not implemented"; return false }

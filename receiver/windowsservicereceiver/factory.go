@@ -4,30 +4,13 @@
 package windowsservicereceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowsservicereceiver"
 
 import (
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowsservicereceiver/internal/metadata"
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ControllerConfig: scraperhelper.ControllerConfig{
-			CollectionInterval: 1 * time.Minute,
-		},
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-		IncludeServices:      nil,
-		ExcludeServices:      nil,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

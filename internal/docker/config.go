@@ -4,15 +4,8 @@
 package docker // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/docker"
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"strconv"
-	"strings"
 	"time"
 
-	"github.com/moby/moby/client"
-	"github.com/moby/moby/client/pkg/versions"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/confmap"
@@ -45,106 +38,35 @@ type Config struct {
 }
 
 func (config *Config) Unmarshal(conf *confmap.Conf) error {
+	_ = "STUB: not implemented"
 	// WithIgonreUnused needed because this configuration is embedded inside other configurations
-	err := conf.Unmarshal(config, confmap.WithIgnoreUnused())
-	if err != nil {
-		if floatAPIVersion, ok := conf.Get("api_version").(float64); ok {
-			return fmt.Errorf(
-				"%w.\n\nHint: You may want to wrap the 'api_version' value in quotes (api_version: \"%1.2f\")",
-				err,
-				floatAPIVersion,
-			)
-		}
-		return err
-	}
 	return nil
 }
 
-func (config Config) Validate() error {
-	if config.Endpoint == "" {
-		return errors.New("endpoint must be specified")
-	}
-	if config.TLS.HasValue() {
-		if _, err := config.TLS.Get().LoadTLSConfig(context.Background()); err != nil {
-			return fmt.Errorf("invalid tls configuration: %w", err)
-		}
-	}
-	return nil
-}
+func (config Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NewConfig creates a new config to be used when creating
 // a docker client
 func NewConfig(endpoint string, timeout time.Duration, excludedImages []string, apiVersion string) *Config {
-	cfg := &Config{
-		Endpoint:         endpoint,
-		Timeout:          timeout,
-		ExcludedImages:   excludedImages,
-		DockerAPIVersion: apiVersion,
-	}
-	return cfg
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewDefaultConfig creates a new config with default values
 // to be used when creating a docker client
 // DockerAPIVersion is intentionally left empty for auto-negotiation.
-func NewDefaultConfig() *Config {
-	cfg := &Config{
-		Endpoint: client.DefaultDockerHost,
-		Timeout:  5 * time.Second,
-	}
-
-	return cfg
-}
+func NewDefaultConfig() *Config { _ = "STUB: not implemented"; return nil }
 
 type apiVersion struct {
 	major int
 	minor int
 }
 
-func NewAPIVersion(version string) (string, error) {
-	s := strings.TrimSpace(version)
-	split := strings.Split(s, ".")
-
-	invalidVersion := "invalid version %q"
-
-	nParts := len(split)
-	if s == "" || nParts < 1 || nParts > 2 {
-		return "", fmt.Errorf(invalidVersion, s)
-	}
-
-	apiVer := new(apiVersion)
-	var err error
-	target := map[int]*int{0: &apiVer.major, 1: &apiVer.minor}
-	for i, part := range split {
-		part = strings.TrimSpace(part)
-		if part != "" {
-			if *target[i], err = strconv.Atoi(part); err != nil {
-				return "", fmt.Errorf(invalidVersion+": %w", s, err)
-			}
-		}
-	}
-
-	return fmt.Sprintf("%d.%d", apiVer.major, apiVer.minor), nil
-}
+func NewAPIVersion(version string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // MustNewAPIVersion evaluates version as a client api version and panics if invalid.
-func MustNewAPIVersion(version string) string {
-	v, err := NewAPIVersion(version)
-	if err != nil {
-		panic(err)
-	}
-	return v
-}
+func MustNewAPIVersion(version string) string { _ = "STUB: not implemented"; return "" }
 
 // VersionIsValidAndGTE evalutes version as a client api version and returns an error if invalid or less than gte.
 // gte is assumed to be valid (easiest if result of MustNewAPIVersion on initialization)
-func VersionIsValidAndGTE(version, gte string) error {
-	v, err := NewAPIVersion(version)
-	if err != nil {
-		return err
-	}
-	if versions.LessThan(v, gte) {
-		return fmt.Errorf(`"api_version" %s must be at least %s`, version, gte)
-	}
-	return nil
-}
+func VersionIsValidAndGTE(version, gte string) error { _ = "STUB: not implemented"; return nil }

@@ -22,15 +22,7 @@ type LogBuilderOption interface {
 	apply(*LogsBuilder)
 }
 
-func NewLogsBuilder(settings receiver.Settings) *LogsBuilder {
-	lb := &LogsBuilder{
-		logsBuffer:       plog.NewLogs(),
-		logRecordsBuffer: plog.NewLogRecordSlice(),
-		buildInfo:        settings.BuildInfo,
-	}
-
-	return lb
-}
+func NewLogsBuilder(settings receiver.Settings) *LogsBuilder { _ = "STUB: not implemented"; return nil }
 
 // ResourceLogsOption applies changes to provided resource logs.
 type ResourceLogsOption interface {
@@ -40,21 +32,20 @@ type ResourceLogsOption interface {
 type resourceLogsOptionFunc func(plog.ResourceLogs)
 
 func (rlof resourceLogsOptionFunc) apply(rl plog.ResourceLogs) {
-	rlof(rl)
+	_ = "STUB: not implemented"
+
+	// WithLogsResource sets the provided resource on the emitted ResourceLogs.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithLogsResource sets the provided resource on the emitted ResourceLogs.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithLogsResource(res pcommon.Resource) ResourceLogsOption {
-	return resourceLogsOptionFunc(func(rl plog.ResourceLogs) {
-		res.CopyTo(rl.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceLogsOption)
 }
 
 // AppendLogRecord adds a log record to the logs builder.
-func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) {
-	lr.MoveTo(lb.logRecordsBuffer.AppendEmpty())
-}
+func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) { _ = "STUB: not implemented"; return }
 
 // EmitForResource saves all the generated logs under a new resource and updates the internal state to be ready for
 // recording another set of log records as part of another resource. This function can be helpful when one scraper
@@ -62,31 +53,14 @@ func (lb *LogsBuilder) AppendLogRecord(lr plog.LogRecord) {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceLogsOption arguments.
 func (lb *LogsBuilder) EmitForResource(options ...ResourceLogsOption) {
-	rl := plog.NewResourceLogs()
-	ils := rl.ScopeLogs().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(lb.buildInfo.Version)
-
-	for _, op := range options {
-		op.apply(rl)
-	}
-
-	if lb.logRecordsBuffer.Len() > 0 {
-		lb.logRecordsBuffer.MoveAndAppendTo(ils.LogRecords())
-		lb.logRecordsBuffer = plog.NewLogRecordSlice()
-	}
-
-	if ils.LogRecords().Len() > 0 {
-		rl.MoveTo(lb.logsBuffer.ResourceLogs().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the logs accumulated by the logs builder and updates the internal state to be ready for
 // recording another set of logs. This function will be responsible for applying all the transformations required to
 // produce logs representation defined in metadata and user config.
 func (lb *LogsBuilder) Emit(options ...ResourceLogsOption) plog.Logs {
-	lb.EmitForResource(options...)
-	logs := lb.logsBuffer
-	lb.logsBuffer = plog.NewLogs()
-	return logs
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }

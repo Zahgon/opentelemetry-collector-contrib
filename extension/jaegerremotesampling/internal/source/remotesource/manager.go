@@ -6,7 +6,6 @@ package remotesource // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/jaegertracing/jaeger-idl/proto-gen/api_v2"
 	"google.golang.org/grpc"
@@ -19,16 +18,12 @@ type ConfigManagerProxy struct {
 
 // NewConfigManager creates gRPC sampling manager.
 func NewConfigManager(conn *grpc.ClientConn) *ConfigManagerProxy {
-	return &ConfigManagerProxy{
-		client: api_v2.NewSamplingManagerClient(conn),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetSamplingStrategy returns sampling strategies from collector.
 func (s *ConfigManagerProxy) GetSamplingStrategy(ctx context.Context, serviceName string) (*api_v2.SamplingStrategyResponse, error) {
-	resp, err := s.client.GetSamplingStrategy(ctx, &api_v2.SamplingStrategyParameters{ServiceName: serviceName})
-	if err != nil {
-		return nil, fmt.Errorf("failed to get sampling strategy: %w", err)
-	}
-	return resp, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

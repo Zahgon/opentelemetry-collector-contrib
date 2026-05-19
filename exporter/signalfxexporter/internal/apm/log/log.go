@@ -9,30 +9,25 @@ type Fields map[string]any
 
 type nilLogger struct{}
 
-func (nilLogger) Debug(string) {
-}
+func (nilLogger) Debug(string) { _ = "STUB: not implemented"; return }
 
-func (nilLogger) Warn(string) {
-}
+func (nilLogger) Warn(string) { _ = "STUB: not implemented"; return }
 
-func (nilLogger) Error(string) {
-}
+func (nilLogger) Error(string) { _ = "STUB: not implemented"; return }
 
-func (nilLogger) Info(string) {
-}
+func (nilLogger) Info(string) { _ = "STUB: not implemented"; return }
 
-func (nilLogger) Panic(string) {
-}
+func (nilLogger) Panic(string) { _ = "STUB: not implemented"; return }
 
-func (nilLogger) WithFields(Fields) Logger {
-	return nilLogger{}
-}
+func (nilLogger) WithFields(Fields) Logger { _ = "STUB: not implemented"; return *new(Logger) }
 
 func (nilLogger) WithError(error) Logger {
-	return nilLogger{}
+	_ = "STUB: not implemented"
+
+	// Nil logger is a silent logger interface.
+	return *new(Logger)
 }
 
-// Nil logger is a silent logger interface.
 var Nil = nilLogger{}
 
 var _ Logger = (*nilLogger)(nil)

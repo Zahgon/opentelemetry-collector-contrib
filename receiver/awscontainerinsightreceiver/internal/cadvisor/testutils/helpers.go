@@ -4,45 +4,21 @@
 package testutils // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awscontainerinsightreceiver/internal/cadvisor/testutils"
 
 import (
-	"bytes"
-	"encoding/json"
-	"os"
 	"testing"
 
 	cinfo "github.com/google/cadvisor/info/v1"
-	"github.com/stretchr/testify/assert"
 )
 
 func LoadContainerInfo(t *testing.T, file string) []*cinfo.ContainerInfo {
-	info, err := os.ReadFile(file)
-	assert.NoError(t, err, "Fail to read file content")
-
-	containers := map[string]*cinfo.ContainerInfo{}
-	err = json.Unmarshal(info, &containers)
-	assert.NoError(t, err, "Fail to parse json string")
-
-	result := make([]*cinfo.ContainerInfo, len(containers))
-	i := 0
-	for _, containerInfo := range containers {
-		result[i] = containerInfo
-		i++
-	}
-
-	var b bytes.Buffer
-	enc := json.NewEncoder(&b)
-	assert.NoError(t, enc.Encode(result))
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type MockCPUMemInfo struct{}
 
-func (MockCPUMemInfo) GetNumCores() int64 {
-	return 2
-}
+func (MockCPUMemInfo) GetNumCores() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (MockCPUMemInfo) GetMemoryCapacity() int64 {
-	return 1073741824
-}
+func (MockCPUMemInfo) GetMemoryCapacity() int64 { _ = "STUB: not implemented"; return 0 }
 
 type MockHostInfo struct {
 	MockCPUMemInfo
@@ -50,26 +26,17 @@ type MockHostInfo struct {
 	InstanceIP  string
 }
 
-func (m MockHostInfo) GetClusterName() string {
-	return m.ClusterName
-}
+func (m MockHostInfo) GetClusterName() string { _ = "STUB: not implemented"; return "" }
 
-func (MockHostInfo) GetEBSVolumeID(string) string {
-	return "ebs-volume-id"
-}
+func (MockHostInfo) GetEBSVolumeID(string) string { _ = "STUB: not implemented"; return "" }
 
-func (MockHostInfo) GetInstanceID() string {
-	return "instance-id"
-}
+func (MockHostInfo) GetInstanceID() string { _ = "STUB: not implemented"; return "" }
 
-func (MockHostInfo) GetInstanceType() string {
-	return "instance-id"
-}
+func (MockHostInfo) GetInstanceType() string { _ = "STUB: not implemented"; return "" }
 
-func (MockHostInfo) GetAutoScalingGroupName() string {
-	return "asg"
-}
+func (MockHostInfo) GetAutoScalingGroupName() string { _ = "STUB: not implemented"; return "" }
 
 func (MockHostInfo) ExtractEbsIDsUsedByKubernetes() map[string]string {
-	return map[string]string{}
+	_ = "STUB: not implemented"
+	return nil
 }

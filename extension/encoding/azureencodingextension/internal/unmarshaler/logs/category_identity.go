@@ -4,12 +4,7 @@
 package logs // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler/logs"
 
 import (
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // Constants for Identity > claims (JWT standard claims)
@@ -91,35 +86,9 @@ type azureIdentityBase struct {
 // PutIdentityAttributes extracts known identity fields into flat OTel attributes.
 // Only specific fields are extracted to minimize the risk of including sensitive data.
 func (id *azureIdentityBase) PutIdentityAttributes(attrs pcommon.Map) {
+	_ = "STUB: not implemented"
 	// Claims: simple string claims
-	claimAttributesMap := map[string]string{
-		identityClaimIssuer:                attributeIdentityClaimsIssuer,
-		identityClaimSubject:               attributeIdentityClaimsSubject,
-		identityClaimAudience:              attributeIdentityClaimsAudience,
-		identityClaimScope:                 attributeIdentityClaimsScope,
-		identityClaimType:                  attributeIdentityClaimsType,
-		identityClaimApplicationID:         attributeIdentityClaimsApplicationID,
-		identityClaimAuthMethodsReferences: attributeIdentityClaimsAuthMethodsReferences,
-		identityClaimProvider:              attributeIdentityClaimsProvider,
-		identityClaimIdentifierObject:      attributeIdentityClaimsIdentifierObject,
-		identityClaimIdentifierName:        attributeIdentityClaimsIdentifierID,
-		identityClaimEmailAddress:          string(conventions.UserEmailKey),
-	}
-	for claimKey, attrName := range claimAttributesMap {
-		unmarshaler.AttrPutStrIf(attrs, attrName, id.Claims[claimKey])
-	}
-
-	// Claims: timestamp fields (Unix epoch -> RFC3339)
-	timestampClaimsMap := map[string]string{
-		identityClaimExpires:   attributeIdentityClaimsNotAfter,
-		identityClaimNotBefore: attributeIdentityClaimsNotBefore,
-		identityClaimIssuedAt:  attributeIdentityClaimsCreated,
-	}
-	for claimKey, attrName := range timestampClaimsMap {
-		if ts := id.Claims[claimKey]; ts != "" {
-			if parsedTime, err := parseUnixTimestamp(ts); err == nil {
-				attrs.PutStr(attrName, parsedTime.Format(time.RFC3339))
-			}
-		}
-	}
+	return
 }
+
+// Claims: timestamp fields (Unix epoch -> RFC3339)

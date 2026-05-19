@@ -15,106 +15,69 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetMongodbAtlasClusterName sets provided value as "mongodb_atlas.cluster.name" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasClusterName(val string) {
-	if rb.config.MongodbAtlasClusterName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.cluster.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasDbName sets provided value as "mongodb_atlas.db.name" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasDbName(val string) {
-	if rb.config.MongodbAtlasDbName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.db.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasDbName(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasDiskPartition sets provided value as "mongodb_atlas.disk.partition" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasDiskPartition(val string) {
-	if rb.config.MongodbAtlasDiskPartition.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.disk.partition", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasHostName sets provided value as "mongodb_atlas.host.name" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasHostName(val string) {
-	if rb.config.MongodbAtlasHostName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasOrgName sets provided value as "mongodb_atlas.org_name" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasOrgName(val string) {
-	if rb.config.MongodbAtlasOrgName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.org_name", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasOrgName(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasProcessID sets provided value as "mongodb_atlas.process.id" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasProcessID(val string) {
-	if rb.config.MongodbAtlasProcessID.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.process.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasProcessID(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasProcessPort sets provided value as "mongodb_atlas.process.port" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasProcessPort(val string) {
-	if rb.config.MongodbAtlasProcessPort.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.process.port", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasProcessTypeName sets provided value as "mongodb_atlas.process.type_name" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasProcessTypeName(val string) {
-	if rb.config.MongodbAtlasProcessTypeName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.process.type_name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasProjectID sets provided value as "mongodb_atlas.project.id" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasProjectID(val string) {
-	if rb.config.MongodbAtlasProjectID.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.project.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasProjectID(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasProjectName sets provided value as "mongodb_atlas.project.name" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasProjectName(val string) {
-	if rb.config.MongodbAtlasProjectName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.project.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasProviderName sets provided value as "mongodb_atlas.provider.name" attribute.
 func (rb *ResourceBuilder) SetMongodbAtlasProviderName(val string) {
-	if rb.config.MongodbAtlasProviderName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.provider.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetMongodbAtlasRegionName sets provided value as "mongodb_atlas.region.name" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasRegionName(val string) {
-	if rb.config.MongodbAtlasRegionName.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.region.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasRegionName(val string) { _ = "STUB: not implemented"; return }
 
 // SetMongodbAtlasUserAlias sets provided value as "mongodb_atlas.user.alias" attribute.
-func (rb *ResourceBuilder) SetMongodbAtlasUserAlias(val string) {
-	if rb.config.MongodbAtlasUserAlias.Enabled {
-		rb.res.Attributes().PutStr("mongodb_atlas.user.alias", val)
-	}
-}
+func (rb *ResourceBuilder) SetMongodbAtlasUserAlias(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

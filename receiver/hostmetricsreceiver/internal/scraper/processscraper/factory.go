@@ -5,25 +5,18 @@ package processscraper // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"errors"
-	"runtime"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/processscraper/internal/metadata"
 )
 
 // NewFactory for Process scraper.
-func NewFactory() scraper.Factory {
-	return scraper.NewFactory(metadata.Type, createDefaultConfig, scraper.WithMetrics(createMetricsScraper, metadata.MetricsStability))
-}
+func NewFactory() scraper.Factory { _ = "STUB: not implemented"; return *new(scraper.Factory) }
 
 // createDefaultConfig creates the default configuration for the Scraper.
 func createDefaultConfig() component.Config {
-	return &Config{
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // createMetricsScraper creates a resource scraper based on provided config.
@@ -32,23 +25,9 @@ func createMetricsScraper(
 	settings scraper.Settings,
 	cfg component.Config,
 ) (scraper.Metrics, error) {
+	_ = "STUB: not implemented"
 	// Hardcoded supported-OS list pending mdatagen `supported_os` annotation support.
 	// See https://github.com/open-telemetry/opentelemetry-collector/issues/15020;
 	// migrate to a metadata.yaml declaration and drop the runtime.GOOS check once it lands.
-	if runtime.GOOS != "linux" && runtime.GOOS != "windows" && runtime.GOOS != "darwin" && runtime.GOOS != "freebsd" && runtime.GOOS != "aix" {
-		return nil, errors.New("process scraper only available on Linux, Windows, macOS, FreeBSD, or AIX")
-	}
-
-	pCfg := cfg.(*Config)
-	validatePlatformEnabledMetrics(pCfg, settings.Logger)
-
-	s, err := newProcessScraper(settings, pCfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return scraper.NewMetrics(
-		s.scrape,
-		scraper.WithStart(s.start),
-	)
+	return *new(scraper.Metrics), nil
 }

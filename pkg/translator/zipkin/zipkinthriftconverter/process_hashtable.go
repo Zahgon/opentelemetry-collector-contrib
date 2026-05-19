@@ -14,34 +14,17 @@ type processHashtable struct {
 	extHash   func(*model.Process) uint64
 }
 
-func newProcessHashtable() *processHashtable {
-	processes := make(map[uint64][]*model.Process)
-	return &processHashtable{processes: processes}
-}
+func newProcessHashtable() *processHashtable { _ = "STUB: not implemented"; return nil }
 
-func (ph processHashtable) hash(process *model.Process) uint64 {
-	if ph.extHash != nil {
-		// for testing collisions
-		return ph.extHash(process)
-	}
-	hc, _ := model.HashCode(process)
-	return hc
-}
+func (ph processHashtable) hash(process *model.Process) uint64 { _ = "STUB: not implemented"; return 0 }
+
+// for testing collisions
 
 // add checks if identical Process already exists in the hash table and returns it.
 // Otherwise it adds process to the table and returns it.
 func (ph processHashtable) add(process *model.Process) *model.Process {
-	hash := ph.hash(process)
-	if pp, ok := ph.processes[hash]; ok {
-		for _, p := range pp {
-			if p.Equal(process) {
-				return p // reuse existing Process object
-			}
-		}
-		pp = append(pp, process)
-		ph.processes[hash] = pp
-	} else {
-		ph.processes[hash] = []*model.Process{process}
-	}
-	return process
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// reuse existing Process object

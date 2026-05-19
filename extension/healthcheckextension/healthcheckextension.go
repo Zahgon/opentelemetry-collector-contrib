@@ -5,12 +5,9 @@ package healthcheckextension // import "github.com/open-telemetry/opentelemetry-
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"net/http"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/extension/extensioncapabilities"
 	"go.uber.org/zap"
 
@@ -29,80 +26,30 @@ type healthCheckExtension struct {
 var _ extensioncapabilities.PipelineWatcher = (*healthCheckExtension)(nil)
 
 func (hc *healthCheckExtension) Start(ctx context.Context, host component.Host) error {
-	hc.logger.Info("Starting health_check extension", zap.Any("config", hc.config))
-	ln, err := hc.config.ToListener(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to bind to address %s: %w", hc.config.NetAddr.Endpoint, err)
-	}
-
-	hc.server, err = hc.config.ToServer(ctx, host.GetExtensions(), hc.settings, nil)
-	if err != nil {
-		return err
-	}
-
-	// Mount HC handler
-	mux := http.NewServeMux()
-	mux.Handle(hc.config.Path, hc.baseHandler())
-	hc.server.Handler = mux
-	hc.stopCh = make(chan struct{})
-	go func() {
-		defer close(hc.stopCh)
-
-		// The listener ownership goes to the server.
-		if err = hc.server.Serve(ln); !errors.Is(err, http.ErrServerClosed) && err != nil {
-			componentstatus.ReportStatus(host, componentstatus.NewFatalErrorEvent(err))
-		}
-	}()
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Mount HC handler
+
+// The listener ownership goes to the server.
 
 // base handler function
 func (hc *healthCheckExtension) baseHandler() http.Handler {
-	if hc.config.ResponseBody != nil {
-		return http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-			if hc.state.Get() == healthcheck.Ready {
-				w.WriteHeader(http.StatusOK)
-				_, _ = w.Write([]byte(hc.config.ResponseBody.Healthy))
-			} else {
-				w.WriteHeader(http.StatusServiceUnavailable)
-				_, _ = w.Write([]byte(hc.config.ResponseBody.Unhealthy))
-			}
-		})
-	}
-	return hc.state.Handler()
+	_ = "STUB: not implemented"
+	return *new(http.Handler)
 }
 
 func (hc *healthCheckExtension) Shutdown(context.Context) error {
-	if hc.server == nil {
-		return nil
-	}
-	err := hc.server.Close()
-	if hc.stopCh != nil {
-		<-hc.stopCh
-	}
-	return err
-}
-
-func (hc *healthCheckExtension) Ready() error {
-	hc.state.Set(healthcheck.Ready)
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (hc *healthCheckExtension) NotReady() error {
-	hc.state.Set(healthcheck.Unavailable)
-	return nil
-}
+func (hc *healthCheckExtension) Ready() error { _ = "STUB: not implemented"; return nil }
+
+func (hc *healthCheckExtension) NotReady() error { _ = "STUB: not implemented"; return nil }
 
 func newServer(config Config, settings component.TelemetrySettings) *healthCheckExtension {
-	hc := &healthCheckExtension{
-		config:   config,
-		logger:   settings.Logger,
-		state:    healthcheck.New(),
-		settings: settings,
-	}
-
-	hc.state.SetLogger(settings.Logger)
-
-	return hc
+	_ = "STUB: not implemented"
+	return nil
 }

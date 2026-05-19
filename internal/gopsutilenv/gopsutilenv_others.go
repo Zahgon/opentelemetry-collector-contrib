@@ -7,25 +7,20 @@ package gopsutilenv // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"errors"
 
 	"github.com/shirou/gopsutil/v4/common"
 )
 
-func ValidateRootPath(rootPath string) error {
-	if rootPath == "" {
-		return nil
-	}
-	return errors.New("root_path is supported on linux only")
-}
+func ValidateRootPath(rootPath string) error { _ = "STUB: not implemented"; return nil }
 
 func SetGoPsutilEnvVars(_ string) common.EnvMap {
-	return common.EnvMap{}
+	_ = "STUB: not implemented"
+	return *new(common.EnvMap)
 }
 
 func GetEnvWithContext(_ context.Context, _, dfault string, _ ...string) string {
-	return dfault
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func SetGlobalRootPath(_ string) {
-}
+func SetGlobalRootPath(_ string) { _ = "STUB: not implemented"; return }

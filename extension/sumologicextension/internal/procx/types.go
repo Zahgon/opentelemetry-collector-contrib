@@ -7,31 +7,21 @@ import "github.com/shirou/gopsutil/v4/process"
 
 type SumoTag string
 
-func (s SumoTag) String() string {
-	return string(s)
-}
+func (s SumoTag) String() string { _ = "STUB: not implemented"; return "" }
 
 type ProcessIdentifier string
 
-func (p ProcessIdentifier) String() string {
-	return string(p)
-}
+func (p ProcessIdentifier) String() string { _ = "STUB: not implemented"; return "" }
 
 type processWrapper struct {
 	process *process.Process
 }
 
-func (pw *processWrapper) Pid() int32 {
-	return pw.process.Pid
-}
+func (pw *processWrapper) Pid() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (pw *processWrapper) Name() (string, error) {
-	return pw.process.Name()
-}
+func (pw *processWrapper) Name() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
-func (pw *processWrapper) Cmdline() (string, error) {
-	return pw.process.Cmdline()
-}
+func (pw *processWrapper) Cmdline() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 type Process interface {
 	Pid() int32

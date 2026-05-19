@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type RedisClientsBlockedMetricConfig struct {
 }
 
 func (ms *RedisClientsBlockedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type RedisClientsConnectedMetricConfig struct {
 }
 
 func (ms *RedisClientsConnectedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type RedisClientsMaxInputBufferMetricConfig struct {
 }
 
 func (ms *RedisClientsMaxInputBufferMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type RedisClientsMaxOutputBufferMetricConfig struct {
 }
 
 func (ms *RedisClientsMaxOutputBufferMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type RedisClusterClusterEnabledMetricConfig struct {
 }
 
 func (ms *RedisClusterClusterEnabledMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type RedisClusterKnownNodesMetricConfig struct {
 }
 
 func (ms *RedisClusterKnownNodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -136,16 +80,7 @@ type RedisClusterLinksBufferLimitExceededCountMetricConfig struct {
 }
 
 func (ms *RedisClusterLinksBufferLimitExceededCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -156,16 +91,7 @@ type RedisClusterNodeCountMetricConfig struct {
 }
 
 func (ms *RedisClusterNodeCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -176,16 +102,7 @@ type RedisClusterNodeUptimeMetricConfig struct {
 }
 
 func (ms *RedisClusterNodeUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -196,16 +113,7 @@ type RedisClusterSlotsAssignedMetricConfig struct {
 }
 
 func (ms *RedisClusterSlotsAssignedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -216,16 +124,7 @@ type RedisClusterSlotsFailMetricConfig struct {
 }
 
 func (ms *RedisClusterSlotsFailMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -236,16 +135,7 @@ type RedisClusterSlotsOkMetricConfig struct {
 }
 
 func (ms *RedisClusterSlotsOkMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -256,16 +146,7 @@ type RedisClusterSlotsPfailMetricConfig struct {
 }
 
 func (ms *RedisClusterSlotsPfailMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -286,36 +167,11 @@ type RedisClusterStateMetricConfig struct {
 }
 
 func (ms *RedisClusterStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisClusterStateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisClusterStateMetricAttributeKeyClusterState:
-		default:
-			return fmt.Errorf("metric redis.cluster.state doesn't have an attribute %v, valid attributes: [cluster_state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisClusterStateMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisClusterStatsMessagesReceivedMetricConfig provides config for the redis.cluster.stats_messages_received metric.
 type RedisClusterStatsMessagesReceivedMetricConfig struct {
@@ -324,16 +180,7 @@ type RedisClusterStatsMessagesReceivedMetricConfig struct {
 }
 
 func (ms *RedisClusterStatsMessagesReceivedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -344,16 +191,7 @@ type RedisClusterStatsMessagesSentMetricConfig struct {
 }
 
 func (ms *RedisClusterStatsMessagesSentMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -364,16 +202,7 @@ type RedisClusterUptimeMetricConfig struct {
 }
 
 func (ms *RedisClusterUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -394,36 +223,11 @@ type RedisCmdCallsMetricConfig struct {
 }
 
 func (ms *RedisCmdCallsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisCmdCallsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisCmdCallsMetricAttributeKeyCmd:
-		default:
-			return fmt.Errorf("metric redis.cmd.calls doesn't have an attribute %v, valid attributes: [cmd]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisCmdCallsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisCmdLatencyMetricAttributeKey specifies the key of an attribute for the redis.cmd.latency metric.
 type RedisCmdLatencyMetricAttributeKey string
@@ -443,36 +247,11 @@ type RedisCmdLatencyMetricConfig struct {
 }
 
 func (ms *RedisCmdLatencyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisCmdLatencyMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisCmdLatencyMetricAttributeKeyCmd, RedisCmdLatencyMetricAttributeKeyPercentile:
-		default:
-			return fmt.Errorf("metric redis.cmd.latency doesn't have an attribute %v, valid attributes: [cmd, percentile]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisCmdLatencyMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisCmdUsecMetricAttributeKey specifies the key of an attribute for the redis.cmd.usec metric.
 type RedisCmdUsecMetricAttributeKey string
@@ -491,36 +270,11 @@ type RedisCmdUsecMetricConfig struct {
 }
 
 func (ms *RedisCmdUsecMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisCmdUsecMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisCmdUsecMetricAttributeKeyCmd:
-		default:
-			return fmt.Errorf("metric redis.cmd.usec doesn't have an attribute %v, valid attributes: [cmd]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisCmdUsecMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisCommandsMetricConfig provides config for the redis.commands metric.
 type RedisCommandsMetricConfig struct {
@@ -529,16 +283,7 @@ type RedisCommandsMetricConfig struct {
 }
 
 func (ms *RedisCommandsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -549,16 +294,7 @@ type RedisCommandsProcessedMetricConfig struct {
 }
 
 func (ms *RedisCommandsProcessedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -569,16 +305,7 @@ type RedisConnectionsReceivedMetricConfig struct {
 }
 
 func (ms *RedisConnectionsReceivedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -589,16 +316,7 @@ type RedisConnectionsRejectedMetricConfig struct {
 }
 
 func (ms *RedisConnectionsRejectedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -619,36 +337,11 @@ type RedisCPUTimeMetricConfig struct {
 }
 
 func (ms *RedisCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisCPUTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisCPUTimeMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric redis.cpu.time doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisCPUTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisDbAvgTTLMetricAttributeKey specifies the key of an attribute for the redis.db.avg_ttl metric.
 type RedisDbAvgTTLMetricAttributeKey string
@@ -667,36 +360,11 @@ type RedisDbAvgTTLMetricConfig struct {
 }
 
 func (ms *RedisDbAvgTTLMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisDbAvgTTLMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisDbAvgTTLMetricAttributeKeyDb:
-		default:
-			return fmt.Errorf("metric redis.db.avg_ttl doesn't have an attribute %v, valid attributes: [db]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisDbAvgTTLMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisDbExpiresMetricAttributeKey specifies the key of an attribute for the redis.db.expires metric.
 type RedisDbExpiresMetricAttributeKey string
@@ -715,36 +383,11 @@ type RedisDbExpiresMetricConfig struct {
 }
 
 func (ms *RedisDbExpiresMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisDbExpiresMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisDbExpiresMetricAttributeKeyDb:
-		default:
-			return fmt.Errorf("metric redis.db.expires doesn't have an attribute %v, valid attributes: [db]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisDbExpiresMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisDbKeysMetricAttributeKey specifies the key of an attribute for the redis.db.keys metric.
 type RedisDbKeysMetricAttributeKey string
@@ -763,36 +406,11 @@ type RedisDbKeysMetricConfig struct {
 }
 
 func (ms *RedisDbKeysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisDbKeysMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisDbKeysMetricAttributeKeyDb:
-		default:
-			return fmt.Errorf("metric redis.db.keys doesn't have an attribute %v, valid attributes: [db]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisDbKeysMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisKeysEvictedMetricConfig provides config for the redis.keys.evicted metric.
 type RedisKeysEvictedMetricConfig struct {
@@ -801,16 +419,7 @@ type RedisKeysEvictedMetricConfig struct {
 }
 
 func (ms *RedisKeysEvictedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -821,16 +430,7 @@ type RedisKeysExpiredMetricConfig struct {
 }
 
 func (ms *RedisKeysExpiredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -841,16 +441,7 @@ type RedisKeyspaceHitsMetricConfig struct {
 }
 
 func (ms *RedisKeyspaceHitsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -861,16 +452,7 @@ type RedisKeyspaceMissesMetricConfig struct {
 }
 
 func (ms *RedisKeyspaceMissesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -881,16 +463,7 @@ type RedisLatestForkMetricConfig struct {
 }
 
 func (ms *RedisLatestForkMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -901,16 +474,7 @@ type RedisMaxmemoryMetricConfig struct {
 }
 
 func (ms *RedisMaxmemoryMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -921,16 +485,7 @@ type RedisMemoryFragmentationRatioMetricConfig struct {
 }
 
 func (ms *RedisMemoryFragmentationRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -941,16 +496,7 @@ type RedisMemoryLuaMetricConfig struct {
 }
 
 func (ms *RedisMemoryLuaMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -961,16 +507,7 @@ type RedisMemoryPeakMetricConfig struct {
 }
 
 func (ms *RedisMemoryPeakMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -981,16 +518,7 @@ type RedisMemoryRssMetricConfig struct {
 }
 
 func (ms *RedisMemoryRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1001,16 +529,7 @@ type RedisMemoryUsedMetricConfig struct {
 }
 
 func (ms *RedisMemoryUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1021,16 +540,7 @@ type RedisMemoryUsedMemoryOverheadMetricConfig struct {
 }
 
 func (ms *RedisMemoryUsedMemoryOverheadMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1041,16 +551,7 @@ type RedisMemoryUsedMemoryStartupMetricConfig struct {
 }
 
 func (ms *RedisMemoryUsedMemoryStartupMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1071,36 +572,11 @@ type RedisModeMetricConfig struct {
 }
 
 func (ms *RedisModeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisModeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisModeMetricAttributeKeyMode:
-		default:
-			return fmt.Errorf("metric redis.mode doesn't have an attribute %v, valid attributes: [mode]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisModeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisNetInputMetricConfig provides config for the redis.net.input metric.
 type RedisNetInputMetricConfig struct {
@@ -1109,16 +585,7 @@ type RedisNetInputMetricConfig struct {
 }
 
 func (ms *RedisNetInputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1129,16 +596,7 @@ type RedisNetOutputMetricConfig struct {
 }
 
 func (ms *RedisNetOutputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1149,16 +607,7 @@ type RedisRdbChangesSinceLastSaveMetricConfig struct {
 }
 
 func (ms *RedisRdbChangesSinceLastSaveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1169,16 +618,7 @@ type RedisReplicationBacklogFirstByteOffsetMetricConfig struct {
 }
 
 func (ms *RedisReplicationBacklogFirstByteOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1189,16 +629,7 @@ type RedisReplicationOffsetMetricConfig struct {
 }
 
 func (ms *RedisReplicationOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1209,16 +640,7 @@ type RedisReplicationReplicaOffsetMetricConfig struct {
 }
 
 func (ms *RedisReplicationReplicaOffsetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1239,36 +661,11 @@ type RedisRoleMetricConfig struct {
 }
 
 func (ms *RedisRoleMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *RedisRoleMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case RedisRoleMetricAttributeKeyRole:
-		default:
-			return fmt.Errorf("metric redis.role doesn't have an attribute %v, valid attributes: [role]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *RedisRoleMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RedisSentinelMastersMetricConfig provides config for the redis.sentinel.masters metric.
 type RedisSentinelMastersMetricConfig struct {
@@ -1277,16 +674,7 @@ type RedisSentinelMastersMetricConfig struct {
 }
 
 func (ms *RedisSentinelMastersMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1297,16 +685,7 @@ type RedisSentinelRunningScriptsMetricConfig struct {
 }
 
 func (ms *RedisSentinelRunningScriptsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1317,16 +696,7 @@ type RedisSentinelScriptsQueueLengthMetricConfig struct {
 }
 
 func (ms *RedisSentinelScriptsQueueLengthMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1337,16 +707,7 @@ type RedisSentinelSimulateFailureFlagsMetricConfig struct {
 }
 
 func (ms *RedisSentinelSimulateFailureFlagsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1357,16 +718,7 @@ type RedisSentinelTiltSinceSecondsMetricConfig struct {
 }
 
 func (ms *RedisSentinelTiltSinceSecondsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1377,16 +729,7 @@ type RedisSentinelTotalTiltMetricConfig struct {
 }
 
 func (ms *RedisSentinelTotalTiltMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1397,16 +740,7 @@ type RedisSlavesConnectedMetricConfig struct {
 }
 
 func (ms *RedisSlavesConnectedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1417,16 +751,7 @@ type RedisTrackingTotalKeysMetricConfig struct {
 }
 
 func (ms *RedisTrackingTotalKeysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1437,16 +762,7 @@ type RedisUptimeMetricConfig struct {
 }
 
 func (ms *RedisUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1512,204 +828,7 @@ type MetricsConfig struct {
 	RedisUptime                               RedisUptimeMetricConfig                               `mapstructure:"redis.uptime"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		RedisClientsBlocked: RedisClientsBlockedMetricConfig{
-			Enabled: true,
-		},
-		RedisClientsConnected: RedisClientsConnectedMetricConfig{
-			Enabled: true,
-		},
-		RedisClientsMaxInputBuffer: RedisClientsMaxInputBufferMetricConfig{
-			Enabled: true,
-		},
-		RedisClientsMaxOutputBuffer: RedisClientsMaxOutputBufferMetricConfig{
-			Enabled: true,
-		},
-		RedisClusterClusterEnabled: RedisClusterClusterEnabledMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterKnownNodes: RedisClusterKnownNodesMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterLinksBufferLimitExceededCount: RedisClusterLinksBufferLimitExceededCountMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterNodeCount: RedisClusterNodeCountMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterNodeUptime: RedisClusterNodeUptimeMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterSlotsAssigned: RedisClusterSlotsAssignedMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterSlotsFail: RedisClusterSlotsFailMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterSlotsOk: RedisClusterSlotsOkMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterSlotsPfail: RedisClusterSlotsPfailMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterState: RedisClusterStateMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisClusterStateMetricAttributeKey{RedisClusterStateMetricAttributeKeyClusterState},
-		},
-		RedisClusterStatsMessagesReceived: RedisClusterStatsMessagesReceivedMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterStatsMessagesSent: RedisClusterStatsMessagesSentMetricConfig{
-			Enabled: false,
-		},
-		RedisClusterUptime: RedisClusterUptimeMetricConfig{
-			Enabled: false,
-		},
-		RedisCmdCalls: RedisCmdCallsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []RedisCmdCallsMetricAttributeKey{RedisCmdCallsMetricAttributeKeyCmd},
-		},
-		RedisCmdLatency: RedisCmdLatencyMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisCmdLatencyMetricAttributeKey{RedisCmdLatencyMetricAttributeKeyCmd, RedisCmdLatencyMetricAttributeKeyPercentile},
-		},
-		RedisCmdUsec: RedisCmdUsecMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []RedisCmdUsecMetricAttributeKey{RedisCmdUsecMetricAttributeKeyCmd},
-		},
-		RedisCommands: RedisCommandsMetricConfig{
-			Enabled: true,
-		},
-		RedisCommandsProcessed: RedisCommandsProcessedMetricConfig{
-			Enabled: true,
-		},
-		RedisConnectionsReceived: RedisConnectionsReceivedMetricConfig{
-			Enabled: true,
-		},
-		RedisConnectionsRejected: RedisConnectionsRejectedMetricConfig{
-			Enabled: true,
-		},
-		RedisCPUTime: RedisCPUTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []RedisCPUTimeMetricAttributeKey{RedisCPUTimeMetricAttributeKeyState},
-		},
-		RedisDbAvgTTL: RedisDbAvgTTLMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisDbAvgTTLMetricAttributeKey{RedisDbAvgTTLMetricAttributeKeyDb},
-		},
-		RedisDbExpires: RedisDbExpiresMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisDbExpiresMetricAttributeKey{RedisDbExpiresMetricAttributeKeyDb},
-		},
-		RedisDbKeys: RedisDbKeysMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisDbKeysMetricAttributeKey{RedisDbKeysMetricAttributeKeyDb},
-		},
-		RedisKeysEvicted: RedisKeysEvictedMetricConfig{
-			Enabled: true,
-		},
-		RedisKeysExpired: RedisKeysExpiredMetricConfig{
-			Enabled: true,
-		},
-		RedisKeyspaceHits: RedisKeyspaceHitsMetricConfig{
-			Enabled: true,
-		},
-		RedisKeyspaceMisses: RedisKeyspaceMissesMetricConfig{
-			Enabled: true,
-		},
-		RedisLatestFork: RedisLatestForkMetricConfig{
-			Enabled: true,
-		},
-		RedisMaxmemory: RedisMaxmemoryMetricConfig{
-			Enabled: false,
-		},
-		RedisMemoryFragmentationRatio: RedisMemoryFragmentationRatioMetricConfig{
-			Enabled: true,
-		},
-		RedisMemoryLua: RedisMemoryLuaMetricConfig{
-			Enabled: true,
-		},
-		RedisMemoryPeak: RedisMemoryPeakMetricConfig{
-			Enabled: true,
-		},
-		RedisMemoryRss: RedisMemoryRssMetricConfig{
-			Enabled: true,
-		},
-		RedisMemoryUsed: RedisMemoryUsedMetricConfig{
-			Enabled: true,
-		},
-		RedisMemoryUsedMemoryOverhead: RedisMemoryUsedMemoryOverheadMetricConfig{
-			Enabled: false,
-		},
-		RedisMemoryUsedMemoryStartup: RedisMemoryUsedMemoryStartupMetricConfig{
-			Enabled: false,
-		},
-		RedisMode: RedisModeMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []RedisModeMetricAttributeKey{RedisModeMetricAttributeKeyMode},
-		},
-		RedisNetInput: RedisNetInputMetricConfig{
-			Enabled: true,
-		},
-		RedisNetOutput: RedisNetOutputMetricConfig{
-			Enabled: true,
-		},
-		RedisRdbChangesSinceLastSave: RedisRdbChangesSinceLastSaveMetricConfig{
-			Enabled: true,
-		},
-		RedisReplicationBacklogFirstByteOffset: RedisReplicationBacklogFirstByteOffsetMetricConfig{
-			Enabled: true,
-		},
-		RedisReplicationOffset: RedisReplicationOffsetMetricConfig{
-			Enabled: true,
-		},
-		RedisReplicationReplicaOffset: RedisReplicationReplicaOffsetMetricConfig{
-			Enabled: false,
-		},
-		RedisRole: RedisRoleMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []RedisRoleMetricAttributeKey{RedisRoleMetricAttributeKeyRole},
-		},
-		RedisSentinelMasters: RedisSentinelMastersMetricConfig{
-			Enabled: false,
-		},
-		RedisSentinelRunningScripts: RedisSentinelRunningScriptsMetricConfig{
-			Enabled: false,
-		},
-		RedisSentinelScriptsQueueLength: RedisSentinelScriptsQueueLengthMetricConfig{
-			Enabled: false,
-		},
-		RedisSentinelSimulateFailureFlags: RedisSentinelSimulateFailureFlagsMetricConfig{
-			Enabled: false,
-		},
-		RedisSentinelTiltSinceSeconds: RedisSentinelTiltSinceSecondsMetricConfig{
-			Enabled: false,
-		},
-		RedisSentinelTotalTilt: RedisSentinelTotalTiltMetricConfig{
-			Enabled: false,
-		},
-		RedisSlavesConnected: RedisSlavesConnectedMetricConfig{
-			Enabled: true,
-		},
-		RedisTrackingTotalKeys: RedisTrackingTotalKeysMetricConfig{
-			Enabled: false,
-		},
-		RedisUptime: RedisUptimeMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1726,14 +845,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1745,17 +857,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		RedisVersion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServerAddress: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServerPort: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for redis metrics builder.
@@ -1765,13 +868,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -5,7 +5,4 @@ package sumologicextension // import "github.com/open-telemetry/opentelemetry-co
 
 import "net/http"
 
-func addJSONHeaders(req *http.Request) {
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Accept", "application/json")
-}
+func addJSONHeaders(req *http.Request) { _ = "STUB: not implemented"; return }

@@ -4,8 +4,6 @@
 package filesystemscraper // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/filesystemscraper"
 
 import (
-	"fmt"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/filesystemscraper/internal/metadata"
 )
@@ -67,63 +65,8 @@ type fsFilter struct {
 	filtersExist            bool
 }
 
-func (cfg *Config) SetRootPath(rootPath string) {
-	cfg.rootPath = rootPath
-}
+func (cfg *Config) SetRootPath(rootPath string) { _ = "STUB: not implemented"; return }
 
-func (cfg *Config) createFilter() (*fsFilter, error) {
-	var err error
-	filter := fsFilter{}
+func (cfg *Config) createFilter() (*fsFilter, error) { _ = "STUB: not implemented"; return nil, nil }
 
-	if len(cfg.IncludeDevices.Devices) > 0 {
-		filter.includeDeviceFilter, err = filterset.CreateFilterSet(cfg.IncludeDevices.Devices, &cfg.IncludeDevices.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating include_devices filter: %w", err)
-		}
-	}
-
-	if len(cfg.ExcludeDevices.Devices) > 0 {
-		filter.excludeDeviceFilter, err = filterset.CreateFilterSet(cfg.ExcludeDevices.Devices, &cfg.ExcludeDevices.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating exclude_devices filter: %w", err)
-		}
-	}
-
-	if len(cfg.IncludeFSTypes.FSTypes) > 0 {
-		filter.includeFSTypeFilter, err = filterset.CreateFilterSet(cfg.IncludeFSTypes.FSTypes,
-			&cfg.IncludeFSTypes.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating include_fs_types filter: %w", err)
-		}
-	}
-
-	if len(cfg.ExcludeFSTypes.FSTypes) > 0 {
-		filter.excludeFSTypeFilter, err = filterset.CreateFilterSet(cfg.ExcludeFSTypes.FSTypes, &cfg.ExcludeFSTypes.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating exclude_fs_types filter: %w", err)
-		}
-	}
-
-	if len(cfg.IncludeMountPoints.MountPoints) > 0 {
-		filter.includeMountPointFilter, err = filterset.CreateFilterSet(cfg.IncludeMountPoints.MountPoints, &cfg.IncludeMountPoints.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating include_mount_points filter: %w", err)
-		}
-	}
-
-	if len(cfg.ExcludeMountPoints.MountPoints) > 0 {
-		filter.excludeMountPointFilter, err = filterset.CreateFilterSet(cfg.ExcludeMountPoints.MountPoints, &cfg.ExcludeMountPoints.Config)
-		if err != nil {
-			return nil, fmt.Errorf("error creating exclude_mount_points filter: %w", err)
-		}
-	}
-
-	filter.setFiltersExist()
-	return &filter, nil
-}
-
-func (f *fsFilter) setFiltersExist() {
-	f.filtersExist = f.includeMountPointFilter != nil || f.excludeMountPointFilter != nil ||
-		f.includeFSTypeFilter != nil || f.excludeFSTypeFilter != nil ||
-		f.includeDeviceFilter != nil || f.excludeDeviceFilter != nil
-}
+func (f *fsFilter) setFiltersExist() { _ = "STUB: not implemented"; return }

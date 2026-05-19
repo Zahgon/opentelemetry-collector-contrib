@@ -4,9 +4,6 @@
 package prometheusremotewriteexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter"
 
 import (
-	"errors"
-	"fmt"
-
 	remoteapi "github.com/prometheus/client_golang/exp/api/remote"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -14,7 +11,6 @@ import (
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusremotewriteexporter/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/resourcetotelemetry"
 )
 
@@ -121,56 +117,8 @@ type RemoteWriteQueue struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.MaxBatchRequestParallelism != nil && *cfg.MaxBatchRequestParallelism < 1 {
-		return errors.New("max_batch_request_parallelism can't be set to below 1")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.RemoteWriteQueue.QueueSize < 0 {
-		return errors.New("remote write queue size can't be negative")
-	}
+// Defaults to ~2.81MB
 
-	if cfg.RemoteWriteQueue.Enabled && cfg.RemoteWriteQueue.QueueSize == 0 {
-		return errors.New("a 0 size queue will drop all the data")
-	}
-
-	if cfg.RemoteWriteQueue.NumConsumers < 0 {
-		return errors.New("remote write consumer number can't be negative")
-	}
-
-	if cfg.MaxBatchSizeBytes < 0 {
-		return errors.New("max_batch_byte_size must be greater than 0")
-	}
-	if cfg.MaxBatchSizeBytes == 0 {
-		// Defaults to ~2.81MB
-		cfg.MaxBatchSizeBytes = 3000000
-	}
-
-	if len(cfg.ClientConfig.Compression) > 0 && cfg.ClientConfig.Compression != "snappy" {
-		return errors.New("compression type must be snappy")
-	}
-
-	err := cfg.RemoteWriteProtoMsg.Validate()
-	if err != nil {
-		return err
-	}
-
-	if !metadata.ExporterPrometheusremotewritexporterEnableSendingRW2FeatureGate.IsEnabled() && cfg.RemoteWriteProtoMsg == remoteapi.WriteV2MessageType {
-		return fmt.Errorf("remote write v2 is only supported with the feature gate %s", metadata.ExporterPrometheusremotewritexporterEnableSendingRW2FeatureGate.ID())
-	}
-
-	// Validate translation strategy if set
-	if cfg.TranslationStrategy != "" {
-		switch cfg.TranslationStrategy {
-		case underscoreEscapingWithSuffixes, underscoreEscapingWithoutSuffixes, noUTF8EscapingWithSuffixes, noTranslation:
-		default:
-			return fmt.Errorf("invalid translation_strategy: %s", cfg.TranslationStrategy)
-		}
-
-		if cfg.RemoteWriteProtoMsg == remoteapi.WriteV1MessageType && (cfg.TranslationStrategy == noUTF8EscapingWithSuffixes || cfg.TranslationStrategy == noTranslation) {
-			return fmt.Errorf("translation strategy %s requires Prometheus Remote Write 2.0 (UTF-8 support)", cfg.TranslationStrategy)
-		}
-	}
-
-	return nil
-}
+// Validate translation strategy if set

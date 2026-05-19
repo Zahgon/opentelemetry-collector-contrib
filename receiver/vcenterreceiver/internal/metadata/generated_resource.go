@@ -15,99 +15,57 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetVcenterClusterName sets provided value as "vcenter.cluster.name" attribute.
-func (rb *ResourceBuilder) SetVcenterClusterName(val string) {
-	if rb.config.VcenterClusterName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.cluster.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterClusterName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterDatacenterName sets provided value as "vcenter.datacenter.name" attribute.
-func (rb *ResourceBuilder) SetVcenterDatacenterName(val string) {
-	if rb.config.VcenterDatacenterName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.datacenter.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterDatacenterName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterDatastoreName sets provided value as "vcenter.datastore.name" attribute.
-func (rb *ResourceBuilder) SetVcenterDatastoreName(val string) {
-	if rb.config.VcenterDatastoreName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.datastore.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterDatastoreName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterHostName sets provided value as "vcenter.host.name" attribute.
-func (rb *ResourceBuilder) SetVcenterHostName(val string) {
-	if rb.config.VcenterHostName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterHostName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterResourcePoolInventoryPath sets provided value as "vcenter.resource_pool.inventory_path" attribute.
 func (rb *ResourceBuilder) SetVcenterResourcePoolInventoryPath(val string) {
-	if rb.config.VcenterResourcePoolInventoryPath.Enabled {
-		rb.res.Attributes().PutStr("vcenter.resource_pool.inventory_path", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetVcenterResourcePoolName sets provided value as "vcenter.resource_pool.name" attribute.
 func (rb *ResourceBuilder) SetVcenterResourcePoolName(val string) {
-	if rb.config.VcenterResourcePoolName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.resource_pool.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetVcenterVirtualAppInventoryPath sets provided value as "vcenter.virtual_app.inventory_path" attribute.
 func (rb *ResourceBuilder) SetVcenterVirtualAppInventoryPath(val string) {
-	if rb.config.VcenterVirtualAppInventoryPath.Enabled {
-		rb.res.Attributes().PutStr("vcenter.virtual_app.inventory_path", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetVcenterVirtualAppName sets provided value as "vcenter.virtual_app.name" attribute.
-func (rb *ResourceBuilder) SetVcenterVirtualAppName(val string) {
-	if rb.config.VcenterVirtualAppName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.virtual_app.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterVirtualAppName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterVMID sets provided value as "vcenter.vm.id" attribute.
-func (rb *ResourceBuilder) SetVcenterVMID(val string) {
-	if rb.config.VcenterVMID.Enabled {
-		rb.res.Attributes().PutStr("vcenter.vm.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterVMID(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterVMName sets provided value as "vcenter.vm.name" attribute.
-func (rb *ResourceBuilder) SetVcenterVMName(val string) {
-	if rb.config.VcenterVMName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.vm.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterVMName(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterVMTemplateID sets provided value as "vcenter.vm_template.id" attribute.
-func (rb *ResourceBuilder) SetVcenterVMTemplateID(val string) {
-	if rb.config.VcenterVMTemplateID.Enabled {
-		rb.res.Attributes().PutStr("vcenter.vm_template.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterVMTemplateID(val string) { _ = "STUB: not implemented"; return }
 
 // SetVcenterVMTemplateName sets provided value as "vcenter.vm_template.name" attribute.
-func (rb *ResourceBuilder) SetVcenterVMTemplateName(val string) {
-	if rb.config.VcenterVMTemplateName.Enabled {
-		rb.res.Attributes().PutStr("vcenter.vm_template.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetVcenterVMTemplateName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

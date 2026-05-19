@@ -4,7 +4,6 @@
 package sqlserverreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sqlserverreceiver"
 
 import (
-	"errors"
 	"time"
 
 	"go.opentelemetry.io/collector/config/configopaque"
@@ -61,56 +60,18 @@ type Config struct {
 	isDirectDBConnectionEnabled bool
 }
 
-func (cfg *Config) Validate() error {
-	err := cfg.validateInstanceAndComputerName()
-	if err != nil {
-		return err
-	}
-
-	if cfg.LookbackTime < 0 {
-		return errors.New("lookback_time cannot have negative values")
-	}
-
-	if cfg.MaxQuerySampleCount > 10000 {
-		return errors.New("`max_query_sample_count` must be between 0 and 10000")
-	}
-
-	if cfg.TopQueryCount > cfg.MaxQuerySampleCount {
-		return errors.New("`top_query_count` must be less than or equal to `max_query_sample_count`")
-	}
-
-	if cfg.TopQueryCollection.CollectionInterval < 0 {
-		return errors.New("`top_query_collection.collection_interval` must not be less than 0")
-	}
-
-	cfg.isDirectDBConnectionEnabled, err = directDBConnectionEnabled(cfg)
-
-	return err
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func directDBConnectionEnabled(config *Config) (bool, error) {
-	noneOfServerUserPasswordPortSet := config.Server == "" && config.Username == "" && string(config.Password) == "" && config.Port == 0
-	if config.DataSource == "" && noneOfServerUserPasswordPortSet {
-		// If no connection information is provided, we can't connect directly and this is a valid config.
-		return false, nil
-	}
-
-	anyOfServerUserPasswordPortSet := config.Server != "" || config.Username != "" || string(config.Password) != "" || config.Port != 0
-	if config.DataSource != "" && anyOfServerUserPasswordPortSet {
-		return false, errors.New("wrong config: when specifying 'datasource' no other connection parameters ('server', 'username', 'password', or 'port') should be set")
-	}
-
-	if config.DataSource == "" && (config.Server == "" || config.Username == "" || string(config.Password) == "" || config.Port == 0) {
-		return false, errors.New("wrong config: when specifying either 'server', 'username', 'password', or 'port' all of them need to be specified")
-	}
-
-	// It is a valid direct connection configuration
-	return true, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
+// If no connection information is provided, we can't connect directly and this is a valid config.
+
+// It is a valid direct connection configuration
+
 func (cfg *Config) EffectiveLookbackTime() time.Duration {
-	if cfg.LookbackTime == 0 {
-		return 2 * cfg.TopQueryCollection.CollectionInterval
-	}
-	return cfg.LookbackTime
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }

@@ -5,22 +5,14 @@ package collectdreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
-	"io"
 	"net/http"
-	"strings"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/receiverhelper"
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/collectdreceiver/internal/metadata"
 )
 
 var _ receiver.Metrics = (*collectdReceiver)(nil)
@@ -45,134 +37,31 @@ func newCollectdReceiver(
 	nextConsumer consumer.Metrics,
 	createSettings receiver.Settings,
 ) (receiver.Metrics, error) {
-	r := &collectdReceiver{
-		logger:             logger,
-		nextConsumer:       nextConsumer,
-		defaultAttrsPrefix: defaultAttrsPrefix,
-		config:             cfg,
-		createSettings:     createSettings,
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 // Start starts an HTTP server that can process CollectD JSON requests.
 func (cdr *collectdReceiver) Start(ctx context.Context, host component.Host) error {
-	var err error
-	cdr.server, err = cdr.config.ToServer(ctx, host.GetExtensions(), cdr.createSettings.TelemetrySettings, cdr)
-	if err != nil {
-		return err
-	}
-	cdr.server.ReadTimeout = cdr.config.Timeout
-	cdr.server.WriteTimeout = cdr.config.Timeout
-	cdr.obsrecv, err = receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{
-		ReceiverID:             cdr.createSettings.ID,
-		Transport:              "http",
-		ReceiverCreateSettings: cdr.createSettings,
-	})
-	if err != nil {
-		return err
-	}
-	l, err := cdr.config.ToListener(ctx)
-	if err != nil {
-		return err
-	}
-	cdr.shutdownWG.Go(func() {
-		if err := cdr.server.Serve(l); !errors.Is(err, http.ErrServerClosed) && err != nil {
-			componentstatus.ReportStatus(host, componentstatus.NewFatalErrorEvent(err))
-		}
-	})
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Shutdown stops the CollectD receiver.
-func (cdr *collectdReceiver) Shutdown(context.Context) error {
-	if cdr.server == nil {
-		return nil
-	}
-	err := cdr.server.Shutdown(context.Background())
-	cdr.shutdownWG.Wait()
-	return err
-}
+func (cdr *collectdReceiver) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // ServeHTTP acts as the default and only HTTP handler for the CollectD receiver.
 func (cdr *collectdReceiver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-	ctx = cdr.obsrecv.StartMetricsOp(ctx)
-
-	if r.Method != http.MethodPost {
-		cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), 0, errors.New("invalid http verb"))
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	body, err := io.ReadAll(r.Body)
-	if err != nil {
-		cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), 0, err)
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
-	var records []collectDRecord
-	err = json.Unmarshal(body, &records)
-	if err != nil {
-		cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), 0, err)
-		cdr.handleHTTPErr(w, err, "unable to decode json")
-		return
-	}
-
-	defaultAttrs := cdr.defaultAttributes(r)
-
-	metrics := pmetric.NewMetrics()
-	scopeMetrics := metrics.ResourceMetrics().AppendEmpty().ScopeMetrics().AppendEmpty()
-	for i := range records {
-		record := &records[i]
-		err = record.appendToMetrics(cdr.logger, scopeMetrics, defaultAttrs)
-		if err != nil {
-			cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), len(records), err)
-			cdr.handleHTTPErr(w, err, "unable to process metrics")
-			return
-		}
-	}
-	lenDp := metrics.DataPointCount()
-
-	err = cdr.nextConsumer.ConsumeMetrics(ctx, metrics)
-	if err != nil {
-		cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), lenDp, err)
-		return
-	}
-
-	_, err = w.Write([]byte("OK"))
-	if err != nil {
-		cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), lenDp, err)
-		return
-	}
-	cdr.obsrecv.EndMetricsOp(ctx, metadata.Type.String(), lenDp, nil)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (cdr *collectdReceiver) defaultAttributes(req *http.Request) map[string]string {
-	if cdr.defaultAttrsPrefix == "" {
-		return nil
-	}
-	params := req.URL.Query()
-	attrs := make(map[string]string)
-	for key := range params {
-		if strings.HasPrefix(key, cdr.defaultAttrsPrefix) {
-			value := params.Get(key)
-			if value == "" {
-				cdr.logger.Debug("blank attribute value", zap.String("key", key))
-				continue
-			}
-			key = key[len(cdr.defaultAttrsPrefix):]
-			attrs[key] = value
-		}
-	}
-	return attrs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (cdr *collectdReceiver) handleHTTPErr(w http.ResponseWriter, err error, msg string) {
-	w.WriteHeader(http.StatusBadRequest)
-	cdr.logger.Error(msg, zap.Error(err))
-	_, err = w.Write([]byte(msg))
-	if err != nil {
-		cdr.logger.Error("error writing to response writer", zap.Error(err))
-	}
+	_ = "STUB: not implemented"
+	return
 }

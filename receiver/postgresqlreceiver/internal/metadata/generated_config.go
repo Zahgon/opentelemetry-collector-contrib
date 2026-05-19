@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type PostgresqlBackendsMetricConfig struct {
 }
 
 func (ms *PostgresqlBackendsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type PostgresqlBgwriterBuffersAllocatedMetricConfig struct {
 }
 
 func (ms *PostgresqlBgwriterBuffersAllocatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -66,34 +46,12 @@ type PostgresqlBgwriterBuffersWritesMetricConfig struct {
 }
 
 func (ms *PostgresqlBgwriterBuffersWritesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlBgwriterBuffersWritesMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlBgwriterBuffersWritesMetricAttributeKeyBgBufferSource:
-		default:
-			return fmt.Errorf("metric postgresql.bgwriter.buffers.writes doesn't have an attribute %v, valid attributes: [source]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -114,34 +72,12 @@ type PostgresqlBgwriterCheckpointCountMetricConfig struct {
 }
 
 func (ms *PostgresqlBgwriterCheckpointCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlBgwriterCheckpointCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlBgwriterCheckpointCountMetricAttributeKeyBgCheckpointType:
-		default:
-			return fmt.Errorf("metric postgresql.bgwriter.checkpoint.count doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -162,34 +98,12 @@ type PostgresqlBgwriterDurationMetricConfig struct {
 }
 
 func (ms *PostgresqlBgwriterDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlBgwriterDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlBgwriterDurationMetricAttributeKeyBgDurationType:
-		default:
-			return fmt.Errorf("metric postgresql.bgwriter.duration doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -200,16 +114,7 @@ type PostgresqlBgwriterMaxwrittenMetricConfig struct {
 }
 
 func (ms *PostgresqlBgwriterMaxwrittenMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -220,16 +125,7 @@ type PostgresqlBlksHitMetricConfig struct {
 }
 
 func (ms *PostgresqlBlksHitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -240,16 +136,7 @@ type PostgresqlBlksReadMetricConfig struct {
 }
 
 func (ms *PostgresqlBlksReadMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -270,36 +157,11 @@ type PostgresqlBlocksReadMetricConfig struct {
 }
 
 func (ms *PostgresqlBlocksReadMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *PostgresqlBlocksReadMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlBlocksReadMetricAttributeKeySource:
-		default:
-			return fmt.Errorf("metric postgresql.blocks_read doesn't have an attribute %v, valid attributes: [source]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *PostgresqlBlocksReadMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // PostgresqlCommitsMetricConfig provides config for the postgresql.commits metric.
 type PostgresqlCommitsMetricConfig struct {
@@ -308,16 +170,7 @@ type PostgresqlCommitsMetricConfig struct {
 }
 
 func (ms *PostgresqlCommitsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -328,16 +181,7 @@ type PostgresqlConnectionMaxMetricConfig struct {
 }
 
 func (ms *PostgresqlConnectionMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -348,16 +192,7 @@ type PostgresqlDatabaseCountMetricConfig struct {
 }
 
 func (ms *PostgresqlDatabaseCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -380,34 +215,12 @@ type PostgresqlDatabaseLocksMetricConfig struct {
 }
 
 func (ms *PostgresqlDatabaseLocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlDatabaseLocksMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlDatabaseLocksMetricAttributeKeyRelation, PostgresqlDatabaseLocksMetricAttributeKeyMode, PostgresqlDatabaseLocksMetricAttributeKeyLockType:
-		default:
-			return fmt.Errorf("metric postgresql.database.locks doesn't have an attribute %v, valid attributes: [relation, mode, lock_type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -418,16 +231,7 @@ type PostgresqlDbSizeMetricConfig struct {
 }
 
 func (ms *PostgresqlDbSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -438,16 +242,7 @@ type PostgresqlDeadlocksMetricConfig struct {
 }
 
 func (ms *PostgresqlDeadlocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -468,34 +263,12 @@ type PostgresqlFunctionCallsMetricConfig struct {
 }
 
 func (ms *PostgresqlFunctionCallsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlFunctionCallsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlFunctionCallsMetricAttributeKeyFunction:
-		default:
-			return fmt.Errorf("metric postgresql.function.calls doesn't have an attribute %v, valid attributes: [function]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -506,16 +279,7 @@ type PostgresqlIndexScansMetricConfig struct {
 }
 
 func (ms *PostgresqlIndexScansMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -526,16 +290,7 @@ type PostgresqlIndexSizeMetricConfig struct {
 }
 
 func (ms *PostgresqlIndexSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -556,36 +311,11 @@ type PostgresqlOperationsMetricConfig struct {
 }
 
 func (ms *PostgresqlOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *PostgresqlOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlOperationsMetricAttributeKeyOperation:
-		default:
-			return fmt.Errorf("metric postgresql.operations doesn't have an attribute %v, valid attributes: [operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *PostgresqlOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // PostgresqlReplicationDataDelayMetricAttributeKey specifies the key of an attribute for the postgresql.replication.data_delay metric.
 type PostgresqlReplicationDataDelayMetricAttributeKey string
@@ -604,34 +334,12 @@ type PostgresqlReplicationDataDelayMetricConfig struct {
 }
 
 func (ms *PostgresqlReplicationDataDelayMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *PostgresqlReplicationDataDelayMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlReplicationDataDelayMetricAttributeKeyReplicationClient:
-		default:
-			return fmt.Errorf("metric postgresql.replication.data_delay doesn't have an attribute %v, valid attributes: [replication_client]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -642,16 +350,7 @@ type PostgresqlRollbacksMetricConfig struct {
 }
 
 func (ms *PostgresqlRollbacksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -672,36 +371,11 @@ type PostgresqlRowsMetricConfig struct {
 }
 
 func (ms *PostgresqlRowsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *PostgresqlRowsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlRowsMetricAttributeKeyState:
-		default:
-			return fmt.Errorf("metric postgresql.rows doesn't have an attribute %v, valid attributes: [state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *PostgresqlRowsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // PostgresqlSequentialScansMetricConfig provides config for the postgresql.sequential_scans metric.
 type PostgresqlSequentialScansMetricConfig struct {
@@ -710,16 +384,7 @@ type PostgresqlSequentialScansMetricConfig struct {
 }
 
 func (ms *PostgresqlSequentialScansMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -730,16 +395,7 @@ type PostgresqlTableCountMetricConfig struct {
 }
 
 func (ms *PostgresqlTableCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -750,16 +406,7 @@ type PostgresqlTableSizeMetricConfig struct {
 }
 
 func (ms *PostgresqlTableSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -770,16 +417,7 @@ type PostgresqlTableVacuumCountMetricConfig struct {
 }
 
 func (ms *PostgresqlTableVacuumCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -790,16 +428,7 @@ type PostgresqlTempIoMetricConfig struct {
 }
 
 func (ms *PostgresqlTempIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -810,16 +439,7 @@ type PostgresqlTempFilesMetricConfig struct {
 }
 
 func (ms *PostgresqlTempFilesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -830,16 +450,7 @@ type PostgresqlTupDeletedMetricConfig struct {
 }
 
 func (ms *PostgresqlTupDeletedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -850,16 +461,7 @@ type PostgresqlTupFetchedMetricConfig struct {
 }
 
 func (ms *PostgresqlTupFetchedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -870,16 +472,7 @@ type PostgresqlTupInsertedMetricConfig struct {
 }
 
 func (ms *PostgresqlTupInsertedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -890,16 +483,7 @@ type PostgresqlTupReturnedMetricConfig struct {
 }
 
 func (ms *PostgresqlTupReturnedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -910,16 +494,7 @@ type PostgresqlTupUpdatedMetricConfig struct {
 }
 
 func (ms *PostgresqlTupUpdatedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -930,16 +505,7 @@ type PostgresqlWalAgeMetricConfig struct {
 }
 
 func (ms *PostgresqlWalAgeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -961,36 +527,11 @@ type PostgresqlWalDelayMetricConfig struct {
 }
 
 func (ms *PostgresqlWalDelayMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *PostgresqlWalDelayMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlWalDelayMetricAttributeKeyWalOperationLag, PostgresqlWalDelayMetricAttributeKeyReplicationClient:
-		default:
-			return fmt.Errorf("metric postgresql.wal.delay doesn't have an attribute %v, valid attributes: [operation, replication_client]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *PostgresqlWalDelayMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // PostgresqlWalLagMetricAttributeKey specifies the key of an attribute for the postgresql.wal.lag metric.
 type PostgresqlWalLagMetricAttributeKey string
@@ -1010,36 +551,11 @@ type PostgresqlWalLagMetricConfig struct {
 }
 
 func (ms *PostgresqlWalLagMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *PostgresqlWalLagMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case PostgresqlWalLagMetricAttributeKeyWalOperationLag, PostgresqlWalLagMetricAttributeKeyReplicationClient:
-		default:
-			return fmt.Errorf("metric postgresql.wal.lag doesn't have an attribute %v, valid attributes: [operation, replication_client]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *PostgresqlWalLagMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // MetricsConfig provides config for postgresql metrics.
 type MetricsConfig struct {
@@ -1081,140 +597,7 @@ type MetricsConfig struct {
 	PostgresqlWalLag                   PostgresqlWalLagMetricConfig                   `mapstructure:"postgresql.wal.lag"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		PostgresqlBackends: PostgresqlBackendsMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlBgwriterBuffersAllocated: PostgresqlBgwriterBuffersAllocatedMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlBgwriterBuffersWrites: PostgresqlBgwriterBuffersWritesMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlBgwriterBuffersWritesMetricAttributeKey{PostgresqlBgwriterBuffersWritesMetricAttributeKeyBgBufferSource},
-		},
-		PostgresqlBgwriterCheckpointCount: PostgresqlBgwriterCheckpointCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlBgwriterCheckpointCountMetricAttributeKey{PostgresqlBgwriterCheckpointCountMetricAttributeKeyBgCheckpointType},
-		},
-		PostgresqlBgwriterDuration: PostgresqlBgwriterDurationMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlBgwriterDurationMetricAttributeKey{PostgresqlBgwriterDurationMetricAttributeKeyBgDurationType},
-		},
-		PostgresqlBgwriterMaxwritten: PostgresqlBgwriterMaxwrittenMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlBlksHit: PostgresqlBlksHitMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlBlksRead: PostgresqlBlksReadMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlBlocksRead: PostgresqlBlocksReadMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlBlocksReadMetricAttributeKey{PostgresqlBlocksReadMetricAttributeKeySource},
-		},
-		PostgresqlCommits: PostgresqlCommitsMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlConnectionMax: PostgresqlConnectionMaxMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlDatabaseCount: PostgresqlDatabaseCountMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlDatabaseLocks: PostgresqlDatabaseLocksMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []PostgresqlDatabaseLocksMetricAttributeKey{PostgresqlDatabaseLocksMetricAttributeKeyRelation, PostgresqlDatabaseLocksMetricAttributeKeyMode, PostgresqlDatabaseLocksMetricAttributeKeyLockType},
-		},
-		PostgresqlDbSize: PostgresqlDbSizeMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlDeadlocks: PostgresqlDeadlocksMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlFunctionCalls: PostgresqlFunctionCallsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlFunctionCallsMetricAttributeKey{PostgresqlFunctionCallsMetricAttributeKeyFunction},
-		},
-		PostgresqlIndexScans: PostgresqlIndexScansMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlIndexSize: PostgresqlIndexSizeMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlOperations: PostgresqlOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlOperationsMetricAttributeKey{PostgresqlOperationsMetricAttributeKeyOperation},
-		},
-		PostgresqlReplicationDataDelay: PostgresqlReplicationDataDelayMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []PostgresqlReplicationDataDelayMetricAttributeKey{PostgresqlReplicationDataDelayMetricAttributeKeyReplicationClient},
-		},
-		PostgresqlRollbacks: PostgresqlRollbacksMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlRows: PostgresqlRowsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []PostgresqlRowsMetricAttributeKey{PostgresqlRowsMetricAttributeKeyState},
-		},
-		PostgresqlSequentialScans: PostgresqlSequentialScansMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTableCount: PostgresqlTableCountMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlTableSize: PostgresqlTableSizeMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlTableVacuumCount: PostgresqlTableVacuumCountMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlTempIo: PostgresqlTempIoMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTempFiles: PostgresqlTempFilesMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTupDeleted: PostgresqlTupDeletedMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTupFetched: PostgresqlTupFetchedMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTupInserted: PostgresqlTupInsertedMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTupReturned: PostgresqlTupReturnedMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlTupUpdated: PostgresqlTupUpdatedMetricConfig{
-			Enabled: false,
-		},
-		PostgresqlWalAge: PostgresqlWalAgeMetricConfig{
-			Enabled: true,
-		},
-		PostgresqlWalDelay: PostgresqlWalDelayMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []PostgresqlWalDelayMetricAttributeKey{PostgresqlWalDelayMetricAttributeKeyWalOperationLag, PostgresqlWalDelayMetricAttributeKeyReplicationClient},
-		},
-		PostgresqlWalLag: PostgresqlWalLagMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []PostgresqlWalLagMetricAttributeKey{PostgresqlWalLagMetricAttributeKeyWalOperationLag, PostgresqlWalLagMetricAttributeKeyReplicationClient},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // EventConfig provides common config for a particular event.
 type EventConfig struct {
@@ -1223,17 +606,7 @@ type EventConfig struct {
 	enabledSetByUser bool
 }
 
-func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(ec)
-	if err != nil {
-		return err
-	}
-	ec.enabledSetByUser = parser.IsSet("enabled")
-	return nil
-}
+func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // EventsConfig provides config for postgresql events.
 type EventsConfig struct {
@@ -1241,16 +614,7 @@ type EventsConfig struct {
 	DbServerTopQuery    EventConfig `mapstructure:"db.server.top_query"`
 }
 
-func DefaultEventsConfig() EventsConfig {
-	return EventsConfig{
-		DbServerQuerySample: EventConfig{
-			Enabled: false,
-		},
-		DbServerTopQuery: EventConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultEventsConfig() EventsConfig { _ = "STUB: not implemented"; return *new(EventsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1274,14 +638,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1295,23 +652,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		PostgresqlDatabaseName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		PostgresqlIndexName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		PostgresqlSchemaName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		PostgresqlTableName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for postgresql metrics builder.
@@ -1321,15 +663,14 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // LogsBuilderConfig is a configuration for postgresql logs builder.
@@ -1339,8 +680,6 @@ type LogsBuilderConfig struct {
 }
 
 func DefaultLogsBuilderConfig() LogsBuilderConfig {
-	return LogsBuilderConfig{
-		Events:             DefaultEventsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsBuilderConfig)
 }

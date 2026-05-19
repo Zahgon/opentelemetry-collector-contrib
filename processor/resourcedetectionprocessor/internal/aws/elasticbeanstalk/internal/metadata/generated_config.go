@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -35,21 +28,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		CloudPlatform: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudProvider: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		DeploymentEnvironment: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceVersion: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

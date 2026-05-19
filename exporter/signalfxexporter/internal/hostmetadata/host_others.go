@@ -10,9 +10,8 @@ package hostmetadata // import "github.com/open-telemetry/opentelemetry-collecto
 import "context"
 
 func fillPlatformSpecificOSData(_ context.Context, _ *hostOS) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func fillPlatformSpecificCPUData(_ *hostCPU) error {
-	return nil
-}
+func fillPlatformSpecificCPUData(_ *hostCPU) error { _ = "STUB: not implemented"; return nil }

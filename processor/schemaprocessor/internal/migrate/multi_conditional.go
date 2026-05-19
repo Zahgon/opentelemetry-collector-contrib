@@ -4,8 +4,6 @@
 package migrate // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/migrate"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
@@ -21,56 +19,30 @@ type MultiConditionalAttributeSet struct {
 type MultiConditionalAttributeSetSlice []*MultiConditionalAttributeSet
 
 func NewMultiConditionalAttributeSet[Match ValueMatch](mappings map[string]string, copyAttributes bool, matches map[string][]Match) MultiConditionalAttributeSet {
-	keysToPossibleValues := make(map[string]set)
-	for k, values := range matches {
-		on := make(map[string]struct{})
-		for _, val := range values {
-			on[string(val)] = struct{}{}
-		}
-		keysToPossibleValues[k] = on
-	}
-	return MultiConditionalAttributeSet{
-		keysToPossibleValues: keysToPossibleValues,
-		attrs:                NewAttributeChangeSet(mappings, copyAttributes),
-	}
+	_ = "STUB: not implemented"
+	return *new(MultiConditionalAttributeSet)
 }
 
-func (MultiConditionalAttributeSet) IsMigrator() {}
+func (MultiConditionalAttributeSet) IsMigrator() {
+	_ = "STUB: not implemented"
 
-// Do function applies the attribute changes if the passed in values match the expected values provided in the constructor.  Uses the Do method of the embedded AttributeChangeSet
+	// Do function applies the attribute changes if the passed in values match the expected values provided in the constructor.  Uses the Do method of the embedded AttributeChangeSet
+	return
+}
+
 func (ca *MultiConditionalAttributeSet) Do(ss StateSelector, attrs pcommon.Map, keyToCheckVals map[string]string) (errs error) {
-	match, err := ca.check(keyToCheckVals)
-	if err != nil {
-		return err
-	}
-	if match {
-		errs = ca.attrs.Do(ss, attrs)
-	}
-	return errs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ca *MultiConditionalAttributeSet) check(keyToCheckVals map[string]string) (bool, error) {
-	if len(ca.keysToPossibleValues) == 0 {
-		return true, nil
-	}
-	if len(ca.keysToPossibleValues) != len(keyToCheckVals) {
-		return false, errors.New("passed in wrong number of matchers to MultiConditionalAttributeSet")
-	}
-	for k, inVal := range keyToCheckVals {
-		// We must already have a key matching the input key!  If not, return an error
-		// indicates a programming error, should be impossible if using the class correctly
-		valToMatch, ok := (ca.keysToPossibleValues)[k]
-		if !ok {
-			return false, errors.New("passed in a key that doesn't exist in MultiConditionalAttributeSet")
-		}
-		// if there's nothing in here, match all values
-		if len(valToMatch) == 0 {
-			continue
-		}
-		if _, ok := valToMatch[inVal]; !ok {
-			return false, nil
-		}
-	}
-	// if we've gone through every one of the keys, and they've all generated matches, return true
-	return true, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
+
+// We must already have a key matching the input key!  If not, return an error
+// indicates a programming error, should be impossible if using the class correctly
+
+// if there's nothing in here, match all values
+
+// if we've gone through every one of the keys, and they've all generated matches, return true

@@ -4,14 +4,9 @@
 package vpcflowlog // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/vpcflowlog"
 
 import (
-	"fmt"
 	"time"
 
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 // Template type for OTEL attribute names needing the side (source or destination) to be added
@@ -74,7 +69,8 @@ var validSides = []flowSide{src, dest}
 
 // fmtAttributeNameUsingSide formats a template string with the given side
 func fmtAttributeNameUsingSide(template attrNameTmpl, side flowSide) string {
-	return fmt.Sprintf(string(template), string(side))
+	_ = "STUB: not implemented"
+	return ""
 }
 
 type vpcFlowLog struct {
@@ -168,200 +164,64 @@ type asDetails struct {
 	ASN *int64 `json:"asn"`
 }
 
-func handleConnection(conn *connection, attr pcommon.Map) {
-	if conn == nil {
-		return
-	}
+func handleConnection(conn *connection, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-	// Map protocol number to string
-	if conn.Protocol != nil {
-		if protocolStr, exists := shared.ProtocolName(uint32(*conn.Protocol)); exists {
-			attr.PutStr(string(conventions.NetworkTransportKey), protocolStr)
-		}
-	}
+// Map protocol number to string
 
-	shared.PutStr(string(conventions.SourceAddressKey), conn.SrcIP, attr)
-	shared.PutStr(string(conventions.DestinationAddressKey), conn.DestIP, attr)
+// Only add port attributes if ports are present
 
-	// Only add port attributes if ports are present
-	shared.PutInt(string(conventions.SourcePortKey), conn.SrcPort, attr)
-	shared.PutInt(string(conventions.DestinationPortKey), conn.DestPort, attr)
-}
-
-func handleNetworkService(ns *networkService, attr pcommon.Map) {
-	if ns == nil {
-		return
-	}
-
-	shared.PutInt(gcpVPCFlowNetworkServiceDSCP, ns.DSCP, attr)
-}
+func handleNetworkService(ns *networkService, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func handleInstance(inst *instance, side flowSide, attr pcommon.Map) error {
-	if inst == nil {
-		return nil
-	}
-
-	// Validate that side is one of our constants
-	if side != src && side != dest {
-		return fmt.Errorf("unsupported side %q passed to handleInstance. Must be one of %v", side, validSides)
-	}
-
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceProjectIDTemplate, side), inst.ProjectID, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceVMRegionTemplate, side), inst.Region, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceVMNameTemplate, side), inst.VMName, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceVMZoneTemplate, side), inst.Zone, attr)
-
-	if inst.ManagedInstanceGroup != nil {
-		shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceMIGNameTemplate, side), inst.ManagedInstanceGroup.Name, attr)
-		shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceMIGRegionTemplate, side), inst.ManagedInstanceGroup.Region, attr)
-		shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowInstanceMIGZoneTemplate, side), inst.ManagedInstanceGroup.Zone, attr)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Validate that side is one of our constants
 
 func handleLocation(loc *location, side flowSide, attr pcommon.Map) error {
-	if loc == nil {
-		return nil
-	}
-
-	// Validate that side is one of our constants
-	if side != src && side != dest {
-		return fmt.Errorf("unsupported side %q passed to handleLocation. Must be one of %v", side, validSides)
-	}
-
-	shared.PutInt(fmtAttributeNameUsingSide(gcpVPCFlowASNTemplate, side), loc.ASN, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGeoCityTemplate, side), loc.City, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGeoContinentTemplate, side), loc.Continent, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGeoCountryTemplate, side), loc.Country, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGeoRegionTemplate, side), loc.Region, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Validate that side is one of our constants
 
 func handleVPC(vpc *vpc, side flowSide, attr pcommon.Map) error {
-	if vpc == nil {
-		return nil
-	}
-
-	// Validate that side is one of our constants
-	if side != src && side != dest {
-		return fmt.Errorf("unsupported side %q passed to handleVPC. Must be one of %v", side, validSides)
-	}
-
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowProjectIDTemplate, side), vpc.ProjectID, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowSubnetNameTemplate, side), vpc.SubnetworkName, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowSubnetRegionTemplate, side), vpc.SubnetworkRegion, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowVPCNameTemplate, side), vpc.VPCName, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Validate that side is one of our constants
+
 func handleGoogleService(service *googleService, side flowSide, attr pcommon.Map) error {
-	if service == nil {
-		return nil
-	}
-
-	if side != src && side != dest {
-		return fmt.Errorf("unsupported side %q passed to handleGoogleService. Must be one of %v", side, validSides)
-	}
-
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGoogleServiceTypeTemplate, side), service.Type, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGoogleServiceNameTemplate, side), service.ServiceName, attr)
-	shared.PutStr(fmtAttributeNameUsingSide(gcpVPCFlowGoogleServiceConnTemplate, side), service.Connectivity, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func handleInternetRoutingDetails(ird *internetRoutingDetails, attr pcommon.Map) {
-	if ird == nil || len(ird.EgressASPath) == 0 {
-		return
-	}
-
-	asPaths := attr.PutEmptySlice(gcpVPCFlowEgressASPaths)
-	for _, path := range ird.EgressASPath {
-		pathMap := asPaths.AppendEmpty().SetEmptyMap()
-		asDetailsSlice := pathMap.PutEmptySlice("as_details")
-		for _, detail := range path.ASDetails {
-			detailMap := asDetailsSlice.AppendEmpty().SetEmptyMap()
-			if detail.ASN != nil {
-				detailMap.PutInt("asn", *detail.ASN)
-			}
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log vpcFlowLog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("failed to unmarshal VPC flow log payload: %w", err)
-	}
-
-	// Handle connection details
-	handleConnection(log.Connection, attr)
-
-	// Handle basic flow information
-	shared.PutStr(gcpVPCFlowReporter, log.Reporter, attr)
-
-	if err := shared.AddStrAsInt(gcpVPCFlowBytesSent, log.BytesSent, attr); err != nil {
-		return fmt.Errorf("failed to add bytes sent: %w", err)
-	}
-
-	if err := shared.AddStrAsInt(gcpVPCFlowPacketsSent, log.PacketsSent, attr); err != nil {
-		return fmt.Errorf("failed to add packets sent: %w", err)
-	}
-
-	if log.StartTime != nil {
-		startTime := *log.StartTime
-		attr.PutStr(gcpVPCFlowStartTime, startTime.Format(time.RFC3339Nano))
-	}
-	if log.EndTime != nil {
-		endTime := *log.EndTime
-		attr.PutStr(gcpVPCFlowEndTime, endTime.Format(time.RFC3339Nano))
-	}
-
-	// Handle RTT
-	if err := shared.AddStrAsInt(gcpVPCFlowNetworkRTTMs, log.RTTMsec, attr); err != nil {
-		return fmt.Errorf("failed to add RTT: %w", err)
-	}
-
-	// Handle network service
-	handleNetworkService(log.NetworkService, attr)
-
-	// Handle instance details
-	if err := handleInstance(log.SrcInstance, src, attr); err != nil {
-		return fmt.Errorf("failed to handle source instance: %w", err)
-	}
-	if err := handleInstance(log.DestInstance, dest, attr); err != nil {
-		return fmt.Errorf("failed to handle destination instance: %w", err)
-	}
-
-	// Handle location details
-	if err := handleLocation(log.SrcLocation, src, attr); err != nil {
-		return fmt.Errorf("failed to handle source location: %w", err)
-	}
-	if err := handleLocation(log.DestLocation, dest, attr); err != nil {
-		return fmt.Errorf("failed to handle destination location: %w", err)
-	}
-
-	// Handle VPC details
-	if err := handleVPC(log.SrcVPC, src, attr); err != nil {
-		return fmt.Errorf("failed to handle source VPC: %w", err)
-	}
-	if err := handleVPC(log.DestVPC, dest, attr); err != nil {
-		return fmt.Errorf("failed to handle destination VPC: %w", err)
-	}
-
-	// Handle Google service details
-	if err := handleGoogleService(log.SrcGoogleService, src, attr); err != nil {
-		return fmt.Errorf("failed to handle source Google service: %w", err)
-	}
-	if err := handleGoogleService(log.DestGoogleService, dest, attr); err != nil {
-		return fmt.Errorf("failed to handle destination Google service: %w", err)
-	}
-
-	// Handle internet routing details
-	handleInternetRoutingDetails(log.InternetRoutingDetails, attr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Handle connection details
+
+// Handle basic flow information
+
+// Handle RTT
+
+// Handle network service
+
+// Handle instance details
+
+// Handle location details
+
+// Handle VPC details
+
+// Handle Google service details
+
+// Handle internet routing details

@@ -38,12 +38,4 @@ var (
 )
 
 // Validate checks if the extension configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.BearerToken == "" && len(cfg.Tokens) == 0 && cfg.Filename == "" {
-		return errNoTokenProvided
-	}
-	if cfg.BearerToken != "" && len(cfg.Tokens) > 0 {
-		return errTokensAndTokenProvided
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

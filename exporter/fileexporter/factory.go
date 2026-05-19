@@ -5,16 +5,10 @@ package fileexporter // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"io"
-	"os"
 	"time"
 
-	"github.com/DeRuina/timberjack"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/exporter/exporterhelper/xexporterhelper"
 	"go.opentelemetry.io/collector/exporter/xexporter"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -22,7 +16,6 @@ import (
 	"go.opentelemetry.io/collector/pdata/ptrace"
 	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/fileexporter/internal/metadata"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
 )
 
@@ -51,25 +44,11 @@ type FileExporter interface {
 }
 
 // NewFactory creates a factory for OTLP exporter.
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithTraces(createTracesExporter, metadata.TracesStability),
-		xexporter.WithMetrics(createMetricsExporter, metadata.MetricsStability),
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithProfiles(createProfilesExporter, metadata.ProfilesStability))
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		FormatType: formatTypeJSON,
-		Rotation:   &Rotation{MaxBackups: defaultMaxBackups},
-		GroupBy: &GroupBy{
-			ResourceAttribute: defaultResourceAttribute,
-			MaxOpenFiles:      defaultMaxOpenFiles,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -77,16 +56,8 @@ func createTracesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	fe := getOrCreateFileExporter(cfg, set.Logger)
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		fe.consumeTraces,
-		exporterhelper.WithStart(fe.Start),
-		exporterhelper.WithShutdown(fe.Shutdown),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
 
 func createMetricsExporter(
@@ -94,16 +65,8 @@ func createMetricsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Metrics, error) {
-	fe := getOrCreateFileExporter(cfg, set.Logger)
-	return exporterhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		fe.consumeMetrics,
-		exporterhelper.WithStart(fe.Start),
-		exporterhelper.WithShutdown(fe.Shutdown),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics), nil
 }
 
 func createLogsExporter(
@@ -111,16 +74,8 @@ func createLogsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	fe := getOrCreateFileExporter(cfg, set.Logger)
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		fe.consumeLogs,
-		exporterhelper.WithStart(fe.Start),
-		exporterhelper.WithShutdown(fe.Shutdown),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }
 
 func createProfilesExporter(
@@ -128,16 +83,8 @@ func createProfilesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (xexporter.Profiles, error) {
-	fe := getOrCreateFileExporter(cfg, set.Logger)
-	return xexporterhelper.NewProfiles(
-		ctx,
-		set,
-		cfg,
-		fe.consumeProfiles,
-		exporterhelper.WithStart(fe.Start),
-		exporterhelper.WithShutdown(fe.Shutdown),
-		exporterhelper.WithCapabilities(consumer.Capabilities{MutatesData: false}),
-	)
+	_ = "STUB: not implemented"
+	return *new(xexporter.Profiles), nil
 }
 
 // getOrCreateFileExporter creates a FileExporter and caches it for a particular configuration,
@@ -145,58 +92,18 @@ func createProfilesExporter(
 // metric receivers separately when it gets CreateTraces() and CreateMetrics()
 // but they must not create separate objects, they must use one Exporter object per configuration.
 func getOrCreateFileExporter(cfg component.Config, logger *zap.Logger) FileExporter {
-	conf := cfg.(*Config)
-	fe := exporters.GetOrAdd(cfg, func() component.Component {
-		return newFileExporter(conf, logger)
-	})
-
-	c := fe.Unwrap()
-	return c.(FileExporter)
+	_ = "STUB: not implemented"
+	return *new(FileExporter)
 }
 
 func newFileExporter(conf *Config, logger *zap.Logger) FileExporter {
-	if conf.GroupBy == nil || !conf.GroupBy.Enabled {
-		return &fileExporter{
-			conf: conf,
-		}
-	}
-
-	return &groupingFileExporter{
-		conf:   conf,
-		logger: logger,
-	}
+	_ = "STUB: not implemented"
+	return *new(FileExporter)
 }
 
 func newFileWriter(path string, shouldAppend bool, rotation *Rotation, flushInterval time.Duration, export exportFunc) (*fileWriter, error) {
-	var wc io.WriteCloser
-	if rotation == nil {
-		fileFlags := os.O_RDWR | os.O_CREATE
-		if shouldAppend {
-			fileFlags |= os.O_APPEND
-		} else {
-			fileFlags |= os.O_TRUNC
-		}
-		f, err := os.OpenFile(path, fileFlags, 0o644)
-		if err != nil {
-			return nil, err
-		}
-		wc = newBufferedWriteCloser(f)
-	} else {
-		wc = &timberjack.Logger{
-			Filename:   path,
-			MaxSize:    rotation.MaxMegabytes,
-			MaxAge:     rotation.MaxDays,
-			MaxBackups: rotation.MaxBackups,
-			LocalTime:  rotation.LocalTime,
-		}
-	}
-
-	return &fileWriter{
-		path:          path,
-		file:          wc,
-		exporter:      export,
-		flushInterval: flushInterval,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // This is the map of already created File exporters for particular configurations.

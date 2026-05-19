@@ -16,291 +16,131 @@ type MockGoSNMPWrapper struct {
 
 // BulkWalkAll provides a mock function with given fields: rootOid
 func (_m *MockGoSNMPWrapper) BulkWalkAll(rootOid string) ([]gosnmp.SnmpPDU, error) {
-	ret := _m.Called(rootOid)
-
-	var r0 []gosnmp.SnmpPDU
-	if rf, ok := ret.Get(0).(func(string) []gosnmp.SnmpPDU); ok {
-		r0 = rf(rootOid)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]gosnmp.SnmpPDU)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(rootOid)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Close provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) Close() error {
-	ret := _m.Called()
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func() error); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) Close() error { _ = "STUB: not implemented"; return nil }
 
 // Connect provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) Connect() error {
-	ret := _m.Called()
-
-	var r0 error
-	if rf, ok := ret.Get(0).(func() error); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Error(0)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) Connect() error { _ = "STUB: not implemented"; return nil }
 
 // Get provides a mock function with given fields: oids
 func (_m *MockGoSNMPWrapper) Get(oids []string) (*gosnmp.SnmpPacket, error) {
-	ret := _m.Called(oids)
-
-	var r0 *gosnmp.SnmpPacket
-	if rf, ok := ret.Get(0).(func([]string) *gosnmp.SnmpPacket); ok {
-		r0 = rf(oids)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*gosnmp.SnmpPacket)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func([]string) error); ok {
-		r1 = rf(oids)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetCommunity provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) GetCommunity() string {
-	ret := _m.Called()
-
-	var r0 string
-	if rf, ok := ret.Get(0).(func() string); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(string)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) GetCommunity() string { _ = "STUB: not implemented"; return "" }
 
 // GetMaxOids provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) GetMaxOids() int {
-	ret := _m.Called()
-
-	var r0 int
-	if rf, ok := ret.Get(0).(func() int); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(int)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) GetMaxOids() int { _ = "STUB: not implemented"; return 0 }
 
 // GetMsgFlags provides a mock function with given fields:
 func (_m *MockGoSNMPWrapper) GetMsgFlags() gosnmp.SnmpV3MsgFlags {
-	ret := _m.Called()
-
-	var r0 gosnmp.SnmpV3MsgFlags
-	if rf, ok := ret.Get(0).(func() gosnmp.SnmpV3MsgFlags); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(gosnmp.SnmpV3MsgFlags)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return *new(gosnmp.SnmpV3MsgFlags)
 }
 
 // GetPort provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) GetPort() uint16 {
-	ret := _m.Called()
-
-	var r0 uint16
-	if rf, ok := ret.Get(0).(func() uint16); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(uint16)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) GetPort() uint16 { _ = "STUB: not implemented"; return 0 }
 
 // GetSecurityModel provides a mock function with given fields:
 func (_m *MockGoSNMPWrapper) GetSecurityModel() gosnmp.SnmpV3SecurityModel {
-	ret := _m.Called()
-
-	var r0 gosnmp.SnmpV3SecurityModel
-	if rf, ok := ret.Get(0).(func() gosnmp.SnmpV3SecurityModel); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(gosnmp.SnmpV3SecurityModel)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return *new(gosnmp.SnmpV3SecurityModel)
 }
 
 // GetSecurityParameters provides a mock function with given fields:
 func (_m *MockGoSNMPWrapper) GetSecurityParameters() gosnmp.SnmpV3SecurityParameters {
-	ret := _m.Called()
-
-	var r0 gosnmp.SnmpV3SecurityParameters
-	if rf, ok := ret.Get(0).(func() gosnmp.SnmpV3SecurityParameters); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(gosnmp.SnmpV3SecurityParameters)
-		}
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return *new(gosnmp.SnmpV3SecurityParameters)
 }
 
 // GetTarget provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) GetTarget() string {
-	ret := _m.Called()
-
-	var r0 string
-	if rf, ok := ret.Get(0).(func() string); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(string)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) GetTarget() string { _ = "STUB: not implemented"; return "" }
 
 // GetTimeout provides a mock function with given fields:
 func (_m *MockGoSNMPWrapper) GetTimeout() time.Duration {
-	ret := _m.Called()
-
-	var r0 time.Duration
-	if rf, ok := ret.Get(0).(func() time.Duration); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(time.Duration)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return *new(time.Duration)
 }
 
 // GetTransport provides a mock function with given fields:
-func (_m *MockGoSNMPWrapper) GetTransport() string {
-	ret := _m.Called()
-
-	var r0 string
-	if rf, ok := ret.Get(0).(func() string); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(string)
-	}
-
-	return r0
-}
+func (_m *MockGoSNMPWrapper) GetTransport() string { _ = "STUB: not implemented"; return "" }
 
 // GetVersion provides a mock function with given fields:
 func (_m *MockGoSNMPWrapper) GetVersion() gosnmp.SnmpVersion {
-	ret := _m.Called()
-
-	var r0 gosnmp.SnmpVersion
-	if rf, ok := ret.Get(0).(func() gosnmp.SnmpVersion); ok {
-		r0 = rf()
-	} else {
-		r0 = ret.Get(0).(gosnmp.SnmpVersion)
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return *new(gosnmp.SnmpVersion)
 }
 
 // SetCommunity provides a mock function with given fields: community
-func (_m *MockGoSNMPWrapper) SetCommunity(community string) {
-	_m.Called(community)
-}
+func (_m *MockGoSNMPWrapper) SetCommunity(community string) { _ = "STUB: not implemented"; return }
 
 // SetMaxOids provides a mock function with given fields: maxOids
 func (_m *MockGoSNMPWrapper) SetMaxOids(maxOids int) {
-	_m.Called(maxOids)
+	_ = "STUB: not implemented"
+
+	// SetMsgFlags provides a mock function with given fields: msgFlags
+	return
 }
 
-// SetMsgFlags provides a mock function with given fields: msgFlags
 func (_m *MockGoSNMPWrapper) SetMsgFlags(msgFlags gosnmp.SnmpV3MsgFlags) {
-	_m.Called(msgFlags)
+	_ = "STUB: not implemented"
+	return
+
+	// SetPort provides a mock function with given fields: port
 }
 
-// SetPort provides a mock function with given fields: port
 func (_m *MockGoSNMPWrapper) SetPort(port uint16) {
-	_m.Called(port)
+	_ = "STUB: not implemented"
+
+	// SetSecurityModel provides a mock function with given fields: securityModel
+	return
 }
 
-// SetSecurityModel provides a mock function with given fields: securityModel
 func (_m *MockGoSNMPWrapper) SetSecurityModel(securityModel gosnmp.SnmpV3SecurityModel) {
-	_m.Called(securityModel)
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetSecurityParameters provides a mock function with given fields: securityParameters
 func (_m *MockGoSNMPWrapper) SetSecurityParameters(securityParameters gosnmp.SnmpV3SecurityParameters) {
-	_m.Called(securityParameters)
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetTarget provides a mock function with given fields: target
 func (_m *MockGoSNMPWrapper) SetTarget(target string) {
-	_m.Called(target)
+	_ = "STUB: not implemented"
+
+	// SetTimeout provides a mock function with given fields: timeout
+	return
 }
 
-// SetTimeout provides a mock function with given fields: timeout
 func (_m *MockGoSNMPWrapper) SetTimeout(timeout time.Duration) {
-	_m.Called(timeout)
+	_ = "STUB: not implemented"
+
+	// SetTransport provides a mock function with given fields: transport
+	return
 }
 
-// SetTransport provides a mock function with given fields: transport
-func (_m *MockGoSNMPWrapper) SetTransport(transport string) {
-	_m.Called(transport)
-}
+func (_m *MockGoSNMPWrapper) SetTransport(transport string) { _ = "STUB: not implemented"; return }
 
 // SetVersion provides a mock function with given fields: version
 func (_m *MockGoSNMPWrapper) SetVersion(version gosnmp.SnmpVersion) {
-	_m.Called(version)
+	_ = "STUB: not implemented"
+	return
+
+	// WalkAll provides a mock function with given fields: rootOid
 }
 
-// WalkAll provides a mock function with given fields: rootOid
 func (_m *MockGoSNMPWrapper) WalkAll(rootOid string) ([]gosnmp.SnmpPDU, error) {
-	ret := _m.Called(rootOid)
-
-	var r0 []gosnmp.SnmpPDU
-	if rf, ok := ret.Get(0).(func(string) []gosnmp.SnmpPDU); ok {
-		r0 = rf(rootOid)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]gosnmp.SnmpPDU)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(string) error); ok {
-		r1 = rf(rootOid)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type mockNewGoSNMPWrapperT interface {
@@ -310,10 +150,6 @@ type mockNewGoSNMPWrapperT interface {
 
 // newMockGoSNMPWrapper creates a new instance of goSNMPWrapper. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 func newMockGoSNMPWrapper(t mockNewGoSNMPWrapperT) *MockGoSNMPWrapper {
-	mock := &MockGoSNMPWrapper{}
-	mock.Mock.Test(t)
-
-	t.Cleanup(func() { mock.AssertExpectations(t) })
-
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }

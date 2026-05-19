@@ -9,4 +9,4 @@ import (
 	"os/exec"
 )
 
-func applyOSSpecificCmdModifications(_ *exec.Cmd) {}
+func applyOSSpecificCmdModifications(_ *exec.Cmd) { _ = "STUB: not implemented"; return }

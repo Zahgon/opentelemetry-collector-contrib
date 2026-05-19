@@ -9,17 +9,9 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudpubsubpushreceiver/internal/metadata"
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createLogsReceiver(
 	_ context.Context,
@@ -27,5 +19,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	nextLogs consumer.Logs,
 ) (receiver.Logs, error) {
-	return newPubSubPushReceiver(cfg.(*Config), set, nextLogs)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

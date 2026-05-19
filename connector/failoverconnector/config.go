@@ -44,12 +44,4 @@ type Config struct {
 }
 
 // Validate needs to ensure RetryInterval > # elements in PriorityList * RetryGap
-func (c *Config) Validate() error {
-	if len(c.PipelinePriority) == 0 {
-		return errNoPipelinePriority
-	}
-	if c.RetryInterval <= 0 {
-		return errInvalidRetryIntervals
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -3,10 +3,6 @@
 
 package tracesegment // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsxrayreceiver/internal/tracesegment"
 
-import (
-	"strings"
-)
-
 // Header stores header of trace segment.
 type Header struct {
 	Format  string `json:"format"`
@@ -14,6 +10,4 @@ type Header struct {
 }
 
 // IsValid validates Header.
-func (t Header) IsValid() bool {
-	return strings.EqualFold(t.Format, "json") && t.Version == 1
-}
+func (t Header) IsValid() bool { _ = "STUB: not implemented"; return false }

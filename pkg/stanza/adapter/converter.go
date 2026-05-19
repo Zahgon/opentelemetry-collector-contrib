@@ -4,10 +4,6 @@
 package adapter // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
 
 import (
-	"encoding/binary"
-	"encoding/json"
-	"fmt"
-	"sort"
 	"sync"
 
 	"github.com/cespare/xxhash/v2"
@@ -18,143 +14,23 @@ import (
 )
 
 func ConvertEntries(entries []*entry.Entry) plog.Logs {
-	resourceHashToIdx := make(map[uint64]int)
-	scopeIdxByResource := make(map[uint64]map[string]int)
-
-	pLogs := plog.NewLogs()
-	var sl plog.ScopeLogs
-
-	for _, e := range entries {
-		resourceID := HashResource(e.Resource)
-		var rl plog.ResourceLogs
-
-		resourceIdx, ok := resourceHashToIdx[resourceID]
-		if !ok {
-			resourceHashToIdx[resourceID] = pLogs.ResourceLogs().Len()
-
-			rl = pLogs.ResourceLogs().AppendEmpty()
-			upsertToMap(e.Resource, rl.Resource().Attributes())
-
-			scopeIdxByResource[resourceID] = map[string]int{e.ScopeName: 0}
-			sl = rl.ScopeLogs().AppendEmpty()
-			sl.Scope().SetName(e.ScopeName)
-		} else {
-			rl = pLogs.ResourceLogs().At(resourceIdx)
-			scopeIdxInResource, ok := scopeIdxByResource[resourceID][e.ScopeName]
-			if !ok {
-				scopeIdxByResource[resourceID][e.ScopeName] = rl.ScopeLogs().Len()
-				sl = rl.ScopeLogs().AppendEmpty()
-				sl.Scope().SetName(e.ScopeName)
-			} else {
-				sl = pLogs.ResourceLogs().At(resourceIdx).ScopeLogs().At(scopeIdxInResource)
-			}
-		}
-		convertInto(e, sl.LogRecords().AppendEmpty())
-	}
-	return pLogs
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }
 
 // convertInto converts entry.Entry into provided plog.LogRecord.
-func convertInto(ent *entry.Entry, dest plog.LogRecord) {
-	if !ent.Timestamp.IsZero() {
-		dest.SetTimestamp(pcommon.NewTimestampFromTime(ent.Timestamp))
-	}
-	dest.SetObservedTimestamp(pcommon.NewTimestampFromTime(ent.ObservedTimestamp))
-	dest.SetSeverityNumber(sevMap[ent.Severity])
-	if ent.SeverityText == "" {
-		dest.SetSeverityText(defaultSevTextMap[ent.Severity])
-	} else {
-		dest.SetSeverityText(ent.SeverityText)
-	}
+func convertInto(ent *entry.Entry, dest plog.LogRecord) { _ = "STUB: not implemented"; return }
 
-	upsertToMap(ent.Attributes, dest.Attributes())
+// The 8 least significant bits are the trace flags as defined in W3C Trace
+// Context specification. Don't override the 24 reserved bits.
 
-	if ent.Body != nil {
-		upsertToAttributeVal(ent.Body, dest.Body())
-	}
+func upsertToAttributeVal(value any, dest pcommon.Value) { _ = "STUB: not implemented"; return }
 
-	if ent.TraceID != nil {
-		var buffer [16]byte
-		copy(buffer[0:16], ent.TraceID)
-		dest.SetTraceID(buffer)
-	}
-	if ent.SpanID != nil {
-		var buffer [8]byte
-		copy(buffer[0:8], ent.SpanID)
-		dest.SetSpanID(buffer)
-	}
-	if len(ent.TraceFlags) > 0 {
-		// The 8 least significant bits are the trace flags as defined in W3C Trace
-		// Context specification. Don't override the 24 reserved bits.
-		flags := uint32(ent.TraceFlags[0])
-		dest.SetFlags(plog.LogRecordFlags(flags))
-	}
-}
+func upsertToMap(obsMap map[string]any, dest pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func upsertToAttributeVal(value any, dest pcommon.Value) {
-	switch t := value.(type) {
-	case bool:
-		dest.SetBool(t)
-	case string:
-		dest.SetStr(t)
-	case []string:
-		upsertStringsToSlice(t, dest.SetEmptySlice())
-	case []byte:
-		dest.SetEmptyBytes().FromRaw(t)
-	case int64:
-		dest.SetInt(t)
-	case int32:
-		dest.SetInt(int64(t))
-	case int16:
-		dest.SetInt(int64(t))
-	case int8:
-		dest.SetInt(int64(t))
-	case int:
-		dest.SetInt(int64(t))
-	case uint64:
-		dest.SetInt(int64(t))
-	case uint32:
-		dest.SetInt(int64(t))
-	case uint16:
-		dest.SetInt(int64(t))
-	case uint8:
-		dest.SetInt(int64(t))
-	case uint:
-		dest.SetInt(int64(t))
-	case float64:
-		dest.SetDouble(t)
-	case float32:
-		dest.SetDouble(float64(t))
-	case map[string]any:
-		upsertToMap(t, dest.SetEmptyMap())
-	case []any:
-		upsertToSlice(t, dest.SetEmptySlice())
-	case nil:
-	default:
-		dest.SetStr(fmt.Sprintf("%v", t))
-	}
-}
+func upsertToSlice(obsArr []any, dest pcommon.Slice) { _ = "STUB: not implemented"; return }
 
-func upsertToMap(obsMap map[string]any, dest pcommon.Map) {
-	dest.EnsureCapacity(len(obsMap))
-	for k, v := range obsMap {
-		upsertToAttributeVal(v, dest.PutEmpty(k))
-	}
-}
-
-func upsertToSlice(obsArr []any, dest pcommon.Slice) {
-	dest.EnsureCapacity(len(obsArr))
-	for _, v := range obsArr {
-		upsertToAttributeVal(v, dest.AppendEmpty())
-	}
-}
-
-func upsertStringsToSlice(obsArr []string, dest pcommon.Slice) {
-	dest.EnsureCapacity(len(obsArr))
-	for _, v := range obsArr {
-		dest.AppendEmpty().SetStr(v)
-	}
-}
+func upsertStringsToSlice(obsArr []string, dest pcommon.Slice) { _ = "STUB: not implemented"; return }
 
 var sevMap = map[entry.Severity]plog.SeverityNumber{
 	entry.Default: plog.SeverityNumberUnspecified,
@@ -225,56 +101,16 @@ type hashWriter struct {
 	keySlice []string
 }
 
-func newHashWriter() *hashWriter {
-	return &hashWriter{
-		h:        xxhash.New(),
-		keySlice: make([]string, 0),
-	}
-}
+func newHashWriter() *hashWriter { _ = "STUB: not implemented"; return nil }
 
 var hashWriterPool = &sync.Pool{
 	New: func() any { return newHashWriter() },
 }
 
 // HashResource will hash an entry.Entry.Resource
-func HashResource(resource map[string]any) uint64 {
-	if len(resource) == 0 {
-		return emptyResourceID
-	}
+func HashResource(resource map[string]any) uint64 { _ = "STUB: not implemented"; return 0 }
 
-	hw := hashWriterPool.Get().(*hashWriter)
-	defer hashWriterPool.Put(hw)
-	hw.h.Reset()
-	hw.keySlice = hw.keySlice[:0]
+// In order for this to be deterministic, we need to sort the map. Using range, like above,
+// has no guarantee about order.
 
-	for k := range resource {
-		hw.keySlice = append(hw.keySlice, k)
-	}
-
-	if len(hw.keySlice) > 1 {
-		// In order for this to be deterministic, we need to sort the map. Using range, like above,
-		// has no guarantee about order.
-		sort.Strings(hw.keySlice)
-	}
-
-	for _, k := range hw.keySlice {
-		_, _ = hw.h.WriteString(k)
-		_, _ = hw.h.Write(pairSep)
-
-		switch t := resource[k].(type) {
-		case string:
-			_, _ = hw.h.WriteString(t)
-		case []byte:
-			_, _ = hw.h.Write(t)
-		case bool, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64:
-			binary.Write(hw.h, binary.BigEndian, t) //nolint:errcheck // nothing to do about it
-		default:
-			b, _ := json.Marshal(t)
-			_, _ = hw.h.Write(b)
-		}
-
-		_, _ = hw.h.Write(pairSep)
-	}
-
-	return hw.h.Sum64()
-}
+//nolint:errcheck // nothing to do about it

@@ -4,17 +4,9 @@
 package datareceivers // import "github.com/open-telemetry/opentelemetry-collector-contrib/testbed/datareceivers"
 
 import (
-	"context"
-	"fmt"
-
-	"go.opentelemetry.io/collector/component/componenttest"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/receivertest"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/signalfxreceiver"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -30,45 +22,25 @@ var _ testbed.DataReceiver = (*SFxMetricsDataReceiver)(nil)
 // NewSFxMetricsDataReceiver creates a new SFxMetricsDataReceiver that will listen on the
 // specified port after Start is called.
 func NewSFxMetricsDataReceiver(port int) *SFxMetricsDataReceiver {
-	return &SFxMetricsDataReceiver{DataReceiverBase: testbed.DataReceiverBase{Port: port}}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start the receiver.
 func (sr *SFxMetricsDataReceiver) Start(_ consumer.Traces, mc consumer.Metrics, _ consumer.Logs) error {
-	config := signalfxreceiver.Config{
-		ServerConfig: confighttp.ServerConfig{
-			NetAddr: confignet.AddrConfig{
-				Transport: "tcp",
-				Endpoint:  fmt.Sprintf("127.0.0.1:%d", sr.Port),
-			},
-		},
-	}
-	var err error
-	f := signalfxreceiver.NewFactory()
-	sr.receiver, err = f.CreateMetrics(context.Background(), receivertest.NewNopSettings(f.Type()), &config, mc)
-	if err != nil {
-		return err
-	}
-
-	return sr.receiver.Start(context.Background(), componenttest.NewNopHost())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Stop the receiver.
-func (sr *SFxMetricsDataReceiver) Stop() error {
-	return sr.receiver.Shutdown(context.Background())
-}
+func (sr *SFxMetricsDataReceiver) Stop() error { _ = "STUB: not implemented"; return nil }
 
 // GenConfigYAMLStr returns exporter config for the agent.
 func (sr *SFxMetricsDataReceiver) GenConfigYAMLStr() string {
+	_ = "STUB: not implemented"
 	// Note that this generates an exporter config for agent.
-	return fmt.Sprintf(`
-    signalfx:
-      ingest_url: "http://127.0.0.1:%d"
-      api_url: "http://127.0.0.1/"
-      access_token: "access_token"`, sr.Port)
+	return ""
 }
 
 // ProtocolName returns protocol name as it is specified in Collector config.
-func (*SFxMetricsDataReceiver) ProtocolName() string {
-	return "signalfx"
-}
+func (*SFxMetricsDataReceiver) ProtocolName() string { _ = "STUB: not implemented"; return "" }

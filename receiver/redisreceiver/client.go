@@ -4,8 +4,6 @@
 package redisreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redisreceiver"
 
 import (
-	"context"
-
 	"github.com/redis/go-redis/v9"
 )
 
@@ -30,28 +28,23 @@ type redisClient struct {
 var _ client = (*redisClient)(nil)
 
 // Creates a new real Redis client from the passed-in redis.Options.
-func newRedisClient(options *redis.Options) client {
-	return &redisClient{
-		client: redis.NewClient(options),
-	}
-}
+func newRedisClient(options *redis.Options) client { _ = "STUB: not implemented"; return *new(client) }
 
 // Redis strings are CRLF delimited.
 func (*redisClient) delimiter() string {
-	return "\r\n"
+	_ = "STUB: not implemented"
+
+	// Retrieve Redis INFO. We retrieve all of the 'sections'.
+	return ""
 }
 
-// Retrieve Redis INFO. We retrieve all of the 'sections'.
-func (c *redisClient) retrieveInfo() (string, error) {
-	return c.client.Info(context.Background(), "all").Result()
-}
+func (c *redisClient) retrieveInfo() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // Retrieve Redis CLUSTER INFO.
 func (c *redisClient) retrieveClusterInfo() (string, error) {
-	return c.client.ClusterInfo(context.Background()).Result()
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // close client to release connection pool.
-func (c *redisClient) close() error {
-	return c.client.Close()
-}
+func (c *redisClient) close() error { _ = "STUB: not implemented"; return nil }

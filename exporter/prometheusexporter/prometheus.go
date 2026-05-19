@@ -7,11 +7,8 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"strings"
-	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -32,97 +29,29 @@ type prometheusExporter struct {
 var errBlankPrometheusAddress = errors.New("expecting a non-blank address to run the Prometheus metrics handler")
 
 func newPrometheusExporter(config *Config, set exporter.Settings) (*prometheusExporter, error) {
-	addr := strings.TrimSpace(config.NetAddr.Endpoint)
-	if strings.TrimSpace(config.NetAddr.Endpoint) == "" {
-		return nil, errBlankPrometheusAddress
-	}
-
-	// Return error early because newCollector
-	// will call logger.Error if it fails to build the namespace.
-	if set.Logger == nil {
-		return nil, errors.New("nil logger")
-	}
-
-	collector := newCollector(config, set.Logger)
-	registry := prometheus.NewRegistry()
-	_ = registry.Register(collector)
-	return &prometheusExporter{
-		config:       *config,
-		name:         set.ID.String(),
-		endpoint:     addr,
-		collector:    collector,
-		registry:     registry,
-		shutdownFunc: func(_ context.Context) error { return nil },
-		handler: promhttp.HandlerFor(
-			registry,
-			promhttp.HandlerOpts{
-				ErrorHandling:     promhttp.ContinueOnError,
-				ErrorLog:          newPromLogger(set.Logger),
-				EnableOpenMetrics: config.EnableOpenMetrics,
-			},
-		),
-		settings: set.TelemetrySettings,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Return error early because newCollector
+// will call logger.Error if it fails to build the namespace.
+
 func (pe *prometheusExporter) Start(ctx context.Context, host component.Host) error {
-	ln, err := pe.config.ToListener(ctx)
-	if err != nil {
-		return err
-	}
-
-	mux := http.NewServeMux()
-	mux.Handle("/metrics", pe.handler)
-	srv, err := pe.config.ToServer(ctx, host.GetExtensions(), pe.settings, mux)
-	if err != nil {
-		lnerr := ln.Close()
-		return errors.Join(err, lnerr)
-	}
-	pe.shutdownFunc = func(ctx context.Context) error {
-		return srv.Shutdown(ctx)
-	}
-	go func() {
-		_ = srv.Serve(ln)
-	}()
-
-	// Start a background goroutine that periodically evicts expired metric families.
-	// Without this, cleanup only happens during Collect() (i.e. when Prometheus scrapes).
-	// If no scraper is active, stale entries in metricFamilies accumulate indefinitely,
-	// causing unbounded memory growth. See https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/41123
-	if pe.collector.metricExpiration > 0 {
-		pe.stopCh = make(chan struct{})
-		go func(stopCh chan struct{}) {
-			ticker := time.NewTicker(pe.collector.metricExpiration)
-			defer ticker.Stop()
-			for {
-				select {
-				case <-ticker.C:
-					pe.collector.accumulator.cleanupExpired()
-					pe.collector.cleanupMetricFamilies()
-				case <-stopCh:
-					return
-				}
-			}
-		}(pe.stopCh)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (pe *prometheusExporter) ConsumeMetrics(_ context.Context, md pmetric.Metrics) error {
-	n := 0
-	rmetrics := md.ResourceMetrics()
-	for i := 0; i < rmetrics.Len(); i++ {
-		n += pe.collector.processMetrics(rmetrics.At(i))
-	}
+// Start a background goroutine that periodically evicts expired metric families.
+// Without this, cleanup only happens during Collect() (i.e. when Prometheus scrapes).
+// If no scraper is active, stale entries in metricFamilies accumulate indefinitely,
+// causing unbounded memory growth. See https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/41123
 
+func (pe *prometheusExporter) ConsumeMetrics(_ context.Context, md pmetric.Metrics) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (pe *prometheusExporter) Shutdown(ctx context.Context) error {
-	if pe.stopCh != nil {
-		close(pe.stopCh)
-		pe.stopCh = nil
-	}
-	return pe.shutdownFunc(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }

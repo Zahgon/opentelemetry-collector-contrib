@@ -4,14 +4,8 @@
 package bearertokenauthextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/bearertokenauthextension"
 
 import (
-	"bufio"
-	"bytes"
 	"context"
-	"crypto/subtle"
-	"errors"
-	"fmt"
 	"net/http"
-	"strings"
 	"sync/atomic"
 
 	"go.opentelemetry.io/collector/component"
@@ -32,13 +26,12 @@ type perRPCAuth struct {
 
 // GetRequestMetadata returns the request metadata to be used with the RPC.
 func (c *perRPCAuth) GetRequestMetadata(context.Context, ...string) (map[string]string, error) {
-	return map[string]string{strings.ToLower(c.auth.header): c.auth.authorizationValue()}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RequireTransportSecurity always returns true for this implementation. Passing bearer tokens in plain-text connections is a bad idea.
-func (*perRPCAuth) RequireTransportSecurity() bool {
-	return true
-}
+func (*perRPCAuth) RequireTransportSecurity() bool { _ = "STUB: not implemented"; return false }
 
 var (
 	_ extension.Extension      = (*bearerTokenAuth)(nil)
@@ -58,161 +51,74 @@ type bearerTokenAuth struct {
 }
 
 func newBearerTokenAuth(cfg *Config, logger *zap.Logger) *bearerTokenAuth {
-	a := &bearerTokenAuth{
-		header: cfg.Header,
-		scheme: cfg.Scheme,
-		logger: logger,
-	}
-
-	var inlineToken string
-	switch {
-	case len(cfg.Tokens) > 0:
-		tokens := make([]string, len(cfg.Tokens))
-		for i, token := range cfg.Tokens {
-			tokens[i] = string(token)
-		}
-		a.setAuthorizationValues(tokens)
-		return a
-	case cfg.BearerToken != "":
-		inlineToken = string(cfg.BearerToken)
-	}
-
-	if cfg.Filename != "" && (cfg.BearerToken != "" || len(cfg.Tokens) > 0) {
-		logger.Warn("a filename is specified. Configured token(s) is ignored!")
-	}
-
-	// Create token resolver for single token (inline or file)
-	if cfg.Filename != "" || inlineToken != "" {
-		resolver, err := credentialsfile.NewValueResolver(
-			inlineToken,
-			cfg.Filename,
-			logger,
-			credentialsfile.WithOnChange(func(_ string) {
-				if cfg.Filename != "" {
-					logger.Info("refresh token", zap.String("filename", cfg.Filename))
-				}
-				a.updateAuthorizationValues()
-			}),
-		)
-		if err != nil {
-			logger.Error("failed to create token resolver", zap.Error(err))
-			return a
-		}
-		a.tokenResolver = resolver
-		// Initialize token values
-		a.updateAuthorizationValues()
-	}
-
-	return a
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Create token resolver for single token (inline or file)
+
+// Initialize token values
 
 // Start of BearerTokenAuth does nothing and returns nil if no filename
 // is specified. Otherwise a routine is started to monitor the file containing
 // the token to be transferred.
 func (b *bearerTokenAuth) Start(ctx context.Context, _ component.Host) error {
-	if b.tokenResolver != nil {
-		return b.tokenResolver.Start(ctx)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (b *bearerTokenAuth) updateAuthorizationValues() {
-	if b.tokenResolver == nil {
-		return
-	}
+func (b *bearerTokenAuth) updateAuthorizationValues() { _ = "STUB: not implemented"; return }
 
-	tokenData := b.tokenResolver.Value()
-	var validTokens []string
-	scanner := bufio.NewScanner(bytes.NewReader([]byte(tokenData)))
-	for scanner.Scan() {
-		line := scanner.Text()
-		// Split by whitespace (spaces, tabs, etc.)
-		// strings.Fields handles leading/trailing whitespace and multiple spaces automatically.
-		parts := strings.Fields(line)
+// Split by whitespace (spaces, tabs, etc.)
+// strings.Fields handles leading/trailing whitespace and multiple spaces automatically.
 
-		// If the line has at least one part, the first part is the token.
-		// Everything else is treated as a comment/ignored.
-		if len(parts) > 0 {
-			validTokens = append(validTokens, parts[0])
-		}
-	}
-	b.setAuthorizationValues(validTokens)
-}
+// If the line has at least one part, the first part is the token.
+// Everything else is treated as a comment/ignored.
 
 func (b *bearerTokenAuth) setAuthorizationValues(tokens []string) {
-	values := make([]string, len(tokens))
-	for i, token := range tokens {
-		if b.scheme != "" {
-			values[i] = b.scheme + " " + token
-		} else {
-			values[i] = token
-		}
-	}
-	b.authorizationValuesAtomic.Store(values)
+	_ = "STUB: not implemented"
+	return
 }
 
 // authorizationValues returns the Authorization header/metadata values
 // to set for client auth, and expected values for server auth.
-func (b *bearerTokenAuth) authorizationValues() []string {
-	return b.authorizationValuesAtomic.Load().([]string)
-}
+func (b *bearerTokenAuth) authorizationValues() []string { _ = "STUB: not implemented"; return nil }
 
 // authorizationValue returns the first Authorization header/metadata value
 // to set for client auth, and expected value for server auth.
-func (b *bearerTokenAuth) authorizationValue() string {
-	values := b.authorizationValues()
-	if len(values) > 0 {
-		return values[0] // Return the first token
-	}
-	return ""
-}
+func (b *bearerTokenAuth) authorizationValue() string { _ = "STUB: not implemented"; return "" }
+
+// Return the first token
 
 // Shutdown of BearerTokenAuth does nothing and returns nil
-func (b *bearerTokenAuth) Shutdown(_ context.Context) error {
-	if b.tokenResolver != nil {
-		return b.tokenResolver.Shutdown()
-	}
-	return nil
-}
+func (b *bearerTokenAuth) Shutdown(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // PerRPCCredentials returns PerRPCAuth an implementation of credentials.PerRPCCredentials that
 func (b *bearerTokenAuth) PerRPCCredentials() (credentials.PerRPCCredentials, error) {
-	return &perRPCAuth{
-		auth: b,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(credentials.PerRPCCredentials), nil
 }
 
 // RoundTripper is not implemented by BearerTokenAuth
 func (b *bearerTokenAuth) RoundTripper(base http.RoundTripper) (http.RoundTripper, error) {
-	return &bearerAuthRoundTripper{
-		header:        b.header,
-		baseTransport: base,
-		auth:          b,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(http.RoundTripper), nil
 }
 
 // Authenticate checks whether the given context contains valid auth data. Validates tokens from clients trying to access the service (incoming requests)
 func (b *bearerTokenAuth) Authenticate(ctx context.Context, headers map[string][]string) (context.Context, error) {
+	_ = "STUB: not implemented"
 	// Use canonical header key to match how Go's HTTP server stores headers
-	auth, ok := headers[http.CanonicalHeaderKey(b.header)]
-
-	// Also check lower-case header key to support gRPC metadata format
-	if !ok {
-		auth, ok = headers[strings.ToLower(b.header)]
-	}
-
-	if !ok || len(auth) == 0 {
-		return ctx, fmt.Errorf("missing or empty authorization header: %s", b.header)
-	}
-	token := auth[0] // Extract token from authorization header
-	expectedTokens := b.authorizationValues()
-	for _, expectedToken := range expectedTokens {
-		if subtle.ConstantTimeCompare([]byte(expectedToken), []byte(token)) == 1 {
-			return ctx, nil // Authentication successful, token is valid
-		}
-	}
-	return ctx, errors.New("provided authorization does not match expected scheme or token") // Token is invalid
+	return *new(context.Context), nil
 }
+
+// Also check lower-case header key to support gRPC metadata format
+
+// Extract token from authorization header
+
+// Authentication successful, token is valid
+
+// Token is invalid
 
 // BearerAuthRoundTripper intercepts and adds Bearer token Authorization headers to each http request.
 type bearerAuthRoundTripper struct {
@@ -223,10 +129,6 @@ type bearerAuthRoundTripper struct {
 
 // RoundTrip modifies the original request and adds Bearer token Authorization headers. Incoming requests support multiple tokens, but outgoing requests only use one.
 func (interceptor *bearerAuthRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
-	req2 := req.Clone(req.Context())
-	if req2.Header == nil {
-		req2.Header = make(http.Header)
-	}
-	req2.Header.Set(interceptor.header, interceptor.auth.authorizationValue())
-	return interceptor.baseTransport.RoundTrip(req2)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

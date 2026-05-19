@@ -4,9 +4,6 @@
 package ottlspanevent // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspanevent"
 
 import (
-	"context"
-	"errors"
-	"fmt"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -17,12 +14,7 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxcache"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxcommon"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxotelcol"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxresource"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxscope"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxspan"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxspanevent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/logging"
 )
 
 var tcPool = sync.Pool{
@@ -49,15 +41,8 @@ type TransformContext struct {
 
 // MarshalLogObject serializes the TransformContext into a zapcore.ObjectEncoder for logging.
 func (tCtx *TransformContext) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	err := encoder.AddObject("resource", logging.Resource(tCtx.GetResource()))
-	err = errors.Join(err, encoder.AddObject("scope", logging.InstrumentationScope(tCtx.GetInstrumentationScope())))
-	err = errors.Join(err, encoder.AddObject("span", logging.Span(tCtx.span)))
-	err = errors.Join(err, encoder.AddObject("spanevent", logging.SpanEvent(tCtx.spanEvent)))
-	err = errors.Join(err, encoder.AddObject("cache", logging.Map(tCtx.cache)))
-	if tCtx.eventIndex != nil {
-		encoder.AddInt64("event_index", *tCtx.eventIndex)
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TransformContextOption represents an option for configuring a TransformContext.
@@ -66,77 +51,67 @@ type TransformContextOption func(*TransformContext)
 // NewTransformContextPtr returns a new TransformContext with the provided parameters from a pool of contexts.
 // Caller must call TransformContext.Close on the returned TransformContext.
 func NewTransformContextPtr(resourceSpans ptrace.ResourceSpans, scopeSpans ptrace.ScopeSpans, span ptrace.Span, spanEvent ptrace.SpanEvent, options ...TransformContextOption) *TransformContext {
-	tCtx := tcPool.Get().(*TransformContext)
-	tCtx.resourceSpans = resourceSpans
-	tCtx.scopeSpans = scopeSpans
-	tCtx.span = span
-	tCtx.spanEvent = spanEvent
-	for _, opt := range options {
-		opt(tCtx)
-	}
-	return tCtx
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Close the current TransformContext.
 // After this function returns this instance cannot be used.
-func (tCtx *TransformContext) Close() {
-	tCtx.resourceSpans = ptrace.ResourceSpans{}
-	tCtx.scopeSpans = ptrace.ScopeSpans{}
-	tCtx.span = ptrace.Span{}
-	tCtx.spanEvent = ptrace.SpanEvent{}
-	tCtx.cache.Clear()
-	tCtx.eventIndex = nil
-	tcPool.Put(tCtx)
-}
+func (tCtx *TransformContext) Close() { _ = "STUB: not implemented"; return }
 
 // WithEventIndex sets the index of the SpanEvent within the span, to make it accessible via the event_index property of its context.
 // The index must be greater than or equal to zero, otherwise the given value will not be applied.
 func WithEventIndex(eventIndex int64) TransformContextOption {
-	return func(p *TransformContext) {
-		p.eventIndex = &eventIndex
-	}
+	_ = "STUB: not implemented"
+	return *new(TransformContextOption)
 }
 
 // GetSpanEvent returns the span event from the TransformContext.
 func (tCtx *TransformContext) GetSpanEvent() ptrace.SpanEvent {
-	return tCtx.spanEvent
+	_ = "STUB: not implemented"
+	return *
+
+	// GetSpan returns the span from the TransformContext.
+	new(ptrace.SpanEvent)
 }
 
-// GetSpan returns the span from the TransformContext.
 func (tCtx *TransformContext) GetSpan() ptrace.Span {
-	return tCtx.span
+	_ = "STUB: not implemented"
+
+	// GetInstrumentationScope returns the instrumentation scope from the TransformContext.
+	return *new(ptrace.Span)
 }
 
-// GetInstrumentationScope returns the instrumentation scope from the TransformContext.
 func (tCtx *TransformContext) GetInstrumentationScope() pcommon.InstrumentationScope {
-	return tCtx.scopeSpans.Scope()
+	_ = "STUB: not implemented"
+	return *new(pcommon.InstrumentationScope)
 }
 
 // GetResource returns the resource from the TransformContext.
 func (tCtx *TransformContext) GetResource() pcommon.Resource {
-	return tCtx.resourceSpans.Resource()
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }
 
 // GetScopeSchemaURLItem returns the schema URL item for the scope from the TransformContext.
 func (tCtx *TransformContext) GetScopeSchemaURLItem() ctxcommon.SchemaURLItem {
-	return tCtx.scopeSpans
+	_ = "STUB: not implemented"
+	return *
+
+	// GetResourceSchemaURLItem returns the schema URL item for the resource from the TransformContext.
+	new(ctxcommon.SchemaURLItem)
 }
 
-// GetResourceSchemaURLItem returns the schema URL item for the resource from the TransformContext.
 func (tCtx *TransformContext) GetResourceSchemaURLItem() ctxcommon.SchemaURLItem {
-	return tCtx.resourceSpans
+	_ = "STUB: not implemented"
+	return *new(ctxcommon.SchemaURLItem)
 }
 
 // GetEventIndex returns the event index from the TransformContext.
 // If the event index is not set or invalid, an error is returned.
 func (tCtx *TransformContext) GetEventIndex() (int64, error) {
-	if tCtx.eventIndex != nil {
-		if *tCtx.eventIndex < 0 {
-			return 0, errors.New("found invalid value for 'event_index'")
-		}
-		return *tCtx.eventIndex, nil
-	}
-	return 0, errors.New("no 'event_index' property has been set")
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 // EnablePathContextNames enables the support for path's context names on statements.
@@ -144,36 +119,21 @@ func (tCtx *TransformContext) GetEventIndex() (int64, error) {
 // otherwise an error is reported.
 //
 // Experimental: *NOTE* this option is subject to change or removal in the future.
-func EnablePathContextNames() ottl.Option[*TransformContext] {
-	return func(p *ottl.Parser[*TransformContext]) {
-		ottl.WithPathContextNames[*TransformContext]([]string{
-			ctxspanevent.Name,
-			ctxspan.Name,
-			ctxresource.Name,
-			ctxscope.LegacyName,
-			ctxscope.Name,
-			ctxotelcol.Name,
-		})(p)
-	}
-}
+func EnablePathContextNames() ottl.Option[*TransformContext] { _ = "STUB: not implemented"; return nil }
 
 // StatementSequenceOption represents an option for configuring a statement sequence.
 type StatementSequenceOption func(*ottl.StatementSequence[*TransformContext])
 
 // WithStatementSequenceErrorMode sets the error mode for a statement sequence.
 func WithStatementSequenceErrorMode(errorMode ottl.ErrorMode) StatementSequenceOption {
-	return func(s *ottl.StatementSequence[*TransformContext]) {
-		ottl.WithStatementSequenceErrorMode[*TransformContext](errorMode)(s)
-	}
+	_ = "STUB: not implemented"
+	return *new(StatementSequenceOption)
 }
 
 // NewStatementSequence creates a new statement sequence with the provided statements and options.
 func NewStatementSequence(statements []*ottl.Statement[*TransformContext], telemetrySettings component.TelemetrySettings, options ...StatementSequenceOption) ottl.StatementSequence[*TransformContext] {
-	s := ottl.NewStatementSequence(statements, telemetrySettings)
-	for _, op := range options {
-		op(&s)
-	}
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ConditionSequenceOption represents an option for configuring a condition sequence.
@@ -181,18 +141,14 @@ type ConditionSequenceOption func(*ottl.ConditionSequence[*TransformContext])
 
 // WithConditionSequenceErrorMode sets the error mode for a condition sequence.
 func WithConditionSequenceErrorMode(errorMode ottl.ErrorMode) ConditionSequenceOption {
-	return func(c *ottl.ConditionSequence[*TransformContext]) {
-		ottl.WithConditionSequenceErrorMode[*TransformContext](errorMode)(c)
-	}
+	_ = "STUB: not implemented"
+	return *new(ConditionSequenceOption)
 }
 
 // NewConditionSequence creates a new condition sequence with the provided conditions and options.
 func NewConditionSequence(conditions []*ottl.Condition[*TransformContext], telemetrySettings component.TelemetrySettings, options ...ConditionSequenceOption) ottl.ConditionSequence[*TransformContext] {
-	c := ottl.NewConditionSequence(conditions, telemetrySettings)
-	for _, op := range options {
-		op(&c)
-	}
-	return c
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewParser creates a new span event parser with the provided functions and options.
@@ -201,58 +157,31 @@ func NewParser(
 	telemetrySettings component.TelemetrySettings,
 	options ...ottl.Option[*TransformContext],
 ) (ottl.Parser[*TransformContext], error) {
-	return ctxcommon.NewParser(
-		functions,
-		telemetrySettings,
-		pathExpressionParser(getCache),
-		parseEnum,
-		options...,
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func parseEnum(val *ottl.EnumSymbol) (*ottl.Enum, error) {
-	if val != nil {
-		if enum, ok := ctxspan.SymbolTable[*val]; ok {
-			return &enum, nil
-		}
-		return nil, fmt.Errorf("enum symbol, %s, not found", *val)
-	}
-	return nil, errors.New("enum symbol not provided")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func getCache(tCtx *TransformContext) pcommon.Map {
-	return tCtx.cache
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 func pathExpressionParser(cacheGetter ctxcache.Getter[*TransformContext]) ottl.PathExpressionParser[*TransformContext] {
-	return ctxcommon.PathExpressionParser(
-		ctxspanevent.Name,
-		ctxspanevent.DocRef,
-		cacheGetter,
-		map[string]ottl.PathExpressionParser[*TransformContext]{
-			ctxresource.Name:    ctxresource.PathGetSetter[*TransformContext],
-			ctxscope.Name:       ctxscope.PathGetSetter[*TransformContext],
-			ctxscope.LegacyName: ctxscope.PathGetSetter[*TransformContext],
-			ctxspan.Name:        ctxspan.PathGetSetter[*TransformContext],
-			ctxspanevent.Name:   spanEventGetSetterWithIndex,
-			ctxotelcol.Name:     ctxotelcol.PathGetSetter[*TransformContext],
-		})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func spanEventGetSetterWithIndex(path ottl.Path[*TransformContext]) (ottl.GetSetter[*TransformContext], error) {
-	if path.Name() == "event_index" {
-		return accessSpanEventIndex(), nil
-	}
-	return ctxspanevent.PathGetSetter(path)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func accessSpanEventIndex() ottl.StandardGetSetter[*TransformContext] {
-	return ottl.StandardGetSetter[*TransformContext]{
-		Getter: func(_ context.Context, tCtx *TransformContext) (any, error) {
-			return tCtx.GetEventIndex()
-		},
-		Setter: func(_ context.Context, _ *TransformContext, _ any) error {
-			return errors.New("the 'event_index' path cannot be modified")
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

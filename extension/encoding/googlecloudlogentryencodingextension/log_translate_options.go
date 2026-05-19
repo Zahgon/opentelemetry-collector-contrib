@@ -10,9 +10,4 @@ type fieldTranslateOptions struct {
 
 type fieldTranslateFn func(*fieldTranslateOptions)
 
-func (opts fieldTranslateOptions) mapKey(s string) string {
-	for _, mapper := range opts.keyMappers {
-		s = mapper(s)
-	}
-	return s
-}
+func (opts fieldTranslateOptions) mapKey(s string) string { _ = "STUB: not implemented"; return "" }

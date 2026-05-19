@@ -3,12 +3,6 @@
 
 package awsxray // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/xray"
 
-import (
-	"encoding/json"
-	"errors"
-	"fmt"
-)
-
 type CauseType int
 
 const (
@@ -61,28 +55,11 @@ type Segment struct {
 }
 
 // Validate checks whether the segment is valid or not
-func (s *Segment) Validate() error {
-	if s.Name == nil {
-		return errors.New(`segment "name" cannot be nil`)
-	}
+func (s *Segment) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if s.ID == nil {
-		return errors.New(`segment "id" cannot be nil`)
-	}
-
-	if s.StartTime == nil {
-		return errors.New(`segment "start_time" cannot be nil`)
-	}
-
-	// it's ok for embedded subsegments to not have trace_id
-	// but the root segment and independent subsegments must all
-	// have trace_id.
-	if s.TraceID == nil {
-		return errors.New(`segment "trace_id" cannot be nil`)
-	}
-
-	return nil
-}
+// it's ok for embedded subsegments to not have trace_id
+// but the root segment and independent subsegments must all
+// have trace_id.
 
 // AWSData represents the aws resource that this segment
 // originates from
@@ -163,22 +140,7 @@ type CauseObject struct {
 }
 
 // UnmarshalJSON is the custom unmarshaller for the cause field
-func (c *CauseData) UnmarshalJSON(data []byte) error {
-	err := json.Unmarshal(data, &c.CauseObject)
-	if err == nil {
-		c.Type = CauseTypeObject
-		return nil
-	}
-	rawStr := string(data)
-	if rawStr != "" && (rawStr[0] != '"' || rawStr[len(rawStr)-1] != '"') {
-		return fmt.Errorf("the value assigned to the `cause` field does not appear to be a string: %v", data)
-	}
-	exceptionID := rawStr[1 : len(rawStr)-1]
-
-	c.Type = CauseTypeExceptionID
-	c.ExceptionID = &exceptionID
-	return nil
-}
+func (c *CauseData) UnmarshalJSON(data []byte) error { _ = "STUB: not implemented"; return nil }
 
 // Exception represents an exception occurred
 type Exception struct {

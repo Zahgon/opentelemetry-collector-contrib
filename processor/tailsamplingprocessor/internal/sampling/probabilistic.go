@@ -5,9 +5,6 @@ package sampling // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"hash/fnv"
-	"math"
-	"math/big"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -31,48 +28,34 @@ var _ samplingpolicy.Evaluator = (*probabilisticSampler)(nil)
 // NewProbabilisticSampler creates a policy evaluator that samples a percentage of
 // traces.
 func NewProbabilisticSampler(settings component.TelemetrySettings, hashSalt string, samplingPercentage float64) samplingpolicy.Evaluator {
-	if hashSalt == "" {
-		hashSalt = defaultHashSalt
-	}
-
-	return &probabilisticSampler{
-		logger: settings.Logger,
-		// calculate threshold once
-		threshold: calculateThreshold(samplingPercentage / 100),
-		hashSalt:  hashSalt,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
+
+// calculate threshold once
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 func (s *probabilisticSampler) Evaluate(_ context.Context, traceID pcommon.TraceID, _ *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	s.logger.Debug("Evaluating spans in probabilistic filter")
-
-	if hashTraceID(s.hashSalt, traceID[:]) <= s.threshold {
-		return samplingpolicy.Sampled, nil
-	}
-
-	return samplingpolicy.NotSampled, nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
 func (*probabilisticSampler) IsStateful() bool {
+	_ = "STUB: not implemented"
+
+	// calculateThreshold converts a ratio into a value between 0 and MaxUint64
 	return false
 }
 
-// calculateThreshold converts a ratio into a value between 0 and MaxUint64
 func calculateThreshold(ratio float64) uint64 {
+	_ = "STUB: not implemented"
 	// Use big.Float and big.Int to calculate threshold because directly convert
 	// math.MaxUint64 to float64 will cause digits/bits to be cut off if the converted value
 	// doesn't fit into bits that are used to store digits for float64 in Golang
-	boundary := new(big.Float).SetInt(new(big.Int).SetUint64(math.MaxUint64))
-	res, _ := boundary.Mul(boundary, big.NewFloat(ratio)).Uint64()
-	return res
+	return 0
 }
 
 // hashTraceID creates a hash using the FNV-1a algorithm.
-func hashTraceID(salt string, b []byte) uint64 {
-	hasher := fnv.New64a()
-	// the implementation fnv.Write() never returns an error, see hash/fnv/fnv.go
-	_, _ = hasher.Write([]byte(salt))
-	_, _ = hasher.Write(b)
-	return hasher.Sum64()
-}
+func hashTraceID(salt string, b []byte) uint64 { _ = "STUB: not implemented"; return 0 }
+
+// the implementation fnv.Write() never returns an error, see hash/fnv/fnv.go

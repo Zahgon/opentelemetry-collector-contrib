@@ -6,18 +6,12 @@
 package cadvisor // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awscontainerinsightreceiver/internal/cadvisor"
 
 import (
-	"encoding/json"
-	"errors"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/google/cadvisor/cache/memory"
 	cadvisormetrics "github.com/google/cadvisor/container"
-	"github.com/google/cadvisor/container/containerd"
-	"github.com/google/cadvisor/container/crio"
-	"github.com/google/cadvisor/container/docker"
-	"github.com/google/cadvisor/container/systemd"
+
 	// Register filesystem plugins via init() functions
 	_ "github.com/google/cadvisor/fs/overlay/install"
 	_ "github.com/google/cadvisor/fs/tmpfs/install"
@@ -28,7 +22,6 @@ import (
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.uber.org/zap"
 
-	ci "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/containerinsight"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awscontainerinsightreceiver/internal/cadvisor/extractors"
 )
 
@@ -75,23 +68,14 @@ var defaultCreateManager = func(memoryCache *memory.InMemoryCache, sysfs sysfs.S
 type Option func(*Cadvisor)
 
 func cadvisorManagerCreator(f createCadvisorManager) Option {
-	return func(c *Cadvisor) {
-		c.createCadvisorManager = f
-	}
+	_ = "STUB: not implemented"
+	return *new(Option)
 }
 
 // WithDecorator constructs an option for configuring the metric decorator
-func WithDecorator(d Decorator) Option {
-	return func(c *Cadvisor) {
-		c.k8sDecorator = d
-	}
-}
+func WithDecorator(d Decorator) Option { _ = "STUB: not implemented"; return *new(Option) }
 
-func WithECSInfoCreator(f EcsInfo) Option {
-	return func(c *Cadvisor) {
-		c.ecsInfo = f
-	}
-}
+func WithECSInfoCreator(f EcsInfo) Option { _ = "STUB: not implemented"; return *new(Option) }
 
 type hostInfo interface {
 	GetNumCores() int64
@@ -138,271 +122,60 @@ func init() {
 
 // New creates a Cadvisor struct which can generate metrics from embedded cadvisor lib
 func New(containerOrchestrator string, hostInfo hostInfo, logger *zap.Logger, options ...Option) (*Cadvisor, error) {
-	nodeName := os.Getenv("HOST_NAME")
-	if nodeName == "" && containerOrchestrator == ci.EKS {
-		return nil, errors.New("missing environment variable HOST_NAME. Please check your deployment YAML config")
-	}
-
-	c := &Cadvisor{
-		logger:                logger,
-		nodeName:              nodeName,
-		version:               "0",
-		createCadvisorManager: defaultCreateManager,
-		containerOrchestrator: containerOrchestrator,
-	}
-
-	// apply additional options
-	for _, option := range options {
-		option(c)
-	}
-
-	if err := c.initManager(c.createCadvisorManager); err != nil {
-		return nil, err
-	}
-
-	c.hostInfo = hostInfo
-	return c, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// apply additional options
 
 func (c *Cadvisor) GetMetricsExtractors() []extractors.MetricExtractor {
-	return c.metricsExtractors
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *Cadvisor) Shutdown() error {
-	var errs error
-	for _, ext := range c.metricsExtractors {
-		errs = errors.Join(errs, ext.Shutdown())
-	}
-
-	if c.k8sDecorator != nil {
-		errs = errors.Join(errs, c.k8sDecorator.Shutdown())
-	}
-	return errs
-}
+func (c *Cadvisor) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
 func (c *Cadvisor) addEbsVolumeInfo(tags, ebsVolumeIDsUsedAsPV map[string]string) {
-	deviceName, ok := tags[ci.DiskDev]
-	if !ok {
-		return
-	}
-
-	if c.hostInfo != nil {
-		if volID := c.hostInfo.GetEBSVolumeID(deviceName); volID != "" {
-			tags[ci.HostEbsVolumeID] = volID
-		}
-	}
-
-	if tags[ci.MetricType] == ci.TypeContainerFS || tags[ci.MetricType] == ci.TypeNodeFS ||
-		tags[ci.MetricType] == ci.TypeNodeDiskIO || tags[ci.MetricType] == ci.TypeContainerDiskIO {
-		if volID := ebsVolumeIDsUsedAsPV[deviceName]; volID != "" {
-			tags[ci.EbsVolumeID] = volID
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (c *Cadvisor) addECSMetrics(cadvisormetrics []*extractors.CAdvisorMetric) {
-	if len(cadvisormetrics) == 0 {
-		c.logger.Warn("cadvisor can't collect any metrics!")
-	}
-
-	for _, cadvisormetric := range cadvisormetrics {
-		if cadvisormetric.GetMetricType() != ci.TypeInstance {
-			continue
-		}
-		metricMap := cadvisormetric.GetFields()
-		cpuReserved := c.ecsInfo.GetCPUReserved()
-		memReserved := c.ecsInfo.GetMemReserved()
-		if cpuReserved == 0 && memReserved == 0 {
-			c.logger.Warn("Can't get mem or cpu reserved!")
-		}
-		cpuLimits, cpuExist := metricMap[ci.MetricName(ci.TypeInstance, ci.CPULimit)]
-		memLimits, memExist := metricMap[ci.MetricName(ci.TypeInstance, ci.MemLimit)]
-
-		if !cpuExist && !memExist {
-			c.logger.Warn("Can't get mem or cpu limit")
-		} else {
-			// cgroup standard cpulimits should be cadvisor standard * 1.024
-			metricMap[ci.MetricName(ci.TypeInstance, ci.CPUReservedCapacity)] = float64(cpuReserved) / (float64(cpuLimits.(int64)) * 1.024) * 100
-			metricMap[ci.MetricName(ci.TypeInstance, ci.MemReservedCapacity)] = float64(memReserved) / float64(memLimits.(int64)) * 100
-		}
-
-		if c.ecsInfo.GetRunningTaskCount() == 0 {
-			c.logger.Warn("Can't get running task number")
-		} else {
-			metricMap[ci.MetricName(ci.TypeInstance, ci.RunningTaskCount)] = c.ecsInfo.GetRunningTaskCount()
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func addECSResources(tags map[string]string) {
-	metricType := tags[ci.MetricType]
-	if metricType == "" {
-		return
-	}
-	var sources []string
-	switch metricType {
-	case ci.TypeInstance:
-		sources = []string{"cadvisor", "/proc", "ecsagent", "calculated"}
-	case ci.TypeInstanceFS:
-		sources = []string{"cadvisor", "calculated"}
-	case ci.TypeInstanceNet:
-		sources = []string{"cadvisor", "calculated"}
-	case ci.TypeInstanceDiskIO:
-		sources = []string{"cadvisor"}
-	}
-	if len(sources) > 0 {
-		sourcesInfo, err := json.Marshal(sources)
-		if err != nil {
-			return
-		}
-		tags[ci.SourcesKey] = string(sourcesInfo)
-	}
-}
+// cgroup standard cpulimits should be cadvisor standard * 1.024
+
+func addECSResources(tags map[string]string) { _ = "STUB: not implemented"; return }
 
 func (c *Cadvisor) decorateMetrics(cadvisormetrics []*extractors.CAdvisorMetric) []*extractors.CAdvisorMetric {
-	ebsVolumeIDsUsedAsPV := c.hostInfo.ExtractEbsIDsUsedByKubernetes()
-	var result []*extractors.CAdvisorMetric
-	for _, m := range cadvisormetrics {
-		tags := m.GetTags()
-		c.addEbsVolumeInfo(tags, ebsVolumeIDsUsedAsPV)
-
-		// add version
-		tags[ci.Version] = c.version
-
-		// add NodeName for node, pod and container
-		metricType := tags[ci.MetricType]
-		if c.nodeName != "" && (ci.IsNode(metricType) || ci.IsInstance(metricType) ||
-			ci.IsPod(metricType) || ci.IsContainer(metricType)) {
-			tags[ci.NodeNameKey] = c.nodeName
-		}
-
-		// add instance id and type
-		if instanceID := c.hostInfo.GetInstanceID(); instanceID != "" {
-			tags[ci.InstanceID] = instanceID
-		}
-		if instanceType := c.hostInfo.GetInstanceType(); instanceType != "" {
-			tags[ci.InstanceType] = instanceType
-		}
-
-		// add scaling group name
-		tags[ci.AutoScalingGroupNameKey] = c.hostInfo.GetAutoScalingGroupName()
-
-		// add ECS cluster name and container instance id
-		if c.containerOrchestrator == ci.ECS {
-			if c.ecsInfo.GetClusterName() == "" {
-				c.logger.Warn("Can't get cluster name")
-			} else {
-				tags[ci.ClusterNameKey] = c.ecsInfo.GetClusterName()
-			}
-
-			if c.ecsInfo.GetContainerInstanceID() == "" {
-				c.logger.Warn("Can't get containerInstanceId")
-			} else {
-				tags[ci.ContainerInstanceIDKey] = c.ecsInfo.GetContainerInstanceID()
-			}
-			addECSResources(tags)
-		}
-
-		// add tags for EKS
-		if c.containerOrchestrator == ci.EKS {
-			tags[ci.ClusterNameKey] = c.hostInfo.GetClusterName()
-
-			out := c.k8sDecorator.Decorate(m)
-			if out != nil {
-				result = append(result, out)
-			}
-		}
-	}
-
-	return result
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// add version
+
+// add NodeName for node, pod and container
+
+// add instance id and type
+
+// add scaling group name
+
+// add ECS cluster name and container instance id
+
+// add tags for EKS
 
 // GetMetrics generates metrics from cadvisor
-func (c *Cadvisor) GetMetrics() []pmetric.Metrics {
-	c.logger.Debug("collect data from cadvisor...")
-	var result []pmetric.Metrics
-	var containerinfos []*cInfo.ContainerInfo
-	var err error
+func (c *Cadvisor) GetMetrics() []pmetric.Metrics { _ = "STUB: not implemented"; return nil }
 
-	// For EKS don't emit metrics if the cluster name is not detected
-	if c.containerOrchestrator == ci.EKS {
-		clusterName := c.hostInfo.GetClusterName()
-		if clusterName == "" {
-			c.logger.Warn("Failed to detect cluster name. Drop all metrics")
-			return result
-		}
-	}
-
-	req := &cInfo.ContainerInfoRequest{
-		NumStats: 1,
-	}
-
-	containerinfos, err = c.manager.SubcontainersInfo("/", req)
-	if err != nil {
-		c.logger.Warn("GetContainerInfo failed", zap.Error(err))
-		return result
-	}
-
-	out := processContainers(containerinfos, c.hostInfo, c.containerOrchestrator, c.logger, c.GetMetricsExtractors())
-	results := c.decorateMetrics(out)
-
-	if c.containerOrchestrator == ci.ECS {
-		results = out
-		c.addECSMetrics(results)
-	}
-
-	for _, cadvisorMetric := range results {
-		md := ci.ConvertToOTLPMetrics(cadvisorMetric.GetFields(), cadvisorMetric.GetTags(), c.logger)
-		result = append(result, md)
-	}
-
-	return result
-}
+// For EKS don't emit metrics if the cluster name is not detected
 
 // initManager accepts a function of type createCadvisorManager which can be used
 // to create a cadvisor manager
 func (c *Cadvisor) initManager(createManager createCadvisorManager) error {
-	sysFs := sysfs.NewRealSysFs()
-	includedMetrics := cadvisormetrics.MetricSet{
-		cadvisormetrics.CpuUsageMetrics:     struct{}{},
-		cadvisormetrics.MemoryUsageMetrics:  struct{}{},
-		cadvisormetrics.DiskIOMetrics:       struct{}{},
-		cadvisormetrics.NetworkUsageMetrics: struct{}{},
-		cadvisormetrics.DiskUsageMetrics:    struct{}{},
-	}
-	var cgroupRoots []string
-	if c.containerOrchestrator == ci.EKS {
-		cgroupRoots = []string{"/kubepods"}
-	}
-
-	houseKeepingConfig := manager.HousekeepingConfig{
-		Interval:     &maxHousekeepingInterval,
-		AllowDynamic: &allowDynamicHousekeeping,
-	}
-	// Create and start the cAdvisor container manager.
-	m, err := createManager(memory.New(statsCacheDuration, nil), sysFs, houseKeepingConfig, includedMetrics, http.DefaultClient, cgroupRoots, "")
-	if err != nil {
-		c.logger.Error("cadvisor manager allocate failed, ", zap.Error(err))
-		return err
-	}
-	_ = cadvisormetrics.RegisterPlugin("containerd", containerd.NewPlugin())
-	_ = cadvisormetrics.RegisterPlugin("crio", crio.NewPlugin())
-	_ = cadvisormetrics.RegisterPlugin("docker", docker.NewPlugin())
-	_ = cadvisormetrics.RegisterPlugin("systemd", systemd.NewPlugin())
-	c.manager = m
-	err = c.manager.Start()
-	if err != nil {
-		c.logger.Error("cadvisor manager start failed", zap.Error(err))
-		return err
-	}
-
-	c.metricsExtractors = make([]extractors.MetricExtractor, 0, 5)
-	c.metricsExtractors = append(c.metricsExtractors,
-		extractors.NewCPUMetricExtractor(c.logger),
-		extractors.NewMemMetricExtractor(c.logger),
-		extractors.NewDiskIOMetricExtractor(c.logger),
-		extractors.NewNetMetricExtractor(c.logger),
-		extractors.NewFileSystemMetricExtractor(c.logger))
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Create and start the cAdvisor container manager.

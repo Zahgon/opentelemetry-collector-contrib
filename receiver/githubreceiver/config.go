@@ -5,15 +5,12 @@ package githubreceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"errors"
-	"fmt"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver/internal"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/githubreceiver/internal/metadata"
@@ -68,81 +65,19 @@ var (
 
 // Validate the configuration passed through the OTEL config.yaml
 func (cfg *Config) Validate() error {
-	var errs error
+	_ = "STUB: not implemented"
 
 	// For now, scrapers are required to be defined in the config. As tracing
 	// and other signals are added, this requirement will change.
-	if len(cfg.Scrapers) == 0 {
-		errs = multierr.Append(errs, errRequireOneScraper)
-	}
-
-	maxReadWriteTimeout, _ := time.ParseDuration("10s")
-
-	if cfg.WebHook.NetAddr.Endpoint == "" {
-		errs = multierr.Append(errs, errMissingEndpointFromConfig)
-	}
-
-	if cfg.WebHook.ReadTimeout > maxReadWriteTimeout {
-		errs = multierr.Append(errs, errReadTimeoutExceedsMaxValue)
-	}
-
-	if cfg.WebHook.WriteTimeout > maxReadWriteTimeout {
-		errs = multierr.Append(errs, errWriteTimeoutExceedsMaxValue)
-	}
-
-	for key, value := range cfg.WebHook.RequiredHeaders {
-		if key == "" || value == "" {
-			errs = multierr.Append(errs, errRequiredHeader)
-		}
-
-		if _, exists := cfg.WebHook.GitHubHeaders.Fixed[key]; exists {
-			errs = multierr.Append(errs, errGitHubHeader)
-		}
-	}
-
-	return errs
+	return nil
 }
 
 // Unmarshal a config.Parser into the config struct.
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		return nil
-	}
-
-	// load the non-dynamic config normally
-	err := componentParser.Unmarshal(cfg, confmap.WithIgnoreUnused())
-	if err != nil {
-		return err
-	}
-
-	// dynamically load the individual collector configs based on the key name
-
-	cfg.Scrapers = map[string]internal.Config{}
-
-	scrapersSection, err := componentParser.Sub(scrapersKey)
-	if err != nil {
-		return err
-	}
-
-	for key := range scrapersSection.ToStringMap() {
-		factory, ok := getScraperFactory(key)
-		if !ok {
-			return fmt.Errorf("invalid scraper key: %q", key)
-		}
-
-		collectorCfg := factory.CreateDefaultConfig()
-		collectorSection, err := scrapersSection.Sub(key)
-		if err != nil {
-			return err
-		}
-
-		err = collectorSection.Unmarshal(collectorCfg)
-		if err != nil {
-			return fmt.Errorf("error reading settings for scraper type %q: %w", key, err)
-		}
-
-		cfg.Scrapers[key] = collectorCfg
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// load the non-dynamic config normally
+
+// dynamically load the individual collector configs based on the key name

@@ -46,61 +46,20 @@ var TTL = time.Minute
 
 // Get returns an object from the freelist. If the list is empty, the return
 // value is the zero value of T.
-func (mru *mru[T]) Get() (T, Gen) {
-	mru.mu.Lock()
-	defer mru.mu.Unlock()
+func (mru *mru[T]) Get() (T, Gen) { _ = "STUB: not implemented"; return *new(T), *new(Gen) }
 
-	if n := len(mru.freelist); n > 0 {
-		ret := mru.freelist[n-1]
-		mru.freelist[n-1] = mru.zero // Allow GC to occur.
-		mru.freelist = mru.freelist[:n-1]
-		mru.putTimes = mru.putTimes[:n-1]
-		return ret, mru.reset
-	}
+// Allow GC to occur.
 
-	return mru.zero, mru.reset
-}
+func before(a, b Gen) bool { _ = "STUB: not implemented"; return false }
 
-func before(a, b Gen) bool {
-	return time.Time(a).Before(time.Time(b))
-}
+func (mru *mru[T]) Put(item T) { _ = "STUB: not implemented"; return }
 
-func (mru *mru[T]) Put(item T) {
-	mru.mu.Lock()
-	defer mru.mu.Unlock()
+// Evict any objects that haven't been touched recently.
 
-	if before(item.generation(), mru.reset) {
-		return
-	}
+// Shift values by one index in the slice, to preserve capacity.
 
-	now := time.Now()
+// Allow GC to occur.
 
-	mru.freelist = append(mru.freelist, item)
-	mru.putTimes = append(mru.putTimes, now)
+func (mru *mru[T]) Size() int { _ = "STUB: not implemented"; return 0 }
 
-	// Evict any objects that haven't been touched recently.
-	for len(mru.putTimes) > 0 && now.Sub(mru.putTimes[0]) >= TTL {
-		// Shift values by one index in the slice, to preserve capacity.
-		l := len(mru.freelist)
-		copy(mru.freelist[0:l-1], mru.freelist[1:])
-		copy(mru.putTimes[0:l-1], mru.putTimes[1:])
-		mru.freelist[l-1] = mru.zero // Allow GC to occur.
-		mru.freelist = mru.freelist[:l-1]
-		mru.putTimes = mru.putTimes[:l-1]
-	}
-}
-
-func (mru *mru[T]) Size() int {
-	mru.mu.Lock()
-	defer mru.mu.Unlock()
-	return len(mru.putTimes)
-}
-
-func (mru *mru[T]) Reset() Gen {
-	mru.mu.Lock()
-	defer mru.mu.Unlock()
-	mru.reset = Gen(time.Now())
-	mru.freelist = nil
-	mru.putTimes = nil
-	return mru.reset
-}
+func (mru *mru[T]) Reset() Gen { _ = "STUB: not implemented"; return *new(Gen) }

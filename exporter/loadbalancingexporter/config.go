@@ -4,7 +4,6 @@
 package loadbalancingexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/loadbalancingexporter"
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/service/servicediscovery/types"
@@ -58,15 +57,8 @@ type Config struct {
 
 // Validate checks if the exporter configuration is valid.
 func (c *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// routing_attributes only has meaning when routing_key=attributes.
-	if c.RoutingKey == attrRoutingStr && len(c.RoutingAttributes) == 0 {
-		return fmt.Errorf("routing_attributes must be specified when routing_key is %q", attrRoutingStr)
-	}
-
-	if c.RoutingKey != attrRoutingStr && len(c.RoutingAttributes) > 0 {
-		return fmt.Errorf("routing_attributes can only be used when routing_key is %q; got %q. Remove routing_attributes or set routing_key to %q", attrRoutingStr, c.RoutingKey, attrRoutingStr)
-	}
-
 	return nil
 }
 

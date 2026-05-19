@@ -5,35 +5,20 @@ package grafanacloudconnector // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/connector"
 	"go.opentelemetry.io/collector/consumer"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/connector/grafanacloudconnector/internal/metadata"
 )
 
-func NewFactory() connector.Factory {
-	return connector.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		connector.WithTracesToMetrics(createTracesToMetricsConnector, metadata.TracesToMetricsStability),
-	)
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		HostIdentifiers:      []string{"host.id", "k8s.node.uid", "k8s.node.name"},
-		MetricsFlushInterval: 60 * time.Second,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesToMetricsConnector(_ context.Context, params connector.Settings, cfg component.Config, next consumer.Metrics) (connector.Traces, error) {
-	c, err := newConnector(params.Logger, params.TelemetrySettings, cfg)
-	if err != nil {
-		return nil, err
-	}
-	c.metricsConsumer = next
-	return c, nil
+	_ = "STUB: not implemented"
+	return *new(connector.Traces), nil
 }

@@ -54,18 +54,8 @@ func NewUDPServer(
 	maxQueueSize int,
 	maxPacketSize int,
 ) *UDPServer {
-	return &UDPServer{
-		dataChan:      make(chan *bytes.Buffer, maxQueueSize),
-		transport:     transport,
-		maxQueueSize:  maxQueueSize,
-		maxPacketSize: maxPacketSize,
-		serving:       stateInit,
-		readBufPool: sync.Pool{
-			New: func() any {
-				return new(bytes.Buffer)
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // packetReader is a helper for reading a single packet no larger than maxPacketSize
@@ -77,79 +67,38 @@ type packetReader struct {
 	attempt       int
 }
 
-func (r *packetReader) Read(p []byte) (int, error) {
-	if r.attempt > 0 {
-		return 0, io.EOF
-	}
-	r.attempt = 1
-	return r.reader.Read(p)
-}
+func (r *packetReader) Read(p []byte) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 func (r *packetReader) readPacket(buf *bytes.Buffer) (int, error) {
+	_ = "STUB: not implemented"
 	// reset the readers since we're reusing them to avoid allocations
-	r.attempt = 0
-	r.reader.N = int64(r.maxPacketSize)
-	// prepare the buffer for expected packet size
-	buf.Grow(r.maxPacketSize)
-	buf.Reset()
-	// use Buffer's ReadFrom() as otherwise it's hard to get it into the right state
-	n, err := buf.ReadFrom(r)
-	return int(n), err
+	return 0, nil
 }
+
+// prepare the buffer for expected packet size
+
+// use Buffer's ReadFrom() as otherwise it's hard to get it into the right state
 
 // Serve initiates the readers and starts serving traffic
-func (s *UDPServer) Serve() {
-	defer close(s.dataChan)
-	if !atomic.CompareAndSwapUint32(&s.serving, stateInit, stateServing) {
-		return // Stop already called
-	}
+func (s *UDPServer) Serve() { _ = "STUB: not implemented"; return }
 
-	pr := &packetReader{
-		maxPacketSize: s.maxPacketSize,
-		reader: io.LimitedReader{
-			R: s.transport,
-		},
-	}
+// Stop already called
 
-	for s.IsServing() {
-		buf := s.readBufPool.Get().(*bytes.Buffer)
-		_, err := pr.readPacket(buf)
-		if err == nil {
-			select {
-			case s.dataChan <- buf:
-				s.updateQueueSize(1)
-			default:
-				s.readBufPool.Put(buf)
-			}
-		} else {
-			s.readBufPool.Put(buf)
-		}
-	}
-}
-
-func (s *UDPServer) updateQueueSize(delta int64) {
-	s.queueSize.Add(delta)
-}
+func (s *UDPServer) updateQueueSize(delta int64) { _ = "STUB: not implemented"; return }
 
 // IsServing indicates whether the server is currently serving traffic
-func (s *UDPServer) IsServing() bool {
-	return atomic.LoadUint32(&s.serving) == stateServing
-}
+func (s *UDPServer) IsServing() bool { _ = "STUB: not implemented"; return false }
 
 // Stop stops the serving of traffic and waits until the queue is
 // emptied by the readers
-func (s *UDPServer) Stop() {
-	atomic.StoreUint32(&s.serving, stateStopped)
-	_ = s.transport.Close()
-}
+func (s *UDPServer) Stop() { _ = "STUB: not implemented"; return }
 
 // DataChan returns the data chan of the buffered server
 func (s *UDPServer) DataChan() chan *bytes.Buffer {
-	return s.dataChan
+	_ = "STUB: not implemented"
+
+	// DataRecd is called by the consumers every time they read a data item from DataChan
+	return nil
 }
 
-// DataRecd is called by the consumers every time they read a data item from DataChan
-func (s *UDPServer) DataRecd(buf *bytes.Buffer) {
-	s.updateQueueSize(-1)
-	s.readBufPool.Put(buf)
-}
+func (s *UDPServer) DataRecd(buf *bytes.Buffer) { _ = "STUB: not implemented"; return }

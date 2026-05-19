@@ -5,7 +5,6 @@ package config // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"encoding"
-	"fmt"
 	"time"
 )
 
@@ -28,16 +27,7 @@ const (
 var _ encoding.TextUnmarshaler = (*HostnameSource)(nil)
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface.
-func (sm *HostnameSource) UnmarshalText(in []byte) error {
-	switch mode := HostnameSource(in); mode {
-	case HostnameSourceFirstResource,
-		HostnameSourceConfigOrSystem:
-		*sm = mode
-		return nil
-	default:
-		return fmt.Errorf("invalid host metadata hostname source %q", mode)
-	}
-}
+func (sm *HostnameSource) UnmarshalText(in []byte) error { _ = "STUB: not implemented"; return nil }
 
 // HostMetadataConfig defines the host metadata related configuration.
 // Host metadata is the information used for populating the infrastructure list,

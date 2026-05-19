@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type SqlserverBatchRequestRateMetricConfig struct {
 }
 
 func (ms *SqlserverBatchRequestRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type SqlserverBatchSQLCompilationRateMetricConfig struct {
 }
 
 func (ms *SqlserverBatchSQLCompilationRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type SqlserverBatchSQLRecompilationRateMetricConfig struct {
 }
 
 func (ms *SqlserverBatchSQLRecompilationRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type SqlserverComputerUptimeMetricConfig struct {
 }
 
 func (ms *SqlserverComputerUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type SqlserverCPUCountMetricConfig struct {
 }
 
 func (ms *SqlserverCPUCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type SqlserverDatabaseBackupOrRestoreRateMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseBackupOrRestoreRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -146,34 +90,12 @@ type SqlserverDatabaseCountMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverDatabaseCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverDatabaseCountMetricAttributeKeyDatabaseStatus:
-		default:
-			return fmt.Errorf("metric sqlserver.database.count doesn't have an attribute %v, valid attributes: [database.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -184,16 +106,7 @@ type SqlserverDatabaseExecutionErrorsMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseExecutionErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -204,16 +117,7 @@ type SqlserverDatabaseFullScanRateMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseFullScanRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -237,36 +141,11 @@ type SqlserverDatabaseIoMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SqlserverDatabaseIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverDatabaseIoMetricAttributeKeyPhysicalFilename, SqlserverDatabaseIoMetricAttributeKeyLogicalFilename, SqlserverDatabaseIoMetricAttributeKeyFileType, SqlserverDatabaseIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric sqlserver.database.io doesn't have an attribute %v, valid attributes: [physical_filename, logical_filename, file_type, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SqlserverDatabaseIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SqlserverDatabaseLatencyMetricAttributeKey specifies the key of an attribute for the sqlserver.database.latency metric.
 type SqlserverDatabaseLatencyMetricAttributeKey string
@@ -288,34 +167,12 @@ type SqlserverDatabaseLatencyMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseLatencyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverDatabaseLatencyMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverDatabaseLatencyMetricAttributeKeyPhysicalFilename, SqlserverDatabaseLatencyMetricAttributeKeyLogicalFilename, SqlserverDatabaseLatencyMetricAttributeKeyFileType, SqlserverDatabaseLatencyMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric sqlserver.database.latency doesn't have an attribute %v, valid attributes: [physical_filename, logical_filename, file_type, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -339,34 +196,12 @@ type SqlserverDatabaseOperationsMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverDatabaseOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverDatabaseOperationsMetricAttributeKeyPhysicalFilename, SqlserverDatabaseOperationsMetricAttributeKeyLogicalFilename, SqlserverDatabaseOperationsMetricAttributeKeyFileType, SqlserverDatabaseOperationsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric sqlserver.database.operations doesn't have an attribute %v, valid attributes: [physical_filename, logical_filename, file_type, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -387,34 +222,12 @@ type SqlserverDatabaseTempdbSpaceMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseTempdbSpaceMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverDatabaseTempdbSpaceMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverDatabaseTempdbSpaceMetricAttributeKeyTempdbState:
-		default:
-			return fmt.Errorf("metric sqlserver.database.tempdb.space doesn't have an attribute %v, valid attributes: [tempdb.state]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -425,16 +238,7 @@ type SqlserverDatabaseTempdbVersionStoreSizeMetricConfig struct {
 }
 
 func (ms *SqlserverDatabaseTempdbVersionStoreSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -445,16 +249,7 @@ type SqlserverDeadlockRateMetricConfig struct {
 }
 
 func (ms *SqlserverDeadlockRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -465,16 +260,7 @@ type SqlserverIndexSearchRateMetricConfig struct {
 }
 
 func (ms *SqlserverIndexSearchRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -485,16 +271,7 @@ type SqlserverLockTimeoutRateMetricConfig struct {
 }
 
 func (ms *SqlserverLockTimeoutRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -505,16 +282,7 @@ type SqlserverLockWaitCountMetricConfig struct {
 }
 
 func (ms *SqlserverLockWaitCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -525,16 +293,7 @@ type SqlserverLockWaitRateMetricConfig struct {
 }
 
 func (ms *SqlserverLockWaitRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -545,16 +304,7 @@ type SqlserverLockWaitTimeAvgMetricConfig struct {
 }
 
 func (ms *SqlserverLockWaitTimeAvgMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -565,16 +315,7 @@ type SqlserverLoginRateMetricConfig struct {
 }
 
 func (ms *SqlserverLoginRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -585,16 +326,7 @@ type SqlserverLogoutRateMetricConfig struct {
 }
 
 func (ms *SqlserverLogoutRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -605,16 +337,7 @@ type SqlserverMemoryGrantsPendingCountMetricConfig struct {
 }
 
 func (ms *SqlserverMemoryGrantsPendingCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -625,16 +348,7 @@ type SqlserverMemoryUsageMetricConfig struct {
 }
 
 func (ms *SqlserverMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -656,34 +370,12 @@ type SqlserverOsWaitDurationMetricConfig struct {
 }
 
 func (ms *SqlserverOsWaitDurationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverOsWaitDurationMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverOsWaitDurationMetricAttributeKeyWaitCategory, SqlserverOsWaitDurationMetricAttributeKeyWaitType:
-		default:
-			return fmt.Errorf("metric sqlserver.os.wait.duration doesn't have an attribute %v, valid attributes: [wait.category, wait.type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -694,16 +386,7 @@ type SqlserverPageBufferCacheFreeListStallsRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageBufferCacheFreeListStallsRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -714,16 +397,7 @@ type SqlserverPageBufferCacheHitRatioMetricConfig struct {
 }
 
 func (ms *SqlserverPageBufferCacheHitRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -734,16 +408,7 @@ type SqlserverPageCheckpointFlushRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageCheckpointFlushRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -754,16 +419,7 @@ type SqlserverPageLazyWriteRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageLazyWriteRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -784,34 +440,12 @@ type SqlserverPageLifeExpectancyMetricConfig struct {
 }
 
 func (ms *SqlserverPageLifeExpectancyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverPageLifeExpectancyMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverPageLifeExpectancyMetricAttributeKeyPerformanceCounterObjectName:
-		default:
-			return fmt.Errorf("metric sqlserver.page.life_expectancy doesn't have an attribute %v, valid attributes: [performance_counter.object_name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -822,16 +456,7 @@ type SqlserverPageLookupRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageLookupRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -852,34 +477,12 @@ type SqlserverPageOperationRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageOperationRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverPageOperationRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverPageOperationRateMetricAttributeKeyPageOperations:
-		default:
-			return fmt.Errorf("metric sqlserver.page.operation.rate doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -890,16 +493,7 @@ type SqlserverPageSplitRateMetricConfig struct {
 }
 
 func (ms *SqlserverPageSplitRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -910,16 +504,7 @@ type SqlserverProcessesBlockedMetricConfig struct {
 }
 
 func (ms *SqlserverProcessesBlockedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -940,34 +525,12 @@ type SqlserverReplicaDataRateMetricConfig struct {
 }
 
 func (ms *SqlserverReplicaDataRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverReplicaDataRateMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverReplicaDataRateMetricAttributeKeyReplicaDirection:
-		default:
-			return fmt.Errorf("metric sqlserver.replica.data.rate doesn't have an attribute %v, valid attributes: [replica.direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -988,34 +551,12 @@ type SqlserverResourcePoolDiskOperationsMetricConfig struct {
 }
 
 func (ms *SqlserverResourcePoolDiskOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SqlserverResourcePoolDiskOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverResourcePoolDiskOperationsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric sqlserver.resource_pool.disk.operations doesn't have an attribute %v, valid attributes: [direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1026,16 +567,7 @@ type SqlserverResourcePoolDiskThrottledReadRateMetricConfig struct {
 }
 
 func (ms *SqlserverResourcePoolDiskThrottledReadRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1046,16 +578,7 @@ type SqlserverResourcePoolDiskThrottledWriteRateMetricConfig struct {
 }
 
 func (ms *SqlserverResourcePoolDiskThrottledWriteRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1077,36 +600,11 @@ type SqlserverTableCountMetricConfig struct {
 }
 
 func (ms *SqlserverTableCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SqlserverTableCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SqlserverTableCountMetricAttributeKeyTableState, SqlserverTableCountMetricAttributeKeyTableStatus:
-		default:
-			return fmt.Errorf("metric sqlserver.table.count doesn't have an attribute %v, valid attributes: [table.state, table.status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SqlserverTableCountMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SqlserverTransactionDelayMetricConfig provides config for the sqlserver.transaction.delay metric.
 type SqlserverTransactionDelayMetricConfig struct {
@@ -1115,16 +613,7 @@ type SqlserverTransactionDelayMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionDelayMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1135,16 +624,7 @@ type SqlserverTransactionMirrorWriteRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionMirrorWriteRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1155,16 +635,7 @@ type SqlserverTransactionRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1175,16 +646,7 @@ type SqlserverTransactionWriteRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionWriteRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1195,16 +657,7 @@ type SqlserverTransactionLogFlushDataRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogFlushDataRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1215,16 +668,7 @@ type SqlserverTransactionLogFlushRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogFlushRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1235,16 +679,7 @@ type SqlserverTransactionLogFlushWaitRateMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogFlushWaitRateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1255,16 +690,7 @@ type SqlserverTransactionLogGrowthCountMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogGrowthCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1275,16 +701,7 @@ type SqlserverTransactionLogShrinkCountMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogShrinkCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1295,16 +712,7 @@ type SqlserverTransactionLogUsageMetricConfig struct {
 }
 
 func (ms *SqlserverTransactionLogUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1315,16 +723,7 @@ type SqlserverUserConnectionCountMetricConfig struct {
 }
 
 func (ms *SqlserverUserConnectionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1382,182 +781,7 @@ type MetricsConfig struct {
 	SqlserverUserConnectionCount                SqlserverUserConnectionCountMetricConfig                `mapstructure:"sqlserver.user.connection.count"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SqlserverBatchRequestRate: SqlserverBatchRequestRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverBatchSQLCompilationRate: SqlserverBatchSQLCompilationRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverBatchSQLRecompilationRate: SqlserverBatchSQLRecompilationRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverComputerUptime: SqlserverComputerUptimeMetricConfig{
-			Enabled: false,
-		},
-		SqlserverCPUCount: SqlserverCPUCountMetricConfig{
-			Enabled: false,
-		},
-		SqlserverDatabaseBackupOrRestoreRate: SqlserverDatabaseBackupOrRestoreRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverDatabaseCount: SqlserverDatabaseCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SqlserverDatabaseCountMetricAttributeKey{SqlserverDatabaseCountMetricAttributeKeyDatabaseStatus},
-		},
-		SqlserverDatabaseExecutionErrors: SqlserverDatabaseExecutionErrorsMetricConfig{
-			Enabled: false,
-		},
-		SqlserverDatabaseFullScanRate: SqlserverDatabaseFullScanRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverDatabaseIo: SqlserverDatabaseIoMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverDatabaseIoMetricAttributeKey{SqlserverDatabaseIoMetricAttributeKeyPhysicalFilename, SqlserverDatabaseIoMetricAttributeKeyLogicalFilename, SqlserverDatabaseIoMetricAttributeKeyFileType, SqlserverDatabaseIoMetricAttributeKeyDirection},
-		},
-		SqlserverDatabaseLatency: SqlserverDatabaseLatencyMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverDatabaseLatencyMetricAttributeKey{SqlserverDatabaseLatencyMetricAttributeKeyPhysicalFilename, SqlserverDatabaseLatencyMetricAttributeKeyLogicalFilename, SqlserverDatabaseLatencyMetricAttributeKeyFileType, SqlserverDatabaseLatencyMetricAttributeKeyDirection},
-		},
-		SqlserverDatabaseOperations: SqlserverDatabaseOperationsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverDatabaseOperationsMetricAttributeKey{SqlserverDatabaseOperationsMetricAttributeKeyPhysicalFilename, SqlserverDatabaseOperationsMetricAttributeKeyLogicalFilename, SqlserverDatabaseOperationsMetricAttributeKeyFileType, SqlserverDatabaseOperationsMetricAttributeKeyDirection},
-		},
-		SqlserverDatabaseTempdbSpace: SqlserverDatabaseTempdbSpaceMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverDatabaseTempdbSpaceMetricAttributeKey{SqlserverDatabaseTempdbSpaceMetricAttributeKeyTempdbState},
-		},
-		SqlserverDatabaseTempdbVersionStoreSize: SqlserverDatabaseTempdbVersionStoreSizeMetricConfig{
-			Enabled: false,
-		},
-		SqlserverDeadlockRate: SqlserverDeadlockRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverIndexSearchRate: SqlserverIndexSearchRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverLockTimeoutRate: SqlserverLockTimeoutRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverLockWaitCount: SqlserverLockWaitCountMetricConfig{
-			Enabled: false,
-		},
-		SqlserverLockWaitRate: SqlserverLockWaitRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverLockWaitTimeAvg: SqlserverLockWaitTimeAvgMetricConfig{
-			Enabled: true,
-		},
-		SqlserverLoginRate: SqlserverLoginRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverLogoutRate: SqlserverLogoutRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverMemoryGrantsPendingCount: SqlserverMemoryGrantsPendingCountMetricConfig{
-			Enabled: false,
-		},
-		SqlserverMemoryUsage: SqlserverMemoryUsageMetricConfig{
-			Enabled: false,
-		},
-		SqlserverOsWaitDuration: SqlserverOsWaitDurationMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverOsWaitDurationMetricAttributeKey{SqlserverOsWaitDurationMetricAttributeKeyWaitCategory, SqlserverOsWaitDurationMetricAttributeKeyWaitType},
-		},
-		SqlserverPageBufferCacheFreeListStallsRate: SqlserverPageBufferCacheFreeListStallsRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverPageBufferCacheHitRatio: SqlserverPageBufferCacheHitRatioMetricConfig{
-			Enabled: true,
-		},
-		SqlserverPageCheckpointFlushRate: SqlserverPageCheckpointFlushRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverPageLazyWriteRate: SqlserverPageLazyWriteRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverPageLifeExpectancy: SqlserverPageLifeExpectancyMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SqlserverPageLifeExpectancyMetricAttributeKey{SqlserverPageLifeExpectancyMetricAttributeKeyPerformanceCounterObjectName},
-		},
-		SqlserverPageLookupRate: SqlserverPageLookupRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverPageOperationRate: SqlserverPageOperationRateMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SqlserverPageOperationRateMetricAttributeKey{SqlserverPageOperationRateMetricAttributeKeyPageOperations},
-		},
-		SqlserverPageSplitRate: SqlserverPageSplitRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverProcessesBlocked: SqlserverProcessesBlockedMetricConfig{
-			Enabled: false,
-		},
-		SqlserverReplicaDataRate: SqlserverReplicaDataRateMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SqlserverReplicaDataRateMetricAttributeKey{SqlserverReplicaDataRateMetricAttributeKeyReplicaDirection},
-		},
-		SqlserverResourcePoolDiskOperations: SqlserverResourcePoolDiskOperationsMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []SqlserverResourcePoolDiskOperationsMetricAttributeKey{SqlserverResourcePoolDiskOperationsMetricAttributeKeyDirection},
-		},
-		SqlserverResourcePoolDiskThrottledReadRate: SqlserverResourcePoolDiskThrottledReadRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverResourcePoolDiskThrottledWriteRate: SqlserverResourcePoolDiskThrottledWriteRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverTableCount: SqlserverTableCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SqlserverTableCountMetricAttributeKey{SqlserverTableCountMetricAttributeKeyTableState, SqlserverTableCountMetricAttributeKeyTableStatus},
-		},
-		SqlserverTransactionDelay: SqlserverTransactionDelayMetricConfig{
-			Enabled: false,
-		},
-		SqlserverTransactionMirrorWriteRate: SqlserverTransactionMirrorWriteRateMetricConfig{
-			Enabled: false,
-		},
-		SqlserverTransactionRate: SqlserverTransactionRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionWriteRate: SqlserverTransactionWriteRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogFlushDataRate: SqlserverTransactionLogFlushDataRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogFlushRate: SqlserverTransactionLogFlushRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogFlushWaitRate: SqlserverTransactionLogFlushWaitRateMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogGrowthCount: SqlserverTransactionLogGrowthCountMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogShrinkCount: SqlserverTransactionLogShrinkCountMetricConfig{
-			Enabled: true,
-		},
-		SqlserverTransactionLogUsage: SqlserverTransactionLogUsageMetricConfig{
-			Enabled: true,
-		},
-		SqlserverUserConnectionCount: SqlserverUserConnectionCountMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // EventConfig provides common config for a particular event.
 type EventConfig struct {
@@ -1566,17 +790,7 @@ type EventConfig struct {
 	enabledSetByUser bool
 }
 
-func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(ec)
-	if err != nil {
-		return err
-	}
-	ec.enabledSetByUser = parser.IsSet("enabled")
-	return nil
-}
+func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // EventsConfig provides config for sqlserver events.
 type EventsConfig struct {
@@ -1584,16 +798,7 @@ type EventsConfig struct {
 	DbServerTopQuery    EventConfig `mapstructure:"db.server.top_query"`
 }
 
-func DefaultEventsConfig() EventsConfig {
-	return EventsConfig{
-		DbServerQuerySample: EventConfig{
-			Enabled: false,
-		},
-		DbServerTopQuery: EventConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultEventsConfig() EventsConfig { _ = "STUB: not implemented"; return *new(EventsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1617,14 +822,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1640,29 +838,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServerAddress: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServerPort: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SqlserverComputerName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		SqlserverDatabaseName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		SqlserverInstanceName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for sqlserver metrics builder.
@@ -1672,15 +849,14 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // LogsBuilderConfig is a configuration for sqlserver logs builder.
@@ -1690,8 +866,6 @@ type LogsBuilderConfig struct {
 }
 
 func DefaultLogsBuilderConfig() LogsBuilderConfig {
-	return LogsBuilderConfig{
-		Events:             DefaultEventsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsBuilderConfig)
 }

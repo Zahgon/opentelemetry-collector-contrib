@@ -8,15 +8,12 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/stanzaerrors"
 )
 
 // NewBasicConfig creates a new basic config
 func NewBasicConfig(operatorID, operatorType string) BasicConfig {
-	return BasicConfig{
-		OperatorID:   operatorID,
-		OperatorType: operatorType,
-	}
+	_ = "STUB: not implemented"
+	return *new(BasicConfig)
 }
 
 // BasicConfig provides a basic implemention for an operator config.
@@ -26,50 +23,22 @@ type BasicConfig struct {
 }
 
 // ID will return the operator id.
-func (c BasicConfig) ID() string {
-	if c.OperatorID == "" {
-		return c.OperatorType
-	}
-	return c.OperatorID
-}
+func (c BasicConfig) ID() string { _ = "STUB: not implemented"; return "" }
 
 // SetID will Update the operator id.
 func (c *BasicConfig) SetID(id string) {
-	c.OperatorID = id
+	_ = "STUB: not implemented"
+
+	// Type will return the operator type.
+	return
 }
 
-// Type will return the operator type.
-func (c BasicConfig) Type() string {
-	return c.OperatorType
-}
+func (c BasicConfig) Type() string { _ = "STUB: not implemented"; return "" }
 
 // Build will build a basic operator.
 func (c BasicConfig) Build(set component.TelemetrySettings) (BasicOperator, error) {
-	if c.OperatorType == "" {
-		return BasicOperator{}, stanzaerrors.NewError(
-			"missing required `type` field.",
-			"ensure that all operators have a uniquely defined `type` field.",
-			"operator_id", c.ID(),
-		)
-	}
-
-	if set.Logger == nil {
-		return BasicOperator{}, stanzaerrors.NewError(
-			"operator build context is missing a logger.",
-			"this is an unexpected internal error",
-			"operator_id", c.ID(),
-			"operator_type", c.Type(),
-		)
-	}
-
-	set.Logger = set.Logger.With(zap.String("operator_id", c.ID()), zap.String("operator_type", c.Type()))
-	operator := BasicOperator{
-		OperatorID:   c.ID(),
-		OperatorType: c.Type(),
-		set:          set,
-	}
-
-	return operator, nil
+	_ = "STUB: not implemented"
+	return *new(BasicOperator), nil
 }
 
 // BasicOperator provides a basic implementation of an operator.
@@ -82,29 +51,20 @@ type BasicOperator struct {
 }
 
 // ID will return the operator id.
-func (p *BasicOperator) ID() string {
-	if p.OperatorID == "" {
-		return p.OperatorType
-	}
-	return p.OperatorID
-}
+func (p *BasicOperator) ID() string { _ = "STUB: not implemented"; return "" }
 
 // Type will return the operator type.
-func (p *BasicOperator) Type() string {
-	return p.OperatorType
-}
+func (p *BasicOperator) Type() string { _ = "STUB: not implemented"; return "" }
 
 // Logger returns the operator's scoped logger.
-func (p *BasicOperator) Logger() *zap.Logger {
-	return p.set.Logger
-}
+func (p *BasicOperator) Logger() *zap.Logger { _ = "STUB: not implemented"; return nil }
 
 // Start will start the operator.
 func (*BasicOperator) Start(operator.Persister) error {
+	_ = "STUB: not implemented"
+
+	// Stop will stop the operator.
 	return nil
 }
 
-// Stop will stop the operator.
-func (*BasicOperator) Stop() error {
-	return nil
-}
+func (*BasicOperator) Stop() error { _ = "STUB: not implemented"; return nil }

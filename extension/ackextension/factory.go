@@ -8,8 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/ackextension/internal/metadata"
 )
 
 var defaultStorageType = (*component.ID)(nil)
@@ -20,27 +18,14 @@ const (
 )
 
 // NewFactory creates a factory for ack extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		StorageID:                     defaultStorageType,
-		MaxNumPartition:               defaultMaxNumPartition,
-		MaxNumPendingAcksPerPartition: defaultMaxNumPendingAcksPerPartition,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, _ extension.Settings, cfg component.Config) (extension.Extension, error) {
-	if cfg.(*Config).StorageID == nil {
-		return newInMemoryAckExtension(cfg.(*Config)), nil
-	}
-
-	return nil, nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

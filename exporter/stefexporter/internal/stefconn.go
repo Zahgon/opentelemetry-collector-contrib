@@ -5,11 +5,9 @@ package internal // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	stefgrpc "github.com/splunk/stef/go/grpc"
-	"github.com/splunk/stef/go/grpc/stef_proto"
 	"github.com/splunk/stef/go/otel/otelstef"
 	"github.com/splunk/stef/go/pkg"
 	"go.uber.org/zap"
@@ -43,180 +41,100 @@ type StefConn struct {
 }
 
 func NewStefConnCreator(logger *zap.Logger, grpcConn *grpc.ClientConn, compression pkg.Compression) *StefConnCreator {
-	return &StefConnCreator{
-		logger:      logger,
-		grpcConn:    grpcConn,
-		compression: compression,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Create a new connection. May be called concurrently.
 // The attempt to create the connection should be cancelled if ctx is done.
 func (s *StefConnCreator) Create(ctx context.Context) (Conn, error) {
+	_ = "STUB: not implemented"
 	// Prepare to open a STEF/gRPC stream to the server.
-	grpcClient := stef_proto.NewSTEFDestinationClient(s.grpcConn)
-
-	// Let server know about our schema.
-	schema, err := otelstef.MetricsWireSchema()
-	if err != nil {
-		return nil, err
-	}
-
-	conn := &StefConn{
-		pendingAcks: map[DataID]chan<- AsyncResult{},
-		flushReqCh:  make(chan struct{}, 1),
-		flushResCh:  make(chan error, 1),
-	}
-
-	settings := stefgrpc.ClientSettings{
-		Logger:       &loggerWrapper{s.logger},
-		GrpcClient:   grpcClient,
-		ClientSchema: stefgrpc.ClientSchema{WireSchema: &schema, RootStructName: otelstef.MetricsStructName},
-		Callbacks: stefgrpc.ClientCallbacks{
-			OnAck: func(ackId uint64) error { return conn.onGrpcAck(ackId) },
-		},
-	}
-	conn.client, err = stefgrpc.NewClient(settings)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create STEF client: %w", err)
-	}
-
-	connCtx, connCancel := context.WithCancel(context.Background())
-
-	connectionAttemptDone := make(chan struct{})
-	defer close(connectionAttemptDone)
-
-	// Start a goroutine that waits for success, failure or cancellation of
-	// the connection attempt.
-	go func() {
-		// Wait for either connection attempt to be done or for the caller
-		// of Create() to give up.
-		select {
-		case <-ctx.Done():
-			// The caller of Create() cancelled while we are waiting
-			// for connection to be established. We have to cancel the
-			// connection attempt (and the whole connection if it raced us and
-			// managed to connect - we will reconnect later again in that case).
-			select {
-			case <-connectionAttemptDone:
-				// Connection attempt already finished, nothing to do. This can happen
-				// if <-ctx.Done() above selects sooner than <-connectionAttemptDone.
-				// That is ok, we are done.
-				return
-			default:
-			}
-
-			s.logger.Debug("Canceling connection context because Create() caller cancelled.")
-			connCancel()
-		case <-connectionAttemptDone:
-			// Connection attempt finished (successfully or no). No need to wait for the
-			// previous case, calling connCancel() is not needed anymore now. It will be
-			// called later, when disconnecting.
-			// From this moment we are essentially detaching from the Context
-			// that passed to Create() since we wanted to honor it only
-			// for the duration of the connection attempt, but not for the duration
-			// of the entire existence of the connection.
-		}
-	}()
-
-	grpcWriter, opts, err := conn.client.Connect(connCtx)
-	if err != nil {
-		connCancel()
-		return nil, fmt.Errorf("failed to connect to destination: %w", err)
-	}
-
-	opts.Compression = s.compression
-
-	// Create STEF record writer over gRPC.
-	conn.writer, err = otelstef.NewMetricsWriter(grpcWriter, opts)
-	if err != nil {
-		connCancel()
-		return nil, err
-	}
-
-	// We need to call the cancel func when this connection is over so that we don't
-	// leak the Context we just created. This will be done in disconnect().
-	conn.cancel = connCancel
-
-	// Run flusher in a separate goroutine.
-	go conn.flusher()
-
-	s.logger.Debug("Connected to destination", zap.String("target", s.grpcConn.CanonicalTarget()))
-
-	return conn, nil
+	return *new(Conn), nil
 }
+
+// Let server know about our schema.
+
+// Start a goroutine that waits for success, failure or cancellation of
+// the connection attempt.
+
+// Wait for either connection attempt to be done or for the caller
+// of Create() to give up.
+
+// The caller of Create() cancelled while we are waiting
+// for connection to be established. We have to cancel the
+// connection attempt (and the whole connection if it raced us and
+// managed to connect - we will reconnect later again in that case).
+
+// Connection attempt already finished, nothing to do. This can happen
+// if <-ctx.Done() above selects sooner than <-connectionAttemptDone.
+// That is ok, we are done.
+
+// Connection attempt finished (successfully or no). No need to wait for the
+// previous case, calling connCancel() is not needed anymore now. It will be
+// called later, when disconnecting.
+// From this moment we are essentially detaching from the Context
+// that passed to Create() since we wanted to honor it only
+// for the duration of the connection attempt, but not for the duration
+// of the entire existence of the connection.
+
+// Create STEF record writer over gRPC.
+
+// We need to call the cancel func when this connection is over so that we don't
+// leak the Context we just created. This will be done in disconnect().
+
+// Run flusher in a separate goroutine.
 
 // Writer returns the metrics writer that exists over this connection.
 func (s *StefConn) Writer() *otelstef.MetricsWriter {
-	return s.writer
+	_ = "STUB: not implemented"
+
+	// OnAck registers to notify via ackCh when the acknowledgment with
+	// the given ackID is received over this connection. When acknowledgment
+	// with the specified ackID is received, the AsyncResult with ackID
+	// will send to ackCh.
+	return nil
 }
 
-// OnAck registers to notify via ackCh when the acknowledgment with
-// the given ackID is received over this connection. When acknowledgment
-// with the specified ackID is received, the AsyncResult with ackID
-// will send to ackCh.
-func (s *StefConn) OnAck(ackID uint64, ackCh chan<- AsyncResult) {
-	s.mux.Lock()
-	s.pendingAcks[DataID(ackID)] = ackCh
-	s.mux.Unlock()
-}
+func (s *StefConn) OnAck(ackID uint64, ackCh chan<- AsyncResult) { _ = "STUB: not implemented"; return }
 
 // onGrpcAck is called by stefgrpc.Client when an acknowledgment is received.
 func (s *StefConn) onGrpcAck(ackID uint64) error {
-	s.mux.Lock()
+	_ = "STUB: not implemented"
+
 	// Notify all pending acks that have ackID smaller or equal to the received ackID.
-	for pendingAckID, ch := range s.pendingAcks {
-		if uint64(pendingAckID) <= ackID {
-			delete(s.pendingAcks, pendingAckID)
-			ch <- AsyncResult{DataID: pendingAckID}
-		}
-	}
-	s.mux.Unlock()
 	return nil
 }
 
 // Close the connection.
 func (s *StefConn) Close(ctx context.Context) error {
-	s.cancel()
+	_ = "STUB: not implemented"
 
 	// Stop flusher goroutine
-	close(s.flushReqCh)
-
-	return s.client.Disconnect(ctx)
+	return nil
 }
 
-func (s *StefConn) flusher() {
-	for range s.flushReqCh {
-		s.flushResCh <- s.writer.Flush()
-	}
-}
+func (s *StefConn) flusher() { _ = "STUB: not implemented"; return }
 
 // Flush any pending data over the connection.
 func (s *StefConn) Flush(ctx context.Context) error {
+	_ = "STUB: not implemented"
 	// Request a flush.
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	case s.flushReqCh <- struct{}{}:
-	}
-
-	// Wait until flushed.
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	case err := <-s.flushResCh:
-		return err
-	}
+	return nil
 }
+
+// Wait until flushed.
 
 type loggerWrapper struct {
 	logger *zap.Logger
 }
 
 func (w *loggerWrapper) Debugf(_ context.Context, format string, v ...any) {
-	w.logger.Debug(fmt.Sprintf(format, v...))
+	_ = "STUB: not implemented"
+	return
 }
 
 func (w *loggerWrapper) Errorf(_ context.Context, format string, v ...any) {
-	w.logger.Error(fmt.Sprintf(format, v...))
+	_ = "STUB: not implemented"
+	return
 }

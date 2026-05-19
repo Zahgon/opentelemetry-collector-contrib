@@ -4,8 +4,6 @@
 package otelarrowexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/otelarrowexporter"
 
 import (
-	"fmt"
-	"strings"
 	"time"
 
 	"github.com/open-telemetry/otel-arrow/go/pkg/config"
@@ -105,60 +103,17 @@ var _ component.Config = (*Config)(nil)
 
 var _ xconfmap.Validator = (*ArrowConfig)(nil)
 
-func (cfg *Config) Validate() error {
-	err := cfg.Arrow.Validate()
-	if err != nil {
-		return err
-	}
-
-	uniq := map[string]bool{}
-	for _, k := range cfg.MetadataKeys {
-		l := strings.ToLower(k)
-		if _, has := uniq[l]; has {
-			return fmt.Errorf("duplicate entry in metadata_keys: %q (case-insensitive)", l)
-		}
-		uniq[l] = true
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // Validate returns an error when the number of streams is less than 1.
-func (cfg *ArrowConfig) Validate() error {
-	if cfg.NumStreams < 1 {
-		return fmt.Errorf("stream count must be > 0: %d", cfg.NumStreams)
-	}
+func (cfg *ArrowConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.MaxStreamLifetime.Seconds() < 1 {
-		return fmt.Errorf("max stream life must be >= 1s: %d", cfg.MaxStreamLifetime)
-	}
+// The cfg.PayloadCompression field is validated by the underlying library,
+// but we only support Zstd or none.
 
-	if err := cfg.Zstd.Validate(); err != nil {
-		return fmt.Errorf("zstd encoder: invalid configuration: %w", err)
-	}
-
-	if err := cfg.Prioritizer.Validate(); err != nil {
-		return fmt.Errorf("invalid prioritizer: %w", err)
-	}
-
-	// The cfg.PayloadCompression field is validated by the underlying library,
-	// but we only support Zstd or none.
-	switch cfg.PayloadCompression {
-	case "none", "", configcompression.TypeZstd:
-	default:
-		return fmt.Errorf("unsupported payload compression: %s", cfg.PayloadCompression)
-	}
+func (cfg *ArrowConfig) toArrowProducerOptions() (arrowOpts []config.Option) {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (cfg *ArrowConfig) toArrowProducerOptions() (arrowOpts []config.Option) {
-	switch cfg.PayloadCompression {
-	case configcompression.TypeZstd:
-		arrowOpts = append(arrowOpts, config.WithZstd())
-	case "none", "":
-		arrowOpts = append(arrowOpts, config.WithNoZstd())
-	default:
-		// Should have failed in validate, nothing we can do.
-	}
-	return arrowOpts
-}
+// Should have failed in validate, nothing we can do.

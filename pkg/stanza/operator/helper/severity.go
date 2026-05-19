@@ -4,12 +4,7 @@
 package helper // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
 
 import (
-	"fmt"
-	"strconv"
-	"strings"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/stanzaerrors"
 )
 
 // SeverityParser is a helper that parses severity onto an entry.
@@ -20,28 +15,7 @@ type SeverityParser struct {
 }
 
 // Parse will parse severity from a field and attach it to the entry
-func (p *SeverityParser) Parse(ent *entry.Entry) error {
-	value, ok := ent.Get(p.ParseFrom)
-	if !ok {
-		return stanzaerrors.NewError(
-			"log entry does not have the expected parse_from field",
-			"ensure that all entries forwarded to this parser contain the parse_from field",
-			"parse_from", p.ParseFrom.String(),
-		)
-	}
-
-	severity, sevText, err := p.Mapping.find(value)
-	if err != nil {
-		return fmt.Errorf("parse: %w", err)
-	}
-	if p.overwriteText && severity != entry.Default {
-		sevText = severity.String()
-	}
-
-	ent.Severity = severity
-	ent.SeverityText = sevText
-	return nil
-}
+func (p *SeverityParser) Parse(ent *entry.Entry) error { _ = "STUB: not implemented"; return nil }
 
 type severityMap map[string]entry.Severity
 
@@ -50,39 +24,6 @@ type severityMap map[string]entry.Severity
 //  2. string version of input value
 //  3. error if invalid input type
 func (m severityMap) find(value any) (entry.Severity, string, error) {
-	switch v := value.(type) {
-	case int:
-		strV := strconv.Itoa(v)
-		if severity, ok := m[strV]; ok {
-			return severity, strV, nil
-		}
-		return entry.Default, strV, nil
-	case int64:
-		strV := strconv.FormatInt(v, 10)
-		if severity, ok := m[strV]; ok {
-			return severity, strV, nil
-		}
-		return entry.Default, strV, nil
-	case float64:
-		if v != float64(int(v)) {
-			return entry.Default, "", fmt.Errorf("type %T cannot be a severity unless it is a whole number", v)
-		}
-		strV := strconv.Itoa(int(v))
-		if severity, ok := m[strV]; ok {
-			return severity, strV, nil
-		}
-		return entry.Default, strV, nil
-	case string:
-		if severity, ok := m[strings.ToLower(v)]; ok {
-			return severity, v, nil
-		}
-		return entry.Default, v, nil
-	case []byte:
-		if severity, ok := m[strings.ToLower(string(v))]; ok {
-			return severity, string(v), nil
-		}
-		return entry.Default, string(v), nil
-	default:
-		return entry.Default, "", fmt.Errorf("type %T cannot be a severity", v)
-	}
+	_ = "STUB: not implemented"
+	return *new(entry.Severity), "", nil
 }

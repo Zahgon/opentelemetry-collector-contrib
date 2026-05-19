@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type ContainerCPUTimeMetricConfig struct {
 }
 
 func (ms *ContainerCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type ContainerCPUUsageMetricConfig struct {
 }
 
 func (ms *ContainerCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type ContainerFilesystemAvailableMetricConfig struct {
 }
 
 func (ms *ContainerFilesystemAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type ContainerFilesystemCapacityMetricConfig struct {
 }
 
 func (ms *ContainerFilesystemCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type ContainerFilesystemUsageMetricConfig struct {
 }
 
 func (ms *ContainerFilesystemUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type ContainerMemoryAvailableMetricConfig struct {
 }
 
 func (ms *ContainerMemoryAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -136,16 +80,7 @@ type ContainerMemoryMajorPageFaultsMetricConfig struct {
 }
 
 func (ms *ContainerMemoryMajorPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -156,16 +91,7 @@ type ContainerMemoryPageFaultsMetricConfig struct {
 }
 
 func (ms *ContainerMemoryPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -176,16 +102,7 @@ type ContainerMemoryRssMetricConfig struct {
 }
 
 func (ms *ContainerMemoryRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -196,16 +113,7 @@ type ContainerMemoryUsageMetricConfig struct {
 }
 
 func (ms *ContainerMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -216,16 +124,7 @@ type ContainerMemoryWorkingSetMetricConfig struct {
 }
 
 func (ms *ContainerMemoryWorkingSetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -236,16 +135,7 @@ type ContainerUptimeMetricConfig struct {
 }
 
 func (ms *ContainerUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -256,16 +146,7 @@ type K8sContainerCPUNodeUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerCPUNodeUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -276,16 +157,7 @@ type K8sContainerCPULimitUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerCPULimitUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -296,16 +168,7 @@ type K8sContainerCPURequestUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerCPURequestUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -326,34 +189,12 @@ type K8sContainerEphemeralStorageUsageMetricConfig struct {
 }
 
 func (ms *K8sContainerEphemeralStorageUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *K8sContainerEphemeralStorageUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sContainerEphemeralStorageUsageMetricAttributeKeyFsType:
-		default:
-			return fmt.Errorf("metric k8s.container.ephemeral_storage.usage doesn't have an attribute %v, valid attributes: [fs.type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -364,16 +205,7 @@ type K8sContainerMemoryNodeUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerMemoryNodeUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -384,16 +216,7 @@ type K8sContainerMemoryLimitUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerMemoryLimitUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -404,16 +227,7 @@ type K8sContainerMemoryRequestUtilizationMetricConfig struct {
 }
 
 func (ms *K8sContainerMemoryRequestUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -424,16 +238,7 @@ type K8sNodeCPUTimeMetricConfig struct {
 }
 
 func (ms *K8sNodeCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -444,16 +249,7 @@ type K8sNodeCPUUsageMetricConfig struct {
 }
 
 func (ms *K8sNodeCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -464,16 +260,7 @@ type K8sNodeFilesystemAvailableMetricConfig struct {
 }
 
 func (ms *K8sNodeFilesystemAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -484,16 +271,7 @@ type K8sNodeFilesystemCapacityMetricConfig struct {
 }
 
 func (ms *K8sNodeFilesystemCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -504,16 +282,7 @@ type K8sNodeFilesystemUsageMetricConfig struct {
 }
 
 func (ms *K8sNodeFilesystemUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -524,16 +293,7 @@ type K8sNodeMemoryAvailableMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -544,16 +304,7 @@ type K8sNodeMemoryMajorPageFaultsMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryMajorPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -564,16 +315,7 @@ type K8sNodeMemoryPageFaultsMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -584,16 +326,7 @@ type K8sNodeMemoryRssMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -604,16 +337,7 @@ type K8sNodeMemoryUsageMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -624,16 +348,7 @@ type K8sNodeMemoryWorkingSetMetricConfig struct {
 }
 
 func (ms *K8sNodeMemoryWorkingSetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -655,36 +370,11 @@ type K8sNodeNetworkErrorsMetricConfig struct {
 }
 
 func (ms *K8sNodeNetworkErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *K8sNodeNetworkErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sNodeNetworkErrorsMetricAttributeKeyInterface, K8sNodeNetworkErrorsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric k8s.node.network.errors doesn't have an attribute %v, valid attributes: [interface, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *K8sNodeNetworkErrorsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // K8sNodeNetworkIoMetricAttributeKey specifies the key of an attribute for the k8s.node.network.io metric.
 type K8sNodeNetworkIoMetricAttributeKey string
@@ -704,36 +394,11 @@ type K8sNodeNetworkIoMetricConfig struct {
 }
 
 func (ms *K8sNodeNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *K8sNodeNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sNodeNetworkIoMetricAttributeKeyInterface, K8sNodeNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric k8s.node.network.io doesn't have an attribute %v, valid attributes: [interface, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *K8sNodeNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // K8sNodeSystemContainerCPUTimeMetricConfig provides config for the k8s.node.system_container.cpu.time metric.
 type K8sNodeSystemContainerCPUTimeMetricConfig struct {
@@ -742,16 +407,7 @@ type K8sNodeSystemContainerCPUTimeMetricConfig struct {
 }
 
 func (ms *K8sNodeSystemContainerCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -762,16 +418,7 @@ type K8sNodeSystemContainerCPUUsageMetricConfig struct {
 }
 
 func (ms *K8sNodeSystemContainerCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -782,16 +429,7 @@ type K8sNodeSystemContainerMemoryUsageMetricConfig struct {
 }
 
 func (ms *K8sNodeSystemContainerMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -802,16 +440,7 @@ type K8sNodeSystemContainerMemoryWorkingSetMetricConfig struct {
 }
 
 func (ms *K8sNodeSystemContainerMemoryWorkingSetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -822,16 +451,7 @@ type K8sNodeUptimeMetricConfig struct {
 }
 
 func (ms *K8sNodeUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -842,16 +462,7 @@ type K8sPodCPUNodeUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodCPUNodeUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -862,16 +473,7 @@ type K8sPodCPUTimeMetricConfig struct {
 }
 
 func (ms *K8sPodCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -882,16 +484,7 @@ type K8sPodCPUUsageMetricConfig struct {
 }
 
 func (ms *K8sPodCPUUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -902,16 +495,7 @@ type K8sPodCPULimitUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodCPULimitUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -922,16 +506,7 @@ type K8sPodCPURequestUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodCPURequestUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -942,16 +517,7 @@ type K8sPodFilesystemAvailableMetricConfig struct {
 }
 
 func (ms *K8sPodFilesystemAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -962,16 +528,7 @@ type K8sPodFilesystemCapacityMetricConfig struct {
 }
 
 func (ms *K8sPodFilesystemCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -982,16 +539,7 @@ type K8sPodFilesystemUsageMetricConfig struct {
 }
 
 func (ms *K8sPodFilesystemUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1002,16 +550,7 @@ type K8sPodMemoryAvailableMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1022,16 +561,7 @@ type K8sPodMemoryMajorPageFaultsMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryMajorPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1042,16 +572,7 @@ type K8sPodMemoryNodeUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryNodeUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1062,16 +583,7 @@ type K8sPodMemoryPageFaultsMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryPageFaultsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1082,16 +594,7 @@ type K8sPodMemoryRssMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryRssMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1102,16 +605,7 @@ type K8sPodMemoryUsageMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1122,16 +616,7 @@ type K8sPodMemoryWorkingSetMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryWorkingSetMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1142,16 +627,7 @@ type K8sPodMemoryLimitUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryLimitUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1162,16 +638,7 @@ type K8sPodMemoryRequestUtilizationMetricConfig struct {
 }
 
 func (ms *K8sPodMemoryRequestUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1193,36 +660,11 @@ type K8sPodNetworkErrorsMetricConfig struct {
 }
 
 func (ms *K8sPodNetworkErrorsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *K8sPodNetworkErrorsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sPodNetworkErrorsMetricAttributeKeyInterface, K8sPodNetworkErrorsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric k8s.pod.network.errors doesn't have an attribute %v, valid attributes: [interface, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *K8sPodNetworkErrorsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // K8sPodNetworkIoMetricAttributeKey specifies the key of an attribute for the k8s.pod.network.io metric.
 type K8sPodNetworkIoMetricAttributeKey string
@@ -1242,36 +684,11 @@ type K8sPodNetworkIoMetricConfig struct {
 }
 
 func (ms *K8sPodNetworkIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *K8sPodNetworkIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sPodNetworkIoMetricAttributeKeyInterface, K8sPodNetworkIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric k8s.pod.network.io doesn't have an attribute %v, valid attributes: [interface, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *K8sPodNetworkIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // K8sPodUptimeMetricConfig provides config for the k8s.pod.uptime metric.
 type K8sPodUptimeMetricConfig struct {
@@ -1280,16 +697,7 @@ type K8sPodUptimeMetricConfig struct {
 }
 
 func (ms *K8sPodUptimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1300,16 +708,7 @@ type K8sPodVolumeUsageMetricConfig struct {
 }
 
 func (ms *K8sPodVolumeUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1320,16 +719,7 @@ type K8sVolumeAvailableMetricConfig struct {
 }
 
 func (ms *K8sVolumeAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1340,16 +730,7 @@ type K8sVolumeCapacityMetricConfig struct {
 }
 
 func (ms *K8sVolumeCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1360,16 +741,7 @@ type K8sVolumeInodesMetricConfig struct {
 }
 
 func (ms *K8sVolumeInodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1380,16 +752,7 @@ type K8sVolumeInodesFreeMetricConfig struct {
 }
 
 func (ms *K8sVolumeInodesFreeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1400,16 +763,7 @@ type K8sVolumeInodesUsedMetricConfig struct {
 }
 
 func (ms *K8sVolumeInodesUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1480,209 +834,7 @@ type MetricsConfig struct {
 	K8sVolumeInodesUsed                    K8sVolumeInodesUsedMetricConfig                    `mapstructure:"k8s.volume.inodes.used"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ContainerCPUTime: ContainerCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		ContainerCPUUsage: ContainerCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		ContainerFilesystemAvailable: ContainerFilesystemAvailableMetricConfig{
-			Enabled: true,
-		},
-		ContainerFilesystemCapacity: ContainerFilesystemCapacityMetricConfig{
-			Enabled: true,
-		},
-		ContainerFilesystemUsage: ContainerFilesystemUsageMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryAvailable: ContainerMemoryAvailableMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryMajorPageFaults: ContainerMemoryMajorPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryPageFaults: ContainerMemoryPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryRss: ContainerMemoryRssMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryUsage: ContainerMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		ContainerMemoryWorkingSet: ContainerMemoryWorkingSetMetricConfig{
-			Enabled: true,
-		},
-		ContainerUptime: ContainerUptimeMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerCPUNodeUtilization: K8sContainerCPUNodeUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerCPULimitUtilization: K8sContainerCPULimitUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerCPURequestUtilization: K8sContainerCPURequestUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerEphemeralStorageUsage: K8sContainerEphemeralStorageUsageMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []K8sContainerEphemeralStorageUsageMetricAttributeKey{K8sContainerEphemeralStorageUsageMetricAttributeKeyFsType},
-		},
-		K8sContainerMemoryNodeUtilization: K8sContainerMemoryNodeUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerMemoryLimitUtilization: K8sContainerMemoryLimitUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerMemoryRequestUtilization: K8sContainerMemoryRequestUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sNodeCPUTime: K8sNodeCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeCPUUsage: K8sNodeCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeFilesystemAvailable: K8sNodeFilesystemAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeFilesystemCapacity: K8sNodeFilesystemCapacityMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeFilesystemUsage: K8sNodeFilesystemUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryAvailable: K8sNodeMemoryAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryMajorPageFaults: K8sNodeMemoryMajorPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryPageFaults: K8sNodeMemoryPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryRss: K8sNodeMemoryRssMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryUsage: K8sNodeMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeMemoryWorkingSet: K8sNodeMemoryWorkingSetMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeNetworkErrors: K8sNodeNetworkErrorsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []K8sNodeNetworkErrorsMetricAttributeKey{K8sNodeNetworkErrorsMetricAttributeKeyInterface, K8sNodeNetworkErrorsMetricAttributeKeyDirection},
-		},
-		K8sNodeNetworkIo: K8sNodeNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []K8sNodeNetworkIoMetricAttributeKey{K8sNodeNetworkIoMetricAttributeKeyInterface, K8sNodeNetworkIoMetricAttributeKeyDirection},
-		},
-		K8sNodeSystemContainerCPUTime: K8sNodeSystemContainerCPUTimeMetricConfig{
-			Enabled: false,
-		},
-		K8sNodeSystemContainerCPUUsage: K8sNodeSystemContainerCPUUsageMetricConfig{
-			Enabled: false,
-		},
-		K8sNodeSystemContainerMemoryUsage: K8sNodeSystemContainerMemoryUsageMetricConfig{
-			Enabled: false,
-		},
-		K8sNodeSystemContainerMemoryWorkingSet: K8sNodeSystemContainerMemoryWorkingSetMetricConfig{
-			Enabled: false,
-		},
-		K8sNodeUptime: K8sNodeUptimeMetricConfig{
-			Enabled: false,
-		},
-		K8sPodCPUNodeUtilization: K8sPodCPUNodeUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodCPUTime: K8sPodCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		K8sPodCPUUsage: K8sPodCPUUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sPodCPULimitUtilization: K8sPodCPULimitUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodCPURequestUtilization: K8sPodCPURequestUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodFilesystemAvailable: K8sPodFilesystemAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sPodFilesystemCapacity: K8sPodFilesystemCapacityMetricConfig{
-			Enabled: true,
-		},
-		K8sPodFilesystemUsage: K8sPodFilesystemUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryAvailable: K8sPodMemoryAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryMajorPageFaults: K8sPodMemoryMajorPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryNodeUtilization: K8sPodMemoryNodeUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodMemoryPageFaults: K8sPodMemoryPageFaultsMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryRss: K8sPodMemoryRssMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryUsage: K8sPodMemoryUsageMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryWorkingSet: K8sPodMemoryWorkingSetMetricConfig{
-			Enabled: true,
-		},
-		K8sPodMemoryLimitUtilization: K8sPodMemoryLimitUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodMemoryRequestUtilization: K8sPodMemoryRequestUtilizationMetricConfig{
-			Enabled: false,
-		},
-		K8sPodNetworkErrors: K8sPodNetworkErrorsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []K8sPodNetworkErrorsMetricAttributeKey{K8sPodNetworkErrorsMetricAttributeKeyInterface, K8sPodNetworkErrorsMetricAttributeKeyDirection},
-		},
-		K8sPodNetworkIo: K8sPodNetworkIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []K8sPodNetworkIoMetricAttributeKey{K8sPodNetworkIoMetricAttributeKeyInterface, K8sPodNetworkIoMetricAttributeKeyDirection},
-		},
-		K8sPodUptime: K8sPodUptimeMetricConfig{
-			Enabled: false,
-		},
-		K8sPodVolumeUsage: K8sPodVolumeUsageMetricConfig{
-			Enabled: false,
-		},
-		K8sVolumeAvailable: K8sVolumeAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sVolumeCapacity: K8sVolumeCapacityMetricConfig{
-			Enabled: true,
-		},
-		K8sVolumeInodes: K8sVolumeInodesMetricConfig{
-			Enabled: true,
-		},
-		K8sVolumeInodesFree: K8sVolumeInodesFreeMetricConfig{
-			Enabled: true,
-		},
-		K8sVolumeInodesUsed: K8sVolumeInodesUsedMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1699,14 +851,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1731,56 +876,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		AwsVolumeID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FsType: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		GcePdName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		GlusterfsEndpointsName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		GlusterfsPath: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sContainerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNamespaceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeSystemContainerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPersistentvolumeclaimName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sVolumeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sVolumeType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		Partition: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for kubelet_stats metrics builder.
@@ -1790,13 +887,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

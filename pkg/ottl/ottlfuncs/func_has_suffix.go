@@ -4,10 +4,6 @@
 package ottlfuncs // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 
 import (
-	"context"
-	"errors"
-	"strings"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 )
 
@@ -16,30 +12,14 @@ type HasSuffixArguments[K any] struct {
 	Suffix ottl.StringGetter[K]
 }
 
-func NewHasSuffixFactory[K any]() ottl.Factory[K] {
-	return ottl.NewFactory("HasSuffix", &HasSuffixArguments[K]{}, createHasSuffixFunction[K])
-}
+func NewHasSuffixFactory[K any]() ottl.Factory[K] { _ = "STUB: not implemented"; return nil }
 
 func createHasSuffixFunction[K any](_ ottl.FunctionContext, oArgs ottl.Arguments) (ottl.ExprFunc[K], error) {
-	args, ok := oArgs.(*HasSuffixArguments[K])
-
-	if !ok {
-		return nil, errors.New("HasSuffixFactory args must be of type *HasSuffixArguments[K]")
-	}
-
-	return HasSuffix(args.Target, args.Suffix), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func HasSuffix[K any](target, suffix ottl.StringGetter[K]) ottl.ExprFunc[K] {
-	return func(ctx context.Context, tCtx K) (any, error) {
-		val, err := target.Get(ctx, tCtx)
-		if err != nil {
-			return nil, err
-		}
-		suffixVal, err := suffix.Get(ctx, tCtx)
-		if err != nil {
-			return nil, err
-		}
-		return strings.HasSuffix(val, suffixVal), nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

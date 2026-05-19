@@ -5,15 +5,11 @@
 package transformer // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/transformer"
 
 import (
-	"errors"
-	"fmt"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/pdata/ptrace"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/alias"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/migrate"
 )
 
@@ -22,52 +18,10 @@ type MetricAttributes struct {
 	AttributeChange migrate.AttributeChangeSet
 }
 
-func (MetricAttributes) IsMigrator() {}
+func (MetricAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o MetricAttributes) Do(ss migrate.StateSelector, metric pmetric.Metric) error {
-	var datam alias.Attributed
-	switch metric.Type() {
-	case pmetric.MetricTypeEmpty:
-		return nil
-	case pmetric.MetricTypeExponentialHistogram:
-		for dp := 0; dp < metric.ExponentialHistogram().DataPoints().Len(); dp++ {
-			datam = metric.ExponentialHistogram().DataPoints().At(dp)
-			if err := o.AttributeChange.Do(ss, datam.Attributes()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeHistogram:
-		for dp := 0; dp < metric.Histogram().DataPoints().Len(); dp++ {
-			datam = metric.Histogram().DataPoints().At(dp)
-			if err := o.AttributeChange.Do(ss, datam.Attributes()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeGauge:
-		for dp := 0; dp < metric.Gauge().DataPoints().Len(); dp++ {
-			datam = metric.Gauge().DataPoints().At(dp)
-			if err := o.AttributeChange.Do(ss, datam.Attributes()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeSum:
-		for dp := 0; dp < metric.Sum().DataPoints().Len(); dp++ {
-			datam = metric.Sum().DataPoints().At(dp)
-			if err := o.AttributeChange.Do(ss, datam.Attributes()); err != nil {
-				return err
-			}
-		}
-	case pmetric.MetricTypeSummary:
-		for dp := 0; dp < metric.Summary().DataPoints().Len(); dp++ {
-			datam = metric.Summary().DataPoints().At(dp)
-			if err := o.AttributeChange.Do(ss, datam.Attributes()); err != nil {
-				return err
-			}
-		}
-	default:
-		return errors.New("unsupported metric type")
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -77,10 +31,11 @@ type LogAttributes struct {
 	AttributeChange migrate.AttributeChangeSet
 }
 
-func (LogAttributes) IsMigrator() {}
+func (LogAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o LogAttributes) Do(ss migrate.StateSelector, log plog.LogRecord) error {
-	return o.AttributeChange.Do(ss, log.Attributes())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SpanAttributes is a Transformer that acts on [ptrace.Span] attributes.  It powers the [Span's rename_attributes] transformation.  It also powers the [AllAttributes].
@@ -89,10 +44,11 @@ type SpanAttributes struct {
 	AttributeChange migrate.AttributeChangeSet
 }
 
-func (SpanAttributes) IsMigrator() {}
+func (SpanAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o SpanAttributes) Do(ss migrate.StateSelector, span ptrace.Span) error {
-	return o.AttributeChange.Do(ss, span.Attributes())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SpanEventAttributes is a Transformer that acts on [ptrace.SpanEvent] attributes.  It is part of the [AllAttributes].
@@ -100,10 +56,11 @@ type SpanEventAttributes struct {
 	AttributeChange migrate.AttributeChangeSet
 }
 
-func (SpanEventAttributes) IsMigrator() {}
+func (SpanEventAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o SpanEventAttributes) Do(ss migrate.StateSelector, spanEvent ptrace.SpanEvent) error {
-	return o.AttributeChange.Do(ss, spanEvent.Attributes())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ResourceAttributes is a Transformer that acts on [pcommon.Resource] attributes.  It powers the [Resource's rename_attributes] transformation.  It also powers the [AllAttributes].
@@ -112,10 +69,11 @@ type ResourceAttributes struct {
 	AttributeChange migrate.AttributeChangeSet
 }
 
-func (ResourceAttributes) IsMigrator() {}
+func (ResourceAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o ResourceAttributes) Do(ss migrate.StateSelector, resource pcommon.Resource) error {
-	return o.AttributeChange.Do(ss, resource.Attributes())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AllAttributes is a Transformer that acts on .  It is a wrapper around the other attribute transformers.  It powers the [All rename_attributes] transformation.
@@ -129,30 +87,13 @@ type AllAttributes struct {
 }
 
 func NewAllAttributesTransformer(set migrate.AttributeChangeSet) AllAttributes {
-	return AllAttributes{
-		MetricAttributes:    MetricAttributes{AttributeChange: set},
-		LogAttributes:       LogAttributes{AttributeChange: set},
-		SpanAttributes:      SpanAttributes{AttributeChange: set},
-		SpanEventAttributes: SpanEventAttributes{AttributeChange: set},
-		ResourceAttributes:  ResourceAttributes{AttributeChange: set},
-	}
+	_ = "STUB: not implemented"
+	return *new(AllAttributes)
 }
 
-func (AllAttributes) IsMigrator() {}
+func (AllAttributes) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (o AllAttributes) Do(ss migrate.StateSelector, data any) error {
-	switch typedData := data.(type) {
-	case pmetric.Metric:
-		return o.MetricAttributes.Do(ss, typedData)
-	case plog.LogRecord:
-		return o.LogAttributes.Do(ss, typedData)
-	case ptrace.Span:
-		return o.SpanAttributes.Do(ss, typedData)
-	case ptrace.SpanEvent:
-		return o.SpanEventAttributes.Do(ss, typedData)
-	case pcommon.Resource:
-		return o.ResourceAttributes.Do(ss, typedData)
-	default:
-		return fmt.Errorf("AllAttributes can't act on %T", typedData)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

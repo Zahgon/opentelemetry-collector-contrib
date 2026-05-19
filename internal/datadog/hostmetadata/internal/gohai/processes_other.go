@@ -12,7 +12,7 @@ import (
 
 // GetProcessesPayload currently just a stub.
 func NewProcessesPayload(_ string, logger *zap.Logger) *gohai.ProcessesPayload {
+	_ = "STUB: not implemented"
 	// unimplemented for misc platforms.
-	logger.Info("Using noop gohai implementation since this platform is not supported")
-	return &gohai.ProcessesPayload{}
+	return nil
 }

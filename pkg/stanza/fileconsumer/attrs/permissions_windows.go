@@ -6,10 +6,10 @@
 package attrs // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/fileconsumer/attrs"
 
 import (
-	"errors"
 	"os"
 )
 
 func (*Resolver) addPermissionInfo(_ *os.File, _ map[string]any) error {
-	return errors.New("owner info not implemented for windows")
+	_ = "STUB: not implemented"
+	return nil
 }

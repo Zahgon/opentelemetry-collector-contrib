@@ -10,39 +10,29 @@ import (
 )
 
 // NewNopSender returns a Sender that drops all data.
-func NewNopSender() Sender {
-	return nopSenderInstance
-}
+func NewNopSender() Sender { _ = "STUB: not implemented"; return *new(Sender) }
 
 var nopSenderInstance Sender = &nopSender{}
 
 type nopSender struct{}
 
 func (nopSender) Rotate() types.TelemetryRecord {
-	return types.TelemetryRecord{}
+	_ = "STUB: not implemented"
+	return *new(types.TelemetryRecord)
 }
 
-func (nopSender) HasRecording() bool {
-	return false
-}
+func (nopSender) HasRecording() bool { _ = "STUB: not implemented"; return false }
 
-func (nopSender) Start(context.Context) {
-}
+func (nopSender) Start(context.Context) { _ = "STUB: not implemented"; return }
 
-func (nopSender) Stop() {
-}
+func (nopSender) Stop() { _ = "STUB: not implemented"; return }
 
-func (nopSender) RecordSegmentsReceived(int) {
-}
+func (nopSender) RecordSegmentsReceived(int) { _ = "STUB: not implemented"; return }
 
-func (nopSender) RecordSegmentsSent(int) {
-}
+func (nopSender) RecordSegmentsSent(int) { _ = "STUB: not implemented"; return }
 
-func (nopSender) RecordSegmentsSpillover(int) {
-}
+func (nopSender) RecordSegmentsSpillover(int) { _ = "STUB: not implemented"; return }
 
-func (nopSender) RecordSegmentsRejected(int) {
-}
+func (nopSender) RecordSegmentsRejected(int) { _ = "STUB: not implemented"; return }
 
-func (nopSender) RecordConnectionError(error) {
-}
+func (nopSender) RecordConnectionError(error) { _ = "STUB: not implemented"; return }

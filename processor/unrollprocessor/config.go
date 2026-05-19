@@ -12,6 +12,4 @@ type Config struct {
 }
 
 // Validate is a no-op for this as there's no configuration that is possibly invalid after unmarshalling
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -17,10 +17,6 @@ const (
 )
 
 func getFromAttributes(name, defaultValue string, attributeMaps ...pcommon.Map) (string, bool) {
-	for _, attributeMap := range attributeMaps {
-		if value, exists := attributeMap.Get(name); exists {
-			return value.AsString(), true
-		}
-	}
-	return defaultValue, false
+	_ = "STUB: not implemented"
+	return "", false
 }

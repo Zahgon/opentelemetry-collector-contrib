@@ -4,9 +4,6 @@
 package config // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/datadog/config"
 
 import (
-	"errors"
-	"fmt"
-	"regexp"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confignet"
@@ -76,48 +73,9 @@ type TracesConfig struct {
 var _ confmap.Marshaler = (*TracesConfig)(nil)
 
 // Marshal emits only the canonical peer tags aggregation setting.
-func (c TracesConfig) Marshal(conf *confmap.Conf) error {
-	return conf.Marshal(struct {
-		IgnoreResources           []string          `mapstructure:"ignore_resources"`
-		SpanNameRemappings        map[string]string `mapstructure:"span_name_remappings"`
-		SpanNameAsResourceName    bool              `mapstructure:"span_name_as_resource_name"`
-		ComputeStatsBySpanKind    bool              `mapstructure:"compute_stats_by_span_kind"`
-		ComputeTopLevelBySpanKind bool              `mapstructure:"compute_top_level_by_span_kind"`
-		PeerTagsAggregation       bool              `mapstructure:"peer_tags_aggregation"`
-		PeerTags                  []string          `mapstructure:"peer_tags"`
-	}{
-		IgnoreResources:           c.IgnoreResources,
-		SpanNameRemappings:        c.SpanNameRemappings,
-		SpanNameAsResourceName:    c.SpanNameAsResourceName,
-		ComputeStatsBySpanKind:    c.ComputeStatsBySpanKind,
-		ComputeTopLevelBySpanKind: c.ComputeTopLevelBySpanKind,
-		PeerTagsAggregation:       c.PeerTagsAggregation,
-		PeerTags:                  c.PeerTags,
-	})
-}
+func (c TracesConfig) Marshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
-func (c *TracesConfig) Validate() error {
-	if c.IgnoreResources != nil {
-		for _, entry := range c.IgnoreResources {
-			_, err := regexp.Compile(entry)
-			if err != nil {
-				return fmt.Errorf("'%s' is not valid resource filter regular expression", entry)
-			}
-		}
-	}
-
-	if c.SpanNameRemappings != nil {
-		for key, value := range c.SpanNameRemappings {
-			if value == "" {
-				return fmt.Errorf("'%s' is not valid value for span name remapping", value)
-			}
-			if key == "" {
-				return fmt.Errorf("'%s' is not valid key for span name remapping", key)
-			}
-		}
-	}
-	return nil
-}
+func (c *TracesConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TracesExporterConfig Traces configuration in DD exporter
 type TracesExporterConfig struct {
@@ -139,24 +97,14 @@ type TracesExporterConfig struct {
 
 // SetFlushInterval sets the interval in seconds at which the writer flushes traces
 func (c *TracesExporterConfig) SetFlushInterval(interval float64) {
-	c.flushInterval = interval
+	_ = "STUB: not implemented"
+	return
 }
 
 // GetFlushInterval returns the interval in seconds at which the writer flushes traces
-func (c *TracesExporterConfig) GetFlushInterval() float64 {
-	return c.flushInterval
-}
+func (c *TracesExporterConfig) GetFlushInterval() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (c *TracesExporterConfig) Validate() error {
-	if err := c.TracesConfig.Validate(); err != nil {
-		return err
-	}
-	if c.TraceBuffer < 0 {
-		return errors.New("trace buffer must be non-negative")
-	}
-
-	return nil
-}
+func (c *TracesExporterConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // TracesConnectorConfig Traces configuration in DD connector
 type TracesConnectorConfig struct {
@@ -184,24 +132,7 @@ type TracesConnectorConfig struct {
 	IgnoreMissingDatadogFields bool `mapstructure:"ignore_missing_datadog_fields"`
 }
 
-func (c *TracesConnectorConfig) Validate() error {
-	if err := c.TracesConfig.Validate(); err != nil {
-		return err
-	}
-
-	if c.IgnoreMissingDatadogFields {
-		return errors.New("ignore_missing_datadog_fields is not yet supported in the connector")
-	}
-
-	if c.TraceBuffer < 0 {
-		return errors.New("trace buffer must be non-negative")
-	}
-
-	if c.BucketInterval < 0 {
-		return errors.New("bucket interval must be non-negative")
-	}
-	return nil
-}
+func (c *TracesConnectorConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // ConnectorComponentConfig defines the configuration for the Datadog connector component
 type ConnectorComponentConfig struct {
@@ -211,6 +142,4 @@ type ConnectorComponentConfig struct {
 	_ struct{}
 }
 
-func (c *ConnectorComponentConfig) Validate() error {
-	return c.Traces.Validate()
-}
+func (c *ConnectorComponentConfig) Validate() error { _ = "STUB: not implemented"; return nil }

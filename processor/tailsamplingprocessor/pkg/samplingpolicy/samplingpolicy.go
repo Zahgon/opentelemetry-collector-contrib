@@ -52,28 +52,7 @@ const (
 )
 
 // String returns a string representation of the Decision.
-func (d Decision) String() string {
-	switch d {
-	case Unspecified:
-		return "unspecified"
-	case Pending:
-		return "pending"
-	case Sampled:
-		return "sampled"
-	case NotSampled:
-		return "not_sampled"
-	case Dropped:
-		return "dropped"
-	case Error:
-		return "error"
-	case InvertSampled:
-		return "invert_sampled"
-	case InvertNotSampled:
-		return "invert_not_sampled"
-	default:
-		return "unknown"
-	}
-}
+func (d Decision) String() string { _ = "STUB: not implemented"; return "" }
 
 // Evaluator implements a tail-based sampling policy evaluator,
 // which makes a sampling decision for a given trace when requested.

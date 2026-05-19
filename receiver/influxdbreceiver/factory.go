@@ -7,33 +7,21 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/influxdbreceiver/internal/metadata"
 )
 
 const defaultEndpoint = "localhost:8086"
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createDefaultConfig creates the default configuration for receiver.
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultEndpoint
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{NetAddr: netAddr},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(_ context.Context, params receiver.Settings, cfg component.Config, nextConsumer consumer.Metrics) (receiver.Metrics, error) {
-	return newMetricsReceiver(cfg.(*Config), params, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

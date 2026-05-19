@@ -6,8 +6,6 @@ package sampling // import "github.com/open-telemetry/opentelemetry-collector-co
 import (
 	"errors"
 	"io"
-	"strconv"
-	"strings"
 )
 
 // OpenTelemetryTraceState represents the `ot` section of the W3C tracestate
@@ -65,72 +63,45 @@ var (
 // OpenTelemetry tracestate section.  Errors indicate an invalid
 // tracestate was received.
 func NewOpenTelemetryTraceState(input string) (OpenTelemetryTraceState, error) {
-	otts := OpenTelemetryTraceState{}
-
-	if len(input) > hardMaxOTelLength {
-		return otts, ErrTraceStateSize
-	}
-
-	if !isValidOTelTraceState(input) {
-		return otts, strconv.ErrSyntax
-	}
-
-	err := otelSyntax.scanKeyValues(input, func(key, value string) error {
-		var err error
-		switch key {
-		case rValueFieldName:
-			if otts.rnd, err = RValueToRandomness(value); err == nil {
-				otts.rvalue = value
-			} else {
-				// RValueRandomness() will return false, the error
-				// accumulates and is returned below.
-				otts.rvalue = ""
-				otts.rnd = Randomness{}
-			}
-		case tValueFieldName:
-			if otts.threshold, err = TValueToThreshold(value); err == nil {
-				otts.tvalue = value
-			} else {
-				// TValueThreshold() will return false, the error
-				// accumulates and is returned below.
-				otts.tvalue = ""
-				otts.threshold = AlwaysSampleThreshold
-			}
-		default:
-			otts.kvs = append(otts.kvs, KV{
-				Key:   key,
-				Value: value,
-			})
-		}
-		return err
-	})
-
-	return otts, err
+	_ = "STUB: not implemented"
+	return *new(OpenTelemetryTraceState), nil
 }
+
+// RValueRandomness() will return false, the error
+// accumulates and is returned below.
+
+// TValueThreshold() will return false, the error
+// accumulates and is returned below.
 
 // RValue returns the R-value (key: "rv") as a string or empty if
 // there is no R-value set.
 func (otts *OpenTelemetryTraceState) RValue() string {
-	return otts.rvalue
+	_ = "STUB: not implemented"
+
+	// RValueRandomness returns the randomness object corresponding with
+	// RValue() and a boolean indicating whether the R-value is set.
+	return ""
 }
 
-// RValueRandomness returns the randomness object corresponding with
-// RValue() and a boolean indicating whether the R-value is set.
 func (otts *OpenTelemetryTraceState) RValueRandomness() (Randomness, bool) {
-	return otts.rnd, otts.rvalue != ""
+	_ = "STUB: not implemented"
+	return *new(Randomness), false
 }
 
 // TValue returns the T-value (key: "th") as a string or empty if
 // there is no T-value set.
 func (otts *OpenTelemetryTraceState) TValue() string {
-	return otts.tvalue
+	_ = "STUB: not implemented"
+
+	// TValueThreshold returns the threshold object corresponding with
+	// TValue() and a boolean (equal to len(TValue()) != 0 indicating
+	// whether the T-value is valid.
+	return ""
 }
 
-// TValueThreshold returns the threshold object corresponding with
-// TValue() and a boolean (equal to len(TValue()) != 0 indicating
-// whether the T-value is valid.
 func (otts *OpenTelemetryTraceState) TValueThreshold() (Threshold, bool) {
-	return otts.threshold, otts.tvalue != ""
+	_ = "STUB: not implemented"
+	return *new(Threshold), false
 }
 
 // UpdateTValueWithSampling modifies the TValue of this object, which
@@ -140,6 +111,7 @@ func (otts *OpenTelemetryTraceState) TValueThreshold() (Threshold, bool) {
 //
 // If the change of TValue leads to inconsistency, an error is returned.
 func (otts *OpenTelemetryTraceState) UpdateTValueWithSampling(sampledThreshold Threshold) error {
+	_ = "STUB: not implemented"
 	// Note: there was once a code path here that optimized for
 	// cases where a static threshold is used, in which case the
 	// call to TValue() causes an unnecessary allocation per data
@@ -150,84 +122,43 @@ func (otts *OpenTelemetryTraceState) UpdateTValueWithSampling(sampledThreshold T
 	// UpdateTValueWithSamplingFixedTValue() could extend this
 	// API to address this allocation, although it is probably
 	// not significant.
-	if otts.TValue() != "" && ThresholdGreater(otts.threshold, sampledThreshold) {
-		return ErrInconsistentSampling
-	}
-	// Note NeverSampleThreshold is the (exclusive) upper boundary
-	// of valid thresholds, so the test above permits never-
-	// sampled updates, in which case the TValue() here is empty.
-	otts.threshold = sampledThreshold
-	otts.tvalue = sampledThreshold.TValue()
 	return nil
 }
+
+// Note NeverSampleThreshold is the (exclusive) upper boundary
+// of valid thresholds, so the test above permits never-
+// sampled updates, in which case the TValue() here is empty.
 
 // AdjustedCount returns the adjusted count for this item.  If the
 // TValue string is empty, this returns 0, otherwise returns
 // Threshold.AdjustedCount().
-func (otts *OpenTelemetryTraceState) AdjustedCount() float64 {
-	if otts.tvalue == "" {
-		// Note: this case covers the zero state, where
-		// len(tvalue) == 0 and threshold == AlwaysSampleThreshold.
-		// We return 0 to indicate that no information is available.
-		return 0
-	}
-	return otts.threshold.AdjustedCount()
-}
+func (otts *OpenTelemetryTraceState) AdjustedCount() float64 { _ = "STUB: not implemented"; return 0 }
+
+// Note: this case covers the zero state, where
+// len(tvalue) == 0 and threshold == AlwaysSampleThreshold.
+// We return 0 to indicate that no information is available.
 
 // ClearTValue is used to unset TValue, for use in cases where it is
 // inconsistent on arrival.
-func (otts *OpenTelemetryTraceState) ClearTValue() {
-	otts.tvalue = ""
-	otts.threshold = Threshold{}
-}
+func (otts *OpenTelemetryTraceState) ClearTValue() { _ = "STUB: not implemented"; return }
 
 // SetRValue establishes explicit randomness for this TraceState.
 func (otts *OpenTelemetryTraceState) SetRValue(randomness Randomness) {
-	otts.rnd = randomness
-	otts.rvalue = randomness.RValue()
+	_ = "STUB: not implemented"
+	return
 }
 
 // ClearRValue unsets explicit randomness.
-func (otts *OpenTelemetryTraceState) ClearRValue() {
-	otts.rvalue = ""
-	otts.rnd = Randomness{}
-}
+func (otts *OpenTelemetryTraceState) ClearRValue() { _ = "STUB: not implemented"; return }
 
 // HasAnyValue returns true if there are any fields in this
 // tracestate, including any extra values.
-func (otts *OpenTelemetryTraceState) HasAnyValue() bool {
-	return otts.RValue() != "" || otts.TValue() != "" || len(otts.ExtraValues()) != 0
-}
+func (otts *OpenTelemetryTraceState) HasAnyValue() bool { _ = "STUB: not implemented"; return false }
 
 // Serialize encodes this TraceState object.
 func (otts *OpenTelemetryTraceState) Serialize(w io.StringWriter) error {
-	ser := serializer{writer: w}
-	cnt := 0
-	sep := func() {
-		if cnt != 0 {
-			ser.write(";")
-		}
-		cnt++
-	}
-	if otts.RValue() != "" {
-		sep()
-		ser.write(rValueFieldName)
-		ser.write(":")
-		ser.write(otts.RValue())
-	}
-	if otts.TValue() != "" {
-		sep()
-		ser.write(tValueFieldName)
-		ser.write(":")
-		ser.write(otts.TValue())
-	}
-	for _, kv := range otts.ExtraValues() {
-		sep()
-		ser.write(kv.Key)
-		ser.write(":")
-		ser.write(kv.Value)
-	}
-	return ser.err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // isValidOTelTraceState validates OTel tracestate syntax without using regex.
@@ -239,88 +170,36 @@ func (otts *OpenTelemetryTraceState) Serialize(w io.StringWriter) error {
 // value      = *(chr)
 // list-member = key ":" value
 // list        = list-member *( ";" list-member )
-func isValidOTelTraceState(input string) bool {
-	if input == "" {
-		return false
-	}
+func isValidOTelTraceState(input string) bool { _ = "STUB: not implemented"; return false }
 
-	// Trailing semicolon is not allowed
-	if input[len(input)-1] == ';' {
-		return false
-	}
+// Trailing semicolon is not allowed
 
-	// Process each member separated by semicolons
-	for input != "" {
-		// Find next semicolon
-		sep := strings.IndexByte(input, ';')
-		var member string
-		if sep < 0 {
-			member = input
-			input = ""
-		} else {
-			member = input[:sep]
-			input = input[sep+1:]
-		}
+// Process each member separated by semicolons
 
-		// Empty members are NOT allowed in OTel tracestate
-		if member == "" {
-			return false
-		}
+// Find next semicolon
 
-		// Find the colon
-		colon := strings.IndexByte(member, ':')
-		if colon < 1 { // Must have at least one char before ':'
-			return false
-		}
+// Empty members are NOT allowed in OTel tracestate
 
-		key := member[:colon]
-		value := member[colon+1:]
+// Find the colon
 
-		if !isValidOTelKey(key) || !isValidOTelValue(value) {
-			return false
-		}
-	}
-	return true
-}
+// Must have at least one char before ':'
 
 // isValidOTelKey validates an OTel tracestate key.
 // key = lcalpha *(lcalpha / DIGIT)
-func isValidOTelKey(key string) bool {
-	if key == "" {
-		return false
-	}
+func isValidOTelKey(key string) bool { _ = "STUB: not implemented"; return false }
 
-	// First char must be lowercase alpha
-	if !isLcAlpha(key[0]) {
-		return false
-	}
+// First char must be lowercase alpha
 
-	// Remaining chars must be lowercase alpha or digit
-	for i := 1; i < len(key); i++ {
-		if !isLcAlphaNum(key[i]) {
-			return false
-		}
-	}
-	return true
-}
+// Remaining chars must be lowercase alpha or digit
 
 // isValidOTelValue validates an OTel tracestate value.
 // value = *(chr) where chr = ucalpha / lcalpha / DIGIT / "." / "_" / "-"
 func isValidOTelValue(value string) bool {
+	_ = "STUB: not implemented"
 	// Empty value is allowed
-	for i := 0; i < len(value); i++ {
-		if !isOTelValueChar(value[i]) {
-			return false
-		}
-	}
-	return true
+	return false
 }
 
 // isOTelValueChar returns true if c is a valid OTel value character.
 // chr = ucalpha / lcalpha / DIGIT / "." / "_" / "-"
-func isOTelValueChar(c byte) bool {
-	return isLcAlpha(c) ||
-		(c >= 'A' && c <= 'Z') ||
-		(c >= '0' && c <= '9') ||
-		c == '.' || c == '_' || c == '-'
-}
+func isOTelValueChar(c byte) bool { _ = "STUB: not implemented"; return false }

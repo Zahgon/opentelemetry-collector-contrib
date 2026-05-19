@@ -4,10 +4,6 @@
 package dbstorage // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/storage/dbstorage"
 
 import (
-	"fmt"
-	"net/url"
-	"strings"
-
 	"go.uber.org/zap"
 )
 
@@ -45,47 +41,19 @@ var sqlitePragmaOptsMapping = map[string]string{
 }
 
 func replaceCompatDSNOptions(logger *zap.Logger, dsn string) (string, error) {
-	pos := strings.IndexRune(dsn, '?')
-
-	// If no query params present in DSN - we have nothing to do here
-	if pos == -1 {
-		return dsn, nil
-	}
-
-	q, err := url.ParseQuery(dsn[pos+1:])
-	// This is unrecoverable error we should stop processing
-	// `sqlite` driver is using the same approach for options parsing
-	if err != nil {
-		return dsn, fmt.Errorf("unable to parse datasource options: %w", err)
-	}
-
-	options := url.Values{}
-	for key, values := range q {
-		// Native driver options, no need to process
-		if key == sqliteNativePragmaOpt ||
-			key == sqliteNativeTXLockOpt ||
-			key == sqliteNativeTimeOpt ||
-			key == sqliteNativeModeOpt {
-			for _, v := range values {
-				options.Add(key, v)
-			}
-			continue
-		}
-
-		// Set of options that could be converter to new _pragma option
-		if newOpt, exists := sqlitePragmaOptsMapping[key]; exists {
-			for _, v := range values {
-				options.Add(sqliteNativePragmaOpt, fmt.Sprintf("%s(%s)", newOpt, strings.ToUpper(v)))
-			}
-			continue
-		}
-
-		// Unknown or non-conversable option - add to errors
-		logger.Warn("Unknown SQLite Driver option", zap.String(key, fmt.Sprintf("%v", values)))
-	}
-
-	// Convert options back to query string and substitute it in DSN
-	dsn = dsn[:pos+1] + options.Encode()
-
-	return dsn, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// If no query params present in DSN - we have nothing to do here
+
+// This is unrecoverable error we should stop processing
+// `sqlite` driver is using the same approach for options parsing
+
+// Native driver options, no need to process
+
+// Set of options that could be converter to new _pragma option
+
+// Unknown or non-conversable option - add to errors
+
+// Convert options back to query string and substitute it in DSN

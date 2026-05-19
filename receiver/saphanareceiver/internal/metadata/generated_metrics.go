@@ -3,11 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -32,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeActivePendingRequestState.
-func (av AttributeActivePendingRequestState) String() string {
-	switch av {
-	case AttributeActivePendingRequestStateActive:
-		return "active"
-	case AttributeActivePendingRequestStatePending:
-		return "pending"
-	}
-	return ""
-}
+func (av AttributeActivePendingRequestState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeActivePendingRequestState is a helper map of string to AttributeActivePendingRequestState attribute value.
 var MapAttributeActivePendingRequestState = map[string]AttributeActivePendingRequestState{
@@ -60,19 +47,7 @@ const (
 )
 
 // String returns the string representation of the AttributeColumnMemorySubtype.
-func (av AttributeColumnMemorySubtype) String() string {
-	switch av {
-	case AttributeColumnMemorySubtypeData:
-		return "data"
-	case AttributeColumnMemorySubtypeDict:
-		return "dict"
-	case AttributeColumnMemorySubtypeIndex:
-		return "index"
-	case AttributeColumnMemorySubtypeMisc:
-		return "misc"
-	}
-	return ""
-}
+func (av AttributeColumnMemorySubtype) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeColumnMemorySubtype is a helper map of string to AttributeColumnMemorySubtype attribute value.
 var MapAttributeColumnMemorySubtype = map[string]AttributeColumnMemorySubtype{
@@ -92,15 +67,7 @@ const (
 )
 
 // String returns the string representation of the AttributeColumnMemoryType.
-func (av AttributeColumnMemoryType) String() string {
-	switch av {
-	case AttributeColumnMemoryTypeMain:
-		return "main"
-	case AttributeColumnMemoryTypeDelta:
-		return "delta"
-	}
-	return ""
-}
+func (av AttributeColumnMemoryType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeColumnMemoryType is a helper map of string to AttributeColumnMemoryType attribute value.
 var MapAttributeColumnMemoryType = map[string]AttributeColumnMemoryType{
@@ -119,17 +86,7 @@ const (
 )
 
 // String returns the string representation of the AttributeConnectionStatus.
-func (av AttributeConnectionStatus) String() string {
-	switch av {
-	case AttributeConnectionStatusRunning:
-		return "running"
-	case AttributeConnectionStatusIdle:
-		return "idle"
-	case AttributeConnectionStatusQueueing:
-		return "queueing"
-	}
-	return ""
-}
+func (av AttributeConnectionStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeConnectionStatus is a helper map of string to AttributeConnectionStatus attribute value.
 var MapAttributeConnectionStatus = map[string]AttributeConnectionStatus{
@@ -150,19 +107,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCPUType.
-func (av AttributeCPUType) String() string {
-	switch av {
-	case AttributeCPUTypeUser:
-		return "user"
-	case AttributeCPUTypeSystem:
-		return "system"
-	case AttributeCPUTypeIoWait:
-		return "io_wait"
-	case AttributeCPUTypeIdle:
-		return "idle"
-	}
-	return ""
-}
+func (av AttributeCPUType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCPUType is a helper map of string to AttributeCPUType attribute value.
 var MapAttributeCPUType = map[string]AttributeCPUType{
@@ -182,15 +127,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDiskStateUsedFree.
-func (av AttributeDiskStateUsedFree) String() string {
-	switch av {
-	case AttributeDiskStateUsedFreeUsed:
-		return "used"
-	case AttributeDiskStateUsedFreeFree:
-		return "free"
-	}
-	return ""
-}
+func (av AttributeDiskStateUsedFree) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDiskStateUsedFree is a helper map of string to AttributeDiskStateUsedFree attribute value.
 var MapAttributeDiskStateUsedFree = map[string]AttributeDiskStateUsedFree{
@@ -208,15 +145,7 @@ const (
 )
 
 // String returns the string representation of the AttributeHostSwapState.
-func (av AttributeHostSwapState) String() string {
-	switch av {
-	case AttributeHostSwapStateUsed:
-		return "used"
-	case AttributeHostSwapStateFree:
-		return "free"
-	}
-	return ""
-}
+func (av AttributeHostSwapState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeHostSwapState is a helper map of string to AttributeHostSwapState attribute value.
 var MapAttributeHostSwapState = map[string]AttributeHostSwapState{
@@ -235,12 +164,7 @@ const (
 
 // String returns the string representation of the AttributeInternalExternalRequestType.
 func (av AttributeInternalExternalRequestType) String() string {
-	switch av {
-	case AttributeInternalExternalRequestTypeInternal:
-		return "internal"
-	case AttributeInternalExternalRequestTypeExternal:
-		return "external"
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -260,15 +184,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMemoryStateUsedFree.
-func (av AttributeMemoryStateUsedFree) String() string {
-	switch av {
-	case AttributeMemoryStateUsedFreeUsed:
-		return "used"
-	case AttributeMemoryStateUsedFreeFree:
-		return "free"
-	}
-	return ""
-}
+func (av AttributeMemoryStateUsedFree) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMemoryStateUsedFree is a helper map of string to AttributeMemoryStateUsedFree attribute value.
 var MapAttributeMemoryStateUsedFree = map[string]AttributeMemoryStateUsedFree{
@@ -286,15 +202,7 @@ const (
 )
 
 // String returns the string representation of the AttributeRowMemoryType.
-func (av AttributeRowMemoryType) String() string {
-	switch av {
-	case AttributeRowMemoryTypeFixed:
-		return "fixed"
-	case AttributeRowMemoryTypeVariable:
-		return "variable"
-	}
-	return ""
-}
+func (av AttributeRowMemoryType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeRowMemoryType is a helper map of string to AttributeRowMemoryType attribute value.
 var MapAttributeRowMemoryType = map[string]AttributeRowMemoryType{
@@ -314,19 +222,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSchemaMemoryType.
-func (av AttributeSchemaMemoryType) String() string {
-	switch av {
-	case AttributeSchemaMemoryTypeMain:
-		return "main"
-	case AttributeSchemaMemoryTypeDelta:
-		return "delta"
-	case AttributeSchemaMemoryTypeHistoryMain:
-		return "history_main"
-	case AttributeSchemaMemoryTypeHistoryDelta:
-		return "history_delta"
-	}
-	return ""
-}
+func (av AttributeSchemaMemoryType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSchemaMemoryType is a helper map of string to AttributeSchemaMemoryType attribute value.
 var MapAttributeSchemaMemoryType = map[string]AttributeSchemaMemoryType{
@@ -347,17 +243,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSchemaOperationType.
-func (av AttributeSchemaOperationType) String() string {
-	switch av {
-	case AttributeSchemaOperationTypeRead:
-		return "read"
-	case AttributeSchemaOperationTypeWrite:
-		return "write"
-	case AttributeSchemaOperationTypeMerge:
-		return "merge"
-	}
-	return ""
-}
+func (av AttributeSchemaOperationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSchemaOperationType is a helper map of string to AttributeSchemaOperationType attribute value.
 var MapAttributeSchemaOperationType = map[string]AttributeSchemaOperationType{
@@ -378,19 +264,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSchemaRecordType.
-func (av AttributeSchemaRecordType) String() string {
-	switch av {
-	case AttributeSchemaRecordTypeMain:
-		return "main"
-	case AttributeSchemaRecordTypeDelta:
-		return "delta"
-	case AttributeSchemaRecordTypeHistoryMain:
-		return "history_main"
-	case AttributeSchemaRecordTypeHistoryDelta:
-		return "history_delta"
-	}
-	return ""
-}
+func (av AttributeSchemaRecordType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSchemaRecordType is a helper map of string to AttributeSchemaRecordType attribute value.
 var MapAttributeSchemaRecordType = map[string]AttributeSchemaRecordType{
@@ -410,15 +284,7 @@ const (
 )
 
 // String returns the string representation of the AttributeServiceMemoryUsedType.
-func (av AttributeServiceMemoryUsedType) String() string {
-	switch av {
-	case AttributeServiceMemoryUsedTypeLogical:
-		return "logical"
-	case AttributeServiceMemoryUsedTypePhysical:
-		return "physical"
-	}
-	return ""
-}
+func (av AttributeServiceMemoryUsedType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeServiceMemoryUsedType is a helper map of string to AttributeServiceMemoryUsedType attribute value.
 var MapAttributeServiceMemoryUsedType = map[string]AttributeServiceMemoryUsedType{
@@ -436,15 +302,7 @@ const (
 )
 
 // String returns the string representation of the AttributeServiceStatus.
-func (av AttributeServiceStatus) String() string {
-	switch av {
-	case AttributeServiceStatusActive:
-		return "active"
-	case AttributeServiceStatusInactive:
-		return "inactive"
-	}
-	return ""
-}
+func (av AttributeServiceStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeServiceStatus is a helper map of string to AttributeServiceStatus attribute value.
 var MapAttributeServiceStatus = map[string]AttributeServiceStatus{
@@ -462,15 +320,7 @@ const (
 )
 
 // String returns the string representation of the AttributeThreadStatus.
-func (av AttributeThreadStatus) String() string {
-	switch av {
-	case AttributeThreadStatusActive:
-		return "active"
-	case AttributeThreadStatusInactive:
-		return "inactive"
-	}
-	return ""
-}
+func (av AttributeThreadStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeThreadStatus is a helper map of string to AttributeThreadStatus attribute value.
 var MapAttributeThreadStatus = map[string]AttributeThreadStatus{
@@ -489,17 +339,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTransactionType.
-func (av AttributeTransactionType) String() string {
-	switch av {
-	case AttributeTransactionTypeUpdate:
-		return "update"
-	case AttributeTransactionTypeCommit:
-		return "commit"
-	case AttributeTransactionTypeRollback:
-		return "rollback"
-	}
-	return ""
-}
+func (av AttributeTransactionType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTransactionType is a helper map of string to AttributeTransactionType attribute value.
 var MapAttributeTransactionType = map[string]AttributeTransactionType{
@@ -518,15 +358,7 @@ const (
 )
 
 // String returns the string representation of the AttributeVolumeOperationType.
-func (av AttributeVolumeOperationType) String() string {
-	switch av {
-	case AttributeVolumeOperationTypeRead:
-		return "read"
-	case AttributeVolumeOperationTypeWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributeVolumeOperationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeVolumeOperationType is a helper map of string to AttributeVolumeOperationType attribute value.
 var MapAttributeVolumeOperationType = map[string]AttributeVolumeOperationType{
@@ -744,75 +576,22 @@ func (m *metricSaphanaAlertCount) init() {
 }
 
 func (m *metricSaphanaAlertCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, alertRatingAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaAlertCountMetricAttributeKeyAlertRating) {
-		dp.Attributes().PutStr("rating", alertRatingAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaAlertCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaAlertCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaAlertCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaAlertCount(cfg SaphanaAlertCountMetricConfig) metricSaphanaAlertCount {
-	m := metricSaphanaAlertCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaAlertCount)
 }
 
 type metricSaphanaBackupLatest struct {
@@ -830,39 +609,22 @@ func (m *metricSaphanaBackupLatest) init() {
 }
 
 func (m *metricSaphanaBackupLatest) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaBackupLatest) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaBackupLatest) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaBackupLatest) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaBackupLatest(cfg SaphanaBackupLatestMetricConfig) metricSaphanaBackupLatest {
-	m := metricSaphanaBackupLatest{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaBackupLatest)
 }
 
 type metricSaphanaColumnMemoryUsed struct {
@@ -885,78 +647,22 @@ func (m *metricSaphanaColumnMemoryUsed) init() {
 }
 
 func (m *metricSaphanaColumnMemoryUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, columnMemoryTypeAttributeValue string, columnMemorySubtypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemoryType) {
-		dp.Attributes().PutStr("type", columnMemoryTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaColumnMemoryUsedMetricAttributeKeyColumnMemorySubtype) {
-		dp.Attributes().PutStr("subtype", columnMemorySubtypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaColumnMemoryUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaColumnMemoryUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaColumnMemoryUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaColumnMemoryUsed(cfg SaphanaColumnMemoryUsedMetricConfig) metricSaphanaColumnMemoryUsed {
-	m := metricSaphanaColumnMemoryUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaColumnMemoryUsed)
 }
 
 type metricSaphanaComponentMemoryUsed struct {
@@ -979,75 +685,22 @@ func (m *metricSaphanaComponentMemoryUsed) init() {
 }
 
 func (m *metricSaphanaComponentMemoryUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, componentAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaComponentMemoryUsedMetricAttributeKeyComponent) {
-		dp.Attributes().PutStr("component", componentAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaComponentMemoryUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaComponentMemoryUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaComponentMemoryUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaComponentMemoryUsed(cfg SaphanaComponentMemoryUsedMetricConfig) metricSaphanaComponentMemoryUsed {
-	m := metricSaphanaComponentMemoryUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaComponentMemoryUsed)
 }
 
 type metricSaphanaConnectionCount struct {
@@ -1070,75 +723,22 @@ func (m *metricSaphanaConnectionCount) init() {
 }
 
 func (m *metricSaphanaConnectionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, connectionStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaConnectionCountMetricAttributeKeyConnectionStatus) {
-		dp.Attributes().PutStr("status", connectionStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaConnectionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaConnectionCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaConnectionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaConnectionCount(cfg SaphanaConnectionCountMetricConfig) metricSaphanaConnectionCount {
-	m := metricSaphanaConnectionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaConnectionCount)
 }
 
 type metricSaphanaCPUUsed struct {
@@ -1161,75 +761,19 @@ func (m *metricSaphanaCPUUsed) init() {
 }
 
 func (m *metricSaphanaCPUUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, cpuTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaCPUUsedMetricAttributeKeyCPUType) {
-		dp.Attributes().PutStr("type", cpuTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaCPUUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaCPUUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricSaphanaCPUUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricSaphanaCPUUsed) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricSaphanaCPUUsed(cfg SaphanaCPUUsedMetricConfig) metricSaphanaCPUUsed {
-	m := metricSaphanaCPUUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaCPUUsed)
 }
 
 type metricSaphanaDiskSizeCurrent struct {
@@ -1252,81 +796,22 @@ func (m *metricSaphanaDiskSizeCurrent) init() {
 }
 
 func (m *metricSaphanaDiskSizeCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, pathAttributeValue string, diskUsageTypeAttributeValue string, diskStateUsedFreeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaDiskSizeCurrentMetricAttributeKeyPath) {
-		dp.Attributes().PutStr("path", pathAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaDiskSizeCurrentMetricAttributeKeyDiskUsageType) {
-		dp.Attributes().PutStr("usage_type", diskUsageTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaDiskSizeCurrentMetricAttributeKeyDiskStateUsedFree) {
-		dp.Attributes().PutStr("state", diskStateUsedFreeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaDiskSizeCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaDiskSizeCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaDiskSizeCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaDiskSizeCurrent(cfg SaphanaDiskSizeCurrentMetricConfig) metricSaphanaDiskSizeCurrent {
-	m := metricSaphanaDiskSizeCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaDiskSizeCurrent)
 }
 
 type metricSaphanaHostMemoryCurrent struct {
@@ -1349,75 +834,22 @@ func (m *metricSaphanaHostMemoryCurrent) init() {
 }
 
 func (m *metricSaphanaHostMemoryCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, memoryStateUsedFreeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaHostMemoryCurrentMetricAttributeKeyMemoryStateUsedFree) {
-		dp.Attributes().PutStr("state", memoryStateUsedFreeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaHostMemoryCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaHostMemoryCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaHostMemoryCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaHostMemoryCurrent(cfg SaphanaHostMemoryCurrentMetricConfig) metricSaphanaHostMemoryCurrent {
-	m := metricSaphanaHostMemoryCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaHostMemoryCurrent)
 }
 
 type metricSaphanaHostSwapCurrent struct {
@@ -1440,75 +872,22 @@ func (m *metricSaphanaHostSwapCurrent) init() {
 }
 
 func (m *metricSaphanaHostSwapCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, hostSwapStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaHostSwapCurrentMetricAttributeKeyHostSwapState) {
-		dp.Attributes().PutStr("state", hostSwapStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaHostSwapCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaHostSwapCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaHostSwapCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaHostSwapCurrent(cfg SaphanaHostSwapCurrentMetricConfig) metricSaphanaHostSwapCurrent {
-	m := metricSaphanaHostSwapCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaHostSwapCurrent)
 }
 
 type metricSaphanaInstanceCodeSize struct {
@@ -1528,39 +907,22 @@ func (m *metricSaphanaInstanceCodeSize) init() {
 }
 
 func (m *metricSaphanaInstanceCodeSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaInstanceCodeSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaInstanceCodeSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaInstanceCodeSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaInstanceCodeSize(cfg SaphanaInstanceCodeSizeMetricConfig) metricSaphanaInstanceCodeSize {
-	m := metricSaphanaInstanceCodeSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaInstanceCodeSize)
 }
 
 type metricSaphanaInstanceMemoryCurrent struct {
@@ -1583,75 +945,22 @@ func (m *metricSaphanaInstanceMemoryCurrent) init() {
 }
 
 func (m *metricSaphanaInstanceMemoryCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, memoryStateUsedFreeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaInstanceMemoryCurrentMetricAttributeKeyMemoryStateUsedFree) {
-		dp.Attributes().PutStr("state", memoryStateUsedFreeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaInstanceMemoryCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaInstanceMemoryCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaInstanceMemoryCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaInstanceMemoryCurrent(cfg SaphanaInstanceMemoryCurrentMetricConfig) metricSaphanaInstanceMemoryCurrent {
-	m := metricSaphanaInstanceMemoryCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaInstanceMemoryCurrent)
 }
 
 type metricSaphanaInstanceMemorySharedAllocated struct {
@@ -1671,39 +980,25 @@ func (m *metricSaphanaInstanceMemorySharedAllocated) init() {
 }
 
 func (m *metricSaphanaInstanceMemorySharedAllocated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaInstanceMemorySharedAllocated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaInstanceMemorySharedAllocated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaInstanceMemorySharedAllocated(cfg SaphanaInstanceMemorySharedAllocatedMetricConfig) metricSaphanaInstanceMemorySharedAllocated {
-	m := metricSaphanaInstanceMemorySharedAllocated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaInstanceMemorySharedAllocated)
 }
 
 type metricSaphanaInstanceMemoryUsedPeak struct {
@@ -1723,39 +1018,22 @@ func (m *metricSaphanaInstanceMemoryUsedPeak) init() {
 }
 
 func (m *metricSaphanaInstanceMemoryUsedPeak) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaInstanceMemoryUsedPeak) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaInstanceMemoryUsedPeak) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaInstanceMemoryUsedPeak) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaInstanceMemoryUsedPeak(cfg SaphanaInstanceMemoryUsedPeakMetricConfig) metricSaphanaInstanceMemoryUsedPeak {
-	m := metricSaphanaInstanceMemoryUsedPeak{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaInstanceMemoryUsedPeak)
 }
 
 type metricSaphanaLicenseExpirationTime struct {
@@ -1774,41 +1052,22 @@ func (m *metricSaphanaLicenseExpirationTime) init() {
 }
 
 func (m *metricSaphanaLicenseExpirationTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemAttributeValue string, productAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("system", systemAttributeValue)
-	dp.Attributes().PutStr("product", productAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaLicenseExpirationTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaLicenseExpirationTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaLicenseExpirationTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaLicenseExpirationTime(cfg SaphanaLicenseExpirationTimeMetricConfig) metricSaphanaLicenseExpirationTime {
-	m := metricSaphanaLicenseExpirationTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaLicenseExpirationTime)
 }
 
 type metricSaphanaLicenseLimit struct {
@@ -1829,41 +1088,22 @@ func (m *metricSaphanaLicenseLimit) init() {
 }
 
 func (m *metricSaphanaLicenseLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemAttributeValue string, productAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("system", systemAttributeValue)
-	dp.Attributes().PutStr("product", productAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaLicenseLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaLicenseLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaLicenseLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaLicenseLimit(cfg SaphanaLicenseLimitMetricConfig) metricSaphanaLicenseLimit {
-	m := metricSaphanaLicenseLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaLicenseLimit)
 }
 
 type metricSaphanaLicensePeak struct {
@@ -1884,41 +1124,22 @@ func (m *metricSaphanaLicensePeak) init() {
 }
 
 func (m *metricSaphanaLicensePeak) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemAttributeValue string, productAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("system", systemAttributeValue)
-	dp.Attributes().PutStr("product", productAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaLicensePeak) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaLicensePeak) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaLicensePeak) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaLicensePeak(cfg SaphanaLicensePeakMetricConfig) metricSaphanaLicensePeak {
-	m := metricSaphanaLicensePeak{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaLicensePeak)
 }
 
 type metricSaphanaNetworkRequestAverageTime struct {
@@ -1936,39 +1157,25 @@ func (m *metricSaphanaNetworkRequestAverageTime) init() {
 }
 
 func (m *metricSaphanaNetworkRequestAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaNetworkRequestAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaNetworkRequestAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaNetworkRequestAverageTime(cfg SaphanaNetworkRequestAverageTimeMetricConfig) metricSaphanaNetworkRequestAverageTime {
-	m := metricSaphanaNetworkRequestAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaNetworkRequestAverageTime)
 }
 
 type metricSaphanaNetworkRequestCount struct {
@@ -1991,75 +1198,22 @@ func (m *metricSaphanaNetworkRequestCount) init() {
 }
 
 func (m *metricSaphanaNetworkRequestCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, activePendingRequestStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaNetworkRequestCountMetricAttributeKeyActivePendingRequestState) {
-		dp.Attributes().PutStr("state", activePendingRequestStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaNetworkRequestCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaNetworkRequestCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaNetworkRequestCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaNetworkRequestCount(cfg SaphanaNetworkRequestCountMetricConfig) metricSaphanaNetworkRequestCount {
-	m := metricSaphanaNetworkRequestCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaNetworkRequestCount)
 }
 
 type metricSaphanaNetworkRequestFinishedCount struct {
@@ -2082,75 +1236,25 @@ func (m *metricSaphanaNetworkRequestFinishedCount) init() {
 }
 
 func (m *metricSaphanaNetworkRequestFinishedCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, internalExternalRequestTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaNetworkRequestFinishedCountMetricAttributeKeyInternalExternalRequestType) {
-		dp.Attributes().PutStr("type", internalExternalRequestTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaNetworkRequestFinishedCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaNetworkRequestFinishedCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaNetworkRequestFinishedCount(cfg SaphanaNetworkRequestFinishedCountMetricConfig) metricSaphanaNetworkRequestFinishedCount {
-	m := metricSaphanaNetworkRequestFinishedCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaNetworkRequestFinishedCount)
 }
 
 type metricSaphanaReplicationAverageTime struct {
@@ -2171,84 +1275,22 @@ func (m *metricSaphanaReplicationAverageTime) init() {
 }
 
 func (m *metricSaphanaReplicationAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationAverageTimeMetricAttributeKeyPrimaryHost) {
-		dp.Attributes().PutStr("primary", primaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationAverageTimeMetricAttributeKeySecondaryHost) {
-		dp.Attributes().PutStr("secondary", secondaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationAverageTimeMetricAttributeKeyPort) {
-		dp.Attributes().PutStr("port", portAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationAverageTimeMetricAttributeKeyReplicationMode) {
-		dp.Attributes().PutStr("mode", replicationModeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaReplicationAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaReplicationAverageTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaReplicationAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaReplicationAverageTime(cfg SaphanaReplicationAverageTimeMetricConfig) metricSaphanaReplicationAverageTime {
-	m := metricSaphanaReplicationAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaReplicationAverageTime)
 }
 
 type metricSaphanaReplicationBacklogSize struct {
@@ -2271,84 +1313,22 @@ func (m *metricSaphanaReplicationBacklogSize) init() {
 }
 
 func (m *metricSaphanaReplicationBacklogSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogSizeMetricAttributeKeyPrimaryHost) {
-		dp.Attributes().PutStr("primary", primaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogSizeMetricAttributeKeySecondaryHost) {
-		dp.Attributes().PutStr("secondary", secondaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogSizeMetricAttributeKeyPort) {
-		dp.Attributes().PutStr("port", portAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogSizeMetricAttributeKeyReplicationMode) {
-		dp.Attributes().PutStr("mode", replicationModeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaReplicationBacklogSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaReplicationBacklogSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaReplicationBacklogSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaReplicationBacklogSize(cfg SaphanaReplicationBacklogSizeMetricConfig) metricSaphanaReplicationBacklogSize {
-	m := metricSaphanaReplicationBacklogSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaReplicationBacklogSize)
 }
 
 type metricSaphanaReplicationBacklogTime struct {
@@ -2371,84 +1351,22 @@ func (m *metricSaphanaReplicationBacklogTime) init() {
 }
 
 func (m *metricSaphanaReplicationBacklogTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogTimeMetricAttributeKeyPrimaryHost) {
-		dp.Attributes().PutStr("primary", primaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogTimeMetricAttributeKeySecondaryHost) {
-		dp.Attributes().PutStr("secondary", secondaryHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogTimeMetricAttributeKeyPort) {
-		dp.Attributes().PutStr("port", portAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaReplicationBacklogTimeMetricAttributeKeyReplicationMode) {
-		dp.Attributes().PutStr("mode", replicationModeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaReplicationBacklogTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaReplicationBacklogTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaReplicationBacklogTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaReplicationBacklogTime(cfg SaphanaReplicationBacklogTimeMetricConfig) metricSaphanaReplicationBacklogTime {
-	m := metricSaphanaReplicationBacklogTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaReplicationBacklogTime)
 }
 
 type metricSaphanaRowStoreMemoryUsed struct {
@@ -2471,75 +1389,22 @@ func (m *metricSaphanaRowStoreMemoryUsed) init() {
 }
 
 func (m *metricSaphanaRowStoreMemoryUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, rowMemoryTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaRowStoreMemoryUsedMetricAttributeKeyRowMemoryType) {
-		dp.Attributes().PutStr("type", rowMemoryTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaRowStoreMemoryUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaRowStoreMemoryUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaRowStoreMemoryUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaRowStoreMemoryUsed(cfg SaphanaRowStoreMemoryUsedMetricConfig) metricSaphanaRowStoreMemoryUsed {
-	m := metricSaphanaRowStoreMemoryUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaRowStoreMemoryUsed)
 }
 
 type metricSaphanaSchemaMemoryUsedCurrent struct {
@@ -2562,78 +1427,22 @@ func (m *metricSaphanaSchemaMemoryUsedCurrent) init() {
 }
 
 func (m *metricSaphanaSchemaMemoryUsedCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schemaAttributeValue string, schemaMemoryTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchema) {
-		dp.Attributes().PutStr("schema", schemaAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaMemoryUsedCurrentMetricAttributeKeySchemaMemoryType) {
-		dp.Attributes().PutStr("type", schemaMemoryTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaSchemaMemoryUsedCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaSchemaMemoryUsedCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaSchemaMemoryUsedCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaSchemaMemoryUsedCurrent(cfg SaphanaSchemaMemoryUsedCurrentMetricConfig) metricSaphanaSchemaMemoryUsedCurrent {
-	m := metricSaphanaSchemaMemoryUsedCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaSchemaMemoryUsedCurrent)
 }
 
 type metricSaphanaSchemaMemoryUsedMax struct {
@@ -2656,75 +1465,22 @@ func (m *metricSaphanaSchemaMemoryUsedMax) init() {
 }
 
 func (m *metricSaphanaSchemaMemoryUsedMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schemaAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaMemoryUsedMaxMetricAttributeKeySchema) {
-		dp.Attributes().PutStr("schema", schemaAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaSchemaMemoryUsedMax) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaSchemaMemoryUsedMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaSchemaMemoryUsedMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaSchemaMemoryUsedMax(cfg SaphanaSchemaMemoryUsedMaxMetricConfig) metricSaphanaSchemaMemoryUsedMax {
-	m := metricSaphanaSchemaMemoryUsedMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaSchemaMemoryUsedMax)
 }
 
 type metricSaphanaSchemaOperationCount struct {
@@ -2747,78 +1503,22 @@ func (m *metricSaphanaSchemaOperationCount) init() {
 }
 
 func (m *metricSaphanaSchemaOperationCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schemaAttributeValue string, schemaOperationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaOperationCountMetricAttributeKeySchema) {
-		dp.Attributes().PutStr("schema", schemaAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaOperationCountMetricAttributeKeySchemaOperationType) {
-		dp.Attributes().PutStr("type", schemaOperationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaSchemaOperationCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaSchemaOperationCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaSchemaOperationCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaSchemaOperationCount(cfg SaphanaSchemaOperationCountMetricConfig) metricSaphanaSchemaOperationCount {
-	m := metricSaphanaSchemaOperationCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaSchemaOperationCount)
 }
 
 type metricSaphanaSchemaRecordCompressedCount struct {
@@ -2841,75 +1541,25 @@ func (m *metricSaphanaSchemaRecordCompressedCount) init() {
 }
 
 func (m *metricSaphanaSchemaRecordCompressedCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schemaAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaRecordCompressedCountMetricAttributeKeySchema) {
-		dp.Attributes().PutStr("schema", schemaAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaSchemaRecordCompressedCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaSchemaRecordCompressedCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaSchemaRecordCompressedCount(cfg SaphanaSchemaRecordCompressedCountMetricConfig) metricSaphanaSchemaRecordCompressedCount {
-	m := metricSaphanaSchemaRecordCompressedCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaSchemaRecordCompressedCount)
 }
 
 type metricSaphanaSchemaRecordCount struct {
@@ -2932,78 +1582,22 @@ func (m *metricSaphanaSchemaRecordCount) init() {
 }
 
 func (m *metricSaphanaSchemaRecordCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schemaAttributeValue string, schemaRecordTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaRecordCountMetricAttributeKeySchema) {
-		dp.Attributes().PutStr("schema", schemaAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaSchemaRecordCountMetricAttributeKeySchemaRecordType) {
-		dp.Attributes().PutStr("type", schemaRecordTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaSchemaRecordCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaSchemaRecordCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaSchemaRecordCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaSchemaRecordCount(cfg SaphanaSchemaRecordCountMetricConfig) metricSaphanaSchemaRecordCount {
-	m := metricSaphanaSchemaRecordCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaSchemaRecordCount)
 }
 
 type metricSaphanaServiceCodeSize struct {
@@ -3026,75 +1620,22 @@ func (m *metricSaphanaServiceCodeSize) init() {
 }
 
 func (m *metricSaphanaServiceCodeSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceCodeSizeMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceCodeSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceCodeSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceCodeSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceCodeSize(cfg SaphanaServiceCodeSizeMetricConfig) metricSaphanaServiceCodeSize {
-	m := metricSaphanaServiceCodeSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceCodeSize)
 }
 
 type metricSaphanaServiceCount struct {
@@ -3117,75 +1658,22 @@ func (m *metricSaphanaServiceCount) init() {
 }
 
 func (m *metricSaphanaServiceCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceCountMetricAttributeKeyServiceStatus) {
-		dp.Attributes().PutStr("status", serviceStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceCount(cfg SaphanaServiceCountMetricConfig) metricSaphanaServiceCount {
-	m := metricSaphanaServiceCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceCount)
 }
 
 type metricSaphanaServiceMemoryCompactorsAllocated struct {
@@ -3208,75 +1696,25 @@ func (m *metricSaphanaServiceMemoryCompactorsAllocated) init() {
 }
 
 func (m *metricSaphanaServiceMemoryCompactorsAllocated) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryCompactorsAllocatedMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaServiceMemoryCompactorsAllocated) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryCompactorsAllocated) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryCompactorsAllocated(cfg SaphanaServiceMemoryCompactorsAllocatedMetricConfig) metricSaphanaServiceMemoryCompactorsAllocated {
-	m := metricSaphanaServiceMemoryCompactorsAllocated{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryCompactorsAllocated)
 }
 
 type metricSaphanaServiceMemoryCompactorsFreeable struct {
@@ -3299,75 +1737,25 @@ func (m *metricSaphanaServiceMemoryCompactorsFreeable) init() {
 }
 
 func (m *metricSaphanaServiceMemoryCompactorsFreeable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryCompactorsFreeableMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaServiceMemoryCompactorsFreeable) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryCompactorsFreeable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryCompactorsFreeable(cfg SaphanaServiceMemoryCompactorsFreeableMetricConfig) metricSaphanaServiceMemoryCompactorsFreeable {
-	m := metricSaphanaServiceMemoryCompactorsFreeable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryCompactorsFreeable)
 }
 
 type metricSaphanaServiceMemoryEffectiveLimit struct {
@@ -3390,75 +1778,25 @@ func (m *metricSaphanaServiceMemoryEffectiveLimit) init() {
 }
 
 func (m *metricSaphanaServiceMemoryEffectiveLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryEffectiveLimitMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaServiceMemoryEffectiveLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryEffectiveLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryEffectiveLimit(cfg SaphanaServiceMemoryEffectiveLimitMetricConfig) metricSaphanaServiceMemoryEffectiveLimit {
-	m := metricSaphanaServiceMemoryEffectiveLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryEffectiveLimit)
 }
 
 type metricSaphanaServiceMemoryHeapCurrent struct {
@@ -3481,78 +1819,22 @@ func (m *metricSaphanaServiceMemoryHeapCurrent) init() {
 }
 
 func (m *metricSaphanaServiceMemoryHeapCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string, memoryStateUsedFreeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryHeapCurrentMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryHeapCurrentMetricAttributeKeyMemoryStateUsedFree) {
-		dp.Attributes().PutStr("state", memoryStateUsedFreeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceMemoryHeapCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceMemoryHeapCurrent) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryHeapCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryHeapCurrent(cfg SaphanaServiceMemoryHeapCurrentMetricConfig) metricSaphanaServiceMemoryHeapCurrent {
-	m := metricSaphanaServiceMemoryHeapCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryHeapCurrent)
 }
 
 type metricSaphanaServiceMemoryLimit struct {
@@ -3575,75 +1857,22 @@ func (m *metricSaphanaServiceMemoryLimit) init() {
 }
 
 func (m *metricSaphanaServiceMemoryLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryLimitMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceMemoryLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceMemoryLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryLimit(cfg SaphanaServiceMemoryLimitMetricConfig) metricSaphanaServiceMemoryLimit {
-	m := metricSaphanaServiceMemoryLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryLimit)
 }
 
 type metricSaphanaServiceMemorySharedCurrent struct {
@@ -3666,78 +1895,25 @@ func (m *metricSaphanaServiceMemorySharedCurrent) init() {
 }
 
 func (m *metricSaphanaServiceMemorySharedCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string, memoryStateUsedFreeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemorySharedCurrentMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemorySharedCurrentMetricAttributeKeyMemoryStateUsedFree) {
-		dp.Attributes().PutStr("state", memoryStateUsedFreeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSaphanaServiceMemorySharedCurrent) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemorySharedCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemorySharedCurrent(cfg SaphanaServiceMemorySharedCurrentMetricConfig) metricSaphanaServiceMemorySharedCurrent {
-	m := metricSaphanaServiceMemorySharedCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemorySharedCurrent)
 }
 
 type metricSaphanaServiceMemoryUsed struct {
@@ -3760,78 +1936,22 @@ func (m *metricSaphanaServiceMemoryUsed) init() {
 }
 
 func (m *metricSaphanaServiceMemoryUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string, serviceMemoryUsedTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryUsedMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceMemoryUsedMetricAttributeKeyServiceMemoryUsedType) {
-		dp.Attributes().PutStr("type", serviceMemoryUsedTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceMemoryUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceMemoryUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceMemoryUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceMemoryUsed(cfg SaphanaServiceMemoryUsedMetricConfig) metricSaphanaServiceMemoryUsed {
-	m := metricSaphanaServiceMemoryUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceMemoryUsed)
 }
 
 type metricSaphanaServiceStackSize struct {
@@ -3854,75 +1974,22 @@ func (m *metricSaphanaServiceStackSize) init() {
 }
 
 func (m *metricSaphanaServiceStackSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, serviceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceStackSizeMetricAttributeKeyService) {
-		dp.Attributes().PutStr("service", serviceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceStackSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceStackSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceStackSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceStackSize(cfg SaphanaServiceStackSizeMetricConfig) metricSaphanaServiceStackSize {
-	m := metricSaphanaServiceStackSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceStackSize)
 }
 
 type metricSaphanaServiceThreadCount struct {
@@ -3945,75 +2012,22 @@ func (m *metricSaphanaServiceThreadCount) init() {
 }
 
 func (m *metricSaphanaServiceThreadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, threadStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaServiceThreadCountMetricAttributeKeyThreadStatus) {
-		dp.Attributes().PutStr("status", threadStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaServiceThreadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaServiceThreadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaServiceThreadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaServiceThreadCount(cfg SaphanaServiceThreadCountMetricConfig) metricSaphanaServiceThreadCount {
-	m := metricSaphanaServiceThreadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaServiceThreadCount)
 }
 
 type metricSaphanaTransactionBlocked struct {
@@ -4033,39 +2047,22 @@ func (m *metricSaphanaTransactionBlocked) init() {
 }
 
 func (m *metricSaphanaTransactionBlocked) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaTransactionBlocked) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaTransactionBlocked) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaTransactionBlocked) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaTransactionBlocked(cfg SaphanaTransactionBlockedMetricConfig) metricSaphanaTransactionBlocked {
-	m := metricSaphanaTransactionBlocked{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaTransactionBlocked)
 }
 
 type metricSaphanaTransactionCount struct {
@@ -4088,75 +2085,22 @@ func (m *metricSaphanaTransactionCount) init() {
 }
 
 func (m *metricSaphanaTransactionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, transactionTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaTransactionCountMetricAttributeKeyTransactionType) {
-		dp.Attributes().PutStr("type", transactionTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaTransactionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaTransactionCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaTransactionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaTransactionCount(cfg SaphanaTransactionCountMetricConfig) metricSaphanaTransactionCount {
-	m := metricSaphanaTransactionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaTransactionCount)
 }
 
 type metricSaphanaUptime struct {
@@ -4177,41 +2121,19 @@ func (m *metricSaphanaUptime) init() {
 }
 
 func (m *metricSaphanaUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemAttributeValue string, databaseAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("system", systemAttributeValue)
-	dp.Attributes().PutStr("database", databaseAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricSaphanaUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricSaphanaUptime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricSaphanaUptime(cfg SaphanaUptimeMetricConfig) metricSaphanaUptime {
-	m := metricSaphanaUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaUptime)
 }
 
 type metricSaphanaVolumeOperationCount struct {
@@ -4234,81 +2156,22 @@ func (m *metricSaphanaVolumeOperationCount) init() {
 }
 
 func (m *metricSaphanaVolumeOperationCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationCountMetricAttributeKeyPath) {
-		dp.Attributes().PutStr("path", pathAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationCountMetricAttributeKeyDiskUsageType) {
-		dp.Attributes().PutStr("usage_type", diskUsageTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationCountMetricAttributeKeyVolumeOperationType) {
-		dp.Attributes().PutStr("type", volumeOperationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaVolumeOperationCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaVolumeOperationCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaVolumeOperationCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaVolumeOperationCount(cfg SaphanaVolumeOperationCountMetricConfig) metricSaphanaVolumeOperationCount {
-	m := metricSaphanaVolumeOperationCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaVolumeOperationCount)
 }
 
 type metricSaphanaVolumeOperationSize struct {
@@ -4331,81 +2194,22 @@ func (m *metricSaphanaVolumeOperationSize) init() {
 }
 
 func (m *metricSaphanaVolumeOperationSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationSizeMetricAttributeKeyPath) {
-		dp.Attributes().PutStr("path", pathAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationSizeMetricAttributeKeyDiskUsageType) {
-		dp.Attributes().PutStr("usage_type", diskUsageTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationSizeMetricAttributeKeyVolumeOperationType) {
-		dp.Attributes().PutStr("type", volumeOperationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaVolumeOperationSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaVolumeOperationSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaVolumeOperationSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaVolumeOperationSize(cfg SaphanaVolumeOperationSizeMetricConfig) metricSaphanaVolumeOperationSize {
-	m := metricSaphanaVolumeOperationSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaVolumeOperationSize)
 }
 
 type metricSaphanaVolumeOperationTime struct {
@@ -4428,81 +2232,22 @@ func (m *metricSaphanaVolumeOperationTime) init() {
 }
 
 func (m *metricSaphanaVolumeOperationTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationTimeMetricAttributeKeyPath) {
-		dp.Attributes().PutStr("path", pathAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationTimeMetricAttributeKeyDiskUsageType) {
-		dp.Attributes().PutStr("usage_type", diskUsageTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SaphanaVolumeOperationTimeMetricAttributeKeyVolumeOperationType) {
-		dp.Attributes().PutStr("type", volumeOperationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSaphanaVolumeOperationTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSaphanaVolumeOperationTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSaphanaVolumeOperationTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSaphanaVolumeOperationTime(cfg SaphanaVolumeOperationTimeMetricConfig) metricSaphanaVolumeOperationTime {
-	m := metricSaphanaVolumeOperationTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSaphanaVolumeOperationTime)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -4570,98 +2315,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                        mbc,
-		startTime:                                     pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                                 pmetric.NewMetrics(),
-		buildInfo:                                     settings.BuildInfo,
-		metricSaphanaAlertCount:                       newMetricSaphanaAlertCount(mbc.Metrics.SaphanaAlertCount),
-		metricSaphanaBackupLatest:                     newMetricSaphanaBackupLatest(mbc.Metrics.SaphanaBackupLatest),
-		metricSaphanaColumnMemoryUsed:                 newMetricSaphanaColumnMemoryUsed(mbc.Metrics.SaphanaColumnMemoryUsed),
-		metricSaphanaComponentMemoryUsed:              newMetricSaphanaComponentMemoryUsed(mbc.Metrics.SaphanaComponentMemoryUsed),
-		metricSaphanaConnectionCount:                  newMetricSaphanaConnectionCount(mbc.Metrics.SaphanaConnectionCount),
-		metricSaphanaCPUUsed:                          newMetricSaphanaCPUUsed(mbc.Metrics.SaphanaCPUUsed),
-		metricSaphanaDiskSizeCurrent:                  newMetricSaphanaDiskSizeCurrent(mbc.Metrics.SaphanaDiskSizeCurrent),
-		metricSaphanaHostMemoryCurrent:                newMetricSaphanaHostMemoryCurrent(mbc.Metrics.SaphanaHostMemoryCurrent),
-		metricSaphanaHostSwapCurrent:                  newMetricSaphanaHostSwapCurrent(mbc.Metrics.SaphanaHostSwapCurrent),
-		metricSaphanaInstanceCodeSize:                 newMetricSaphanaInstanceCodeSize(mbc.Metrics.SaphanaInstanceCodeSize),
-		metricSaphanaInstanceMemoryCurrent:            newMetricSaphanaInstanceMemoryCurrent(mbc.Metrics.SaphanaInstanceMemoryCurrent),
-		metricSaphanaInstanceMemorySharedAllocated:    newMetricSaphanaInstanceMemorySharedAllocated(mbc.Metrics.SaphanaInstanceMemorySharedAllocated),
-		metricSaphanaInstanceMemoryUsedPeak:           newMetricSaphanaInstanceMemoryUsedPeak(mbc.Metrics.SaphanaInstanceMemoryUsedPeak),
-		metricSaphanaLicenseExpirationTime:            newMetricSaphanaLicenseExpirationTime(mbc.Metrics.SaphanaLicenseExpirationTime),
-		metricSaphanaLicenseLimit:                     newMetricSaphanaLicenseLimit(mbc.Metrics.SaphanaLicenseLimit),
-		metricSaphanaLicensePeak:                      newMetricSaphanaLicensePeak(mbc.Metrics.SaphanaLicensePeak),
-		metricSaphanaNetworkRequestAverageTime:        newMetricSaphanaNetworkRequestAverageTime(mbc.Metrics.SaphanaNetworkRequestAverageTime),
-		metricSaphanaNetworkRequestCount:              newMetricSaphanaNetworkRequestCount(mbc.Metrics.SaphanaNetworkRequestCount),
-		metricSaphanaNetworkRequestFinishedCount:      newMetricSaphanaNetworkRequestFinishedCount(mbc.Metrics.SaphanaNetworkRequestFinishedCount),
-		metricSaphanaReplicationAverageTime:           newMetricSaphanaReplicationAverageTime(mbc.Metrics.SaphanaReplicationAverageTime),
-		metricSaphanaReplicationBacklogSize:           newMetricSaphanaReplicationBacklogSize(mbc.Metrics.SaphanaReplicationBacklogSize),
-		metricSaphanaReplicationBacklogTime:           newMetricSaphanaReplicationBacklogTime(mbc.Metrics.SaphanaReplicationBacklogTime),
-		metricSaphanaRowStoreMemoryUsed:               newMetricSaphanaRowStoreMemoryUsed(mbc.Metrics.SaphanaRowStoreMemoryUsed),
-		metricSaphanaSchemaMemoryUsedCurrent:          newMetricSaphanaSchemaMemoryUsedCurrent(mbc.Metrics.SaphanaSchemaMemoryUsedCurrent),
-		metricSaphanaSchemaMemoryUsedMax:              newMetricSaphanaSchemaMemoryUsedMax(mbc.Metrics.SaphanaSchemaMemoryUsedMax),
-		metricSaphanaSchemaOperationCount:             newMetricSaphanaSchemaOperationCount(mbc.Metrics.SaphanaSchemaOperationCount),
-		metricSaphanaSchemaRecordCompressedCount:      newMetricSaphanaSchemaRecordCompressedCount(mbc.Metrics.SaphanaSchemaRecordCompressedCount),
-		metricSaphanaSchemaRecordCount:                newMetricSaphanaSchemaRecordCount(mbc.Metrics.SaphanaSchemaRecordCount),
-		metricSaphanaServiceCodeSize:                  newMetricSaphanaServiceCodeSize(mbc.Metrics.SaphanaServiceCodeSize),
-		metricSaphanaServiceCount:                     newMetricSaphanaServiceCount(mbc.Metrics.SaphanaServiceCount),
-		metricSaphanaServiceMemoryCompactorsAllocated: newMetricSaphanaServiceMemoryCompactorsAllocated(mbc.Metrics.SaphanaServiceMemoryCompactorsAllocated),
-		metricSaphanaServiceMemoryCompactorsFreeable:  newMetricSaphanaServiceMemoryCompactorsFreeable(mbc.Metrics.SaphanaServiceMemoryCompactorsFreeable),
-		metricSaphanaServiceMemoryEffectiveLimit:      newMetricSaphanaServiceMemoryEffectiveLimit(mbc.Metrics.SaphanaServiceMemoryEffectiveLimit),
-		metricSaphanaServiceMemoryHeapCurrent:         newMetricSaphanaServiceMemoryHeapCurrent(mbc.Metrics.SaphanaServiceMemoryHeapCurrent),
-		metricSaphanaServiceMemoryLimit:               newMetricSaphanaServiceMemoryLimit(mbc.Metrics.SaphanaServiceMemoryLimit),
-		metricSaphanaServiceMemorySharedCurrent:       newMetricSaphanaServiceMemorySharedCurrent(mbc.Metrics.SaphanaServiceMemorySharedCurrent),
-		metricSaphanaServiceMemoryUsed:                newMetricSaphanaServiceMemoryUsed(mbc.Metrics.SaphanaServiceMemoryUsed),
-		metricSaphanaServiceStackSize:                 newMetricSaphanaServiceStackSize(mbc.Metrics.SaphanaServiceStackSize),
-		metricSaphanaServiceThreadCount:               newMetricSaphanaServiceThreadCount(mbc.Metrics.SaphanaServiceThreadCount),
-		metricSaphanaTransactionBlocked:               newMetricSaphanaTransactionBlocked(mbc.Metrics.SaphanaTransactionBlocked),
-		metricSaphanaTransactionCount:                 newMetricSaphanaTransactionCount(mbc.Metrics.SaphanaTransactionCount),
-		metricSaphanaUptime:                           newMetricSaphanaUptime(mbc.Metrics.SaphanaUptime),
-		metricSaphanaVolumeOperationCount:             newMetricSaphanaVolumeOperationCount(mbc.Metrics.SaphanaVolumeOperationCount),
-		metricSaphanaVolumeOperationSize:              newMetricSaphanaVolumeOperationSize(mbc.Metrics.SaphanaVolumeOperationSize),
-		metricSaphanaVolumeOperationTime:              newMetricSaphanaVolumeOperationTime(mbc.Metrics.SaphanaVolumeOperationTime),
-		resourceAttributeIncludeFilter:                make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.DbSystem.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["db.system"] = filter.CreateFilter(mbc.ResourceAttributes.DbSystem.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.DbSystem.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["db.system"] = filter.CreateFilter(mbc.ResourceAttributes.DbSystem.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SaphanaHost.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["saphana.host"] = filter.CreateFilter(mbc.ResourceAttributes.SaphanaHost.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SaphanaHost.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["saphana.host"] = filter.CreateFilter(mbc.ResourceAttributes.SaphanaHost.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -4672,35 +2351,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -4709,542 +2376,288 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSaphanaAlertCount.emit(ils.Metrics())
-	mb.metricSaphanaBackupLatest.emit(ils.Metrics())
-	mb.metricSaphanaColumnMemoryUsed.emit(ils.Metrics())
-	mb.metricSaphanaComponentMemoryUsed.emit(ils.Metrics())
-	mb.metricSaphanaConnectionCount.emit(ils.Metrics())
-	mb.metricSaphanaCPUUsed.emit(ils.Metrics())
-	mb.metricSaphanaDiskSizeCurrent.emit(ils.Metrics())
-	mb.metricSaphanaHostMemoryCurrent.emit(ils.Metrics())
-	mb.metricSaphanaHostSwapCurrent.emit(ils.Metrics())
-	mb.metricSaphanaInstanceCodeSize.emit(ils.Metrics())
-	mb.metricSaphanaInstanceMemoryCurrent.emit(ils.Metrics())
-	mb.metricSaphanaInstanceMemorySharedAllocated.emit(ils.Metrics())
-	mb.metricSaphanaInstanceMemoryUsedPeak.emit(ils.Metrics())
-	mb.metricSaphanaLicenseExpirationTime.emit(ils.Metrics())
-	mb.metricSaphanaLicenseLimit.emit(ils.Metrics())
-	mb.metricSaphanaLicensePeak.emit(ils.Metrics())
-	mb.metricSaphanaNetworkRequestAverageTime.emit(ils.Metrics())
-	mb.metricSaphanaNetworkRequestCount.emit(ils.Metrics())
-	mb.metricSaphanaNetworkRequestFinishedCount.emit(ils.Metrics())
-	mb.metricSaphanaReplicationAverageTime.emit(ils.Metrics())
-	mb.metricSaphanaReplicationBacklogSize.emit(ils.Metrics())
-	mb.metricSaphanaReplicationBacklogTime.emit(ils.Metrics())
-	mb.metricSaphanaRowStoreMemoryUsed.emit(ils.Metrics())
-	mb.metricSaphanaSchemaMemoryUsedCurrent.emit(ils.Metrics())
-	mb.metricSaphanaSchemaMemoryUsedMax.emit(ils.Metrics())
-	mb.metricSaphanaSchemaOperationCount.emit(ils.Metrics())
-	mb.metricSaphanaSchemaRecordCompressedCount.emit(ils.Metrics())
-	mb.metricSaphanaSchemaRecordCount.emit(ils.Metrics())
-	mb.metricSaphanaServiceCodeSize.emit(ils.Metrics())
-	mb.metricSaphanaServiceCount.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryCompactorsAllocated.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryCompactorsFreeable.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryEffectiveLimit.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryHeapCurrent.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryLimit.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemorySharedCurrent.emit(ils.Metrics())
-	mb.metricSaphanaServiceMemoryUsed.emit(ils.Metrics())
-	mb.metricSaphanaServiceStackSize.emit(ils.Metrics())
-	mb.metricSaphanaServiceThreadCount.emit(ils.Metrics())
-	mb.metricSaphanaTransactionBlocked.emit(ils.Metrics())
-	mb.metricSaphanaTransactionCount.emit(ils.Metrics())
-	mb.metricSaphanaUptime.emit(ils.Metrics())
-	mb.metricSaphanaVolumeOperationCount.emit(ils.Metrics())
-	mb.metricSaphanaVolumeOperationSize.emit(ils.Metrics())
-	mb.metricSaphanaVolumeOperationTime.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSaphanaAlertCountDataPoint adds a data point to saphana.alert.count metric.
 func (mb *MetricsBuilder) RecordSaphanaAlertCountDataPoint(ts pcommon.Timestamp, inputVal string, alertRatingAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaAlertCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaAlertCount.recordDataPoint(mb.startTime, ts, val, alertRatingAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaBackupLatestDataPoint adds a data point to saphana.backup.latest metric.
 func (mb *MetricsBuilder) RecordSaphanaBackupLatestDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaBackupLatest, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaBackupLatest.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaColumnMemoryUsedDataPoint adds a data point to saphana.column.memory.used metric.
 func (mb *MetricsBuilder) RecordSaphanaColumnMemoryUsedDataPoint(ts pcommon.Timestamp, inputVal string, columnMemoryTypeAttributeValue AttributeColumnMemoryType, columnMemorySubtypeAttributeValue AttributeColumnMemorySubtype) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaColumnMemoryUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaColumnMemoryUsed.recordDataPoint(mb.startTime, ts, val, columnMemoryTypeAttributeValue.String(), columnMemorySubtypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaComponentMemoryUsedDataPoint adds a data point to saphana.component.memory.used metric.
 func (mb *MetricsBuilder) RecordSaphanaComponentMemoryUsedDataPoint(ts pcommon.Timestamp, inputVal string, componentAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaComponentMemoryUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaComponentMemoryUsed.recordDataPoint(mb.startTime, ts, val, componentAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaConnectionCountDataPoint adds a data point to saphana.connection.count metric.
 func (mb *MetricsBuilder) RecordSaphanaConnectionCountDataPoint(ts pcommon.Timestamp, inputVal string, connectionStatusAttributeValue AttributeConnectionStatus) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaConnectionCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaConnectionCount.recordDataPoint(mb.startTime, ts, val, connectionStatusAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaCPUUsedDataPoint adds a data point to saphana.cpu.used metric.
 func (mb *MetricsBuilder) RecordSaphanaCPUUsedDataPoint(ts pcommon.Timestamp, inputVal string, cpuTypeAttributeValue AttributeCPUType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaCPUUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaCPUUsed.recordDataPoint(mb.startTime, ts, val, cpuTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaDiskSizeCurrentDataPoint adds a data point to saphana.disk.size.current metric.
 func (mb *MetricsBuilder) RecordSaphanaDiskSizeCurrentDataPoint(ts pcommon.Timestamp, inputVal string, pathAttributeValue string, diskUsageTypeAttributeValue string, diskStateUsedFreeAttributeValue AttributeDiskStateUsedFree) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaDiskSizeCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaDiskSizeCurrent.recordDataPoint(mb.startTime, ts, val, pathAttributeValue, diskUsageTypeAttributeValue, diskStateUsedFreeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaHostMemoryCurrentDataPoint adds a data point to saphana.host.memory.current metric.
 func (mb *MetricsBuilder) RecordSaphanaHostMemoryCurrentDataPoint(ts pcommon.Timestamp, inputVal string, memoryStateUsedFreeAttributeValue AttributeMemoryStateUsedFree) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaHostMemoryCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaHostMemoryCurrent.recordDataPoint(mb.startTime, ts, val, memoryStateUsedFreeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaHostSwapCurrentDataPoint adds a data point to saphana.host.swap.current metric.
 func (mb *MetricsBuilder) RecordSaphanaHostSwapCurrentDataPoint(ts pcommon.Timestamp, inputVal string, hostSwapStateAttributeValue AttributeHostSwapState) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaHostSwapCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaHostSwapCurrent.recordDataPoint(mb.startTime, ts, val, hostSwapStateAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaInstanceCodeSizeDataPoint adds a data point to saphana.instance.code_size metric.
 func (mb *MetricsBuilder) RecordSaphanaInstanceCodeSizeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaInstanceCodeSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaInstanceCodeSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaInstanceMemoryCurrentDataPoint adds a data point to saphana.instance.memory.current metric.
 func (mb *MetricsBuilder) RecordSaphanaInstanceMemoryCurrentDataPoint(ts pcommon.Timestamp, inputVal string, memoryStateUsedFreeAttributeValue AttributeMemoryStateUsedFree) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaInstanceMemoryCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaInstanceMemoryCurrent.recordDataPoint(mb.startTime, ts, val, memoryStateUsedFreeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaInstanceMemorySharedAllocatedDataPoint adds a data point to saphana.instance.memory.shared.allocated metric.
 func (mb *MetricsBuilder) RecordSaphanaInstanceMemorySharedAllocatedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaInstanceMemorySharedAllocated, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaInstanceMemorySharedAllocated.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaInstanceMemoryUsedPeakDataPoint adds a data point to saphana.instance.memory.used.peak metric.
 func (mb *MetricsBuilder) RecordSaphanaInstanceMemoryUsedPeakDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaInstanceMemoryUsedPeak, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaInstanceMemoryUsedPeak.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaLicenseExpirationTimeDataPoint adds a data point to saphana.license.expiration.time metric.
 func (mb *MetricsBuilder) RecordSaphanaLicenseExpirationTimeDataPoint(ts pcommon.Timestamp, inputVal string, systemAttributeValue string, productAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaLicenseExpirationTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaLicenseExpirationTime.recordDataPoint(mb.startTime, ts, val, systemAttributeValue, productAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaLicenseLimitDataPoint adds a data point to saphana.license.limit metric.
 func (mb *MetricsBuilder) RecordSaphanaLicenseLimitDataPoint(ts pcommon.Timestamp, inputVal string, systemAttributeValue string, productAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaLicenseLimit, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaLicenseLimit.recordDataPoint(mb.startTime, ts, val, systemAttributeValue, productAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaLicensePeakDataPoint adds a data point to saphana.license.peak metric.
 func (mb *MetricsBuilder) RecordSaphanaLicensePeakDataPoint(ts pcommon.Timestamp, inputVal string, systemAttributeValue string, productAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaLicensePeak, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaLicensePeak.recordDataPoint(mb.startTime, ts, val, systemAttributeValue, productAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaNetworkRequestAverageTimeDataPoint adds a data point to saphana.network.request.average_time metric.
 func (mb *MetricsBuilder) RecordSaphanaNetworkRequestAverageTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for SaphanaNetworkRequestAverageTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaNetworkRequestAverageTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaNetworkRequestCountDataPoint adds a data point to saphana.network.request.count metric.
 func (mb *MetricsBuilder) RecordSaphanaNetworkRequestCountDataPoint(ts pcommon.Timestamp, inputVal string, activePendingRequestStateAttributeValue AttributeActivePendingRequestState) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaNetworkRequestCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaNetworkRequestCount.recordDataPoint(mb.startTime, ts, val, activePendingRequestStateAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaNetworkRequestFinishedCountDataPoint adds a data point to saphana.network.request.finished.count metric.
 func (mb *MetricsBuilder) RecordSaphanaNetworkRequestFinishedCountDataPoint(ts pcommon.Timestamp, inputVal string, internalExternalRequestTypeAttributeValue AttributeInternalExternalRequestType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaNetworkRequestFinishedCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaNetworkRequestFinishedCount.recordDataPoint(mb.startTime, ts, val, internalExternalRequestTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaReplicationAverageTimeDataPoint adds a data point to saphana.replication.average_time metric.
 func (mb *MetricsBuilder) RecordSaphanaReplicationAverageTimeDataPoint(ts pcommon.Timestamp, inputVal string, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for SaphanaReplicationAverageTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaReplicationAverageTime.recordDataPoint(mb.startTime, ts, val, primaryHostAttributeValue, secondaryHostAttributeValue, portAttributeValue, replicationModeAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaReplicationBacklogSizeDataPoint adds a data point to saphana.replication.backlog.size metric.
 func (mb *MetricsBuilder) RecordSaphanaReplicationBacklogSizeDataPoint(ts pcommon.Timestamp, inputVal string, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaReplicationBacklogSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaReplicationBacklogSize.recordDataPoint(mb.startTime, ts, val, primaryHostAttributeValue, secondaryHostAttributeValue, portAttributeValue, replicationModeAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaReplicationBacklogTimeDataPoint adds a data point to saphana.replication.backlog.time metric.
 func (mb *MetricsBuilder) RecordSaphanaReplicationBacklogTimeDataPoint(ts pcommon.Timestamp, inputVal string, primaryHostAttributeValue string, secondaryHostAttributeValue string, portAttributeValue string, replicationModeAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaReplicationBacklogTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaReplicationBacklogTime.recordDataPoint(mb.startTime, ts, val, primaryHostAttributeValue, secondaryHostAttributeValue, portAttributeValue, replicationModeAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaRowStoreMemoryUsedDataPoint adds a data point to saphana.row_store.memory.used metric.
 func (mb *MetricsBuilder) RecordSaphanaRowStoreMemoryUsedDataPoint(ts pcommon.Timestamp, inputVal string, rowMemoryTypeAttributeValue AttributeRowMemoryType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaRowStoreMemoryUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaRowStoreMemoryUsed.recordDataPoint(mb.startTime, ts, val, rowMemoryTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaSchemaMemoryUsedCurrentDataPoint adds a data point to saphana.schema.memory.used.current metric.
 func (mb *MetricsBuilder) RecordSaphanaSchemaMemoryUsedCurrentDataPoint(ts pcommon.Timestamp, inputVal string, schemaAttributeValue string, schemaMemoryTypeAttributeValue AttributeSchemaMemoryType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaSchemaMemoryUsedCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaSchemaMemoryUsedCurrent.recordDataPoint(mb.startTime, ts, val, schemaAttributeValue, schemaMemoryTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaSchemaMemoryUsedMaxDataPoint adds a data point to saphana.schema.memory.used.max metric.
 func (mb *MetricsBuilder) RecordSaphanaSchemaMemoryUsedMaxDataPoint(ts pcommon.Timestamp, inputVal string, schemaAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaSchemaMemoryUsedMax, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaSchemaMemoryUsedMax.recordDataPoint(mb.startTime, ts, val, schemaAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaSchemaOperationCountDataPoint adds a data point to saphana.schema.operation.count metric.
 func (mb *MetricsBuilder) RecordSaphanaSchemaOperationCountDataPoint(ts pcommon.Timestamp, inputVal string, schemaAttributeValue string, schemaOperationTypeAttributeValue AttributeSchemaOperationType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaSchemaOperationCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaSchemaOperationCount.recordDataPoint(mb.startTime, ts, val, schemaAttributeValue, schemaOperationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaSchemaRecordCompressedCountDataPoint adds a data point to saphana.schema.record.compressed.count metric.
 func (mb *MetricsBuilder) RecordSaphanaSchemaRecordCompressedCountDataPoint(ts pcommon.Timestamp, inputVal string, schemaAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaSchemaRecordCompressedCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaSchemaRecordCompressedCount.recordDataPoint(mb.startTime, ts, val, schemaAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaSchemaRecordCountDataPoint adds a data point to saphana.schema.record.count metric.
 func (mb *MetricsBuilder) RecordSaphanaSchemaRecordCountDataPoint(ts pcommon.Timestamp, inputVal string, schemaAttributeValue string, schemaRecordTypeAttributeValue AttributeSchemaRecordType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaSchemaRecordCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaSchemaRecordCount.recordDataPoint(mb.startTime, ts, val, schemaAttributeValue, schemaRecordTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceCodeSizeDataPoint adds a data point to saphana.service.code_size metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceCodeSizeDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceCodeSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceCodeSize.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceCountDataPoint adds a data point to saphana.service.count metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceCountDataPoint(ts pcommon.Timestamp, inputVal string, serviceStatusAttributeValue AttributeServiceStatus) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceCount.recordDataPoint(mb.startTime, ts, val, serviceStatusAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryCompactorsAllocatedDataPoint adds a data point to saphana.service.memory.compactors.allocated metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryCompactorsAllocatedDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryCompactorsAllocated, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryCompactorsAllocated.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryCompactorsFreeableDataPoint adds a data point to saphana.service.memory.compactors.freeable metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryCompactorsFreeableDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryCompactorsFreeable, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryCompactorsFreeable.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryEffectiveLimitDataPoint adds a data point to saphana.service.memory.effective_limit metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryEffectiveLimitDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryEffectiveLimit, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryEffectiveLimit.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryHeapCurrentDataPoint adds a data point to saphana.service.memory.heap.current metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryHeapCurrentDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string, memoryStateUsedFreeAttributeValue AttributeMemoryStateUsedFree) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryHeapCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryHeapCurrent.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue, memoryStateUsedFreeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryLimitDataPoint adds a data point to saphana.service.memory.limit metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryLimitDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryLimit, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryLimit.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemorySharedCurrentDataPoint adds a data point to saphana.service.memory.shared.current metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemorySharedCurrentDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string, memoryStateUsedFreeAttributeValue AttributeMemoryStateUsedFree) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemorySharedCurrent, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemorySharedCurrent.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue, memoryStateUsedFreeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceMemoryUsedDataPoint adds a data point to saphana.service.memory.used metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceMemoryUsedDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string, serviceMemoryUsedTypeAttributeValue AttributeServiceMemoryUsedType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceMemoryUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceMemoryUsed.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue, serviceMemoryUsedTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceStackSizeDataPoint adds a data point to saphana.service.stack_size metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceStackSizeDataPoint(ts pcommon.Timestamp, inputVal string, serviceAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceStackSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceStackSize.recordDataPoint(mb.startTime, ts, val, serviceAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaServiceThreadCountDataPoint adds a data point to saphana.service.thread.count metric.
 func (mb *MetricsBuilder) RecordSaphanaServiceThreadCountDataPoint(ts pcommon.Timestamp, inputVal string, threadStatusAttributeValue AttributeThreadStatus) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaServiceThreadCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaServiceThreadCount.recordDataPoint(mb.startTime, ts, val, threadStatusAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaTransactionBlockedDataPoint adds a data point to saphana.transaction.blocked metric.
 func (mb *MetricsBuilder) RecordSaphanaTransactionBlockedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaTransactionBlocked, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaTransactionBlocked.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaTransactionCountDataPoint adds a data point to saphana.transaction.count metric.
 func (mb *MetricsBuilder) RecordSaphanaTransactionCountDataPoint(ts pcommon.Timestamp, inputVal string, transactionTypeAttributeValue AttributeTransactionType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaTransactionCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaTransactionCount.recordDataPoint(mb.startTime, ts, val, transactionTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaUptimeDataPoint adds a data point to saphana.uptime metric.
 func (mb *MetricsBuilder) RecordSaphanaUptimeDataPoint(ts pcommon.Timestamp, inputVal string, systemAttributeValue string, databaseAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaUptime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaUptime.recordDataPoint(mb.startTime, ts, val, systemAttributeValue, databaseAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaVolumeOperationCountDataPoint adds a data point to saphana.volume.operation.count metric.
 func (mb *MetricsBuilder) RecordSaphanaVolumeOperationCountDataPoint(ts pcommon.Timestamp, inputVal string, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue AttributeVolumeOperationType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaVolumeOperationCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaVolumeOperationCount.recordDataPoint(mb.startTime, ts, val, pathAttributeValue, diskUsageTypeAttributeValue, volumeOperationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaVolumeOperationSizeDataPoint adds a data point to saphana.volume.operation.size metric.
 func (mb *MetricsBuilder) RecordSaphanaVolumeOperationSizeDataPoint(ts pcommon.Timestamp, inputVal string, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue AttributeVolumeOperationType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaVolumeOperationSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaVolumeOperationSize.recordDataPoint(mb.startTime, ts, val, pathAttributeValue, diskUsageTypeAttributeValue, volumeOperationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordSaphanaVolumeOperationTimeDataPoint adds a data point to saphana.volume.operation.time metric.
 func (mb *MetricsBuilder) RecordSaphanaVolumeOperationTimeDataPoint(ts pcommon.Timestamp, inputVal string, pathAttributeValue string, diskUsageTypeAttributeValue string, volumeOperationTypeAttributeValue AttributeVolumeOperationType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for SaphanaVolumeOperationTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricSaphanaVolumeOperationTime.recordDataPoint(mb.startTime, ts, val, pathAttributeValue, diskUsageTypeAttributeValue, volumeOperationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

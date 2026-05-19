@@ -4,9 +4,6 @@
 package filterottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
 
 import (
-	"context"
-	"errors"
-
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
@@ -18,47 +15,46 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlscope"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspan"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspanevent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 )
 
 func StandardSpanFuncs() map[string]ottl.Factory[*ottlspan.TransformContext] {
-	m := ottlfuncs.StandardConverters[*ottlspan.TransformContext]()
-	isRootSpanFactory := ottlfuncs.NewIsRootSpanFactoryNew()
-	m[isRootSpanFactory.Name()] = isRootSpanFactory
-	return m
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardSpanEventFuncs() map[string]ottl.Factory[*ottlspanevent.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottlspanevent.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardMetricFuncs() map[string]ottl.Factory[*ottlmetric.TransformContext] {
-	m := ottlfuncs.StandardConverters[*ottlmetric.TransformContext]()
-	hasAttributeOnDatapointFactory := newHasAttributeOnDatapointFactory()
-	hasAttributeKeyOnDatapointFactory := newHasAttributeKeyOnDatapointFactory()
-	m[hasAttributeOnDatapointFactory.Name()] = hasAttributeOnDatapointFactory
-	m[hasAttributeKeyOnDatapointFactory.Name()] = hasAttributeKeyOnDatapointFactory
-	return m
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardDataPointFuncs() map[string]ottl.Factory[*ottldatapoint.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottldatapoint.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardScopeFuncs() map[string]ottl.Factory[*ottlscope.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottlscope.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardLogFuncs() map[string]ottl.Factory[*ottllog.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottllog.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardProfileFuncs() map[string]ottl.Factory[*ottlprofile.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottlprofile.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func StandardResourceFuncs() map[string]ottl.Factory[*ottlresource.TransformContext] {
-	return ottlfuncs.StandardConverters[*ottlresource.TransformContext]()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type hasAttributeOnDatapointArguments struct {
@@ -67,23 +63,18 @@ type hasAttributeOnDatapointArguments struct {
 }
 
 func newHasAttributeOnDatapointFactory() ottl.Factory[*ottlmetric.TransformContext] {
-	return ottl.NewFactory("HasAttrOnDatapoint", &hasAttributeOnDatapointArguments{}, createHasAttributeOnDatapointFunction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createHasAttributeOnDatapointFunction(_ ottl.FunctionContext, oArgs ottl.Arguments) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	args, ok := oArgs.(*hasAttributeOnDatapointArguments)
-
-	if !ok {
-		return nil, errors.New("hasAttributeOnDatapointFactory args must be of type *hasAttributeOnDatapointArguments")
-	}
-
-	return hasAttributeOnDatapoint(args.Key, args.ExpectedVal)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func hasAttributeOnDatapoint(key, expectedVal string) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	return func(_ context.Context, tCtx *ottlmetric.TransformContext) (any, error) {
-		return checkDataPoints(tCtx, key, &expectedVal)
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type hasAttributeKeyOnDatapointArguments struct {
@@ -91,95 +82,44 @@ type hasAttributeKeyOnDatapointArguments struct {
 }
 
 func newHasAttributeKeyOnDatapointFactory() ottl.Factory[*ottlmetric.TransformContext] {
-	return ottl.NewFactory("HasAttrKeyOnDatapoint", &hasAttributeKeyOnDatapointArguments{}, createHasAttributeKeyOnDatapointFunction)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func createHasAttributeKeyOnDatapointFunction(_ ottl.FunctionContext, oArgs ottl.Arguments) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	args, ok := oArgs.(*hasAttributeKeyOnDatapointArguments)
-
-	if !ok {
-		return nil, errors.New("hasAttributeKeyOnDatapointFactory args must be of type *hasAttributeOnDatapointArguments")
-	}
-
-	return hasAttributeKeyOnDatapoint(args.Key)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func hasAttributeKeyOnDatapoint(key string) (ottl.ExprFunc[*ottlmetric.TransformContext], error) {
-	return func(_ context.Context, tCtx *ottlmetric.TransformContext) (any, error) {
-		return checkDataPoints(tCtx, key, nil)
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func checkDataPoints(tCtx *ottlmetric.TransformContext, key string, expectedVal *string) (any, error) {
-	metric := tCtx.GetMetric()
+	_ = "STUB: not implemented"
+	return *
+
 	//exhaustive:enforce
-	switch metric.Type() {
-	case pmetric.MetricTypeSum:
-		return checkNumberDataPointSlice(metric.Sum().DataPoints(), key, expectedVal), nil
-	case pmetric.MetricTypeGauge:
-		return checkNumberDataPointSlice(metric.Gauge().DataPoints(), key, expectedVal), nil
-	case pmetric.MetricTypeHistogram:
-		return checkHistogramDataPointSlice(metric.Histogram().DataPoints(), key, expectedVal), nil
-	case pmetric.MetricTypeExponentialHistogram:
-		return checkExponentialHistogramDataPointSlice(metric.ExponentialHistogram().DataPoints(), key, expectedVal), nil
-	case pmetric.MetricTypeSummary:
-		return checkSummaryDataPointSlice(metric.Summary().DataPoints(), key, expectedVal), nil
-	}
-	return nil, errors.New("unknown metric type")
+	new(any), nil
 }
 
 func checkNumberDataPointSlice(dps pmetric.NumberDataPointSlice, key string, expectedVal *string) bool {
-	for i := 0; i < dps.Len(); i++ {
-		dp := dps.At(i)
-		value, ok := dp.Attributes().Get(key)
-		if ok {
-			if expectedVal != nil {
-				return value.Str() == *expectedVal
-			}
-			return true
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 func checkHistogramDataPointSlice(dps pmetric.HistogramDataPointSlice, key string, expectedVal *string) bool {
-	for i := 0; i < dps.Len(); i++ {
-		dp := dps.At(i)
-		value, ok := dp.Attributes().Get(key)
-		if ok {
-			if expectedVal != nil {
-				return value.Str() == *expectedVal
-			}
-			return true
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 func checkExponentialHistogramDataPointSlice(dps pmetric.ExponentialHistogramDataPointSlice, key string, expectedVal *string) bool {
-	for i := 0; i < dps.Len(); i++ {
-		dp := dps.At(i)
-		value, ok := dp.Attributes().Get(key)
-		if ok {
-			if expectedVal != nil {
-				return value.Str() == *expectedVal
-			}
-			return true
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 func checkSummaryDataPointSlice(dps pmetric.SummaryDataPointSlice, key string, expectedVal *string) bool {
-	for i := 0; i < dps.Len(); i++ {
-		dp := dps.At(i)
-		value, ok := dp.Attributes().Get(key)
-		if ok {
-			if expectedVal != nil {
-				return value.Str() == *expectedVal
-			}
-			return true
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }

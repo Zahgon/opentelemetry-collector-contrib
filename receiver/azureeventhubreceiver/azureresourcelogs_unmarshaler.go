@@ -7,9 +7,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/plog"
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/azure"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/azurelogs"
 )
 
 type logsUnmarshaler interface {
@@ -21,22 +18,8 @@ type azureResourceLogsEventUnmarshaler struct {
 }
 
 func newAzureResourceLogsUnmarshaler(buildInfo component.BuildInfo, logger *zap.Logger, applySemanticConventions bool, timeFormat []string) eventLogsUnmarshaler {
-	if applySemanticConventions {
-		return azureResourceLogsEventUnmarshaler{
-			unmarshaler: &azurelogs.ResourceLogsUnmarshaler{
-				Version:     buildInfo.Version,
-				Logger:      logger,
-				TimeFormats: timeFormat,
-			},
-		}
-	}
-	return azureResourceLogsEventUnmarshaler{
-		unmarshaler: &azure.ResourceLogsUnmarshaler{
-			Version:     buildInfo.Version,
-			Logger:      logger,
-			TimeFormats: timeFormat,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(eventLogsUnmarshaler)
 }
 
 // UnmarshalLogs takes a byte array containing a JSON-encoded
@@ -46,5 +29,6 @@ func newAzureResourceLogsUnmarshaler(buildInfo component.BuildInfo, logger *zap.
 // OpenTelemetry representation; the bodies of the
 // OpenTelemetry log records are empty.
 func (r azureResourceLogsEventUnmarshaler) UnmarshalLogs(event *azureEvent) (plog.Logs, error) {
-	return r.unmarshaler.UnmarshalLogs(event.Data())
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }

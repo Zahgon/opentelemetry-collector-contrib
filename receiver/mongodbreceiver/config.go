@@ -4,19 +4,13 @@
 package mongodbreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/mongodbreceiver"
 
 import (
-	"context"
-	"errors"
-	"fmt"
-	"strings"
 	"time"
 
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
-	"go.mongodb.org/mongo-driver/v2/mongo/readpref"
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/mongodbreceiver/internal/metadata"
 )
@@ -39,122 +33,27 @@ type Config struct {
 	DirectConnection        bool                      `mapstructure:"direct_connection"`
 }
 
-func (c *Config) Validate() error {
-	if len(c.Hosts) == 0 {
-		return errors.New("no hosts were specified in the config")
-	}
-
-	var err error
-	for _, host := range c.Hosts {
-		if host.Endpoint == "" {
-			err = multierr.Append(err, errors.New("no endpoint specified for one of the hosts"))
-		}
-	}
-
-	if c.Scheme != "" && c.Scheme != "mongodb" && c.Scheme != "mongodb+srv" {
-		err = multierr.Append(err, fmt.Errorf("invalid scheme %q, must be \"mongodb\" or \"mongodb+srv\"", c.Scheme))
-	}
-
-	if c.Scheme == "mongodb+srv" && len(c.Hosts) != 1 {
-		err = multierr.Append(err, errors.New("mongodb+srv scheme requires exactly one host"))
-	}
-
-	if c.Username != "" && c.Password == "" {
-		err = multierr.Append(err, errors.New("username provided without password"))
-	} else if c.Username == "" && c.Password != "" {
-		err = multierr.Append(err, errors.New("password provided without user"))
-	}
-
-	if _, tlsErr := c.LoadTLSConfig(context.Background()); tlsErr != nil {
-		err = multierr.Append(err, fmt.Errorf("error loading tls configuration: %w", tlsErr))
-	}
-
-	return err
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func (c *Config) ClientOptions(secondary bool) *options.ClientOptions {
-	if secondary {
-		// For secondary nodes, create a direct connection
-		clientOptions := options.Client().
-			SetHosts(c.hostlist()).
-			SetDirect(true).
-			SetReadPreference(readpref.SecondaryPreferred())
+	_ = "STUB: not implemented"
 
-		if c.Timeout > 0 {
-			clientOptions.SetConnectTimeout(c.Timeout)
-		}
-
-		// Set up authentication if username/password are provided or if an auth mechanism is specified
-		// Some mechanisms (e.g., MONGODB-X509, MONGODB-AWS with IAM) don't require username/password
-		if c.Username != "" && c.Password != "" || c.AuthMechanism != "" {
-			credential := c.buildCredential()
-			clientOptions.SetAuth(credential)
-		}
-
-		return clientOptions
-	}
-	clientOptions := options.Client()
-	scheme := c.Scheme
-	if scheme == "" {
-		scheme = "mongodb"
-	}
-	connString := scheme + "://" + strings.Join(c.hostlist(), ",")
-	clientOptions.ApplyURI(connString)
-
-	if c.Timeout > 0 {
-		clientOptions.SetConnectTimeout(c.Timeout)
-	}
-
-	tlsConfig, err := c.LoadTLSConfig(context.Background())
-	if err == nil && tlsConfig != nil {
-		clientOptions.SetTLSConfig(tlsConfig)
-	}
-
-	if c.ReplicaSet != "" {
-		clientOptions.SetReplicaSet(c.ReplicaSet)
-	}
-
-	if c.DirectConnection {
-		clientOptions.SetDirect(c.DirectConnection)
-	}
-
-	// Set up authentication if username/password are provided or if an auth mechanism is specified
-	// Some mechanisms (e.g., MONGODB-X509, MONGODB-AWS with IAM) don't require username/password
-	if c.Username != "" && c.Password != "" || c.AuthMechanism != "" {
-		credential := c.buildCredential()
-		clientOptions.SetAuth(credential)
-	}
-
-	return clientOptions
+	// For secondary nodes, create a direct connection
+	return nil
 }
+
+// Set up authentication if username/password are provided or if an auth mechanism is specified
+// Some mechanisms (e.g., MONGODB-X509, MONGODB-AWS with IAM) don't require username/password
+
+// Set up authentication if username/password are provided or if an auth mechanism is specified
+// Some mechanisms (e.g., MONGODB-X509, MONGODB-AWS with IAM) don't require username/password
 
 func (c *Config) buildCredential() options.Credential {
-	credential := options.Credential{}
-	if c.Username != "" {
-		credential.Username = c.Username
-	}
-	if c.Password != "" {
-		credential.Password = string(c.Password)
-		// PasswordSet is required for GSSAPI (Kerberos) when a password is explicitly provided.
-		// For other mechanisms, this field is ignored by the driver.
-		credential.PasswordSet = true
-	}
-	if c.AuthMechanism != "" {
-		credential.AuthMechanism = c.AuthMechanism
-	}
-	if c.AuthSource != "" {
-		credential.AuthSource = c.AuthSource
-	}
-	if len(c.AuthMechanismProperties) > 0 {
-		credential.AuthMechanismProperties = c.AuthMechanismProperties
-	}
-	return credential
+	_ = "STUB: not implemented"
+	return *new(options.Credential)
 }
 
-func (c *Config) hostlist() []string {
-	var hosts []string
-	for _, ep := range c.Hosts {
-		hosts = append(hosts, ep.Endpoint)
-	}
-	return hosts
-}
+// PasswordSet is required for GSSAPI (Kerberos) when a password is explicitly provided.
+// For other mechanisms, this field is ignored by the driver.
+
+func (c *Config) hostlist() []string { _ = "STUB: not implemented"; return nil }

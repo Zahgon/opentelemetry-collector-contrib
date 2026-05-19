@@ -4,13 +4,7 @@
 package probabilisticsamplerprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/probabilisticsamplerprocessor"
 
 import (
-	"errors"
-	"fmt"
-	"math"
-
 	"go.opentelemetry.io/collector/component"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/sampling"
 )
 
 type AttributeSource string
@@ -98,35 +92,10 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (cfg *Config) Validate() error {
-	pct := float64(cfg.SamplingPercentage)
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if math.IsInf(pct, 0) || math.IsNaN(pct) {
-		return fmt.Errorf("sampling rate is invalid: %f%%", cfg.SamplingPercentage)
-	}
-	ratio := pct / 100.0
+// Special case
 
-	switch {
-	case ratio < 0:
-		return fmt.Errorf("sampling rate is negative: %f%%", cfg.SamplingPercentage)
-	case ratio == 0:
-		// Special case
-	case ratio < sampling.MinSamplingProbability:
-		// Too-small case
-		return fmt.Errorf("sampling rate is too small: %g%%", cfg.SamplingPercentage)
-	default:
-		// Note that ratio > 1 is specifically allowed by the README, taken to mean 100%
-	}
+// Too-small case
 
-	if cfg.AttributeSource != "" && !validAttributeSource[cfg.AttributeSource] {
-		return fmt.Errorf("invalid attribute source: %v. Expected: %v or %v", cfg.AttributeSource, traceIDAttributeSource, recordAttributeSource)
-	}
-
-	if cfg.SamplingPrecision == 0 {
-		return errors.New("invalid sampling precision: 0")
-	} else if cfg.SamplingPrecision > sampling.NumHexDigits {
-		return fmt.Errorf("sampling precision is too great, should be <= 14: %d", cfg.SamplingPrecision)
-	}
-
-	return nil
-}
+// Note that ratio > 1 is specifically allowed by the README, taken to mean 100%

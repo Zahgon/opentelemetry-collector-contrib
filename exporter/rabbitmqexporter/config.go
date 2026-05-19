@@ -4,7 +4,6 @@
 package rabbitmqexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/rabbitmqexporter"
 
 import (
-	"errors"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
@@ -50,15 +49,6 @@ type PlainAuth struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.Connection.Endpoint == "" {
-		return errors.New("connection.endpoint is required")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	// Password-less users are possible so only validate username
-	if cfg.Connection.Auth.Plain.Username == "" {
-		return errors.New("connection.auth.plain.username is required")
-	}
-
-	return nil
-}
+// Password-less users are possible so only validate username

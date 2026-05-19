@@ -128,267 +128,68 @@ type TooBigSpanDetail struct {
 // This is the main entry point for exporters to get validation details as log fields
 // It returns ready-to-use zap fields that can be passed directly to the logger
 func BuildPartialSuccessLogFieldsForTraces(errorMessage string, td ptrace.Traces, appNameAttr, subsystemNameAttr string) []zap.Field {
-	fields := []zap.Field{}
-
-	if errorMessage == "" {
-		return fields
-	}
-
-	var samples any
-	var errorType PartialSuccessErrorType
-
-	switch {
-	case spanTooBigPattern.MatchString(errorMessage):
-		errorType = ErrorTypeSpanTooBig
-		if matches := spanTooBigPattern.FindStringSubmatch(errorMessage); len(matches) > 1 {
-			spanID := matches[1]
-			samples = collectSpansByID(td, spanID)
-		}
-	case invalidDurationPattern.MatchString(errorMessage):
-		errorType = ErrorTypeInvalidDuration
-		samples = collectInvalidDurationSpans(td)
-	case invalidTraceIDPattern.MatchString(errorMessage):
-		errorType = ErrorTypeInvalidTraceID
-		samples = collectInvalidTraceIDs(td)
-	case invalidSpanIDPattern.MatchString(errorMessage):
-		errorType = ErrorTypeInvalidSpanID
-		samples = collectInvalidSpanIDs(td)
-	case invalidStartTimePattern.MatchString(errorMessage):
-		errorType = ErrorTypeInvalidStartTime
-		samples = collectInvalidStartTimes(td, time.Now())
-	// Missing app or subsysten name should not happen because we are adding them in the
-	// exporter but checking just in case there is any bug
-	case missingAppNamePattern.MatchString(errorMessage):
-		errorType = ErrorTypeNoAppName
-		if appNameAttr != "" {
-			samples = collectMissingAttributes(td, appNameAttr)
-		}
-	case missingSubsystemNamePattern.MatchString(errorMessage):
-		errorType = ErrorTypeNoSubsystemName
-		if subsystemNameAttr != "" {
-			samples = collectMissingAttributes(td, subsystemNameAttr)
-		}
-	default:
-		return fields
-	}
-
-	if samples != nil {
-		return []zap.Field{
-			zap.String("partial_success_type", string(errorType)),
-			zap.Any("samples", samples),
-		}
-	}
-
-	return fields
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Missing app or subsysten name should not happen because we are adding them in the
+// exporter but checking just in case there is any bug
 
 // collectInvalidDurationSpans scans traces for spans with start time > end time
 func collectInvalidDurationSpans(td ptrace.Traces) []InvalidSpanDetail {
-	return collectInvalidSpans(td, func(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) (InvalidSpanDetail, bool) {
-		// Skip spans with zero timestamps - backend treats these as incomplete/in-progress
-		if span.StartTimestamp() == 0 || span.EndTimestamp() == 0 {
-			return InvalidSpanDetail{}, false
-		}
-		if span.StartTimestamp() <= span.EndTimestamp() {
-			return InvalidSpanDetail{}, false
-		}
-
-		base := createBaseSpanDetail(span, scope, resourceAttrs)
-		return InvalidSpanDetail{
-			SpanDetails:       base,
-			StartTimeUnixNano: uint64(span.StartTimestamp()),
-			EndTimeUnixNano:   uint64(span.EndTimestamp()),
-			DurationNano:      int64(span.EndTimestamp()) - int64(span.StartTimestamp()),
-		}, true
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Skip spans with zero timestamps - backend treats these as incomplete/in-progress
 
 // collectInvalidTraceIDs scans traces for invalid trace IDs (all zeros)
 func collectInvalidTraceIDs(td ptrace.Traces) []InvalidTraceIDDetail {
-	return collectInvalidSpans(td, func(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) (InvalidTraceIDDetail, bool) {
-		if !span.TraceID().IsEmpty() {
-			return InvalidTraceIDDetail{}, false
-		}
-		base := createBaseSpanDetail(span, scope, resourceAttrs)
-		return InvalidTraceIDDetail{
-			SpanDetails: base,
-		}, true
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // collectInvalidSpanIDs scans traces for invalid span IDs (all zeros)
 func collectInvalidSpanIDs(td ptrace.Traces) []InvalidSpanIDDetail {
-	return collectInvalidSpans(td, func(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) (InvalidSpanIDDetail, bool) {
-		if !span.SpanID().IsEmpty() {
-			return InvalidSpanIDDetail{}, false
-		}
-		base := createBaseSpanDetail(span, scope, resourceAttrs)
-		return InvalidSpanIDDetail{
-			SpanDetails: base,
-		}, true
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // collectInvalidStartTimes scans traces for invalid start times (too far in past/future)
 func collectInvalidStartTimes(td ptrace.Traces, now time.Time) []InvalidStartTimeDetail {
-	nowUnixNano := uint64(now.UnixNano())
-	return collectInvalidSpans(td, func(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) (InvalidStartTimeDetail, bool) {
-		startTime := uint64(span.StartTimestamp())
-		if startTime == 0 {
-			return InvalidStartTimeDetail{}, false
-		}
-
-		if startTime <= nowUnixNano+maxFutureNanos && startTime >= nowUnixNano-maxPastNanos {
-			return InvalidStartTimeDetail{}, false
-		}
-
-		base := createBaseSpanDetail(span, scope, resourceAttrs)
-		return InvalidStartTimeDetail{
-			SpanDetails:       base,
-			StartTimeUnixNano: startTime,
-		}, true
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // collectMissingAttributes scans traces for missing required attributes
 func collectMissingAttributes(td ptrace.Traces, attributeKey string) []MissingAttributeDetail {
-	samples := make([]MissingAttributeDetail, 0, InvalidSpanSampleLimit)
-
-	rss := td.ResourceSpans()
-	for i := 0; i < rss.Len(); i++ {
-		rs := rss.At(i)
-		attrs := rs.Resource().Attributes()
-
-		if _, ok := attrs.Get(attributeKey); !ok {
-			resourceSummary := summarizeResourceAttributes(rs.Resource(), resourceAttributeKeys)
-
-			var baseDetail BaseSpanDetail
-			scopeSpans := rs.ScopeSpans()
-			for j := 0; j < scopeSpans.Len(); j++ {
-				scopeSpan := scopeSpans.At(j)
-				scope := scopeSpan.Scope()
-				spans := scopeSpan.Spans()
-
-				if spans.Len() > 0 {
-					baseDetail = createBaseSpanDetail(spans.At(0), scope, resourceSummary)
-					break
-				}
-			}
-
-			if len(samples) < InvalidSpanSampleLimit {
-				samples = append(samples, MissingAttributeDetail{
-					SpanDetails:      baseDetail,
-					MissingAttribute: attributeKey,
-				})
-			}
-		}
-	}
-	return samples
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // collectSpansByID finds specific spans by their span ID (from backend error message)
 // Backend error format: "Span {span_id} is too big"
 func collectSpansByID(td ptrace.Traces, spanIDHex string) []TooBigSpanDetail {
-	marshaler := &ptrace.ProtoMarshaler{}
-	samples := make([]TooBigSpanDetail, 0, InvalidSpanSampleLimit)
-
-	rss := td.ResourceSpans()
-	for i := 0; i < rss.Len(); i++ {
-		rs := rss.At(i)
-		resourceSummary := summarizeResourceAttributes(rs.Resource(), resourceAttributeKeys)
-
-		scopeSpans := rs.ScopeSpans()
-		for j := 0; j < scopeSpans.Len(); j++ {
-			scopeSpan := scopeSpans.At(j)
-			scope := scopeSpan.Scope()
-			spans := scopeSpan.Spans()
-
-			for k := 0; k < spans.Len(); k++ {
-				span := spans.At(k)
-
-				if span.SpanID().String() == spanIDHex {
-					size := marshaler.SpanSize(span)
-					base := createBaseSpanDetail(span, scope, resourceSummary)
-					detail := TooBigSpanDetail{
-						SpanDetails:         base,
-						SerializedSizeBytes: size,
-					}
-					samples = append(samples, detail)
-
-					if len(samples) >= InvalidSpanSampleLimit {
-						return samples
-					}
-				}
-			}
-		}
-	}
-
-	return samples
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // collectInvalidSpans is a generic helper that iterates through spans and collects invalid ones
 type spanCollectorFunc[T any] func(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) (T, bool)
 
 func collectInvalidSpans[T any](td ptrace.Traces, collector spanCollectorFunc[T]) []T {
-	samples := make([]T, 0, InvalidSpanSampleLimit)
-
-	rss := td.ResourceSpans()
-	for i := 0; i < rss.Len(); i++ {
-		rs := rss.At(i)
-		resourceSummary := summarizeResourceAttributes(rs.Resource(), resourceAttributeKeys)
-		scopeSpans := rs.ScopeSpans()
-		for j := 0; j < scopeSpans.Len(); j++ {
-			scopeSpan := scopeSpans.At(j)
-			scope := scopeSpan.Scope()
-			spans := scopeSpan.Spans()
-			for k := 0; k < spans.Len(); k++ {
-				span := spans.At(k)
-
-				detail, isInvalid := collector(span, scope, resourceSummary)
-				if !isInvalid {
-					continue
-				}
-
-				if len(samples) < InvalidSpanSampleLimit {
-					samples = append(samples, detail)
-				}
-			}
-		}
-	}
-	return samples
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createBaseSpanDetail creates the base span detail from a span
 func createBaseSpanDetail(span ptrace.Span, scope pcommon.InstrumentationScope, resourceAttrs map[string]string) BaseSpanDetail {
-	return BaseSpanDetail{
-		TraceID:                     span.TraceID().String(),
-		SpanID:                      span.SpanID().String(),
-		SpanName:                    span.Name(),
-		ResourceAttributes:          resourceAttrs,
-		InstrumentationScopeName:    scope.Name(),
-		InstrumentationScopeVersion: scope.Version(),
-	}
+	_ = "STUB: not implemented"
+	return *new(BaseSpanDetail)
 }
 
 // summarizeResourceAttributes extracts specific resource attributes for debugging
 func summarizeResourceAttributes(res pcommon.Resource, keys []string) map[string]string {
-	if len(keys) == 0 {
-		return nil
-	}
-	attrs := res.Attributes()
-	summary := make(map[string]string, len(keys))
-	for _, key := range keys {
-		if key == "" {
-			continue
-		}
-		attr, ok := attrs.Get(key)
-		if !ok {
-			continue
-		}
-		summary[key] = attr.AsString()
-	}
-	if len(summary) == 0 {
-		return nil
-	}
-	return summary
+	_ = "STUB: not implemented"
+	return nil
 }

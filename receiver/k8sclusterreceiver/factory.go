@@ -9,9 +9,7 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/receiver"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/k8sclusterreceiver/internal/metadata"
 )
 
 const (
@@ -28,27 +26,12 @@ const (
 var defaultNodeConditionsToReport = []string{"Ready"}
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		Distribution:               defaultDistribution,
-		CollectionInterval:         defaultCollectionInterval,
-		NodeConditionTypesToReport: defaultNodeConditionsToReport,
-		APIConfig: k8sconfig.APIConfig{
-			AuthType: k8sconfig.AuthTypeServiceAccount,
-		},
-		MetadataCollectionInterval: defaultMetadataCollectionInterval,
-		MetricsBuilderConfig:       metadata.NewDefaultMetricsBuilderConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // NewFactory creates a factory for k8s_cluster receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(newMetricsReceiver, metadata.MetricsStability),
-		receiver.WithLogs(newLogsReceiver, metadata.MetricsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // This is the map of already created k8scluster receivers for particular configurations.
 // We maintain this map because the Factory is asked log and metric receivers separately

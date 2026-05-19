@@ -10,31 +10,18 @@ import (
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/consumer/xconsumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-	"go.opentelemetry.io/collector/processor/processorhelper/xprocessorhelper"
 	"go.opentelemetry.io/collector/processor/xprocessor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/attraction"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourceprocessor/internal/metadata"
 )
 
 var processorCapabilities = consumer.Capabilities{MutatesData: true}
 
 // NewFactory returns a new factory for the Resource processor.
-func NewFactory() processor.Factory {
-	return xprocessor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xprocessor.WithTraces(createTracesProcessor, metadata.TracesStability),
-		xprocessor.WithMetrics(createMetricsProcessor, metadata.MetricsStability),
-		xprocessor.WithLogs(createLogsProcessor, metadata.LogsStability),
-		xprocessor.WithProfiles(createProfilesProcessor, metadata.ProfilesStability),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 // Note: This isn't a valid configuration because the processor would do no work.
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -43,18 +30,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	attrProc, err := attraction.NewAttrProc(&attraction.Settings{Actions: cfg.(*Config).AttributesActions})
-	if err != nil {
-		return nil, err
-	}
-	proc := &resourceProcessor{logger: set.Logger, attrProc: attrProc}
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processTraces,
-		processorhelper.WithCapabilities(processorCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 func createMetricsProcessor(
@@ -63,18 +40,8 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	attrProc, err := attraction.NewAttrProc(&attraction.Settings{Actions: cfg.(*Config).AttributesActions})
-	if err != nil {
-		return nil, err
-	}
-	proc := &resourceProcessor{logger: set.Logger, attrProc: attrProc}
-	return processorhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processMetrics,
-		processorhelper.WithCapabilities(processorCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }
 
 func createLogsProcessor(
@@ -83,18 +50,8 @@ func createLogsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (processor.Logs, error) {
-	attrProc, err := attraction.NewAttrProc(&attraction.Settings{Actions: cfg.(*Config).AttributesActions})
-	if err != nil {
-		return nil, err
-	}
-	proc := &resourceProcessor{logger: set.Logger, attrProc: attrProc}
-	return processorhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processLogs,
-		processorhelper.WithCapabilities(processorCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
 
 func createProfilesProcessor(
@@ -103,16 +60,6 @@ func createProfilesProcessor(
 	cfg component.Config,
 	nextConsumer xconsumer.Profiles,
 ) (xprocessor.Profiles, error) {
-	attrProc, err := attraction.NewAttrProc(&attraction.Settings{Actions: cfg.(*Config).AttributesActions})
-	if err != nil {
-		return nil, err
-	}
-	proc := resourceProcessor{logger: set.Logger, attrProc: attrProc}
-	return xprocessorhelper.NewProfiles(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		proc.processProfiles,
-		xprocessorhelper.WithCapabilities(processorCapabilities))
+	_ = "STUB: not implemented"
+	return *new(xprocessor.Profiles), nil
 }

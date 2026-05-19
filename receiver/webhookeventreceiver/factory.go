@@ -7,8 +7,6 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
 
@@ -30,32 +28,15 @@ const (
 )
 
 // NewFactory creates a factory for Generic Webhook Receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // Default configuration for the generic webhook receiver
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{
-			NetAddr:            netAddr,
-			MaxRequestBodySize: defaultMaxRequestBodySize,
-		},
-		Path:                       defaultPath,
-		HealthPath:                 defaultHealthPath,
-		ReadTimeout:                defaultReadTimeout,
-		WriteTimeout:               defaultWriteTimeout,
-		ConvertHeadersToAttributes: false, // optional, off by default
-		SplitLogsAtNewLine:         false,
-		SplitLogsAtJSONBoundary:    false,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// optional, off by default
 
 // createLogsReceiver creates a logs receiver based on provided config.
 func createLogsReceiver(
@@ -64,6 +45,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	conf := cfg.(*Config)
-	return newLogsReceiver(params, *conf, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

@@ -21,25 +21,11 @@ const (
 )
 
 func newDimensions(cfgDims []Dimension) []pdatautil.Dimension {
-	if len(cfgDims) == 0 {
-		return nil
-	}
-	dims := make([]pdatautil.Dimension, len(cfgDims))
-	for i := range cfgDims {
-		dims[i].Name = cfgDims[i].Name
-		if cfgDims[i].Default != nil {
-			val := pcommon.NewValueStr(*cfgDims[i].Default)
-			dims[i].Value = &val
-		}
-	}
-	return dims
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func findAttributeValue(key string, attributes ...pcommon.Map) (string, bool) {
-	for _, attr := range attributes {
-		if v, ok := attr.Get(key); ok {
-			return v.AsString(), true
-		}
-	}
+	_ = "STUB: not implemented"
 	return "", false
 }

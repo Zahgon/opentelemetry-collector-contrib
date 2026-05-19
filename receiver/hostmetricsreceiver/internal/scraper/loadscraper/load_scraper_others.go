@@ -14,17 +14,18 @@ import (
 )
 
 // no sampling performed on non windows environments, nothing to do
-func setSamplingFrequency(_ time.Duration) {}
+func setSamplingFrequency(_ time.Duration) {
+	_ = "STUB: not implemented"
 
-// unix based systems sample & compute load averages in the kernel, so nothing to do here
-func startSampling(_ context.Context, _ *zap.Logger) error {
-	return nil
+	// unix based systems sample & compute load averages in the kernel, so nothing to do here
+	return
 }
 
-func stopSampling(_ context.Context) error {
-	return nil
-}
+func startSampling(_ context.Context, _ *zap.Logger) error { _ = "STUB: not implemented"; return nil }
+
+func stopSampling(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func getSampledLoadAverages(ctx context.Context) (*load.AvgStat, error) {
-	return load.AvgWithContext(ctx)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

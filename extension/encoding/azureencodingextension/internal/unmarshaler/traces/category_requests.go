@@ -8,9 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/ptrace"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -31,23 +28,19 @@ type azureAppRequests struct {
 
 // GetSpanKind determines the SpanKind based on the provided URL
 func (r *azureAppRequests) GetSpanKind() ptrace.SpanKind {
+	_ = "STUB: not implemented"
 	// If URL is set - we can assume that it's "Server" SpanKind
-	if r.URL != "" {
-		return ptrace.SpanKindServer
-	}
-
-	// By default - returns "Internal" Span Kind as of OpenTelemetry SemConv Spec
-	return ptrace.SpanKindInternal
+	return *new(ptrace.SpanKind)
 }
+
+// By default - returns "Internal" Span Kind as of OpenTelemetry SemConv Spec
 
 // PutCommonAttributes puts already parsed common attributes into provided Attributes Map/Body
 func (r *azureAppRequests) PutCommonAttributes(attrs pcommon.Map) {
-	r.azureTracesRecordBase.PutCommonAttributes(attrs)
-
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRequestSource, r.Source) // unstable SemConv
-	unmarshaler.AttrPutURLParsed(attrs, r.URL)
-	// If ResultCode AND URL are set - put status code to the attributes
-	if r.URL != "" {
-		unmarshaler.AttrPutIntNumberPtrIf(attrs, string(conventions.HTTPResponseStatusCodeKey), r.ResultCode)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// unstable SemConv
+
+// If ResultCode AND URL are set - put status code to the attributes

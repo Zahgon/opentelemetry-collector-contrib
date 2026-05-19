@@ -3,11 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -32,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCheckpoint.
-func (av AttributeCheckpoint) String() string {
-	switch av {
-	case AttributeCheckpointCompleted:
-		return "completed"
-	case AttributeCheckpointFailed:
-		return "failed"
-	}
-	return ""
-}
+func (av AttributeCheckpoint) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCheckpoint is a helper map of string to AttributeCheckpoint attribute value.
 var MapAttributeCheckpoint = map[string]AttributeCheckpoint{
@@ -60,19 +47,7 @@ const (
 )
 
 // String returns the string representation of the AttributeGarbageCollectorName.
-func (av AttributeGarbageCollectorName) String() string {
-	switch av {
-	case AttributeGarbageCollectorNamePSMarkSweep:
-		return "PS_MarkSweep"
-	case AttributeGarbageCollectorNamePSScavenge:
-		return "PS_Scavenge"
-	case AttributeGarbageCollectorNameG1YoungGeneration:
-		return "G1_Young_Generation"
-	case AttributeGarbageCollectorNameG1OldGeneration:
-		return "G1_Old_Generation"
-	}
-	return ""
-}
+func (av AttributeGarbageCollectorName) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeGarbageCollectorName is a helper map of string to AttributeGarbageCollectorName attribute value.
 var MapAttributeGarbageCollectorName = map[string]AttributeGarbageCollectorName{
@@ -93,17 +68,7 @@ const (
 )
 
 // String returns the string representation of the AttributeRecord.
-func (av AttributeRecord) String() string {
-	switch av {
-	case AttributeRecordIn:
-		return "in"
-	case AttributeRecordOut:
-		return "out"
-	case AttributeRecordDropped:
-		return "dropped"
-	}
-	return ""
-}
+func (av AttributeRecord) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeRecord is a helper map of string to AttributeRecord attribute value.
 var MapAttributeRecord = map[string]AttributeRecord{
@@ -256,40 +221,22 @@ func (m *metricFlinkJobCheckpointCount) init() {
 }
 
 func (m *metricFlinkJobCheckpointCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, checkpointAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("checkpoint", checkpointAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJobCheckpointCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJobCheckpointCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJobCheckpointCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJobCheckpointCount(cfg FlinkJobCheckpointCountMetricConfig) metricFlinkJobCheckpointCount {
-	m := metricFlinkJobCheckpointCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJobCheckpointCount)
 }
 
 type metricFlinkJobCheckpointInProgress struct {
@@ -309,39 +256,22 @@ func (m *metricFlinkJobCheckpointInProgress) init() {
 }
 
 func (m *metricFlinkJobCheckpointInProgress) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJobCheckpointInProgress) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJobCheckpointInProgress) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJobCheckpointInProgress) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJobCheckpointInProgress(cfg FlinkJobCheckpointInProgressMetricConfig) metricFlinkJobCheckpointInProgress {
-	m := metricFlinkJobCheckpointInProgress{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJobCheckpointInProgress)
 }
 
 type metricFlinkJobLastCheckpointSize struct {
@@ -361,39 +291,22 @@ func (m *metricFlinkJobLastCheckpointSize) init() {
 }
 
 func (m *metricFlinkJobLastCheckpointSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJobLastCheckpointSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJobLastCheckpointSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJobLastCheckpointSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJobLastCheckpointSize(cfg FlinkJobLastCheckpointSizeMetricConfig) metricFlinkJobLastCheckpointSize {
-	m := metricFlinkJobLastCheckpointSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJobLastCheckpointSize)
 }
 
 type metricFlinkJobLastCheckpointTime struct {
@@ -411,39 +324,22 @@ func (m *metricFlinkJobLastCheckpointTime) init() {
 }
 
 func (m *metricFlinkJobLastCheckpointTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJobLastCheckpointTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJobLastCheckpointTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJobLastCheckpointTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJobLastCheckpointTime(cfg FlinkJobLastCheckpointTimeMetricConfig) metricFlinkJobLastCheckpointTime {
-	m := metricFlinkJobLastCheckpointTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJobLastCheckpointTime)
 }
 
 type metricFlinkJobRestartCount struct {
@@ -463,39 +359,22 @@ func (m *metricFlinkJobRestartCount) init() {
 }
 
 func (m *metricFlinkJobRestartCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJobRestartCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJobRestartCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJobRestartCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJobRestartCount(cfg FlinkJobRestartCountMetricConfig) metricFlinkJobRestartCount {
-	m := metricFlinkJobRestartCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJobRestartCount)
 }
 
 type metricFlinkJvmClassLoaderClassesLoaded struct {
@@ -515,39 +394,25 @@ func (m *metricFlinkJvmClassLoaderClassesLoaded) init() {
 }
 
 func (m *metricFlinkJvmClassLoaderClassesLoaded) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricFlinkJvmClassLoaderClassesLoaded) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmClassLoaderClassesLoaded) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmClassLoaderClassesLoaded(cfg FlinkJvmClassLoaderClassesLoadedMetricConfig) metricFlinkJvmClassLoaderClassesLoaded {
-	m := metricFlinkJvmClassLoaderClassesLoaded{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmClassLoaderClassesLoaded)
 }
 
 type metricFlinkJvmCPULoad struct {
@@ -565,39 +430,22 @@ func (m *metricFlinkJvmCPULoad) init() {
 }
 
 func (m *metricFlinkJvmCPULoad) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmCPULoad) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmCPULoad) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmCPULoad) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmCPULoad(cfg FlinkJvmCPULoadMetricConfig) metricFlinkJvmCPULoad {
-	m := metricFlinkJvmCPULoad{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmCPULoad)
 }
 
 type metricFlinkJvmCPUTime struct {
@@ -617,39 +465,22 @@ func (m *metricFlinkJvmCPUTime) init() {
 }
 
 func (m *metricFlinkJvmCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmCPUTime(cfg FlinkJvmCPUTimeMetricConfig) metricFlinkJvmCPUTime {
-	m := metricFlinkJvmCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmCPUTime)
 }
 
 type metricFlinkJvmGcCollectionsCount struct {
@@ -670,40 +501,22 @@ func (m *metricFlinkJvmGcCollectionsCount) init() {
 }
 
 func (m *metricFlinkJvmGcCollectionsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, garbageCollectorNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("name", garbageCollectorNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmGcCollectionsCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmGcCollectionsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmGcCollectionsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmGcCollectionsCount(cfg FlinkJvmGcCollectionsCountMetricConfig) metricFlinkJvmGcCollectionsCount {
-	m := metricFlinkJvmGcCollectionsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmGcCollectionsCount)
 }
 
 type metricFlinkJvmGcCollectionsTime struct {
@@ -724,40 +537,22 @@ func (m *metricFlinkJvmGcCollectionsTime) init() {
 }
 
 func (m *metricFlinkJvmGcCollectionsTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, garbageCollectorNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("name", garbageCollectorNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmGcCollectionsTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmGcCollectionsTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmGcCollectionsTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmGcCollectionsTime(cfg FlinkJvmGcCollectionsTimeMetricConfig) metricFlinkJvmGcCollectionsTime {
-	m := metricFlinkJvmGcCollectionsTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmGcCollectionsTime)
 }
 
 type metricFlinkJvmMemoryDirectTotalCapacity struct {
@@ -777,39 +572,25 @@ func (m *metricFlinkJvmMemoryDirectTotalCapacity) init() {
 }
 
 func (m *metricFlinkJvmMemoryDirectTotalCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricFlinkJvmMemoryDirectTotalCapacity) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryDirectTotalCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryDirectTotalCapacity(cfg FlinkJvmMemoryDirectTotalCapacityMetricConfig) metricFlinkJvmMemoryDirectTotalCapacity {
-	m := metricFlinkJvmMemoryDirectTotalCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryDirectTotalCapacity)
 }
 
 type metricFlinkJvmMemoryDirectUsed struct {
@@ -829,39 +610,22 @@ func (m *metricFlinkJvmMemoryDirectUsed) init() {
 }
 
 func (m *metricFlinkJvmMemoryDirectUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryDirectUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryDirectUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryDirectUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryDirectUsed(cfg FlinkJvmMemoryDirectUsedMetricConfig) metricFlinkJvmMemoryDirectUsed {
-	m := metricFlinkJvmMemoryDirectUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryDirectUsed)
 }
 
 type metricFlinkJvmMemoryHeapCommitted struct {
@@ -881,39 +645,22 @@ func (m *metricFlinkJvmMemoryHeapCommitted) init() {
 }
 
 func (m *metricFlinkJvmMemoryHeapCommitted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryHeapCommitted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryHeapCommitted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryHeapCommitted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryHeapCommitted(cfg FlinkJvmMemoryHeapCommittedMetricConfig) metricFlinkJvmMemoryHeapCommitted {
-	m := metricFlinkJvmMemoryHeapCommitted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryHeapCommitted)
 }
 
 type metricFlinkJvmMemoryHeapMax struct {
@@ -933,39 +680,22 @@ func (m *metricFlinkJvmMemoryHeapMax) init() {
 }
 
 func (m *metricFlinkJvmMemoryHeapMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryHeapMax) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryHeapMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryHeapMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryHeapMax(cfg FlinkJvmMemoryHeapMaxMetricConfig) metricFlinkJvmMemoryHeapMax {
-	m := metricFlinkJvmMemoryHeapMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryHeapMax)
 }
 
 type metricFlinkJvmMemoryHeapUsed struct {
@@ -985,39 +715,22 @@ func (m *metricFlinkJvmMemoryHeapUsed) init() {
 }
 
 func (m *metricFlinkJvmMemoryHeapUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryHeapUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryHeapUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryHeapUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryHeapUsed(cfg FlinkJvmMemoryHeapUsedMetricConfig) metricFlinkJvmMemoryHeapUsed {
-	m := metricFlinkJvmMemoryHeapUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryHeapUsed)
 }
 
 type metricFlinkJvmMemoryMappedTotalCapacity struct {
@@ -1037,39 +750,25 @@ func (m *metricFlinkJvmMemoryMappedTotalCapacity) init() {
 }
 
 func (m *metricFlinkJvmMemoryMappedTotalCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricFlinkJvmMemoryMappedTotalCapacity) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryMappedTotalCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryMappedTotalCapacity(cfg FlinkJvmMemoryMappedTotalCapacityMetricConfig) metricFlinkJvmMemoryMappedTotalCapacity {
-	m := metricFlinkJvmMemoryMappedTotalCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryMappedTotalCapacity)
 }
 
 type metricFlinkJvmMemoryMappedUsed struct {
@@ -1089,39 +788,22 @@ func (m *metricFlinkJvmMemoryMappedUsed) init() {
 }
 
 func (m *metricFlinkJvmMemoryMappedUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryMappedUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryMappedUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryMappedUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryMappedUsed(cfg FlinkJvmMemoryMappedUsedMetricConfig) metricFlinkJvmMemoryMappedUsed {
-	m := metricFlinkJvmMemoryMappedUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryMappedUsed)
 }
 
 type metricFlinkJvmMemoryMetaspaceCommitted struct {
@@ -1141,39 +823,25 @@ func (m *metricFlinkJvmMemoryMetaspaceCommitted) init() {
 }
 
 func (m *metricFlinkJvmMemoryMetaspaceCommitted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricFlinkJvmMemoryMetaspaceCommitted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryMetaspaceCommitted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryMetaspaceCommitted(cfg FlinkJvmMemoryMetaspaceCommittedMetricConfig) metricFlinkJvmMemoryMetaspaceCommitted {
-	m := metricFlinkJvmMemoryMetaspaceCommitted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryMetaspaceCommitted)
 }
 
 type metricFlinkJvmMemoryMetaspaceMax struct {
@@ -1193,39 +861,22 @@ func (m *metricFlinkJvmMemoryMetaspaceMax) init() {
 }
 
 func (m *metricFlinkJvmMemoryMetaspaceMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryMetaspaceMax) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryMetaspaceMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryMetaspaceMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryMetaspaceMax(cfg FlinkJvmMemoryMetaspaceMaxMetricConfig) metricFlinkJvmMemoryMetaspaceMax {
-	m := metricFlinkJvmMemoryMetaspaceMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryMetaspaceMax)
 }
 
 type metricFlinkJvmMemoryMetaspaceUsed struct {
@@ -1245,39 +896,22 @@ func (m *metricFlinkJvmMemoryMetaspaceUsed) init() {
 }
 
 func (m *metricFlinkJvmMemoryMetaspaceUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryMetaspaceUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryMetaspaceUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryMetaspaceUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryMetaspaceUsed(cfg FlinkJvmMemoryMetaspaceUsedMetricConfig) metricFlinkJvmMemoryMetaspaceUsed {
-	m := metricFlinkJvmMemoryMetaspaceUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryMetaspaceUsed)
 }
 
 type metricFlinkJvmMemoryNonheapCommitted struct {
@@ -1297,39 +931,22 @@ func (m *metricFlinkJvmMemoryNonheapCommitted) init() {
 }
 
 func (m *metricFlinkJvmMemoryNonheapCommitted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryNonheapCommitted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryNonheapCommitted) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryNonheapCommitted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryNonheapCommitted(cfg FlinkJvmMemoryNonheapCommittedMetricConfig) metricFlinkJvmMemoryNonheapCommitted {
-	m := metricFlinkJvmMemoryNonheapCommitted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryNonheapCommitted)
 }
 
 type metricFlinkJvmMemoryNonheapMax struct {
@@ -1349,39 +966,22 @@ func (m *metricFlinkJvmMemoryNonheapMax) init() {
 }
 
 func (m *metricFlinkJvmMemoryNonheapMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryNonheapMax) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryNonheapMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryNonheapMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryNonheapMax(cfg FlinkJvmMemoryNonheapMaxMetricConfig) metricFlinkJvmMemoryNonheapMax {
-	m := metricFlinkJvmMemoryNonheapMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryNonheapMax)
 }
 
 type metricFlinkJvmMemoryNonheapUsed struct {
@@ -1401,39 +1001,22 @@ func (m *metricFlinkJvmMemoryNonheapUsed) init() {
 }
 
 func (m *metricFlinkJvmMemoryNonheapUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmMemoryNonheapUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmMemoryNonheapUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmMemoryNonheapUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmMemoryNonheapUsed(cfg FlinkJvmMemoryNonheapUsedMetricConfig) metricFlinkJvmMemoryNonheapUsed {
-	m := metricFlinkJvmMemoryNonheapUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmMemoryNonheapUsed)
 }
 
 type metricFlinkJvmThreadsCount struct {
@@ -1453,39 +1036,22 @@ func (m *metricFlinkJvmThreadsCount) init() {
 }
 
 func (m *metricFlinkJvmThreadsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkJvmThreadsCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkJvmThreadsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkJvmThreadsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkJvmThreadsCount(cfg FlinkJvmThreadsCountMetricConfig) metricFlinkJvmThreadsCount {
-	m := metricFlinkJvmThreadsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkJvmThreadsCount)
 }
 
 type metricFlinkMemoryManagedTotal struct {
@@ -1505,39 +1071,22 @@ func (m *metricFlinkMemoryManagedTotal) init() {
 }
 
 func (m *metricFlinkMemoryManagedTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkMemoryManagedTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkMemoryManagedTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkMemoryManagedTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkMemoryManagedTotal(cfg FlinkMemoryManagedTotalMetricConfig) metricFlinkMemoryManagedTotal {
-	m := metricFlinkMemoryManagedTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkMemoryManagedTotal)
 }
 
 type metricFlinkMemoryManagedUsed struct {
@@ -1557,39 +1106,22 @@ func (m *metricFlinkMemoryManagedUsed) init() {
 }
 
 func (m *metricFlinkMemoryManagedUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkMemoryManagedUsed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkMemoryManagedUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkMemoryManagedUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkMemoryManagedUsed(cfg FlinkMemoryManagedUsedMetricConfig) metricFlinkMemoryManagedUsed {
-	m := metricFlinkMemoryManagedUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkMemoryManagedUsed)
 }
 
 type metricFlinkOperatorRecordCount struct {
@@ -1612,78 +1144,22 @@ func (m *metricFlinkOperatorRecordCount) init() {
 }
 
 func (m *metricFlinkOperatorRecordCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operatorNameAttributeValue string, recordAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, FlinkOperatorRecordCountMetricAttributeKeyOperatorName) {
-		dp.Attributes().PutStr("name", operatorNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, FlinkOperatorRecordCountMetricAttributeKeyRecord) {
-		dp.Attributes().PutStr("record", recordAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkOperatorRecordCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkOperatorRecordCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkOperatorRecordCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkOperatorRecordCount(cfg FlinkOperatorRecordCountMetricConfig) metricFlinkOperatorRecordCount {
-	m := metricFlinkOperatorRecordCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkOperatorRecordCount)
 }
 
 type metricFlinkOperatorWatermarkOutput struct {
@@ -1706,75 +1182,22 @@ func (m *metricFlinkOperatorWatermarkOutput) init() {
 }
 
 func (m *metricFlinkOperatorWatermarkOutput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, operatorNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, FlinkOperatorWatermarkOutputMetricAttributeKeyOperatorName) {
-		dp.Attributes().PutStr("name", operatorNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkOperatorWatermarkOutput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkOperatorWatermarkOutput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkOperatorWatermarkOutput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkOperatorWatermarkOutput(cfg FlinkOperatorWatermarkOutputMetricConfig) metricFlinkOperatorWatermarkOutput {
-	m := metricFlinkOperatorWatermarkOutput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkOperatorWatermarkOutput)
 }
 
 type metricFlinkTaskRecordCount struct {
@@ -1795,40 +1218,22 @@ func (m *metricFlinkTaskRecordCount) init() {
 }
 
 func (m *metricFlinkTaskRecordCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, recordAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
-	dp.Attributes().PutStr("record", recordAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFlinkTaskRecordCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricFlinkTaskRecordCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFlinkTaskRecordCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFlinkTaskRecordCount(cfg FlinkTaskRecordCountMetricConfig) metricFlinkTaskRecordCount {
-	m := metricFlinkTaskRecordCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFlinkTaskRecordCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1880,106 +1285,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                  mbc,
-		startTime:                               pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                           pmetric.NewMetrics(),
-		buildInfo:                               settings.BuildInfo,
-		metricFlinkJobCheckpointCount:           newMetricFlinkJobCheckpointCount(mbc.Metrics.FlinkJobCheckpointCount),
-		metricFlinkJobCheckpointInProgress:      newMetricFlinkJobCheckpointInProgress(mbc.Metrics.FlinkJobCheckpointInProgress),
-		metricFlinkJobLastCheckpointSize:        newMetricFlinkJobLastCheckpointSize(mbc.Metrics.FlinkJobLastCheckpointSize),
-		metricFlinkJobLastCheckpointTime:        newMetricFlinkJobLastCheckpointTime(mbc.Metrics.FlinkJobLastCheckpointTime),
-		metricFlinkJobRestartCount:              newMetricFlinkJobRestartCount(mbc.Metrics.FlinkJobRestartCount),
-		metricFlinkJvmClassLoaderClassesLoaded:  newMetricFlinkJvmClassLoaderClassesLoaded(mbc.Metrics.FlinkJvmClassLoaderClassesLoaded),
-		metricFlinkJvmCPULoad:                   newMetricFlinkJvmCPULoad(mbc.Metrics.FlinkJvmCPULoad),
-		metricFlinkJvmCPUTime:                   newMetricFlinkJvmCPUTime(mbc.Metrics.FlinkJvmCPUTime),
-		metricFlinkJvmGcCollectionsCount:        newMetricFlinkJvmGcCollectionsCount(mbc.Metrics.FlinkJvmGcCollectionsCount),
-		metricFlinkJvmGcCollectionsTime:         newMetricFlinkJvmGcCollectionsTime(mbc.Metrics.FlinkJvmGcCollectionsTime),
-		metricFlinkJvmMemoryDirectTotalCapacity: newMetricFlinkJvmMemoryDirectTotalCapacity(mbc.Metrics.FlinkJvmMemoryDirectTotalCapacity),
-		metricFlinkJvmMemoryDirectUsed:          newMetricFlinkJvmMemoryDirectUsed(mbc.Metrics.FlinkJvmMemoryDirectUsed),
-		metricFlinkJvmMemoryHeapCommitted:       newMetricFlinkJvmMemoryHeapCommitted(mbc.Metrics.FlinkJvmMemoryHeapCommitted),
-		metricFlinkJvmMemoryHeapMax:             newMetricFlinkJvmMemoryHeapMax(mbc.Metrics.FlinkJvmMemoryHeapMax),
-		metricFlinkJvmMemoryHeapUsed:            newMetricFlinkJvmMemoryHeapUsed(mbc.Metrics.FlinkJvmMemoryHeapUsed),
-		metricFlinkJvmMemoryMappedTotalCapacity: newMetricFlinkJvmMemoryMappedTotalCapacity(mbc.Metrics.FlinkJvmMemoryMappedTotalCapacity),
-		metricFlinkJvmMemoryMappedUsed:          newMetricFlinkJvmMemoryMappedUsed(mbc.Metrics.FlinkJvmMemoryMappedUsed),
-		metricFlinkJvmMemoryMetaspaceCommitted:  newMetricFlinkJvmMemoryMetaspaceCommitted(mbc.Metrics.FlinkJvmMemoryMetaspaceCommitted),
-		metricFlinkJvmMemoryMetaspaceMax:        newMetricFlinkJvmMemoryMetaspaceMax(mbc.Metrics.FlinkJvmMemoryMetaspaceMax),
-		metricFlinkJvmMemoryMetaspaceUsed:       newMetricFlinkJvmMemoryMetaspaceUsed(mbc.Metrics.FlinkJvmMemoryMetaspaceUsed),
-		metricFlinkJvmMemoryNonheapCommitted:    newMetricFlinkJvmMemoryNonheapCommitted(mbc.Metrics.FlinkJvmMemoryNonheapCommitted),
-		metricFlinkJvmMemoryNonheapMax:          newMetricFlinkJvmMemoryNonheapMax(mbc.Metrics.FlinkJvmMemoryNonheapMax),
-		metricFlinkJvmMemoryNonheapUsed:         newMetricFlinkJvmMemoryNonheapUsed(mbc.Metrics.FlinkJvmMemoryNonheapUsed),
-		metricFlinkJvmThreadsCount:              newMetricFlinkJvmThreadsCount(mbc.Metrics.FlinkJvmThreadsCount),
-		metricFlinkMemoryManagedTotal:           newMetricFlinkMemoryManagedTotal(mbc.Metrics.FlinkMemoryManagedTotal),
-		metricFlinkMemoryManagedUsed:            newMetricFlinkMemoryManagedUsed(mbc.Metrics.FlinkMemoryManagedUsed),
-		metricFlinkOperatorRecordCount:          newMetricFlinkOperatorRecordCount(mbc.Metrics.FlinkOperatorRecordCount),
-		metricFlinkOperatorWatermarkOutput:      newMetricFlinkOperatorWatermarkOutput(mbc.Metrics.FlinkOperatorWatermarkOutput),
-		metricFlinkTaskRecordCount:              newMetricFlinkTaskRecordCount(mbc.Metrics.FlinkTaskRecordCount),
-		resourceAttributeIncludeFilter:          make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:          make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.FlinkJobName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["flink.job.name"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkJobName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FlinkJobName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["flink.job.name"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkJobName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.FlinkResourceType.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["flink.resource.type"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkResourceType.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FlinkResourceType.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["flink.resource.type"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkResourceType.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.FlinkSubtaskIndex.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["flink.subtask.index"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkSubtaskIndex.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FlinkSubtaskIndex.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["flink.subtask.index"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkSubtaskIndex.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.FlinkTaskName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["flink.task.name"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkTaskName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FlinkTaskName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["flink.task.name"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkTaskName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.FlinkTaskmanagerID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["flink.taskmanager.id"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkTaskmanagerID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FlinkTaskmanagerID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["flink.taskmanager.id"] = filter.CreateFilter(mbc.ResourceAttributes.FlinkTaskmanagerID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.HostName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HostName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1990,35 +1321,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -2027,366 +1346,192 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricFlinkJobCheckpointCount.emit(ils.Metrics())
-	mb.metricFlinkJobCheckpointInProgress.emit(ils.Metrics())
-	mb.metricFlinkJobLastCheckpointSize.emit(ils.Metrics())
-	mb.metricFlinkJobLastCheckpointTime.emit(ils.Metrics())
-	mb.metricFlinkJobRestartCount.emit(ils.Metrics())
-	mb.metricFlinkJvmClassLoaderClassesLoaded.emit(ils.Metrics())
-	mb.metricFlinkJvmCPULoad.emit(ils.Metrics())
-	mb.metricFlinkJvmCPUTime.emit(ils.Metrics())
-	mb.metricFlinkJvmGcCollectionsCount.emit(ils.Metrics())
-	mb.metricFlinkJvmGcCollectionsTime.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryDirectTotalCapacity.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryDirectUsed.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryHeapCommitted.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryHeapMax.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryHeapUsed.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryMappedTotalCapacity.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryMappedUsed.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryMetaspaceCommitted.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryMetaspaceMax.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryMetaspaceUsed.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryNonheapCommitted.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryNonheapMax.emit(ils.Metrics())
-	mb.metricFlinkJvmMemoryNonheapUsed.emit(ils.Metrics())
-	mb.metricFlinkJvmThreadsCount.emit(ils.Metrics())
-	mb.metricFlinkMemoryManagedTotal.emit(ils.Metrics())
-	mb.metricFlinkMemoryManagedUsed.emit(ils.Metrics())
-	mb.metricFlinkOperatorRecordCount.emit(ils.Metrics())
-	mb.metricFlinkOperatorWatermarkOutput.emit(ils.Metrics())
-	mb.metricFlinkTaskRecordCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordFlinkJobCheckpointCountDataPoint adds a data point to flink.job.checkpoint.count metric.
 func (mb *MetricsBuilder) RecordFlinkJobCheckpointCountDataPoint(ts pcommon.Timestamp, inputVal string, checkpointAttributeValue AttributeCheckpoint) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJobCheckpointCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJobCheckpointCount.recordDataPoint(mb.startTime, ts, val, checkpointAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJobCheckpointInProgressDataPoint adds a data point to flink.job.checkpoint.in_progress metric.
 func (mb *MetricsBuilder) RecordFlinkJobCheckpointInProgressDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJobCheckpointInProgress, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJobCheckpointInProgress.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJobLastCheckpointSizeDataPoint adds a data point to flink.job.last_checkpoint.size metric.
 func (mb *MetricsBuilder) RecordFlinkJobLastCheckpointSizeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJobLastCheckpointSize, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJobLastCheckpointSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJobLastCheckpointTimeDataPoint adds a data point to flink.job.last_checkpoint.time metric.
 func (mb *MetricsBuilder) RecordFlinkJobLastCheckpointTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJobLastCheckpointTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJobLastCheckpointTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJobRestartCountDataPoint adds a data point to flink.job.restart.count metric.
 func (mb *MetricsBuilder) RecordFlinkJobRestartCountDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJobRestartCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJobRestartCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmClassLoaderClassesLoadedDataPoint adds a data point to flink.jvm.class_loader.classes_loaded metric.
 func (mb *MetricsBuilder) RecordFlinkJvmClassLoaderClassesLoadedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmClassLoaderClassesLoaded, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmClassLoaderClassesLoaded.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmCPULoadDataPoint adds a data point to flink.jvm.cpu.load metric.
 func (mb *MetricsBuilder) RecordFlinkJvmCPULoadDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for FlinkJvmCPULoad, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmCPULoad.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmCPUTimeDataPoint adds a data point to flink.jvm.cpu.time metric.
 func (mb *MetricsBuilder) RecordFlinkJvmCPUTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmCPUTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmGcCollectionsCountDataPoint adds a data point to flink.jvm.gc.collections.count metric.
 func (mb *MetricsBuilder) RecordFlinkJvmGcCollectionsCountDataPoint(ts pcommon.Timestamp, inputVal string, garbageCollectorNameAttributeValue AttributeGarbageCollectorName) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmGcCollectionsCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmGcCollectionsCount.recordDataPoint(mb.startTime, ts, val, garbageCollectorNameAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmGcCollectionsTimeDataPoint adds a data point to flink.jvm.gc.collections.time metric.
 func (mb *MetricsBuilder) RecordFlinkJvmGcCollectionsTimeDataPoint(ts pcommon.Timestamp, inputVal string, garbageCollectorNameAttributeValue AttributeGarbageCollectorName) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmGcCollectionsTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmGcCollectionsTime.recordDataPoint(mb.startTime, ts, val, garbageCollectorNameAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryDirectTotalCapacityDataPoint adds a data point to flink.jvm.memory.direct.total_capacity metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryDirectTotalCapacityDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryDirectTotalCapacity, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryDirectTotalCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryDirectUsedDataPoint adds a data point to flink.jvm.memory.direct.used metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryDirectUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryDirectUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryDirectUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryHeapCommittedDataPoint adds a data point to flink.jvm.memory.heap.committed metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryHeapCommittedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryHeapCommitted, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryHeapCommitted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryHeapMaxDataPoint adds a data point to flink.jvm.memory.heap.max metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryHeapMaxDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryHeapMax, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryHeapMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryHeapUsedDataPoint adds a data point to flink.jvm.memory.heap.used metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryHeapUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryHeapUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryHeapUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryMappedTotalCapacityDataPoint adds a data point to flink.jvm.memory.mapped.total_capacity metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryMappedTotalCapacityDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryMappedTotalCapacity, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryMappedTotalCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryMappedUsedDataPoint adds a data point to flink.jvm.memory.mapped.used metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryMappedUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryMappedUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryMappedUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryMetaspaceCommittedDataPoint adds a data point to flink.jvm.memory.metaspace.committed metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryMetaspaceCommittedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryMetaspaceCommitted, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryMetaspaceCommitted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryMetaspaceMaxDataPoint adds a data point to flink.jvm.memory.metaspace.max metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryMetaspaceMaxDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryMetaspaceMax, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryMetaspaceMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryMetaspaceUsedDataPoint adds a data point to flink.jvm.memory.metaspace.used metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryMetaspaceUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryMetaspaceUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryMetaspaceUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryNonheapCommittedDataPoint adds a data point to flink.jvm.memory.nonheap.committed metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryNonheapCommittedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryNonheapCommitted, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryNonheapCommitted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryNonheapMaxDataPoint adds a data point to flink.jvm.memory.nonheap.max metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryNonheapMaxDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryNonheapMax, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryNonheapMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmMemoryNonheapUsedDataPoint adds a data point to flink.jvm.memory.nonheap.used metric.
 func (mb *MetricsBuilder) RecordFlinkJvmMemoryNonheapUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmMemoryNonheapUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmMemoryNonheapUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkJvmThreadsCountDataPoint adds a data point to flink.jvm.threads.count metric.
 func (mb *MetricsBuilder) RecordFlinkJvmThreadsCountDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkJvmThreadsCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkJvmThreadsCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkMemoryManagedTotalDataPoint adds a data point to flink.memory.managed.total metric.
 func (mb *MetricsBuilder) RecordFlinkMemoryManagedTotalDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkMemoryManagedTotal, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkMemoryManagedTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkMemoryManagedUsedDataPoint adds a data point to flink.memory.managed.used metric.
 func (mb *MetricsBuilder) RecordFlinkMemoryManagedUsedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkMemoryManagedUsed, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkMemoryManagedUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkOperatorRecordCountDataPoint adds a data point to flink.operator.record.count metric.
 func (mb *MetricsBuilder) RecordFlinkOperatorRecordCountDataPoint(ts pcommon.Timestamp, inputVal string, operatorNameAttributeValue string, recordAttributeValue AttributeRecord) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkOperatorRecordCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkOperatorRecordCount.recordDataPoint(mb.startTime, ts, val, operatorNameAttributeValue, recordAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkOperatorWatermarkOutputDataPoint adds a data point to flink.operator.watermark.output metric.
 func (mb *MetricsBuilder) RecordFlinkOperatorWatermarkOutputDataPoint(ts pcommon.Timestamp, inputVal string, operatorNameAttributeValue string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkOperatorWatermarkOutput, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkOperatorWatermarkOutput.recordDataPoint(mb.startTime, ts, val, operatorNameAttributeValue)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordFlinkTaskRecordCountDataPoint adds a data point to flink.task.record.count metric.
 func (mb *MetricsBuilder) RecordFlinkTaskRecordCountDataPoint(ts pcommon.Timestamp, inputVal string, recordAttributeValue AttributeRecord) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for FlinkTaskRecordCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricFlinkTaskRecordCount.recordDataPoint(mb.startTime, ts, val, recordAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

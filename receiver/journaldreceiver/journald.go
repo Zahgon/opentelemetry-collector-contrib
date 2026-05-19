@@ -7,12 +7,7 @@ package journaldreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver/internal/metadata"
 )
 
 // newFactoryAdapter creates a factory for journald receiver
-func newFactoryAdapter() receiver.Factory {
-	return adapter.NewFactory(receiverType{}, metadata.LogsStability)
-}
+func newFactoryAdapter() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }

@@ -15,78 +15,39 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetAwsLogGroupNames sets provided value as "aws.log.group.names" attribute.
-func (rb *ResourceBuilder) SetAwsLogGroupNames(val []any) {
-	if rb.config.AwsLogGroupNames.Enabled {
-		rb.res.Attributes().PutEmptySlice("aws.log.group.names").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetAwsLogGroupNames(val []any) { _ = "STUB: not implemented"; return }
 
 // SetAwsLogStreamNames sets provided value as "aws.log.stream.names" attribute.
-func (rb *ResourceBuilder) SetAwsLogStreamNames(val []any) {
-	if rb.config.AwsLogStreamNames.Enabled {
-		rb.res.Attributes().PutEmptySlice("aws.log.stream.names").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetAwsLogStreamNames(val []any) { _ = "STUB: not implemented"; return }
 
 // SetCloudPlatform sets provided value as "cloud.platform" attribute.
-func (rb *ResourceBuilder) SetCloudPlatform(val string) {
-	if rb.config.CloudPlatform.Enabled {
-		rb.res.Attributes().PutStr("cloud.platform", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudPlatform(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudProvider sets provided value as "cloud.provider" attribute.
-func (rb *ResourceBuilder) SetCloudProvider(val string) {
-	if rb.config.CloudProvider.Enabled {
-		rb.res.Attributes().PutStr("cloud.provider", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudProvider(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudRegion sets provided value as "cloud.region" attribute.
-func (rb *ResourceBuilder) SetCloudRegion(val string) {
-	if rb.config.CloudRegion.Enabled {
-		rb.res.Attributes().PutStr("cloud.region", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudRegion(val string) { _ = "STUB: not implemented"; return }
 
 // SetFaasInstance sets provided value as "faas.instance" attribute.
-func (rb *ResourceBuilder) SetFaasInstance(val string) {
-	if rb.config.FaasInstance.Enabled {
-		rb.res.Attributes().PutStr("faas.instance", val)
-	}
-}
+func (rb *ResourceBuilder) SetFaasInstance(val string) { _ = "STUB: not implemented"; return }
 
 // SetFaasMaxMemory sets provided value as "faas.max_memory" attribute.
-func (rb *ResourceBuilder) SetFaasMaxMemory(val string) {
-	if rb.config.FaasMaxMemory.Enabled {
-		rb.res.Attributes().PutStr("faas.max_memory", val)
-	}
-}
+func (rb *ResourceBuilder) SetFaasMaxMemory(val string) { _ = "STUB: not implemented"; return }
 
 // SetFaasName sets provided value as "faas.name" attribute.
-func (rb *ResourceBuilder) SetFaasName(val string) {
-	if rb.config.FaasName.Enabled {
-		rb.res.Attributes().PutStr("faas.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetFaasName(val string) { _ = "STUB: not implemented"; return }
 
 // SetFaasVersion sets provided value as "faas.version" attribute.
-func (rb *ResourceBuilder) SetFaasVersion(val string) {
-	if rb.config.FaasVersion.Enabled {
-		rb.res.Attributes().PutStr("faas.version", val)
-	}
-}
+func (rb *ResourceBuilder) SetFaasVersion(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

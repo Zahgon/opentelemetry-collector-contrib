@@ -3,13 +3,6 @@
 
 package integrationtestutils // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/splunkhecexporter/internal/integrationtestutils"
 
-import (
-	"fmt"
-	"os"
-
-	"gopkg.in/yaml.v3"
-)
-
 var configFilePath = "./testdata/integration_tests_config.yaml"
 
 type IntegrationTestsConfig struct {
@@ -27,86 +20,17 @@ type IntegrationTestsConfig struct {
 }
 
 func GetConfigVariable(key string) string {
+	_ = "STUB: not implemented"
 	// Read YAML file
-	fileData, err := os.ReadFile(configFilePath)
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-	}
-
-	var config IntegrationTestsConfig
-	err = yaml.Unmarshal(fileData, &config)
-	if err != nil {
-		fmt.Println("Error decoding YAML:", err)
-	}
-
-	switch key {
-	case "HOST":
-		return config.Host
-	case "USER":
-		return config.User
-	case "PASSWORD":
-		return config.Password
-	case "UI_PORT":
-		return config.UIPort
-	case "HEC_PORT":
-		return config.HecPort
-	case "MANAGEMENT_PORT":
-		return config.ManagementPort
-	case "EVENT_INDEX":
-		return config.EventIndex
-	case "METRIC_INDEX":
-		return config.MetricIndex
-	case "TRACE_INDEX":
-		return config.TraceIndex
-	case "HEC_TOKEN":
-		return config.HecToken
-	case "SPLUNK_IMAGE":
-		return config.SplunkImage
-	default:
-		fmt.Println("Invalid field")
-		return "None"
-	}
+	return ""
 }
 
 func SetConfigVariable(key, value string) {
+	_ = "STUB: not implemented"
 	// Read YAML file
-	fileData, err := os.ReadFile(configFilePath)
-	if err != nil {
-		fmt.Println("Error reading file:", err)
-	}
-
-	var config IntegrationTestsConfig
-	err = yaml.Unmarshal(fileData, &config)
-	if err != nil {
-		fmt.Printf("Error unmarshaling YAML: %v", err)
-	}
-
-	switch key {
-	case "HOST":
-		config.Host = value
-	case "UI_PORT":
-		config.UIPort = value
-	case "HEC_PORT":
-		config.HecPort = value
-	case "MANAGEMENT_PORT":
-		config.ManagementPort = value
-	case "EVENT_INDEX":
-	default:
-		fmt.Println("Invalid field")
-	}
-	// Marshal updated Config into YAML
-	newData, err := yaml.Marshal(&config)
-	if err != nil {
-		fmt.Printf("Error marshaling YAML: %v", err)
-		return
-	}
-
-	// Write yaml file
-	err = os.WriteFile(configFilePath, newData, 0o600)
-	if err != nil {
-		fmt.Printf("Error writing file: %v", err)
-		return
-	}
-
-	fmt.Println("Host value updated successfully!")
+	return
 }
+
+// Marshal updated Config into YAML
+
+// Write yaml file

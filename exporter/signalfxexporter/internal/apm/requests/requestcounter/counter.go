@@ -6,7 +6,6 @@ package requestcounter // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"sync/atomic"
 )
 
 type key int
@@ -24,46 +23,23 @@ type (
 )
 
 // checks if a counter already exists on the context
-func counterExists(ctx context.Context) (exists bool) {
-	if _, exists = ctx.Value(getRequestCountKey).(getRequestCount); !exists {
-		if _, exists = ctx.Value(incrementRequestCountKey).(incrementRequestCount); !exists {
-			_, exists = ctx.Value(resetRequestCountKey).(resetRequestCount)
-		}
-	}
-	return exists
-}
+func counterExists(ctx context.Context) (exists bool) { _ = "STUB: not implemented"; return false }
 
 // ContextWithRequestCounter adds a counter to the context if one does not already exist
 func ContextWithRequestCounter(ctx context.Context) context.Context {
-	if counterExists(ctx) {
-		// don't create a new context with counter if a counter already exists on the counter
-		return ctx
-	}
-	var c atomic.Uint32
-	newCtx := context.WithValue(ctx, getRequestCountKey, getRequestCount(c.Load))
-	newCtx = context.WithValue(newCtx, incrementRequestCountKey, incrementRequestCount(func() { c.Add(1) }))
-	return context.WithValue(newCtx, resetRequestCountKey, resetRequestCount(func() { c.Store(0) }))
+	_ = "STUB: not implemented"
+	return *
+
+	// don't create a new context with counter if a counter already exists on the counter
+	new(context.Context)
 }
 
 // ResetRequestCount resets the request counter on the provided context if the context has one
-func ResetRequestCount(ctx context.Context) {
-	if res, ok := ctx.Value(resetRequestCountKey).(resetRequestCount); ok {
-		res()
-	}
-}
+func ResetRequestCount(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 // IncrementRequestCount increments the request counter on the provided context if the context has one
-func IncrementRequestCount(ctx context.Context) {
-	if inc, ok := ctx.Value(incrementRequestCountKey).(incrementRequestCount); ok {
-		inc()
-	}
-}
+func IncrementRequestCount(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 // GetRequestCount retrieves the current request count on the provided context.  It returns 0 if the context does not
 // have a request counter
-func GetRequestCount(ctx context.Context) (count uint32) {
-	if get, ok := ctx.Value(getRequestCountKey).(getRequestCount); ok {
-		count = get()
-	}
-	return count
-}
+func GetRequestCount(ctx context.Context) (count uint32) { _ = "STUB: not implemented"; return 0 }

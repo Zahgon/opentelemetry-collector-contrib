@@ -5,7 +5,6 @@ package awsecscontainermetricsreceiver // import "github.com/open-telemetry/open
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -35,59 +34,26 @@ func newAWSECSContainermetrics(
 	nextConsumer consumer.Metrics,
 	rest ecsutil.RestClient,
 ) (receiver.Metrics, error) {
-	r := &awsEcsContainerMetricsReceiver{
-		logger:       logger,
-		nextConsumer: nextConsumer,
-		config:       config,
-		restClient:   rest,
-	}
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 // Start begins collecting metrics from Amazon ECS task metadata endpoint.
 func (aecmr *awsEcsContainerMetricsReceiver) Start(ctx context.Context, _ component.Host) error {
-	ctx, aecmr.cancel = context.WithCancel(ctx)
-	go func() {
-		ticker := time.NewTicker(aecmr.config.CollectionInterval)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case <-ticker.C:
-				_ = aecmr.collectDataFromEndpoint(ctx)
-			case <-ctx.Done():
-				return
-			}
-		}
-	}()
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Shutdown stops the awsecscontainermetricsreceiver receiver.
 func (aecmr *awsEcsContainerMetricsReceiver) Shutdown(context.Context) error {
-	if aecmr.cancel != nil {
-		aecmr.cancel()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // collectDataFromEndpoint collects container stats from Amazon ECS Task Metadata Endpoint
 func (aecmr *awsEcsContainerMetricsReceiver) collectDataFromEndpoint(ctx context.Context) error {
-	aecmr.provider = awsecscontainermetrics.NewStatsProvider(aecmr.restClient, aecmr.logger)
-	stats, metadata, err := aecmr.provider.GetStats()
-	if err != nil {
-		aecmr.logger.Error("Failed to collect stats", zap.Error(err))
-		return err
-	}
-
-	// TODO: report self metrics using obsreport
-	mds := awsecscontainermetrics.MetricsData(stats, metadata, aecmr.logger)
-	for _, md := range mds {
-		err = aecmr.nextConsumer.ConsumeMetrics(ctx, md)
-		if err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// TODO: report self metrics using obsreport

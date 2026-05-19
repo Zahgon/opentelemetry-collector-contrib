@@ -5,12 +5,9 @@ package internal // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"fmt"
 	"io"
 
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	"go.opentelemetry.io/collector/consumer/consumererror"
 )
 
 // s3API abstracts out the S3 APIs allowing mocking for tests
@@ -37,12 +34,8 @@ type S3Provider interface {
 type S3ServiceProvider struct{}
 
 func (*S3ServiceProvider) GetService(ctx context.Context) (S3Service, error) {
-	cfg, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("unable to load AWS SDK config: %w", err)
-	}
-
-	return &s3ServiceClient{api: s3.NewFromConfig(cfg)}, nil
+	_ = "STUB: not implemented"
+	return *new(S3Service), nil
 }
 
 // s3ServiceClient implements the S3Service
@@ -51,57 +44,23 @@ type s3ServiceClient struct {
 }
 
 func (s *s3ServiceClient) ReadObject(ctx context.Context, bucketName, objectKey string) ([]byte, error) {
-	params := s3.GetObjectInput{Bucket: &bucketName, Key: &objectKey}
-	out, err := s.api.GetObject(ctx, &params)
-	if err != nil {
-		return nil, fmt.Errorf("unable to to download file from S3: %w", err)
-	}
-
-	defer func() {
-		_ = out.Body.Close()
-	}()
-
-	body, err := io.ReadAll(out.Body)
-	if err != nil {
-		// s3 body read error is marked for retrying
-		return nil, consumererror.NewRetryableError(fmt.Errorf("error reading body from S3 file: %w", err))
-	}
-
-	return body, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (s *s3ServiceClient) GetReader(ctx context.Context, bucketName, objectKey string) (io.ReadCloser, error) {
-	params := s3.GetObjectInput{Bucket: &bucketName, Key: &objectKey}
-	out, err := s.api.GetObject(ctx, &params)
-	if err != nil {
-		return nil, fmt.Errorf("unable to to obtain file object with key %s from bucket %s: %w", objectKey, bucketName, err)
-	}
+// s3 body read error is marked for retrying
 
-	return out.Body, nil
+func (s *s3ServiceClient) GetReader(ctx context.Context, bucketName, objectKey string) (io.ReadCloser, error) {
+	_ = "STUB: not implemented"
+	return *new(io.ReadCloser), nil
 }
 
 func (s *s3ServiceClient) ListObjects(ctx context.Context, bucketName, continuationToken, prefix string) (*s3.ListObjectsV2Output, error) {
-	input := s3.ListObjectsV2Input{
-		Bucket: &bucketName,
-	}
-
-	if continuationToken != "" {
-		input.ContinuationToken = &continuationToken
-	}
-
-	if prefix != "" {
-		input.Prefix = &prefix
-	}
-	return s.api.ListObjectsV2(ctx, &input)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *s3ServiceClient) DeleteObject(ctx context.Context, bucketName, objectKey string) error {
-	input := s3.DeleteObjectInput{Bucket: &bucketName, Key: &objectKey}
-
-	_, err := s.api.DeleteObject(ctx, &input)
-	if err != nil {
-		return fmt.Errorf("unable to to delete file from S3: %w", err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

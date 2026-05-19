@@ -4,7 +4,6 @@
 package servicegraphconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/servicegraphconnector"
 
 import (
-	"errors"
 	"time"
 )
 
@@ -69,14 +68,4 @@ type StoreConfig struct {
 }
 
 // Validate checks if the connector configuration is valid.
-func (c *Config) Validate() error {
-	if c.LatencyHistogramBuckets == nil && c.ExponentialHistogramMaxSize < 0 {
-		return errors.New("`exponential_histogram_max_size` can not be negative")
-	}
-
-	if c.LatencyHistogramBuckets != nil && c.ExponentialHistogramMaxSize > 0 {
-		return errors.New("use either `latency_histogram_buckets` or `exponential_histogram_max_size`")
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

@@ -3,11 +3,6 @@
 
 package snmpreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/snmpreceiver"
 
-import (
-	"sort"
-	"strings"
-)
-
 // configHelper contains many of the functions required to get various info from the SNMP config
 type configHelper struct {
 	cfg                         *Config
@@ -22,199 +17,108 @@ type configHelper struct {
 }
 
 // newConfigHelper returns a new configHelper with various pieces of static info saved for easy access
-func newConfigHelper(cfg *Config) *configHelper {
-	ch := configHelper{
-		cfg:                         cfg,
-		metricScalarOIDs:            []string{},
-		metricColumnOIDs:            []string{},
-		attributeColumnOIDs:         []string{},
-		resourceAttributeScalarOIDs: []string{},
-		resourceAttributeColumnOIDs: []string{},
-		metricNamesByOID:            map[string]string{},
-		metricAttributesByOID:       map[string][]Attribute{},
-		resourceAttributesByOID:     map[string][]string{},
-	}
+func newConfigHelper(cfg *Config) *configHelper { _ = "STUB: not implemented"; return nil }
 
-	// Group all metric scalar OIDs and metric column OIDs
-	// Also create a map of metric names with OID as key so the metric config will be easy to
-	// matchup later with returned SNMP data
-	for name, metricCfg := range cfg.Metrics {
-		for i, oid := range metricCfg.ScalarOIDs {
-			// Data is returned by the client with '.' prefix on the OIDs.
-			// Making sure the prefix exists here in the configs so we can match it up with returned data later
-			if !strings.HasPrefix(oid.OID, ".") {
-				oid.OID = "." + oid.OID
-				cfg.Metrics[name].ScalarOIDs[i].OID = oid.OID
-			}
-			ch.metricScalarOIDs = append(ch.metricScalarOIDs, oid.OID)
-			ch.metricNamesByOID[oid.OID] = name
-			ch.metricAttributesByOID[oid.OID] = oid.Attributes
-			ch.resourceAttributesByOID[oid.OID] = oid.ResourceAttributes
-		}
+// Group all metric scalar OIDs and metric column OIDs
+// Also create a map of metric names with OID as key so the metric config will be easy to
+// matchup later with returned SNMP data
 
-		for i, oid := range metricCfg.ColumnOIDs {
-			// Data is returned by the client with '.' prefix on the OIDs.
-			// Making sure the prefix exists here in the configs so we can match it up with returned data later
-			if !strings.HasPrefix(oid.OID, ".") {
-				oid.OID = "." + oid.OID
-				cfg.Metrics[name].ColumnOIDs[i].OID = oid.OID
-			}
-			ch.metricColumnOIDs = append(ch.metricColumnOIDs, oid.OID)
-			ch.metricNamesByOID[oid.OID] = name
-			ch.metricAttributesByOID[oid.OID] = oid.Attributes
-			ch.resourceAttributesByOID[oid.OID] = oid.ResourceAttributes
-		}
-	}
+// Data is returned by the client with '.' prefix on the OIDs.
+// Making sure the prefix exists here in the configs so we can match it up with returned data later
 
-	// Find all attribute column OIDs
-	for name, attributeCfg := range cfg.Attributes {
-		if attributeCfg.OID == "" {
-			continue
-		}
+// Data is returned by the client with '.' prefix on the OIDs.
+// Making sure the prefix exists here in the configs so we can match it up with returned data later
 
-		// Data is returned by the client with '.' prefix on the OIDs.
-		// Making sure the prefix exists here in the configs so we can match it up with returned data later
-		if !strings.HasPrefix(attributeCfg.OID, ".") {
-			attributeCfg.OID = "." + attributeCfg.OID
-			cfg.Attributes[name] = attributeCfg
-		}
-		ch.attributeColumnOIDs = append(ch.attributeColumnOIDs, attributeCfg.OID)
-	}
+// Find all attribute column OIDs
 
-	// Find all resource attribute scalar and column OIDs
-	for name, resourceAttributeCfg := range cfg.ResourceAttributes {
-		if resourceAttributeCfg.ScalarOID != "" {
-			// Data is returned by the client with '.' prefix on the OIDs.
-			// Making sure the prefix exists here in the configs so we can match it up with returned data later
-			if !strings.HasPrefix(resourceAttributeCfg.ScalarOID, ".") {
-				resourceAttributeCfg.ScalarOID = "." + resourceAttributeCfg.ScalarOID
-				cfg.ResourceAttributes[name] = resourceAttributeCfg
-			}
-			ch.resourceAttributeScalarOIDs = append(ch.resourceAttributeScalarOIDs, resourceAttributeCfg.ScalarOID)
-			continue
-		}
-		if resourceAttributeCfg.OID != "" {
-			// Data is returned by the client with '.' prefix on the OIDs.
-			// Making sure the prefix exists here in the configs so we can match it up with returned data later
-			if !strings.HasPrefix(resourceAttributeCfg.OID, ".") {
-				resourceAttributeCfg.OID = "." + resourceAttributeCfg.OID
-				cfg.ResourceAttributes[name] = resourceAttributeCfg
-			}
-			ch.resourceAttributeColumnOIDs = append(ch.resourceAttributeColumnOIDs, resourceAttributeCfg.OID)
-		}
-	}
+// Data is returned by the client with '.' prefix on the OIDs.
+// Making sure the prefix exists here in the configs so we can match it up with returned data later
 
-	// We expect these []string to be sorted later (i.e. mocks and resourceKey)
-	sort.Strings(ch.metricScalarOIDs)
-	sort.Strings(ch.metricColumnOIDs)
-	sort.Strings(ch.attributeColumnOIDs)
-	sort.Strings(ch.resourceAttributeScalarOIDs)
-	sort.Strings(ch.resourceAttributeColumnOIDs)
+// Find all resource attribute scalar and column OIDs
 
-	return &ch
-}
+// Data is returned by the client with '.' prefix on the OIDs.
+// Making sure the prefix exists here in the configs so we can match it up with returned data later
+
+// Data is returned by the client with '.' prefix on the OIDs.
+// Making sure the prefix exists here in the configs so we can match it up with returned data later
+
+// We expect these []string to be sorted later (i.e. mocks and resourceKey)
 
 // getMetricScalarOIDs returns all of the scalar OIDs in the metric configs
-func (h configHelper) getMetricScalarOIDs() []string {
-	return h.metricScalarOIDs
-}
+func (h configHelper) getMetricScalarOIDs() []string { _ = "STUB: not implemented"; return nil }
 
 // getMetricColumnOIDs returns all of the column OIDs in the metric configs
-func (h configHelper) getMetricColumnOIDs() []string {
-	return h.metricColumnOIDs
-}
+func (h configHelper) getMetricColumnOIDs() []string { _ = "STUB: not implemented"; return nil }
 
 // getAttributeColumnOIDs returns all of the attribute column OIDs in the attribute configs
-func (h configHelper) getAttributeColumnOIDs() []string {
-	return h.attributeColumnOIDs
-}
+func (h configHelper) getAttributeColumnOIDs() []string { _ = "STUB: not implemented"; return nil }
 
 // getResourceAttributeScalarOIDs returns all of the resource attribute scalar OIDs in the resource attribute configs
 func (h configHelper) getResourceAttributeScalarOIDs() []string {
-	return h.resourceAttributeScalarOIDs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getResourceAttributeColumnOIDs returns all of the resource attribute column OIDs in the resource attribute configs
 func (h configHelper) getResourceAttributeColumnOIDs() []string {
-	return h.resourceAttributeColumnOIDs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getMetricName a metric names based on a given OID
-func (h configHelper) getMetricName(oid string) string {
-	return h.metricNamesByOID[oid]
-}
+func (h configHelper) getMetricName(oid string) string { _ = "STUB: not implemented"; return "" }
 
 // getMetricConfig returns a metric config based on a given name
 func (h configHelper) getMetricConfig(name string) *MetricConfig {
-	return h.cfg.Metrics[name]
+	_ = "STUB: not implemented"
+	return nil
+
+	// getAttributeConfigValue returns the value of an attribute config
 }
 
-// getAttributeConfigValue returns the value of an attribute config
 func (h configHelper) getAttributeConfigValue(name string) string {
-	attrConfig := h.cfg.Attributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.Value
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getAttributeConfigIndexedValuePrefix returns the indexed value prefix of an attribute config
 func (h configHelper) getAttributeConfigIndexedValuePrefix(name string) string {
-	attrConfig := h.cfg.Attributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.IndexedValuePrefix
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getAttributeConfigOID returns the column OID of an attribute config
 func (h configHelper) getAttributeConfigOID(name string) string {
-	attrConfig := h.cfg.Attributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.OID
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getResourceAttributeConfigIndexedValuePrefix returns the indexed value prefix of a resource attribute config
 func (h configHelper) getResourceAttributeConfigIndexedValuePrefix(name string) string {
-	attrConfig := h.cfg.ResourceAttributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.IndexedValuePrefix
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getResourceAttributeConfigOID returns the column OID of a resource attribute config
 func (h configHelper) getResourceAttributeConfigOID(name string) string {
-	attrConfig := h.cfg.ResourceAttributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.OID
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getResourceAttributeConfigScalarOID returns the scalar OID of a resource attribute config
 func (h configHelper) getResourceAttributeConfigScalarOID(name string) string {
-	attrConfig := h.cfg.ResourceAttributes[name]
-	if attrConfig == nil {
-		return ""
-	}
-
-	return attrConfig.ScalarOID
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // getMetricConfigAttributes returns the metric config attributes for a given OID
 func (h configHelper) getMetricConfigAttributes(oid string) []Attribute {
-	return h.metricAttributesByOID[oid]
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getResourceAttributeNames returns the metric config resource attributes for a given OID
 func (h configHelper) getResourceAttributeNames(oid string) []string {
-	return h.resourceAttributesByOID[oid]
+	_ = "STUB: not implemented"
+	return nil
 }

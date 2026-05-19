@@ -53,119 +53,38 @@ type sampler struct {
 	lock               sync.RWMutex
 }
 
-func setSamplingFrequency(freq time.Duration) {
-	samplingFrequency = freq
-}
+func setSamplingFrequency(freq time.Duration) { _ = "STUB: not implemented"; return }
 
 func startSampling(_ context.Context, logger *zap.Logger) error {
-	startupLock.Lock()
-	defer startupLock.Unlock()
-
-	// startSampling may be called multiple times if multiple scrapers are
-	// initialized - but we only want to initialize a single load sampler
-	scraperCount++
-	if scraperCount > 1 {
-		return nil
-	}
-
-	var err error
-	samplerInstance, err = newSampler(logger)
-	if err != nil {
-		// To keep the same behavior, as previous versions on Windows, error in this case is just logged
-		// and the scraper is not started.
-		scraperCount = 0
-		logger.Error("Failed to init performance counters, load metrics will not be scraped", zap.Error(err))
-		return errPreventScrape
-	}
-
-	samplerInstance.startSamplingTicker()
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func newSampler(logger *zap.Logger) (*sampler, error) {
-	perfCounterWatcher, err := perfCounterFactory(system, "", processorQueueLength)
-	if err != nil {
-		return nil, err
-	}
+// startSampling may be called multiple times if multiple scrapers are
+// initialized - but we only want to initialize a single load sampler
 
-	sampler := &sampler{
-		logger:             logger,
-		perfCounterWatcher: perfCounterWatcher,
-		done:               make(chan struct{}),
-	}
+// To keep the same behavior, as previous versions on Windows, error in this case is just logged
+// and the scraper is not started.
 
-	return sampler, nil
-}
+func newSampler(logger *zap.Logger) (*sampler, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func (sw *sampler) startSamplingTicker() {
+	_ = "STUB: not implemented"
 	// Store the sampling frequency in a local variable to avoid race conditions during tests.
-	frequency := samplingFrequency
-	go func() {
-		ticker := time.NewTicker(frequency)
-		defer ticker.Stop()
-
-		sw.sampleLoad()
-		for {
-			select {
-			case <-ticker.C:
-				sw.sampleLoad()
-			case <-sw.done:
-				return
-			}
-		}
-	}()
+	return
 }
 
-func (sw *sampler) sampleLoad() {
-	var currentLoadRaw int64
-	ok, err := sw.perfCounterWatcher.ScrapeRawValue(&currentLoadRaw)
-	if err != nil {
-		sw.logger.Error("Load Scraper: failed to measure processor queue length", zap.Error(err))
-		return
-	}
+func (sw *sampler) sampleLoad() { _ = "STUB: not implemented"; return }
 
-	if !ok {
-		sw.logger.Error("Load Scraper: failed to measure processor queue length, no data returned")
-		return
-	}
+func stopSampling(_ context.Context) error { _ = "STUB: not implemented"; return nil }
 
-	currentLoad := float64(currentLoadRaw)
+// no load scraper is running nothing to do
 
-	sw.lock.Lock()
-	defer sw.lock.Unlock()
-	sw.loadAvg1m = sw.loadAvg1m*loadAvgFactor1m + currentLoad*(1-loadAvgFactor1m)
-	sw.loadAvg5m = sw.loadAvg5m*loadAvgFactor5m + currentLoad*(1-loadAvgFactor5m)
-	sw.loadAvg15m = sw.loadAvg15m*loadAvgFactor15m + currentLoad*(1-loadAvgFactor15m)
-}
+// only stop sampling if all load scrapers have been closed
 
-func stopSampling(_ context.Context) error {
-	startupLock.Lock()
-	defer startupLock.Unlock()
-
-	if scraperCount == 0 {
-		// no load scraper is running nothing to do
-		return nil
-	}
-	// only stop sampling if all load scrapers have been closed
-	scraperCount--
-	if scraperCount > 0 {
-		return nil
-	}
-
-	// no more load scrapers are running, stop the sampler
-	close(samplerInstance.done)
-	return nil
-}
+// no more load scrapers are running, stop the sampler
 
 func getSampledLoadAverages(_ context.Context) (*load.AvgStat, error) {
-	samplerInstance.lock.RLock()
-	defer samplerInstance.lock.RUnlock()
-
-	avgStat := &load.AvgStat{
-		Load1:  samplerInstance.loadAvg1m,
-		Load5:  samplerInstance.loadAvg5m,
-		Load15: samplerInstance.loadAvg15m,
-	}
-
-	return avgStat, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

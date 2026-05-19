@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type AerospikeNamespaceDiskAvailableMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceDiskAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type AerospikeNamespaceGeojsonRegionQueryCellsMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceGeojsonRegionQueryCellsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type AerospikeNamespaceGeojsonRegionQueryFalsePositiveMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceGeojsonRegionQueryFalsePositiveMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type AerospikeNamespaceGeojsonRegionQueryPointsMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceGeojsonRegionQueryPointsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type AerospikeNamespaceGeojsonRegionQueryRequestsMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceGeojsonRegionQueryRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type AerospikeNamespaceMemoryFreeMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceMemoryFreeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -146,34 +90,12 @@ type AerospikeNamespaceMemoryUsageMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceMemoryUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNamespaceMemoryUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNamespaceMemoryUsageMetricAttributeKeyNamespaceComponent:
-		default:
-			return fmt.Errorf("metric aerospike.namespace.memory.usage doesn't have an attribute %v, valid attributes: [component]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -196,34 +118,12 @@ type AerospikeNamespaceQueryCountMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceQueryCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNamespaceQueryCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNamespaceQueryCountMetricAttributeKeyQueryType, AerospikeNamespaceQueryCountMetricAttributeKeyIndexType, AerospikeNamespaceQueryCountMetricAttributeKeyQueryResult:
-		default:
-			return fmt.Errorf("metric aerospike.namespace.query.count doesn't have an attribute %v, valid attributes: [type, index, result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -245,34 +145,12 @@ type AerospikeNamespaceScanCountMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceScanCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNamespaceScanCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNamespaceScanCountMetricAttributeKeyScanType, AerospikeNamespaceScanCountMetricAttributeKeyScanResult:
-		default:
-			return fmt.Errorf("metric aerospike.namespace.scan.count doesn't have an attribute %v, valid attributes: [type, result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -294,34 +172,12 @@ type AerospikeNamespaceTransactionCountMetricConfig struct {
 }
 
 func (ms *AerospikeNamespaceTransactionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNamespaceTransactionCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionType, AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionResult:
-		default:
-			return fmt.Errorf("metric aerospike.namespace.transaction.count doesn't have an attribute %v, valid attributes: [type, result]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -343,34 +199,12 @@ type AerospikeNodeConnectionCountMetricConfig struct {
 }
 
 func (ms *AerospikeNodeConnectionCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNodeConnectionCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNodeConnectionCountMetricAttributeKeyConnectionType, AerospikeNodeConnectionCountMetricAttributeKeyConnectionOp:
-		default:
-			return fmt.Errorf("metric aerospike.node.connection.count doesn't have an attribute %v, valid attributes: [type, operation]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -391,34 +225,12 @@ type AerospikeNodeConnectionOpenMetricConfig struct {
 }
 
 func (ms *AerospikeNodeConnectionOpenMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *AerospikeNodeConnectionOpenMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case AerospikeNodeConnectionOpenMetricAttributeKeyConnectionType:
-		default:
-			return fmt.Errorf("metric aerospike.node.connection.open doesn't have an attribute %v, valid attributes: [type]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -429,16 +241,7 @@ type AerospikeNodeMemoryFreeMetricConfig struct {
 }
 
 func (ms *AerospikeNodeMemoryFreeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -449,16 +252,7 @@ type AerospikeNodeQueryTrackedMetricConfig struct {
 }
 
 func (ms *AerospikeNodeQueryTrackedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -480,64 +274,7 @@ type MetricsConfig struct {
 	AerospikeNodeQueryTracked                         AerospikeNodeQueryTrackedMetricConfig                         `mapstructure:"aerospike.node.query.tracked"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		AerospikeNamespaceDiskAvailable: AerospikeNamespaceDiskAvailableMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceGeojsonRegionQueryCells: AerospikeNamespaceGeojsonRegionQueryCellsMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceGeojsonRegionQueryFalsePositive: AerospikeNamespaceGeojsonRegionQueryFalsePositiveMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceGeojsonRegionQueryPoints: AerospikeNamespaceGeojsonRegionQueryPointsMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceGeojsonRegionQueryRequests: AerospikeNamespaceGeojsonRegionQueryRequestsMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceMemoryFree: AerospikeNamespaceMemoryFreeMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNamespaceMemoryUsage: AerospikeNamespaceMemoryUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNamespaceMemoryUsageMetricAttributeKey{AerospikeNamespaceMemoryUsageMetricAttributeKeyNamespaceComponent},
-		},
-		AerospikeNamespaceQueryCount: AerospikeNamespaceQueryCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNamespaceQueryCountMetricAttributeKey{AerospikeNamespaceQueryCountMetricAttributeKeyQueryType, AerospikeNamespaceQueryCountMetricAttributeKeyIndexType, AerospikeNamespaceQueryCountMetricAttributeKeyQueryResult},
-		},
-		AerospikeNamespaceScanCount: AerospikeNamespaceScanCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNamespaceScanCountMetricAttributeKey{AerospikeNamespaceScanCountMetricAttributeKeyScanType, AerospikeNamespaceScanCountMetricAttributeKeyScanResult},
-		},
-		AerospikeNamespaceTransactionCount: AerospikeNamespaceTransactionCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNamespaceTransactionCountMetricAttributeKey{AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionType, AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionResult},
-		},
-		AerospikeNodeConnectionCount: AerospikeNodeConnectionCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNodeConnectionCountMetricAttributeKey{AerospikeNodeConnectionCountMetricAttributeKeyConnectionType, AerospikeNodeConnectionCountMetricAttributeKeyConnectionOp},
-		},
-		AerospikeNodeConnectionOpen: AerospikeNodeConnectionOpenMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []AerospikeNodeConnectionOpenMetricAttributeKey{AerospikeNodeConnectionOpenMetricAttributeKeyConnectionType},
-		},
-		AerospikeNodeMemoryFree: AerospikeNodeMemoryFreeMetricConfig{
-			Enabled: true,
-		},
-		AerospikeNodeQueryTracked: AerospikeNodeQueryTrackedMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -554,14 +291,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -572,14 +302,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		AerospikeNamespace: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		AerospikeNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for aerospike metrics builder.
@@ -589,13 +313,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

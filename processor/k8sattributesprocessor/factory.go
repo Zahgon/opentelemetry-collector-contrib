@@ -5,21 +5,15 @@ package k8sattributesprocessor // import "github.com/open-telemetry/opentelemetr
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/consumer/xconsumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-	"go.opentelemetry.io/collector/processor/processorhelper/xprocessorhelper"
 	"go.opentelemetry.io/collector/processor/xprocessor"
-	"go.uber.org/zap"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/k8sconfig"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor/internal/kube"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/k8sattributesprocessor/internal/metadata"
 )
 
 var (
@@ -30,28 +24,11 @@ var (
 )
 
 // NewFactory returns a new factory for the k8s processor.
-func NewFactory() processor.Factory {
-	return xprocessor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xprocessor.WithTraces(createTracesProcessor, metadata.TracesStability),
-		xprocessor.WithMetrics(createMetricsProcessor, metadata.MetricsStability),
-		xprocessor.WithLogs(createLogsProcessor, metadata.LogsStability),
-		xprocessor.WithProfiles(createProfilesProcessor, metadata.ProfilesStability),
-		xprocessor.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		APIConfig: k8sconfig.APIConfig{AuthType: k8sconfig.AuthTypeServiceAccount},
-		Exclude:   defaultExcludes,
-		Extract: ExtractConfig{
-			Metadata: enabledAttributes(),
-		},
-		WaitForMetadataTimeout: 10 * time.Second,
-		WatchSyncPeriod:        5 * time.Minute,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -60,23 +37,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	next consumer.Traces,
 ) (processor.Traces, error) {
-	if !metadata.ProcessorK8sattributesShareProcessorBetweenPipelinesFeatureGate.IsEnabled() {
-		return createTracesProcessorWithOptions(ctx, params, cfg, next)
-	}
-	sc := processors.GetOrAdd(cfg, func() component.Component {
-		return createKubernetesProcessor(params, cfg)
-	})
-	kp := sc.Unwrap().(*kubernetesprocessor)
-
-	return processorhelper.NewTraces(
-		ctx,
-		params,
-		cfg,
-		next,
-		kp.processTraces,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(sc.Start),
-		processorhelper.WithShutdown(sc.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 func createLogsProcessor(
@@ -85,23 +47,8 @@ func createLogsProcessor(
 	cfg component.Config,
 	nextLogsConsumer consumer.Logs,
 ) (processor.Logs, error) {
-	if !metadata.ProcessorK8sattributesShareProcessorBetweenPipelinesFeatureGate.IsEnabled() {
-		return createLogsProcessorWithOptions(ctx, params, cfg, nextLogsConsumer)
-	}
-	sc := processors.GetOrAdd(cfg, func() component.Component {
-		return createKubernetesProcessor(params, cfg)
-	})
-	kp := sc.Unwrap().(*kubernetesprocessor)
-
-	return processorhelper.NewLogs(
-		ctx,
-		params,
-		cfg,
-		nextLogsConsumer,
-		kp.processLogs,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(sc.Start),
-		processorhelper.WithShutdown(sc.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
 
 func createMetricsProcessor(
@@ -110,23 +57,8 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextMetricsConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	if !metadata.ProcessorK8sattributesShareProcessorBetweenPipelinesFeatureGate.IsEnabled() {
-		return createMetricsProcessorWithOptions(ctx, params, cfg, nextMetricsConsumer)
-	}
-	sc := processors.GetOrAdd(cfg, func() component.Component {
-		return createKubernetesProcessor(params, cfg)
-	})
-	kp := sc.Unwrap().(*kubernetesprocessor)
-
-	return processorhelper.NewMetrics(
-		ctx,
-		params,
-		cfg,
-		nextMetricsConsumer,
-		kp.processMetrics,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(sc.Start),
-		processorhelper.WithShutdown(sc.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }
 
 func createProfilesProcessor(
@@ -135,24 +67,8 @@ func createProfilesProcessor(
 	cfg component.Config,
 	nextProfilesConsumer xconsumer.Profiles,
 ) (xprocessor.Profiles, error) {
-	if !metadata.ProcessorK8sattributesShareProcessorBetweenPipelinesFeatureGate.IsEnabled() {
-		return createProfilesProcessorWithOptions(ctx, params, cfg, nextProfilesConsumer)
-	}
-	sc := processors.GetOrAdd(cfg, func() component.Component {
-		return createKubernetesProcessor(params, cfg)
-	})
-	kp := sc.Unwrap().(*kubernetesprocessor)
-
-	return xprocessorhelper.NewProfiles(
-		ctx,
-		params,
-		cfg,
-		nextProfilesConsumer,
-		kp.processProfiles,
-		xprocessorhelper.WithCapabilities(consumerCapabilities),
-		xprocessorhelper.WithStart(sc.Start),
-		xprocessorhelper.WithShutdown(sc.Shutdown),
-	)
+	_ = "STUB: not implemented"
+	return *new(xprocessor.Profiles), nil
 }
 
 func createTracesProcessorWithOptions(
@@ -162,17 +78,8 @@ func createTracesProcessorWithOptions(
 	next consumer.Traces,
 	options ...option,
 ) (processor.Traces, error) {
-	kp := createKubernetesProcessor(set, cfg, options...)
-
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		next,
-		kp.processTraces,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(kp.Start),
-		processorhelper.WithShutdown(kp.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 func createMetricsProcessorWithOptions(
@@ -182,17 +89,8 @@ func createMetricsProcessorWithOptions(
 	nextMetricsConsumer consumer.Metrics,
 	options ...option,
 ) (processor.Metrics, error) {
-	kp := createKubernetesProcessor(set, cfg, options...)
-
-	return processorhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		nextMetricsConsumer,
-		kp.processMetrics,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(kp.Start),
-		processorhelper.WithShutdown(kp.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }
 
 func createLogsProcessorWithOptions(
@@ -202,17 +100,8 @@ func createLogsProcessorWithOptions(
 	nextLogsConsumer consumer.Logs,
 	options ...option,
 ) (processor.Logs, error) {
-	kp := createKubernetesProcessor(set, cfg, options...)
-
-	return processorhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		nextLogsConsumer,
-		kp.processLogs,
-		processorhelper.WithCapabilities(consumerCapabilities),
-		processorhelper.WithStart(kp.Start),
-		processorhelper.WithShutdown(kp.Shutdown))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
 
 func createProfilesProcessorWithOptions(
@@ -222,18 +111,8 @@ func createProfilesProcessorWithOptions(
 	nextProfilesConsumer xconsumer.Profiles,
 	options ...option,
 ) (xprocessor.Profiles, error) {
-	kp := createKubernetesProcessor(set, cfg, options...)
-
-	return xprocessorhelper.NewProfiles(
-		ctx,
-		set,
-		cfg,
-		nextProfilesConsumer,
-		kp.processProfiles,
-		xprocessorhelper.WithCapabilities(consumerCapabilities),
-		xprocessorhelper.WithStart(kp.Start),
-		xprocessorhelper.WithShutdown(kp.Shutdown),
-	)
+	_ = "STUB: not implemented"
+	return *new(xprocessor.Profiles), nil
 }
 
 func createKubernetesProcessor(
@@ -241,50 +120,12 @@ func createKubernetesProcessor(
 	cfg component.Config,
 	options ...option,
 ) *kubernetesprocessor {
-	telemetry, err := metadata.NewTelemetryBuilder(params.TelemetrySettings)
-	if err != nil {
-		params.Logger.Error("failed to create telemetry builder", zap.Error(err))
-	}
-
-	kp := &kubernetesprocessor{
-		logger:            params.Logger,
-		cfg:               cfg,
-		options:           options,
-		telemetrySettings: params.TelemetrySettings,
-		telemetry:         telemetry,
-	}
-
-	return kp
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func createProcessorOpts(cfg component.Config) []option {
-	oCfg := cfg.(*Config)
-	var opts []option
-	if oCfg.Passthrough {
-		opts = append(opts, withPassthrough())
-	}
+func createProcessorOpts(cfg component.Config) []option { _ = "STUB: not implemented"; return nil }
 
-	// extraction rules
-	opts = append(opts,
-		withExtractMetadata(oCfg.Extract.Metadata...),
-		withExtractLabels(oCfg.Extract.Labels...),
-		withExtractAnnotations(oCfg.Extract.Annotations...),
-		withOtelAnnotations(oCfg.Extract.OtelAnnotations),
-		withDeploymentNameFromReplicaSet(oCfg.Extract.DeploymentNameFromReplicaSet),
-		// filters
-		withFilterNode(oCfg.Filter.Node, oCfg.Filter.NodeFromEnvVar),
-		withFilterNamespace(oCfg.Filter.Namespace),
-		withFilterLabels(oCfg.Filter.Labels...),
-		withFilterFields(oCfg.Filter.Fields...),
-		withAPIConfig(oCfg.APIConfig),
-		withExtractPodAssociations(oCfg.Association...),
-		withExcludes(oCfg.Exclude),
-		withWaitForMetadataTimeout(oCfg.WaitForMetadataTimeout),
-		withWatchSyncPeriod(oCfg.WatchSyncPeriod))
+// extraction rules
 
-	if oCfg.WaitForMetadata {
-		opts = append(opts, withWaitForMetadata(true))
-	}
-
-	return opts
-}
+// filters

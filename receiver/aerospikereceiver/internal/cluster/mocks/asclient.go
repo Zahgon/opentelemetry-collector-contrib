@@ -14,24 +14,13 @@ type Asclient struct {
 
 // Close provides a mock function with given fields:
 func (_m *Asclient) Close() {
-	_m.Called()
+	_ = "STUB: not implemented"
+
+	// GetNodes provides a mock function with given fields:
+	return
 }
 
-// GetNodes provides a mock function with given fields:
-func (_m *Asclient) GetNodes() []*aerospike.Node {
-	ret := _m.Called()
-
-	var r0 []*aerospike.Node
-	if rf, ok := ret.Get(0).(func() []*aerospike.Node); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]*aerospike.Node)
-		}
-	}
-
-	return r0
-}
+func (_m *Asclient) GetNodes() []*aerospike.Node { _ = "STUB: not implemented"; return nil }
 
 type mockConstructorTestingTNewAsclient interface {
 	mock.TestingT
@@ -40,10 +29,6 @@ type mockConstructorTestingTNewAsclient interface {
 
 // NewAsclient creates a new instance of Asclient. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 func NewAsclient(t mockConstructorTestingTNewAsclient) *Asclient {
-	mock := &Asclient{}
-	mock.Mock.Test(t)
-
-	t.Cleanup(func() { mock.AssertExpectations(t) })
-
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }

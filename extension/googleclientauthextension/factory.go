@@ -8,30 +8,18 @@ package googleclientauthextension // import "github.com/open-telemetry/opentelem
 import (
 	"context"
 
-	"github.com/GoogleCloudPlatform/opentelemetry-operations-go/extension/googleclientauthextension"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/googleclientauthextension/internal/metadata"
 )
 
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(ctx context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
-	eCfg := cfg.(*Config)
-	return googleclientauthextension.CreateExtension(ctx, set, &eCfg.Config)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	cfg := googleclientauthextension.CreateDefaultConfig().(*googleclientauthextension.Config)
-	return &Config{
-		Config: *cfg,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

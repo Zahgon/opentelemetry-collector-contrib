@@ -7,7 +7,6 @@ import (
 	cInfo "github.com/google/cadvisor/info/v1"
 	"go.uber.org/zap"
 
-	ci "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/containerinsight"
 	awsmetrics "github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/metrics"
 )
 
@@ -21,45 +20,22 @@ type CPUMetricExtractor struct {
 }
 
 func (*CPUMetricExtractor) HasValue(info *cInfo.ContainerInfo) bool {
-	return info.Spec.HasCpu
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (c *CPUMetricExtractor) GetValue(info *cInfo.ContainerInfo, mInfo CPUMemInfoProvider, containerType string) []*CAdvisorMetric {
-	var metrics []*CAdvisorMetric
-	// Skip infra container and handle node, pod, other containers in pod
-	if containerType == ci.TypeInfraContainer {
-		return metrics
-	}
-
-	// When there is more than one stats point, always use the last one
-	curStats := GetStats(info)
-	metric := newCadvisorMetric(containerType, c.logger)
-	metric.cgroupPath = info.Name
-	multiplier := float64(decimalToMillicores)
-	assignRateValueToField(&c.rateCalculator, metric.fields, ci.MetricName(containerType, ci.CPUTotal), info.Name, float64(curStats.Cpu.Usage.Total), curStats.Timestamp, multiplier)
-	assignRateValueToField(&c.rateCalculator, metric.fields, ci.MetricName(containerType, ci.CPUUser), info.Name, float64(curStats.Cpu.Usage.User), curStats.Timestamp, multiplier)
-	assignRateValueToField(&c.rateCalculator, metric.fields, ci.MetricName(containerType, ci.CPUSystem), info.Name, float64(curStats.Cpu.Usage.System), curStats.Timestamp, multiplier)
-
-	numCores := mInfo.GetNumCores()
-	if metric.fields[ci.MetricName(containerType, ci.CPUTotal)] != nil && numCores != 0 {
-		metric.fields[ci.MetricName(containerType, ci.CPUUtilization)] = metric.fields[ci.MetricName(containerType, ci.CPUTotal)].(float64) / float64(numCores*decimalToMillicores) * 100
-	}
-
-	if containerType == ci.TypeNode || containerType == ci.TypeInstance {
-		metric.fields[ci.MetricName(containerType, ci.CPULimit)] = numCores * decimalToMillicores
-	}
-
-	metrics = append(metrics, metric)
-	return metrics
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *CPUMetricExtractor) Shutdown() error {
-	return c.rateCalculator.Shutdown()
-}
+// Skip infra container and handle node, pod, other containers in pod
+
+// When there is more than one stats point, always use the last one
+
+func (c *CPUMetricExtractor) Shutdown() error { _ = "STUB: not implemented"; return nil }
 
 func NewCPUMetricExtractor(logger *zap.Logger) *CPUMetricExtractor {
-	return &CPUMetricExtractor{
-		logger:         logger,
-		rateCalculator: newFloat64RateCalculator(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }

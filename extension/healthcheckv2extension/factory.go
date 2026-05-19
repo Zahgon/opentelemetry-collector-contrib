@@ -10,26 +10,17 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckv2extension/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/healthcheck"
 )
 
 // NewFactory creates a factory for HealthCheck extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		healthcheck.NewDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return healthcheck.NewDefaultConfig()
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
-	config := cfg.(*Config)
-	return healthcheck.NewHealthCheckExtension(*config, set), nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

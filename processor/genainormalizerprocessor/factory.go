@@ -9,26 +9,16 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/genainormalizerprocessor/internal/metadata"
 )
 
 // NewFactory returns a new factory for the genainormalizer processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 // createDefaultConfig returns the default configuration. Sources must be
 // explicitly specified by the user; there are no built-in source defaults.
 func createDefaultConfig() component.Config {
-	return &Config{
-		Sources: []Source{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesProcessor(
@@ -37,12 +27,6 @@ func createTracesProcessor(
 	cfg component.Config,
 	next consumer.Traces,
 ) (processor.Traces, error) {
-	c := cfg.(*Config)
-	if err := c.Validate(); err != nil {
-		return nil, err
-	}
-	p := newGenaiNormalizerProcessor(c)
-	return processorhelper.NewTraces(ctx, set, cfg, next, p.processTraces,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}),
-	)
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }

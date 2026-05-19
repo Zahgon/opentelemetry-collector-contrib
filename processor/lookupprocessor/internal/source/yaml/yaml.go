@@ -6,13 +6,9 @@ package yaml // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"os"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
-	"gopkg.in/yaml.v3"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/lookupprocessor/lookupsource"
 )
@@ -28,24 +24,17 @@ type Config struct {
 }
 
 // Validate implements lookupsource.SourceConfig.
-func (c *Config) Validate() error {
-	if c.Path == "" {
-		return errors.New("path is required")
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // NewFactory creates a factory for the YAML source.
 func NewFactory() lookupsource.SourceFactory {
-	return lookupsource.NewSourceFactory(
-		sourceType,
-		createDefaultConfig,
-		createSource,
-	)
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceFactory)
 }
 
 func createDefaultConfig() lookupsource.SourceConfig {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceConfig)
 }
 
 func createSource(
@@ -53,19 +42,11 @@ func createSource(
 	_ lookupsource.CreateSettings,
 	cfg lookupsource.SourceConfig,
 ) (lookupsource.Source, error) {
-	yamlCfg := cfg.(*Config)
-	s := &yamlSource{
-		path: yamlCfg.Path,
-		data: make(map[string]any),
-	}
-
-	return lookupsource.NewSource(
-		s.lookup,
-		func() string { return sourceType },
-		s.start,
-		nil, // no shutdown needed
-	), nil
+	_ = "STUB: not implemented"
+	return *new(lookupsource.Source), nil
 }
+
+// no shutdown needed
 
 // yamlSource holds the loaded YAML data.
 //
@@ -81,28 +62,12 @@ type yamlSource struct {
 
 // start loads the YAML file.
 func (s *yamlSource) start(_ context.Context, _ component.Host) error {
-	content, err := os.ReadFile(s.path)
-	if err != nil {
-		return fmt.Errorf("failed to read YAML file %q: %w", s.path, err)
-	}
-
-	var data map[string]any
-	if err := yaml.Unmarshal(content, &data); err != nil {
-		return fmt.Errorf("failed to parse YAML file %q: %w", s.path, err)
-	}
-
-	s.mu.Lock()
-	s.data = data
-	s.mu.Unlock()
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // lookup retrieves a value from the loaded YAML data.
 func (s *yamlSource) lookup(_ context.Context, key string) (any, bool, error) {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
-
-	val, found := s.data[key]
-	return val, found, nil
+	_ = "STUB: not implemented"
+	return *new(any), false, nil
 }

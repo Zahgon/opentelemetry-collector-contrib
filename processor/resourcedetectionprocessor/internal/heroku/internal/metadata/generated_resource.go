@@ -15,71 +15,39 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetCloudProvider sets provided value as "cloud.provider" attribute.
-func (rb *ResourceBuilder) SetCloudProvider(val string) {
-	if rb.config.CloudProvider.Enabled {
-		rb.res.Attributes().PutStr("cloud.provider", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudProvider(val string) { _ = "STUB: not implemented"; return }
 
 // SetHerokuAppID sets provided value as "heroku.app.id" attribute.
-func (rb *ResourceBuilder) SetHerokuAppID(val string) {
-	if rb.config.HerokuAppID.Enabled {
-		rb.res.Attributes().PutStr("heroku.app.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHerokuAppID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHerokuDynoID sets provided value as "heroku.dyno.id" attribute.
-func (rb *ResourceBuilder) SetHerokuDynoID(val string) {
-	if rb.config.HerokuDynoID.Enabled {
-		rb.res.Attributes().PutStr("heroku.dyno.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHerokuDynoID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHerokuReleaseCommit sets provided value as "heroku.release.commit" attribute.
-func (rb *ResourceBuilder) SetHerokuReleaseCommit(val string) {
-	if rb.config.HerokuReleaseCommit.Enabled {
-		rb.res.Attributes().PutStr("heroku.release.commit", val)
-	}
-}
+func (rb *ResourceBuilder) SetHerokuReleaseCommit(val string) { _ = "STUB: not implemented"; return }
 
 // SetHerokuReleaseCreationTimestamp sets provided value as "heroku.release.creation_timestamp" attribute.
 func (rb *ResourceBuilder) SetHerokuReleaseCreationTimestamp(val string) {
-	if rb.config.HerokuReleaseCreationTimestamp.Enabled {
-		rb.res.Attributes().PutStr("heroku.release.creation_timestamp", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetServiceInstanceID sets provided value as "service.instance.id" attribute.
-func (rb *ResourceBuilder) SetServiceInstanceID(val string) {
-	if rb.config.ServiceInstanceID.Enabled {
-		rb.res.Attributes().PutStr("service.instance.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceInstanceID(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceName sets provided value as "service.name" attribute.
-func (rb *ResourceBuilder) SetServiceName(val string) {
-	if rb.config.ServiceName.Enabled {
-		rb.res.Attributes().PutStr("service.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceName(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceVersion sets provided value as "service.version" attribute.
-func (rb *ResourceBuilder) SetServiceVersion(val string) {
-	if rb.config.ServiceVersion.Enabled {
-		rb.res.Attributes().PutStr("service.version", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceVersion(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

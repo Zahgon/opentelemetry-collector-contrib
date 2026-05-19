@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -17,16 +14,7 @@ type FlinkJobCheckpointCountMetricConfig struct {
 }
 
 func (ms *FlinkJobCheckpointCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -37,16 +25,7 @@ type FlinkJobCheckpointInProgressMetricConfig struct {
 }
 
 func (ms *FlinkJobCheckpointInProgressMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -57,16 +36,7 @@ type FlinkJobLastCheckpointSizeMetricConfig struct {
 }
 
 func (ms *FlinkJobLastCheckpointSizeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -77,16 +47,7 @@ type FlinkJobLastCheckpointTimeMetricConfig struct {
 }
 
 func (ms *FlinkJobLastCheckpointTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -97,16 +58,7 @@ type FlinkJobRestartCountMetricConfig struct {
 }
 
 func (ms *FlinkJobRestartCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -117,16 +69,7 @@ type FlinkJvmClassLoaderClassesLoadedMetricConfig struct {
 }
 
 func (ms *FlinkJvmClassLoaderClassesLoadedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -137,16 +80,7 @@ type FlinkJvmCPULoadMetricConfig struct {
 }
 
 func (ms *FlinkJvmCPULoadMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -157,16 +91,7 @@ type FlinkJvmCPUTimeMetricConfig struct {
 }
 
 func (ms *FlinkJvmCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -177,16 +102,7 @@ type FlinkJvmGcCollectionsCountMetricConfig struct {
 }
 
 func (ms *FlinkJvmGcCollectionsCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -197,16 +113,7 @@ type FlinkJvmGcCollectionsTimeMetricConfig struct {
 }
 
 func (ms *FlinkJvmGcCollectionsTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -217,16 +124,7 @@ type FlinkJvmMemoryDirectTotalCapacityMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryDirectTotalCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -237,16 +135,7 @@ type FlinkJvmMemoryDirectUsedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryDirectUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -257,16 +146,7 @@ type FlinkJvmMemoryHeapCommittedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryHeapCommittedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -277,16 +157,7 @@ type FlinkJvmMemoryHeapMaxMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryHeapMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -297,16 +168,7 @@ type FlinkJvmMemoryHeapUsedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryHeapUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -317,16 +179,7 @@ type FlinkJvmMemoryMappedTotalCapacityMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryMappedTotalCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -337,16 +190,7 @@ type FlinkJvmMemoryMappedUsedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryMappedUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -357,16 +201,7 @@ type FlinkJvmMemoryMetaspaceCommittedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryMetaspaceCommittedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -377,16 +212,7 @@ type FlinkJvmMemoryMetaspaceMaxMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryMetaspaceMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -397,16 +223,7 @@ type FlinkJvmMemoryMetaspaceUsedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryMetaspaceUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -417,16 +234,7 @@ type FlinkJvmMemoryNonheapCommittedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryNonheapCommittedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -437,16 +245,7 @@ type FlinkJvmMemoryNonheapMaxMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryNonheapMaxMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -457,16 +256,7 @@ type FlinkJvmMemoryNonheapUsedMetricConfig struct {
 }
 
 func (ms *FlinkJvmMemoryNonheapUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -477,16 +267,7 @@ type FlinkJvmThreadsCountMetricConfig struct {
 }
 
 func (ms *FlinkJvmThreadsCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -497,16 +278,7 @@ type FlinkMemoryManagedTotalMetricConfig struct {
 }
 
 func (ms *FlinkMemoryManagedTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -517,16 +289,7 @@ type FlinkMemoryManagedUsedMetricConfig struct {
 }
 
 func (ms *FlinkMemoryManagedUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -548,37 +311,12 @@ type FlinkOperatorRecordCountMetricConfig struct {
 }
 
 func (ms *FlinkOperatorRecordCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *FlinkOperatorRecordCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case FlinkOperatorRecordCountMetricAttributeKeyOperatorName, FlinkOperatorRecordCountMetricAttributeKeyRecord:
-		default:
-			return fmt.Errorf("metric flink.operator.record.count doesn't have an attribute %v, valid attributes: [name, record]", val)
-		}
-	}
-	if !slices.Contains(ms.EnabledAttributes, FlinkOperatorRecordCountMetricAttributeKeyRecord) {
-		return fmt.Errorf("record is a required attribute for flink.operator.record.count metric and must be included")
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -599,34 +337,12 @@ type FlinkOperatorWatermarkOutputMetricConfig struct {
 }
 
 func (ms *FlinkOperatorWatermarkOutputMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *FlinkOperatorWatermarkOutputMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case FlinkOperatorWatermarkOutputMetricAttributeKeyOperatorName:
-		default:
-			return fmt.Errorf("metric flink.operator.watermark.output doesn't have an attribute %v, valid attributes: [name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -637,16 +353,7 @@ type FlinkTaskRecordCountMetricConfig struct {
 }
 
 func (ms *FlinkTaskRecordCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -683,101 +390,7 @@ type MetricsConfig struct {
 	FlinkTaskRecordCount              FlinkTaskRecordCountMetricConfig              `mapstructure:"flink.task.record.count"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		FlinkJobCheckpointCount: FlinkJobCheckpointCountMetricConfig{
-			Enabled: true,
-		},
-		FlinkJobCheckpointInProgress: FlinkJobCheckpointInProgressMetricConfig{
-			Enabled: true,
-		},
-		FlinkJobLastCheckpointSize: FlinkJobLastCheckpointSizeMetricConfig{
-			Enabled: true,
-		},
-		FlinkJobLastCheckpointTime: FlinkJobLastCheckpointTimeMetricConfig{
-			Enabled: true,
-		},
-		FlinkJobRestartCount: FlinkJobRestartCountMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmClassLoaderClassesLoaded: FlinkJvmClassLoaderClassesLoadedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmCPULoad: FlinkJvmCPULoadMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmCPUTime: FlinkJvmCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmGcCollectionsCount: FlinkJvmGcCollectionsCountMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmGcCollectionsTime: FlinkJvmGcCollectionsTimeMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryDirectTotalCapacity: FlinkJvmMemoryDirectTotalCapacityMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryDirectUsed: FlinkJvmMemoryDirectUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryHeapCommitted: FlinkJvmMemoryHeapCommittedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryHeapMax: FlinkJvmMemoryHeapMaxMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryHeapUsed: FlinkJvmMemoryHeapUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryMappedTotalCapacity: FlinkJvmMemoryMappedTotalCapacityMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryMappedUsed: FlinkJvmMemoryMappedUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryMetaspaceCommitted: FlinkJvmMemoryMetaspaceCommittedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryMetaspaceMax: FlinkJvmMemoryMetaspaceMaxMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryMetaspaceUsed: FlinkJvmMemoryMetaspaceUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryNonheapCommitted: FlinkJvmMemoryNonheapCommittedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryNonheapMax: FlinkJvmMemoryNonheapMaxMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmMemoryNonheapUsed: FlinkJvmMemoryNonheapUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkJvmThreadsCount: FlinkJvmThreadsCountMetricConfig{
-			Enabled: true,
-		},
-		FlinkMemoryManagedTotal: FlinkMemoryManagedTotalMetricConfig{
-			Enabled: true,
-		},
-		FlinkMemoryManagedUsed: FlinkMemoryManagedUsedMetricConfig{
-			Enabled: true,
-		},
-		FlinkOperatorRecordCount: FlinkOperatorRecordCountMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []FlinkOperatorRecordCountMetricAttributeKey{FlinkOperatorRecordCountMetricAttributeKeyOperatorName, FlinkOperatorRecordCountMetricAttributeKeyRecord},
-		},
-		FlinkOperatorWatermarkOutput: FlinkOperatorWatermarkOutputMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []FlinkOperatorWatermarkOutputMetricAttributeKey{FlinkOperatorWatermarkOutputMetricAttributeKeyOperatorName},
-		},
-		FlinkTaskRecordCount: FlinkTaskRecordCountMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -794,14 +407,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -816,26 +422,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		FlinkJobName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FlinkResourceType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FlinkSubtaskIndex: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FlinkTaskName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		FlinkTaskmanagerID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for flinkmetrics metrics builder.
@@ -845,13 +433,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

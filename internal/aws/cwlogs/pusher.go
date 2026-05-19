@@ -5,12 +5,9 @@ package cwlogs // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"errors"
-	"sort"
 	"sync"
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
 	"go.uber.org/zap"
@@ -44,15 +41,7 @@ type Event struct {
 
 // NewEvent creates a new log event
 // logType will be propagated to LogEventBatch and used by logPusher to determine which client to call PutLogEvent
-func NewEvent(timestampMs int64, message string) *Event {
-	event := &Event{
-		InputLogEvent: types.InputLogEvent{
-			Timestamp: aws.Int64(timestampMs),
-			Message:   aws.String(message),
-		},
-	}
-	return event
-}
+func NewEvent(timestampMs int64, message string) *Event { _ = "STUB: not implemented"; return nil }
 
 // Uniquely identify a cloudwatch logs stream
 type StreamKey struct {
@@ -60,44 +49,16 @@ type StreamKey struct {
 	LogStreamName string
 }
 
-func (logEvent *Event) Validate(logger *zap.Logger) error {
-	if logEvent.eventPayloadBytes() > maxEventPayloadBytes {
-		logger.Warn("logpusher: the single log event size is larger than the max event payload allowed. Truncate the log event.",
-			zap.Int("SingleLogEventSize", logEvent.eventPayloadBytes()), zap.Int("maxEventPayloadBytes", maxEventPayloadBytes))
+func (logEvent *Event) Validate(logger *zap.Logger) error { _ = "STUB: not implemented"; return nil }
 
-		newPayload := (*logEvent.InputLogEvent.Message)[0:(maxEventPayloadBytes - perEventHeaderBytes - len(truncatedSuffix))]
-		newPayload += truncatedSuffix
-		logEvent.InputLogEvent.Message = &newPayload
-	}
-
-	if *logEvent.InputLogEvent.Timestamp == int64(0) {
-		logEvent.InputLogEvent.Timestamp = aws.Int64(logEvent.GeneratedTime.UnixNano() / int64(time.Millisecond))
-	}
-	if *logEvent.InputLogEvent.Message == "" {
-		return errors.New("empty log event message")
-	}
-
-	// http://docs.aws.amazon.com/goto/SdkForGoV1/logs-2014-03-28/PutLogEvents
-	// * None of the log events in the batch can be more than 2 hours in the
-	// future.
-	// * None of the log events in the batch can be older than 14 days or the
-	// retention period of the log group.
-	currentTime := time.Now().UTC()
-	utcTime := time.Unix(0, *logEvent.InputLogEvent.Timestamp*int64(time.Millisecond)).UTC()
-	duration := currentTime.Sub(utcTime)
-	if duration > eventTimestampLimitInPast || duration < evenTimestampLimitInFuture {
-		err := errors.New("the log entry's timestamp is older than 14 days or more than 2 hours in the future")
-		logger.Error("discard log entry with invalid timestamp",
-			zap.Error(err), zap.String("LogEventTimestamp", utcTime.String()), zap.String("CurrentTime", currentTime.String()))
-		return err
-	}
-	return nil
-}
+// http://docs.aws.amazon.com/goto/SdkForGoV1/logs-2014-03-28/PutLogEvents
+// * None of the log events in the batch can be more than 2 hours in the
+// future.
+// * None of the log events in the batch can be older than 14 days or the
+// retention period of the log group.
 
 // Calculate the log event payload bytes.
-func (logEvent *Event) eventPayloadBytes() int {
-	return len(*logEvent.InputLogEvent.Message) + perEventHeaderBytes
-}
+func (logEvent *Event) eventPayloadBytes() int { _ = "STUB: not implemented"; return 0 }
 
 // eventBatch struct to present a log event batch
 type eventBatch struct {
@@ -111,71 +72,34 @@ type eventBatch struct {
 }
 
 // Create a new log event batch if needed.
-func newEventBatch(key StreamKey) *eventBatch {
-	return &eventBatch{
-		putLogEventsInput: &cloudwatchlogs.PutLogEventsInput{
-			LogGroupName:  aws.String(key.LogGroupName),
-			LogStreamName: aws.String(key.LogStreamName),
-			LogEvents:     make([]types.InputLogEvent, 0, maxRequestEventCount),
-		},
-	}
-}
+func newEventBatch(key StreamKey) *eventBatch { _ = "STUB: not implemented"; return nil }
 
 func (batch *eventBatch) exceedsLimit(nextByteTotal int) bool {
-	return len(batch.putLogEventsInput.LogEvents) == cap(batch.putLogEventsInput.LogEvents) ||
-		batch.byteTotal+nextByteTotal > maxEventPayloadBytes
+	_ = "STUB: not implemented"
+	return false
 }
 
 // isActive checks whether the eventBatch spans more than 24 hours. Returns
 // false if the condition does not match, and this batch should not be processed
 // any further.
 func (batch *eventBatch) isActive(targetTimestampMs *int64) bool {
+	_ = "STUB: not implemented"
 	// new log event batch
-	if batch.minTimestampMs == 0 || batch.maxTimestampMs == 0 {
-		return true
-	}
-	if *targetTimestampMs-batch.minTimestampMs > 24*3600*1e3 {
-		return false
-	}
-	if batch.maxTimestampMs-*targetTimestampMs > 24*3600*1e3 {
-		return false
-	}
-	return true
+	return false
 }
 
-func (batch *eventBatch) append(event *Event) {
-	batch.putLogEventsInput.LogEvents = append(batch.putLogEventsInput.LogEvents, event.InputLogEvent)
-	batch.byteTotal += event.eventPayloadBytes()
-	if batch.minTimestampMs == 0 || batch.minTimestampMs > *event.InputLogEvent.Timestamp {
-		batch.minTimestampMs = *event.InputLogEvent.Timestamp
-	}
-	if batch.maxTimestampMs == 0 || batch.maxTimestampMs < *event.InputLogEvent.Timestamp {
-		batch.maxTimestampMs = *event.InputLogEvent.Timestamp
-	}
-}
+func (batch *eventBatch) append(event *Event) { _ = "STUB: not implemented"; return }
 
 // Sort the log events based on the timestamp.
-func (batch *eventBatch) sortLogEvents() {
-	inputLogEvents := batch.putLogEventsInput.LogEvents
-	sort.Stable(ByTimestamp(inputLogEvents))
-}
+func (batch *eventBatch) sortLogEvents() { _ = "STUB: not implemented"; return }
 
 type ByTimestamp []types.InputLogEvent
 
-func (inputLogEvents ByTimestamp) Len() int {
-	return len(inputLogEvents)
-}
+func (inputLogEvents ByTimestamp) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (inputLogEvents ByTimestamp) Swap(i, j int) {
-	inputLogEvents[i], inputLogEvents[j] = inputLogEvents[j], inputLogEvents[i]
-}
+func (inputLogEvents ByTimestamp) Swap(i, j int) { _ = "STUB: not implemented"; return }
 
-func (inputLogEvents ByTimestamp) Less(i, j int) bool {
-	if inputLogEvents[i].Timestamp == nil || inputLogEvents[j].Timestamp == nil {
-		return inputLogEvents[i].Timestamp != nil
-	}
-	return *inputLogEvents[i].Timestamp < *inputLogEvents[j].Timestamp
-}
+func (inputLogEvents ByTimestamp) Less(i, j int) bool { _ = "STUB: not implemented"; return false }
 
 // Pusher is created by log group and log stream
 type Pusher interface {
@@ -202,29 +126,16 @@ type logPusher struct {
 func NewPusher(streamKey StreamKey, retryCnt int,
 	svcStructuredLog Client, logger *zap.Logger,
 ) Pusher {
-	pusher := newLogPusher(streamKey, svcStructuredLog, logger)
-
-	pusher.retryCnt = defaultRetryCount
-	if retryCnt > 0 {
-		pusher.retryCnt = retryCnt
-	}
-
-	return pusher
+	_ = "STUB: not implemented"
+	return *new(Pusher)
 }
 
 // Only create a logPusher, but not start the instance.
 func newLogPusher(streamKey StreamKey,
 	svcStructuredLog Client, logger *zap.Logger,
 ) *logPusher {
-	pusher := &logPusher{
-		logGroupName:     aws.String(streamKey.LogGroupName),
-		logStreamName:    aws.String(streamKey.LogStreamName),
-		svcStructuredLog: svcStructuredLog,
-		logger:           logger,
-	}
-	pusher.logEventBatch = newEventBatch(streamKey)
-
-	return pusher
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddLogEntry Besides the limit specified by PutLogEvents API, there are some overall limit for the cloudwatchlogs
@@ -234,88 +145,24 @@ func newLogPusher(streamKey StreamKey,
 // Event size 256 KB (maximum). This limit cannot be changed.
 // Batch size 1 MB (maximum). This limit cannot be changed.
 func (p *logPusher) AddLogEntry(ctx context.Context, logEvent *Event) error {
-	var err error
-	if logEvent != nil {
-		err = logEvent.Validate(p.logger)
-		if err != nil {
-			return err
-		}
-		p.mu.Lock()
-		prevBatch := p.addLogEvent(logEvent)
-		p.mu.Unlock()
-		if prevBatch != nil {
-			err = p.pushEventBatch(ctx, prevBatch)
-		}
-	}
-	return err
-}
-
-func (p *logPusher) ForceFlush(ctx context.Context) error {
-	p.mu.Lock()
-	prevBatch := p.renewEventBatch()
-	p.mu.Unlock()
-	if prevBatch != nil {
-		return p.pushEventBatch(ctx, prevBatch)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+func (p *logPusher) ForceFlush(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
+
 func (p *logPusher) pushEventBatch(ctx context.Context, req any) error {
+	_ = "STUB: not implemented"
 	// http://docs.aws.amazon.com/goto/SdkForGoV1/logs-2014-03-28/PutLogEvents
 	// The log events in the batch must be in chronological ordered by their
 	// timestamp (the time the event occurred, expressed as the number of milliseconds
 	// since Jan 1, 1970 00:00:00 UTC).
-	logEventBatch := req.(*eventBatch)
-	logEventBatch.sortLogEvents()
-	putLogEventsInput := logEventBatch.putLogEventsInput
-
-	startTime := time.Now()
-
-	err := p.svcStructuredLog.PutLogEvents(ctx, putLogEventsInput, p.retryCnt)
-	if err != nil {
-		return err
-	}
-
-	p.logger.Debug("logpusher: publish log events successfully.",
-		zap.Int("NumOfLogEvents", len(putLogEventsInput.LogEvents)),
-		zap.Float64("LogEventsSize", float64(logEventBatch.byteTotal)/float64(1024)),
-		zap.Int64("Time", time.Since(startTime).Nanoseconds()/int64(time.Millisecond)))
-
 	return nil
 }
 
-func (p *logPusher) addLogEvent(logEvent *Event) *eventBatch {
-	if logEvent == nil {
-		return nil
-	}
+func (p *logPusher) addLogEvent(logEvent *Event) *eventBatch { _ = "STUB: not implemented"; return nil }
 
-	var prevBatch *eventBatch
-	currentBatch := p.logEventBatch
-	if currentBatch.exceedsLimit(logEvent.eventPayloadBytes()) || !currentBatch.isActive(logEvent.InputLogEvent.Timestamp) {
-		prevBatch = currentBatch
-		currentBatch = newEventBatch(StreamKey{
-			LogGroupName:  *p.logGroupName,
-			LogStreamName: *p.logStreamName,
-		})
-	}
-	currentBatch.append(logEvent)
-	p.logEventBatch = currentBatch
-
-	return prevBatch
-}
-
-func (p *logPusher) renewEventBatch() *eventBatch {
-	var prevBatch *eventBatch
-	if len(p.logEventBatch.putLogEventsInput.LogEvents) > 0 {
-		prevBatch = p.logEventBatch
-		p.logEventBatch = newEventBatch(StreamKey{
-			LogGroupName:  *p.logGroupName,
-			LogStreamName: *p.logStreamName,
-		})
-	}
-
-	return prevBatch
-}
+func (p *logPusher) renewEventBatch() *eventBatch { _ = "STUB: not implemented"; return nil }
 
 // A Pusher that is able to send events to multiple streams.
 type multiStreamPusher struct {
@@ -326,44 +173,17 @@ type multiStreamPusher struct {
 }
 
 func newMultiStreamPusher(logStreamManager LogStreamManager, client Client, logger *zap.Logger) *multiStreamPusher {
-	return &multiStreamPusher{
-		logStreamManager: logStreamManager,
-		client:           client,
-		logger:           logger,
-		pusherMap:        make(map[StreamKey]Pusher),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *multiStreamPusher) AddLogEntry(ctx context.Context, event *Event) error {
-	if err := m.logStreamManager.InitStream(ctx, event.StreamKey); err != nil {
-		return err
-	}
-
-	var pusher Pusher
-	var ok bool
-
-	if pusher, ok = m.pusherMap[event.StreamKey]; !ok {
-		pusher = NewPusher(event.StreamKey, 1, m.client, m.logger)
-		m.pusherMap[event.StreamKey] = pusher
-	}
-
-	return pusher.AddLogEntry(ctx, event)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (m *multiStreamPusher) ForceFlush(ctx context.Context) error {
-	var errs []error
-
-	for _, val := range m.pusherMap {
-		err := val.ForceFlush(ctx)
-		if err != nil {
-			errs = append(errs, err)
-		}
-	}
-
-	if len(errs) != 0 {
-		return errors.Join(errs...)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -380,16 +200,14 @@ type multiStreamPusherFactory struct {
 
 // Creates a new MultiStreamPusherFactory
 func NewMultiStreamPusherFactory(logStreamManager LogStreamManager, client Client, logger *zap.Logger) MultiStreamPusherFactory {
-	return &multiStreamPusherFactory{
-		logStreamManager: logStreamManager,
-		client:           client,
-		logger:           logger,
-	}
+	_ = "STUB: not implemented"
+	return *new(MultiStreamPusherFactory)
 }
 
 // Factory method to create a Pusher that has support to sending events to multiple log streams
 func (msf *multiStreamPusherFactory) CreateMultiStreamPusher() Pusher {
-	return newMultiStreamPusher(msf.logStreamManager, msf.client, msf.logger)
+	_ = "STUB: not implemented"
+	return *new(Pusher)
 }
 
 // Manages the creation of streams
@@ -407,23 +225,13 @@ type logStreamManager struct {
 }
 
 func NewLogStreamManager(svcStructuredLog Client) LogStreamManager {
-	return &logStreamManager{
-		client:  svcStructuredLog,
-		streams: make(map[StreamKey]bool),
-	}
+	_ = "STUB: not implemented"
+	return *new(LogStreamManager)
 }
 
 func (lsm *logStreamManager) InitStream(ctx context.Context, streamKey StreamKey) error {
-	if _, ok := lsm.streams[streamKey]; !ok {
-		lsm.logStreamMutex.Lock()
-		defer lsm.logStreamMutex.Unlock()
-
-		if _, ok := lsm.streams[streamKey]; !ok {
-			err := lsm.client.CreateStream(ctx, &streamKey.LogGroupName, &streamKey.LogStreamName)
-			lsm.streams[streamKey] = true
-			return err
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
-	// does not do anything if stream already exists
 }
+
+// does not do anything if stream already exists

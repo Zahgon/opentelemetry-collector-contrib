@@ -7,7 +7,6 @@ import (
 	"context"
 	"os"
 
-	"github.com/shirou/gopsutil/v4/common"
 	"github.com/shirou/gopsutil/v4/cpu"
 	"github.com/shirou/gopsutil/v4/mem"
 	"go.uber.org/zap"
@@ -32,56 +31,18 @@ type nodeCapacity struct {
 type nodeCapacityOption func(*nodeCapacity)
 
 func newNodeCapacity(logger *zap.Logger, options ...nodeCapacityOption) (nodeCapacityProvider, error) {
-	nc := &nodeCapacity{
-		logger:        logger,
-		osLstat:       os.Lstat,
-		virtualMemory: mem.VirtualMemoryWithContext,
-		cpuInfo:       cpu.InfoWithContext,
-	}
-
-	for _, opt := range options {
-		opt(nc)
-	}
-
-	actualHostProc, ok := os.LookupEnv(string(common.HostProcEnvKey))
-	if !ok {
-		actualHostProc = hostProc
-	}
-
-	if _, err := nc.osLstat(actualHostProc); os.IsNotExist(err) {
-		return nil, err
-	}
-	envMap := common.EnvMap{common.HostProcEnvKey: actualHostProc}
-	ctx := context.WithValue(context.Background(), common.EnvKey, envMap)
-
-	nc.parseCPU(ctx)
-	nc.parseMemory(ctx)
-	return nc, nil
+	_ = "STUB: not implemented"
+	return *new(nodeCapacityProvider), nil
 }
 
-func (nc *nodeCapacity) parseMemory(ctx context.Context) {
-	if memStats, err := nc.virtualMemory(ctx); err == nil {
-		nc.memCapacity = int64(memStats.Total)
-	} else {
-		// If any error happen, then there will be no mem utilization metrics
-		nc.logger.Error("NodeCapacity cannot get memStats from psUtil", zap.Error(err))
-	}
-}
+func (nc *nodeCapacity) parseMemory(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-func (nc *nodeCapacity) parseCPU(ctx context.Context) {
-	if cpuInfos, err := nc.cpuInfo(ctx); err == nil {
-		numCores := len(cpuInfos)
-		nc.cpuCapacity = int64(numCores)
-	} else {
-		// If any error happen, then there will be no cpu utilization metrics
-		nc.logger.Error("NodeCapacity cannot get cpuInfo from psUtil", zap.Error(err))
-	}
-}
+// If any error happen, then there will be no mem utilization metrics
 
-func (nc *nodeCapacity) getNumCores() int64 {
-	return nc.cpuCapacity
-}
+func (nc *nodeCapacity) parseCPU(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-func (nc *nodeCapacity) getMemoryCapacity() int64 {
-	return nc.memCapacity
-}
+// If any error happen, then there will be no cpu utilization metrics
+
+func (nc *nodeCapacity) getNumCores() int64 { _ = "STUB: not implemented"; return 0 }
+
+func (nc *nodeCapacity) getMemoryCapacity() int64 { _ = "STUB: not implemented"; return 0 }

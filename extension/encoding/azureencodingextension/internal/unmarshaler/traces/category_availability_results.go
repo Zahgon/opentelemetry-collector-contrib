@@ -19,27 +19,24 @@ type azureAppAvailabilityResults struct {
 // GetResource returns resource attributes for the parsed Trace Record,
 // adding cloud.region from `Location` field
 func (r *azureAppAvailabilityResults) GetResource() traceResourceAttributes {
-	rs := r.azureTracesRecordBase.GetResource()
-	rs.Location = r.Location
-
-	return rs
+	_ = "STUB: not implemented"
+	return *new(traceResourceAttributes)
 }
 
 // GetSpanKind determines the SpanKind
 func (*azureAppAvailabilityResults) GetSpanKind() ptrace.SpanKind {
+	_ = "STUB: not implemented"
 	// As we unsure about AvailabilityResults SpanKind - set it to Internal
-	return ptrace.SpanKindInternal
+	return *new(ptrace.SpanKind)
 }
 
 // GetSpanStatus returns Span Status Code and optional Status Message,
 // based on `Success` field
 func (r *azureAppAvailabilityResults) GetSpanStatus() (ptrace.StatusCode, string) {
+	_ = "STUB: not implemented"
 	// According to Azure Docs if `Success` is false - the operation failed,
 	// so we'll mark Span Status as Error for such cases according to OpenTelemetry Specs
-	if !r.Success {
-		return ptrace.StatusCodeError, r.Message
-	}
-
-	// In all other cases - return Unset Status Code as recommended by OpenTelemetry Specs
-	return ptrace.StatusCodeUnset, r.Message
+	return *new(ptrace.StatusCode), ""
 }
+
+// In all other cases - return Unset Status Code as recommended by OpenTelemetry Specs

@@ -6,8 +6,6 @@ package dbstorage // import "github.com/open-telemetry/opentelemetry-collector-c
 import (
 	"context"
 	"database/sql"
-	"fmt"
-	"strings"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
@@ -26,73 +24,31 @@ type databaseStorage struct {
 var _ storage.Extension = (*databaseStorage)(nil)
 
 func newDBStorage(logger *zap.Logger, config *Config) (extension.Extension, error) {
-	return &databaseStorage{
-		driverName:     config.DriverName,
-		datasourceName: config.DataSource,
-		logger:         logger,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 // Start opens a connection to the database
 func (ds *databaseStorage) Start(context.Context, component.Host) error {
-	if ds.driverName == driverSQLiteLegacy {
-		// Log warning about legacy driver usage
-		ds.logger.Warn("Legacy driver 'sqlite3' is used, please review documentation to update your configuration")
-		// Change legacy driver to a new one
-		ds.driverName = driverSQLite
-		// Try to convert legacy driver options and log errors if any
-		var err error
-		ds.datasourceName, err = replaceCompatDSNOptions(ds.logger, ds.datasourceName)
-		if err != nil {
-			return err
-		}
-	}
-
-	db, err := sql.Open(ds.driverName, ds.datasourceName)
-	if err != nil {
-		return err
-	}
-
-	if err := db.Ping(); err != nil {
-		return err
-	}
-	ds.db = db
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Log warning about legacy driver usage
+
+// Change legacy driver to a new one
+
+// Try to convert legacy driver options and log errors if any
+
 // Shutdown closes the connection to the database
-func (ds *databaseStorage) Shutdown(context.Context) error {
-	if ds.db == nil {
-		return nil
-	}
-	return ds.db.Close()
-}
+func (ds *databaseStorage) Shutdown(context.Context) error { _ = "STUB: not implemented"; return nil }
 
 // GetClient returns a storage client for an individual component
 func (ds *databaseStorage) GetClient(ctx context.Context, kind component.Kind, ent component.ID, name string) (storage.Client, error) {
-	var fullName string
-	if name == "" {
-		fullName = fmt.Sprintf("%s_%s_%s", kindString(kind), ent.Type(), ent.Name())
-	} else {
-		fullName = fmt.Sprintf("%s_%s_%s_%s", kindString(kind), ent.Type(), ent.Name(), name)
-	}
-	fullName = strings.ReplaceAll(fullName, " ", "")
-	return newClient(ctx, ds.logger, ds.db, ds.driverName, fullName)
+	_ = "STUB: not implemented"
+	return *new(storage.Client), nil
 }
 
-func kindString(k component.Kind) string {
-	switch k {
-	case component.KindReceiver:
-		return "receiver"
-	case component.KindProcessor:
-		return "processor"
-	case component.KindExporter:
-		return "exporter"
-	case component.KindExtension:
-		return "extension"
-	case component.KindConnector:
-		return "connector"
-	default:
-		return "other" // not expected
-	}
-}
+func kindString(k component.Kind) string { _ = "STUB: not implemented"; return "" }
+
+// not expected

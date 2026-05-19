@@ -4,9 +4,6 @@
 package connection // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/ciscoosreceiver/internal/connection"
 
 import (
-	"context"
-	"time"
-
 	"go.uber.org/zap"
 )
 
@@ -18,39 +15,15 @@ type RPCClient struct {
 }
 
 // GetOSType returns detected Cisco OS type
-func (r *RPCClient) GetOSType() string {
-	if r.OSType != "" {
-		return r.OSType
-	}
-	return "IOS XE" // Default
-}
+func (r *RPCClient) GetOSType() string { _ = "STUB: not implemented"; return "" }
+
+// Default
 
 // GetCommand returns the appropriate command for the OS type and feature
-func (r *RPCClient) GetCommand(feature string) string {
-	switch feature {
-	case "version":
-		return "show version"
-	case "cpu":
-		if r.OSType == "NX-OS" {
-			return "show system resources"
-		}
-		return "show process cpu"
-	case "memory":
-		if r.OSType == "NX-OS" {
-			return "show system resources"
-		}
-		return "show process memory"
-	case "interfaces":
-		return "show interface"
-	default:
-		return ""
-	}
-}
+func (r *RPCClient) GetCommand(feature string) string { _ = "STUB: not implemented"; return "" }
 
 // ExecuteCommand executes a command on the Cisco device
 func (r *RPCClient) ExecuteCommand(command string) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	return r.SSHClient.ExecuteCommand(ctx, command)
+	_ = "STUB: not implemented"
+	return "", nil
 }

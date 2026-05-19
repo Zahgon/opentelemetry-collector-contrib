@@ -6,6 +6,4 @@
 package datadogconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/datadogconnector"
 import "go.opentelemetry.io/collector/connector"
 
-func NewFactory() connector.Factory {
-	panic("aix is not supported")
-}
+func NewFactory() connector.Factory { _ = "STUB: not implemented"; return *new(connector.Factory) }

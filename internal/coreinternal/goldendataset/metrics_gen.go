@@ -4,8 +4,6 @@
 package goldendataset // import "github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/goldendataset"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -45,186 +43,72 @@ type MetricsCfg struct {
 
 // DefaultCfg produces a MetricsCfg with default values. These should be good enough to produce sane
 // (but boring) metrics, and can be used as a starting point for making alterations.
-func DefaultCfg() MetricsCfg {
-	return MetricsCfg{
-		MetricDescriptorType: pmetric.MetricTypeGauge,
-		MetricValueType:      pmetric.NumberDataPointValueTypeInt,
-		MetricNamePrefix:     "",
-		NumILMPerResource:    1,
-		NumMetricsPerILM:     1,
-		NumPtLabels:          1,
-		NumPtsPerMetric:      1,
-		NumResourceAttrs:     1,
-		NumResourceMetrics:   1,
-		PtVal:                1,
-		StartTime:            940000000000000000,
-		StepSize:             42,
-	}
-}
+func DefaultCfg() MetricsCfg { _ = "STUB: not implemented"; return *new(MetricsCfg) }
 
 // MetricsFromCfg produces pmetric.Metrics with the passed-in config.
 func MetricsFromCfg(cfg MetricsCfg) pmetric.Metrics {
-	mg := newMetricGenerator()
-	return mg.genMetricFromCfg(cfg)
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 type metricGenerator struct {
 	metricID int
 }
 
-func newMetricGenerator() metricGenerator {
-	return metricGenerator{}
-}
+func newMetricGenerator() metricGenerator { _ = "STUB: not implemented"; return *new(metricGenerator) }
 
 func (g *metricGenerator) genMetricFromCfg(cfg MetricsCfg) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	rms := md.ResourceMetrics()
-	rms.EnsureCapacity(cfg.NumResourceMetrics)
-	for i := 0; i < cfg.NumResourceMetrics; i++ {
-		rm := rms.AppendEmpty()
-		resource := rm.Resource()
-		for j := 0; j < cfg.NumResourceAttrs; j++ {
-			resource.Attributes().PutStr(
-				fmt.Sprintf("resource-attr-name-%d", j),
-				fmt.Sprintf("resource-attr-val-%d", j),
-			)
-		}
-		g.populateIlm(cfg, rm)
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func (g *metricGenerator) populateIlm(cfg MetricsCfg, rm pmetric.ResourceMetrics) {
-	ilms := rm.ScopeMetrics()
-	ilms.EnsureCapacity(cfg.NumILMPerResource)
-	for i := 0; i < cfg.NumILMPerResource; i++ {
-		ilm := ilms.AppendEmpty()
-		g.populateMetrics(cfg, ilm)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (g *metricGenerator) populateMetrics(cfg MetricsCfg, ilm pmetric.ScopeMetrics) {
-	metrics := ilm.Metrics()
-	metrics.EnsureCapacity(cfg.NumMetricsPerILM)
-	for i := 0; i < cfg.NumMetricsPerILM; i++ {
-		metric := metrics.AppendEmpty()
-		g.populateMetricDesc(cfg, metric)
-		//exhaustive:enforce
-		switch cfg.MetricDescriptorType {
-		case pmetric.MetricTypeGauge:
-			populateNumberPoints(cfg, metric.SetEmptyGauge().DataPoints())
-		case pmetric.MetricTypeSum:
-			sum := metric.SetEmptySum()
-			sum.SetIsMonotonic(cfg.IsMonotonicSum)
-			sum.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-			populateNumberPoints(cfg, sum.DataPoints())
-		case pmetric.MetricTypeHistogram:
-			histo := metric.SetEmptyHistogram()
-			histo.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-			populateDoubleHistogram(cfg, histo)
-		case pmetric.MetricTypeExponentialHistogram:
-			histo := metric.SetEmptyExponentialHistogram()
-			histo.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-			populateExpoHistogram(cfg, histo)
-		case pmetric.MetricTypeSummary:
-			panic("unsupported type summary")
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
+//exhaustive:enforce
+
 func (g *metricGenerator) populateMetricDesc(cfg MetricsCfg, metric pmetric.Metric) {
-	metric.SetName(fmt.Sprintf("%smetric_%d", cfg.MetricNamePrefix, g.metricID))
-	g.metricID++
-	metric.SetDescription("my-md-description")
-	metric.SetUnit("my-md-units")
+	_ = "STUB: not implemented"
+	return
 }
 
 func populateNumberPoints(cfg MetricsCfg, pts pmetric.NumberDataPointSlice) {
-	pts.EnsureCapacity(cfg.NumPtsPerMetric)
-	for i := 0; i < cfg.NumPtsPerMetric; i++ {
-		pt := pts.AppendEmpty()
-		pt.SetStartTimestamp(pcommon.Timestamp(cfg.StartTime))
-		pt.SetTimestamp(getTimestamp(cfg.StartTime, cfg.StepSize, i))
-		switch cfg.MetricValueType {
-		case pmetric.NumberDataPointValueTypeInt:
-			pt.SetIntValue(int64(cfg.PtVal + i))
-		case pmetric.NumberDataPointValueTypeDouble:
-			pt.SetDoubleValue(float64(cfg.PtVal + i))
-		default:
-			panic("Should not happen")
-		}
-		populatePtAttributes(cfg, pt.Attributes())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func populateDoubleHistogram(cfg MetricsCfg, dh pmetric.Histogram) {
-	pts := dh.DataPoints()
-	pts.EnsureCapacity(cfg.NumPtsPerMetric)
-	for i := 0; i < cfg.NumPtsPerMetric; i++ {
-		pt := pts.AppendEmpty()
-		pt.SetStartTimestamp(pcommon.Timestamp(cfg.StartTime))
-		ts := getTimestamp(cfg.StartTime, cfg.StepSize, i)
-		pt.SetTimestamp(ts)
-		populatePtAttributes(cfg, pt.Attributes())
-		setDoubleHistogramBounds(pt, 1, 2, 3, 4, 5)
-		addDoubleHistogramVal(pt, 1)
-		for i := 0; i < cfg.PtVal; i++ {
-			addDoubleHistogramVal(pt, 3)
-		}
-		addDoubleHistogramVal(pt, 5)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func setDoubleHistogramBounds(hdp pmetric.HistogramDataPoint, bounds ...float64) {
-	counts := make([]uint64, len(bounds)+1)
-	hdp.BucketCounts().FromRaw(counts)
-	hdp.ExplicitBounds().FromRaw(bounds)
+	_ = "STUB: not implemented"
+	return
 }
 
 func addDoubleHistogramVal(hdp pmetric.HistogramDataPoint, val float64) {
-	hdp.SetCount(hdp.Count() + 1)
-	hdp.SetSum(hdp.Sum() + val)
-	// TODO: HasSum, Min, HasMin, Max, HasMax are not covered in tests.
-	buckets := hdp.BucketCounts()
-	bounds := hdp.ExplicitBounds()
-	for i := 0; i < bounds.Len(); i++ {
-		bound := bounds.At(i)
-		if val <= bound {
-			buckets.SetAt(i, buckets.At(i)+1)
-			break
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func populatePtAttributes(cfg MetricsCfg, lm pcommon.Map) {
-	for i := 0; i < cfg.NumPtLabels; i++ {
-		k := fmt.Sprintf("pt-label-key-%d", i)
-		v := fmt.Sprintf("pt-label-val-%d", i)
-		lm.PutStr(k, v)
-	}
-}
+// TODO: HasSum, Min, HasMin, Max, HasMax are not covered in tests.
+
+func populatePtAttributes(cfg MetricsCfg, lm pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func getTimestamp(startTime, stepSize uint64, i int) pcommon.Timestamp {
-	return pcommon.Timestamp(startTime + (stepSize * uint64(i+1)))
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
 
 func populateExpoHistogram(cfg MetricsCfg, dh pmetric.ExponentialHistogram) {
-	pts := dh.DataPoints()
-	pts.EnsureCapacity(cfg.NumPtsPerMetric)
-	for i := 0; i < cfg.NumPtsPerMetric; i++ {
-		pt := pts.AppendEmpty()
-		pt.SetStartTimestamp(pcommon.Timestamp(cfg.StartTime))
-		ts := getTimestamp(cfg.StartTime, cfg.StepSize, i)
-		pt.SetTimestamp(ts)
-		populatePtAttributes(cfg, pt.Attributes())
-
-		pt.SetSum(100 * float64(cfg.PtVal))
-		pt.SetCount(uint64(cfg.PtVal))
-		pt.SetScale(int32(cfg.PtVal))
-		pt.SetZeroCount(uint64(cfg.PtVal))
-		pt.SetMin(float64(cfg.PtVal))
-		pt.SetMax(float64(cfg.PtVal))
-		pt.Positive().SetOffset(int32(cfg.PtVal))
-		pt.Positive().BucketCounts().FromRaw([]uint64{uint64(cfg.PtVal)})
-	}
+	_ = "STUB: not implemented"
+	return
 }

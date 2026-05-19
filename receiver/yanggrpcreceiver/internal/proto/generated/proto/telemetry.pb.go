@@ -31,7 +31,6 @@
 package generated
 
 import (
-	reflect "reflect"
 	sync "sync"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -109,121 +108,49 @@ type Telemetry struct {
 	CollectionEndTime uint64 `protobuf:"varint,13,opt,name=collection_end_time,json=collectionEndTime,proto3" json:"collection_end_time,omitempty"`
 }
 
-func (x *Telemetry) Reset() {
-	*x = Telemetry{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_telemetry_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *Telemetry) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *Telemetry) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *Telemetry) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*Telemetry) ProtoMessage() {}
+func (*Telemetry) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *Telemetry) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_telemetry_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use Telemetry.ProtoReflect.Descriptor instead.
-func (*Telemetry) Descriptor() ([]byte, []int) {
-	return file_proto_telemetry_proto_rawDescGZIP(), []int{0}
-}
+func (*Telemetry) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
 func (m *Telemetry) GetNodeId() isTelemetry_NodeId {
-	if m != nil {
-		return m.NodeId
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isTelemetry_NodeId)
 }
 
-func (x *Telemetry) GetNodeIdStr() string {
-	if x, ok := x.GetNodeId().(*Telemetry_NodeIdStr); ok {
-		return x.NodeIdStr
-	}
-	return ""
-}
+func (x *Telemetry) GetNodeIdStr() string { _ = "STUB: not implemented"; return "" }
 
 func (m *Telemetry) GetSubscription() isTelemetry_Subscription {
-	if m != nil {
-		return m.Subscription
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isTelemetry_Subscription)
 }
 
-func (x *Telemetry) GetSubscriptionIdStr() string {
-	if x, ok := x.GetSubscription().(*Telemetry_SubscriptionIdStr); ok {
-		return x.SubscriptionIdStr
-	}
-	return ""
-}
+func (x *Telemetry) GetSubscriptionIdStr() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Telemetry) GetSubscriptionId() uint32 {
-	if x, ok := x.GetSubscription().(*Telemetry_SubscriptionId); ok {
-		return x.SubscriptionId
-	}
-	return 0
-}
+func (x *Telemetry) GetSubscriptionId() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Telemetry) GetEncodingPath() string {
-	if x != nil {
-		return x.EncodingPath
-	}
-	return ""
-}
+func (x *Telemetry) GetEncodingPath() string { _ = "STUB: not implemented"; return "" }
 
-func (x *Telemetry) GetCollectionId() uint64 {
-	if x != nil {
-		return x.CollectionId
-	}
-	return 0
-}
+func (x *Telemetry) GetCollectionId() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Telemetry) GetCollectionStartTime() uint64 {
-	if x != nil {
-		return x.CollectionStartTime
-	}
-	return 0
-}
+func (x *Telemetry) GetCollectionStartTime() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Telemetry) GetMsgTimestamp() uint64 {
-	if x != nil {
-		return x.MsgTimestamp
-	}
-	return 0
-}
+func (x *Telemetry) GetMsgTimestamp() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *Telemetry) GetDataGpbkv() []*TelemetryField {
-	if x != nil {
-		return x.DataGpbkv
-	}
-	return nil
-}
+func (x *Telemetry) GetDataGpbkv() []*TelemetryField { _ = "STUB: not implemented"; return nil }
 
-func (x *Telemetry) GetDataGpb() *TelemetryGPBTable {
-	if x != nil {
-		return x.DataGpb
-	}
-	return nil
-}
+func (x *Telemetry) GetDataGpb() *TelemetryGPBTable { _ = "STUB: not implemented"; return nil }
 
-func (x *Telemetry) GetCollectionEndTime() uint64 {
-	if x != nil {
-		return x.CollectionEndTime
-	}
-	return 0
-}
+func (x *Telemetry) GetCollectionEndTime() uint64 { _ = "STUB: not implemented"; return 0 }
 
 type isTelemetry_NodeId interface {
 	isTelemetry_NodeId()
@@ -233,7 +160,7 @@ type Telemetry_NodeIdStr struct {
 	NodeIdStr string `protobuf:"bytes,1,opt,name=node_id_str,json=nodeIdStr,proto3,oneof"` // bytes node_id_uuid = 2;
 }
 
-func (*Telemetry_NodeIdStr) isTelemetry_NodeId() {}
+func (*Telemetry_NodeIdStr) isTelemetry_NodeId() { _ = "STUB: not implemented"; return }
 
 type isTelemetry_Subscription interface {
 	isTelemetry_Subscription()
@@ -247,14 +174,18 @@ type Telemetry_SubscriptionId struct {
 	SubscriptionId uint32 `protobuf:"varint,4,opt,name=subscription_id,json=subscriptionId,proto3,oneof"`
 }
 
-func (*Telemetry_SubscriptionIdStr) isTelemetry_Subscription() {}
+func (*Telemetry_SubscriptionIdStr) isTelemetry_Subscription() { _ = "STUB: not implemented"; return }
 
-func (*Telemetry_SubscriptionId) isTelemetry_Subscription() {}
+func (*Telemetry_SubscriptionId) isTelemetry_Subscription() {
+	_ = "STUB: not implemented"
 
-// TelemetryField messages are used to export content in the self
-// describing GPB KV form. The TelemetryField message is sufficient to
-// decode telemetry messages for all models. KV-GPB encoding is very
-// similar in concept, to JSON encoding
+	// TelemetryField messages are used to export content in the self
+	// describing GPB KV form. The TelemetryField message is sufficient to
+	// decode telemetry messages for all models. KV-GPB encoding is very
+	// similar in concept, to JSON encoding
+	return
+}
+
 type TelemetryField struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -296,128 +227,48 @@ type TelemetryField struct {
 	Fields []*TelemetryField `protobuf:"bytes,15,rep,name=fields,proto3" json:"fields,omitempty"`
 }
 
-func (x *TelemetryField) Reset() {
-	*x = TelemetryField{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_telemetry_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *TelemetryField) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TelemetryField) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TelemetryField) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TelemetryField) ProtoMessage() {}
+func (*TelemetryField) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TelemetryField) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_telemetry_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TelemetryField.ProtoReflect.Descriptor instead.
-func (*TelemetryField) Descriptor() ([]byte, []int) {
-	return file_proto_telemetry_proto_rawDescGZIP(), []int{1}
-}
+func (*TelemetryField) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TelemetryField) GetTimestamp() uint64 {
-	if x != nil {
-		return x.Timestamp
-	}
-	return 0
-}
+func (x *TelemetryField) GetTimestamp() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
+func (x *TelemetryField) GetName() string { _ = "STUB: not implemented"; return "" }
 
 func (m *TelemetryField) GetValueByType() isTelemetryField_ValueByType {
-	if m != nil {
-		return m.ValueByType
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isTelemetryField_ValueByType)
 }
 
-func (x *TelemetryField) GetBytesValue() []byte {
-	if x, ok := x.GetValueByType().(*TelemetryField_BytesValue); ok {
-		return x.BytesValue
-	}
-	return nil
-}
+func (x *TelemetryField) GetBytesValue() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *TelemetryField) GetStringValue() string {
-	if x, ok := x.GetValueByType().(*TelemetryField_StringValue); ok {
-		return x.StringValue
-	}
-	return ""
-}
+func (x *TelemetryField) GetStringValue() string { _ = "STUB: not implemented"; return "" }
 
-func (x *TelemetryField) GetBoolValue() bool {
-	if x, ok := x.GetValueByType().(*TelemetryField_BoolValue); ok {
-		return x.BoolValue
-	}
-	return false
-}
+func (x *TelemetryField) GetBoolValue() bool { _ = "STUB: not implemented"; return false }
 
-func (x *TelemetryField) GetUint32Value() uint32 {
-	if x, ok := x.GetValueByType().(*TelemetryField_Uint32Value); ok {
-		return x.Uint32Value
-	}
-	return 0
-}
+func (x *TelemetryField) GetUint32Value() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetUint64Value() uint64 {
-	if x, ok := x.GetValueByType().(*TelemetryField_Uint64Value); ok {
-		return x.Uint64Value
-	}
-	return 0
-}
+func (x *TelemetryField) GetUint64Value() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetSint32Value() int32 {
-	if x, ok := x.GetValueByType().(*TelemetryField_Sint32Value); ok {
-		return x.Sint32Value
-	}
-	return 0
-}
+func (x *TelemetryField) GetSint32Value() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetSint64Value() int64 {
-	if x, ok := x.GetValueByType().(*TelemetryField_Sint64Value); ok {
-		return x.Sint64Value
-	}
-	return 0
-}
+func (x *TelemetryField) GetSint64Value() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetDoubleValue() float64 {
-	if x, ok := x.GetValueByType().(*TelemetryField_DoubleValue); ok {
-		return x.DoubleValue
-	}
-	return 0
-}
+func (x *TelemetryField) GetDoubleValue() float64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetFloatValue() float32 {
-	if x, ok := x.GetValueByType().(*TelemetryField_FloatValue); ok {
-		return x.FloatValue
-	}
-	return 0
-}
+func (x *TelemetryField) GetFloatValue() float32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryField) GetFields() []*TelemetryField {
-	if x != nil {
-		return x.Fields
-	}
-	return nil
-}
+func (x *TelemetryField) GetFields() []*TelemetryField { _ = "STUB: not implemented"; return nil }
 
 type isTelemetryField_ValueByType interface {
 	isTelemetryField_ValueByType()
@@ -459,28 +310,50 @@ type TelemetryField_FloatValue struct {
 	FloatValue float32 `protobuf:"fixed32,12,opt,name=float_value,json=floatValue,proto3,oneof"`
 }
 
-func (*TelemetryField_BytesValue) isTelemetryField_ValueByType() {}
+func (*TelemetryField_BytesValue) isTelemetryField_ValueByType() { _ = "STUB: not implemented"; return }
 
-func (*TelemetryField_StringValue) isTelemetryField_ValueByType() {}
+func (*TelemetryField_StringValue) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_BoolValue) isTelemetryField_ValueByType() {}
+func (*TelemetryField_BoolValue) isTelemetryField_ValueByType() { _ = "STUB: not implemented"; return }
 
-func (*TelemetryField_Uint32Value) isTelemetryField_ValueByType() {}
+func (*TelemetryField_Uint32Value) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_Uint64Value) isTelemetryField_ValueByType() {}
+func (*TelemetryField_Uint64Value) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_Sint32Value) isTelemetryField_ValueByType() {}
+func (*TelemetryField_Sint32Value) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_Sint64Value) isTelemetryField_ValueByType() {}
+func (*TelemetryField_Sint64Value) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_DoubleValue) isTelemetryField_ValueByType() {}
+func (*TelemetryField_DoubleValue) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*TelemetryField_FloatValue) isTelemetryField_ValueByType() {}
+func (*TelemetryField_FloatValue) isTelemetryField_ValueByType() {
+	_ = "STUB: not implemented"
 
-// TelemetryGPBTable contains a repeated number of TelemetryRowGPB,
-// each of which represents content from a subtree instance in the
-// YANG model. For example; a TelemetryGPBTable might contain
-// the interface statistics of a collection of interfaces.
+	// TelemetryGPBTable contains a repeated number of TelemetryRowGPB,
+	// each of which represents content from a subtree instance in the
+	// YANG model. For example; a TelemetryGPBTable might contain
+	// the interface statistics of a collection of interfaces.
+	return
+}
+
 type TelemetryGPBTable struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -489,44 +362,21 @@ type TelemetryGPBTable struct {
 	Row []*TelemetryRowGPB `protobuf:"bytes,1,rep,name=row,proto3" json:"row,omitempty"`
 }
 
-func (x *TelemetryGPBTable) Reset() {
-	*x = TelemetryGPBTable{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_telemetry_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *TelemetryGPBTable) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TelemetryGPBTable) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TelemetryGPBTable) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TelemetryGPBTable) ProtoMessage() {}
+func (*TelemetryGPBTable) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TelemetryGPBTable) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_telemetry_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TelemetryGPBTable.ProtoReflect.Descriptor instead.
-func (*TelemetryGPBTable) Descriptor() ([]byte, []int) {
-	return file_proto_telemetry_proto_rawDescGZIP(), []int{2}
-}
+func (*TelemetryGPBTable) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TelemetryGPBTable) GetRow() []*TelemetryRowGPB {
-	if x != nil {
-		return x.Row
-	}
-	return nil
-}
+func (x *TelemetryGPBTable) GetRow() []*TelemetryRowGPB { _ = "STUB: not implemented"; return nil }
 
 // TelemetryRowGPB, in conjunction with the Telemetry encoding_path and
 // model_version, unambiguously represents the root of a subtree in
@@ -568,58 +418,25 @@ type TelemetryRowGPB struct {
 	Content []byte `protobuf:"bytes,11,opt,name=content,proto3" json:"content,omitempty"`
 }
 
-func (x *TelemetryRowGPB) Reset() {
-	*x = TelemetryRowGPB{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_telemetry_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *TelemetryRowGPB) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *TelemetryRowGPB) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *TelemetryRowGPB) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*TelemetryRowGPB) ProtoMessage() {}
+func (*TelemetryRowGPB) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *TelemetryRowGPB) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_telemetry_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use TelemetryRowGPB.ProtoReflect.Descriptor instead.
-func (*TelemetryRowGPB) Descriptor() ([]byte, []int) {
-	return file_proto_telemetry_proto_rawDescGZIP(), []int{3}
-}
+func (*TelemetryRowGPB) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *TelemetryRowGPB) GetTimestamp() uint64 {
-	if x != nil {
-		return x.Timestamp
-	}
-	return 0
-}
+func (x *TelemetryRowGPB) GetTimestamp() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *TelemetryRowGPB) GetKeys() []byte {
-	if x != nil {
-		return x.Keys
-	}
-	return nil
-}
+func (x *TelemetryRowGPB) GetKeys() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *TelemetryRowGPB) GetContent() []byte {
-	if x != nil {
-		return x.Content
-	}
-	return nil
-}
+func (x *TelemetryRowGPB) GetContent() []byte { _ = "STUB: not implemented"; return nil }
 
 var File_proto_telemetry_proto protoreflect.FileDescriptor
 
@@ -708,12 +525,7 @@ var (
 	file_proto_telemetry_proto_rawDescData = file_proto_telemetry_proto_rawDesc
 )
 
-func file_proto_telemetry_proto_rawDescGZIP() []byte {
-	file_proto_telemetry_proto_rawDescOnce.Do(func() {
-		file_proto_telemetry_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_telemetry_proto_rawDescData)
-	})
-	return file_proto_telemetry_proto_rawDescData
-}
+func file_proto_telemetry_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_proto_telemetry_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_telemetry_proto_goTypes = []interface{}{
@@ -734,93 +546,5 @@ var file_proto_telemetry_proto_depIdxs = []int32{
 	0, // [0:4] is the sub-list for field type_name
 }
 
-func init() { file_proto_telemetry_proto_init() }
-func file_proto_telemetry_proto_init() {
-	if File_proto_telemetry_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_proto_telemetry_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Telemetry); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_proto_telemetry_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TelemetryField); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_proto_telemetry_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TelemetryGPBTable); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_proto_telemetry_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TelemetryRowGPB); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	file_proto_telemetry_proto_msgTypes[0].OneofWrappers = []interface{}{
-		(*Telemetry_NodeIdStr)(nil),
-		(*Telemetry_SubscriptionIdStr)(nil),
-		(*Telemetry_SubscriptionId)(nil),
-	}
-	file_proto_telemetry_proto_msgTypes[1].OneofWrappers = []interface{}{
-		(*TelemetryField_BytesValue)(nil),
-		(*TelemetryField_StringValue)(nil),
-		(*TelemetryField_BoolValue)(nil),
-		(*TelemetryField_Uint32Value)(nil),
-		(*TelemetryField_Uint64Value)(nil),
-		(*TelemetryField_Sint32Value)(nil),
-		(*TelemetryField_Sint64Value)(nil),
-		(*TelemetryField_DoubleValue)(nil),
-		(*TelemetryField_FloatValue)(nil),
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_proto_telemetry_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   4,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_proto_telemetry_proto_goTypes,
-		DependencyIndexes: file_proto_telemetry_proto_depIdxs,
-		MessageInfos:      file_proto_telemetry_proto_msgTypes,
-	}.Build()
-	File_proto_telemetry_proto = out.File
-	file_proto_telemetry_proto_rawDesc = nil
-	file_proto_telemetry_proto_goTypes = nil
-	file_proto_telemetry_proto_depIdxs = nil
-}
+func init()                            { file_proto_telemetry_proto_init() }
+func file_proto_telemetry_proto_init() { _ = "STUB: not implemented"; return }

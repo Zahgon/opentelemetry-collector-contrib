@@ -4,13 +4,11 @@
 package tailsamplingprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor"
 
 import (
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/tailstorageextension"
 )
 
 // PolicyType indicates the type of sampling policy.
@@ -364,26 +362,6 @@ type Config struct {
 	MaximumTraceSizeBytes uint64 `mapstructure:"maximum_trace_size_bytes"`
 }
 
-func (cfg *Config) Validate() error {
-	switch cfg.SamplingStrategy {
-	case samplingStrategyTraceComplete, samplingStrategySpanIngest:
-		// valid sampling strategies
-	default:
-		return fmt.Errorf(
-			"invalid sampling_strategy %q, expected one of %q or %q",
-			cfg.SamplingStrategy,
-			samplingStrategyTraceComplete,
-			samplingStrategySpanIngest,
-		)
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.TailStorageID != nil && !tailstorageextension.IsFeatureGateEnabled() {
-		return fmt.Errorf(
-			"'tail_storage' requires the %q feature gate to be enabled, use --feature-gates=+%s",
-			tailstorageextension.FeatureGateID,
-			tailstorageextension.FeatureGateID,
-		)
-	}
-
-	return nil
-}
+// valid sampling strategies

@@ -7,7 +7,6 @@
 package v1
 
 import (
-	reflect "reflect"
 	sync "sync"
 
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -43,31 +42,29 @@ var (
 	}
 )
 
-func (x SpanData_DeliveryMode) Enum() *SpanData_DeliveryMode {
-	p := new(SpanData_DeliveryMode)
-	*p = x
-	return p
-}
+func (x SpanData_DeliveryMode) Enum() *SpanData_DeliveryMode { _ = "STUB: not implemented"; return nil }
 
-func (x SpanData_DeliveryMode) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_DeliveryMode) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_DeliveryMode) Descriptor() protoreflect.EnumDescriptor {
-	return file_receive_v1_proto_enumTypes[0].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_DeliveryMode) Type() protoreflect.EnumType {
-	return &file_receive_v1_proto_enumTypes[0]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_DeliveryMode) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_DeliveryMode.Descriptor instead.
 func (SpanData_DeliveryMode) EnumDescriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type SpanData_TransactionEvent_Type int32
@@ -129,30 +126,31 @@ var (
 )
 
 func (x SpanData_TransactionEvent_Type) Enum() *SpanData_TransactionEvent_Type {
-	p := new(SpanData_TransactionEvent_Type)
-	*p = x
-	return p
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (x SpanData_TransactionEvent_Type) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_TransactionEvent_Type) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_TransactionEvent_Type) Descriptor() protoreflect.EnumDescriptor {
-	return file_receive_v1_proto_enumTypes[1].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_TransactionEvent_Type) Type() protoreflect.EnumType {
-	return &file_receive_v1_proto_enumTypes[1]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_TransactionEvent_Type) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Type.Descriptor instead.
 func (SpanData_TransactionEvent_Type) EnumDescriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 2, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type SpanData_TransactionEvent_Initiator int32
@@ -178,30 +176,31 @@ var (
 )
 
 func (x SpanData_TransactionEvent_Initiator) Enum() *SpanData_TransactionEvent_Initiator {
-	p := new(SpanData_TransactionEvent_Initiator)
-	*p = x
-	return p
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (x SpanData_TransactionEvent_Initiator) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
+func (x SpanData_TransactionEvent_Initiator) String() string { _ = "STUB: not implemented"; return "" }
 
 func (SpanData_TransactionEvent_Initiator) Descriptor() protoreflect.EnumDescriptor {
-	return file_receive_v1_proto_enumTypes[2].Descriptor()
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumDescriptor)
 }
 
 func (SpanData_TransactionEvent_Initiator) Type() protoreflect.EnumType {
-	return &file_receive_v1_proto_enumTypes[2]
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumType)
 }
 
 func (x SpanData_TransactionEvent_Initiator) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.EnumNumber)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Initiator.Descriptor instead.
 func (SpanData_TransactionEvent_Initiator) EnumDescriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 2, 1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // A message will be compatible with this specification if its topic matches:
@@ -378,303 +377,110 @@ type SpanData struct {
 	DroppedEnqueueEventsFailed  uint32 `protobuf:"varint,36,opt,name=dropped_enqueue_events_failed,json=droppedEnqueueEventsFailed,proto3" json:"dropped_enqueue_events_failed,omitempty"`
 }
 
-func (x *SpanData) Reset() {
-	*x = SpanData{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData) ProtoMessage() {}
+func (*SpanData) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData.ProtoReflect.Descriptor instead.
-func (*SpanData) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0}
-}
+func (*SpanData) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *SpanData) GetTraceId() []byte {
-	if x != nil {
-		return x.TraceId
-	}
-	return nil
-}
+func (x *SpanData) GetTraceId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetSpanId() []byte {
-	if x != nil {
-		return x.SpanId
-	}
-	return nil
-}
+func (x *SpanData) GetSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetParentSpanId() []byte {
-	if x != nil {
-		return x.ParentSpanId
-	}
-	return nil
-}
+func (x *SpanData) GetParentSpanId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetTraceState() string {
-	if x != nil && x.TraceState != nil {
-		return *x.TraceState
-	}
-	return ""
-}
+func (x *SpanData) GetTraceState() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetBaggage() string {
-	if x != nil && x.Baggage != nil {
-		return *x.Baggage
-	}
-	return ""
-}
+func (x *SpanData) GetBaggage() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetStartTimeUnixNano() int64 {
-	if x != nil {
-		return x.StartTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData) GetStartTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetEndTimeUnixNano() int64 {
-	if x != nil {
-		return x.EndTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData) GetEndTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetBrokerReceiveTimeUnixNano() int64 {
-	if x != nil {
-		return x.BrokerReceiveTimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData) GetBrokerReceiveTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetTopic() string {
-	if x != nil {
-		return x.Topic
-	}
-	return ""
-}
+func (x *SpanData) GetTopic() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetReplyToTopic() string {
-	if x != nil && x.ReplyToTopic != nil {
-		return *x.ReplyToTopic
-	}
-	return ""
-}
+func (x *SpanData) GetReplyToTopic() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData) GetDeliveryMode() SpanData_DeliveryMode {
-	if x != nil {
-		return x.DeliveryMode
-	}
-	return SpanData_PERSISTENT
+	_ = "STUB: not implemented"
+	return *new(SpanData_DeliveryMode)
 }
 
-func (x *SpanData) GetRouterName() string {
-	if x != nil {
-		return x.RouterName
-	}
-	return ""
-}
+func (x *SpanData) GetRouterName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetMessageVpnName() string {
-	if x != nil && x.MessageVpnName != nil {
-		return *x.MessageVpnName
-	}
-	return ""
-}
+func (x *SpanData) GetMessageVpnName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetSolosVersion() string {
-	if x != nil {
-		return x.SolosVersion
-	}
-	return ""
-}
+func (x *SpanData) GetSolosVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetClientName() string {
-	if x != nil {
-		return x.ClientName
-	}
-	return ""
-}
+func (x *SpanData) GetClientName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetClientUsername() string {
-	if x != nil {
-		return x.ClientUsername
-	}
-	return ""
-}
+func (x *SpanData) GetClientUsername() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetHostIp() []byte {
-	if x != nil {
-		return x.HostIp
-	}
-	return nil
-}
+func (x *SpanData) GetHostIp() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetHostPort() uint32 {
-	if x != nil {
-		return x.HostPort
-	}
-	return 0
-}
+func (x *SpanData) GetHostPort() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetPeerIp() []byte {
-	if x != nil {
-		return x.PeerIp
-	}
-	return nil
-}
+func (x *SpanData) GetPeerIp() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetPeerPort() uint32 {
-	if x != nil {
-		return x.PeerPort
-	}
-	return 0
-}
+func (x *SpanData) GetPeerPort() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetReplicationGroupMessageId() []byte {
-	if x != nil {
-		return x.ReplicationGroupMessageId
-	}
-	return nil
-}
+func (x *SpanData) GetReplicationGroupMessageId() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData) GetProtocol() string {
-	if x != nil {
-		return x.Protocol
-	}
-	return ""
-}
+func (x *SpanData) GetProtocol() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetProtocolVersion() string {
-	if x != nil && x.ProtocolVersion != nil {
-		return *x.ProtocolVersion
-	}
-	return ""
-}
+func (x *SpanData) GetProtocolVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetDmqEligible() bool {
-	if x != nil {
-		return x.DmqEligible
-	}
-	return false
-}
+func (x *SpanData) GetDmqEligible() bool { _ = "STUB: not implemented"; return false }
 
-func (x *SpanData) GetPriority() uint32 {
-	if x != nil && x.Priority != nil {
-		return *x.Priority
-	}
-	return 0
-}
+func (x *SpanData) GetPriority() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetTtl() int64 {
-	if x != nil && x.Ttl != nil {
-		return *x.Ttl
-	}
-	return 0
-}
+func (x *SpanData) GetTtl() int64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetBinaryAttachmentSize() uint32 {
-	if x != nil {
-		return x.BinaryAttachmentSize
-	}
-	return 0
-}
+func (x *SpanData) GetBinaryAttachmentSize() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetXmlAttachmentSize() uint32 {
-	if x != nil {
-		return x.XmlAttachmentSize
-	}
-	return 0
-}
+func (x *SpanData) GetXmlAttachmentSize() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetMetadataSize() uint32 {
-	if x != nil {
-		return x.MetadataSize
-	}
-	return 0
-}
+func (x *SpanData) GetMetadataSize() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetApplicationMessageId() string {
-	if x != nil && x.ApplicationMessageId != nil {
-		return *x.ApplicationMessageId
-	}
-	return ""
-}
+func (x *SpanData) GetApplicationMessageId() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData) GetCorrelationId() string {
-	if x != nil && x.CorrelationId != nil {
-		return *x.CorrelationId
-	}
-	return ""
-}
+func (x *SpanData) GetCorrelationId() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData) GetUserProperties() map[string]*SpanData_UserPropertyValue {
-	if x != nil {
-		return x.UserProperties
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData) GetDroppedApplicationMessageProperties() bool {
-	if x != nil {
-		return x.DroppedApplicationMessageProperties
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
-func (x *SpanData) GetErrorDescription() string {
-	if x != nil {
-		return x.ErrorDescription
-	}
-	return ""
-}
+func (x *SpanData) GetErrorDescription() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData) GetTransactionEvent() *SpanData_TransactionEvent {
-	if x != nil {
-		return x.TransactionEvent
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData) GetEnqueueEvents() []*SpanData_EnqueueEvent {
-	if x != nil {
-		return x.EnqueueEvents
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData) GetDroppedEnqueueEventsSuccess() uint32 {
-	if x != nil {
-		return x.DroppedEnqueueEventsSuccess
-	}
-	return 0
-}
+func (x *SpanData) GetDroppedEnqueueEventsSuccess() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData) GetDroppedEnqueueEventsFailed() uint32 {
-	if x != nil {
-		return x.DroppedEnqueueEventsFailed
-	}
-	return 0
-}
+func (x *SpanData) GetDroppedEnqueueEventsFailed() uint32 { _ = "STUB: not implemented"; return 0 }
 
 type SpanData_UserPropertyValue struct {
 	state         protoimpl.MessageState
@@ -707,154 +513,66 @@ type SpanData_UserPropertyValue struct {
 	Value isSpanData_UserPropertyValue_Value `protobuf_oneof:"value"`
 }
 
-func (x *SpanData_UserPropertyValue) Reset() {
-	*x = SpanData_UserPropertyValue{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_UserPropertyValue) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_UserPropertyValue) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_UserPropertyValue) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_UserPropertyValue) ProtoMessage() {}
+func (*SpanData_UserPropertyValue) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_UserPropertyValue) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_UserPropertyValue.ProtoReflect.Descriptor instead.
 func (*SpanData_UserPropertyValue) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m *SpanData_UserPropertyValue) GetValue() isSpanData_UserPropertyValue_Value {
-	if m != nil {
-		return m.Value
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_UserPropertyValue_Value)
 }
 
-func (x *SpanData_UserPropertyValue) GetNullValue() []byte {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_NullValue); ok {
-		return x.NullValue
-	}
-	return nil
-}
+func (x *SpanData_UserPropertyValue) GetNullValue() []byte { _ = "STUB: not implemented"; return nil }
 
-func (x *SpanData_UserPropertyValue) GetBoolValue() bool {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_BoolValue); ok {
-		return x.BoolValue
-	}
-	return false
-}
+func (x *SpanData_UserPropertyValue) GetBoolValue() bool { _ = "STUB: not implemented"; return false }
 
-func (x *SpanData_UserPropertyValue) GetUint8Value() uint32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Uint8Value); ok {
-		return x.Uint8Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetUint8Value() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetUint16Value() uint32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Uint16Value); ok {
-		return x.Uint16Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetUint16Value() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetUint32Value() uint32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Uint32Value); ok {
-		return x.Uint32Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetUint32Value() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetUint64Value() uint64 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Uint64Value); ok {
-		return x.Uint64Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetUint64Value() uint64 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetInt8Value() int32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Int8Value); ok {
-		return x.Int8Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetInt8Value() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetInt16Value() int32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Int16Value); ok {
-		return x.Int16Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetInt16Value() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetInt32Value() int32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Int32Value); ok {
-		return x.Int32Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetInt32Value() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetInt64Value() int64 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_Int64Value); ok {
-		return x.Int64Value
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetInt64Value() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_UserPropertyValue) GetCharacterValue() uint32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_CharacterValue); ok {
-		return x.CharacterValue
-	}
+	_ = "STUB: not implemented"
 	return 0
 }
 
-func (x *SpanData_UserPropertyValue) GetStringValue() string {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_StringValue); ok {
-		return x.StringValue
-	}
-	return ""
-}
+func (x *SpanData_UserPropertyValue) GetStringValue() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData_UserPropertyValue) GetByteArrayValue() []byte {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_ByteArrayValue); ok {
-		return x.ByteArrayValue
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_UserPropertyValue) GetFloatValue() float32 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_FloatValue); ok {
-		return x.FloatValue
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetFloatValue() float32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_UserPropertyValue) GetDoubleValue() float64 {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_DoubleValue); ok {
-		return x.DoubleValue
-	}
-	return 0
-}
+func (x *SpanData_UserPropertyValue) GetDoubleValue() float64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_UserPropertyValue) GetDestinationValue() string {
-	if x, ok := x.GetValue().(*SpanData_UserPropertyValue_DestinationValue); ok {
-		return x.DestinationValue
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -926,60 +644,109 @@ type SpanData_UserPropertyValue_DestinationValue struct {
 	DestinationValue string `protobuf:"bytes,16,opt,name=destination_value,json=destinationValue,proto3,oneof"`
 }
 
-func (*SpanData_UserPropertyValue_NullValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_NullValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_BoolValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_BoolValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Uint8Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Uint8Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Uint16Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Uint16Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Uint32Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Uint32Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Uint64Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Uint64Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Int8Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Int8Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Int16Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Int16Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Int32Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Int32Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_Int64Value) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_Int64Value) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_CharacterValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_CharacterValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_StringValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_StringValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_ByteArrayValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_ByteArrayValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_FloatValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_FloatValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_DoubleValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_DoubleValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_UserPropertyValue_DestinationValue) isSpanData_UserPropertyValue_Value() {}
+func (*SpanData_UserPropertyValue_DestinationValue) isSpanData_UserPropertyValue_Value() {
+	_ = "STUB: not implemented"
 
-// When a message has a transaction event, it indicates the message is part of
-// a transaction. The timestamp indicates when the *initial* decision was made
-// for this particular message as part of the transaction operation. It
-// doesn't indicate the final state of the transaction. This isn't known until
-// all messages that are part of the transaction have been processed.
-//
-// Note it is possible that, for example, after deciding a message will be
-// committed that a subsequent message in the transaction will cause the
-// transaction to fail. This will result in a successful receive span with a
-// COMMIT transaction event with no error. The fact that the message is not
-// successfully processed will be indicated by a child span of this span. At
-// the current time, these subsequent spans are not yet generated and will be
-// added in a future release. In the meantime, the transaction_id can be used
-// to find out if there were any errored messages in the transaction. A single
-// errored message indicates the entire transaction failed.
-//
-// Also note that since the receive span is only generated either on commit or
-// when the message is discarded, certain transaction operations are only
-// observed in failed receive spans. For example, when XA End or XA Prepare
-// operations succeed, the message is neither discarded nor committed. It is
-// only if these operations fail that the transaction is rolled back and an
-// errored receive span is generated.
+	// When a message has a transaction event, it indicates the message is part of
+	// a transaction. The timestamp indicates when the *initial* decision was made
+	// for this particular message as part of the transaction operation. It
+	// doesn't indicate the final state of the transaction. This isn't known until
+	// all messages that are part of the transaction have been processed.
+	//
+	// Note it is possible that, for example, after deciding a message will be
+	// committed that a subsequent message in the transaction will cause the
+	// transaction to fail. This will result in a successful receive span with a
+	// COMMIT transaction event with no error. The fact that the message is not
+	// successfully processed will be indicated by a child span of this span. At
+	// the current time, these subsequent spans are not yet generated and will be
+	// added in a future release. In the meantime, the transaction_id can be used
+	// to find out if there were any errored messages in the transaction. A single
+	// errored message indicates the entire transaction failed.
+	//
+	// Also note that since the receive span is only generated either on commit or
+	// when the message is discarded, certain transaction operations are only
+	// observed in failed receive spans. For example, when XA End or XA Prepare
+	// operations succeed, the message is neither discarded nor committed. It is
+	// only if these operations fail that the transaction is rolled back and an
+	// errored receive span is generated.
+	return
+}
+
 type SpanData_TransactionEvent struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -996,84 +763,52 @@ type SpanData_TransactionEvent struct {
 	ErrorDescription *string                                   `protobuf:"bytes,6,opt,name=error_description,json=errorDescription,proto3,oneof" json:"error_description,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent) Reset() {
-	*x = SpanData_TransactionEvent{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_TransactionEvent) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_TransactionEvent) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_TransactionEvent) ProtoMessage() {}
+func (*SpanData_TransactionEvent) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 2}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_TransactionEvent) GetTimeUnixNano() int64 {
-	if x != nil {
-		return x.TimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData_TransactionEvent) GetTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_TransactionEvent) GetType() SpanData_TransactionEvent_Type {
-	if x != nil {
-		return x.Type
-	}
-	return SpanData_TransactionEvent_COMMIT
+	_ = "STUB: not implemented"
+	return *new(SpanData_TransactionEvent_Type)
 }
 
 func (x *SpanData_TransactionEvent) GetInitiator() SpanData_TransactionEvent_Initiator {
-	if x != nil {
-		return x.Initiator
-	}
-	return SpanData_TransactionEvent_CLIENT
+	_ = "STUB: not implemented"
+	return *new(SpanData_TransactionEvent_Initiator)
 }
 
 func (m *SpanData_TransactionEvent) GetTransactionId() isSpanData_TransactionEvent_TransactionId {
-	if m != nil {
-		return m.TransactionId
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_TransactionEvent_TransactionId)
 }
 
 func (x *SpanData_TransactionEvent) GetXid() *SpanData_TransactionEvent_Xid {
-	if x, ok := x.GetTransactionId().(*SpanData_TransactionEvent_Xid_); ok {
-		return x.Xid
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_TransactionEvent) GetLocalId() *SpanData_TransactionEvent_LocalTransactionId {
-	if x, ok := x.GetTransactionId().(*SpanData_TransactionEvent_LocalId); ok {
-		return x.LocalId
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (x *SpanData_TransactionEvent) GetErrorDescription() string {
-	if x != nil && x.ErrorDescription != nil {
-		return *x.ErrorDescription
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -1089,18 +824,25 @@ type SpanData_TransactionEvent_LocalId struct {
 	LocalId *SpanData_TransactionEvent_LocalTransactionId `protobuf:"bytes,5,opt,name=local_id,json=localId,proto3,oneof"`
 }
 
-func (*SpanData_TransactionEvent_Xid_) isSpanData_TransactionEvent_TransactionId() {}
+func (*SpanData_TransactionEvent_Xid_) isSpanData_TransactionEvent_TransactionId() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_TransactionEvent_LocalId) isSpanData_TransactionEvent_TransactionId() {}
+func (*SpanData_TransactionEvent_LocalId) isSpanData_TransactionEvent_TransactionId() {
+	_ = "STUB: not implemented"
 
-// An enqueue event represents the broker's decision to enqueue a message
-// when processing a received message. If there is no error_description,
-// the broker has successfully processed the message and the enqueue events
-// indicate where the message has been enqueued. The presence of an
-// error_description indicates the message will not be enqueued to dest even
-// though the message matched the destination. If rejects_all_enqueues is set,
-// it means the message is not enqueued to any destinations, regardless of
-// what other enqueue events may indicate and the message is rejected.
+	// An enqueue event represents the broker's decision to enqueue a message
+	// when processing a received message. If there is no error_description,
+	// the broker has successfully processed the message and the enqueue events
+	// indicate where the message has been enqueued. The presence of an
+	// error_description indicates the message will not be enqueued to dest even
+	// though the message matched the destination. If rejects_all_enqueues is set,
+	// it means the message is not enqueued to any destinations, regardless of
+	// what other enqueue events may indicate and the message is rejected.
+	return
+}
+
 type SpanData_EnqueueEvent struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1144,93 +886,44 @@ type SpanData_EnqueueEvent struct {
 	Ttl *int64 `protobuf:"varint,7,opt,name=ttl,proto3,oneof" json:"ttl,omitempty"`
 }
 
-func (x *SpanData_EnqueueEvent) Reset() {
-	*x = SpanData_EnqueueEvent{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_EnqueueEvent) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_EnqueueEvent) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_EnqueueEvent) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_EnqueueEvent) ProtoMessage() {}
+func (*SpanData_EnqueueEvent) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_EnqueueEvent) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_EnqueueEvent.ProtoReflect.Descriptor instead.
 func (*SpanData_EnqueueEvent) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 3}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_EnqueueEvent) GetTimeUnixNano() int64 {
-	if x != nil {
-		return x.TimeUnixNano
-	}
-	return 0
-}
+func (x *SpanData_EnqueueEvent) GetTimeUnixNano() int64 { _ = "STUB: not implemented"; return 0 }
 
 func (m *SpanData_EnqueueEvent) GetDest() isSpanData_EnqueueEvent_Dest {
-	if m != nil {
-		return m.Dest
-	}
-	return nil
+	_ = "STUB: not implemented"
+	return *new(isSpanData_EnqueueEvent_Dest)
 }
 
-func (x *SpanData_EnqueueEvent) GetQueueName() string {
-	if x, ok := x.GetDest().(*SpanData_EnqueueEvent_QueueName); ok {
-		return x.QueueName
-	}
-	return ""
-}
+func (x *SpanData_EnqueueEvent) GetQueueName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_EnqueueEvent) GetTopicEndpointName() string {
-	if x, ok := x.GetDest().(*SpanData_EnqueueEvent_TopicEndpointName); ok {
-		return x.TopicEndpointName
-	}
-	return ""
-}
+func (x *SpanData_EnqueueEvent) GetTopicEndpointName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *SpanData_EnqueueEvent) GetErrorDescription() string {
-	if x != nil && x.ErrorDescription != nil {
-		return *x.ErrorDescription
-	}
-	return ""
-}
+func (x *SpanData_EnqueueEvent) GetErrorDescription() string { _ = "STUB: not implemented"; return "" }
 
 func (x *SpanData_EnqueueEvent) GetRejectsAllEnqueues() bool {
-	if x != nil {
-		return x.RejectsAllEnqueues
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
-func (x *SpanData_EnqueueEvent) GetPartitionNumber() uint32 {
-	if x != nil && x.PartitionNumber != nil {
-		return *x.PartitionNumber
-	}
-	return 0
-}
+func (x *SpanData_EnqueueEvent) GetPartitionNumber() uint32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *SpanData_EnqueueEvent) GetTtl() int64 {
-	if x != nil && x.Ttl != nil {
-		return *x.Ttl
-	}
-	return 0
-}
+func (x *SpanData_EnqueueEvent) GetTtl() int64 { _ = "STUB: not implemented"; return 0 }
 
 type isSpanData_EnqueueEvent_Dest interface {
 	isSpanData_EnqueueEvent_Dest()
@@ -1244,9 +937,15 @@ type SpanData_EnqueueEvent_TopicEndpointName struct {
 	TopicEndpointName string `protobuf:"bytes,3,opt,name=topic_endpoint_name,json=topicEndpointName,proto3,oneof"`
 }
 
-func (*SpanData_EnqueueEvent_QueueName) isSpanData_EnqueueEvent_Dest() {}
+func (*SpanData_EnqueueEvent_QueueName) isSpanData_EnqueueEvent_Dest() {
+	_ = "STUB: not implemented"
+	return
+}
 
-func (*SpanData_EnqueueEvent_TopicEndpointName) isSpanData_EnqueueEvent_Dest() {}
+func (*SpanData_EnqueueEvent_TopicEndpointName) isSpanData_EnqueueEvent_Dest() {
+	_ = "STUB: not implemented"
+	return
+}
 
 type SpanData_TransactionEvent_Xid struct {
 	state         protoimpl.MessageState
@@ -1258,58 +957,31 @@ type SpanData_TransactionEvent_Xid struct {
 	GlobalId        []byte `protobuf:"bytes,3,opt,name=global_id,json=globalId,proto3" json:"global_id,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent_Xid) Reset() {
-	*x = SpanData_TransactionEvent_Xid{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent_Xid) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *SpanData_TransactionEvent_Xid) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *SpanData_TransactionEvent_Xid) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*SpanData_TransactionEvent_Xid) ProtoMessage() {}
+func (*SpanData_TransactionEvent_Xid) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent_Xid) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_Xid.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent_Xid) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 2, 0}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *SpanData_TransactionEvent_Xid) GetFormatId() int32 {
-	if x != nil {
-		return x.FormatId
-	}
-	return 0
-}
+func (x *SpanData_TransactionEvent_Xid) GetFormatId() int32 { _ = "STUB: not implemented"; return 0 }
 
 func (x *SpanData_TransactionEvent_Xid) GetBranchQualifier() []byte {
-	if x != nil {
-		return x.BranchQualifier
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *SpanData_TransactionEvent_Xid) GetGlobalId() []byte {
-	if x != nil {
-		return x.GlobalId
-	}
-	return nil
-}
+func (x *SpanData_TransactionEvent_Xid) GetGlobalId() []byte { _ = "STUB: not implemented"; return nil }
 
 type SpanData_TransactionEvent_LocalTransactionId struct {
 	state         protoimpl.MessageState
@@ -1321,56 +993,41 @@ type SpanData_TransactionEvent_LocalTransactionId struct {
 	SessionName   string `protobuf:"bytes,3,opt,name=session_name,json=sessionName,proto3" json:"session_name,omitempty"`
 }
 
-func (x *SpanData_TransactionEvent_LocalTransactionId) Reset() {
-	*x = SpanData_TransactionEvent_LocalTransactionId{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_receive_v1_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *SpanData_TransactionEvent_LocalTransactionId) Reset() { _ = "STUB: not implemented"; return }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) String() string {
-	return protoimpl.X.MessageStringOf(x)
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func (*SpanData_TransactionEvent_LocalTransactionId) ProtoMessage() {}
+func (*SpanData_TransactionEvent_LocalTransactionId) ProtoMessage() {
+	_ = "STUB: not implemented"
+	return
+}
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) ProtoReflect() protoreflect.Message {
-	mi := &file_receive_v1_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use SpanData_TransactionEvent_LocalTransactionId.ProtoReflect.Descriptor instead.
 func (*SpanData_TransactionEvent_LocalTransactionId) Descriptor() ([]byte, []int) {
-	return file_receive_v1_proto_rawDescGZIP(), []int{0, 2, 1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetTransactionId() uint32 {
-	if x != nil {
-		return x.TransactionId
-	}
+	_ = "STUB: not implemented"
 	return 0
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetSessionId() uint32 {
-	if x != nil {
-		return x.SessionId
-	}
+	_ = "STUB: not implemented"
 	return 0
 }
 
 func (x *SpanData_TransactionEvent_LocalTransactionId) GetSessionName() string {
-	if x != nil {
-		return x.SessionName
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
@@ -1658,12 +1315,7 @@ var (
 	file_receive_v1_proto_rawDescData = file_receive_v1_proto_rawDesc
 )
 
-func file_receive_v1_proto_rawDescGZIP() []byte {
-	file_receive_v1_proto_rawDescOnce.Do(func() {
-		file_receive_v1_proto_rawDescData = protoimpl.X.CompressGZIP(file_receive_v1_proto_rawDescData)
-	})
-	return file_receive_v1_proto_rawDescData
-}
+func file_receive_v1_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_receive_v1_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_receive_v1_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
@@ -1696,129 +1348,5 @@ var file_receive_v1_proto_depIdxs = []int32{
 	0, // [0:9] is the sub-list for field type_name
 }
 
-func init() { file_receive_v1_proto_init() }
-func file_receive_v1_proto_init() {
-	if File_receive_v1_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_receive_v1_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_receive_v1_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_UserPropertyValue); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_receive_v1_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_receive_v1_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_EnqueueEvent); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_receive_v1_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent_Xid); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_receive_v1_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SpanData_TransactionEvent_LocalTransactionId); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	file_receive_v1_proto_msgTypes[0].OneofWrappers = []interface{}{}
-	file_receive_v1_proto_msgTypes[2].OneofWrappers = []interface{}{
-		(*SpanData_UserPropertyValue_NullValue)(nil),
-		(*SpanData_UserPropertyValue_BoolValue)(nil),
-		(*SpanData_UserPropertyValue_Uint8Value)(nil),
-		(*SpanData_UserPropertyValue_Uint16Value)(nil),
-		(*SpanData_UserPropertyValue_Uint32Value)(nil),
-		(*SpanData_UserPropertyValue_Uint64Value)(nil),
-		(*SpanData_UserPropertyValue_Int8Value)(nil),
-		(*SpanData_UserPropertyValue_Int16Value)(nil),
-		(*SpanData_UserPropertyValue_Int32Value)(nil),
-		(*SpanData_UserPropertyValue_Int64Value)(nil),
-		(*SpanData_UserPropertyValue_CharacterValue)(nil),
-		(*SpanData_UserPropertyValue_StringValue)(nil),
-		(*SpanData_UserPropertyValue_ByteArrayValue)(nil),
-		(*SpanData_UserPropertyValue_FloatValue)(nil),
-		(*SpanData_UserPropertyValue_DoubleValue)(nil),
-		(*SpanData_UserPropertyValue_DestinationValue)(nil),
-	}
-	file_receive_v1_proto_msgTypes[3].OneofWrappers = []interface{}{
-		(*SpanData_TransactionEvent_Xid_)(nil),
-		(*SpanData_TransactionEvent_LocalId)(nil),
-	}
-	file_receive_v1_proto_msgTypes[4].OneofWrappers = []interface{}{
-		(*SpanData_EnqueueEvent_QueueName)(nil),
-		(*SpanData_EnqueueEvent_TopicEndpointName)(nil),
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_receive_v1_proto_rawDesc,
-			NumEnums:      3,
-			NumMessages:   7,
-			NumExtensions: 0,
-			NumServices:   0,
-		},
-		GoTypes:           file_receive_v1_proto_goTypes,
-		DependencyIndexes: file_receive_v1_proto_depIdxs,
-		EnumInfos:         file_receive_v1_proto_enumTypes,
-		MessageInfos:      file_receive_v1_proto_msgTypes,
-	}.Build()
-	File_receive_v1_proto = out.File
-	file_receive_v1_proto_rawDesc = nil
-	file_receive_v1_proto_goTypes = nil
-	file_receive_v1_proto_depIdxs = nil
-}
+func init()                       { file_receive_v1_proto_init() }
+func file_receive_v1_proto_init() { _ = "STUB: not implemented"; return }

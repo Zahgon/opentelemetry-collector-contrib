@@ -17,11 +17,7 @@ func init() {
 }
 
 // NewConfig creates a new drop output config with default values
-func NewConfig(operatorID string) *Config {
-	return &Config{
-		OutputConfig: helper.NewOutputConfig(operatorID, operatorType),
-	}
-}
+func NewConfig(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a drop output operator.
 type Config struct {
@@ -30,12 +26,6 @@ type Config struct {
 
 // Build will build a drop output operator.
 func (c Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	outputOperator, err := c.OutputConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	return &Output{
-		OutputOperator: outputOperator,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

@@ -4,12 +4,8 @@
 package spanpruningprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/spanpruningprocessor"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
 	"time"
 
-	"github.com/gobwas/glob"
 	"go.opentelemetry.io/collector/component"
 )
 
@@ -50,45 +46,12 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg.MinSpansToAggregate < 2 {
-		return errors.New("min_spans_to_aggregate must be at least 2")
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if cfg.MaxParentDepth < -1 {
-		return errors.New("max_parent_depth must be -1 (unlimited) or >= 0")
-	}
+// Validate AggregationAttributePrefix
 
-	// Validate AggregationAttributePrefix
-	prefix := strings.TrimSpace(cfg.AggregationAttributePrefix)
-	if prefix == "" {
-		return errors.New("aggregation_attribute_prefix cannot be empty")
-	}
-	if strings.ContainsAny(prefix, " \t\n\r") {
-		return errors.New("aggregation_attribute_prefix cannot contain whitespace")
-	}
+// Validate GroupByAttributes glob patterns
 
-	// Validate GroupByAttributes glob patterns
-	for i, pattern := range cfg.GroupByAttributes {
-		if strings.TrimSpace(pattern) == "" {
-			return fmt.Errorf("group_by_attributes[%d] cannot be empty", i)
-		}
-		// Try to compile the same way processor.go does to catch invalid syntax early
-		_, err := glob.Compile(pattern)
-		if err != nil {
-			return fmt.Errorf("invalid glob pattern at group_by_attributes[%d]: %q: %w", i, pattern, err)
-		}
-	}
+// Try to compile the same way processor.go does to catch invalid syntax early
 
-	// Validate histogram buckets
-	for i, bucket := range cfg.AggregationHistogramBuckets {
-		if bucket <= 0 {
-			return errors.New("histogram bucket values must be positive")
-		}
-		if i > 0 && bucket <= cfg.AggregationHistogramBuckets[i-1] {
-			return errors.New("histogram buckets must be sorted in ascending order")
-		}
-	}
-
-	return nil
-}
+// Validate histogram buckets

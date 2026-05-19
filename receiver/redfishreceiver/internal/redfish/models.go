@@ -3,8 +3,6 @@
 
 package redfish // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redfishreceiver/internal/redfish"
 
-import "strings"
-
 type ComputerSystem struct {
 	ID           string `json:"Id"`
 	AssetTag     string
@@ -69,39 +67,10 @@ type Thermal struct {
 }
 
 // powerStateToMetric converts a redfish PowerState to a metric
-func PowerStateToMetric(ps string) int64 {
-	switch strings.ToLower(ps) {
-	case "off":
-		return 0
-	case "on":
-		return 1
-	default:
-		return -1
-	}
-}
+func PowerStateToMetric(ps string) int64 { _ = "STUB: not implemented"; return 0 }
 
 // statusHealthToMetric converts a redfish Status.Health to a metric
-func StatusHealthToMetric(sh string) int64 {
-	switch strings.ToLower(sh) {
-	case "critical":
-		return 0
-	case "ok":
-		return 1
-	case "warning":
-		return 2
-	default:
-		return -1
-	}
-}
+func StatusHealthToMetric(sh string) int64 { _ = "STUB: not implemented"; return 0 }
 
 // statusStateToMetric converts a redfish Status.State to a metric
-func StatusStateToMetric(ss string) int64 {
-	switch strings.ToLower(ss) {
-	case "disabled":
-		return 0
-	case "enabled":
-		return 1
-	default:
-		return -1
-	}
-}
+func StatusStateToMetric(ss string) int64 { _ = "STUB: not implemented"; return 0 }

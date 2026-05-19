@@ -14,5 +14,6 @@ type Label struct {
 }
 
 func (label Label) toLabelValueMetadata() (metadata.LabelValueMetadata, error) {
-	return metadata.NewLabelValueMetadata(label.Name, label.ColumnName, label.ValueType)
+	_ = "STUB: not implemented"
+	return *new(metadata.LabelValueMetadata), nil
 }

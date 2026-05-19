@@ -8,13 +8,7 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configoptional"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/zipkinexporter/internal/metadata"
 )
 
 const (
@@ -26,24 +20,11 @@ const (
 )
 
 // NewFactory creates a factory for Zipkin exporter.
-func NewFactory() exporter.Factory {
-	return exporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		exporter.WithTraces(createTracesExporter, metadata.TracesStability))
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	defaultClientHTTPSettings := confighttp.NewDefaultClientConfig()
-	defaultClientHTTPSettings.Timeout = defaultTimeout
-	defaultClientHTTPSettings.WriteBufferSize = 512 * 1024
-	return &Config{
-		BackOffConfig:      configretry.NewDefaultBackOffConfig(),
-		QueueSettings:      configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-		ClientConfig:       defaultClientHTTPSettings,
-		Format:             defaultFormat,
-		DefaultServiceName: defaultServiceName,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesExporter(
@@ -51,20 +32,8 @@ func createTracesExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Traces, error) {
-	zc := cfg.(*Config)
-
-	ze, err := createZipkinExporter(zc, set.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-	return exporterhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		ze.pushTraces,
-		exporterhelper.WithStart(ze.start),
-		// explicitly disable since we rely on http.Client timeout logic.
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithQueue(zc.QueueSettings),
-		exporterhelper.WithRetry(zc.BackOffConfig))
+	_ = "STUB: not implemented"
+	return *new(exporter.Traces), nil
 }
+
+// explicitly disable since we rely on http.Client timeout logic.

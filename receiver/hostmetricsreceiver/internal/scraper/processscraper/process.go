@@ -5,17 +5,11 @@ package processscraper // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"os"
-	"runtime"
-	"strconv"
-	"strings"
 
-	"github.com/shirou/gopsutil/v4/common"
 	"github.com/shirou/gopsutil/v4/cpu"
 	"github.com/shirou/gopsutil/v4/process"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/gopsutilenv"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/processscraper/internal/metadata"
 )
 
@@ -46,26 +40,12 @@ type commandMetadata struct {
 }
 
 func (m *processMetadata) buildResource(rb *metadata.ResourceBuilder) pcommon.Resource {
-	rb.SetProcessPid(int64(m.pid))
-	rb.SetProcessParentPid(int64(m.parentPid))
-	rb.SetProcessExecutableName(m.executable.name)
-	rb.SetProcessExecutablePath(m.executable.path)
-	rb.SetProcessCgroup(m.executable.cgroup)
-	if m.command != nil {
-		rb.SetProcessCommand(m.command.command)
-		if m.command.commandLineSlice != nil {
-			// TODO insert slice here once this is supported by the data model
-			// (see https://github.com/open-telemetry/opentelemetry-collector/pull/1142)
-			rb.SetProcessCommandLine(strings.Join(m.command.commandLineSlice, " "))
-		} else {
-			rb.SetProcessCommandLine(m.command.commandLine)
-		}
-	}
-	if m.username != "" {
-		rb.SetProcessOwner(m.username)
-	}
-	return rb.Emit()
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }
+
+// TODO insert slice here once this is supported by the data model
+// (see https://github.com/open-telemetry/opentelemetry-collector/pull/1142)
 
 // processHandles provides a wrapper around []*process.Process
 // to support testing
@@ -103,17 +83,14 @@ type gopsProcessHandles struct {
 	handles []wrappedProcessHandle
 }
 
-func (p *gopsProcessHandles) Pid(index int) int32 {
-	return p.handles[index].Pid
-}
+func (p *gopsProcessHandles) Pid(index int) int32 { _ = "STUB: not implemented"; return 0 }
 
 func (p *gopsProcessHandles) At(index int) processHandle {
-	return &(p.handles[index])
+	_ = "STUB: not implemented"
+	return *new(processHandle)
 }
 
-func (p *gopsProcessHandles) Len() int {
-	return len(p.handles)
-}
+func (p *gopsProcessHandles) Len() int { _ = "STUB: not implemented"; return 0 }
 
 const (
 	flagParentPidSet             = 1 << 0
@@ -128,51 +105,24 @@ type wrappedProcessHandle struct {
 }
 
 func (p *wrappedProcessHandle) CgroupWithContext(ctx context.Context) (string, error) {
-	pid := p.Pid
-	statPath := gopsutilenv.GetEnvWithContext(ctx, string(common.HostProcEnvKey), "/proc", strconv.Itoa(int(pid)), "cgroup")
-	contents, err := os.ReadFile(statPath)
-	if err != nil {
-		return "", err
-	}
-
-	return strings.TrimSuffix(string(contents), "\n"), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (p *wrappedProcessHandle) PpidWithContext(ctx context.Context) (int32, error) {
-	if p.flags&flagParentPidSet != 0 {
-		return p.parentPid, nil
-	}
-
-	parentPid, err := p.Process.PpidWithContext(ctx)
-	if err != nil {
-		return 0, err
-	}
-
-	p.parentPid = parentPid
-	p.flags |= flagParentPidSet
-	return parentPid, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func (p *wrappedProcessHandle) NumThreadsWithContext(ctx context.Context) (int32, error) {
-	if p.flags&flagUseInitialNumThreadsOnce != 0 {
-		// The number of threads can fluctuate so use the initially cached value only the first time.
-		p.flags &^= flagUseInitialNumThreadsOnce
-		return p.initialNumThreads, nil
-	}
-
-	numThreads, err := p.Process.NumThreadsWithContext(ctx)
-	if err != nil {
-		return 0, err
-	}
-
-	return numThreads, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
-func parentPid(ctx context.Context, handle processHandle, pid int32) (int32, error) {
-	// special case for pid 0 and pid 1 in darwin
-	if pid == 0 || (pid == 1 && runtime.GOOS == "darwin") {
-		return 0, nil
-	}
+// The number of threads can fluctuate so use the initially cached value only the first time.
 
-	return handle.PpidWithContext(ctx)
+func parentPid(ctx context.Context, handle processHandle, pid int32) (int32, error) {
+	_ = "STUB: not implemented"
+	// special case for pid 0 and pid 1 in darwin
+	return 0, nil
 }

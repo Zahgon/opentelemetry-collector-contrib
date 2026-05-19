@@ -8,7 +8,6 @@ import (
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/expr"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterconfig"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlmetric"
 )
 
@@ -23,42 +22,13 @@ var UseOTTLBridge = featuregate.GlobalRegistry().MustRegister(
 // The logic determining if a metric should be processed is based on include and exclude settings.
 // Include properties are checked before exclude settings are checked.
 func NewSkipExpr(include, exclude *filterconfig.MetricMatchProperties) (expr.BoolExpr[*ottlmetric.TransformContext], error) {
-	if UseOTTLBridge.IsEnabled() {
-		return filterottl.NewMetricSkipExprBridge(include, exclude)
-	}
-	var matchers []expr.BoolExpr[*ottlmetric.TransformContext]
-	inclExpr, err := newExpr(include)
-	if err != nil {
-		return nil, err
-	}
-	if inclExpr != nil {
-		matchers = append(matchers, expr.Not(inclExpr))
-	}
-	exclExpr, err := newExpr(exclude)
-	if err != nil {
-		return nil, err
-	}
-	if exclExpr != nil {
-		matchers = append(matchers, exclExpr)
-	}
-	return expr.Or(matchers...), nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // NewMatcher constructs a metric Matcher. If an 'expr' match type is specified,
 // returns an expr matcher, otherwise a name matcher.
 func newExpr(mp *filterconfig.MetricMatchProperties) (expr.BoolExpr[*ottlmetric.TransformContext], error) {
-	if mp == nil {
-		return nil, nil
-	}
-
-	if mp.MatchType == filterconfig.MetricExpr {
-		if len(mp.Expressions) == 0 {
-			return nil, nil
-		}
-		return newExprMatcher(mp.Expressions)
-	}
-	if len(mp.MetricNames) == 0 {
-		return nil, nil
-	}
-	return newNameMatcher(mp)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -5,12 +5,8 @@ package oauth2clientauthextension // import "github.com/open-telemetry/opentelem
 
 import (
 	"context"
-	"fmt"
-	"os"
-	"strings"
 	"time"
 
-	"go.uber.org/multierr"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -20,18 +16,8 @@ const (
 )
 
 func newClientCredentialsGrantTypeConfig(cfg *Config) *clientCredentialsConfig {
-	return &clientCredentialsConfig{
-		Config: clientcredentials.Config{
-			ClientID:       cfg.ClientID,
-			ClientSecret:   string(cfg.ClientSecret),
-			TokenURL:       cfg.TokenURL,
-			Scopes:         cfg.Scopes,
-			EndpointParams: cfg.EndpointParams,
-		},
-		ClientIDFile:     cfg.ClientIDFile,
-		ClientSecretFile: cfg.ClientSecretFile,
-		ExpiryBuffer:     cfg.ExpiryBuffer,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // clientCredentialsConfig is a clientcredentials.Config wrapper to allow
@@ -67,61 +53,28 @@ type clientCredentialsTokenSource struct {
 // clientCredentialsTokenSource implements TokenSource
 var _ oauth2.TokenSource = (*clientCredentialsTokenSource)(nil)
 
-func readCredentialsFile(path string) (string, error) {
-	f, err := os.ReadFile(path)
-	if err != nil {
-		return "", fmt.Errorf("failed to read credentials file %q: %w", path, err)
-	}
-
-	credential := strings.TrimSpace(string(f))
-	if credential == "" {
-		return "", fmt.Errorf("empty credentials file %q", path)
-	}
-	return credential, nil
-}
+func readCredentialsFile(path string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 func getActualValue(value, filepath string) (string, error) {
-	if filepath != "" {
-		return readCredentialsFile(filepath)
-	}
-
-	return value, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // createConfig creates a proper clientcredentials.Config with values retrieved
 // from files, if the user has specified '*_file' values
 func (c *clientCredentialsConfig) createConfig() (*clientcredentials.Config, error) {
-	clientID, err := getActualValue(c.ClientID, c.ClientIDFile)
-	if err != nil {
-		return nil, multierr.Combine(errNoClientIDProvided, err)
-	}
-
-	clientSecret, err := getActualValue(c.ClientSecret, c.ClientSecretFile)
-	if err != nil {
-		return nil, multierr.Combine(errNoClientSecretProvided, err)
-	}
-
-	return &clientcredentials.Config{
-		ClientID:       clientID,
-		ClientSecret:   clientSecret,
-		TokenURL:       c.TokenURL,
-		Scopes:         c.Scopes,
-		EndpointParams: c.EndpointParams,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *clientCredentialsConfig) TokenSource(ctx context.Context) oauth2.TokenSource {
-	return clientCredentialsTokenSource{ctx: ctx, config: c}
+	_ = "STUB: not implemented"
+	return *new(oauth2.TokenSource)
 }
 
-func (c *clientCredentialsConfig) TokenEndpoint() string {
-	return c.TokenURL
-}
+func (c *clientCredentialsConfig) TokenEndpoint() string { _ = "STUB: not implemented"; return "" }
 
 func (ts clientCredentialsTokenSource) Token() (*oauth2.Token, error) {
-	cfg, err := ts.config.createConfig()
-	if err != nil {
-		return nil, err
-	}
-	return cfg.TokenSource(ts.ctx).Token()
+	_ = "STUB: not implemented"
+	return nil, nil
 }

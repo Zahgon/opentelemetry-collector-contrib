@@ -14,14 +14,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -40,36 +33,6 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		CloudAccountID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		CloudAvailabilityZone: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		CloudPlatform: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudProvider: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		CloudRegion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostImageID: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		HostType: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sClusterName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }

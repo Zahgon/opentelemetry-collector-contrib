@@ -16,33 +16,17 @@ type gaugeDP struct {
 	val   any
 }
 
-func newGaugeDP(attrs pcommon.Map) *gaugeDP {
-	return &gaugeDP{
-		attrs: attrs,
-	}
-}
+func newGaugeDP(attrs pcommon.Map) *gaugeDP { _ = "STUB: not implemented"; return nil }
 
-func (dp *gaugeDP) Aggregate(v any) {
-	switch v := v.(type) {
-	case float64, int64:
-		dp.val = v
-	default:
-		panic("unexpected usage of gauge datapoint, only double or int value expected")
-	}
-}
+func (dp *gaugeDP) Aggregate(v any) { _ = "STUB: not implemented"; return }
 
 // Copy copies the gauge data point to the destination number data point
 func (dp *gaugeDP) Copy(
 	timestamp time.Time,
 	dest pmetric.NumberDataPoint,
 ) {
-	dp.attrs.CopyTo(dest.Attributes())
-	switch v := dp.val.(type) {
-	case float64:
-		dest.SetDoubleValue(v)
-	case int64:
-		dest.SetIntValue(v)
-	}
-	// TODO determine appropriate start time
-	dest.SetTimestamp(pcommon.NewTimestampFromTime(timestamp))
+	_ = "STUB: not implemented"
+	return
 }
+
+// TODO determine appropriate start time

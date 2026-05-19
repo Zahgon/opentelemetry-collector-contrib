@@ -5,8 +5,6 @@ package logs // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"go.opentelemetry.io/collector/pdata/pcommon"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 // Non-SemConv attributes that are used for common Azure Log Record fields
@@ -52,13 +50,6 @@ type azureRecommendationLog struct {
 }
 
 func (r *azureRecommendationLog) PutProperties(attrs pcommon.Map, _ pcommon.Value) error {
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationCategory, r.Properties.RecommendationCategory)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationImpact, r.Properties.RecommendationImpact)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationName, r.Properties.RecommendationName)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationType, r.Properties.RecommendationType)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationSchemaVersion, r.Properties.RecommendationSchemaVersion)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationLink, r.Properties.RecommendationResourceLink)
-	unmarshaler.AttrPutStrIf(attrs, attributeAzureRecommendationRisk, r.Properties.RecommendationRisk)
-
+	_ = "STUB: not implemented"
 	return nil
 }

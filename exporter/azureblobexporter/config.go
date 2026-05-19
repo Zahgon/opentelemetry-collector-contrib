@@ -4,8 +4,6 @@
 package azureblobexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/azureblobexporter"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -100,33 +98,4 @@ type Config struct {
 	configretry.BackOffConfig `mapstructure:"retry_on_failure"`
 }
 
-func (c *Config) Validate() error {
-	if c.URL == "" && c.Auth.Type != ConnectionString {
-		return errors.New("url cannot be empty when auth type is not connection_string")
-	}
-
-	switch c.Auth.Type {
-	case ConnectionString:
-		if c.Auth.ConnectionString == "" {
-			return errors.New("connection_string cannot be empty when auth type is connection_string")
-		}
-	case ServicePrincipal:
-		if c.Auth.TenantID == "" || c.Auth.ClientID == "" || c.Auth.ClientSecret == "" {
-			return errors.New("tenant_id, client_id and client_secret cannot be empty when auth type is service-principal")
-		}
-	case UserManagedIdentity:
-		if c.Auth.ClientID == "" {
-			return errors.New("client_id cannot be empty when auth type is user_managed_identity")
-		}
-	case WorkloadIdentity:
-		if c.Auth.TenantID == "" || c.Auth.ClientID == "" || c.Auth.FederatedTokenFile == "" {
-			return errors.New("tenant_id, client_id and federated_token_file cannot be empty when auth type is workload_identity")
-		}
-	}
-
-	if c.FormatType != formatTypeJSON && c.FormatType != formatTypeProto {
-		return errors.New("unknown format type: " + c.FormatType)
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

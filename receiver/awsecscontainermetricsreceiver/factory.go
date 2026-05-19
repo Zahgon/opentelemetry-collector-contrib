@@ -5,17 +5,11 @@ package awsecscontainermetricsreceiver // import "github.com/open-telemetry/open
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/ecsutil"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/aws/ecsutil/endpoints"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsecscontainermetricsreceiver/internal/metadata"
 )
 
 // Factory for awscontainermetrics
@@ -25,18 +19,12 @@ const (
 )
 
 // NewFactory creates a factory for AWS ECS Container Metrics receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // createDefaultConfig returns a default config for the receiver.
 func createDefaultConfig() component.Config {
-	return &Config{
-		CollectionInterval: defaultCollectionInterval,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // CreateMetrics creates an AWS ECS Container Metrics receiver.
@@ -46,17 +34,6 @@ func createMetricsReceiver(
 	baseCfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	endpoint, err := endpoints.GetTMEV4FromEnv()
-	if err != nil || endpoint == nil {
-		return nil, fmt.Errorf("unable to detect task metadata endpoint: %w", err)
-	}
-	clientSettings := confighttp.ClientConfig{}
-	rest, err := ecsutil.NewRestClient(*endpoint, clientSettings, params.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-
-	rCfg := baseCfg.(*Config)
-	logger := params.Logger
-	return newAWSECSContainermetrics(logger, rCfg, consumer, rest)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

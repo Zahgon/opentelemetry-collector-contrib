@@ -6,8 +6,6 @@ package integrationtest // import "github.com/open-telemetry/opentelemetry-colle
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/testbed/testbed"
 )
 
@@ -19,19 +17,10 @@ type countValidator struct {
 
 // newCountValidator creates a new instance of the CountValidator.
 func newCountValidator(tb testing.TB, provider testbed.DataProvider) *countValidator {
-	return &countValidator{
-		t:            tb,
-		dataProvider: provider,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (v *countValidator) Validate(tc *testbed.TestCase) {
-	itemsSent := int64(tc.LoadGenerator.DataItemsSent()) - int64(tc.LoadGenerator.PermanentErrors())
-	assert.Equal(v.t,
-		itemsSent,
-		int64(tc.MockBackend.DataItemsReceived()),
-		"Received and sent counters do not match.",
-	)
-}
+func (v *countValidator) Validate(tc *testbed.TestCase) { _ = "STUB: not implemented"; return }
 
-func (*countValidator) RecordResults(*testbed.TestCase) {}
+func (*countValidator) RecordResults(*testbed.TestCase) { _ = "STUB: not implemented"; return }

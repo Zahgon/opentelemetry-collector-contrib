@@ -6,7 +6,6 @@ package dbstorage // import "github.com/open-telemetry/opentelemetry-collector-c
 import (
 	"context"
 	"database/sql"
-	"fmt"
 )
 
 const (
@@ -48,24 +47,8 @@ type sqlQuerySet struct {
 
 // getDialectQueries returns set of queries used in this extension, driver-specific
 func getDialectQueries(driverName string) sqlQuerySet {
-	set := sqlQuerySet{
-		QueryCreateTable:     sqlGenericCreateTableQuery,
-		QueryGetRow:          sqlGenericGetQuery,
-		QuerySetRow:          sqlGenericInsertQuery,
-		QueryDeleteRow:       sqlGenericDeleteQuery,
-		QueryGetMultiRows:    sqlGenericMultiGetQuery,
-		QuerySetMultiRows:    sqlGenericMultiInsertQuery,
-		QueryDeleteMultiRows: sqlGenericMultiDeleteQuery,
-	}
-
-	switch driverName {
-	case driverSQLite:
-		set.QueryCreateTable = sqlSQLiteCreateTableQuery
-	case driverPostgreSQL:
-		set.QueryCreateTable = sqlPostgreSQLCreateTableQuery
-	}
-
-	return set
+	_ = "STUB: not implemented"
+	return *new(sqlQuerySet)
 }
 
 type dbDialect struct {
@@ -83,60 +66,12 @@ type dbDialect struct {
 
 // Prepare will compile some regularly used queries into Prepared Statements
 func (d *dbDialect) Prepare(ctx context.Context, db *sql.DB) error {
-	var err error
-
-	d.GetRowStmt, err = db.PrepareContext(ctx, d.Queries.QueryGetRow)
-	if err != nil {
-		return err
-	}
-	d.SetRowStmt, err = db.PrepareContext(ctx, d.Queries.QuerySetRow)
-	if err != nil {
-		return err
-	}
-	d.DeleteRowStmt, err = db.PrepareContext(ctx, d.Queries.QueryDeleteRow)
-
-	return err
-}
-
-// Close will close all prepared statements available for this dialect
-func (d *dbDialect) Close() error {
-	stmts := []*sql.Stmt{
-		d.GetRowStmt,
-		d.SetRowStmt,
-		d.DeleteRowStmt,
-	}
-	for _, stmt := range stmts {
-		if err := stmt.Close(); err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-// newDBDialect creates a new DB dialect which is just a set of DB-specific queries/prepared statements
-func newDBDialect(driverName, tableName string) *dbDialect {
-	queries := getDialectQueries(driverName)
+// Close will close all prepared statements available for this dialect
+func (d *dbDialect) Close() error { _ = "STUB: not implemented"; return nil }
 
-	var aggSize int
-	switch driverName {
-	case driverSQLite:
-		aggSize = maxAggregatedOpsSQLite
-	case driverPostgreSQL:
-		aggSize = maxAggregatedOpsPostgreSQL
-	default:
-		aggSize = maxAggregatedOpsGeneric
-	}
-	return &dbDialect{
-		Queries: sqlQuerySet{
-			QueryCreateTable:     fmt.Sprintf(queries.QueryCreateTable, tableName),
-			QueryGetRow:          fmt.Sprintf(queries.QueryGetRow, tableName),
-			QuerySetRow:          fmt.Sprintf(queries.QuerySetRow, tableName),
-			QueryDeleteRow:       fmt.Sprintf(queries.QueryDeleteRow, tableName),
-			QueryGetMultiRows:    fmt.Sprintf(queries.QueryGetMultiRows, tableName),
-			QuerySetMultiRows:    fmt.Sprintf(queries.QuerySetMultiRows, tableName),
-			QueryDeleteMultiRows: fmt.Sprintf(queries.QueryDeleteMultiRows, tableName),
-		},
-		MaxAggregationSize: aggSize,
-	}
-}
+// newDBDialect creates a new DB dialect which is just a set of DB-specific queries/prepared statements
+func newDBDialect(driverName, tableName string) *dbDialect { _ = "STUB: not implemented"; return nil }

@@ -4,18 +4,12 @@
 package logs // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler/logs"
 
 import (
-	"bytes"
 	"crypto/tls"
 	"encoding/json"
-	"strconv"
 	"time"
 
-	jsoniter "github.com/json-iterator/go"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/plog"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/azureencodingextension/internal/unmarshaler"
 )
 
 const (
@@ -51,18 +45,8 @@ var (
 // `Informational`, `Warning`, `Error` or `Critical`.
 // see https://learn.microsoft.com/en-us/azure/azure-monitor/platform/resource-logs-schema
 func asSeverity(number json.Number) plog.SeverityNumber {
-	switch number.String() {
-	case "Informational":
-		return plog.SeverityNumberInfo
-	case "Warning":
-		return plog.SeverityNumberWarn
-	case "Error":
-		return plog.SeverityNumberError
-	case "Critical":
-		return plog.SeverityNumberFatal
-	default:
-		return plog.SeverityNumberUnspecified
-	}
+	_ = "STUB: not implemented"
+	return *new(plog.SeverityNumber)
 }
 
 // attrPutTLSProtoIf tries to parse provided value as TLS security protocol version,
@@ -70,125 +54,48 @@ func asSeverity(number json.Number) plog.SeverityNumber {
 // If the value is not recognized - will set original value into "tls.protocol.original" attribute
 // Puts at most 2 attributes
 func attrPutTLSProtoIf(attrs pcommon.Map, securityProtocol string) {
-	if securityProtocol == "" {
-		// Nothing to do here
-		return
-	}
-
-	var name, version string
-	switch securityProtocol {
-	case tlsVersionSSLv3:
-		name = "SSL"
-		version = "3"
-	case tlsVersionTLS10:
-		name = "TLS"
-		version = "1.0"
-	case tlsVersionTLS11:
-		name = "TLS"
-		version = "1.1"
-	case tlsVersionTLS12:
-		name = "TLS"
-		version = "1.2"
-	case tlsVersionTLS13:
-		name = "TLS"
-		version = "1.3"
-	default:
-		unmarshaler.AttrPutStrIf(attrs, attributeTLSProtocolOriginal, securityProtocol)
-		return
-	}
-
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.TLSProtocolNameKey), name)
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.TLSProtocolVersionKey), version)
+	_ = "STUB: not implemented"
+	return
 }
+
+// Nothing to do here
 
 // attrPutHTTPProtoIf tries to parse provided value as HTTP protocol version,
 // for example, "HTTP/1.1" will be parsed into network.protocol.name = "http" and network.protocol.version = "1.1"
 // If the value is not recognized - will set original value into "network.protocol.original" attribute
 // Puts at most 2 attributes
-func attrPutHTTPProtoIf(attrs pcommon.Map, httpProtocol string) {
-	if httpProtocol == "" {
-		// Nothing to do here
-		return
-	}
+func attrPutHTTPProtoIf(attrs pcommon.Map, httpProtocol string) { _ = "STUB: not implemented"; return }
 
-	var version string
-	switch httpProtocol {
-	case httpVersion09:
-		version = "0.9"
-	case httpVersion10:
-		version = "1.0"
-	case httpVersion11:
-		version = "1.1"
-	case httpVersion20:
-		version = "2.0"
-	case httpVersion30:
-		version = "3.0"
-	default:
-		unmarshaler.AttrPutStrIf(attrs, attributeNetworkProtocolOriginal, httpProtocol)
-		return
-	}
+// Nothing to do here
 
-	// Protocol values SHOULD be normalized to lowercase as per SemConv
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolNameKey), "http")
-	unmarshaler.AttrPutStrIf(attrs, string(conventions.NetworkProtocolVersionKey), version)
-}
+// Protocol values SHOULD be normalized to lowercase as per SemConv
 
 // convertInvalidSingleQuotedJSON tries to convert invalid, single quoted, JSON
 // into valid and parsable JSON by substituting `'` to `"`, taking in account
 // potential escaped single quotes, e.g. `\'`
-func convertInvalidSingleQuotedJSON(data []byte) []byte {
-	dataLen := len(data)
+func convertInvalidSingleQuotedJSON(data []byte) []byte { _ = "STUB: not implemented"; return nil }
 
-	if dataLen == 0 {
-		return data
-	}
+// Enter quoted string
 
-	var newData bytes.Buffer
-	newData.Grow(dataLen)
+// Mark that we are in quoted string
 
-	inQuote := byte(0)
-	for idx, b := range data {
-		// Enter quoted string
-		if (b == '\'' || b == '"') && (idx == 0 || data[idx-1] != '\\') && inQuote == byte(0) {
-			// Mark that we are in quoted string
-			inQuote = b
-			// Replace single quote to double quote
-			newData.WriteByte('"')
-			continue
-		}
+// Replace single quote to double quote
 
-		// Leave quoted string
-		if (b == '\'' || b == '"') && (idx == 0 || data[idx-1] != '\\') && inQuote == b {
-			// Mark that we left quoted string
-			inQuote = byte(0)
-			// Write closing double quote instead single quote
-			newData.WriteByte('"')
-			continue
-		}
+// Leave quoted string
 
-		// Unescape escaped single quote inside quoted string
-		if b == '\\' && idx != dataLen-1 && data[idx+1] == '\'' && inQuote != byte(0) {
-			// Sometimes Azure double escapes single quotes,
-			// we will keep it as is to keep escaping consistent
-			// in whole line
-			if data[idx-1] != '\\' {
-				continue
-			}
-		}
+// Mark that we left quoted string
 
-		// Escape unescaped double quote
-		if b == '"' && inQuote != b && idx != 0 && data[idx-1] != '\\' {
-			newData.WriteByte('\\')
-			newData.WriteByte('"')
-			continue
-		}
+// Write closing double quote instead single quote
 
-		// All other chars are going to output as-is
-		newData.WriteByte(b)
-	}
+// Unescape escaped single quote inside quoted string
 
-	return newData.Bytes()
-}
+// Sometimes Azure double escapes single quotes,
+// we will keep it as is to keep escaping consistent
+// in whole line
+
+// Escape unescaped double quote
+
+// All other chars are going to output as-is
 
 // convertStringToJSONNumber is a special helper function to mitigate issue with
 // invalid JSON in Azure Log Records
@@ -197,46 +104,24 @@ func convertInvalidSingleQuotedJSON(data []byte) []byte {
 // This misbehavior was detected at leas in ApplicationGatewayAccessLog
 // In any case of non-number input - it will return json.Number("")
 func convertStringToJSONNumber(s string) json.Number {
-	if s == "" || s == "-" {
-		// Actually it's invalid json.Number as it's will return an error on
-		// any Int64() or Float64() calls, but that's OK for our case
-		return json.Number("")
-	}
+	_ = "STUB: not implemented"
+	return *
 
-	// Scan input string for allowed chars that represents numbers
-	for _, b := range []byte(s) {
-		switch b {
-		case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-			'.', 'e', 'E', '+', '-':
-			continue
-		default:
-			return json.Number("")
-		}
-	}
-
-	return json.Number(s)
+	// Actually it's invalid json.Number as it's will return an error on
+	// any Int64() or Float64() calls, but that's OK for our case
+	new(json.Number)
 }
+
+// Scan input string for allowed chars that represents numbers
 
 // parseUnixTimestamp parses a Unix timestamp string (seconds since epoch) and returns a time.Time
 func parseUnixTimestamp(s string) (time.Time, error) {
-	ts, err := strconv.ParseInt(s, 10, 64)
-	if err != nil {
-		return time.Time{}, err
-	}
-	return time.Unix(ts, 0).UTC(), nil
+	_ = "STUB: not implemented"
+	return *new(time.Time), nil
 }
 
 // unmarshalStringOrObjectJSON handles Azure properties fields that can be either
 // a JSON object or a stringified JSON string (where Azure wraps the object in quotes).
 // Some Azure Event Hub sources emit `"properties": "{\"key\":\"value\"}"` instead of
 // `"properties": {"key":"value"}`.
-func unmarshalStringOrObjectJSON(data []byte, v any) error {
-	if len(data) > 1 && data[0] == '"' {
-		var s string
-		if err := jsoniter.ConfigFastest.Unmarshal(data, &s); err != nil {
-			return err
-		}
-		data = []byte(s)
-	}
-	return jsoniter.ConfigFastest.Unmarshal(data, v)
-}
+func unmarshalStringOrObjectJSON(data []byte, v any) error { _ = "STUB: not implemented"; return nil }

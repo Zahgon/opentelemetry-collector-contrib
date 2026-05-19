@@ -291,7 +291,4 @@ var wellKnownSIDs = map[string]*ResolvedSID{
 }
 
 // isWellKnownSID checks if a SID is well-known and returns its resolved information
-func isWellKnownSID(sid string) (*ResolvedSID, bool) {
-	resolved, ok := wellKnownSIDs[sid]
-	return resolved, ok
-}
+func isWellKnownSID(sid string) (*ResolvedSID, bool) { _ = "STUB: not implemented"; return nil, false }

@@ -6,12 +6,7 @@ package arrow // import "github.com/open-telemetry/opentelemetry-collector-contr
 import (
 	"context"
 	"math/rand/v2"
-	"runtime"
-	"sort"
 	"time"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // bestOfNPrioritizer is a prioritizer that selects a less-loaded stream to write.
@@ -47,111 +42,51 @@ type streamSorter struct {
 var _ streamPrioritizer = &bestOfNPrioritizer{}
 
 func newBestOfNPrioritizer(dc doneCancel, numChoices, numStreams int, lf loadFunc, maxLifetime time.Duration) (*bestOfNPrioritizer, []*streamWorkState) {
-	var state []*streamWorkState
+	_ = "STUB: not implemented"
+	return nil,
 
-	// Limit numChoices to the number of streams.
-	numChoices = min(numStreams, numChoices)
-
-	for range numStreams {
-		ws := &streamWorkState{
-			maxStreamLifetime: addJitter(maxLifetime),
-			waiters:           map[int64]chan<- error{},
-			toWrite:           make(chan writeItem, 1),
-		}
-
-		state = append(state, ws)
-	}
-
-	lp := &bestOfNPrioritizer{
-		doneCancel: dc,
-		input:      make(chan writeItem, runtime.NumCPU()),
-		state:      state,
-		numChoices: numChoices,
-		loadFunc:   lf,
-	}
-
-	for range numStreams {
-		// TODO It's not clear if/when the prioritizer can
-		// become a bottleneck.
-		go lp.run()
-	}
-
-	return lp, state
+		// Limit numChoices to the number of streams.
+		nil
 }
 
-func (lp *bestOfNPrioritizer) downgrade(ctx context.Context) {
-	for _, ws := range lp.state {
-		go drain(ws.toWrite, ctx.Done())
-	}
-}
+// TODO It's not clear if/when the prioritizer can
+// become a bottleneck.
+
+func (lp *bestOfNPrioritizer) downgrade(ctx context.Context) { _ = "STUB: not implemented"; return }
 
 func (lp *bestOfNPrioritizer) sendOne(item writeItem, rnd *rand.Rand, tmp []streamSorter) {
-	stream := lp.streamFor(item, rnd, tmp)
-	writeCh := stream.toWrite
-	select {
-	case writeCh <- item:
-		return
-
-	case <-lp.done:
-		// All other cases: signal restart.
-	}
-	item.errCh <- ErrStreamRestarting
+	_ = "STUB: not implemented"
+	return
 }
 
-func (lp *bestOfNPrioritizer) run() {
-	tmp := make([]streamSorter, len(lp.state))
-	rnd := rand.New(rand.NewPCG(rand.Uint64(), rand.Uint64()))
-	for {
-		select {
-		case <-lp.done:
-			return
-		case item := <-lp.input:
-			lp.sendOne(item, rnd, tmp)
-		}
-	}
-}
+// All other cases: signal restart.
+
+func (lp *bestOfNPrioritizer) run() { _ = "STUB: not implemented"; return }
 
 // sendAndWait implements streamWriter
 func (lp *bestOfNPrioritizer) sendAndWait(ctx context.Context, errCh <-chan error, wri writeItem) error {
-	select {
-	case <-lp.done:
-		return ErrStreamRestarting
-	case <-ctx.Done():
-		return status.Errorf(codes.Canceled, "stream wait: %v", ctx.Err())
-	case lp.input <- wri:
-		return waitForWrite(ctx, errCh, lp.done)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (lp *bestOfNPrioritizer) nextWriter() streamWriter {
-	select {
-	case <-lp.done:
-		// In case of downgrade, return nil to return into a
-		// non-Arrow code path.
-		return nil
-	default:
-		// Fall through to sendAndWait().
-		return lp
-	}
+	_ = "STUB: not implemented"
+	return *
+
+	// In case of downgrade, return nil to return into a
+	// non-Arrow code path.
+	new(streamWriter)
 }
 
+// Fall through to sendAndWait().
+
 func (lp *bestOfNPrioritizer) streamFor(_ writeItem, rnd *rand.Rand, tmp []streamSorter) *streamWorkState {
+	_ = "STUB: not implemented"
 	// Place all streams into the temporary slice.
-	for idx, item := range lp.state {
-		tmp[idx].work = item
-	}
-	// Select numChoices at random by shifting the selection into the start
-	// of the temporary slice.
-	for i := 0; i < lp.numChoices; i++ {
-		pick := rnd.IntN(lp.numChoices - i)
-		tmp[i], tmp[i+pick] = tmp[i+pick], tmp[i]
-	}
-	for i := 0; i < lp.numChoices; i++ {
-		// TODO: skip channels w/ a pending item (maybe)
-		tmp[i].load = lp.loadFunc(tmp[i].work)
-	}
-	sort.Slice(tmp[0:lp.numChoices], func(i, j int) bool {
-		return tmp[i].load < tmp[j].load
-	})
-	return tmp[0].work
+	return nil
 }
+
+// Select numChoices at random by shifting the selection into the start
+// of the temporary slice.
+
+// TODO: skip channels w/ a pending item (maybe)

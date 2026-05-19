@@ -15,64 +15,33 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetContainerCommandLine sets provided value as "container.command_line" attribute.
-func (rb *ResourceBuilder) SetContainerCommandLine(val string) {
-	if rb.config.ContainerCommandLine.Enabled {
-		rb.res.Attributes().PutStr("container.command_line", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerCommandLine(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerHostname sets provided value as "container.hostname" attribute.
-func (rb *ResourceBuilder) SetContainerHostname(val string) {
-	if rb.config.ContainerHostname.Enabled {
-		rb.res.Attributes().PutStr("container.hostname", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerHostname(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerID sets provided value as "container.id" attribute.
-func (rb *ResourceBuilder) SetContainerID(val string) {
-	if rb.config.ContainerID.Enabled {
-		rb.res.Attributes().PutStr("container.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerID(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerImageID sets provided value as "container.image.id" attribute.
-func (rb *ResourceBuilder) SetContainerImageID(val string) {
-	if rb.config.ContainerImageID.Enabled {
-		rb.res.Attributes().PutStr("container.image.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageID(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerImageName sets provided value as "container.image.name" attribute.
-func (rb *ResourceBuilder) SetContainerImageName(val string) {
-	if rb.config.ContainerImageName.Enabled {
-		rb.res.Attributes().PutStr("container.image.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageName(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerName sets provided value as "container.name" attribute.
-func (rb *ResourceBuilder) SetContainerName(val string) {
-	if rb.config.ContainerName.Enabled {
-		rb.res.Attributes().PutStr("container.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerRuntime sets provided value as "container.runtime" attribute.
-func (rb *ResourceBuilder) SetContainerRuntime(val string) {
-	if rb.config.ContainerRuntime.Enabled {
-		rb.res.Attributes().PutStr("container.runtime", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerRuntime(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

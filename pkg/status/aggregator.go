@@ -5,14 +5,11 @@ package status // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"container/list"
-	"strings"
 	"sync"
 	"time"
 
-	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	"go.opentelemetry.io/collector/pipeline"
 )
 
 // Note: this interface had to be introduced because we need to be able to rewrite the
@@ -36,14 +33,7 @@ const (
 	pipelinePrefix  string = "pipeline:"
 )
 
-func (s Scope) toKey() string {
-	switch s {
-	case ScopeAll, ScopeExtensions:
-		return string(s)
-	default:
-		return pipelinePrefix + string(s)
-	}
-}
+func (s Scope) toKey() string { _ = "STUB: not implemented"; return "" }
 
 type Verbosity bool
 
@@ -62,18 +52,8 @@ type AggregateStatus struct {
 }
 
 func (a *AggregateStatus) clone(verbosity Verbosity) *AggregateStatus {
-	st := &AggregateStatus{
-		Event: a.Event,
-	}
-
-	if verbosity == Verbose && len(a.ComponentStatusMap) > 0 {
-		st.ComponentStatusMap = make(map[string]*AggregateStatus, len(a.ComponentStatusMap))
-		for k, cs := range a.ComponentStatusMap {
-			st.ComponentStatusMap[k] = cs.clone(verbosity)
-		}
-	}
-
-	return st
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type subscription struct {
@@ -95,72 +75,28 @@ type Aggregator struct {
 }
 
 // NewAggregator returns a *status.Aggregator.
-func NewAggregator(errPriority ErrorPriority) *Aggregator {
-	return &Aggregator{
-		aggregateStatus: &AggregateStatus{
-			Event:              componentstatus.NewEvent(componentstatus.StatusNone),
-			ComponentStatusMap: make(map[string]*AggregateStatus),
-		},
-		subscriptions:   make(map[string]*list.List),
-		aggregationFunc: newAggregationFunc(errPriority),
-	}
-}
+func NewAggregator(errPriority ErrorPriority) *Aggregator { _ = "STUB: not implemented"; return nil }
 
 // AggregateStatus returns an *AggregateStatus for the given scope. The scope can be the collector
 // overall (ScopeAll), extensions (ScopeExtensions), or a pipeline by name. Detail specifies whether
 // or not subtrees should be returned with the *AggregateStatus. The boolean return value indicates
 // whether or not the scope was found.
 func (a *Aggregator) AggregateStatus(scope Scope, verbosity Verbosity) (*AggregateStatus, bool) {
-	a.mu.RLock()
-	defer a.mu.RUnlock()
-
-	if scope == ScopeAll {
-		return a.aggregateStatus.clone(verbosity), true
-	}
-
-	st, ok := a.aggregateStatus.ComponentStatusMap[scope.toKey()]
-	if !ok {
-		return nil, false
-	}
-
-	return st.clone(verbosity), true
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
 // RecordStatus stores and aggregates a StatusEvent for the given component instance.
 func (a *Aggregator) RecordStatus(source *componentstatus.InstanceID, event *componentstatus.Event) {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-
-	// extensions are treated as a pseudo-pipeline
-	if source.Kind() == component.KindExtension {
-		a.updateStatus(ScopeExtensions, source, event)
-	} else {
-		source.AllPipelineIDs(func(id pipeline.ID) bool {
-			a.updateStatus(Scope(id.String()), source, event)
-			return true
-		})
-	}
-
-	a.aggregateStatus.Event = a.aggregationFunc(a.aggregateStatus)
-	a.notifySubscribers(ScopeAll, a.aggregateStatus)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (a *Aggregator) updateStatus(pipelineScope Scope, source *componentstatus.InstanceID, event *componentstatus.Event) {
-	pipelineKey := pipelineScope.toKey()
-	pipelineStatus, ok := a.aggregateStatus.ComponentStatusMap[pipelineKey]
-	if !ok {
-		pipelineStatus = &AggregateStatus{
-			ComponentStatusMap: make(map[string]*AggregateStatus),
-		}
-		a.aggregateStatus.ComponentStatusMap[pipelineKey] = pipelineStatus
-	}
+// extensions are treated as a pseudo-pipeline
 
-	componentKey := strings.ToLower(source.Kind().String()) + ":" + source.ComponentID().String()
-	pipelineStatus.ComponentStatusMap[componentKey] = &AggregateStatus{
-		Event: event,
-	}
-	pipelineStatus.Event = a.aggregationFunc(pipelineStatus)
-	a.notifySubscribers(pipelineScope, pipelineStatus)
+func (a *Aggregator) updateStatus(pipelineScope Scope, source *componentstatus.InstanceID, event *componentstatus.Event) {
+	_ = "STUB: not implemented"
+	return
 }
 
 // Subscribe allows you to subscribe to a stream of events for the given scope. The scope can be
@@ -170,67 +106,16 @@ func (a *Aggregator) updateStatus(pipelineScope Scope, source *componentstatus.I
 // A `Verbose` verbosity specifies that subtrees should be returned with the *AggregateStatus.
 // To unsubscribe, call the returned UnsubscribeFunc.
 func (a *Aggregator) Subscribe(scope Scope, verbosity Verbosity) (<-chan *AggregateStatus, UnsubscribeFunc) {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-
-	key := scope.toKey()
-	st := a.aggregateStatus
-	if scope != ScopeAll {
-		st = st.ComponentStatusMap[key]
-	}
-	if st != nil {
-		st = st.clone(verbosity)
-	}
-	sub := &subscription{
-		statusCh:  make(chan *AggregateStatus, 1),
-		verbosity: verbosity,
-	}
-	subList, ok := a.subscriptions[key]
-	if !ok {
-		subList = list.New()
-		a.subscriptions[key] = subList
-	}
-	el := subList.PushBack(sub)
-
-	unsubFunc := func() {
-		a.mu.Lock()
-		defer a.mu.Unlock()
-		subList.Remove(el)
-		if subList.Front() == nil {
-			delete(a.subscriptions, key)
-		}
-	}
-
-	sub.statusCh <- st
-
-	return sub.statusCh, unsubFunc
+	_ = "STUB: not implemented"
+	return nil, *new(UnsubscribeFunc)
 }
 
 // Close terminates all existing subscriptions.
-func (a *Aggregator) Close() {
-	a.mu.Lock()
-	defer a.mu.Unlock()
-
-	for _, subList := range a.subscriptions {
-		for el := subList.Front(); el != nil; el = el.Next() {
-			sub := el.Value.(*subscription)
-			close(sub.statusCh)
-		}
-	}
-}
+func (a *Aggregator) Close() { _ = "STUB: not implemented"; return }
 
 func (a *Aggregator) notifySubscribers(scope Scope, status *AggregateStatus) {
-	subList, ok := a.subscriptions[scope.toKey()]
-	if !ok {
-		return
-	}
-	for el := subList.Front(); el != nil; el = el.Next() {
-		sub := el.Value.(*subscription)
-		// clear unread events
-		select {
-		case <-sub.statusCh:
-		default:
-		}
-		sub.statusCh <- status.clone(sub.verbosity)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// clear unread events

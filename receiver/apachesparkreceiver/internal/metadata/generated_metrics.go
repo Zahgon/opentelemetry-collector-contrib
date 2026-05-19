@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionIn:
-		return "in"
-	case AttributeDirectionOut:
-		return "out"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -56,15 +45,7 @@ const (
 )
 
 // String returns the string representation of the AttributeExecutorTaskResult.
-func (av AttributeExecutorTaskResult) String() string {
-	switch av {
-	case AttributeExecutorTaskResultCompleted:
-		return "completed"
-	case AttributeExecutorTaskResultFailed:
-		return "failed"
-	}
-	return ""
-}
+func (av AttributeExecutorTaskResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeExecutorTaskResult is a helper map of string to AttributeExecutorTaskResult attribute value.
 var MapAttributeExecutorTaskResult = map[string]AttributeExecutorTaskResult{
@@ -82,15 +63,7 @@ const (
 )
 
 // String returns the string representation of the AttributeGcType.
-func (av AttributeGcType) String() string {
-	switch av {
-	case AttributeGcTypeMajor:
-		return "major"
-	case AttributeGcTypeMinor:
-		return "minor"
-	}
-	return ""
-}
+func (av AttributeGcType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeGcType is a helper map of string to AttributeGcType attribute value.
 var MapAttributeGcType = map[string]AttributeGcType{
@@ -109,17 +82,7 @@ const (
 )
 
 // String returns the string representation of the AttributeJobResult.
-func (av AttributeJobResult) String() string {
-	switch av {
-	case AttributeJobResultCompleted:
-		return "completed"
-	case AttributeJobResultFailed:
-		return "failed"
-	case AttributeJobResultSkipped:
-		return "skipped"
-	}
-	return ""
-}
+func (av AttributeJobResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeJobResult is a helper map of string to AttributeJobResult attribute value.
 var MapAttributeJobResult = map[string]AttributeJobResult{
@@ -138,15 +101,7 @@ const (
 )
 
 // String returns the string representation of the AttributeLocation.
-func (av AttributeLocation) String() string {
-	switch av {
-	case AttributeLocationOnHeap:
-		return "on_heap"
-	case AttributeLocationOffHeap:
-		return "off_heap"
-	}
-	return ""
-}
+func (av AttributeLocation) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeLocation is a helper map of string to AttributeLocation attribute value.
 var MapAttributeLocation = map[string]AttributeLocation{
@@ -164,15 +119,7 @@ const (
 )
 
 // String returns the string representation of the AttributePoolMemoryType.
-func (av AttributePoolMemoryType) String() string {
-	switch av {
-	case AttributePoolMemoryTypeDirect:
-		return "direct"
-	case AttributePoolMemoryTypeMapped:
-		return "mapped"
-	}
-	return ""
-}
+func (av AttributePoolMemoryType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributePoolMemoryType is a helper map of string to AttributePoolMemoryType attribute value.
 var MapAttributePoolMemoryType = map[string]AttributePoolMemoryType{
@@ -190,15 +137,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSchedulerStatus.
-func (av AttributeSchedulerStatus) String() string {
-	switch av {
-	case AttributeSchedulerStatusWaiting:
-		return "waiting"
-	case AttributeSchedulerStatusRunning:
-		return "running"
-	}
-	return ""
-}
+func (av AttributeSchedulerStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSchedulerStatus is a helper map of string to AttributeSchedulerStatus attribute value.
 var MapAttributeSchedulerStatus = map[string]AttributeSchedulerStatus{
@@ -216,15 +155,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSource.
-func (av AttributeSource) String() string {
-	switch av {
-	case AttributeSourceLocal:
-		return "local"
-	case AttributeSourceRemote:
-		return "remote"
-	}
-	return ""
-}
+func (av AttributeSource) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSource is a helper map of string to AttributeSource attribute value.
 var MapAttributeSource = map[string]AttributeSource{
@@ -243,17 +174,7 @@ const (
 )
 
 // String returns the string representation of the AttributeStageTaskResult.
-func (av AttributeStageTaskResult) String() string {
-	switch av {
-	case AttributeStageTaskResultCompleted:
-		return "completed"
-	case AttributeStageTaskResultFailed:
-		return "failed"
-	case AttributeStageTaskResultKilled:
-		return "killed"
-	}
-	return ""
-}
+func (av AttributeStageTaskResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeStageTaskResult is a helper map of string to AttributeStageTaskResult attribute value.
 var MapAttributeStageTaskResult = map[string]AttributeStageTaskResult{
@@ -272,15 +193,7 @@ const (
 )
 
 // String returns the string representation of the AttributeState.
-func (av AttributeState) String() string {
-	switch av {
-	case AttributeStateUsed:
-		return "used"
-	case AttributeStateFree:
-		return "free"
-	}
-	return ""
-}
+func (av AttributeState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeState is a helper map of string to AttributeState attribute value.
 var MapAttributeState = map[string]AttributeState{
@@ -567,39 +480,25 @@ func (m *metricSparkDriverBlockManagerDiskUsage) init() {
 }
 
 func (m *metricSparkDriverBlockManagerDiskUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverBlockManagerDiskUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverBlockManagerDiskUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverBlockManagerDiskUsage(cfg SparkDriverBlockManagerDiskUsageMetricConfig) metricSparkDriverBlockManagerDiskUsage {
-	m := metricSparkDriverBlockManagerDiskUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverBlockManagerDiskUsage)
 }
 
 type metricSparkDriverBlockManagerMemoryUsage struct {
@@ -622,78 +521,25 @@ func (m *metricSparkDriverBlockManagerMemoryUsage) init() {
 }
 
 func (m *metricSparkDriverBlockManagerMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, locationAttributeValue string, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverBlockManagerMemoryUsageMetricAttributeKeyLocation) {
-		dp.Attributes().PutStr("location", locationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverBlockManagerMemoryUsageMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverBlockManagerMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverBlockManagerMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverBlockManagerMemoryUsage(cfg SparkDriverBlockManagerMemoryUsageMetricConfig) metricSparkDriverBlockManagerMemoryUsage {
-	m := metricSparkDriverBlockManagerMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverBlockManagerMemoryUsage)
 }
 
 type metricSparkDriverCodeGeneratorCompilationAverageTime struct {
@@ -711,39 +557,25 @@ func (m *metricSparkDriverCodeGeneratorCompilationAverageTime) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorCompilationAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorCompilationAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorCompilationAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorCompilationAverageTime(cfg SparkDriverCodeGeneratorCompilationAverageTimeMetricConfig) metricSparkDriverCodeGeneratorCompilationAverageTime {
-	m := metricSparkDriverCodeGeneratorCompilationAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorCompilationAverageTime)
 }
 
 type metricSparkDriverCodeGeneratorCompilationCount struct {
@@ -763,39 +595,25 @@ func (m *metricSparkDriverCodeGeneratorCompilationCount) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorCompilationCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorCompilationCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorCompilationCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorCompilationCount(cfg SparkDriverCodeGeneratorCompilationCountMetricConfig) metricSparkDriverCodeGeneratorCompilationCount {
-	m := metricSparkDriverCodeGeneratorCompilationCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorCompilationCount)
 }
 
 type metricSparkDriverCodeGeneratorGeneratedClassAverageSize struct {
@@ -813,39 +631,25 @@ func (m *metricSparkDriverCodeGeneratorGeneratedClassAverageSize) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorGeneratedClassAverageSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorGeneratedClassAverageSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorGeneratedClassAverageSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorGeneratedClassAverageSize(cfg SparkDriverCodeGeneratorGeneratedClassAverageSizeMetricConfig) metricSparkDriverCodeGeneratorGeneratedClassAverageSize {
-	m := metricSparkDriverCodeGeneratorGeneratedClassAverageSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorGeneratedClassAverageSize)
 }
 
 type metricSparkDriverCodeGeneratorGeneratedClassCount struct {
@@ -865,39 +669,25 @@ func (m *metricSparkDriverCodeGeneratorGeneratedClassCount) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorGeneratedClassCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorGeneratedClassCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorGeneratedClassCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorGeneratedClassCount(cfg SparkDriverCodeGeneratorGeneratedClassCountMetricConfig) metricSparkDriverCodeGeneratorGeneratedClassCount {
-	m := metricSparkDriverCodeGeneratorGeneratedClassCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorGeneratedClassCount)
 }
 
 type metricSparkDriverCodeGeneratorGeneratedMethodAverageSize struct {
@@ -915,39 +705,25 @@ func (m *metricSparkDriverCodeGeneratorGeneratedMethodAverageSize) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodAverageSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodAverageSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodAverageSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorGeneratedMethodAverageSize(cfg SparkDriverCodeGeneratorGeneratedMethodAverageSizeMetricConfig) metricSparkDriverCodeGeneratorGeneratedMethodAverageSize {
-	m := metricSparkDriverCodeGeneratorGeneratedMethodAverageSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorGeneratedMethodAverageSize)
 }
 
 type metricSparkDriverCodeGeneratorGeneratedMethodCount struct {
@@ -967,39 +743,25 @@ func (m *metricSparkDriverCodeGeneratorGeneratedMethodCount) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorGeneratedMethodCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorGeneratedMethodCount(cfg SparkDriverCodeGeneratorGeneratedMethodCountMetricConfig) metricSparkDriverCodeGeneratorGeneratedMethodCount {
-	m := metricSparkDriverCodeGeneratorGeneratedMethodCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorGeneratedMethodCount)
 }
 
 type metricSparkDriverCodeGeneratorSourceCodeAverageSize struct {
@@ -1017,39 +779,25 @@ func (m *metricSparkDriverCodeGeneratorSourceCodeAverageSize) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorSourceCodeAverageSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorSourceCodeAverageSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorSourceCodeAverageSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorSourceCodeAverageSize(cfg SparkDriverCodeGeneratorSourceCodeAverageSizeMetricConfig) metricSparkDriverCodeGeneratorSourceCodeAverageSize {
-	m := metricSparkDriverCodeGeneratorSourceCodeAverageSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorSourceCodeAverageSize)
 }
 
 type metricSparkDriverCodeGeneratorSourceCodeOperations struct {
@@ -1069,39 +817,25 @@ func (m *metricSparkDriverCodeGeneratorSourceCodeOperations) init() {
 }
 
 func (m *metricSparkDriverCodeGeneratorSourceCodeOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverCodeGeneratorSourceCodeOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverCodeGeneratorSourceCodeOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverCodeGeneratorSourceCodeOperations(cfg SparkDriverCodeGeneratorSourceCodeOperationsMetricConfig) metricSparkDriverCodeGeneratorSourceCodeOperations {
-	m := metricSparkDriverCodeGeneratorSourceCodeOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverCodeGeneratorSourceCodeOperations)
 }
 
 type metricSparkDriverDagSchedulerJobActive struct {
@@ -1121,39 +855,25 @@ func (m *metricSparkDriverDagSchedulerJobActive) init() {
 }
 
 func (m *metricSparkDriverDagSchedulerJobActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverDagSchedulerJobActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverDagSchedulerJobActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverDagSchedulerJobActive(cfg SparkDriverDagSchedulerJobActiveMetricConfig) metricSparkDriverDagSchedulerJobActive {
-	m := metricSparkDriverDagSchedulerJobActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverDagSchedulerJobActive)
 }
 
 type metricSparkDriverDagSchedulerJobCount struct {
@@ -1173,39 +893,22 @@ func (m *metricSparkDriverDagSchedulerJobCount) init() {
 }
 
 func (m *metricSparkDriverDagSchedulerJobCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverDagSchedulerJobCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverDagSchedulerJobCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverDagSchedulerJobCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverDagSchedulerJobCount(cfg SparkDriverDagSchedulerJobCountMetricConfig) metricSparkDriverDagSchedulerJobCount {
-	m := metricSparkDriverDagSchedulerJobCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverDagSchedulerJobCount)
 }
 
 type metricSparkDriverDagSchedulerStageCount struct {
@@ -1228,75 +931,25 @@ func (m *metricSparkDriverDagSchedulerStageCount) init() {
 }
 
 func (m *metricSparkDriverDagSchedulerStageCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, schedulerStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverDagSchedulerStageCountMetricAttributeKeySchedulerStatus) {
-		dp.Attributes().PutStr("status", schedulerStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverDagSchedulerStageCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverDagSchedulerStageCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverDagSchedulerStageCount(cfg SparkDriverDagSchedulerStageCountMetricConfig) metricSparkDriverDagSchedulerStageCount {
-	m := metricSparkDriverDagSchedulerStageCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverDagSchedulerStageCount)
 }
 
 type metricSparkDriverDagSchedulerStageFailed struct {
@@ -1316,39 +969,25 @@ func (m *metricSparkDriverDagSchedulerStageFailed) init() {
 }
 
 func (m *metricSparkDriverDagSchedulerStageFailed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverDagSchedulerStageFailed) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverDagSchedulerStageFailed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverDagSchedulerStageFailed(cfg SparkDriverDagSchedulerStageFailedMetricConfig) metricSparkDriverDagSchedulerStageFailed {
-	m := metricSparkDriverDagSchedulerStageFailed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverDagSchedulerStageFailed)
 }
 
 type metricSparkDriverExecutorGcOperations struct {
@@ -1371,75 +1010,22 @@ func (m *metricSparkDriverExecutorGcOperations) init() {
 }
 
 func (m *metricSparkDriverExecutorGcOperations) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, gcTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorGcOperationsMetricAttributeKeyGcType) {
-		dp.Attributes().PutStr("gc_type", gcTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverExecutorGcOperations) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverExecutorGcOperations) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorGcOperations) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorGcOperations(cfg SparkDriverExecutorGcOperationsMetricConfig) metricSparkDriverExecutorGcOperations {
-	m := metricSparkDriverExecutorGcOperations{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorGcOperations)
 }
 
 type metricSparkDriverExecutorGcTime struct {
@@ -1462,75 +1048,22 @@ func (m *metricSparkDriverExecutorGcTime) init() {
 }
 
 func (m *metricSparkDriverExecutorGcTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, gcTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorGcTimeMetricAttributeKeyGcType) {
-		dp.Attributes().PutStr("gc_type", gcTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverExecutorGcTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverExecutorGcTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorGcTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorGcTime(cfg SparkDriverExecutorGcTimeMetricConfig) metricSparkDriverExecutorGcTime {
-	m := metricSparkDriverExecutorGcTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorGcTime)
 }
 
 type metricSparkDriverExecutorMemoryExecution struct {
@@ -1553,75 +1086,25 @@ func (m *metricSparkDriverExecutorMemoryExecution) init() {
 }
 
 func (m *metricSparkDriverExecutorMemoryExecution) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, locationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorMemoryExecutionMetricAttributeKeyLocation) {
-		dp.Attributes().PutStr("location", locationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverExecutorMemoryExecution) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorMemoryExecution) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorMemoryExecution(cfg SparkDriverExecutorMemoryExecutionMetricConfig) metricSparkDriverExecutorMemoryExecution {
-	m := metricSparkDriverExecutorMemoryExecution{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorMemoryExecution)
 }
 
 type metricSparkDriverExecutorMemoryJvm struct {
@@ -1644,75 +1127,22 @@ func (m *metricSparkDriverExecutorMemoryJvm) init() {
 }
 
 func (m *metricSparkDriverExecutorMemoryJvm) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, locationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorMemoryJvmMetricAttributeKeyLocation) {
-		dp.Attributes().PutStr("location", locationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverExecutorMemoryJvm) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverExecutorMemoryJvm) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorMemoryJvm) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorMemoryJvm(cfg SparkDriverExecutorMemoryJvmMetricConfig) metricSparkDriverExecutorMemoryJvm {
-	m := metricSparkDriverExecutorMemoryJvm{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorMemoryJvm)
 }
 
 type metricSparkDriverExecutorMemoryPool struct {
@@ -1735,75 +1165,22 @@ func (m *metricSparkDriverExecutorMemoryPool) init() {
 }
 
 func (m *metricSparkDriverExecutorMemoryPool) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, poolMemoryTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorMemoryPoolMetricAttributeKeyPoolMemoryType) {
-		dp.Attributes().PutStr("type", poolMemoryTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverExecutorMemoryPool) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverExecutorMemoryPool) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorMemoryPool) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorMemoryPool(cfg SparkDriverExecutorMemoryPoolMetricConfig) metricSparkDriverExecutorMemoryPool {
-	m := metricSparkDriverExecutorMemoryPool{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorMemoryPool)
 }
 
 type metricSparkDriverExecutorMemoryStorage struct {
@@ -1826,75 +1203,25 @@ func (m *metricSparkDriverExecutorMemoryStorage) init() {
 }
 
 func (m *metricSparkDriverExecutorMemoryStorage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, locationAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkDriverExecutorMemoryStorageMetricAttributeKeyLocation) {
-		dp.Attributes().PutStr("location", locationAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverExecutorMemoryStorage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverExecutorMemoryStorage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverExecutorMemoryStorage(cfg SparkDriverExecutorMemoryStorageMetricConfig) metricSparkDriverExecutorMemoryStorage {
-	m := metricSparkDriverExecutorMemoryStorage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverExecutorMemoryStorage)
 }
 
 type metricSparkDriverHiveExternalCatalogFileCacheHits struct {
@@ -1914,39 +1241,25 @@ func (m *metricSparkDriverHiveExternalCatalogFileCacheHits) init() {
 }
 
 func (m *metricSparkDriverHiveExternalCatalogFileCacheHits) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverHiveExternalCatalogFileCacheHits) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverHiveExternalCatalogFileCacheHits) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverHiveExternalCatalogFileCacheHits(cfg SparkDriverHiveExternalCatalogFileCacheHitsMetricConfig) metricSparkDriverHiveExternalCatalogFileCacheHits {
-	m := metricSparkDriverHiveExternalCatalogFileCacheHits{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverHiveExternalCatalogFileCacheHits)
 }
 
 type metricSparkDriverHiveExternalCatalogFilesDiscovered struct {
@@ -1966,39 +1279,25 @@ func (m *metricSparkDriverHiveExternalCatalogFilesDiscovered) init() {
 }
 
 func (m *metricSparkDriverHiveExternalCatalogFilesDiscovered) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverHiveExternalCatalogFilesDiscovered) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverHiveExternalCatalogFilesDiscovered) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverHiveExternalCatalogFilesDiscovered(cfg SparkDriverHiveExternalCatalogFilesDiscoveredMetricConfig) metricSparkDriverHiveExternalCatalogFilesDiscovered {
-	m := metricSparkDriverHiveExternalCatalogFilesDiscovered{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverHiveExternalCatalogFilesDiscovered)
 }
 
 type metricSparkDriverHiveExternalCatalogHiveClientCalls struct {
@@ -2018,39 +1317,25 @@ func (m *metricSparkDriverHiveExternalCatalogHiveClientCalls) init() {
 }
 
 func (m *metricSparkDriverHiveExternalCatalogHiveClientCalls) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverHiveExternalCatalogHiveClientCalls) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverHiveExternalCatalogHiveClientCalls) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverHiveExternalCatalogHiveClientCalls(cfg SparkDriverHiveExternalCatalogHiveClientCallsMetricConfig) metricSparkDriverHiveExternalCatalogHiveClientCalls {
-	m := metricSparkDriverHiveExternalCatalogHiveClientCalls{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverHiveExternalCatalogHiveClientCalls)
 }
 
 type metricSparkDriverHiveExternalCatalogParallelListingJobs struct {
@@ -2070,39 +1355,25 @@ func (m *metricSparkDriverHiveExternalCatalogParallelListingJobs) init() {
 }
 
 func (m *metricSparkDriverHiveExternalCatalogParallelListingJobs) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverHiveExternalCatalogParallelListingJobs) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverHiveExternalCatalogParallelListingJobs) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverHiveExternalCatalogParallelListingJobs(cfg SparkDriverHiveExternalCatalogParallelListingJobsMetricConfig) metricSparkDriverHiveExternalCatalogParallelListingJobs {
-	m := metricSparkDriverHiveExternalCatalogParallelListingJobs{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverHiveExternalCatalogParallelListingJobs)
 }
 
 type metricSparkDriverHiveExternalCatalogPartitionsFetched struct {
@@ -2122,39 +1393,25 @@ func (m *metricSparkDriverHiveExternalCatalogPartitionsFetched) init() {
 }
 
 func (m *metricSparkDriverHiveExternalCatalogPartitionsFetched) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverHiveExternalCatalogPartitionsFetched) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverHiveExternalCatalogPartitionsFetched) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverHiveExternalCatalogPartitionsFetched(cfg SparkDriverHiveExternalCatalogPartitionsFetchedMetricConfig) metricSparkDriverHiveExternalCatalogPartitionsFetched {
-	m := metricSparkDriverHiveExternalCatalogPartitionsFetched{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverHiveExternalCatalogPartitionsFetched)
 }
 
 type metricSparkDriverJvmCPUTime struct {
@@ -2174,39 +1431,22 @@ func (m *metricSparkDriverJvmCPUTime) init() {
 }
 
 func (m *metricSparkDriverJvmCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkDriverJvmCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkDriverJvmCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverJvmCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverJvmCPUTime(cfg SparkDriverJvmCPUTimeMetricConfig) metricSparkDriverJvmCPUTime {
-	m := metricSparkDriverJvmCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverJvmCPUTime)
 }
 
 type metricSparkDriverLiveListenerBusDropped struct {
@@ -2226,39 +1466,25 @@ func (m *metricSparkDriverLiveListenerBusDropped) init() {
 }
 
 func (m *metricSparkDriverLiveListenerBusDropped) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverLiveListenerBusDropped) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverLiveListenerBusDropped) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverLiveListenerBusDropped(cfg SparkDriverLiveListenerBusDroppedMetricConfig) metricSparkDriverLiveListenerBusDropped {
-	m := metricSparkDriverLiveListenerBusDropped{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverLiveListenerBusDropped)
 }
 
 type metricSparkDriverLiveListenerBusPosted struct {
@@ -2278,39 +1504,25 @@ func (m *metricSparkDriverLiveListenerBusPosted) init() {
 }
 
 func (m *metricSparkDriverLiveListenerBusPosted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverLiveListenerBusPosted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverLiveListenerBusPosted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverLiveListenerBusPosted(cfg SparkDriverLiveListenerBusPostedMetricConfig) metricSparkDriverLiveListenerBusPosted {
-	m := metricSparkDriverLiveListenerBusPosted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverLiveListenerBusPosted)
 }
 
 type metricSparkDriverLiveListenerBusProcessingTimeAverage struct {
@@ -2328,39 +1540,25 @@ func (m *metricSparkDriverLiveListenerBusProcessingTimeAverage) init() {
 }
 
 func (m *metricSparkDriverLiveListenerBusProcessingTimeAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverLiveListenerBusProcessingTimeAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverLiveListenerBusProcessingTimeAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverLiveListenerBusProcessingTimeAverage(cfg SparkDriverLiveListenerBusProcessingTimeAverageMetricConfig) metricSparkDriverLiveListenerBusProcessingTimeAverage {
-	m := metricSparkDriverLiveListenerBusProcessingTimeAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverLiveListenerBusProcessingTimeAverage)
 }
 
 type metricSparkDriverLiveListenerBusQueueSize struct {
@@ -2380,39 +1578,25 @@ func (m *metricSparkDriverLiveListenerBusQueueSize) init() {
 }
 
 func (m *metricSparkDriverLiveListenerBusQueueSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSparkDriverLiveListenerBusQueueSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkDriverLiveListenerBusQueueSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkDriverLiveListenerBusQueueSize(cfg SparkDriverLiveListenerBusQueueSizeMetricConfig) metricSparkDriverLiveListenerBusQueueSize {
-	m := metricSparkDriverLiveListenerBusQueueSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkDriverLiveListenerBusQueueSize)
 }
 
 type metricSparkExecutorDiskUsage struct {
@@ -2432,39 +1616,22 @@ func (m *metricSparkExecutorDiskUsage) init() {
 }
 
 func (m *metricSparkExecutorDiskUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorDiskUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorDiskUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorDiskUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorDiskUsage(cfg SparkExecutorDiskUsageMetricConfig) metricSparkExecutorDiskUsage {
-	m := metricSparkExecutorDiskUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorDiskUsage)
 }
 
 type metricSparkExecutorGcTime struct {
@@ -2484,39 +1651,22 @@ func (m *metricSparkExecutorGcTime) init() {
 }
 
 func (m *metricSparkExecutorGcTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorGcTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorGcTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorGcTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorGcTime(cfg SparkExecutorGcTimeMetricConfig) metricSparkExecutorGcTime {
-	m := metricSparkExecutorGcTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorGcTime)
 }
 
 type metricSparkExecutorInputSize struct {
@@ -2536,39 +1686,22 @@ func (m *metricSparkExecutorInputSize) init() {
 }
 
 func (m *metricSparkExecutorInputSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorInputSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorInputSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorInputSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorInputSize(cfg SparkExecutorInputSizeMetricConfig) metricSparkExecutorInputSize {
-	m := metricSparkExecutorInputSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorInputSize)
 }
 
 type metricSparkExecutorMemoryUsage struct {
@@ -2588,39 +1721,22 @@ func (m *metricSparkExecutorMemoryUsage) init() {
 }
 
 func (m *metricSparkExecutorMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorMemoryUsage(cfg SparkExecutorMemoryUsageMetricConfig) metricSparkExecutorMemoryUsage {
-	m := metricSparkExecutorMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorMemoryUsage)
 }
 
 type metricSparkExecutorShuffleIoSize struct {
@@ -2643,75 +1759,22 @@ func (m *metricSparkExecutorShuffleIoSize) init() {
 }
 
 func (m *metricSparkExecutorShuffleIoSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkExecutorShuffleIoSizeMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorShuffleIoSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorShuffleIoSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorShuffleIoSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorShuffleIoSize(cfg SparkExecutorShuffleIoSizeMetricConfig) metricSparkExecutorShuffleIoSize {
-	m := metricSparkExecutorShuffleIoSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorShuffleIoSize)
 }
 
 type metricSparkExecutorStorageMemoryUsage struct {
@@ -2734,78 +1797,22 @@ func (m *metricSparkExecutorStorageMemoryUsage) init() {
 }
 
 func (m *metricSparkExecutorStorageMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, locationAttributeValue string, stateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkExecutorStorageMemoryUsageMetricAttributeKeyLocation) {
-		dp.Attributes().PutStr("location", locationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SparkExecutorStorageMemoryUsageMetricAttributeKeyState) {
-		dp.Attributes().PutStr("state", stateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorStorageMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorStorageMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorStorageMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorStorageMemoryUsage(cfg SparkExecutorStorageMemoryUsageMetricConfig) metricSparkExecutorStorageMemoryUsage {
-	m := metricSparkExecutorStorageMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorStorageMemoryUsage)
 }
 
 type metricSparkExecutorTaskActive struct {
@@ -2825,39 +1832,22 @@ func (m *metricSparkExecutorTaskActive) init() {
 }
 
 func (m *metricSparkExecutorTaskActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorTaskActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorTaskActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorTaskActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorTaskActive(cfg SparkExecutorTaskActiveMetricConfig) metricSparkExecutorTaskActive {
-	m := metricSparkExecutorTaskActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorTaskActive)
 }
 
 type metricSparkExecutorTaskLimit struct {
@@ -2877,39 +1867,22 @@ func (m *metricSparkExecutorTaskLimit) init() {
 }
 
 func (m *metricSparkExecutorTaskLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorTaskLimit) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorTaskLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorTaskLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorTaskLimit(cfg SparkExecutorTaskLimitMetricConfig) metricSparkExecutorTaskLimit {
-	m := metricSparkExecutorTaskLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorTaskLimit)
 }
 
 type metricSparkExecutorTaskResult struct {
@@ -2932,75 +1905,22 @@ func (m *metricSparkExecutorTaskResult) init() {
 }
 
 func (m *metricSparkExecutorTaskResult) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, executorTaskResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkExecutorTaskResultMetricAttributeKeyExecutorTaskResult) {
-		dp.Attributes().PutStr("result", executorTaskResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorTaskResult) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorTaskResult) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorTaskResult) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorTaskResult(cfg SparkExecutorTaskResultMetricConfig) metricSparkExecutorTaskResult {
-	m := metricSparkExecutorTaskResult{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorTaskResult)
 }
 
 type metricSparkExecutorTime struct {
@@ -3020,39 +1940,22 @@ func (m *metricSparkExecutorTime) init() {
 }
 
 func (m *metricSparkExecutorTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkExecutorTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkExecutorTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkExecutorTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkExecutorTime(cfg SparkExecutorTimeMetricConfig) metricSparkExecutorTime {
-	m := metricSparkExecutorTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkExecutorTime)
 }
 
 type metricSparkJobStageActive struct {
@@ -3072,39 +1975,22 @@ func (m *metricSparkJobStageActive) init() {
 }
 
 func (m *metricSparkJobStageActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkJobStageActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkJobStageActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkJobStageActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkJobStageActive(cfg SparkJobStageActiveMetricConfig) metricSparkJobStageActive {
-	m := metricSparkJobStageActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkJobStageActive)
 }
 
 type metricSparkJobStageResult struct {
@@ -3127,75 +2013,22 @@ func (m *metricSparkJobStageResult) init() {
 }
 
 func (m *metricSparkJobStageResult) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, jobResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkJobStageResultMetricAttributeKeyJobResult) {
-		dp.Attributes().PutStr("result", jobResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkJobStageResult) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkJobStageResult) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkJobStageResult) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkJobStageResult(cfg SparkJobStageResultMetricConfig) metricSparkJobStageResult {
-	m := metricSparkJobStageResult{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkJobStageResult)
 }
 
 type metricSparkJobTaskActive struct {
@@ -3215,39 +2048,22 @@ func (m *metricSparkJobTaskActive) init() {
 }
 
 func (m *metricSparkJobTaskActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkJobTaskActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkJobTaskActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkJobTaskActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkJobTaskActive(cfg SparkJobTaskActiveMetricConfig) metricSparkJobTaskActive {
-	m := metricSparkJobTaskActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkJobTaskActive)
 }
 
 type metricSparkJobTaskResult struct {
@@ -3270,75 +2086,22 @@ func (m *metricSparkJobTaskResult) init() {
 }
 
 func (m *metricSparkJobTaskResult) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, jobResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkJobTaskResultMetricAttributeKeyJobResult) {
-		dp.Attributes().PutStr("result", jobResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkJobTaskResult) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkJobTaskResult) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkJobTaskResult) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkJobTaskResult(cfg SparkJobTaskResultMetricConfig) metricSparkJobTaskResult {
-	m := metricSparkJobTaskResult{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkJobTaskResult)
 }
 
 type metricSparkStageDiskSpilled struct {
@@ -3358,39 +2121,22 @@ func (m *metricSparkStageDiskSpilled) init() {
 }
 
 func (m *metricSparkStageDiskSpilled) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageDiskSpilled) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageDiskSpilled) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageDiskSpilled) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageDiskSpilled(cfg SparkStageDiskSpilledMetricConfig) metricSparkStageDiskSpilled {
-	m := metricSparkStageDiskSpilled{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageDiskSpilled)
 }
 
 type metricSparkStageExecutorCPUTime struct {
@@ -3410,39 +2156,22 @@ func (m *metricSparkStageExecutorCPUTime) init() {
 }
 
 func (m *metricSparkStageExecutorCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageExecutorCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageExecutorCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageExecutorCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageExecutorCPUTime(cfg SparkStageExecutorCPUTimeMetricConfig) metricSparkStageExecutorCPUTime {
-	m := metricSparkStageExecutorCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageExecutorCPUTime)
 }
 
 type metricSparkStageExecutorRunTime struct {
@@ -3462,39 +2191,22 @@ func (m *metricSparkStageExecutorRunTime) init() {
 }
 
 func (m *metricSparkStageExecutorRunTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageExecutorRunTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageExecutorRunTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageExecutorRunTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageExecutorRunTime(cfg SparkStageExecutorRunTimeMetricConfig) metricSparkStageExecutorRunTime {
-	m := metricSparkStageExecutorRunTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageExecutorRunTime)
 }
 
 type metricSparkStageIoRecords struct {
@@ -3517,75 +2229,22 @@ func (m *metricSparkStageIoRecords) init() {
 }
 
 func (m *metricSparkStageIoRecords) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageIoRecordsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageIoRecords) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageIoRecords) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageIoRecords) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageIoRecords(cfg SparkStageIoRecordsMetricConfig) metricSparkStageIoRecords {
-	m := metricSparkStageIoRecords{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageIoRecords)
 }
 
 type metricSparkStageIoSize struct {
@@ -3608,75 +2267,22 @@ func (m *metricSparkStageIoSize) init() {
 }
 
 func (m *metricSparkStageIoSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageIoSizeMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageIoSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageIoSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageIoSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageIoSize(cfg SparkStageIoSizeMetricConfig) metricSparkStageIoSize {
-	m := metricSparkStageIoSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageIoSize)
 }
 
 type metricSparkStageJvmGcTime struct {
@@ -3696,39 +2302,22 @@ func (m *metricSparkStageJvmGcTime) init() {
 }
 
 func (m *metricSparkStageJvmGcTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageJvmGcTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageJvmGcTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageJvmGcTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageJvmGcTime(cfg SparkStageJvmGcTimeMetricConfig) metricSparkStageJvmGcTime {
-	m := metricSparkStageJvmGcTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageJvmGcTime)
 }
 
 type metricSparkStageMemoryPeak struct {
@@ -3748,39 +2337,22 @@ func (m *metricSparkStageMemoryPeak) init() {
 }
 
 func (m *metricSparkStageMemoryPeak) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageMemoryPeak) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageMemoryPeak) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageMemoryPeak) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageMemoryPeak(cfg SparkStageMemoryPeakMetricConfig) metricSparkStageMemoryPeak {
-	m := metricSparkStageMemoryPeak{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageMemoryPeak)
 }
 
 type metricSparkStageMemorySpilled struct {
@@ -3800,39 +2372,22 @@ func (m *metricSparkStageMemorySpilled) init() {
 }
 
 func (m *metricSparkStageMemorySpilled) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageMemorySpilled) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageMemorySpilled) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageMemorySpilled) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageMemorySpilled(cfg SparkStageMemorySpilledMetricConfig) metricSparkStageMemorySpilled {
-	m := metricSparkStageMemorySpilled{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageMemorySpilled)
 }
 
 type metricSparkStageShuffleBlocksFetched struct {
@@ -3855,75 +2410,22 @@ func (m *metricSparkStageShuffleBlocksFetched) init() {
 }
 
 func (m *metricSparkStageShuffleBlocksFetched) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, sourceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageShuffleBlocksFetchedMetricAttributeKeySource) {
-		dp.Attributes().PutStr("source", sourceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleBlocksFetched) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleBlocksFetched) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleBlocksFetched) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleBlocksFetched(cfg SparkStageShuffleBlocksFetchedMetricConfig) metricSparkStageShuffleBlocksFetched {
-	m := metricSparkStageShuffleBlocksFetched{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleBlocksFetched)
 }
 
 type metricSparkStageShuffleFetchWaitTime struct {
@@ -3943,39 +2445,22 @@ func (m *metricSparkStageShuffleFetchWaitTime) init() {
 }
 
 func (m *metricSparkStageShuffleFetchWaitTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleFetchWaitTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleFetchWaitTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleFetchWaitTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleFetchWaitTime(cfg SparkStageShuffleFetchWaitTimeMetricConfig) metricSparkStageShuffleFetchWaitTime {
-	m := metricSparkStageShuffleFetchWaitTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleFetchWaitTime)
 }
 
 type metricSparkStageShuffleIoDisk struct {
@@ -3995,39 +2480,22 @@ func (m *metricSparkStageShuffleIoDisk) init() {
 }
 
 func (m *metricSparkStageShuffleIoDisk) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleIoDisk) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleIoDisk) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleIoDisk) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleIoDisk(cfg SparkStageShuffleIoDiskMetricConfig) metricSparkStageShuffleIoDisk {
-	m := metricSparkStageShuffleIoDisk{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleIoDisk)
 }
 
 type metricSparkStageShuffleIoReadSize struct {
@@ -4050,75 +2518,22 @@ func (m *metricSparkStageShuffleIoReadSize) init() {
 }
 
 func (m *metricSparkStageShuffleIoReadSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, sourceAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageShuffleIoReadSizeMetricAttributeKeySource) {
-		dp.Attributes().PutStr("source", sourceAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleIoReadSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleIoReadSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleIoReadSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleIoReadSize(cfg SparkStageShuffleIoReadSizeMetricConfig) metricSparkStageShuffleIoReadSize {
-	m := metricSparkStageShuffleIoReadSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleIoReadSize)
 }
 
 type metricSparkStageShuffleIoRecords struct {
@@ -4141,75 +2556,22 @@ func (m *metricSparkStageShuffleIoRecords) init() {
 }
 
 func (m *metricSparkStageShuffleIoRecords) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageShuffleIoRecordsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleIoRecords) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleIoRecords) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleIoRecords) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleIoRecords(cfg SparkStageShuffleIoRecordsMetricConfig) metricSparkStageShuffleIoRecords {
-	m := metricSparkStageShuffleIoRecords{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleIoRecords)
 }
 
 type metricSparkStageShuffleIoWriteSize struct {
@@ -4229,39 +2591,22 @@ func (m *metricSparkStageShuffleIoWriteSize) init() {
 }
 
 func (m *metricSparkStageShuffleIoWriteSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleIoWriteSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleIoWriteSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleIoWriteSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleIoWriteSize(cfg SparkStageShuffleIoWriteSizeMetricConfig) metricSparkStageShuffleIoWriteSize {
-	m := metricSparkStageShuffleIoWriteSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleIoWriteSize)
 }
 
 type metricSparkStageShuffleWriteTime struct {
@@ -4281,39 +2626,22 @@ func (m *metricSparkStageShuffleWriteTime) init() {
 }
 
 func (m *metricSparkStageShuffleWriteTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageShuffleWriteTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageShuffleWriteTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageShuffleWriteTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageShuffleWriteTime(cfg SparkStageShuffleWriteTimeMetricConfig) metricSparkStageShuffleWriteTime {
-	m := metricSparkStageShuffleWriteTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageShuffleWriteTime)
 }
 
 type metricSparkStageStatus struct {
@@ -4336,84 +2664,22 @@ func (m *metricSparkStageStatus) init() {
 }
 
 func (m *metricSparkStageStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, stageActiveAttributeValue bool, stageCompleteAttributeValue bool, stagePendingAttributeValue bool, stageFailedAttributeValue bool) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageStatusMetricAttributeKeyStageActive) {
-		dp.Attributes().PutBool("active", stageActiveAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SparkStageStatusMetricAttributeKeyStageComplete) {
-		dp.Attributes().PutBool("complete", stageCompleteAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SparkStageStatusMetricAttributeKeyStagePending) {
-		dp.Attributes().PutBool("pending", stagePendingAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SparkStageStatusMetricAttributeKeyStageFailed) {
-		dp.Attributes().PutBool("failed", stageFailedAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageStatus) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageStatus(cfg SparkStageStatusMetricConfig) metricSparkStageStatus {
-	m := metricSparkStageStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageStatus)
 }
 
 type metricSparkStageTaskActive struct {
@@ -4433,39 +2699,22 @@ func (m *metricSparkStageTaskActive) init() {
 }
 
 func (m *metricSparkStageTaskActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageTaskActive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageTaskActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageTaskActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageTaskActive(cfg SparkStageTaskActiveMetricConfig) metricSparkStageTaskActive {
-	m := metricSparkStageTaskActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageTaskActive)
 }
 
 type metricSparkStageTaskResult struct {
@@ -4488,75 +2737,22 @@ func (m *metricSparkStageTaskResult) init() {
 }
 
 func (m *metricSparkStageTaskResult) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, stageTaskResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SparkStageTaskResultMetricAttributeKeyStageTaskResult) {
-		dp.Attributes().PutStr("result", stageTaskResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageTaskResult) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageTaskResult) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageTaskResult) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageTaskResult(cfg SparkStageTaskResultMetricConfig) metricSparkStageTaskResult {
-	m := metricSparkStageTaskResult{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageTaskResult)
 }
 
 type metricSparkStageTaskResultSize struct {
@@ -4576,39 +2772,22 @@ func (m *metricSparkStageTaskResultSize) init() {
 }
 
 func (m *metricSparkStageTaskResultSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSparkStageTaskResultSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricSparkStageTaskResultSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSparkStageTaskResultSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSparkStageTaskResultSize(cfg SparkStageTaskResultSizeMetricConfig) metricSparkStageTaskResultSize {
-	m := metricSparkStageTaskResultSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSparkStageTaskResultSize)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -4694,140 +2873,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                   mbc,
-		startTime:                                pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                            pmetric.NewMetrics(),
-		buildInfo:                                settings.BuildInfo,
-		metricSparkDriverBlockManagerDiskUsage:   newMetricSparkDriverBlockManagerDiskUsage(mbc.Metrics.SparkDriverBlockManagerDiskUsage),
-		metricSparkDriverBlockManagerMemoryUsage: newMetricSparkDriverBlockManagerMemoryUsage(mbc.Metrics.SparkDriverBlockManagerMemoryUsage),
-		metricSparkDriverCodeGeneratorCompilationAverageTime:     newMetricSparkDriverCodeGeneratorCompilationAverageTime(mbc.Metrics.SparkDriverCodeGeneratorCompilationAverageTime),
-		metricSparkDriverCodeGeneratorCompilationCount:           newMetricSparkDriverCodeGeneratorCompilationCount(mbc.Metrics.SparkDriverCodeGeneratorCompilationCount),
-		metricSparkDriverCodeGeneratorGeneratedClassAverageSize:  newMetricSparkDriverCodeGeneratorGeneratedClassAverageSize(mbc.Metrics.SparkDriverCodeGeneratorGeneratedClassAverageSize),
-		metricSparkDriverCodeGeneratorGeneratedClassCount:        newMetricSparkDriverCodeGeneratorGeneratedClassCount(mbc.Metrics.SparkDriverCodeGeneratorGeneratedClassCount),
-		metricSparkDriverCodeGeneratorGeneratedMethodAverageSize: newMetricSparkDriverCodeGeneratorGeneratedMethodAverageSize(mbc.Metrics.SparkDriverCodeGeneratorGeneratedMethodAverageSize),
-		metricSparkDriverCodeGeneratorGeneratedMethodCount:       newMetricSparkDriverCodeGeneratorGeneratedMethodCount(mbc.Metrics.SparkDriverCodeGeneratorGeneratedMethodCount),
-		metricSparkDriverCodeGeneratorSourceCodeAverageSize:      newMetricSparkDriverCodeGeneratorSourceCodeAverageSize(mbc.Metrics.SparkDriverCodeGeneratorSourceCodeAverageSize),
-		metricSparkDriverCodeGeneratorSourceCodeOperations:       newMetricSparkDriverCodeGeneratorSourceCodeOperations(mbc.Metrics.SparkDriverCodeGeneratorSourceCodeOperations),
-		metricSparkDriverDagSchedulerJobActive:                   newMetricSparkDriverDagSchedulerJobActive(mbc.Metrics.SparkDriverDagSchedulerJobActive),
-		metricSparkDriverDagSchedulerJobCount:                    newMetricSparkDriverDagSchedulerJobCount(mbc.Metrics.SparkDriverDagSchedulerJobCount),
-		metricSparkDriverDagSchedulerStageCount:                  newMetricSparkDriverDagSchedulerStageCount(mbc.Metrics.SparkDriverDagSchedulerStageCount),
-		metricSparkDriverDagSchedulerStageFailed:                 newMetricSparkDriverDagSchedulerStageFailed(mbc.Metrics.SparkDriverDagSchedulerStageFailed),
-		metricSparkDriverExecutorGcOperations:                    newMetricSparkDriverExecutorGcOperations(mbc.Metrics.SparkDriverExecutorGcOperations),
-		metricSparkDriverExecutorGcTime:                          newMetricSparkDriverExecutorGcTime(mbc.Metrics.SparkDriverExecutorGcTime),
-		metricSparkDriverExecutorMemoryExecution:                 newMetricSparkDriverExecutorMemoryExecution(mbc.Metrics.SparkDriverExecutorMemoryExecution),
-		metricSparkDriverExecutorMemoryJvm:                       newMetricSparkDriverExecutorMemoryJvm(mbc.Metrics.SparkDriverExecutorMemoryJvm),
-		metricSparkDriverExecutorMemoryPool:                      newMetricSparkDriverExecutorMemoryPool(mbc.Metrics.SparkDriverExecutorMemoryPool),
-		metricSparkDriverExecutorMemoryStorage:                   newMetricSparkDriverExecutorMemoryStorage(mbc.Metrics.SparkDriverExecutorMemoryStorage),
-		metricSparkDriverHiveExternalCatalogFileCacheHits:        newMetricSparkDriverHiveExternalCatalogFileCacheHits(mbc.Metrics.SparkDriverHiveExternalCatalogFileCacheHits),
-		metricSparkDriverHiveExternalCatalogFilesDiscovered:      newMetricSparkDriverHiveExternalCatalogFilesDiscovered(mbc.Metrics.SparkDriverHiveExternalCatalogFilesDiscovered),
-		metricSparkDriverHiveExternalCatalogHiveClientCalls:      newMetricSparkDriverHiveExternalCatalogHiveClientCalls(mbc.Metrics.SparkDriverHiveExternalCatalogHiveClientCalls),
-		metricSparkDriverHiveExternalCatalogParallelListingJobs:  newMetricSparkDriverHiveExternalCatalogParallelListingJobs(mbc.Metrics.SparkDriverHiveExternalCatalogParallelListingJobs),
-		metricSparkDriverHiveExternalCatalogPartitionsFetched:    newMetricSparkDriverHiveExternalCatalogPartitionsFetched(mbc.Metrics.SparkDriverHiveExternalCatalogPartitionsFetched),
-		metricSparkDriverJvmCPUTime:                              newMetricSparkDriverJvmCPUTime(mbc.Metrics.SparkDriverJvmCPUTime),
-		metricSparkDriverLiveListenerBusDropped:                  newMetricSparkDriverLiveListenerBusDropped(mbc.Metrics.SparkDriverLiveListenerBusDropped),
-		metricSparkDriverLiveListenerBusPosted:                   newMetricSparkDriverLiveListenerBusPosted(mbc.Metrics.SparkDriverLiveListenerBusPosted),
-		metricSparkDriverLiveListenerBusProcessingTimeAverage:    newMetricSparkDriverLiveListenerBusProcessingTimeAverage(mbc.Metrics.SparkDriverLiveListenerBusProcessingTimeAverage),
-		metricSparkDriverLiveListenerBusQueueSize:                newMetricSparkDriverLiveListenerBusQueueSize(mbc.Metrics.SparkDriverLiveListenerBusQueueSize),
-		metricSparkExecutorDiskUsage:                             newMetricSparkExecutorDiskUsage(mbc.Metrics.SparkExecutorDiskUsage),
-		metricSparkExecutorGcTime:                                newMetricSparkExecutorGcTime(mbc.Metrics.SparkExecutorGcTime),
-		metricSparkExecutorInputSize:                             newMetricSparkExecutorInputSize(mbc.Metrics.SparkExecutorInputSize),
-		metricSparkExecutorMemoryUsage:                           newMetricSparkExecutorMemoryUsage(mbc.Metrics.SparkExecutorMemoryUsage),
-		metricSparkExecutorShuffleIoSize:                         newMetricSparkExecutorShuffleIoSize(mbc.Metrics.SparkExecutorShuffleIoSize),
-		metricSparkExecutorStorageMemoryUsage:                    newMetricSparkExecutorStorageMemoryUsage(mbc.Metrics.SparkExecutorStorageMemoryUsage),
-		metricSparkExecutorTaskActive:                            newMetricSparkExecutorTaskActive(mbc.Metrics.SparkExecutorTaskActive),
-		metricSparkExecutorTaskLimit:                             newMetricSparkExecutorTaskLimit(mbc.Metrics.SparkExecutorTaskLimit),
-		metricSparkExecutorTaskResult:                            newMetricSparkExecutorTaskResult(mbc.Metrics.SparkExecutorTaskResult),
-		metricSparkExecutorTime:                                  newMetricSparkExecutorTime(mbc.Metrics.SparkExecutorTime),
-		metricSparkJobStageActive:                                newMetricSparkJobStageActive(mbc.Metrics.SparkJobStageActive),
-		metricSparkJobStageResult:                                newMetricSparkJobStageResult(mbc.Metrics.SparkJobStageResult),
-		metricSparkJobTaskActive:                                 newMetricSparkJobTaskActive(mbc.Metrics.SparkJobTaskActive),
-		metricSparkJobTaskResult:                                 newMetricSparkJobTaskResult(mbc.Metrics.SparkJobTaskResult),
-		metricSparkStageDiskSpilled:                              newMetricSparkStageDiskSpilled(mbc.Metrics.SparkStageDiskSpilled),
-		metricSparkStageExecutorCPUTime:                          newMetricSparkStageExecutorCPUTime(mbc.Metrics.SparkStageExecutorCPUTime),
-		metricSparkStageExecutorRunTime:                          newMetricSparkStageExecutorRunTime(mbc.Metrics.SparkStageExecutorRunTime),
-		metricSparkStageIoRecords:                                newMetricSparkStageIoRecords(mbc.Metrics.SparkStageIoRecords),
-		metricSparkStageIoSize:                                   newMetricSparkStageIoSize(mbc.Metrics.SparkStageIoSize),
-		metricSparkStageJvmGcTime:                                newMetricSparkStageJvmGcTime(mbc.Metrics.SparkStageJvmGcTime),
-		metricSparkStageMemoryPeak:                               newMetricSparkStageMemoryPeak(mbc.Metrics.SparkStageMemoryPeak),
-		metricSparkStageMemorySpilled:                            newMetricSparkStageMemorySpilled(mbc.Metrics.SparkStageMemorySpilled),
-		metricSparkStageShuffleBlocksFetched:                     newMetricSparkStageShuffleBlocksFetched(mbc.Metrics.SparkStageShuffleBlocksFetched),
-		metricSparkStageShuffleFetchWaitTime:                     newMetricSparkStageShuffleFetchWaitTime(mbc.Metrics.SparkStageShuffleFetchWaitTime),
-		metricSparkStageShuffleIoDisk:                            newMetricSparkStageShuffleIoDisk(mbc.Metrics.SparkStageShuffleIoDisk),
-		metricSparkStageShuffleIoReadSize:                        newMetricSparkStageShuffleIoReadSize(mbc.Metrics.SparkStageShuffleIoReadSize),
-		metricSparkStageShuffleIoRecords:                         newMetricSparkStageShuffleIoRecords(mbc.Metrics.SparkStageShuffleIoRecords),
-		metricSparkStageShuffleIoWriteSize:                       newMetricSparkStageShuffleIoWriteSize(mbc.Metrics.SparkStageShuffleIoWriteSize),
-		metricSparkStageShuffleWriteTime:                         newMetricSparkStageShuffleWriteTime(mbc.Metrics.SparkStageShuffleWriteTime),
-		metricSparkStageStatus:                                   newMetricSparkStageStatus(mbc.Metrics.SparkStageStatus),
-		metricSparkStageTaskActive:                               newMetricSparkStageTaskActive(mbc.Metrics.SparkStageTaskActive),
-		metricSparkStageTaskResult:                               newMetricSparkStageTaskResult(mbc.Metrics.SparkStageTaskResult),
-		metricSparkStageTaskResultSize:                           newMetricSparkStageTaskResultSize(mbc.Metrics.SparkStageTaskResultSize),
-		resourceAttributeIncludeFilter:                           make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                           make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.SparkApplicationID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.application.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkApplicationID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkApplicationID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.application.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkApplicationID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SparkApplicationName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.application.name"] = filter.CreateFilter(mbc.ResourceAttributes.SparkApplicationName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkApplicationName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.application.name"] = filter.CreateFilter(mbc.ResourceAttributes.SparkApplicationName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SparkExecutorID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.executor.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkExecutorID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkExecutorID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.executor.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkExecutorID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SparkJobID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.job.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkJobID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkJobID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.job.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkJobID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SparkStageAttemptID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.stage.attempt.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkStageAttemptID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkStageAttemptID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.stage.attempt.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkStageAttemptID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.SparkStageID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["spark.stage.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkStageID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.SparkStageID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["spark.stage.id"] = filter.CreateFilter(mbc.ResourceAttributes.SparkStageID.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -4838,35 +2909,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -4875,425 +2934,396 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSparkDriverBlockManagerDiskUsage.emit(ils.Metrics())
-	mb.metricSparkDriverBlockManagerMemoryUsage.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorCompilationAverageTime.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorCompilationCount.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorGeneratedClassAverageSize.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorGeneratedClassCount.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorGeneratedMethodAverageSize.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorGeneratedMethodCount.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorSourceCodeAverageSize.emit(ils.Metrics())
-	mb.metricSparkDriverCodeGeneratorSourceCodeOperations.emit(ils.Metrics())
-	mb.metricSparkDriverDagSchedulerJobActive.emit(ils.Metrics())
-	mb.metricSparkDriverDagSchedulerJobCount.emit(ils.Metrics())
-	mb.metricSparkDriverDagSchedulerStageCount.emit(ils.Metrics())
-	mb.metricSparkDriverDagSchedulerStageFailed.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorGcOperations.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorGcTime.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorMemoryExecution.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorMemoryJvm.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorMemoryPool.emit(ils.Metrics())
-	mb.metricSparkDriverExecutorMemoryStorage.emit(ils.Metrics())
-	mb.metricSparkDriverHiveExternalCatalogFileCacheHits.emit(ils.Metrics())
-	mb.metricSparkDriverHiveExternalCatalogFilesDiscovered.emit(ils.Metrics())
-	mb.metricSparkDriverHiveExternalCatalogHiveClientCalls.emit(ils.Metrics())
-	mb.metricSparkDriverHiveExternalCatalogParallelListingJobs.emit(ils.Metrics())
-	mb.metricSparkDriverHiveExternalCatalogPartitionsFetched.emit(ils.Metrics())
-	mb.metricSparkDriverJvmCPUTime.emit(ils.Metrics())
-	mb.metricSparkDriverLiveListenerBusDropped.emit(ils.Metrics())
-	mb.metricSparkDriverLiveListenerBusPosted.emit(ils.Metrics())
-	mb.metricSparkDriverLiveListenerBusProcessingTimeAverage.emit(ils.Metrics())
-	mb.metricSparkDriverLiveListenerBusQueueSize.emit(ils.Metrics())
-	mb.metricSparkExecutorDiskUsage.emit(ils.Metrics())
-	mb.metricSparkExecutorGcTime.emit(ils.Metrics())
-	mb.metricSparkExecutorInputSize.emit(ils.Metrics())
-	mb.metricSparkExecutorMemoryUsage.emit(ils.Metrics())
-	mb.metricSparkExecutorShuffleIoSize.emit(ils.Metrics())
-	mb.metricSparkExecutorStorageMemoryUsage.emit(ils.Metrics())
-	mb.metricSparkExecutorTaskActive.emit(ils.Metrics())
-	mb.metricSparkExecutorTaskLimit.emit(ils.Metrics())
-	mb.metricSparkExecutorTaskResult.emit(ils.Metrics())
-	mb.metricSparkExecutorTime.emit(ils.Metrics())
-	mb.metricSparkJobStageActive.emit(ils.Metrics())
-	mb.metricSparkJobStageResult.emit(ils.Metrics())
-	mb.metricSparkJobTaskActive.emit(ils.Metrics())
-	mb.metricSparkJobTaskResult.emit(ils.Metrics())
-	mb.metricSparkStageDiskSpilled.emit(ils.Metrics())
-	mb.metricSparkStageExecutorCPUTime.emit(ils.Metrics())
-	mb.metricSparkStageExecutorRunTime.emit(ils.Metrics())
-	mb.metricSparkStageIoRecords.emit(ils.Metrics())
-	mb.metricSparkStageIoSize.emit(ils.Metrics())
-	mb.metricSparkStageJvmGcTime.emit(ils.Metrics())
-	mb.metricSparkStageMemoryPeak.emit(ils.Metrics())
-	mb.metricSparkStageMemorySpilled.emit(ils.Metrics())
-	mb.metricSparkStageShuffleBlocksFetched.emit(ils.Metrics())
-	mb.metricSparkStageShuffleFetchWaitTime.emit(ils.Metrics())
-	mb.metricSparkStageShuffleIoDisk.emit(ils.Metrics())
-	mb.metricSparkStageShuffleIoReadSize.emit(ils.Metrics())
-	mb.metricSparkStageShuffleIoRecords.emit(ils.Metrics())
-	mb.metricSparkStageShuffleIoWriteSize.emit(ils.Metrics())
-	mb.metricSparkStageShuffleWriteTime.emit(ils.Metrics())
-	mb.metricSparkStageStatus.emit(ils.Metrics())
-	mb.metricSparkStageTaskActive.emit(ils.Metrics())
-	mb.metricSparkStageTaskResult.emit(ils.Metrics())
-	mb.metricSparkStageTaskResultSize.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSparkDriverBlockManagerDiskUsageDataPoint adds a data point to spark.driver.block_manager.disk.usage metric.
 func (mb *MetricsBuilder) RecordSparkDriverBlockManagerDiskUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverBlockManagerDiskUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverBlockManagerMemoryUsageDataPoint adds a data point to spark.driver.block_manager.memory.usage metric.
 func (mb *MetricsBuilder) RecordSparkDriverBlockManagerMemoryUsageDataPoint(ts pcommon.Timestamp, val int64, locationAttributeValue AttributeLocation, stateAttributeValue AttributeState) {
-	mb.metricSparkDriverBlockManagerMemoryUsage.recordDataPoint(mb.startTime, ts, val, locationAttributeValue.String(), stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorCompilationAverageTimeDataPoint adds a data point to spark.driver.code_generator.compilation.average_time metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorCompilationAverageTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSparkDriverCodeGeneratorCompilationAverageTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorCompilationCountDataPoint adds a data point to spark.driver.code_generator.compilation.count metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorCompilationCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverCodeGeneratorCompilationCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorGeneratedClassAverageSizeDataPoint adds a data point to spark.driver.code_generator.generated_class.average_size metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorGeneratedClassAverageSizeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSparkDriverCodeGeneratorGeneratedClassAverageSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorGeneratedClassCountDataPoint adds a data point to spark.driver.code_generator.generated_class.count metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorGeneratedClassCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverCodeGeneratorGeneratedClassCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorGeneratedMethodAverageSizeDataPoint adds a data point to spark.driver.code_generator.generated_method.average_size metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorGeneratedMethodAverageSizeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSparkDriverCodeGeneratorGeneratedMethodAverageSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorGeneratedMethodCountDataPoint adds a data point to spark.driver.code_generator.generated_method.count metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorGeneratedMethodCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverCodeGeneratorGeneratedMethodCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorSourceCodeAverageSizeDataPoint adds a data point to spark.driver.code_generator.source_code.average_size metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorSourceCodeAverageSizeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSparkDriverCodeGeneratorSourceCodeAverageSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverCodeGeneratorSourceCodeOperationsDataPoint adds a data point to spark.driver.code_generator.source_code.operations metric.
 func (mb *MetricsBuilder) RecordSparkDriverCodeGeneratorSourceCodeOperationsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverCodeGeneratorSourceCodeOperations.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverDagSchedulerJobActiveDataPoint adds a data point to spark.driver.dag_scheduler.job.active metric.
 func (mb *MetricsBuilder) RecordSparkDriverDagSchedulerJobActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverDagSchedulerJobActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverDagSchedulerJobCountDataPoint adds a data point to spark.driver.dag_scheduler.job.count metric.
 func (mb *MetricsBuilder) RecordSparkDriverDagSchedulerJobCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverDagSchedulerJobCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverDagSchedulerStageCountDataPoint adds a data point to spark.driver.dag_scheduler.stage.count metric.
 func (mb *MetricsBuilder) RecordSparkDriverDagSchedulerStageCountDataPoint(ts pcommon.Timestamp, val int64, schedulerStatusAttributeValue AttributeSchedulerStatus) {
-	mb.metricSparkDriverDagSchedulerStageCount.recordDataPoint(mb.startTime, ts, val, schedulerStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverDagSchedulerStageFailedDataPoint adds a data point to spark.driver.dag_scheduler.stage.failed metric.
 func (mb *MetricsBuilder) RecordSparkDriverDagSchedulerStageFailedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverDagSchedulerStageFailed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorGcOperationsDataPoint adds a data point to spark.driver.executor.gc.operations metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorGcOperationsDataPoint(ts pcommon.Timestamp, val int64, gcTypeAttributeValue AttributeGcType) {
-	mb.metricSparkDriverExecutorGcOperations.recordDataPoint(mb.startTime, ts, val, gcTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorGcTimeDataPoint adds a data point to spark.driver.executor.gc.time metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorGcTimeDataPoint(ts pcommon.Timestamp, val int64, gcTypeAttributeValue AttributeGcType) {
-	mb.metricSparkDriverExecutorGcTime.recordDataPoint(mb.startTime, ts, val, gcTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorMemoryExecutionDataPoint adds a data point to spark.driver.executor.memory.execution metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorMemoryExecutionDataPoint(ts pcommon.Timestamp, val int64, locationAttributeValue AttributeLocation) {
-	mb.metricSparkDriverExecutorMemoryExecution.recordDataPoint(mb.startTime, ts, val, locationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorMemoryJvmDataPoint adds a data point to spark.driver.executor.memory.jvm metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorMemoryJvmDataPoint(ts pcommon.Timestamp, val int64, locationAttributeValue AttributeLocation) {
-	mb.metricSparkDriverExecutorMemoryJvm.recordDataPoint(mb.startTime, ts, val, locationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorMemoryPoolDataPoint adds a data point to spark.driver.executor.memory.pool metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorMemoryPoolDataPoint(ts pcommon.Timestamp, val int64, poolMemoryTypeAttributeValue AttributePoolMemoryType) {
-	mb.metricSparkDriverExecutorMemoryPool.recordDataPoint(mb.startTime, ts, val, poolMemoryTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverExecutorMemoryStorageDataPoint adds a data point to spark.driver.executor.memory.storage metric.
 func (mb *MetricsBuilder) RecordSparkDriverExecutorMemoryStorageDataPoint(ts pcommon.Timestamp, val int64, locationAttributeValue AttributeLocation) {
-	mb.metricSparkDriverExecutorMemoryStorage.recordDataPoint(mb.startTime, ts, val, locationAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverHiveExternalCatalogFileCacheHitsDataPoint adds a data point to spark.driver.hive_external_catalog.file_cache_hits metric.
 func (mb *MetricsBuilder) RecordSparkDriverHiveExternalCatalogFileCacheHitsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverHiveExternalCatalogFileCacheHits.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverHiveExternalCatalogFilesDiscoveredDataPoint adds a data point to spark.driver.hive_external_catalog.files_discovered metric.
 func (mb *MetricsBuilder) RecordSparkDriverHiveExternalCatalogFilesDiscoveredDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverHiveExternalCatalogFilesDiscovered.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverHiveExternalCatalogHiveClientCallsDataPoint adds a data point to spark.driver.hive_external_catalog.hive_client_calls metric.
 func (mb *MetricsBuilder) RecordSparkDriverHiveExternalCatalogHiveClientCallsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverHiveExternalCatalogHiveClientCalls.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverHiveExternalCatalogParallelListingJobsDataPoint adds a data point to spark.driver.hive_external_catalog.parallel_listing_jobs metric.
 func (mb *MetricsBuilder) RecordSparkDriverHiveExternalCatalogParallelListingJobsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverHiveExternalCatalogParallelListingJobs.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverHiveExternalCatalogPartitionsFetchedDataPoint adds a data point to spark.driver.hive_external_catalog.partitions_fetched metric.
 func (mb *MetricsBuilder) RecordSparkDriverHiveExternalCatalogPartitionsFetchedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverHiveExternalCatalogPartitionsFetched.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverJvmCPUTimeDataPoint adds a data point to spark.driver.jvm_cpu_time metric.
 func (mb *MetricsBuilder) RecordSparkDriverJvmCPUTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverJvmCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverLiveListenerBusDroppedDataPoint adds a data point to spark.driver.live_listener_bus.dropped metric.
 func (mb *MetricsBuilder) RecordSparkDriverLiveListenerBusDroppedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverLiveListenerBusDropped.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverLiveListenerBusPostedDataPoint adds a data point to spark.driver.live_listener_bus.posted metric.
 func (mb *MetricsBuilder) RecordSparkDriverLiveListenerBusPostedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverLiveListenerBusPosted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverLiveListenerBusProcessingTimeAverageDataPoint adds a data point to spark.driver.live_listener_bus.processing_time.average metric.
 func (mb *MetricsBuilder) RecordSparkDriverLiveListenerBusProcessingTimeAverageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricSparkDriverLiveListenerBusProcessingTimeAverage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkDriverLiveListenerBusQueueSizeDataPoint adds a data point to spark.driver.live_listener_bus.queue_size metric.
 func (mb *MetricsBuilder) RecordSparkDriverLiveListenerBusQueueSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkDriverLiveListenerBusQueueSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorDiskUsageDataPoint adds a data point to spark.executor.disk.usage metric.
 func (mb *MetricsBuilder) RecordSparkExecutorDiskUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorDiskUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorGcTimeDataPoint adds a data point to spark.executor.gc_time metric.
 func (mb *MetricsBuilder) RecordSparkExecutorGcTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorGcTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorInputSizeDataPoint adds a data point to spark.executor.input_size metric.
 func (mb *MetricsBuilder) RecordSparkExecutorInputSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorInputSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorMemoryUsageDataPoint adds a data point to spark.executor.memory.usage metric.
 func (mb *MetricsBuilder) RecordSparkExecutorMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorShuffleIoSizeDataPoint adds a data point to spark.executor.shuffle.io.size metric.
 func (mb *MetricsBuilder) RecordSparkExecutorShuffleIoSizeDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricSparkExecutorShuffleIoSize.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorStorageMemoryUsageDataPoint adds a data point to spark.executor.storage_memory.usage metric.
 func (mb *MetricsBuilder) RecordSparkExecutorStorageMemoryUsageDataPoint(ts pcommon.Timestamp, val int64, locationAttributeValue AttributeLocation, stateAttributeValue AttributeState) {
-	mb.metricSparkExecutorStorageMemoryUsage.recordDataPoint(mb.startTime, ts, val, locationAttributeValue.String(), stateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorTaskActiveDataPoint adds a data point to spark.executor.task.active metric.
 func (mb *MetricsBuilder) RecordSparkExecutorTaskActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorTaskActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorTaskLimitDataPoint adds a data point to spark.executor.task.limit metric.
 func (mb *MetricsBuilder) RecordSparkExecutorTaskLimitDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorTaskLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorTaskResultDataPoint adds a data point to spark.executor.task.result metric.
 func (mb *MetricsBuilder) RecordSparkExecutorTaskResultDataPoint(ts pcommon.Timestamp, val int64, executorTaskResultAttributeValue AttributeExecutorTaskResult) {
-	mb.metricSparkExecutorTaskResult.recordDataPoint(mb.startTime, ts, val, executorTaskResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkExecutorTimeDataPoint adds a data point to spark.executor.time metric.
 func (mb *MetricsBuilder) RecordSparkExecutorTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkExecutorTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkJobStageActiveDataPoint adds a data point to spark.job.stage.active metric.
 func (mb *MetricsBuilder) RecordSparkJobStageActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkJobStageActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkJobStageResultDataPoint adds a data point to spark.job.stage.result metric.
 func (mb *MetricsBuilder) RecordSparkJobStageResultDataPoint(ts pcommon.Timestamp, val int64, jobResultAttributeValue AttributeJobResult) {
-	mb.metricSparkJobStageResult.recordDataPoint(mb.startTime, ts, val, jobResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkJobTaskActiveDataPoint adds a data point to spark.job.task.active metric.
 func (mb *MetricsBuilder) RecordSparkJobTaskActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkJobTaskActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkJobTaskResultDataPoint adds a data point to spark.job.task.result metric.
 func (mb *MetricsBuilder) RecordSparkJobTaskResultDataPoint(ts pcommon.Timestamp, val int64, jobResultAttributeValue AttributeJobResult) {
-	mb.metricSparkJobTaskResult.recordDataPoint(mb.startTime, ts, val, jobResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageDiskSpilledDataPoint adds a data point to spark.stage.disk.spilled metric.
 func (mb *MetricsBuilder) RecordSparkStageDiskSpilledDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageDiskSpilled.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageExecutorCPUTimeDataPoint adds a data point to spark.stage.executor.cpu_time metric.
 func (mb *MetricsBuilder) RecordSparkStageExecutorCPUTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageExecutorCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageExecutorRunTimeDataPoint adds a data point to spark.stage.executor.run_time metric.
 func (mb *MetricsBuilder) RecordSparkStageExecutorRunTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageExecutorRunTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageIoRecordsDataPoint adds a data point to spark.stage.io.records metric.
 func (mb *MetricsBuilder) RecordSparkStageIoRecordsDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricSparkStageIoRecords.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageIoSizeDataPoint adds a data point to spark.stage.io.size metric.
 func (mb *MetricsBuilder) RecordSparkStageIoSizeDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricSparkStageIoSize.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageJvmGcTimeDataPoint adds a data point to spark.stage.jvm_gc_time metric.
 func (mb *MetricsBuilder) RecordSparkStageJvmGcTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageJvmGcTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageMemoryPeakDataPoint adds a data point to spark.stage.memory.peak metric.
 func (mb *MetricsBuilder) RecordSparkStageMemoryPeakDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageMemoryPeak.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageMemorySpilledDataPoint adds a data point to spark.stage.memory.spilled metric.
 func (mb *MetricsBuilder) RecordSparkStageMemorySpilledDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageMemorySpilled.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleBlocksFetchedDataPoint adds a data point to spark.stage.shuffle.blocks_fetched metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleBlocksFetchedDataPoint(ts pcommon.Timestamp, val int64, sourceAttributeValue AttributeSource) {
-	mb.metricSparkStageShuffleBlocksFetched.recordDataPoint(mb.startTime, ts, val, sourceAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleFetchWaitTimeDataPoint adds a data point to spark.stage.shuffle.fetch_wait_time metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleFetchWaitTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageShuffleFetchWaitTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleIoDiskDataPoint adds a data point to spark.stage.shuffle.io.disk metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleIoDiskDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageShuffleIoDisk.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleIoReadSizeDataPoint adds a data point to spark.stage.shuffle.io.read.size metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleIoReadSizeDataPoint(ts pcommon.Timestamp, val int64, sourceAttributeValue AttributeSource) {
-	mb.metricSparkStageShuffleIoReadSize.recordDataPoint(mb.startTime, ts, val, sourceAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleIoRecordsDataPoint adds a data point to spark.stage.shuffle.io.records metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleIoRecordsDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection) {
-	mb.metricSparkStageShuffleIoRecords.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleIoWriteSizeDataPoint adds a data point to spark.stage.shuffle.io.write.size metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleIoWriteSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageShuffleIoWriteSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageShuffleWriteTimeDataPoint adds a data point to spark.stage.shuffle.write_time metric.
 func (mb *MetricsBuilder) RecordSparkStageShuffleWriteTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageShuffleWriteTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageStatusDataPoint adds a data point to spark.stage.status metric.
 func (mb *MetricsBuilder) RecordSparkStageStatusDataPoint(ts pcommon.Timestamp, val int64, stageActiveAttributeValue bool, stageCompleteAttributeValue bool, stagePendingAttributeValue bool, stageFailedAttributeValue bool) {
-	mb.metricSparkStageStatus.recordDataPoint(mb.startTime, ts, val, stageActiveAttributeValue, stageCompleteAttributeValue, stagePendingAttributeValue, stageFailedAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageTaskActiveDataPoint adds a data point to spark.stage.task.active metric.
 func (mb *MetricsBuilder) RecordSparkStageTaskActiveDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageTaskActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageTaskResultDataPoint adds a data point to spark.stage.task.result metric.
 func (mb *MetricsBuilder) RecordSparkStageTaskResultDataPoint(ts pcommon.Timestamp, val int64, stageTaskResultAttributeValue AttributeStageTaskResult) {
-	mb.metricSparkStageTaskResult.recordDataPoint(mb.startTime, ts, val, stageTaskResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSparkStageTaskResultSizeDataPoint adds a data point to spark.stage.task.result_size metric.
 func (mb *MetricsBuilder) RecordSparkStageTaskResultSizeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricSparkStageTaskResultSize.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

@@ -5,6 +5,4 @@
 
 package sqlserverreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/sqlserverreceiver"
 
-func (*Config) validateInstanceAndComputerName() error {
-	return nil
-}
+func (*Config) validateInstanceAndComputerName() error { _ = "STUB: not implemented"; return nil }

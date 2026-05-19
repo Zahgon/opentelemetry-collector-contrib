@@ -3,8 +3,6 @@
 
 package jsonlogencodingextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/jsonlogencodingextension"
 
-import "fmt"
-
 type JSONEncodingMode string
 
 const (
@@ -22,11 +20,7 @@ type Config struct {
 }
 
 func (c *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// validate marshaling mode
-	switch c.Mode {
-	case JSONEncodingModeBodyWithInlineAttributes, JSONEncodingModeBody:
-		return nil
-	}
-
-	return fmt.Errorf("invalid mode %q", c.Mode)
+	return nil
 }

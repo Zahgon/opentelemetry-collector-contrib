@@ -5,13 +5,10 @@ package schemaprocessor // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor/internal/translation"
 )
 
 var (
@@ -72,65 +69,8 @@ type MigrationEntry struct {
 	From string `mapstructure:"from"`
 }
 
-func (c *Config) Validate() error {
-	if c.CacheCooldown < 0 {
-		return errors.New("cache_cooldown must not be negative")
-	}
-	if c.CacheRetryLimit < 0 {
-		return errors.New("cache_retry_limit must not be negative")
-	}
-	for _, schemaURL := range c.Prefetch {
-		_, _, err := translation.GetFamilyAndVersion(schemaURL)
-		if err != nil {
-			return err
-		}
-	}
-	// Not strictly needed since it would just pass on
-	// any data that doesn't match targets, however defining
-	// this processor with no targets is wasteful.
-	if len(c.Targets) == 0 {
-		return fmt.Errorf("no schema targets defined: %w", errRequiresTargets)
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	targets := make(map[string]struct{})
-	families := make(map[string]struct{})
-	for _, target := range c.Targets {
-		family, _, err := translation.GetFamilyAndVersion(target)
-		if err != nil {
-			return err
-		}
-		if _, exist := families[family]; exist {
-			return errDuplicateTargets
-		}
-		families[family] = struct{}{}
-		targets[target] = struct{}{}
-	}
-
-	migrationTargets := make(map[string]struct{})
-	for _, entry := range c.Migration {
-		if entry.From == "" {
-			return errMigrationRequiresFrom
-		}
-		if _, match := targets[entry.Target]; !match {
-			return fmt.Errorf("%q: %w", entry.Target, errMigrationTargetNotFound)
-		}
-		if _, dup := migrationTargets[entry.Target]; dup {
-			return fmt.Errorf("%q: %w", entry.Target, errMigrationDuplicateTarget)
-		}
-		migrationTargets[entry.Target] = struct{}{}
-
-		targetFamily, _, err := translation.GetFamilyAndVersion(entry.Target)
-		if err != nil {
-			return fmt.Errorf("migration.target: %w", err)
-		}
-		fromFamily, _, err := translation.GetFamilyAndVersion(entry.From)
-		if err != nil {
-			return fmt.Errorf("migration.from: %w", err)
-		}
-		if targetFamily != fromFamily {
-			return fmt.Errorf("migration %q -> %q: %w", entry.From, entry.Target, errMigrationFamilyMismatch)
-		}
-	}
-
-	return nil
-}
+// Not strictly needed since it would just pass on
+// any data that doesn't match targets, however defining
+// this processor with no targets is wasteful.

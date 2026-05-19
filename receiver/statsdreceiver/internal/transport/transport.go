@@ -25,42 +25,13 @@ const (
 )
 
 // NewTransport creates a Transport based on the transport string or returns an empty Transport.
-func NewTransport(ts string) Transport {
-	trans := Transport(ts)
-	switch trans {
-	case UDP, UDP4, UDP6:
-		return trans
-	case TCP, TCP4, TCP6:
-		return trans
-	case UDS:
-		return trans
-	}
-	return Transport("")
-}
+func NewTransport(ts string) Transport { _ = "STUB: not implemented"; return *new(Transport) }
 
 // String casts the transport to a String if the Transport is supported. Return an empty Transport overwise.
-func (trans Transport) String() string {
-	switch trans {
-	case UDP, UDP4, UDP6, TCP, TCP4, TCP6, UDS:
-		return string(trans)
-	}
-	return ""
-}
+func (trans Transport) String() string { _ = "STUB: not implemented"; return "" }
 
 // IsPacketTransport returns true if the transport is packet based.
-func (trans Transport) IsPacketTransport() bool {
-	switch trans {
-	case UDP, UDP4, UDP6, UDS:
-		return true
-	}
-	return false
-}
+func (trans Transport) IsPacketTransport() bool { _ = "STUB: not implemented"; return false }
 
 // IsStreamTransport returns true if the transport is stream based.
-func (trans Transport) IsStreamTransport() bool {
-	switch trans {
-	case TCP, TCP4, TCP6:
-		return true
-	}
-	return false
-}
+func (trans Transport) IsStreamTransport() bool { _ = "STUB: not implemented"; return false }

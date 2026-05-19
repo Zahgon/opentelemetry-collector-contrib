@@ -4,16 +4,9 @@
 package snmpreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/snmpreceiver"
 
 import (
-	"fmt"
-	"sort"
-	"strings"
-	"time"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/snmpreceiver/internal/metadata"
 )
 
 // generalResourceKey is the resource key for the no general "no attribute" resource
@@ -57,13 +50,8 @@ func getResourceKey(
 	metricCfgResourceAttributes []string,
 	indexString string,
 ) string {
-	sort.Strings(metricCfgResourceAttributes)
-	resourceKey := generalResourceKey
-	if len(metricCfgResourceAttributes) > 0 {
-		resourceKey = strings.Join(metricCfgResourceAttributes, ",") + indexString
-	}
-
-	return resourceKey
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // otelMetricHelper contains many of the functions required to get and create OTEL resources, metrics, and datapoints
@@ -87,127 +75,43 @@ type otelMetricHelper struct {
 
 // newOtelMetricHelper returns a new otelMetricHelper with an initialized master Metrics
 func newOTELMetricHelper(settings receiver.Settings, scraperStartTime pcommon.Timestamp) *otelMetricHelper {
-	metrics := pmetric.NewMetrics()
-	omh := otelMetricHelper{
-		metrics:              metrics,
-		resourceMetricsSlice: metrics.ResourceMetrics(),
-		resourcesByKey:       map[string]*pmetric.ResourceMetrics{},
-		metricsByResource:    map[string]map[string]*pmetric.Metric{},
-		dataPointStartTime:   scraperStartTime,
-		dataPointTime:        pcommon.NewTimestampFromTime(time.Now()),
-		settings:             settings,
-	}
-
-	return &omh
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getResource returns a resource (if already created) by the resource key
 func (h otelMetricHelper) getResource(resourceKey string) *pmetric.ResourceMetrics {
-	return h.resourcesByKey[resourceKey]
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createResource creates a new resource using the given resource attributes and resource key
 func (h *otelMetricHelper) createResource(resourceKey string, resourceAttributes map[string]string) *pmetric.ResourceMetrics {
-	resourceMetrics := h.resourceMetricsSlice.AppendEmpty()
-	for key, value := range resourceAttributes {
-		resourceMetrics.Resource().Attributes().PutStr(key, value)
-	}
-	scopeMetrics := resourceMetrics.ScopeMetrics().AppendEmpty()
-	scopeMetrics.Scope().SetName(metadata.ScopeName)
-	scopeMetrics.Scope().SetVersion(h.settings.BuildInfo.Version)
-	h.resourcesByKey[resourceKey] = &resourceMetrics
-	h.metricsByResource[resourceKey] = map[string]*pmetric.Metric{}
-
-	return &resourceMetrics
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getMetric returns a metric (if already created) by resource key and metric name
 func (h otelMetricHelper) getMetric(resourceKey, metricName string) *pmetric.Metric {
-	if h.metricsByResource[resourceKey] == nil {
-		h.metricsByResource[resourceKey] = map[string]*pmetric.Metric{}
-	}
-
-	return h.metricsByResource[resourceKey][metricName]
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createResource creates a new metric using on the resource key'd resource using the given metric config data
 func (h *otelMetricHelper) createMetric(resourceKey, metricName string, metricCfg *MetricConfig) (*pmetric.Metric, error) {
-	resource := h.getResource(resourceKey)
-	if resource == nil {
-		return nil, fmt.Errorf("cannot create metric '%s' as no resource exists for it to be attached", metricName)
-	}
-	metricSlice := resource.ScopeMetrics().At(0).Metrics()
-	newMetric := metricSlice.AppendEmpty()
-	newMetric.SetName(metricName)
-	newMetric.SetDescription(metricCfg.Description)
-	newMetric.SetUnit(metricCfg.Unit)
-
-	if metricCfg.Sum != nil {
-		newMetric.SetEmptySum()
-		newMetric.Sum().SetIsMonotonic(metricCfg.Sum.Monotonic)
-
-		switch metricCfg.Sum.Aggregation {
-		case "cumulative":
-			newMetric.Sum().SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-		case "delta":
-			newMetric.Sum().SetAggregationTemporality(pmetric.AggregationTemporalityDelta)
-		}
-	} else {
-		newMetric.SetEmptyGauge()
-	}
-	h.metricsByResource[resourceKey][metricName] = &newMetric
-
-	return &newMetric, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // addMetricDataPoint creates a datapoint on the metric (metricName) attached to a resource (resourceKey) and populates it
 // based on the given data
 func (h *otelMetricHelper) addMetricDataPoint(resourceKey, metricName string, metricCfg *MetricConfig, data snmpData, attributes map[string]string) (*pmetric.NumberDataPoint, error) {
-	metric := h.getMetric(resourceKey, metricName)
-	if metric == nil {
-		return nil, fmt.Errorf("cannot retrieve datapoints from metric '%s' as it does not currently exist", metricName)
-	}
-
-	var dp pmetric.NumberDataPoint
-	var valueType string
-	if metricCfg.Gauge != nil {
-		dp = metric.Gauge().DataPoints().AppendEmpty()
-		valueType = metricCfg.Gauge.ValueType
-	} else {
-		dp = metric.Sum().DataPoints().AppendEmpty()
-		dp.SetStartTimestamp(h.dataPointStartTime)
-		valueType = metricCfg.Sum.ValueType
-	}
-
-	// Creates a data point based on the SNMP data
-	dp.SetTimestamp(h.dataPointTime)
-
-	// Not explicitly checking these casts as this should be made safe in the client
-	switch data.valueType {
-	case floatVal:
-		rawValue := data.value.(float64)
-		if valueType == "double" {
-			dp.SetDoubleValue(rawValue)
-		} else {
-			dp.SetIntValue(int64(rawValue))
-		}
-	case integerVal:
-		rawValue := data.value.(int64)
-		if valueType == "int" {
-			dp.SetIntValue(rawValue)
-		} else {
-			dp.SetDoubleValue(float64(rawValue))
-		}
-	case stringVal:
-		return nil, fmt.Errorf("cannot create data point for metric %q from string value", metricName)
-	case notSupportedVal:
-		return nil, fmt.Errorf("cannot create data point for metric %q from unsupported value type", metricName)
-	}
-
-	// Add attributes to dp
-	for key, value := range attributes {
-		dp.Attributes().PutStr(key, value)
-	}
-
-	return &dp, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Creates a data point based on the SNMP data
+
+// Not explicitly checking these casts as this should be made safe in the client
+
+// Add attributes to dp

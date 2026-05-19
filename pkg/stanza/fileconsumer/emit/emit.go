@@ -15,8 +15,6 @@ type Token struct {
 }
 
 func NewToken(body []byte, attrs map[string]any) Token {
-	return Token{
-		Body:       body,
-		Attributes: attrs,
-	}
+	_ = "STUB: not implemented"
+	return *new(Token)
 }

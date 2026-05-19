@@ -5,19 +5,15 @@ package testhelper // import "github.com/open-telemetry/opentelemetry-collector-
 
 import (
 	"context"
-	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatatest/pmetrictest"
 )
 
 func TimestampFromMs(timeAtMs int64) pcommon.Timestamp {
-	return pcommon.Timestamp(timeAtMs * 1e6)
+	_ = "STUB: not implemented"
+	return *new(pcommon.Timestamp)
 }
 
 type KV struct {
@@ -25,153 +21,62 @@ type KV struct {
 }
 
 func Metrics(metrics ...pmetric.Metric) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	ms := md.ResourceMetrics().AppendEmpty().ScopeMetrics().AppendEmpty().Metrics()
-	for _, metric := range metrics {
-		destMetric := ms.AppendEmpty()
-		metric.CopyTo(destMetric)
-	}
-
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func MetricsFromResourceMetrics(metrics ...pmetric.ResourceMetrics) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for _, metric := range metrics {
-		mr := md.ResourceMetrics().AppendEmpty()
-		metric.CopyTo(mr)
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func ResourceMetrics(job, instance string, metrics ...pmetric.Metric) pmetric.ResourceMetrics {
-	mr := pmetric.NewResourceMetrics()
-	mr.Resource().Attributes().PutStr(string(conventions.ServiceNameKey), job)
-	mr.Resource().Attributes().PutStr(string(conventions.ServiceInstanceIDKey), instance)
-	ms := mr.ScopeMetrics().AppendEmpty().Metrics()
-
-	for _, metric := range metrics {
-		destMetric := ms.AppendEmpty()
-		metric.CopyTo(destMetric)
-	}
-	return mr
+	_ = "STUB: not implemented"
+	return *new(pmetric.ResourceMetrics)
 }
 
 func HistogramPointRaw(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.HistogramDataPoint {
-	hdp := pmetric.NewHistogramDataPoint()
-	hdp.SetStartTimestamp(startTimestamp)
-	hdp.SetTimestamp(timestamp)
-
-	attrs := hdp.Attributes()
-	for _, kv := range attributes {
-		attrs.PutStr(kv.Key, kv.Value)
-	}
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.HistogramDataPoint)
 }
 
 func HistogramPoint(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, bounds []float64, counts []uint64) pmetric.HistogramDataPoint {
-	hdp := HistogramPointRaw(attributes, startTimestamp, timestamp)
-	hdp.ExplicitBounds().FromRaw(bounds)
-	hdp.BucketCounts().FromRaw(counts)
-
-	var sum float64
-	var count uint64
-	for i, bcount := range counts {
-		count += bcount
-		if i > 0 {
-			sum += float64(bcount) * bounds[i-1]
-		}
-	}
-	hdp.SetCount(count)
-	hdp.SetSum(sum)
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.HistogramDataPoint)
 }
 
 func HistogramPointNoValue(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.HistogramDataPoint {
-	hdp := HistogramPointRaw(attributes, startTimestamp, timestamp)
-	hdp.SetFlags(pmetric.DefaultDataPointFlags.WithNoRecordedValue(true))
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.HistogramDataPoint)
 }
 
 func HistogramMetric(name string, points ...pmetric.HistogramDataPoint) pmetric.Metric {
-	metric := pmetric.NewMetric()
-	metric.SetName(name)
-	metric.Metadata().PutStr("prometheus.type", "histogram")
-	histogram := metric.SetEmptyHistogram()
-	histogram.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-
-	destPointL := histogram.DataPoints()
-	// By default the AggregationTemporality is Cumulative until it'll be changed by the caller.
-	for _, point := range points {
-		destPoint := destPointL.AppendEmpty()
-		point.CopyTo(destPoint)
-	}
-
-	return metric
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
+
+// By default the AggregationTemporality is Cumulative until it'll be changed by the caller.
 
 func ExponentialHistogramMetric(name string, points ...pmetric.ExponentialHistogramDataPoint) pmetric.Metric {
-	metric := pmetric.NewMetric()
-	metric.SetName(name)
-	metric.Metadata().PutStr("prometheus.type", "histogram")
-	histogram := metric.SetEmptyExponentialHistogram()
-	histogram.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-
-	destPointL := histogram.DataPoints()
-	// By default the AggregationTemporality is Cumulative until it'll be changed by the caller.
-	for _, point := range points {
-		destPoint := destPointL.AppendEmpty()
-		point.CopyTo(destPoint)
-	}
-
-	return metric
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
+// By default the AggregationTemporality is Cumulative until it'll be changed by the caller.
+
 func ExponentialHistogramPointRaw(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.ExponentialHistogramDataPoint {
-	hdp := pmetric.NewExponentialHistogramDataPoint()
-	hdp.SetStartTimestamp(startTimestamp)
-	hdp.SetTimestamp(timestamp)
-
-	attrs := hdp.Attributes()
-	for _, kv := range attributes {
-		attrs.PutStr(kv.Key, kv.Value)
-	}
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.ExponentialHistogramDataPoint)
 }
 
 func ExponentialHistogramPoint(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, scale int32, zeroCount uint64, negativeOffset int32, negativeBuckets []uint64, positiveOffset int32, positiveBuckets []uint64) pmetric.ExponentialHistogramDataPoint {
-	hdp := ExponentialHistogramPointRaw(attributes, startTimestamp, timestamp)
-	hdp.SetScale(scale)
-	hdp.SetZeroCount(zeroCount)
-	hdp.Negative().SetOffset(negativeOffset)
-	hdp.Negative().BucketCounts().FromRaw(negativeBuckets)
-	hdp.Positive().SetOffset(positiveOffset)
-	hdp.Positive().BucketCounts().FromRaw(positiveBuckets)
-
-	count := uint64(0)
-	sum := float64(0)
-	for i, bCount := range positiveBuckets {
-		count += bCount
-		sum += float64(bCount) * float64(i)
-	}
-	for i, bCount := range negativeBuckets {
-		count += bCount
-		sum -= float64(bCount) * float64(i)
-	}
-	hdp.SetCount(count)
-	hdp.SetSum(sum)
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.ExponentialHistogramDataPoint)
 }
 
 func ExponentialHistogramPointNoValue(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.ExponentialHistogramDataPoint {
-	hdp := ExponentialHistogramPointRaw(attributes, startTimestamp, timestamp)
-	hdp.SetFlags(pmetric.DefaultDataPointFlags.WithNoRecordedValue(true))
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.ExponentialHistogramDataPoint)
 }
 
 // exponentialHistogramPointSimplified let's you define an exponential
@@ -182,136 +87,58 @@ func ExponentialHistogramPointNoValue(attributes []*KV, startTimestamp, timestam
 // directions. Bucket counts start from 1 and increase by 1 for each bucket.
 // Sum and Count will be proportional to the bucket count.
 func ExponentialHistogramPointSimplified(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, scale int32, zeroCount uint64, offset int32, bucketCount int) pmetric.ExponentialHistogramDataPoint {
-	hdp := ExponentialHistogramPointRaw(attributes, startTimestamp, timestamp)
-	hdp.SetScale(scale)
-	hdp.SetZeroCount(zeroCount)
-
-	positive := hdp.Positive()
-	positive.SetOffset(offset)
-	positive.BucketCounts().EnsureCapacity(bucketCount)
-	negative := hdp.Negative()
-	negative.SetOffset(offset)
-	negative.BucketCounts().EnsureCapacity(bucketCount)
-
-	var sum float64
-	var count uint64
-	for i := range bucketCount {
-		positive.BucketCounts().Append(uint64(i + 1))
-		negative.BucketCounts().Append(uint64(i + 1))
-		count += uint64(i+1) + uint64(i+1)
-		sum += float64(i+1)*10 + float64(i+1)*10.0
-	}
-	hdp.SetCount(count)
-	hdp.SetSum(sum)
-
-	return hdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.ExponentialHistogramDataPoint)
 }
 
 func NumberPointRaw(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.NumberDataPoint {
-	ndp := pmetric.NewNumberDataPoint()
-	ndp.SetStartTimestamp(startTimestamp)
-	ndp.SetTimestamp(timestamp)
-
-	for _, kv := range attributes {
-		ndp.Attributes().PutStr(kv.Key, kv.Value)
-	}
-
-	return ndp
+	_ = "STUB: not implemented"
+	return *new(pmetric.NumberDataPoint)
 }
 
 func DoublePoint(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, value float64) pmetric.NumberDataPoint {
-	ndp := NumberPointRaw(attributes, startTimestamp, timestamp)
-	ndp.SetDoubleValue(value)
-	return ndp
+	_ = "STUB: not implemented"
+	return *new(pmetric.NumberDataPoint)
 }
 
 func IntPoint(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, value int64) pmetric.NumberDataPoint {
-	ndp := NumberPointRaw(attributes, startTimestamp, timestamp)
-	ndp.SetIntValue(value)
-	return ndp
+	_ = "STUB: not implemented"
+	return *new(pmetric.NumberDataPoint)
 }
 
 func DoublePointNoValue(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.NumberDataPoint {
-	ndp := NumberPointRaw(attributes, startTimestamp, timestamp)
-	ndp.SetFlags(pmetric.DefaultDataPointFlags.WithNoRecordedValue(true))
-	return ndp
+	_ = "STUB: not implemented"
+	return *new(pmetric.NumberDataPoint)
 }
 
 func GaugeMetric(name string, points ...pmetric.NumberDataPoint) pmetric.Metric {
-	metric := pmetric.NewMetric()
-	metric.SetName(name)
-	metric.Metadata().PutStr("prometheus.type", "gauge")
-	destPointL := metric.SetEmptyGauge().DataPoints()
-	for _, point := range points {
-		destPoint := destPointL.AppendEmpty()
-		point.CopyTo(destPoint)
-	}
-
-	return metric
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func SumMetric(name string, points ...pmetric.NumberDataPoint) pmetric.Metric {
-	metric := pmetric.NewMetric()
-	metric.SetName(name)
-	metric.Metadata().PutStr("prometheus.type", "counter")
-	sum := metric.SetEmptySum()
-	sum.SetAggregationTemporality(pmetric.AggregationTemporalityCumulative)
-	sum.SetIsMonotonic(true)
-
-	destPointL := sum.DataPoints()
-	for _, point := range points {
-		destPoint := destPointL.AppendEmpty()
-		point.CopyTo(destPoint)
-	}
-
-	return metric
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func SummaryPointRaw(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.SummaryDataPoint {
-	sdp := pmetric.NewSummaryDataPoint()
-	sdp.SetStartTimestamp(startTimestamp)
-	sdp.SetTimestamp(timestamp)
-
-	for _, kv := range attributes {
-		sdp.Attributes().PutStr(kv.Key, kv.Value)
-	}
-
-	return sdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.SummaryDataPoint)
 }
 
 func SummaryPoint(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp, count uint64, sum float64, quantiles, values []float64) pmetric.SummaryDataPoint {
-	sdp := SummaryPointRaw(attributes, startTimestamp, timestamp)
-	sdp.SetCount(count)
-	sdp.SetSum(sum)
-
-	qvL := sdp.QuantileValues()
-	for i := range quantiles {
-		qvi := qvL.AppendEmpty()
-		qvi.SetQuantile(quantiles[i])
-		qvi.SetValue(values[i])
-	}
-
-	return sdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.SummaryDataPoint)
 }
 
 func SummaryPointNoValue(attributes []*KV, startTimestamp, timestamp pcommon.Timestamp) pmetric.SummaryDataPoint {
-	sdp := SummaryPointRaw(attributes, startTimestamp, timestamp)
-	sdp.SetFlags(pmetric.DefaultDataPointFlags.WithNoRecordedValue(true))
-
-	return sdp
+	_ = "STUB: not implemented"
+	return *new(pmetric.SummaryDataPoint)
 }
 
 func SummaryMetric(name string, points ...pmetric.SummaryDataPoint) pmetric.Metric {
-	metric := pmetric.NewMetric()
-	metric.SetName(name)
-	metric.Metadata().PutStr("prometheus.type", "summary")
-	destPointL := metric.SetEmptySummary().DataPoints()
-	for _, point := range points {
-		destPoint := destPointL.AppendEmpty()
-		point.CopyTo(destPoint)
-	}
-
-	return metric
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 type Adjuster interface {
@@ -325,29 +152,10 @@ type MetricsAdjusterTest struct {
 }
 
 func RunScript(t *testing.T, ma Adjuster, tests []*MetricsAdjusterTest, additionalResourceAttrs ...string) {
-	for _, test := range tests {
-		t.Run(test.Description, func(t *testing.T) {
-			adjusted := pmetric.NewMetrics()
-			test.Metrics.CopyTo(adjusted)
-			// Add the instance/job to the input metrics if they aren't already present.
-			for i := 0; i < adjusted.ResourceMetrics().Len(); i++ {
-				rm := adjusted.ResourceMetrics().At(i)
-				for i, attr := range additionalResourceAttrs {
-					rm.Resource().Attributes().PutStr(fmt.Sprintf("%d", i), attr)
-				}
-			}
-			var err error
-			adjusted, err = ma.AdjustMetrics(t.Context(), adjusted)
-			assert.NoError(t, err)
-
-			// Add the instance/job to the expected metrics as well if they aren't already present.
-			for i := 0; i < test.Adjusted.ResourceMetrics().Len(); i++ {
-				rm := test.Adjusted.ResourceMetrics().At(i)
-				for i, attr := range additionalResourceAttrs {
-					rm.Resource().Attributes().PutStr(fmt.Sprintf("%d", i), attr)
-				}
-			}
-			assert.NoError(t, pmetrictest.CompareMetrics(test.Adjusted, adjusted))
-		})
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Add the instance/job to the input metrics if they aren't already present.
+
+// Add the instance/job to the expected metrics as well if they aren't already present.

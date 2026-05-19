@@ -24,38 +24,11 @@ type logAttributesProcessor struct {
 // log record. To construct the attributes processors, the use of the factory
 // methods are required in order to validate the inputs.
 func newLogAttributesProcessor(logger *zap.Logger, attrProc *attraction.AttrProc, skipExpr expr.BoolExpr[*ottllog.TransformContext]) *logAttributesProcessor {
-	return &logAttributesProcessor{
-		logger:   logger,
-		attrProc: attrProc,
-		skipExpr: skipExpr,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (a *logAttributesProcessor) processLogs(ctx context.Context, ld plog.Logs) (plog.Logs, error) {
-	rls := ld.ResourceLogs()
-	for i := 0; i < rls.Len(); i++ {
-		rs := rls.At(i)
-		ilss := rs.ScopeLogs()
-		for j := 0; j < ilss.Len(); j++ {
-			ils := ilss.At(j)
-			logs := ils.LogRecords()
-			for k := 0; k < logs.Len(); k++ {
-				lr := logs.At(k)
-				if a.skipExpr != nil {
-					lCtx := ottllog.NewTransformContextPtr(rs, ils, lr)
-					skip, err := a.skipExpr.Eval(ctx, lCtx)
-					lCtx.Close()
-					if err != nil {
-						return ld, err
-					}
-					if skip {
-						continue
-					}
-				}
-
-				a.attrProc.Process(ctx, a.logger, lr.Attributes())
-			}
-		}
-	}
-	return ld, nil
+	_ = "STUB: not implemented"
+	return *new(plog.Logs), nil
 }

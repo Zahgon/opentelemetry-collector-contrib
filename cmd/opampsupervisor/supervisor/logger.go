@@ -18,16 +18,17 @@ type opAMPLogger struct {
 
 // Debugf implements types.Logger.
 func (o *opAMPLogger) Debugf(_ context.Context, format string, v ...any) {
-	o.l.Debugf(format, v...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Errorf implements types.Logger.
 func (o *opAMPLogger) Errorf(_ context.Context, format string, v ...any) {
-	o.l.Errorf(format, v...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func newLoggerFromZap(l *zap.Logger, name string) types.Logger {
-	return &opAMPLogger{
-		l: l.Sugar().Named(name).WithOptions(zap.AddCallerSkip(1)),
-	}
+	_ = "STUB: not implemented"
+	return *new(types.Logger)
 }

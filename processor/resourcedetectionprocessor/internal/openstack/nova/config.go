@@ -25,10 +25,4 @@ type Config struct {
 }
 
 // CreateDefaultConfig returns the default configuration for the Nova detector.
-func CreateDefaultConfig() Config {
-	return Config{
-		Labels:                []string{},
-		ResourceAttributes:    metadata.DefaultResourceAttributesConfig(),
-		FailOnMissingMetadata: false,
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

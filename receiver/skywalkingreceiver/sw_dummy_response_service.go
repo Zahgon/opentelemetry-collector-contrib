@@ -25,33 +25,44 @@ type dummyReportService struct {
 
 // for sw InstanceProperties
 func (*dummyReportService) ReportInstanceProperties(context.Context, *management.InstanceProperties) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
+
+	// for sw InstancePingPkg
 }
 
-// for sw InstancePingPkg
 func (*dummyReportService) KeepAlive(context.Context, *management.InstancePingPkg) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
+
+	// for sw JVMMetric
 }
 
-// for sw JVMMetric
 func (*dummyReportService) Collect(context.Context, *agent.JVMMetricCollection) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
+
+	// for sw agent cds
 }
 
-// for sw agent cds
 func (*dummyReportService) FetchConfigurations(context.Context, *v3c.ConfigurationSyncRequest) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
+
+	// for sw profile
 }
 
-// for sw profile
 func (*dummyReportService) GetProfileTaskCommands(context.Context, *profile.ProfileTaskCommandQuery) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (*dummyReportService) CollectSnapshot(profile.ProfileTask_CollectSnapshotServer) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*dummyReportService) ReportTaskFinish(context.Context, *profile.ProfileTaskFinishReport) (*common.Commands, error) {
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -15,71 +15,36 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetProcessCgroup sets provided value as "process.cgroup" attribute.
-func (rb *ResourceBuilder) SetProcessCgroup(val string) {
-	if rb.config.ProcessCgroup.Enabled {
-		rb.res.Attributes().PutStr("process.cgroup", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessCgroup(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessCommand sets provided value as "process.command" attribute.
-func (rb *ResourceBuilder) SetProcessCommand(val string) {
-	if rb.config.ProcessCommand.Enabled {
-		rb.res.Attributes().PutStr("process.command", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessCommand(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessCommandLine sets provided value as "process.command_line" attribute.
-func (rb *ResourceBuilder) SetProcessCommandLine(val string) {
-	if rb.config.ProcessCommandLine.Enabled {
-		rb.res.Attributes().PutStr("process.command_line", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessCommandLine(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessExecutableName sets provided value as "process.executable.name" attribute.
-func (rb *ResourceBuilder) SetProcessExecutableName(val string) {
-	if rb.config.ProcessExecutableName.Enabled {
-		rb.res.Attributes().PutStr("process.executable.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessExecutableName(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessExecutablePath sets provided value as "process.executable.path" attribute.
-func (rb *ResourceBuilder) SetProcessExecutablePath(val string) {
-	if rb.config.ProcessExecutablePath.Enabled {
-		rb.res.Attributes().PutStr("process.executable.path", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessExecutablePath(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessOwner sets provided value as "process.owner" attribute.
-func (rb *ResourceBuilder) SetProcessOwner(val string) {
-	if rb.config.ProcessOwner.Enabled {
-		rb.res.Attributes().PutStr("process.owner", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessOwner(val string) { _ = "STUB: not implemented"; return }
 
 // SetProcessParentPid sets provided value as "process.parent_pid" attribute.
-func (rb *ResourceBuilder) SetProcessParentPid(val int64) {
-	if rb.config.ProcessParentPid.Enabled {
-		rb.res.Attributes().PutInt("process.parent_pid", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessParentPid(val int64) { _ = "STUB: not implemented"; return }
 
 // SetProcessPid sets provided value as "process.pid" attribute.
-func (rb *ResourceBuilder) SetProcessPid(val int64) {
-	if rb.config.ProcessPid.Enabled {
-		rb.res.Attributes().PutInt("process.pid", val)
-	}
-}
+func (rb *ResourceBuilder) SetProcessPid(val int64) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

@@ -5,13 +5,9 @@ package docker // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"fmt"
-	"os"
 
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/client"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/internal"
 )
 
 type Provider interface {
@@ -30,38 +26,21 @@ type dockerProviderImpl struct {
 }
 
 func NewProvider(opts ...client.Opt) (Provider, error) {
-	opts = append(opts, client.FromEnv)
-	cli, err := client.New(opts...)
-	if err != nil {
-		return nil, fmt.Errorf("could not initialize Docker client: %w", err)
-	}
-	return &dockerProviderImpl{dockerClient: cli}, nil
+	_ = "STUB: not implemented"
+	return *new(Provider), nil
 }
 
 func (d *dockerProviderImpl) Hostname(ctx context.Context) (string, error) {
-	result, err := d.dockerClient.Info(ctx, client.InfoOptions{})
-	if err != nil {
-		return "", fmt.Errorf("failed to fetch Docker information: %w", err)
-	}
-	return result.Info.Name, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (d *dockerProviderImpl) OSType(ctx context.Context) (string, error) {
-	result, err := d.dockerClient.Info(ctx, client.InfoOptions{})
-	if err != nil {
-		return "", fmt.Errorf("failed to fetch Docker OS type: %w", err)
-	}
-	return internal.GOOSToOSType(result.Info.OSType), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (d *dockerProviderImpl) ContainerInfo(ctx context.Context) (container.InspectResponse, error) {
-	hostname, err := os.Hostname()
-	if err != nil {
-		return container.InspectResponse{}, err
-	}
-	result, err := d.dockerClient.ContainerInspect(ctx, hostname, client.ContainerInspectOptions{})
-	if err != nil {
-		return container.InspectResponse{}, fmt.Errorf("failed to fetch container information: %w", err)
-	}
-	return result.Container, nil
+	_ = "STUB: not implemented"
+	return *new(container.InspectResponse), nil
 }

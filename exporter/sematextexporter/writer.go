@@ -4,14 +4,8 @@
 package sematextexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/sematextexporter"
 
 import (
-	"bytes"
 	"context"
-	"fmt"
-	"io"
 	"net/http"
-	"net/url"
-	"os"
-	"sort"
 	"sync"
 	"time"
 
@@ -20,7 +14,6 @@ import (
 	"github.com/influxdata/line-protocol/v2/lineprotocol"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/consumer/consumererror"
 )
 
 var _ otel2influx.InfluxWriter = (*sematextHTTPWriter)(nil)
@@ -40,72 +33,28 @@ type sematextHTTPWriter struct {
 }
 
 func newSematextHTTPWriter(logger common.Logger, config *Config, telemetrySettings component.TelemetrySettings) (*sematextHTTPWriter, error) {
-	writeURL, err := composeWriteURL(config)
-	if err != nil {
-		return nil, err
-	}
-	hostname, err := os.Hostname()
-	if err != nil {
-		return nil, fmt.Errorf("could not detect hostname: %w", err)
-	}
-
-	return &sematextHTTPWriter{
-		encoderPool: sync.Pool{
-			New: func() any {
-				e := new(lineprotocol.Encoder)
-				e.SetLax(false)
-				e.SetPrecision(lineprotocol.Nanosecond)
-				return e
-			},
-		},
-		telemetrySettings: telemetrySettings,
-		writeURL:          writeURL,
-		payloadMaxLines:   config.PayloadMaxLines,
-		payloadMaxBytes:   config.PayloadMaxBytes,
-		logger:            logger,
-		hostname:          hostname,
-		token:             config.MetricsConfig.AppToken,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func composeWriteURL(config *Config) (string, error) {
-	writeURL, err := url.Parse(config.MetricsEndpoint)
-	if err != nil {
-		return "", err
-	}
-	if writeURL.Path == "" || writeURL.Path == "/" {
-		writeURL, err = writeURL.Parse("write?db=metrics")
-		if err != nil {
-			return "", err
-		}
-	}
-	queryValues := writeURL.Query()
-
-	writeURL.RawQuery = queryValues.Encode()
-
-	return writeURL.String(), nil
-}
+func composeWriteURL(config *Config) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // Start implements component.StartFunc
 func (w *sematextHTTPWriter) Start(ctx context.Context, host component.Host) error {
-	httpClient, err := w.httpClientSettings.ToClient(ctx, host.GetExtensions(), w.telemetrySettings)
-	if err != nil {
-		return err
-	}
-	w.httpClient = httpClient
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (w *sematextHTTPWriter) Shutdown(_ context.Context) error {
-	if w.httpClient != nil {
-		w.httpClient.CloseIdleConnections() // Closes all idle connections for the HTTP client
-	}
-	w.logger.Debug("HTTP client connections closed successfully for Sematext HTTP Writer")
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Closes all idle connections for the HTTP client
+
 func (w *sematextHTTPWriter) NewBatch() otel2influx.InfluxWriterBatch {
-	return newSematextHTTPWriterBatch(w)
+	_ = "STUB: not implemented"
+	return *new(otel2influx.InfluxWriterBatch)
 }
 
 var _ otel2influx.InfluxWriterBatch = (*sematextHTTPWriterBatch)(nil)
@@ -117,91 +66,23 @@ type sematextHTTPWriterBatch struct {
 }
 
 func newSematextHTTPWriterBatch(w *sematextHTTPWriter) *sematextHTTPWriterBatch {
-	return &sematextHTTPWriterBatch{
-		sematextHTTPWriter: w,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EnqueuePoint emits a set of line protocol attributes (metrics, tags, fields, timestamp)
 // to the internal line protocol buffer.
 // If the buffer is full, it will be flushed by calling WriteBatch.
 func (b *sematextHTTPWriterBatch) EnqueuePoint(ctx context.Context, measurement string, tags map[string]string, fields map[string]any, ts time.Time, _ common.InfluxMetricValueType) error {
-	if b.encoder == nil {
-		b.encoder = b.encoderPool.Get().(*lineprotocol.Encoder)
-	}
-	// Add token and os.host tags
-	if tags == nil {
-		tags = make(map[string]string)
-	}
-
-	b.encoder.StartLine(measurement)
-	for _, tag := range b.optimizeTags(tags) {
-		b.encoder.AddTag(tag.k, tag.v)
-	}
-	for k, v := range b.convertFields(fields) {
-		b.encoder.AddField(k, v)
-	}
-	b.encoder.EndLine(ts)
-
-	if err := b.encoder.Err(); err != nil {
-		b.encoder.Reset()
-		b.encoder.ClearErr()
-		b.encoderPool.Put(b.encoder)
-		b.encoder = nil
-		return consumererror.NewPermanent(fmt.Errorf("failed to encode point: %w", err))
-	}
-
-	b.payloadLines++
-	if b.payloadLines >= b.payloadMaxLines || len(b.encoder.Bytes()) >= b.payloadMaxBytes {
-		if err := b.WriteBatch(ctx); err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Add token and os.host tags
+
 // WriteBatch sends the internal line protocol buffer to Sematext.
 func (b *sematextHTTPWriterBatch) WriteBatch(ctx context.Context) error {
-	if b.encoder == nil {
-		return nil
-	}
-
-	defer func() {
-		b.encoder.Reset()
-		b.encoder.ClearErr()
-		b.encoderPool.Put(b.encoder)
-		b.encoder = nil
-		b.payloadLines = 0
-	}()
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, b.writeURL, bytes.NewReader(b.encoder.Bytes()))
-	if err != nil {
-		return consumererror.NewPermanent(err)
-	}
-	res, err := b.httpClient.Do(req)
-	if err != nil {
-		return err
-	}
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return err
-	}
-
-	err = res.Body.Close()
-	if err != nil {
-		return err
-	}
-
-	switch res.StatusCode {
-	case http.StatusOK, http.StatusNoContent:
-		break
-	case http.StatusInternalServerError:
-		return fmt.Errorf("line protocol write returned %q %q", res.Status, string(body))
-	default:
-		return consumererror.NewPermanent(fmt.Errorf("line protocol write returned %q %q", res.Status, string(body)))
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -211,68 +92,26 @@ type tag struct {
 
 // optimizeTags filters for allowed tags and sorts them
 func (b *sematextHTTPWriterBatch) optimizeTags(m map[string]string) []tag {
+	_ = "STUB: not implemented"
 	// Define allowed tags set
-	allowedTags := map[string]struct{}{
-		"service.name":              {},
-		"service.instance.id":       {},
-		"process.pid":               {},
-		"os.type":                   {},
-		"os.host":                   {},
-		"http.response.status_code": {},
-		"network.protocol.version":  {},
-		"jvm.memory.type":           {},
-		"http.request.method":       {},
-		"jvm.gc.name":               {},
-		"token":                     {},
-	}
-
-	// Create filtered map with only allowed tags
-	filteredMap := make(map[string]string)
-
-	// Always ensure token and os.host are present
-	filteredMap["token"] = b.token
-	filteredMap["os.host"] = b.hostname
-
-	// Only include allowed tags
-	for k, v := range m {
-		// Skip empty keys/values
-		if k == "" || v == "" {
-			b.logger.Debug("skipping empty tag", "key", k, "value", v)
-			continue
-		}
-
-		// Only include tags from our allowed list
-		if _, isAllowed := allowedTags[k]; isAllowed {
-			filteredMap[k] = v
-		} else {
-			b.logger.Debug("dropping non-allowed tag", "key", k)
-		}
-	}
-
-	// Convert to sorted slice
-	tags := make([]tag, 0, len(filteredMap))
-	for k, v := range filteredMap {
-		tags = append(tags, tag{k, v})
-	}
-
-	// Sort tags by key
-	sort.Slice(tags, func(i, j int) bool {
-		return tags[i].k < tags[j].k
-	})
-
-	return tags
+	return nil
 }
 
+// Create filtered map with only allowed tags
+
+// Always ensure token and os.host are present
+
+// Only include allowed tags
+
+// Skip empty keys/values
+
+// Only include tags from our allowed list
+
+// Convert to sorted slice
+
+// Sort tags by key
+
 func (b *sematextHTTPWriterBatch) convertFields(m map[string]any) (fields map[string]lineprotocol.Value) {
-	fields = make(map[string]lineprotocol.Value, len(m))
-	for k, v := range m {
-		if k == "" {
-			b.logger.Debug("empty field key")
-		} else if lpv, ok := lineprotocol.NewValue(v); !ok {
-			b.logger.Debug("invalid field value", "key", k, "value", v)
-		} else {
-			fields[k] = lpv
-		}
-	}
-	return fields
+	_ = "STUB: not implemented"
+	return nil
 }

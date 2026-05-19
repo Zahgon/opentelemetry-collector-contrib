@@ -9,8 +9,6 @@ import (
 )
 
 func ErrPriority(config *common.ComponentHealthConfig) status.ErrorPriority {
-	if config != nil && config.IncludeRecoverable && !config.IncludePermanent {
-		return status.PriorityRecoverable
-	}
-	return status.PriorityPermanent
+	_ = "STUB: not implemented"
+	return *new(status.ErrorPriority)
 }

@@ -4,8 +4,6 @@
 package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/ecsobserver"
 
 import (
-	"errors"
-	"os"
 	"time"
 )
 
@@ -40,74 +38,14 @@ type Config struct {
 
 // Validate overrides the embedded noop validation so that load config can trigger
 // our own validation logic.
-func (c *Config) Validate() error {
-	if c.ClusterName == "" {
-		// TODO: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/3188
-		// would allow auto detect cluster name in extension
-		return errors.New("must specify ECS cluster name directly")
-	}
-	for _, s := range c.Services {
-		if err := s.validate(); err != nil {
-			return err
-		}
-	}
-	for _, t := range c.TaskDefinitions {
-		if err := t.validate(); err != nil {
-			return err
-		}
-	}
-	for _, d := range c.DockerLabels {
-		if err := d.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
+
+// TODO: https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/3188
+// would allow auto detect cluster name in extension
 
 // defaultConfig only applies docker label
-func defaultConfig() Config {
-	return Config{
-		ClusterName:     "default",
-		ClusterRegion:   os.Getenv(awsRegionEnvKey),
-		ResultFile:      "/etc/ecs_sd_targets.yaml",
-		RefreshInterval: defaultRefreshInterval,
-		JobLabelName:    defaultJobLabelName,
-		DockerLabels: []DockerLabelConfig{
-			{
-				PortLabel: defaultDockerLabelMatcherPortLabel,
-			},
-		},
-	}
-}
+func defaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }
 
 // exampleConfig returns an example instance that matches testdata/config_example.yaml.
 // It can be used to validate if the struct tags like mapstructure, yaml are working properly.
-func exampleConfig() *Config {
-	return &Config{
-		ClusterName:     "ecs-sd-test-1",
-		ClusterRegion:   "us-west-2",
-		ResultFile:      "/etc/ecs_sd_targets.yaml",
-		RefreshInterval: 15 * time.Second,
-		JobLabelName:    defaultJobLabelName,
-		Services: []ServiceConfig{
-			{
-				NamePattern: "^retail-.*$",
-			},
-		},
-		TaskDefinitions: []TaskDefinitionConfig{
-			{
-				CommonExporterConfig: CommonExporterConfig{
-					JobName:      "task_def_1",
-					MetricsPath:  "/not/metrics",
-					MetricsPorts: []int{9113, 9090},
-				},
-				ArnPattern: ".*:task-definition/nginx:[0-9]+",
-			},
-		},
-		DockerLabels: []DockerLabelConfig{
-			{
-				PortLabel: "ECS_PROMETHEUS_EXPORTER_PORT",
-			},
-		},
-	}
-}
+func exampleConfig() *Config { _ = "STUB: not implemented"; return nil }

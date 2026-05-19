@@ -4,9 +4,6 @@
 package receivercreator // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/receivercreator"
 
 import (
-	"fmt"
-
-	"github.com/spf13/cast"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/confmap"
 
@@ -62,19 +59,8 @@ type resourceAttributes map[observer.EndpointType]map[string]string
 // newReceiverTemplate creates a receiverTemplate instance from the full name of a subreceiver
 // and its arbitrary config map values.
 func newReceiverTemplate(name string, cfg userConfigMap) (receiverTemplate, error) {
-	id := component.ID{}
-	if err := id.UnmarshalText([]byte(name)); err != nil {
-		return receiverTemplate{}, err
-	}
-
-	return receiverTemplate{
-		signals: receiverSignals{metrics: true, logs: true, traces: true, profiles: true},
-		receiverConfig: receiverConfig{
-			id:         id,
-			config:     cfg,
-			endpointID: observer.EndpointID("endpoint.id"),
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(receiverTemplate), nil
 }
 
 var _ confmap.Unmarshaler = (*Config)(nil)
@@ -98,57 +84,10 @@ type DiscoveryConfig struct {
 }
 
 func (cfg *Config) Unmarshal(componentParser *confmap.Conf) error {
-	if componentParser == nil {
-		// Nothing to do if there is no config given.
-		return nil
-	}
-
-	if err := componentParser.Unmarshal(cfg, confmap.WithIgnoreUnused()); err != nil {
-		return err
-	}
-
-	for endpointType := range cfg.ResourceAttributes {
-		switch endpointType {
-		case observer.ContainerType, observer.K8sServiceType, observer.K8sIngressType, observer.HostPortType, observer.K8sNodeType, observer.PodType, observer.PortType, observer.PodContainerType, observer.KafkaTopicType:
-		default:
-			return fmt.Errorf("resource attributes for unsupported endpoint type %q", endpointType)
-		}
-	}
-
-	receiversCfg, err := componentParser.Sub(receiversConfigKey)
-	if err != nil {
-		return fmt.Errorf("unable to extract key %v: %w", receiversConfigKey, err)
-	}
-
-	for subreceiverKey := range receiversCfg.ToStringMap() {
-		subreceiverSection, err := receiversCfg.Sub(subreceiverKey)
-		if err != nil {
-			return fmt.Errorf("unable to extract subreceiver key %v: %w", subreceiverKey, err)
-		}
-		cfgSection := cast.ToStringMap(subreceiverSection.Get(configKey))
-		subreceiver, err := newReceiverTemplate(subreceiverKey, cfgSection)
-		if err != nil {
-			return err
-		}
-
-		// Unmarshals receiver_creator configuration like rule.
-		if err = subreceiverSection.Unmarshal(&subreceiver, confmap.WithIgnoreUnused()); err != nil {
-			return fmt.Errorf("failed to deserialize sub-receiver %q: %w", subreceiverKey, err)
-		}
-
-		subreceiver.rule, err = newRule(subreceiver.Rule)
-		if err != nil {
-			return fmt.Errorf("subreceiver %q rule is invalid: %w", subreceiverKey, err)
-		}
-
-		for k, v := range subreceiver.ResourceAttributes {
-			if _, ok := v.(string); !ok {
-				return fmt.Errorf("unsupported `resource_attributes` %q value %v in %s", k, v, subreceiverKey)
-			}
-		}
-
-		cfg.receiverTemplates[subreceiverKey] = subreceiver
-	}
-
+	_ = "STUB: not implemented"
 	return nil
+
+	// Nothing to do if there is no config given.
 }
+
+// Unmarshals receiver_creator configuration like rule.

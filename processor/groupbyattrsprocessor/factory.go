@@ -9,52 +9,22 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/groupbyattrsprocessor/internal/metadata"
 )
 
 var consumerCapabilities = consumer.Capabilities{MutatesData: true}
 
 // NewFactory returns a new factory for the Filter processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability),
-		processor.WithLogs(createLogsProcessor, metadata.LogsStability),
-		processor.WithMetrics(createMetricsProcessor, metadata.MetricsStability))
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 // createDefaultConfig creates the default configuration for the processor.
 func createDefaultConfig() component.Config {
-	return &Config{
-		GroupByKeys: []string{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createGroupByAttrsProcessor(set processor.Settings, attributes []string) (*groupByAttrsProcessor, error) {
-	var nonEmptyAttributes []string
-	presentAttributes := make(map[string]struct{})
-
-	for _, str := range attributes {
-		if str != "" {
-			_, isPresent := presentAttributes[str]
-			if isPresent {
-				set.Logger.Warn("A grouping key is already present", zap.String("key", str))
-			} else {
-				nonEmptyAttributes = append(nonEmptyAttributes, str)
-				presentAttributes[str] = struct{}{}
-			}
-		}
-	}
-
-	telemetryBuilder, err := metadata.NewTelemetryBuilder(set.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-	return &groupByAttrsProcessor{logger: set.Logger, groupByKeys: nonEmptyAttributes, telemetryBuilder: telemetryBuilder}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // createTracesProcessor creates a trace processor based on this config.
@@ -64,19 +34,8 @@ func createTracesProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (processor.Traces, error) {
-	oCfg := cfg.(*Config)
-	gap, err := createGroupByAttrsProcessor(set, oCfg.GroupByKeys)
-	if err != nil {
-		return nil, err
-	}
-
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		gap.processTraces,
-		processorhelper.WithCapabilities(consumerCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
 
 // createLogsProcessor creates a logs processor based on this config.
@@ -86,19 +45,8 @@ func createLogsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (processor.Logs, error) {
-	oCfg := cfg.(*Config)
-	gap, err := createGroupByAttrsProcessor(set, oCfg.GroupByKeys)
-	if err != nil {
-		return nil, err
-	}
-
-	return processorhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		gap.processLogs,
-		processorhelper.WithCapabilities(consumerCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
 
 // createMetricsProcessor creates a metrics processor based on this config.
@@ -108,17 +56,6 @@ func createMetricsProcessor(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (processor.Metrics, error) {
-	oCfg := cfg.(*Config)
-	gap, err := createGroupByAttrsProcessor(set, oCfg.GroupByKeys)
-	if err != nil {
-		return nil, err
-	}
-
-	return processorhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		nextConsumer,
-		gap.processMetrics,
-		processorhelper.WithCapabilities(consumerCapabilities))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }

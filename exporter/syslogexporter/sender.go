@@ -6,12 +6,9 @@ package syslogexporter // import "github.com/open-telemetry/opentelemetry-collec
 import (
 	"context"
 	"crypto/tls"
-	"fmt"
 	"net"
-	"strings"
 	"sync"
 
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.uber.org/zap"
 )
 
@@ -52,79 +49,21 @@ type sender struct {
 }
 
 func connect(ctx context.Context, logger *zap.Logger, cfg *Config, tlsConfig *tls.Config) (*sender, error) {
-	var addr string
-	if cfg.Network == string(confignet.TransportTypeUnix) {
-		addr = cfg.Endpoint
-	} else {
-		addr = fmt.Sprintf("%s:%d", cfg.Endpoint, cfg.Port)
-	}
-	s := &sender{
-		logger:    logger,
-		network:   cfg.Network,
-		addr:      addr,
-		protocol:  cfg.Protocol,
-		tlsConfig: tlsConfig,
-	}
-
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	err := s.dial(ctx)
-	if err != nil {
-		return nil, err
-	}
-	return s, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (s *sender) close() error {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+func (s *sender) close() error { _ = "STUB: not implemented"; return nil }
 
-	if s.conn != nil {
-		err := s.conn.Close()
-		s.conn = nil
-		return err
-	}
+func (s *sender) dial(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
+
+func (s *sender) Write(ctx context.Context, msgStr string) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (s *sender) dial(ctx context.Context) error {
-	if s.conn != nil {
-		s.conn.Close()
-		s.conn = nil
-	}
-	var err error
-	if s.tlsConfig != nil && s.network == string(confignet.TransportTypeTCP) {
-		dialer := tls.Dialer{Config: s.tlsConfig}
-		s.conn, err = dialer.DialContext(ctx, s.network, s.addr)
-	} else {
-		dialer := new(net.Dialer)
-		s.conn, err = dialer.DialContext(ctx, s.network, s.addr)
-	}
-	return err
-}
-
-func (s *sender) Write(ctx context.Context, msgStr string) error {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-
-	if s.conn != nil {
-		if err := s.write(msgStr); err == nil {
-			return nil
-		}
-	}
-	if err := s.dial(ctx); err != nil {
-		return err
-	}
-
-	return s.write(msgStr)
-}
-
 func (s *sender) write(msg string) error {
+	_ = "STUB: not implemented"
 	// check if logs contains new line character at the end, if not add it
-	if !strings.HasSuffix(msg, "\n") {
-		msg = fmt.Sprintf("%s%s", msg, "\n")
-	}
-	_, err := fmt.Fprint(s.conn, msg)
-	return err
+	return nil
 }

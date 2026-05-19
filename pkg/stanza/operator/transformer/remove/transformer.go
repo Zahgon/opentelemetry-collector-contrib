@@ -5,7 +5,6 @@ package remove // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
@@ -18,29 +17,15 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will process an entry with a remove transformation.
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Transform will apply the remove operation to an entry
-func (t *Transformer) Transform(entry *entry.Entry) error {
-	if t.Field.allAttributes {
-		entry.Attributes = nil
-		return nil
-	}
-
-	if t.Field.allResource {
-		entry.Resource = nil
-		return nil
-	}
-
-	_, exist := entry.Delete(t.Field.Field)
-	if !exist {
-		return fmt.Errorf("remove: field does not exist: %s", t.Field.String())
-	}
-	return nil
-}
+func (t *Transformer) Transform(entry *entry.Entry) error { _ = "STUB: not implemented"; return nil }

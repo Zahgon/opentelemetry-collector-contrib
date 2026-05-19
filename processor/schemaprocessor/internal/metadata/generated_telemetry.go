@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/processor/schemaprocessor")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -45,86 +46,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.ProcessorSchemaTranslated, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema.translated",
-		metric.WithDescription("Number of schema translations [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaCacheHits, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_cache.hits",
-		metric.WithDescription("Number of schema cache hits [Development]"),
-		metric.WithUnit("{requests}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaCacheMisses, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_cache.misses",
-		metric.WithDescription("Number of schema cache misses [Development]"),
-		metric.WithUnit("{requests}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaLogsFailed, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_logs.failed",
-		metric.WithDescription("Number of log scope translation requests that failed [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaLogsSkipped, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_logs.skipped",
-		metric.WithDescription("Number of log scope translation requests skipped because no schema URL was present on the scope or its resource [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaMetricsFailed, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_metrics.failed",
-		metric.WithDescription("Number of metric scope translation requests that failed [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaMetricsSkipped, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_metrics.skipped",
-		metric.WithDescription("Number of metric scope translation requests skipped because no schema URL was present on the scope or its resource [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaResourceFailed, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_resource.failed",
-		metric.WithDescription("Number of resource translation requests that failed [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaTracesFailed, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_traces.failed",
-		metric.WithDescription("Number of trace scope translation requests that failed [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.ProcessorSchemaTracesSkipped, err = builder.meter.Int64Counter(
-		"otelcol_processor_schema_traces.skipped",
-		metric.WithDescription("Number of trace scope translation requests skipped because no schema URL was present on the scope or its resource [Development]"),
-		metric.WithUnit("{translations}"),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

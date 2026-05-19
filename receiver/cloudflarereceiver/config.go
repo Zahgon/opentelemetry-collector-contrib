@@ -5,11 +5,8 @@ package cloudflarereceiver // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"errors"
-	"fmt"
-	"net"
 
 	"go.opentelemetry.io/collector/config/configtls"
-	"go.uber.org/multierr"
 )
 
 // Config holds all the parameters to start an HTTP server that can be sent logs from CloudFlare
@@ -46,41 +43,12 @@ var (
 	defaultSeparator       = "."
 )
 
-func (c *Config) Validate() error {
-	if c.Logs.Endpoint == "" {
-		return errNoEndpoint
-	}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	if c.Logs.MaxRequestBodySize == 0 {
-		c.Logs.MaxRequestBodySize = 20 * 1024 * 1024 // 20MB default
-	}
+// 20MB default
 
-	var errs error
-	// Validate timestamp_format if provided
-	if c.Logs.TimestampFormat != "" {
-		switch c.Logs.TimestampFormat {
-		case "unix", "unixnano", "rfc3339":
-		default:
-			errs = multierr.Append(errs, fmt.Errorf("invalid timestamp_format %q, must be one of: unix, unixnano, rfc3339", c.Logs.TimestampFormat))
-		}
-	}
+// Validate timestamp_format if provided
 
-	if c.Logs.TLS != nil {
-		// Missing key
-		if c.Logs.TLS.KeyFile == "" {
-			errs = multierr.Append(errs, errNoKey)
-		}
+// Missing key
 
-		// Missing cert
-		if c.Logs.TLS.CertFile == "" {
-			errs = multierr.Append(errs, errNoCert)
-		}
-	}
-
-	_, _, err := net.SplitHostPort(c.Logs.Endpoint)
-	if err != nil {
-		errs = multierr.Append(errs, fmt.Errorf("failed to split endpoint into 'host:port' pair: %w", err))
-	}
-
-	return errs
-}
+// Missing cert

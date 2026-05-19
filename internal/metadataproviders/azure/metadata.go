@@ -8,9 +8,6 @@ package azure // import "github.com/open-telemetry/opentelemetry-collector-contr
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
 )
 
@@ -30,12 +27,7 @@ type azureProviderImpl struct {
 }
 
 // NewProvider creates a new metadata provider
-func NewProvider() Provider {
-	return &azureProviderImpl{
-		endpoint: metadataEndpoint,
-		client:   &http.Client{},
-	}
-}
+func NewProvider() Provider { _ = "STUB: not implemented"; return *new(Provider) }
 
 type ComputeTagsListMetadata struct {
 	Name  string `json:"name"`
@@ -62,48 +54,14 @@ type ComputeMetadata struct {
 
 // Metadata queries a given endpoint and parses the output to the Azure IMDS format
 func (p *azureProviderImpl) Metadata(ctx context.Context) (*ComputeMetadata, error) {
-	const (
-		// API version used
-		apiVersionKey = "api-version"
-		apiVersion    = "2020-09-01"
+	_ = "STUB: not implemented"
 
-		// format used
-		formatKey  = "format"
-		jsonFormat = "json"
-	)
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, p.endpoint, http.NoBody)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	// As per the Azure IMDS documentation, the Metadata header must be set to "true" (note lowercase).
-	req.Header.Add("Metadata", "true")
-	q := req.URL.Query()
-	q.Add(formatKey, jsonFormat)
-	q.Add(apiVersionKey, apiVersion)
-	req.URL.RawQuery = q.Encode()
-
-	resp, err := p.client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("failed to query Azure IMDS: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		//lint:ignore ST1005 Azure is a capitalized proper noun here
-		return nil, fmt.Errorf("Azure IMDS replied with status code: %s", resp.Status)
-	}
-
-	respBody, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read Azure IMDS reply: %w", err)
-	}
-
-	var metadata *ComputeMetadata
-	err = json.Unmarshal(respBody, &metadata)
-	if err != nil {
-		return nil, fmt.Errorf("failed to decode Azure IMDS reply: %w", err)
-	}
-
-	return metadata, nil
+	// API version used
+	return nil, nil
 }
+
+// format used
+
+// As per the Azure IMDS documentation, the Metadata header must be set to "true" (note lowercase).
+
+//lint:ignore ST1005 Azure is a capitalized proper noun here

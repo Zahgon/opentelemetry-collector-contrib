@@ -3,11 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -36,23 +31,7 @@ const (
 )
 
 // String returns the string representation of the AttributeStatusCode.
-func (av AttributeStatusCode) String() string {
-	switch av {
-	case AttributeStatusCode1xx:
-		return "1xx"
-	case AttributeStatusCode2xx:
-		return "2xx"
-	case AttributeStatusCode3xx:
-		return "3xx"
-	case AttributeStatusCode4xx:
-		return "4xx"
-	case AttributeStatusCode5xx:
-		return "5xx"
-	case AttributeStatusCodeOther:
-		return "other"
-	}
-	return ""
-}
+func (av AttributeStatusCode) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeStatusCode is a helper map of string to AttributeStatusCode attribute value.
 var MapAttributeStatusCode = map[string]AttributeStatusCode{
@@ -221,39 +200,19 @@ func (m *metricHaproxyActive) init() {
 }
 
 func (m *metricHaproxyActive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyActive) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyActive) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricHaproxyActive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricHaproxyActive) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricHaproxyActive(cfg HaproxyActiveMetricConfig) metricHaproxyActive {
-	m := metricHaproxyActive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyActive)
 }
 
 type metricHaproxyBackup struct {
@@ -271,39 +230,19 @@ func (m *metricHaproxyBackup) init() {
 }
 
 func (m *metricHaproxyBackup) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyBackup) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyBackup) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricHaproxyBackup) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricHaproxyBackup) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricHaproxyBackup(cfg HaproxyBackupMetricConfig) metricHaproxyBackup {
-	m := metricHaproxyBackup{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyBackup)
 }
 
 type metricHaproxyBytesInput struct {
@@ -323,39 +262,22 @@ func (m *metricHaproxyBytesInput) init() {
 }
 
 func (m *metricHaproxyBytesInput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyBytesInput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyBytesInput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyBytesInput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyBytesInput(cfg HaproxyBytesInputMetricConfig) metricHaproxyBytesInput {
-	m := metricHaproxyBytesInput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyBytesInput)
 }
 
 type metricHaproxyBytesOutput struct {
@@ -375,39 +297,22 @@ func (m *metricHaproxyBytesOutput) init() {
 }
 
 func (m *metricHaproxyBytesOutput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyBytesOutput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyBytesOutput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyBytesOutput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyBytesOutput(cfg HaproxyBytesOutputMetricConfig) metricHaproxyBytesOutput {
-	m := metricHaproxyBytesOutput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyBytesOutput)
 }
 
 type metricHaproxyClientsCanceled struct {
@@ -427,39 +332,22 @@ func (m *metricHaproxyClientsCanceled) init() {
 }
 
 func (m *metricHaproxyClientsCanceled) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyClientsCanceled) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyClientsCanceled) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyClientsCanceled) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyClientsCanceled(cfg HaproxyClientsCanceledMetricConfig) metricHaproxyClientsCanceled {
-	m := metricHaproxyClientsCanceled{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyClientsCanceled)
 }
 
 type metricHaproxyCompressionBypass struct {
@@ -479,39 +367,22 @@ func (m *metricHaproxyCompressionBypass) init() {
 }
 
 func (m *metricHaproxyCompressionBypass) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyCompressionBypass) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyCompressionBypass) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyCompressionBypass) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyCompressionBypass(cfg HaproxyCompressionBypassMetricConfig) metricHaproxyCompressionBypass {
-	m := metricHaproxyCompressionBypass{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyCompressionBypass)
 }
 
 type metricHaproxyCompressionCount struct {
@@ -531,39 +402,22 @@ func (m *metricHaproxyCompressionCount) init() {
 }
 
 func (m *metricHaproxyCompressionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyCompressionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyCompressionCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyCompressionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyCompressionCount(cfg HaproxyCompressionCountMetricConfig) metricHaproxyCompressionCount {
-	m := metricHaproxyCompressionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyCompressionCount)
 }
 
 type metricHaproxyCompressionInput struct {
@@ -583,39 +437,22 @@ func (m *metricHaproxyCompressionInput) init() {
 }
 
 func (m *metricHaproxyCompressionInput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyCompressionInput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyCompressionInput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyCompressionInput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyCompressionInput(cfg HaproxyCompressionInputMetricConfig) metricHaproxyCompressionInput {
-	m := metricHaproxyCompressionInput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyCompressionInput)
 }
 
 type metricHaproxyCompressionOutput struct {
@@ -635,39 +472,22 @@ func (m *metricHaproxyCompressionOutput) init() {
 }
 
 func (m *metricHaproxyCompressionOutput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyCompressionOutput) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyCompressionOutput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyCompressionOutput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyCompressionOutput(cfg HaproxyCompressionOutputMetricConfig) metricHaproxyCompressionOutput {
-	m := metricHaproxyCompressionOutput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyCompressionOutput)
 }
 
 type metricHaproxyConnectionsAverageTime struct {
@@ -685,39 +505,22 @@ func (m *metricHaproxyConnectionsAverageTime) init() {
 }
 
 func (m *metricHaproxyConnectionsAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyConnectionsAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyConnectionsAverageTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyConnectionsAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyConnectionsAverageTime(cfg HaproxyConnectionsAverageTimeMetricConfig) metricHaproxyConnectionsAverageTime {
-	m := metricHaproxyConnectionsAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyConnectionsAverageTime)
 }
 
 type metricHaproxyConnectionsErrors struct {
@@ -737,39 +540,22 @@ func (m *metricHaproxyConnectionsErrors) init() {
 }
 
 func (m *metricHaproxyConnectionsErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyConnectionsErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyConnectionsErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyConnectionsErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyConnectionsErrors(cfg HaproxyConnectionsErrorsMetricConfig) metricHaproxyConnectionsErrors {
-	m := metricHaproxyConnectionsErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyConnectionsErrors)
 }
 
 type metricHaproxyConnectionsRate struct {
@@ -787,39 +573,22 @@ func (m *metricHaproxyConnectionsRate) init() {
 }
 
 func (m *metricHaproxyConnectionsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyConnectionsRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyConnectionsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyConnectionsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyConnectionsRate(cfg HaproxyConnectionsRateMetricConfig) metricHaproxyConnectionsRate {
-	m := metricHaproxyConnectionsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyConnectionsRate)
 }
 
 type metricHaproxyConnectionsRetries struct {
@@ -839,39 +608,22 @@ func (m *metricHaproxyConnectionsRetries) init() {
 }
 
 func (m *metricHaproxyConnectionsRetries) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyConnectionsRetries) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyConnectionsRetries) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyConnectionsRetries) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyConnectionsRetries(cfg HaproxyConnectionsRetriesMetricConfig) metricHaproxyConnectionsRetries {
-	m := metricHaproxyConnectionsRetries{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyConnectionsRetries)
 }
 
 type metricHaproxyConnectionsTotal struct {
@@ -891,39 +643,22 @@ func (m *metricHaproxyConnectionsTotal) init() {
 }
 
 func (m *metricHaproxyConnectionsTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyConnectionsTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyConnectionsTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyConnectionsTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyConnectionsTotal(cfg HaproxyConnectionsTotalMetricConfig) metricHaproxyConnectionsTotal {
-	m := metricHaproxyConnectionsTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyConnectionsTotal)
 }
 
 type metricHaproxyDowntime struct {
@@ -943,39 +678,22 @@ func (m *metricHaproxyDowntime) init() {
 }
 
 func (m *metricHaproxyDowntime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyDowntime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyDowntime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyDowntime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyDowntime(cfg HaproxyDowntimeMetricConfig) metricHaproxyDowntime {
-	m := metricHaproxyDowntime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyDowntime)
 }
 
 type metricHaproxyFailedChecks struct {
@@ -995,39 +713,22 @@ func (m *metricHaproxyFailedChecks) init() {
 }
 
 func (m *metricHaproxyFailedChecks) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyFailedChecks) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyFailedChecks) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyFailedChecks) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyFailedChecks(cfg HaproxyFailedChecksMetricConfig) metricHaproxyFailedChecks {
-	m := metricHaproxyFailedChecks{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyFailedChecks)
 }
 
 type metricHaproxyRequestsAverageTime struct {
@@ -1045,39 +746,22 @@ func (m *metricHaproxyRequestsAverageTime) init() {
 }
 
 func (m *metricHaproxyRequestsAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsAverageTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsAverageTime(cfg HaproxyRequestsAverageTimeMetricConfig) metricHaproxyRequestsAverageTime {
-	m := metricHaproxyRequestsAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsAverageTime)
 }
 
 type metricHaproxyRequestsDenied struct {
@@ -1097,39 +781,22 @@ func (m *metricHaproxyRequestsDenied) init() {
 }
 
 func (m *metricHaproxyRequestsDenied) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsDenied) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsDenied) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsDenied) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsDenied(cfg HaproxyRequestsDeniedMetricConfig) metricHaproxyRequestsDenied {
-	m := metricHaproxyRequestsDenied{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsDenied)
 }
 
 type metricHaproxyRequestsErrors struct {
@@ -1149,39 +816,22 @@ func (m *metricHaproxyRequestsErrors) init() {
 }
 
 func (m *metricHaproxyRequestsErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsErrors(cfg HaproxyRequestsErrorsMetricConfig) metricHaproxyRequestsErrors {
-	m := metricHaproxyRequestsErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsErrors)
 }
 
 type metricHaproxyRequestsQueued struct {
@@ -1201,39 +851,22 @@ func (m *metricHaproxyRequestsQueued) init() {
 }
 
 func (m *metricHaproxyRequestsQueued) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsQueued) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsQueued) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsQueued) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsQueued(cfg HaproxyRequestsQueuedMetricConfig) metricHaproxyRequestsQueued {
-	m := metricHaproxyRequestsQueued{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsQueued)
 }
 
 type metricHaproxyRequestsRate struct {
@@ -1251,39 +884,22 @@ func (m *metricHaproxyRequestsRate) init() {
 }
 
 func (m *metricHaproxyRequestsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsRate(cfg HaproxyRequestsRateMetricConfig) metricHaproxyRequestsRate {
-	m := metricHaproxyRequestsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsRate)
 }
 
 type metricHaproxyRequestsRedispatched struct {
@@ -1303,39 +919,22 @@ func (m *metricHaproxyRequestsRedispatched) init() {
 }
 
 func (m *metricHaproxyRequestsRedispatched) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsRedispatched) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsRedispatched) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsRedispatched) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsRedispatched(cfg HaproxyRequestsRedispatchedMetricConfig) metricHaproxyRequestsRedispatched {
-	m := metricHaproxyRequestsRedispatched{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsRedispatched)
 }
 
 type metricHaproxyRequestsTotal struct {
@@ -1358,75 +957,22 @@ func (m *metricHaproxyRequestsTotal) init() {
 }
 
 func (m *metricHaproxyRequestsTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, statusCodeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, HaproxyRequestsTotalMetricAttributeKeyStatusCode) {
-		dp.Attributes().PutStr("status_code", statusCodeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyRequestsTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyRequestsTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyRequestsTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyRequestsTotal(cfg HaproxyRequestsTotalMetricConfig) metricHaproxyRequestsTotal {
-	m := metricHaproxyRequestsTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyRequestsTotal)
 }
 
 type metricHaproxyResponsesAverageTime struct {
@@ -1444,39 +990,22 @@ func (m *metricHaproxyResponsesAverageTime) init() {
 }
 
 func (m *metricHaproxyResponsesAverageTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyResponsesAverageTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyResponsesAverageTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyResponsesAverageTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyResponsesAverageTime(cfg HaproxyResponsesAverageTimeMetricConfig) metricHaproxyResponsesAverageTime {
-	m := metricHaproxyResponsesAverageTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyResponsesAverageTime)
 }
 
 type metricHaproxyResponsesDenied struct {
@@ -1496,39 +1025,22 @@ func (m *metricHaproxyResponsesDenied) init() {
 }
 
 func (m *metricHaproxyResponsesDenied) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyResponsesDenied) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyResponsesDenied) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyResponsesDenied) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyResponsesDenied(cfg HaproxyResponsesDeniedMetricConfig) metricHaproxyResponsesDenied {
-	m := metricHaproxyResponsesDenied{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyResponsesDenied)
 }
 
 type metricHaproxyResponsesErrors struct {
@@ -1548,39 +1060,22 @@ func (m *metricHaproxyResponsesErrors) init() {
 }
 
 func (m *metricHaproxyResponsesErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyResponsesErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyResponsesErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyResponsesErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyResponsesErrors(cfg HaproxyResponsesErrorsMetricConfig) metricHaproxyResponsesErrors {
-	m := metricHaproxyResponsesErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyResponsesErrors)
 }
 
 type metricHaproxyServerSelectedTotal struct {
@@ -1600,39 +1095,22 @@ func (m *metricHaproxyServerSelectedTotal) init() {
 }
 
 func (m *metricHaproxyServerSelectedTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyServerSelectedTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyServerSelectedTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxyServerSelectedTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxyServerSelectedTotal(cfg HaproxyServerSelectedTotalMetricConfig) metricHaproxyServerSelectedTotal {
-	m := metricHaproxyServerSelectedTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyServerSelectedTotal)
 }
 
 type metricHaproxySessionsAverage struct {
@@ -1650,39 +1128,22 @@ func (m *metricHaproxySessionsAverage) init() {
 }
 
 func (m *metricHaproxySessionsAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxySessionsAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxySessionsAverage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxySessionsAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxySessionsAverage(cfg HaproxySessionsAverageMetricConfig) metricHaproxySessionsAverage {
-	m := metricHaproxySessionsAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxySessionsAverage)
 }
 
 type metricHaproxySessionsCount struct {
@@ -1700,39 +1161,22 @@ func (m *metricHaproxySessionsCount) init() {
 }
 
 func (m *metricHaproxySessionsCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxySessionsCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxySessionsCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxySessionsCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxySessionsCount(cfg HaproxySessionsCountMetricConfig) metricHaproxySessionsCount {
-	m := metricHaproxySessionsCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxySessionsCount)
 }
 
 type metricHaproxySessionsLimit struct {
@@ -1750,39 +1194,22 @@ func (m *metricHaproxySessionsLimit) init() {
 }
 
 func (m *metricHaproxySessionsLimit) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxySessionsLimit) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxySessionsLimit) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxySessionsLimit) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxySessionsLimit(cfg HaproxySessionsLimitMetricConfig) metricHaproxySessionsLimit {
-	m := metricHaproxySessionsLimit{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxySessionsLimit)
 }
 
 type metricHaproxySessionsRate struct {
@@ -1800,39 +1227,22 @@ func (m *metricHaproxySessionsRate) init() {
 }
 
 func (m *metricHaproxySessionsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxySessionsRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxySessionsRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxySessionsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxySessionsRate(cfg HaproxySessionsRateMetricConfig) metricHaproxySessionsRate {
-	m := metricHaproxySessionsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxySessionsRate)
 }
 
 type metricHaproxySessionsTotal struct {
@@ -1852,39 +1262,22 @@ func (m *metricHaproxySessionsTotal) init() {
 }
 
 func (m *metricHaproxySessionsTotal) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxySessionsTotal) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricHaproxySessionsTotal) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricHaproxySessionsTotal) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricHaproxySessionsTotal(cfg HaproxySessionsTotalMetricConfig) metricHaproxySessionsTotal {
-	m := metricHaproxySessionsTotal{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxySessionsTotal)
 }
 
 type metricHaproxyWeight struct {
@@ -1902,39 +1295,19 @@ func (m *metricHaproxyWeight) init() {
 }
 
 func (m *metricHaproxyWeight) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricHaproxyWeight) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricHaproxyWeight) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricHaproxyWeight) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricHaproxyWeight) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricHaproxyWeight(cfg HaproxyWeightMetricConfig) metricHaproxyWeight {
-	m := metricHaproxyWeight{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricHaproxyWeight)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1990,98 +1363,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                              mbc,
-		startTime:                           pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                       pmetric.NewMetrics(),
-		buildInfo:                           settings.BuildInfo,
-		metricHaproxyActive:                 newMetricHaproxyActive(mbc.Metrics.HaproxyActive),
-		metricHaproxyBackup:                 newMetricHaproxyBackup(mbc.Metrics.HaproxyBackup),
-		metricHaproxyBytesInput:             newMetricHaproxyBytesInput(mbc.Metrics.HaproxyBytesInput),
-		metricHaproxyBytesOutput:            newMetricHaproxyBytesOutput(mbc.Metrics.HaproxyBytesOutput),
-		metricHaproxyClientsCanceled:        newMetricHaproxyClientsCanceled(mbc.Metrics.HaproxyClientsCanceled),
-		metricHaproxyCompressionBypass:      newMetricHaproxyCompressionBypass(mbc.Metrics.HaproxyCompressionBypass),
-		metricHaproxyCompressionCount:       newMetricHaproxyCompressionCount(mbc.Metrics.HaproxyCompressionCount),
-		metricHaproxyCompressionInput:       newMetricHaproxyCompressionInput(mbc.Metrics.HaproxyCompressionInput),
-		metricHaproxyCompressionOutput:      newMetricHaproxyCompressionOutput(mbc.Metrics.HaproxyCompressionOutput),
-		metricHaproxyConnectionsAverageTime: newMetricHaproxyConnectionsAverageTime(mbc.Metrics.HaproxyConnectionsAverageTime),
-		metricHaproxyConnectionsErrors:      newMetricHaproxyConnectionsErrors(mbc.Metrics.HaproxyConnectionsErrors),
-		metricHaproxyConnectionsRate:        newMetricHaproxyConnectionsRate(mbc.Metrics.HaproxyConnectionsRate),
-		metricHaproxyConnectionsRetries:     newMetricHaproxyConnectionsRetries(mbc.Metrics.HaproxyConnectionsRetries),
-		metricHaproxyConnectionsTotal:       newMetricHaproxyConnectionsTotal(mbc.Metrics.HaproxyConnectionsTotal),
-		metricHaproxyDowntime:               newMetricHaproxyDowntime(mbc.Metrics.HaproxyDowntime),
-		metricHaproxyFailedChecks:           newMetricHaproxyFailedChecks(mbc.Metrics.HaproxyFailedChecks),
-		metricHaproxyRequestsAverageTime:    newMetricHaproxyRequestsAverageTime(mbc.Metrics.HaproxyRequestsAverageTime),
-		metricHaproxyRequestsDenied:         newMetricHaproxyRequestsDenied(mbc.Metrics.HaproxyRequestsDenied),
-		metricHaproxyRequestsErrors:         newMetricHaproxyRequestsErrors(mbc.Metrics.HaproxyRequestsErrors),
-		metricHaproxyRequestsQueued:         newMetricHaproxyRequestsQueued(mbc.Metrics.HaproxyRequestsQueued),
-		metricHaproxyRequestsRate:           newMetricHaproxyRequestsRate(mbc.Metrics.HaproxyRequestsRate),
-		metricHaproxyRequestsRedispatched:   newMetricHaproxyRequestsRedispatched(mbc.Metrics.HaproxyRequestsRedispatched),
-		metricHaproxyRequestsTotal:          newMetricHaproxyRequestsTotal(mbc.Metrics.HaproxyRequestsTotal),
-		metricHaproxyResponsesAverageTime:   newMetricHaproxyResponsesAverageTime(mbc.Metrics.HaproxyResponsesAverageTime),
-		metricHaproxyResponsesDenied:        newMetricHaproxyResponsesDenied(mbc.Metrics.HaproxyResponsesDenied),
-		metricHaproxyResponsesErrors:        newMetricHaproxyResponsesErrors(mbc.Metrics.HaproxyResponsesErrors),
-		metricHaproxyServerSelectedTotal:    newMetricHaproxyServerSelectedTotal(mbc.Metrics.HaproxyServerSelectedTotal),
-		metricHaproxySessionsAverage:        newMetricHaproxySessionsAverage(mbc.Metrics.HaproxySessionsAverage),
-		metricHaproxySessionsCount:          newMetricHaproxySessionsCount(mbc.Metrics.HaproxySessionsCount),
-		metricHaproxySessionsLimit:          newMetricHaproxySessionsLimit(mbc.Metrics.HaproxySessionsLimit),
-		metricHaproxySessionsRate:           newMetricHaproxySessionsRate(mbc.Metrics.HaproxySessionsRate),
-		metricHaproxySessionsTotal:          newMetricHaproxySessionsTotal(mbc.Metrics.HaproxySessionsTotal),
-		metricHaproxyWeight:                 newMetricHaproxyWeight(mbc.Metrics.HaproxyWeight),
-		resourceAttributeIncludeFilter:      make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:      make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.HaproxyAddr.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["haproxy.addr"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyAddr.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HaproxyAddr.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["haproxy.addr"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyAddr.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.HaproxyProxyName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["haproxy.proxy_name"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyProxyName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HaproxyProxyName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["haproxy.proxy_name"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyProxyName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.HaproxyServerState.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["haproxy.server.state"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyServerState.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HaproxyServerState.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["haproxy.server.state"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyServerState.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.HaproxyServiceName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["haproxy.service_name"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyServiceName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HaproxyServiceName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["haproxy.service_name"] = filter.CreateFilter(mbc.ResourceAttributes.HaproxyServiceName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -2092,35 +1399,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -2129,405 +1424,216 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricHaproxyActive.emit(ils.Metrics())
-	mb.metricHaproxyBackup.emit(ils.Metrics())
-	mb.metricHaproxyBytesInput.emit(ils.Metrics())
-	mb.metricHaproxyBytesOutput.emit(ils.Metrics())
-	mb.metricHaproxyClientsCanceled.emit(ils.Metrics())
-	mb.metricHaproxyCompressionBypass.emit(ils.Metrics())
-	mb.metricHaproxyCompressionCount.emit(ils.Metrics())
-	mb.metricHaproxyCompressionInput.emit(ils.Metrics())
-	mb.metricHaproxyCompressionOutput.emit(ils.Metrics())
-	mb.metricHaproxyConnectionsAverageTime.emit(ils.Metrics())
-	mb.metricHaproxyConnectionsErrors.emit(ils.Metrics())
-	mb.metricHaproxyConnectionsRate.emit(ils.Metrics())
-	mb.metricHaproxyConnectionsRetries.emit(ils.Metrics())
-	mb.metricHaproxyConnectionsTotal.emit(ils.Metrics())
-	mb.metricHaproxyDowntime.emit(ils.Metrics())
-	mb.metricHaproxyFailedChecks.emit(ils.Metrics())
-	mb.metricHaproxyRequestsAverageTime.emit(ils.Metrics())
-	mb.metricHaproxyRequestsDenied.emit(ils.Metrics())
-	mb.metricHaproxyRequestsErrors.emit(ils.Metrics())
-	mb.metricHaproxyRequestsQueued.emit(ils.Metrics())
-	mb.metricHaproxyRequestsRate.emit(ils.Metrics())
-	mb.metricHaproxyRequestsRedispatched.emit(ils.Metrics())
-	mb.metricHaproxyRequestsTotal.emit(ils.Metrics())
-	mb.metricHaproxyResponsesAverageTime.emit(ils.Metrics())
-	mb.metricHaproxyResponsesDenied.emit(ils.Metrics())
-	mb.metricHaproxyResponsesErrors.emit(ils.Metrics())
-	mb.metricHaproxyServerSelectedTotal.emit(ils.Metrics())
-	mb.metricHaproxySessionsAverage.emit(ils.Metrics())
-	mb.metricHaproxySessionsCount.emit(ils.Metrics())
-	mb.metricHaproxySessionsLimit.emit(ils.Metrics())
-	mb.metricHaproxySessionsRate.emit(ils.Metrics())
-	mb.metricHaproxySessionsTotal.emit(ils.Metrics())
-	mb.metricHaproxyWeight.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordHaproxyActiveDataPoint adds a data point to haproxy.active metric.
 func (mb *MetricsBuilder) RecordHaproxyActiveDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyActive, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyActive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyBackupDataPoint adds a data point to haproxy.backup metric.
 func (mb *MetricsBuilder) RecordHaproxyBackupDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyBackup, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyBackup.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyBytesInputDataPoint adds a data point to haproxy.bytes.input metric.
 func (mb *MetricsBuilder) RecordHaproxyBytesInputDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyBytesInput, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyBytesInput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyBytesOutputDataPoint adds a data point to haproxy.bytes.output metric.
 func (mb *MetricsBuilder) RecordHaproxyBytesOutputDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyBytesOutput, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyBytesOutput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyClientsCanceledDataPoint adds a data point to haproxy.clients.canceled metric.
 func (mb *MetricsBuilder) RecordHaproxyClientsCanceledDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyClientsCanceled, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyClientsCanceled.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyCompressionBypassDataPoint adds a data point to haproxy.compression.bypass metric.
 func (mb *MetricsBuilder) RecordHaproxyCompressionBypassDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyCompressionBypass, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyCompressionBypass.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyCompressionCountDataPoint adds a data point to haproxy.compression.count metric.
 func (mb *MetricsBuilder) RecordHaproxyCompressionCountDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyCompressionCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyCompressionCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyCompressionInputDataPoint adds a data point to haproxy.compression.input metric.
 func (mb *MetricsBuilder) RecordHaproxyCompressionInputDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyCompressionInput, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyCompressionInput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyCompressionOutputDataPoint adds a data point to haproxy.compression.output metric.
 func (mb *MetricsBuilder) RecordHaproxyCompressionOutputDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyCompressionOutput, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyCompressionOutput.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyConnectionsAverageTimeDataPoint adds a data point to haproxy.connections.average_time metric.
 func (mb *MetricsBuilder) RecordHaproxyConnectionsAverageTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxyConnectionsAverageTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyConnectionsAverageTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyConnectionsErrorsDataPoint adds a data point to haproxy.connections.errors metric.
 func (mb *MetricsBuilder) RecordHaproxyConnectionsErrorsDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyConnectionsErrors, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyConnectionsErrors.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyConnectionsRateDataPoint adds a data point to haproxy.connections.rate metric.
 func (mb *MetricsBuilder) RecordHaproxyConnectionsRateDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyConnectionsRate, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyConnectionsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyConnectionsRetriesDataPoint adds a data point to haproxy.connections.retries metric.
 func (mb *MetricsBuilder) RecordHaproxyConnectionsRetriesDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyConnectionsRetries, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyConnectionsRetries.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyConnectionsTotalDataPoint adds a data point to haproxy.connections.total metric.
 func (mb *MetricsBuilder) RecordHaproxyConnectionsTotalDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyConnectionsTotal, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyConnectionsTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyDowntimeDataPoint adds a data point to haproxy.downtime metric.
 func (mb *MetricsBuilder) RecordHaproxyDowntimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyDowntime, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyDowntime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyFailedChecksDataPoint adds a data point to haproxy.failed_checks metric.
 func (mb *MetricsBuilder) RecordHaproxyFailedChecksDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyFailedChecks, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyFailedChecks.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsAverageTimeDataPoint adds a data point to haproxy.requests.average_time metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsAverageTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxyRequestsAverageTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsAverageTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsDeniedDataPoint adds a data point to haproxy.requests.denied metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsDeniedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyRequestsDenied, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsDenied.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsErrorsDataPoint adds a data point to haproxy.requests.errors metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsErrorsDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyRequestsErrors, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsErrors.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsQueuedDataPoint adds a data point to haproxy.requests.queued metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsQueuedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyRequestsQueued, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsQueued.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsRateDataPoint adds a data point to haproxy.requests.rate metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsRateDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxyRequestsRate, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsRedispatchedDataPoint adds a data point to haproxy.requests.redispatched metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsRedispatchedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyRequestsRedispatched, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsRedispatched.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyRequestsTotalDataPoint adds a data point to haproxy.requests.total metric.
 func (mb *MetricsBuilder) RecordHaproxyRequestsTotalDataPoint(ts pcommon.Timestamp, inputVal string, statusCodeAttributeValue AttributeStatusCode) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyRequestsTotal, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyRequestsTotal.recordDataPoint(mb.startTime, ts, val, statusCodeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyResponsesAverageTimeDataPoint adds a data point to haproxy.responses.average_time metric.
 func (mb *MetricsBuilder) RecordHaproxyResponsesAverageTimeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxyResponsesAverageTime, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyResponsesAverageTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyResponsesDeniedDataPoint adds a data point to haproxy.responses.denied metric.
 func (mb *MetricsBuilder) RecordHaproxyResponsesDeniedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyResponsesDenied, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyResponsesDenied.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyResponsesErrorsDataPoint adds a data point to haproxy.responses.errors metric.
 func (mb *MetricsBuilder) RecordHaproxyResponsesErrorsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricHaproxyResponsesErrors.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordHaproxyServerSelectedTotalDataPoint adds a data point to haproxy.server_selected.total metric.
 func (mb *MetricsBuilder) RecordHaproxyServerSelectedTotalDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyServerSelectedTotal, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyServerSelectedTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxySessionsAverageDataPoint adds a data point to haproxy.sessions.average metric.
 func (mb *MetricsBuilder) RecordHaproxySessionsAverageDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxySessionsAverage, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxySessionsAverage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxySessionsCountDataPoint adds a data point to haproxy.sessions.count metric.
 func (mb *MetricsBuilder) RecordHaproxySessionsCountDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxySessionsCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxySessionsCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxySessionsLimitDataPoint adds a data point to haproxy.sessions.limit metric.
 func (mb *MetricsBuilder) RecordHaproxySessionsLimitDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxySessionsLimit, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxySessionsLimit.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxySessionsRateDataPoint adds a data point to haproxy.sessions.rate metric.
 func (mb *MetricsBuilder) RecordHaproxySessionsRateDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseFloat(inputVal, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse float64 for HaproxySessionsRate, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxySessionsRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxySessionsTotalDataPoint adds a data point to haproxy.sessions.total metric.
 func (mb *MetricsBuilder) RecordHaproxySessionsTotalDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxySessionsTotal, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxySessionsTotal.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordHaproxyWeightDataPoint adds a data point to haproxy.weight metric.
 func (mb *MetricsBuilder) RecordHaproxyWeightDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for HaproxyWeight, value was %s: %w", inputVal, err)
-	}
-	mb.metricHaproxyWeight.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

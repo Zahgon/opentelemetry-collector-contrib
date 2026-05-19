@@ -12,9 +12,11 @@ type meterService struct {
 }
 
 func (*meterService) Collect(meter.MeterReportService_CollectServer) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*meterService) CollectBatch(meter.MeterReportService_CollectBatchServer) error {
+	_ = "STUB: not implemented"
 	return nil
 }

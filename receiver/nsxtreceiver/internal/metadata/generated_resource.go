@@ -15,43 +15,24 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetDeviceID sets provided value as "device.id" attribute.
-func (rb *ResourceBuilder) SetDeviceID(val string) {
-	if rb.config.DeviceID.Enabled {
-		rb.res.Attributes().PutStr("device.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetDeviceID(val string) { _ = "STUB: not implemented"; return }
 
 // SetNsxtNodeID sets provided value as "nsxt.node.id" attribute.
-func (rb *ResourceBuilder) SetNsxtNodeID(val string) {
-	if rb.config.NsxtNodeID.Enabled {
-		rb.res.Attributes().PutStr("nsxt.node.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetNsxtNodeID(val string) { _ = "STUB: not implemented"; return }
 
 // SetNsxtNodeName sets provided value as "nsxt.node.name" attribute.
-func (rb *ResourceBuilder) SetNsxtNodeName(val string) {
-	if rb.config.NsxtNodeName.Enabled {
-		rb.res.Attributes().PutStr("nsxt.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetNsxtNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetNsxtNodeType sets provided value as "nsxt.node.type" attribute.
-func (rb *ResourceBuilder) SetNsxtNodeType(val string) {
-	if rb.config.NsxtNodeType.Enabled {
-		rb.res.Attributes().PutStr("nsxt.node.type", val)
-	}
-}
+func (rb *ResourceBuilder) SetNsxtNodeType(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

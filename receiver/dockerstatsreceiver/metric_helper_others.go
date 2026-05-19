@@ -23,25 +23,13 @@ import (
 // See also https://www.apache.org/dev/crypto.html and/or seek legal counsel.
 
 func calculateCPUPercent(containerStats *ctypes.StatsResponse) float64 {
-	v := containerStats.CPUStats
-	previous := containerStats.PreCPUStats
-	var (
-		cpuPercent = 0.0
-		// calculate the change for the cpu usage of the container in between readings
-		cpuDelta = float64(v.CPUUsage.TotalUsage) - float64(previous.CPUUsage.TotalUsage)
-		// calculate the change for the entire system between readings
-		systemDelta = float64(v.SystemUsage) - float64(previous.SystemUsage)
-		onlineCPUs  = float64(v.OnlineCPUs)
-	)
-
-	if onlineCPUs == 0.0 {
-		onlineCPUs = float64(len(v.CPUUsage.PercpuUsage))
-	}
-	if systemDelta > 0.0 && cpuDelta > 0.0 {
-		cpuPercent = (cpuDelta / systemDelta) * onlineCPUs * 100.0
-	}
-	return cpuPercent
+	_ = "STUB: not implemented"
+	return 0
 }
+
+// calculate the change for the cpu usage of the container in between readings
+
+// calculate the change for the entire system between readings
 
 // calculateMemUsageNoCache calculate memory usage of the container.
 // Cache is intentionally excluded to avoid misinterpretation of the output.
@@ -56,13 +44,9 @@ func calculateCPUPercent(containerStats *ctypes.StatsResponse) float64 {
 // On Docker 19.03 and older, the result was `mem.Usage - mem.Stats["cache"]`.
 // See https://github.com/moby/moby/issues/40727 for the background.
 func calculateMemUsageNoCache(memoryStats *ctypes.MemoryStats) uint64 {
+	_ = "STUB: not implemented"
 	// cgroup v1
-	if v, isCgroup1 := memoryStats.Stats["total_inactive_file"]; isCgroup1 && v < memoryStats.Usage {
-		return memoryStats.Usage - v
-	}
-	// cgroup v2
-	if v := memoryStats.Stats["inactive_file"]; v < memoryStats.Usage {
-		return memoryStats.Usage - v
-	}
-	return memoryStats.Usage
+	return 0
 }
+
+// cgroup v2

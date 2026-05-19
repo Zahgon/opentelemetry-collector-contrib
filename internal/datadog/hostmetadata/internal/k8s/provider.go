@@ -6,7 +6,6 @@ package k8s // import "github.com/open-telemetry/opentelemetry-collector-contrib
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/attributes/source"
 	"go.uber.org/zap"
@@ -24,25 +23,12 @@ type Provider struct {
 
 // Hostname returns the Kubernetes node name followed by the cluster name if available.
 func (p *Provider) Source(ctx context.Context) (source.Source, error) {
-	nodeName, err := p.nodeNameProvider.NodeName(ctx)
-	if err != nil {
-		return source.Source{}, fmt.Errorf("node name not available: %w", err)
-	}
-
-	clusterName, err := p.clusterNameProvider.ClusterName(ctx)
-	if err != nil {
-		p.logger.Debug("failed to get valid cluster name", zap.Error(err))
-		return source.Source{Kind: source.HostnameKind, Identifier: nodeName}, nil
-	}
-
-	return source.Source{Kind: source.HostnameKind, Identifier: fmt.Sprintf("%s-%s", nodeName, clusterName)}, nil
+	_ = "STUB: not implemented"
+	return *new(source.Source), nil
 }
 
 // NewProvider creates a new Kubernetes hostname provider.
 func NewProvider(logger *zap.Logger, clusterProvider provider.ClusterNameProvider) (*Provider, error) {
-	return &Provider{
-		logger:              logger,
-		nodeNameProvider:    newNodeNameProvider(),
-		clusterNameProvider: clusterProvider,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

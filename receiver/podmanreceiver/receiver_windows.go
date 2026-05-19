@@ -5,7 +5,6 @@ package podmanreceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"errors"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -18,7 +17,8 @@ func newMetricsReceiver(
 	_ consumer.Metrics,
 	_ any,
 ) (receiver.Metrics, error) {
-	return nil, errors.New("podman receiver is not supported on windows")
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func createMetricsReceiver(
@@ -27,7 +27,6 @@ func createMetricsReceiver(
 	config component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	podmanConfig := config.(*Config)
-
-	return newMetricsReceiver(params, podmanConfig, nil, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

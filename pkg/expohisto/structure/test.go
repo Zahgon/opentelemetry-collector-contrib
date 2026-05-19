@@ -15,22 +15,12 @@
 package structure // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/expohisto/structure"
 
 // NewFloat64 is a test helper for constructing float64-valued histograms.
-func NewFloat64(cfg Config, values ...float64) *Float64 {
-	return newHist[float64](cfg, values)
-}
+func NewFloat64(cfg Config, values ...float64) *Float64 { _ = "STUB: not implemented"; return nil }
 
 // NewFloat64 is a test helper for constructing int64-valued histograms.
-func NewInt64(cfg Config, values ...int64) *Int64 {
-	return newHist[int64](cfg, values)
-}
+func NewInt64(cfg Config, values ...int64) *Int64 { _ = "STUB: not implemented"; return nil }
 
 func newHist[N ValueType](cfg Config, values []N) *Histogram[N] {
-	state := &Histogram[N]{}
-
-	state.Init(cfg)
-
-	for _, val := range values {
-		state.Update(val)
-	}
-	return state
+	_ = "STUB: not implemented"
+	return nil
 }

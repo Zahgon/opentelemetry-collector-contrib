@@ -5,7 +5,6 @@ package githubscraper
 import (
 	"context"
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
@@ -21,69 +20,22 @@ type BranchHistory struct {
 }
 
 // GetTarget returns BranchHistory.Target, and is useful for accessing the field via an interface.
-func (v *BranchHistory) GetTarget() BranchHistoryTargetGitObject { return v.Target }
-
-func (v *BranchHistory) UnmarshalJSON(b []byte) error {
-
-	if string(b) == "null" {
-		return nil
-	}
-
-	var firstPass struct {
-		*BranchHistory
-		Target json.RawMessage `json:"target"`
-		graphql.NoUnmarshalJSON
-	}
-	firstPass.BranchHistory = v
-
-	err := json.Unmarshal(b, &firstPass)
-	if err != nil {
-		return err
-	}
-
-	{
-		dst := &v.Target
-		src := firstPass.Target
-		if len(src) != 0 && string(src) != "null" {
-			err = __unmarshalBranchHistoryTargetGitObject(
-				src, dst)
-			if err != nil {
-				return fmt.Errorf(
-					"unable to unmarshal BranchHistory.Target: %w", err)
-			}
-		}
-	}
-	return nil
+func (v *BranchHistory) GetTarget() BranchHistoryTargetGitObject {
+	_ = "STUB: not implemented"
+	return *new(BranchHistoryTargetGitObject)
 }
+
+func (v *BranchHistory) UnmarshalJSON(b []byte) error { _ = "STUB: not implemented"; return nil }
 
 type __premarshalBranchHistory struct {
 	Target json.RawMessage `json:"target"`
 }
 
-func (v *BranchHistory) MarshalJSON() ([]byte, error) {
-	premarshaled, err := v.__premarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	return json.Marshal(premarshaled)
-}
+func (v *BranchHistory) MarshalJSON() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func (v *BranchHistory) __premarshalJSON() (*__premarshalBranchHistory, error) {
-	var retval __premarshalBranchHistory
-
-	{
-
-		dst := &retval.Target
-		src := v.Target
-		var err error
-		*dst, err = __marshalBranchHistoryTargetGitObject(
-			&src)
-		if err != nil {
-			return nil, fmt.Errorf(
-				"unable to marshal BranchHistory.Target: %w", err)
-		}
-	}
-	return &retval, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // BranchHistoryTargetBlob includes the requested fields of the GraphQL type Blob.
@@ -95,12 +47,16 @@ type BranchHistoryTargetBlob struct {
 }
 
 // GetTypename returns BranchHistoryTargetBlob.Typename, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetBlob) GetTypename() string { return v.Typename }
+func (v *BranchHistoryTargetBlob) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// BranchHistoryTargetCommit includes the requested fields of the GraphQL type Commit.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git commit.
+	// BranchHistoryTargetCommit includes the requested fields of the GraphQL type Commit.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git commit.
+	return ""
+}
+
 type BranchHistoryTargetCommit struct {
 	Typename string `json:"__typename"`
 	// The Node ID of the Commit object
@@ -110,20 +66,30 @@ type BranchHistoryTargetCommit struct {
 }
 
 // GetTypename returns BranchHistoryTargetCommit.Typename, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetCommit) GetTypename() string { return v.Typename }
+func (v *BranchHistoryTargetCommit) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// GetId returns BranchHistoryTargetCommit.Id, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetCommit) GetId() string { return v.Id }
-
-// GetHistory returns BranchHistoryTargetCommit.History, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetCommit) GetHistory() BranchHistoryTargetCommitHistoryCommitHistoryConnection {
-	return v.History
+	// GetId returns BranchHistoryTargetCommit.Id, and is useful for accessing the field via an interface.
+	return ""
 }
 
-// BranchHistoryTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for Commit.
+func (v *BranchHistoryTargetCommit) GetId() string {
+	_ = "STUB: not implemented"
+
+	// GetHistory returns BranchHistoryTargetCommit.History, and is useful for accessing the field via an interface.
+	return ""
+}
+
+func (v *BranchHistoryTargetCommit) GetHistory() BranchHistoryTargetCommitHistoryCommitHistoryConnection {
+	_ = "STUB: not implemented"
+
+	// BranchHistoryTargetCommitHistoryCommitHistoryConnection includes the requested fields of the GraphQL type CommitHistoryConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for Commit.
+	return *new(BranchHistoryTargetCommitHistoryCommitHistoryConnection)
+}
+
 type BranchHistoryTargetCommitHistoryCommitHistoryConnection struct {
 	// A list of nodes.
 	Nodes []CommitNode `json:"nodes"`
@@ -133,18 +99,22 @@ type BranchHistoryTargetCommitHistoryCommitHistoryConnection struct {
 
 // GetNodes returns BranchHistoryTargetCommitHistoryCommitHistoryConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *BranchHistoryTargetCommitHistoryCommitHistoryConnection) GetNodes() []CommitNode {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// GetPageInfo returns BranchHistoryTargetCommitHistoryCommitHistoryConnection.PageInfo, and is useful for accessing the field via an interface.
+	return nil
 }
 
-// GetPageInfo returns BranchHistoryTargetCommitHistoryCommitHistoryConnection.PageInfo, and is useful for accessing the field via an interface.
 func (v *BranchHistoryTargetCommitHistoryCommitHistoryConnection) GetPageInfo() BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo {
-	return v.PageInfo
+	_ = "STUB: not implemented"
+
+	// BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+	// The GraphQL type's documentation follows.
+	//
+	// Information about pagination in a connection.
+	return *new(BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo)
 }
 
-// BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
-// The GraphQL type's documentation follows.
-//
-// Information about pagination in a connection.
 type BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo struct {
 	// When paginating forwards, the cursor to continue.
 	EndCursor string `json:"endCursor"`
@@ -154,112 +124,59 @@ type BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo struct {
 
 // GetEndCursor returns BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
 func (v *BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo) GetEndCursor() string {
-	return v.EndCursor
+	_ = "STUB: not implemented"
+	return ""
+
+	// GetHasNextPage returns BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
 }
 
-// GetHasNextPage returns BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
 func (v *BranchHistoryTargetCommitHistoryCommitHistoryConnectionPageInfo) GetHasNextPage() bool {
-	return v.HasNextPage
+	_ = "STUB: not implemented"
+	return false
+
+	// BranchHistoryTargetGitObject includes the requested fields of the GraphQL interface GitObject.
+	//
+	// BranchHistoryTargetGitObject is implemented by the following types:
+	// BranchHistoryTargetBlob
+	// BranchHistoryTargetCommit
+	// BranchHistoryTargetTag
+	// BranchHistoryTargetTree
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git object.
 }
 
-// BranchHistoryTargetGitObject includes the requested fields of the GraphQL interface GitObject.
-//
-// BranchHistoryTargetGitObject is implemented by the following types:
-// BranchHistoryTargetBlob
-// BranchHistoryTargetCommit
-// BranchHistoryTargetTag
-// BranchHistoryTargetTree
-// The GraphQL type's documentation follows.
-//
-// Represents a Git object.
 type BranchHistoryTargetGitObject interface {
 	implementsGraphQLInterfaceBranchHistoryTargetGitObject()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() string
 }
 
-func (v *BranchHistoryTargetBlob) implementsGraphQLInterfaceBranchHistoryTargetGitObject()   {}
-func (v *BranchHistoryTargetCommit) implementsGraphQLInterfaceBranchHistoryTargetGitObject() {}
-func (v *BranchHistoryTargetTag) implementsGraphQLInterfaceBranchHistoryTargetGitObject()    {}
-func (v *BranchHistoryTargetTree) implementsGraphQLInterfaceBranchHistoryTargetGitObject()   {}
+func (v *BranchHistoryTargetBlob) implementsGraphQLInterfaceBranchHistoryTargetGitObject() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *BranchHistoryTargetCommit) implementsGraphQLInterfaceBranchHistoryTargetGitObject() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *BranchHistoryTargetTag) implementsGraphQLInterfaceBranchHistoryTargetGitObject() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *BranchHistoryTargetTree) implementsGraphQLInterfaceBranchHistoryTargetGitObject() {
+	_ = "STUB: not implemented"
+	return
+}
 
 func __unmarshalBranchHistoryTargetGitObject(b []byte, v *BranchHistoryTargetGitObject) error {
-	if string(b) == "null" {
-		return nil
-	}
-
-	var tn struct {
-		TypeName string `json:"__typename"`
-	}
-	err := json.Unmarshal(b, &tn)
-	if err != nil {
-		return err
-	}
-
-	switch tn.TypeName {
-	case "Blob":
-		*v = new(BranchHistoryTargetBlob)
-		return json.Unmarshal(b, *v)
-	case "Commit":
-		*v = new(BranchHistoryTargetCommit)
-		return json.Unmarshal(b, *v)
-	case "Tag":
-		*v = new(BranchHistoryTargetTag)
-		return json.Unmarshal(b, *v)
-	case "Tree":
-		*v = new(BranchHistoryTargetTree)
-		return json.Unmarshal(b, *v)
-	case "":
-		return fmt.Errorf(
-			"response was missing GitObject.__typename")
-	default:
-		return fmt.Errorf(
-			`unexpected concrete type for BranchHistoryTargetGitObject: "%v"`, tn.TypeName)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func __marshalBranchHistoryTargetGitObject(v *BranchHistoryTargetGitObject) ([]byte, error) {
-
-	var typename string
-	switch v := (*v).(type) {
-	case *BranchHistoryTargetBlob:
-		typename = "Blob"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*BranchHistoryTargetBlob
-		}{typename, v}
-		return json.Marshal(result)
-	case *BranchHistoryTargetCommit:
-		typename = "Commit"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*BranchHistoryTargetCommit
-		}{typename, v}
-		return json.Marshal(result)
-	case *BranchHistoryTargetTag:
-		typename = "Tag"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*BranchHistoryTargetTag
-		}{typename, v}
-		return json.Marshal(result)
-	case *BranchHistoryTargetTree:
-		typename = "Tree"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*BranchHistoryTargetTree
-		}{typename, v}
-		return json.Marshal(result)
-	case nil:
-		return []byte("null"), nil
-	default:
-		return nil, fmt.Errorf(
-			`unexpected concrete type for BranchHistoryTargetGitObject: "%T"`, v)
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // BranchHistoryTargetTag includes the requested fields of the GraphQL type Tag.
@@ -271,23 +188,31 @@ type BranchHistoryTargetTag struct {
 }
 
 // GetTypename returns BranchHistoryTargetTag.Typename, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetTag) GetTypename() string { return v.Typename }
+func (v *BranchHistoryTargetTag) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// BranchHistoryTargetTree includes the requested fields of the GraphQL type Tree.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git tree.
+	// BranchHistoryTargetTree includes the requested fields of the GraphQL type Tree.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git tree.
+	return ""
+}
+
 type BranchHistoryTargetTree struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns BranchHistoryTargetTree.Typename, and is useful for accessing the field via an interface.
-func (v *BranchHistoryTargetTree) GetTypename() string { return v.Typename }
+func (v *BranchHistoryTargetTree) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// BranchNode includes the requested fields of the GraphQL type Ref.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git reference.
+	// BranchNode includes the requested fields of the GraphQL type Ref.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git reference.
+	return ""
+}
+
 type BranchNode struct {
 	// The ref name.
 	Name string `json:"name"`
@@ -298,18 +223,31 @@ type BranchNode struct {
 }
 
 // GetName returns BranchNode.Name, and is useful for accessing the field via an interface.
-func (v *BranchNode) GetName() string { return v.Name }
+func (v *BranchNode) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetCompare returns BranchNode.Compare, and is useful for accessing the field via an interface.
-func (v *BranchNode) GetCompare() BranchNodeCompareComparison { return v.Compare }
+	// GetCompare returns BranchNode.Compare, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetRepository returns BranchNode.Repository, and is useful for accessing the field via an interface.
-func (v *BranchNode) GetRepository() BranchNodeRepository { return v.Repository }
+func (v *BranchNode) GetCompare() BranchNodeCompareComparison {
+	_ = "STUB: not implemented"
 
-// BranchNodeCompareComparison includes the requested fields of the GraphQL type Comparison.
-// The GraphQL type's documentation follows.
-//
-// Represents a comparison between two commit revisions.
+	// GetRepository returns BranchNode.Repository, and is useful for accessing the field via an interface.
+	return *new(BranchNodeCompareComparison)
+}
+
+func (v *BranchNode) GetRepository() BranchNodeRepository {
+	_ = "STUB: not implemented"
+	return *
+
+	// BranchNodeCompareComparison includes the requested fields of the GraphQL type Comparison.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a comparison between two commit revisions.
+	new(BranchNodeRepository)
+}
+
 type BranchNodeCompareComparison struct {
 	// The number of commits ahead of the base branch.
 	AheadBy int `json:"aheadBy"`
@@ -318,15 +256,23 @@ type BranchNodeCompareComparison struct {
 }
 
 // GetAheadBy returns BranchNodeCompareComparison.AheadBy, and is useful for accessing the field via an interface.
-func (v *BranchNodeCompareComparison) GetAheadBy() int { return v.AheadBy }
+func (v *BranchNodeCompareComparison) GetAheadBy() int {
+	_ = "STUB: not implemented"
 
-// GetBehindBy returns BranchNodeCompareComparison.BehindBy, and is useful for accessing the field via an interface.
-func (v *BranchNodeCompareComparison) GetBehindBy() int { return v.BehindBy }
+	// GetBehindBy returns BranchNodeCompareComparison.BehindBy, and is useful for accessing the field via an interface.
+	return 0
+}
 
-// BranchNodeRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
+func (v *BranchNodeCompareComparison) GetBehindBy() int {
+	_ = "STUB: not implemented"
+
+	// BranchNodeRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	return 0
+}
+
 type BranchNodeRepository struct {
 	// The name of the repository.
 	Name string `json:"name"`
@@ -335,11 +281,16 @@ type BranchNodeRepository struct {
 }
 
 // GetName returns BranchNodeRepository.Name, and is useful for accessing the field via an interface.
-func (v *BranchNodeRepository) GetName() string { return v.Name }
+func (v *BranchNodeRepository) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetDefaultBranchRef returns BranchNodeRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
+	// GetDefaultBranchRef returns BranchNodeRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
+	return ""
+}
+
 func (v *BranchNodeRepository) GetDefaultBranchRef() BranchNodeRepositoryDefaultBranchRef {
-	return v.DefaultBranchRef
+	_ = "STUB: not implemented"
+	return *new(BranchNodeRepositoryDefaultBranchRef)
 }
 
 // BranchNodeRepositoryDefaultBranchRef includes the requested fields of the GraphQL type Ref.
@@ -352,12 +303,16 @@ type BranchNodeRepositoryDefaultBranchRef struct {
 }
 
 // GetName returns BranchNodeRepositoryDefaultBranchRef.Name, and is useful for accessing the field via an interface.
-func (v *BranchNodeRepositoryDefaultBranchRef) GetName() string { return v.Name }
+func (v *BranchNodeRepositoryDefaultBranchRef) GetName() string {
+	_ = "STUB: not implemented"
 
-// CommitNode includes the requested fields of the GraphQL type Commit.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git commit.
+	// CommitNode includes the requested fields of the GraphQL type Commit.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git commit.
+	return ""
+}
+
 type CommitNode struct {
 	// The datetime when this commit was committed.
 	CommittedDate time.Time `json:"committedDate"`
@@ -368,18 +323,31 @@ type CommitNode struct {
 }
 
 // GetCommittedDate returns CommitNode.CommittedDate, and is useful for accessing the field via an interface.
-func (v *CommitNode) GetCommittedDate() time.Time { return v.CommittedDate }
+func (v *CommitNode) GetCommittedDate() time.Time {
+	_ = "STUB: not implemented"
+	return *
 
-// GetAdditions returns CommitNode.Additions, and is useful for accessing the field via an interface.
-func (v *CommitNode) GetAdditions() int { return v.Additions }
+	// GetAdditions returns CommitNode.Additions, and is useful for accessing the field via an interface.
+	new(time.Time)
+}
 
-// GetDeletions returns CommitNode.Deletions, and is useful for accessing the field via an interface.
-func (v *CommitNode) GetDeletions() int { return v.Deletions }
+func (v *CommitNode) GetAdditions() int {
+	_ = "STUB: not implemented"
 
-// MergedPullRequestNode includes the requested fields of the GraphQL type PullRequest.
-// The GraphQL type's documentation follows.
-//
-// A repository pull request.
+	// GetDeletions returns CommitNode.Deletions, and is useful for accessing the field via an interface.
+	return 0
+}
+
+func (v *CommitNode) GetDeletions() int {
+	_ = "STUB: not implemented"
+
+	// MergedPullRequestNode includes the requested fields of the GraphQL type PullRequest.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository pull request.
+	return 0
+}
+
 type MergedPullRequestNode struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -396,31 +364,48 @@ type MergedPullRequestNode struct {
 }
 
 // GetCreatedAt returns MergedPullRequestNode.CreatedAt, and is useful for accessing the field via an interface.
-func (v *MergedPullRequestNode) GetCreatedAt() time.Time { return v.CreatedAt }
+func (v *MergedPullRequestNode) GetCreatedAt() time.Time {
+	_ = "STUB: not implemented"
 
-// GetMerged returns MergedPullRequestNode.Merged, and is useful for accessing the field via an interface.
-func (v *MergedPullRequestNode) GetMerged() bool { return v.Merged }
-
-// GetMergedAt returns MergedPullRequestNode.MergedAt, and is useful for accessing the field via an interface.
-func (v *MergedPullRequestNode) GetMergedAt() time.Time { return v.MergedAt }
-
-// GetMergeCommit returns MergedPullRequestNode.MergeCommit, and is useful for accessing the field via an interface.
-func (v *MergedPullRequestNode) GetMergeCommit() MergedPullRequestNodeMergeCommit {
-	return v.MergeCommit
+	// GetMerged returns MergedPullRequestNode.Merged, and is useful for accessing the field via an interface.
+	return *new(time.Time)
 }
 
-// GetHeadRefName returns MergedPullRequestNode.HeadRefName, and is useful for accessing the field via an interface.
-func (v *MergedPullRequestNode) GetHeadRefName() string { return v.HeadRefName }
+func (v *MergedPullRequestNode) GetMerged() bool {
+	_ = "STUB: not implemented"
+
+	// GetMergedAt returns MergedPullRequestNode.MergedAt, and is useful for accessing the field via an interface.
+	return false
+}
+
+func (v *MergedPullRequestNode) GetMergedAt() time.Time {
+	_ = "STUB: not implemented"
+
+	// GetMergeCommit returns MergedPullRequestNode.MergeCommit, and is useful for accessing the field via an interface.
+	return *new(time.Time)
+}
+
+func (v *MergedPullRequestNode) GetMergeCommit() MergedPullRequestNodeMergeCommit {
+	_ = "STUB: not implemented"
+	return *
+
+	// GetHeadRefName returns MergedPullRequestNode.HeadRefName, and is useful for accessing the field via an interface.
+	new(MergedPullRequestNodeMergeCommit)
+}
+
+func (v *MergedPullRequestNode) GetHeadRefName() string { _ = "STUB: not implemented"; return "" }
 
 // GetReviews returns MergedPullRequestNode.Reviews, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNode) GetReviews() MergedPullRequestNodeReviewsPullRequestReviewConnection {
-	return v.Reviews
+	_ = "STUB: not implemented"
+
+	// MergedPullRequestNodeMergeCommit includes the requested fields of the GraphQL type Commit.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git commit.
+	return *new(MergedPullRequestNodeReviewsPullRequestReviewConnection)
 }
 
-// MergedPullRequestNodeMergeCommit includes the requested fields of the GraphQL type Commit.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git commit.
 type MergedPullRequestNodeMergeCommit struct {
 	// The deployments associated with a commit.
 	Deployments MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection `json:"deployments"`
@@ -428,13 +413,16 @@ type MergedPullRequestNodeMergeCommit struct {
 
 // GetDeployments returns MergedPullRequestNodeMergeCommit.Deployments, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeMergeCommit) GetDeployments() MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection {
-	return v.Deployments
+	_ = "STUB: not implemented"
+	return *
+
+	// MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection includes the requested fields of the GraphQL type DeploymentConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for Deployment.
+	new(MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection)
 }
 
-// MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection includes the requested fields of the GraphQL type DeploymentConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for Deployment.
 type MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection struct {
 	// A list of nodes.
 	Nodes []MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment `json:"nodes"`
@@ -444,18 +432,22 @@ type MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection struct {
 
 // GetNodes returns MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection) GetNodes() []MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// GetTotalCount returns MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection.TotalCount, and is useful for accessing the field via an interface.
+	return nil
 }
 
-// GetTotalCount returns MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection.TotalCount, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnection) GetTotalCount() int {
-	return v.TotalCount
+	_ = "STUB: not implemented"
+	return 0
+
+	// MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment includes the requested fields of the GraphQL type Deployment.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents triggered deployment instance.
 }
 
-// MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment includes the requested fields of the GraphQL type Deployment.
-// The GraphQL type's documentation follows.
-//
-// Represents triggered deployment instance.
 type MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -463,13 +455,16 @@ type MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeploym
 
 // GetCreatedAt returns MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment.CreatedAt, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment) GetCreatedAt() time.Time {
-	return v.CreatedAt
+	_ = "STUB: not implemented"
+	return *
+
+	// MergedPullRequestNodeReviewsPullRequestReviewConnection includes the requested fields of the GraphQL type PullRequestReviewConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for PullRequestReview.
+	new(time.Time)
 }
 
-// MergedPullRequestNodeReviewsPullRequestReviewConnection includes the requested fields of the GraphQL type PullRequestReviewConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for PullRequestReview.
 type MergedPullRequestNodeReviewsPullRequestReviewConnection struct {
 	// Identifies the total count of items in the connection.
 	TotalCount int `json:"totalCount"`
@@ -479,18 +474,22 @@ type MergedPullRequestNodeReviewsPullRequestReviewConnection struct {
 
 // GetTotalCount returns MergedPullRequestNodeReviewsPullRequestReviewConnection.TotalCount, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeReviewsPullRequestReviewConnection) GetTotalCount() int {
-	return v.TotalCount
+	_ = "STUB: not implemented"
+	return 0
+
+	// GetNodes returns MergedPullRequestNodeReviewsPullRequestReviewConnection.Nodes, and is useful for accessing the field via an interface.
 }
 
-// GetNodes returns MergedPullRequestNodeReviewsPullRequestReviewConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeReviewsPullRequestReviewConnection) GetNodes() []MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview includes the requested fields of the GraphQL type PullRequestReview.
+	// The GraphQL type's documentation follows.
+	//
+	// A review object for a given pull request.
+	return nil
 }
 
-// MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview includes the requested fields of the GraphQL type PullRequestReview.
-// The GraphQL type's documentation follows.
-//
-// A review object for a given pull request.
 type MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -498,13 +497,16 @@ type MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestRevi
 
 // GetCreatedAt returns MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview.CreatedAt, and is useful for accessing the field via an interface.
 func (v *MergedPullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview) GetCreatedAt() time.Time {
-	return v.CreatedAt
+	_ = "STUB: not implemented"
+	return *
+
+	// PullRequestNode includes the requested fields of the GraphQL type PullRequest.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository pull request.
+	new(time.Time)
 }
 
-// PullRequestNode includes the requested fields of the GraphQL type PullRequest.
-// The GraphQL type's documentation follows.
-//
-// A repository pull request.
 type PullRequestNode struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -521,29 +523,48 @@ type PullRequestNode struct {
 }
 
 // GetCreatedAt returns PullRequestNode.CreatedAt, and is useful for accessing the field via an interface.
-func (v *PullRequestNode) GetCreatedAt() time.Time { return v.CreatedAt }
+func (v *PullRequestNode) GetCreatedAt() time.Time {
+	_ = "STUB: not implemented"
 
-// GetMerged returns PullRequestNode.Merged, and is useful for accessing the field via an interface.
-func (v *PullRequestNode) GetMerged() bool { return v.Merged }
+	// GetMerged returns PullRequestNode.Merged, and is useful for accessing the field via an interface.
+	return *new(time.Time)
+}
 
-// GetMergedAt returns PullRequestNode.MergedAt, and is useful for accessing the field via an interface.
-func (v *PullRequestNode) GetMergedAt() time.Time { return v.MergedAt }
+func (v *PullRequestNode) GetMerged() bool {
+	_ = "STUB: not implemented"
 
-// GetMergeCommit returns PullRequestNode.MergeCommit, and is useful for accessing the field via an interface.
-func (v *PullRequestNode) GetMergeCommit() PullRequestNodeMergeCommit { return v.MergeCommit }
+	// GetMergedAt returns PullRequestNode.MergedAt, and is useful for accessing the field via an interface.
+	return false
+}
 
-// GetHeadRefName returns PullRequestNode.HeadRefName, and is useful for accessing the field via an interface.
-func (v *PullRequestNode) GetHeadRefName() string { return v.HeadRefName }
+func (v *PullRequestNode) GetMergedAt() time.Time {
+	_ = "STUB: not implemented"
+
+	// GetMergeCommit returns PullRequestNode.MergeCommit, and is useful for accessing the field via an interface.
+	return *new(time.Time)
+}
+
+func (v *PullRequestNode) GetMergeCommit() PullRequestNodeMergeCommit {
+	_ = "STUB: not implemented"
+	return *
+
+	// GetHeadRefName returns PullRequestNode.HeadRefName, and is useful for accessing the field via an interface.
+	new(PullRequestNodeMergeCommit)
+}
+
+func (v *PullRequestNode) GetHeadRefName() string { _ = "STUB: not implemented"; return "" }
 
 // GetReviews returns PullRequestNode.Reviews, and is useful for accessing the field via an interface.
 func (v *PullRequestNode) GetReviews() PullRequestNodeReviewsPullRequestReviewConnection {
-	return v.Reviews
+	_ = "STUB: not implemented"
+
+	// PullRequestNodeMergeCommit includes the requested fields of the GraphQL type Commit.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git commit.
+	return *new(PullRequestNodeReviewsPullRequestReviewConnection)
 }
 
-// PullRequestNodeMergeCommit includes the requested fields of the GraphQL type Commit.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git commit.
 type PullRequestNodeMergeCommit struct {
 	// The deployments associated with a commit.
 	Deployments PullRequestNodeMergeCommitDeploymentsDeploymentConnection `json:"deployments"`
@@ -551,13 +572,16 @@ type PullRequestNodeMergeCommit struct {
 
 // GetDeployments returns PullRequestNodeMergeCommit.Deployments, and is useful for accessing the field via an interface.
 func (v *PullRequestNodeMergeCommit) GetDeployments() PullRequestNodeMergeCommitDeploymentsDeploymentConnection {
-	return v.Deployments
+	_ = "STUB: not implemented"
+	return *
+
+	// PullRequestNodeMergeCommitDeploymentsDeploymentConnection includes the requested fields of the GraphQL type DeploymentConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for Deployment.
+	new(PullRequestNodeMergeCommitDeploymentsDeploymentConnection)
 }
 
-// PullRequestNodeMergeCommitDeploymentsDeploymentConnection includes the requested fields of the GraphQL type DeploymentConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for Deployment.
 type PullRequestNodeMergeCommitDeploymentsDeploymentConnection struct {
 	// A list of nodes.
 	Nodes []PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment `json:"nodes"`
@@ -567,18 +591,22 @@ type PullRequestNodeMergeCommitDeploymentsDeploymentConnection struct {
 
 // GetNodes returns PullRequestNodeMergeCommitDeploymentsDeploymentConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *PullRequestNodeMergeCommitDeploymentsDeploymentConnection) GetNodes() []PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// GetTotalCount returns PullRequestNodeMergeCommitDeploymentsDeploymentConnection.TotalCount, and is useful for accessing the field via an interface.
+	return nil
 }
 
-// GetTotalCount returns PullRequestNodeMergeCommitDeploymentsDeploymentConnection.TotalCount, and is useful for accessing the field via an interface.
 func (v *PullRequestNodeMergeCommitDeploymentsDeploymentConnection) GetTotalCount() int {
-	return v.TotalCount
+	_ = "STUB: not implemented"
+	return 0
+
+	// PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment includes the requested fields of the GraphQL type Deployment.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents triggered deployment instance.
 }
 
-// PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment includes the requested fields of the GraphQL type Deployment.
-// The GraphQL type's documentation follows.
-//
-// Represents triggered deployment instance.
 type PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -586,13 +614,16 @@ type PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment st
 
 // GetCreatedAt returns PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment.CreatedAt, and is useful for accessing the field via an interface.
 func (v *PullRequestNodeMergeCommitDeploymentsDeploymentConnectionNodesDeployment) GetCreatedAt() time.Time {
-	return v.CreatedAt
+	_ = "STUB: not implemented"
+	return *
+
+	// PullRequestNodeReviewsPullRequestReviewConnection includes the requested fields of the GraphQL type PullRequestReviewConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for PullRequestReview.
+	new(time.Time)
 }
 
-// PullRequestNodeReviewsPullRequestReviewConnection includes the requested fields of the GraphQL type PullRequestReviewConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for PullRequestReview.
 type PullRequestNodeReviewsPullRequestReviewConnection struct {
 	// Identifies the total count of items in the connection.
 	TotalCount int `json:"totalCount"`
@@ -601,17 +632,23 @@ type PullRequestNodeReviewsPullRequestReviewConnection struct {
 }
 
 // GetTotalCount returns PullRequestNodeReviewsPullRequestReviewConnection.TotalCount, and is useful for accessing the field via an interface.
-func (v *PullRequestNodeReviewsPullRequestReviewConnection) GetTotalCount() int { return v.TotalCount }
+func (v *PullRequestNodeReviewsPullRequestReviewConnection) GetTotalCount() int {
+	_ = "STUB: not implemented"
+	return 0
 
-// GetNodes returns PullRequestNodeReviewsPullRequestReviewConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *PullRequestNodeReviewsPullRequestReviewConnection) GetNodes() []PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview {
-	return v.Nodes
+	// GetNodes returns PullRequestNodeReviewsPullRequestReviewConnection.Nodes, and is useful for accessing the field via an interface.
 }
 
-// PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview includes the requested fields of the GraphQL type PullRequestReview.
-// The GraphQL type's documentation follows.
-//
-// A review object for a given pull request.
+func (v *PullRequestNodeReviewsPullRequestReviewConnection) GetNodes() []PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview {
+	_ = "STUB: not implemented"
+
+	// PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview includes the requested fields of the GraphQL type PullRequestReview.
+	// The GraphQL type's documentation follows.
+	//
+	// A review object for a given pull request.
+	return nil
+}
+
 type PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview struct {
 	// Identifies the date and time when the object was created.
 	CreatedAt time.Time `json:"createdAt"`
@@ -619,160 +656,59 @@ type PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview str
 
 // GetCreatedAt returns PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview.CreatedAt, and is useful for accessing the field via an interface.
 func (v *PullRequestNodeReviewsPullRequestReviewConnectionNodesPullRequestReview) GetCreatedAt() time.Time {
-	return v.CreatedAt
+	_ = "STUB: not implemented"
+	return *
+
+	// SearchNode includes the requested fields of the GraphQL interface SearchResultItem.
+	//
+	// SearchNode is implemented by the following types:
+	// SearchNodeApp
+	// SearchNodeDiscussion
+	// SearchNodeIssue
+	// SearchNodeMarketplaceListing
+	// SearchNodeOrganization
+	// SearchNodePullRequest
+	// SearchNodeRepository
+	// SearchNodeUser
+	// The GraphQL type's documentation follows.
+	//
+	// The results of a search.
+	new(time.Time)
 }
 
-// SearchNode includes the requested fields of the GraphQL interface SearchResultItem.
-//
-// SearchNode is implemented by the following types:
-// SearchNodeApp
-// SearchNodeDiscussion
-// SearchNodeIssue
-// SearchNodeMarketplaceListing
-// SearchNodeOrganization
-// SearchNodePullRequest
-// SearchNodeRepository
-// SearchNodeUser
-// The GraphQL type's documentation follows.
-//
-// The results of a search.
 type SearchNode interface {
 	implementsGraphQLInterfaceSearchNode()
 	// GetTypename returns the receiver's concrete GraphQL type-name (see interface doc for possible values).
 	GetTypename() string
 }
 
-func (v *SearchNodeApp) implementsGraphQLInterfaceSearchNode()                {}
-func (v *SearchNodeDiscussion) implementsGraphQLInterfaceSearchNode()         {}
-func (v *SearchNodeIssue) implementsGraphQLInterfaceSearchNode()              {}
-func (v *SearchNodeMarketplaceListing) implementsGraphQLInterfaceSearchNode() {}
-func (v *SearchNodeOrganization) implementsGraphQLInterfaceSearchNode()       {}
-func (v *SearchNodePullRequest) implementsGraphQLInterfaceSearchNode()        {}
-func (v *SearchNodeRepository) implementsGraphQLInterfaceSearchNode()         {}
-func (v *SearchNodeUser) implementsGraphQLInterfaceSearchNode()               {}
-
-func __unmarshalSearchNode(b []byte, v *SearchNode) error {
-	if string(b) == "null" {
-		return nil
-	}
-
-	var tn struct {
-		TypeName string `json:"__typename"`
-	}
-	err := json.Unmarshal(b, &tn)
-	if err != nil {
-		return err
-	}
-
-	switch tn.TypeName {
-	case "App":
-		*v = new(SearchNodeApp)
-		return json.Unmarshal(b, *v)
-	case "Discussion":
-		*v = new(SearchNodeDiscussion)
-		return json.Unmarshal(b, *v)
-	case "Issue":
-		*v = new(SearchNodeIssue)
-		return json.Unmarshal(b, *v)
-	case "MarketplaceListing":
-		*v = new(SearchNodeMarketplaceListing)
-		return json.Unmarshal(b, *v)
-	case "Organization":
-		*v = new(SearchNodeOrganization)
-		return json.Unmarshal(b, *v)
-	case "PullRequest":
-		*v = new(SearchNodePullRequest)
-		return json.Unmarshal(b, *v)
-	case "Repository":
-		*v = new(SearchNodeRepository)
-		return json.Unmarshal(b, *v)
-	case "User":
-		*v = new(SearchNodeUser)
-		return json.Unmarshal(b, *v)
-	case "":
-		return fmt.Errorf(
-			"response was missing SearchResultItem.__typename")
-	default:
-		return fmt.Errorf(
-			`unexpected concrete type for SearchNode: "%v"`, tn.TypeName)
-	}
+func (v *SearchNodeApp) implementsGraphQLInterfaceSearchNode() { _ = "STUB: not implemented"; return }
+func (v *SearchNodeDiscussion) implementsGraphQLInterfaceSearchNode() {
+	_ = "STUB: not implemented"
+	return
 }
-
-func __marshalSearchNode(v *SearchNode) ([]byte, error) {
-
-	var typename string
-	switch v := (*v).(type) {
-	case *SearchNodeApp:
-		typename = "App"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeApp
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeDiscussion:
-		typename = "Discussion"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeDiscussion
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeIssue:
-		typename = "Issue"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeIssue
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeMarketplaceListing:
-		typename = "MarketplaceListing"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeMarketplaceListing
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeOrganization:
-		typename = "Organization"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeOrganization
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodePullRequest:
-		typename = "PullRequest"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodePullRequest
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeRepository:
-		typename = "Repository"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeRepository
-		}{typename, v}
-		return json.Marshal(result)
-	case *SearchNodeUser:
-		typename = "User"
-
-		result := struct {
-			TypeName string `json:"__typename"`
-			*SearchNodeUser
-		}{typename, v}
-		return json.Marshal(result)
-	case nil:
-		return []byte("null"), nil
-	default:
-		return nil, fmt.Errorf(
-			`unexpected concrete type for SearchNode: "%T"`, v)
-	}
+func (v *SearchNodeIssue) implementsGraphQLInterfaceSearchNode() { _ = "STUB: not implemented"; return }
+func (v *SearchNodeMarketplaceListing) implementsGraphQLInterfaceSearchNode() {
+	_ = "STUB: not implemented"
+	return
 }
+func (v *SearchNodeOrganization) implementsGraphQLInterfaceSearchNode() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *SearchNodePullRequest) implementsGraphQLInterfaceSearchNode() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *SearchNodeRepository) implementsGraphQLInterfaceSearchNode() {
+	_ = "STUB: not implemented"
+	return
+}
+func (v *SearchNodeUser) implementsGraphQLInterfaceSearchNode() { _ = "STUB: not implemented"; return }
+
+func __unmarshalSearchNode(b []byte, v *SearchNode) error { _ = "STUB: not implemented"; return nil }
+
+func __marshalSearchNode(v *SearchNode) ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // SearchNodeApp includes the requested fields of the GraphQL type App.
 // The GraphQL type's documentation follows.
@@ -783,79 +719,107 @@ type SearchNodeApp struct {
 }
 
 // GetTypename returns SearchNodeApp.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeApp) GetTypename() string { return v.Typename }
+func (v *SearchNodeApp) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeDefaultBranchRef includes the requested fields of the GraphQL type Ref.
-// The GraphQL type's documentation follows.
-//
-// Represents a Git reference.
+	// SearchNodeDefaultBranchRef includes the requested fields of the GraphQL type Ref.
+	// The GraphQL type's documentation follows.
+	//
+	// Represents a Git reference.
+	return ""
+}
+
 type SearchNodeDefaultBranchRef struct {
 	// The ref name.
 	Name string `json:"name"`
 }
 
 // GetName returns SearchNodeDefaultBranchRef.Name, and is useful for accessing the field via an interface.
-func (v *SearchNodeDefaultBranchRef) GetName() string { return v.Name }
+func (v *SearchNodeDefaultBranchRef) GetName() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeDiscussion includes the requested fields of the GraphQL type Discussion.
-// The GraphQL type's documentation follows.
-//
-// A discussion in a repository.
+	// SearchNodeDiscussion includes the requested fields of the GraphQL type Discussion.
+	// The GraphQL type's documentation follows.
+	//
+	// A discussion in a repository.
+	return ""
+}
+
 type SearchNodeDiscussion struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodeDiscussion.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeDiscussion) GetTypename() string { return v.Typename }
+func (v *SearchNodeDiscussion) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeIssue includes the requested fields of the GraphQL type Issue.
-// The GraphQL type's documentation follows.
-//
-// An Issue is a place to discuss ideas, enhancements, tasks, and bugs for a project.
+	// SearchNodeIssue includes the requested fields of the GraphQL type Issue.
+	// The GraphQL type's documentation follows.
+	//
+	// An Issue is a place to discuss ideas, enhancements, tasks, and bugs for a project.
+	return ""
+}
+
 type SearchNodeIssue struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodeIssue.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeIssue) GetTypename() string { return v.Typename }
+func (v *SearchNodeIssue) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeMarketplaceListing includes the requested fields of the GraphQL type MarketplaceListing.
-// The GraphQL type's documentation follows.
-//
-// A listing in the GitHub integration marketplace.
+	// SearchNodeMarketplaceListing includes the requested fields of the GraphQL type MarketplaceListing.
+	// The GraphQL type's documentation follows.
+	//
+	// A listing in the GitHub integration marketplace.
+	return ""
+}
+
 type SearchNodeMarketplaceListing struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodeMarketplaceListing.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeMarketplaceListing) GetTypename() string { return v.Typename }
+func (v *SearchNodeMarketplaceListing) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeOrganization includes the requested fields of the GraphQL type Organization.
-// The GraphQL type's documentation follows.
-//
-// An account on GitHub, with one or more owners, that has repositories, members and teams.
+	// SearchNodeOrganization includes the requested fields of the GraphQL type Organization.
+	// The GraphQL type's documentation follows.
+	//
+	// An account on GitHub, with one or more owners, that has repositories, members and teams.
+	return ""
+}
+
 type SearchNodeOrganization struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodeOrganization.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeOrganization) GetTypename() string { return v.Typename }
+func (v *SearchNodeOrganization) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodePullRequest includes the requested fields of the GraphQL type PullRequest.
-// The GraphQL type's documentation follows.
-//
-// A repository pull request.
+	// SearchNodePullRequest includes the requested fields of the GraphQL type PullRequest.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository pull request.
+	return ""
+}
+
 type SearchNodePullRequest struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodePullRequest.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodePullRequest) GetTypename() string { return v.Typename }
+func (v *SearchNodePullRequest) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
+	// SearchNodeRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	return ""
+}
+
 type SearchNodeRepository struct {
 	Typename string `json:"__typename"`
 	// The Node ID of the Repository object
@@ -869,42 +833,67 @@ type SearchNodeRepository struct {
 }
 
 // GetTypename returns SearchNodeRepository.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeRepository) GetTypename() string { return v.Typename }
+func (v *SearchNodeRepository) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// GetId returns SearchNodeRepository.Id, and is useful for accessing the field via an interface.
-func (v *SearchNodeRepository) GetId() string { return v.Id }
+	// GetId returns SearchNodeRepository.Id, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetName returns SearchNodeRepository.Name, and is useful for accessing the field via an interface.
-func (v *SearchNodeRepository) GetName() string { return v.Name }
+func (v *SearchNodeRepository) GetId() string {
+	_ = "STUB: not implemented"
 
-// GetDefaultBranchRef returns SearchNodeRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
+	// GetName returns SearchNodeRepository.Name, and is useful for accessing the field via an interface.
+	return ""
+}
+
+func (v *SearchNodeRepository) GetName() string {
+	_ = "STUB: not implemented"
+
+	// GetDefaultBranchRef returns SearchNodeRepository.DefaultBranchRef, and is useful for accessing the field via an interface.
+	return ""
+}
+
 func (v *SearchNodeRepository) GetDefaultBranchRef() SearchNodeDefaultBranchRef {
-	return v.DefaultBranchRef
+	_ = "STUB: not implemented"
+	return *new(SearchNodeDefaultBranchRef)
 }
 
 // GetUrl returns SearchNodeRepository.Url, and is useful for accessing the field via an interface.
-func (v *SearchNodeRepository) GetUrl() string { return v.Url }
+func (v *SearchNodeRepository) GetUrl() string {
+	_ = "STUB: not implemented"
 
-// SearchNodeUser includes the requested fields of the GraphQL type User.
-// The GraphQL type's documentation follows.
-//
-// A user is an individual's account on GitHub that owns repositories and can make new content.
+	// SearchNodeUser includes the requested fields of the GraphQL type User.
+	// The GraphQL type's documentation follows.
+	//
+	// A user is an individual's account on GitHub that owns repositories and can make new content.
+	return ""
+}
+
 type SearchNodeUser struct {
 	Typename string `json:"__typename"`
 }
 
 // GetTypename returns SearchNodeUser.Typename, and is useful for accessing the field via an interface.
-func (v *SearchNodeUser) GetTypename() string { return v.Typename }
+func (v *SearchNodeUser) GetTypename() string {
+	_ = "STUB: not implemented"
 
-// __checkLoginInput is used internally by genqlient
+	// __checkLoginInput is used internally by genqlient
+	return ""
+}
+
 type __checkLoginInput struct {
 	Login string `json:"login"`
 }
 
 // GetLogin returns __checkLoginInput.Login, and is useful for accessing the field via an interface.
-func (v *__checkLoginInput) GetLogin() string { return v.Login }
+func (v *__checkLoginInput) GetLogin() string {
+	_ = "STUB: not implemented"
 
-// __getBranchDataInput is used internally by genqlient
+	// __getBranchDataInput is used internally by genqlient
+	return ""
+}
+
 type __getBranchDataInput struct {
 	Name         string  `json:"name"`
 	Owner        string  `json:"owner"`
@@ -914,19 +903,27 @@ type __getBranchDataInput struct {
 }
 
 // GetName returns __getBranchDataInput.Name, and is useful for accessing the field via an interface.
-func (v *__getBranchDataInput) GetName() string { return v.Name }
+func (v *__getBranchDataInput) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetOwner returns __getBranchDataInput.Owner, and is useful for accessing the field via an interface.
-func (v *__getBranchDataInput) GetOwner() string { return v.Owner }
+	// GetOwner returns __getBranchDataInput.Owner, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetBranchFirst returns __getBranchDataInput.BranchFirst, and is useful for accessing the field via an interface.
-func (v *__getBranchDataInput) GetBranchFirst() int { return v.BranchFirst }
+func (v *__getBranchDataInput) GetOwner() string {
+	_ = "STUB: not implemented"
+
+	// GetBranchFirst returns __getBranchDataInput.BranchFirst, and is useful for accessing the field via an interface.
+	return ""
+}
+
+func (v *__getBranchDataInput) GetBranchFirst() int { _ = "STUB: not implemented"; return 0 }
 
 // GetTargetBranch returns __getBranchDataInput.TargetBranch, and is useful for accessing the field via an interface.
-func (v *__getBranchDataInput) GetTargetBranch() string { return v.TargetBranch }
+func (v *__getBranchDataInput) GetTargetBranch() string { _ = "STUB: not implemented"; return "" }
 
 // GetBranchCursor returns __getBranchDataInput.BranchCursor, and is useful for accessing the field via an interface.
-func (v *__getBranchDataInput) GetBranchCursor() *string { return v.BranchCursor }
+func (v *__getBranchDataInput) GetBranchCursor() *string { _ = "STUB: not implemented"; return nil }
 
 // __getCommitDataInput is used internally by genqlient
 type __getCommitDataInput struct {
@@ -939,24 +936,36 @@ type __getCommitDataInput struct {
 }
 
 // GetName returns __getCommitDataInput.Name, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetName() string { return v.Name }
+func (v *__getCommitDataInput) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetOwner returns __getCommitDataInput.Owner, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetOwner() string { return v.Owner }
+	// GetOwner returns __getCommitDataInput.Owner, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetBranchFirst returns __getCommitDataInput.BranchFirst, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetBranchFirst() int { return v.BranchFirst }
+func (v *__getCommitDataInput) GetOwner() string {
+	_ = "STUB: not implemented"
+
+	// GetBranchFirst returns __getCommitDataInput.BranchFirst, and is useful for accessing the field via an interface.
+	return ""
+}
+
+func (v *__getCommitDataInput) GetBranchFirst() int { _ = "STUB: not implemented"; return 0 }
 
 // GetCommitFirst returns __getCommitDataInput.CommitFirst, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetCommitFirst() int { return v.CommitFirst }
+func (v *__getCommitDataInput) GetCommitFirst() int { _ = "STUB: not implemented"; return 0 }
 
 // GetCommitCursor returns __getCommitDataInput.CommitCursor, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetCommitCursor() *string { return v.CommitCursor }
+func (v *__getCommitDataInput) GetCommitCursor() *string { _ = "STUB: not implemented"; return nil }
 
 // GetBranchName returns __getCommitDataInput.BranchName, and is useful for accessing the field via an interface.
-func (v *__getCommitDataInput) GetBranchName() string { return v.BranchName }
+func (v *__getCommitDataInput) GetBranchName() string {
+	_ = "STUB: not implemented"
 
-// __getMergedPullRequestDataInput is used internally by genqlient
+	// __getMergedPullRequestDataInput is used internally by genqlient
+	return ""
+}
+
 type __getMergedPullRequestDataInput struct {
 	Name     string  `json:"name"`
 	Owner    string  `json:"owner"`
@@ -965,18 +974,34 @@ type __getMergedPullRequestDataInput struct {
 }
 
 // GetName returns __getMergedPullRequestDataInput.Name, and is useful for accessing the field via an interface.
-func (v *__getMergedPullRequestDataInput) GetName() string { return v.Name }
+func (v *__getMergedPullRequestDataInput) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetOwner returns __getMergedPullRequestDataInput.Owner, and is useful for accessing the field via an interface.
-func (v *__getMergedPullRequestDataInput) GetOwner() string { return v.Owner }
+	// GetOwner returns __getMergedPullRequestDataInput.Owner, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetPrLast returns __getMergedPullRequestDataInput.PrLast, and is useful for accessing the field via an interface.
-func (v *__getMergedPullRequestDataInput) GetPrLast() int { return v.PrLast }
+func (v *__getMergedPullRequestDataInput) GetOwner() string {
+	_ = "STUB: not implemented"
 
-// GetPrCursor returns __getMergedPullRequestDataInput.PrCursor, and is useful for accessing the field via an interface.
-func (v *__getMergedPullRequestDataInput) GetPrCursor() *string { return v.PrCursor }
+	// GetPrLast returns __getMergedPullRequestDataInput.PrLast, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// __getPullRequestDataInput is used internally by genqlient
+func (v *__getMergedPullRequestDataInput) GetPrLast() int {
+	_ = "STUB: not implemented"
+
+	// GetPrCursor returns __getMergedPullRequestDataInput.PrCursor, and is useful for accessing the field via an interface.
+	return 0
+}
+
+func (v *__getMergedPullRequestDataInput) GetPrCursor() *string {
+	_ = "STUB: not implemented"
+
+	// __getPullRequestDataInput is used internally by genqlient
+	return nil
+}
+
 type __getPullRequestDataInput struct {
 	Name     string  `json:"name"`
 	Owner    string  `json:"owner"`
@@ -985,42 +1010,66 @@ type __getPullRequestDataInput struct {
 }
 
 // GetName returns __getPullRequestDataInput.Name, and is useful for accessing the field via an interface.
-func (v *__getPullRequestDataInput) GetName() string { return v.Name }
+func (v *__getPullRequestDataInput) GetName() string {
+	_ = "STUB: not implemented"
 
-// GetOwner returns __getPullRequestDataInput.Owner, and is useful for accessing the field via an interface.
-func (v *__getPullRequestDataInput) GetOwner() string { return v.Owner }
+	// GetOwner returns __getPullRequestDataInput.Owner, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// GetPrFirst returns __getPullRequestDataInput.PrFirst, and is useful for accessing the field via an interface.
-func (v *__getPullRequestDataInput) GetPrFirst() int { return v.PrFirst }
+func (v *__getPullRequestDataInput) GetOwner() string {
+	_ = "STUB: not implemented"
 
-// GetPrCursor returns __getPullRequestDataInput.PrCursor, and is useful for accessing the field via an interface.
-func (v *__getPullRequestDataInput) GetPrCursor() *string { return v.PrCursor }
+	// GetPrFirst returns __getPullRequestDataInput.PrFirst, and is useful for accessing the field via an interface.
+	return ""
+}
 
-// __getRepoDataBySearchInput is used internally by genqlient
+func (v *__getPullRequestDataInput) GetPrFirst() int {
+	_ = "STUB: not implemented"
+
+	// GetPrCursor returns __getPullRequestDataInput.PrCursor, and is useful for accessing the field via an interface.
+	return 0
+}
+
+func (v *__getPullRequestDataInput) GetPrCursor() *string {
+	_ = "STUB: not implemented"
+
+	// __getRepoDataBySearchInput is used internally by genqlient
+	return nil
+}
+
 type __getRepoDataBySearchInput struct {
 	SearchQuery string  `json:"searchQuery"`
 	RepoCursor  *string `json:"repoCursor"`
 }
 
 // GetSearchQuery returns __getRepoDataBySearchInput.SearchQuery, and is useful for accessing the field via an interface.
-func (v *__getRepoDataBySearchInput) GetSearchQuery() string { return v.SearchQuery }
+func (v *__getRepoDataBySearchInput) GetSearchQuery() string { _ = "STUB: not implemented"; return "" }
 
 // GetRepoCursor returns __getRepoDataBySearchInput.RepoCursor, and is useful for accessing the field via an interface.
-func (v *__getRepoDataBySearchInput) GetRepoCursor() *string { return v.RepoCursor }
+func (v *__getRepoDataBySearchInput) GetRepoCursor() *string {
+	_ = "STUB: not implemented"
 
-// checkLoginOrganization includes the requested fields of the GraphQL type Organization.
-// The GraphQL type's documentation follows.
-//
-// An account on GitHub, with one or more owners, that has repositories, members and teams.
+	// checkLoginOrganization includes the requested fields of the GraphQL type Organization.
+	// The GraphQL type's documentation follows.
+	//
+	// An account on GitHub, with one or more owners, that has repositories, members and teams.
+	return nil
+}
+
 type checkLoginOrganization struct {
 	// The organization's login name.
 	Login string `json:"login"`
 }
 
 // GetLogin returns checkLoginOrganization.Login, and is useful for accessing the field via an interface.
-func (v *checkLoginOrganization) GetLogin() string { return v.Login }
+func (v *checkLoginOrganization) GetLogin() string {
+	_ = "STUB: not implemented"
 
-// checkLoginResponse is returned by checkLogin on success.
+	// checkLoginResponse is returned by checkLogin on success.
+	return ""
+}
+
 type checkLoginResponse struct {
 	// Lookup a user by login.
 	User checkLoginUser `json:"user"`
@@ -1029,39 +1078,56 @@ type checkLoginResponse struct {
 }
 
 // GetUser returns checkLoginResponse.User, and is useful for accessing the field via an interface.
-func (v *checkLoginResponse) GetUser() checkLoginUser { return v.User }
+func (v *checkLoginResponse) GetUser() checkLoginUser {
+	_ = "STUB: not implemented"
 
-// GetOrganization returns checkLoginResponse.Organization, and is useful for accessing the field via an interface.
-func (v *checkLoginResponse) GetOrganization() checkLoginOrganization { return v.Organization }
+	// GetOrganization returns checkLoginResponse.Organization, and is useful for accessing the field via an interface.
+	return *new(checkLoginUser)
+}
 
-// checkLoginUser includes the requested fields of the GraphQL type User.
-// The GraphQL type's documentation follows.
-//
-// A user is an individual's account on GitHub that owns repositories and can make new content.
+func (v *checkLoginResponse) GetOrganization() checkLoginOrganization {
+	_ = "STUB: not implemented"
+	return *
+
+	// checkLoginUser includes the requested fields of the GraphQL type User.
+	// The GraphQL type's documentation follows.
+	//
+	// A user is an individual's account on GitHub that owns repositories and can make new content.
+	new(checkLoginOrganization)
+}
+
 type checkLoginUser struct {
 	// The username used to login.
 	Login string `json:"login"`
 }
 
 // GetLogin returns checkLoginUser.Login, and is useful for accessing the field via an interface.
-func (v *checkLoginUser) GetLogin() string { return v.Login }
+func (v *checkLoginUser) GetLogin() string {
+	_ = "STUB: not implemented"
 
-// getBranchDataRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
+	// getBranchDataRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	return ""
+}
+
 type getBranchDataRepository struct {
 	// Fetch a list of refs from the repository
 	Refs getBranchDataRepositoryRefsRefConnection `json:"refs"`
 }
 
 // GetRefs returns getBranchDataRepository.Refs, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepository) GetRefs() getBranchDataRepositoryRefsRefConnection { return v.Refs }
+func (v *getBranchDataRepository) GetRefs() getBranchDataRepositoryRefsRefConnection {
+	_ = "STUB: not implemented"
 
-// getBranchDataRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for Ref.
+	// getBranchDataRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for Ref.
+	return *new(getBranchDataRepositoryRefsRefConnection)
+}
+
 type getBranchDataRepositoryRefsRefConnection struct {
 	// Identifies the total count of items in the connection.
 	TotalCount int `json:"totalCount"`
@@ -1072,20 +1138,30 @@ type getBranchDataRepositoryRefsRefConnection struct {
 }
 
 // GetTotalCount returns getBranchDataRepositoryRefsRefConnection.TotalCount, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepositoryRefsRefConnection) GetTotalCount() int { return v.TotalCount }
+func (v *getBranchDataRepositoryRefsRefConnection) GetTotalCount() int {
+	_ = "STUB: not implemented"
+	return 0
 
-// GetNodes returns getBranchDataRepositoryRefsRefConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepositoryRefsRefConnection) GetNodes() []BranchNode { return v.Nodes }
-
-// GetPageInfo returns getBranchDataRepositoryRefsRefConnection.PageInfo, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepositoryRefsRefConnection) GetPageInfo() getBranchDataRepositoryRefsRefConnectionPageInfo {
-	return v.PageInfo
+	// GetNodes returns getBranchDataRepositoryRefsRefConnection.Nodes, and is useful for accessing the field via an interface.
 }
 
-// getBranchDataRepositoryRefsRefConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
-// The GraphQL type's documentation follows.
-//
-// Information about pagination in a connection.
+func (v *getBranchDataRepositoryRefsRefConnection) GetNodes() []BranchNode {
+	_ = "STUB: not implemented"
+
+	// GetPageInfo returns getBranchDataRepositoryRefsRefConnection.PageInfo, and is useful for accessing the field via an interface.
+	return nil
+}
+
+func (v *getBranchDataRepositoryRefsRefConnection) GetPageInfo() getBranchDataRepositoryRefsRefConnectionPageInfo {
+	_ = "STUB: not implemented"
+
+	// getBranchDataRepositoryRefsRefConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+	// The GraphQL type's documentation follows.
+	//
+	// Information about pagination in a connection.
+	return *new(getBranchDataRepositoryRefsRefConnectionPageInfo)
+}
+
 type getBranchDataRepositoryRefsRefConnectionPageInfo struct {
 	// When paginating forwards, the cursor to continue.
 	EndCursor string `json:"endCursor"`
@@ -1094,59 +1170,83 @@ type getBranchDataRepositoryRefsRefConnectionPageInfo struct {
 }
 
 // GetEndCursor returns getBranchDataRepositoryRefsRefConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepositoryRefsRefConnectionPageInfo) GetEndCursor() string { return v.EndCursor }
+func (v *getBranchDataRepositoryRefsRefConnectionPageInfo) GetEndCursor() string {
+	_ = "STUB: not implemented"
 
-// GetHasNextPage returns getBranchDataRepositoryRefsRefConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
-func (v *getBranchDataRepositoryRefsRefConnectionPageInfo) GetHasNextPage() bool {
-	return v.HasNextPage
+	// GetHasNextPage returns getBranchDataRepositoryRefsRefConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
+	return ""
 }
 
-// getBranchDataResponse is returned by getBranchData on success.
+func (v *getBranchDataRepositoryRefsRefConnectionPageInfo) GetHasNextPage() bool {
+	_ = "STUB: not implemented"
+	return false
+
+	// getBranchDataResponse is returned by getBranchData on success.
+}
+
 type getBranchDataResponse struct {
 	// Lookup a given repository by the owner and repository name.
 	Repository getBranchDataRepository `json:"repository"`
 }
 
 // GetRepository returns getBranchDataResponse.Repository, and is useful for accessing the field via an interface.
-func (v *getBranchDataResponse) GetRepository() getBranchDataRepository { return v.Repository }
+func (v *getBranchDataResponse) GetRepository() getBranchDataRepository {
+	_ = "STUB: not implemented"
+	return *
 
-// getCommitDataRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
+	// getCommitDataRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	new(getBranchDataRepository)
+}
+
 type getCommitDataRepository struct {
 	// Fetch a list of refs from the repository
 	Refs getCommitDataRepositoryRefsRefConnection `json:"refs"`
 }
 
 // GetRefs returns getCommitDataRepository.Refs, and is useful for accessing the field via an interface.
-func (v *getCommitDataRepository) GetRefs() getCommitDataRepositoryRefsRefConnection { return v.Refs }
+func (v *getCommitDataRepository) GetRefs() getCommitDataRepositoryRefsRefConnection {
+	_ = "STUB: not implemented"
 
-// getCommitDataRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for Ref.
+	// getCommitDataRepositoryRefsRefConnection includes the requested fields of the GraphQL type RefConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for Ref.
+	return *new(getCommitDataRepositoryRefsRefConnection)
+}
+
 type getCommitDataRepositoryRefsRefConnection struct {
 	// A list of nodes.
 	Nodes []BranchHistory `json:"nodes"`
 }
 
 // GetNodes returns getCommitDataRepositoryRefsRefConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *getCommitDataRepositoryRefsRefConnection) GetNodes() []BranchHistory { return v.Nodes }
+func (v *getCommitDataRepositoryRefsRefConnection) GetNodes() []BranchHistory {
+	_ = "STUB: not implemented"
 
-// getCommitDataResponse is returned by getCommitData on success.
+	// getCommitDataResponse is returned by getCommitData on success.
+	return nil
+}
+
 type getCommitDataResponse struct {
 	// Lookup a given repository by the owner and repository name.
 	Repository getCommitDataRepository `json:"repository"`
 }
 
 // GetRepository returns getCommitDataResponse.Repository, and is useful for accessing the field via an interface.
-func (v *getCommitDataResponse) GetRepository() getCommitDataRepository { return v.Repository }
+func (v *getCommitDataResponse) GetRepository() getCommitDataRepository {
+	_ = "STUB: not implemented"
+	return *
 
-// getMergedPullRequestDataRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
+	// getMergedPullRequestDataRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	new(getCommitDataRepository)
+}
+
 type getMergedPullRequestDataRepository struct {
 	// A list of pull requests that have been opened in the repository.
 	PullRequests getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection `json:"pullRequests"`
@@ -1154,13 +1254,16 @@ type getMergedPullRequestDataRepository struct {
 
 // GetPullRequests returns getMergedPullRequestDataRepository.PullRequests, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataRepository) GetPullRequests() getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection {
-	return v.PullRequests
+	_ = "STUB: not implemented"
+	return *
+
+	// getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection includes the requested fields of the GraphQL type PullRequestConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for PullRequest.
+	new(getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection)
 }
 
-// getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection includes the requested fields of the GraphQL type PullRequestConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for PullRequest.
 type getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection struct {
 	// A list of nodes.
 	Nodes []MergedPullRequestNode `json:"nodes"`
@@ -1170,18 +1273,22 @@ type getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection struct 
 
 // GetNodes returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection) GetNodes() []MergedPullRequestNode {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// GetPageInfo returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection.PageInfo, and is useful for accessing the field via an interface.
+	return nil
 }
 
-// GetPageInfo returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection.PageInfo, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataRepositoryPullRequestsPullRequestConnection) GetPageInfo() getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo {
-	return v.PageInfo
+	_ = "STUB: not implemented"
+
+	// getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+	// The GraphQL type's documentation follows.
+	//
+	// Information about pagination in a connection.
+	return *new(getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo)
 }
 
-// getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
-// The GraphQL type's documentation follows.
-//
-// Information about pagination in a connection.
 type getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo struct {
 	// When paginating backwards, are there more items?
 	HasPreviousPage bool `json:"hasPreviousPage"`
@@ -1191,15 +1298,19 @@ type getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo
 
 // GetHasPreviousPage returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.HasPreviousPage, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo) GetHasPreviousPage() bool {
-	return v.HasPreviousPage
+	_ = "STUB: not implemented"
+	return false
+
+	// GetStartCursor returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.StartCursor, and is useful for accessing the field via an interface.
 }
 
-// GetStartCursor returns getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.StartCursor, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo) GetStartCursor() string {
-	return v.StartCursor
+	_ = "STUB: not implemented"
+	return ""
+
+	// getMergedPullRequestDataResponse is returned by getMergedPullRequestData on success.
 }
 
-// getMergedPullRequestDataResponse is returned by getMergedPullRequestData on success.
 type getMergedPullRequestDataResponse struct {
 	// Lookup a given repository by the owner and repository name.
 	Repository getMergedPullRequestDataRepository `json:"repository"`
@@ -1207,13 +1318,16 @@ type getMergedPullRequestDataResponse struct {
 
 // GetRepository returns getMergedPullRequestDataResponse.Repository, and is useful for accessing the field via an interface.
 func (v *getMergedPullRequestDataResponse) GetRepository() getMergedPullRequestDataRepository {
-	return v.Repository
+	_ = "STUB: not implemented"
+	return *
+
+	// getPullRequestDataRepository includes the requested fields of the GraphQL type Repository.
+	// The GraphQL type's documentation follows.
+	//
+	// A repository contains the content for a project.
+	new(getMergedPullRequestDataRepository)
 }
 
-// getPullRequestDataRepository includes the requested fields of the GraphQL type Repository.
-// The GraphQL type's documentation follows.
-//
-// A repository contains the content for a project.
 type getPullRequestDataRepository struct {
 	// A list of pull requests that have been opened in the repository.
 	PullRequests getPullRequestDataRepositoryPullRequestsPullRequestConnection `json:"pullRequests"`
@@ -1221,13 +1335,16 @@ type getPullRequestDataRepository struct {
 
 // GetPullRequests returns getPullRequestDataRepository.PullRequests, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataRepository) GetPullRequests() getPullRequestDataRepositoryPullRequestsPullRequestConnection {
-	return v.PullRequests
+	_ = "STUB: not implemented"
+	return *
+
+	// getPullRequestDataRepositoryPullRequestsPullRequestConnection includes the requested fields of the GraphQL type PullRequestConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// The connection type for PullRequest.
+	new(getPullRequestDataRepositoryPullRequestsPullRequestConnection)
 }
 
-// getPullRequestDataRepositoryPullRequestsPullRequestConnection includes the requested fields of the GraphQL type PullRequestConnection.
-// The GraphQL type's documentation follows.
-//
-// The connection type for PullRequest.
 type getPullRequestDataRepositoryPullRequestsPullRequestConnection struct {
 	// A list of nodes.
 	Nodes []PullRequestNode `json:"nodes"`
@@ -1237,18 +1354,22 @@ type getPullRequestDataRepositoryPullRequestsPullRequestConnection struct {
 
 // GetNodes returns getPullRequestDataRepositoryPullRequestsPullRequestConnection.Nodes, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataRepositoryPullRequestsPullRequestConnection) GetNodes() []PullRequestNode {
-	return v.Nodes
+	_ = "STUB: not implemented"
+
+	// GetPageInfo returns getPullRequestDataRepositoryPullRequestsPullRequestConnection.PageInfo, and is useful for accessing the field via an interface.
+	return nil
 }
 
-// GetPageInfo returns getPullRequestDataRepositoryPullRequestsPullRequestConnection.PageInfo, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataRepositoryPullRequestsPullRequestConnection) GetPageInfo() getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo {
-	return v.PageInfo
+	_ = "STUB: not implemented"
+
+	// getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
+	// The GraphQL type's documentation follows.
+	//
+	// Information about pagination in a connection.
+	return *new(getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo)
 }
 
-// getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
-// The GraphQL type's documentation follows.
-//
-// Information about pagination in a connection.
 type getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo struct {
 	// When paginating forwards, are there more items?
 	HasNextPage bool `json:"hasNextPage"`
@@ -1258,15 +1379,19 @@ type getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo struc
 
 // GetHasNextPage returns getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo) GetHasNextPage() bool {
-	return v.HasNextPage
+	_ = "STUB: not implemented"
+	return false
+
+	// GetEndCursor returns getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
 }
 
-// GetEndCursor returns getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataRepositoryPullRequestsPullRequestConnectionPageInfo) GetEndCursor() string {
-	return v.EndCursor
+	_ = "STUB: not implemented"
+	return ""
+
+	// getPullRequestDataResponse is returned by getPullRequestData on success.
 }
 
-// getPullRequestDataResponse is returned by getPullRequestData on success.
 type getPullRequestDataResponse struct {
 	// Lookup a given repository by the owner and repository name.
 	Repository getPullRequestDataRepository `json:"repository"`
@@ -1274,10 +1399,13 @@ type getPullRequestDataResponse struct {
 
 // GetRepository returns getPullRequestDataResponse.Repository, and is useful for accessing the field via an interface.
 func (v *getPullRequestDataResponse) GetRepository() getPullRequestDataRepository {
-	return v.Repository
+	_ = "STUB: not implemented"
+	return *
+
+	// getRepoDataBySearchResponse is returned by getRepoDataBySearch on success.
+	new(getPullRequestDataRepository)
 }
 
-// getRepoDataBySearchResponse is returned by getRepoDataBySearch on success.
 type getRepoDataBySearchResponse struct {
 	// Perform a search across resources, returning a maximum of 1,000 results.
 	Search getRepoDataBySearchSearchSearchResultItemConnection `json:"search"`
@@ -1285,15 +1413,17 @@ type getRepoDataBySearchResponse struct {
 
 // GetSearch returns getRepoDataBySearchResponse.Search, and is useful for accessing the field via an interface.
 func (v *getRepoDataBySearchResponse) GetSearch() getRepoDataBySearchSearchSearchResultItemConnection {
-	return v.Search
+	_ = "STUB: not implemented"
+
+	// getRepoDataBySearchSearchSearchResultItemConnection includes the requested fields of the GraphQL type SearchResultItemConnection.
+	// The GraphQL type's documentation follows.
+	//
+	// A list of results that matched against a search query. Regardless of the number
+	// of matches, a maximum of 1,000 results will be available across all types,
+	// potentially split across many pages.
+	return *new(getRepoDataBySearchSearchSearchResultItemConnection)
 }
 
-// getRepoDataBySearchSearchSearchResultItemConnection includes the requested fields of the GraphQL type SearchResultItemConnection.
-// The GraphQL type's documentation follows.
-//
-// A list of results that matched against a search query. Regardless of the number
-// of matches, a maximum of 1,000 results will be available across all types,
-// potentially split across many pages.
 type getRepoDataBySearchSearchSearchResultItemConnection struct {
 	// The total number of repositories that matched the search query. Regardless of
 	// the total number of matches, a maximum of 1,000 results will be available
@@ -1307,53 +1437,26 @@ type getRepoDataBySearchSearchSearchResultItemConnection struct {
 
 // GetRepositoryCount returns getRepoDataBySearchSearchSearchResultItemConnection.RepositoryCount, and is useful for accessing the field via an interface.
 func (v *getRepoDataBySearchSearchSearchResultItemConnection) GetRepositoryCount() int {
-	return v.RepositoryCount
+	_ = "STUB: not implemented"
+	return 0
+
+	// GetNodes returns getRepoDataBySearchSearchSearchResultItemConnection.Nodes, and is useful for accessing the field via an interface.
 }
 
-// GetNodes returns getRepoDataBySearchSearchSearchResultItemConnection.Nodes, and is useful for accessing the field via an interface.
-func (v *getRepoDataBySearchSearchSearchResultItemConnection) GetNodes() []SearchNode { return v.Nodes }
+func (v *getRepoDataBySearchSearchSearchResultItemConnection) GetNodes() []SearchNode {
+	_ = "STUB: not implemented"
 
-// GetPageInfo returns getRepoDataBySearchSearchSearchResultItemConnection.PageInfo, and is useful for accessing the field via an interface.
+	// GetPageInfo returns getRepoDataBySearchSearchSearchResultItemConnection.PageInfo, and is useful for accessing the field via an interface.
+	return nil
+}
+
 func (v *getRepoDataBySearchSearchSearchResultItemConnection) GetPageInfo() getRepoDataBySearchSearchSearchResultItemConnectionPageInfo {
-	return v.PageInfo
+	_ = "STUB: not implemented"
+	return *new(getRepoDataBySearchSearchSearchResultItemConnectionPageInfo)
 }
 
 func (v *getRepoDataBySearchSearchSearchResultItemConnection) UnmarshalJSON(b []byte) error {
-
-	if string(b) == "null" {
-		return nil
-	}
-
-	var firstPass struct {
-		*getRepoDataBySearchSearchSearchResultItemConnection
-		Nodes []json.RawMessage `json:"nodes"`
-		graphql.NoUnmarshalJSON
-	}
-	firstPass.getRepoDataBySearchSearchSearchResultItemConnection = v
-
-	err := json.Unmarshal(b, &firstPass)
-	if err != nil {
-		return err
-	}
-
-	{
-		dst := &v.Nodes
-		src := firstPass.Nodes
-		*dst = make(
-			[]SearchNode,
-			len(src))
-		for i, src := range src {
-			dst := &(*dst)[i]
-			if len(src) != 0 && string(src) != "null" {
-				err = __unmarshalSearchNode(
-					src, dst)
-				if err != nil {
-					return fmt.Errorf(
-						"unable to unmarshal getRepoDataBySearchSearchSearchResultItemConnection.Nodes: %w", err)
-				}
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1366,37 +1469,13 @@ type __premarshalgetRepoDataBySearchSearchSearchResultItemConnection struct {
 }
 
 func (v *getRepoDataBySearchSearchSearchResultItemConnection) MarshalJSON() ([]byte, error) {
-	premarshaled, err := v.__premarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-	return json.Marshal(premarshaled)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (v *getRepoDataBySearchSearchSearchResultItemConnection) __premarshalJSON() (*__premarshalgetRepoDataBySearchSearchSearchResultItemConnection, error) {
-	var retval __premarshalgetRepoDataBySearchSearchSearchResultItemConnection
-
-	retval.RepositoryCount = v.RepositoryCount
-	{
-
-		dst := &retval.Nodes
-		src := v.Nodes
-		*dst = make(
-			[]json.RawMessage,
-			len(src))
-		for i, src := range src {
-			dst := &(*dst)[i]
-			var err error
-			*dst, err = __marshalSearchNode(
-				&src)
-			if err != nil {
-				return nil, fmt.Errorf(
-					"unable to marshal getRepoDataBySearchSearchSearchResultItemConnection.Nodes: %w", err)
-			}
-		}
-	}
-	retval.PageInfo = v.PageInfo
-	return &retval, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // getRepoDataBySearchSearchSearchResultItemConnectionPageInfo includes the requested fields of the GraphQL type PageInfo.
@@ -1412,15 +1491,19 @@ type getRepoDataBySearchSearchSearchResultItemConnectionPageInfo struct {
 
 // GetHasNextPage returns getRepoDataBySearchSearchSearchResultItemConnectionPageInfo.HasNextPage, and is useful for accessing the field via an interface.
 func (v *getRepoDataBySearchSearchSearchResultItemConnectionPageInfo) GetHasNextPage() bool {
-	return v.HasNextPage
+	_ = "STUB: not implemented"
+	return false
+
+	// GetEndCursor returns getRepoDataBySearchSearchSearchResultItemConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
 }
 
-// GetEndCursor returns getRepoDataBySearchSearchSearchResultItemConnectionPageInfo.EndCursor, and is useful for accessing the field via an interface.
 func (v *getRepoDataBySearchSearchSearchResultItemConnectionPageInfo) GetEndCursor() string {
-	return v.EndCursor
+	_ = "STUB: not implemented"
+	return ""
+
+	// The query executed by checkLogin.
 }
 
-// The query executed by checkLogin.
 const checkLogin_Operation = `
 query checkLogin ($login: String!) {
 	user(login: $login) {
@@ -1437,24 +1520,8 @@ func checkLogin(
 	client_ graphql.Client,
 	login string,
 ) (data_ *checkLoginResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "checkLogin",
-		Query:  checkLogin_Operation,
-		Variables: &__checkLoginInput{
-			Login: login,
-		},
-	}
-
-	data_ = &checkLoginResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The query executed by getBranchData.
@@ -1494,28 +1561,8 @@ func getBranchData(
 	targetBranch string,
 	branchCursor *string,
 ) (data_ *getBranchDataResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "getBranchData",
-		Query:  getBranchData_Operation,
-		Variables: &__getBranchDataInput{
-			Name:         name,
-			Owner:        owner,
-			BranchFirst:  branchFirst,
-			TargetBranch: targetBranch,
-			BranchCursor: branchCursor,
-		},
-	}
-
-	data_ = &getBranchDataResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The query executed by getCommitData.
@@ -1557,29 +1604,8 @@ func getCommitData(
 	commitCursor *string,
 	branchName string,
 ) (data_ *getCommitDataResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "getCommitData",
-		Query:  getCommitData_Operation,
-		Variables: &__getCommitDataInput{
-			Name:         name,
-			Owner:        owner,
-			BranchFirst:  branchFirst,
-			CommitFirst:  commitFirst,
-			CommitCursor: commitCursor,
-			BranchName:   branchName,
-		},
-	}
-
-	data_ = &getCommitDataResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The query executed by getMergedPullRequestData.
@@ -1628,27 +1654,8 @@ func getMergedPullRequestData(
 	prLast int,
 	prCursor *string,
 ) (data_ *getMergedPullRequestDataResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "getMergedPullRequestData",
-		Query:  getMergedPullRequestData_Operation,
-		Variables: &__getMergedPullRequestDataInput{
-			Name:     name,
-			Owner:    owner,
-			PrLast:   prLast,
-			PrCursor: prCursor,
-		},
-	}
-
-	data_ = &getMergedPullRequestDataResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The query executed by getPullRequestData.
@@ -1697,27 +1704,8 @@ func getPullRequestData(
 	prFirst int,
 	prCursor *string,
 ) (data_ *getPullRequestDataResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "getPullRequestData",
-		Query:  getPullRequestData_Operation,
-		Variables: &__getPullRequestDataInput{
-			Name:     name,
-			Owner:    owner,
-			PrFirst:  prFirst,
-			PrCursor: prCursor,
-		},
-	}
-
-	data_ = &getPullRequestDataResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // The query executed by getRepoDataBySearch.
@@ -1750,23 +1738,6 @@ func getRepoDataBySearch(
 	searchQuery string,
 	repoCursor *string,
 ) (data_ *getRepoDataBySearchResponse, err_ error) {
-	req_ := &graphql.Request{
-		OpName: "getRepoDataBySearch",
-		Query:  getRepoDataBySearch_Operation,
-		Variables: &__getRepoDataBySearchInput{
-			SearchQuery: searchQuery,
-			RepoCursor:  repoCursor,
-		},
-	}
-
-	data_ = &getRepoDataBySearchResponse{}
-	resp_ := &graphql.Response{Data: data_}
-
-	err_ = client_.MakeRequest(
-		ctx_,
-		req_,
-		resp_,
-	)
-
-	return data_, err_
+	_ = "STUB: not implemented"
+	return nil, nil
 }

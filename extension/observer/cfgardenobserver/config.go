@@ -4,8 +4,6 @@
 package cfgardenobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/cfgardenobserver"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 )
 
@@ -35,51 +33,9 @@ type Config struct {
 
 // Validate overrides the embedded noop validation so that load config can trigger
 // our own validation logic.
-func (config *Config) Validate() error {
-	if !config.IncludeAppLabels {
-		return nil
-	}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	c := config.CloudFoundry
-	if c.Endpoint == "" {
-		return errors.New("CloudFoundry.Endpoint must be specified when IncludeAppLabels is set to true")
-	}
-	if c.Auth.Type == "" {
-		return errors.New("CloudFoundry.Auth.Type must be specified when IncludeAppLabels is set to true")
-	}
-
-	switch c.Auth.Type {
-	case authTypeUserPass:
-		if c.Auth.Username == "" {
-			return fieldError(authTypeUserPass, "username")
-		}
-		if c.Auth.Password == "" {
-			return fieldError(authTypeUserPass, "password")
-		}
-	case authTypeClientCredentials:
-		if c.Auth.ClientID == "" {
-			return fieldError(authTypeClientCredentials, "client_id")
-		}
-		if c.Auth.ClientSecret == "" {
-			return fieldError(authTypeClientCredentials, "client_secret")
-		}
-	case authTypeToken:
-		if c.Auth.AccessToken == "" {
-			return fieldError(authTypeToken, "access_token")
-		}
-		if c.Auth.RefreshToken == "" {
-			return fieldError(authTypeToken, "refresh_token")
-		}
-	default:
-		return fmt.Errorf("configuration option `auth_type` must be set to one of the following values: [user_pass, client_credentials, token]. Specified value: %s", c.Auth.Type)
-	}
-
-	return nil
-}
-
-func fieldError(authType authType, param string) error {
-	return fmt.Errorf("%s is required when using auth_type: %s", param, authType)
-}
+func fieldError(authType authType, param string) error { _ = "STUB: not implemented"; return nil }
 
 type GardenConfig struct {
 	// The URL of the CF Garden api. Default is "/var/vcap/data/garden/garden.sock"

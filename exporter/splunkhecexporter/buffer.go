@@ -29,38 +29,24 @@ type cancellableBytesWriter struct {
 }
 
 func (c *cancellableBytesWriter) Write(b []byte) (int, error) {
-	if c.maxCapacity == 0 {
-		return c.innerWriter.Write(b)
-	}
-	if c.innerWriter.Len()+len(b) > int(c.maxCapacity) {
-		return 0, errOverCapacity
-	}
-	return c.innerWriter.Write(b)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func (c *cancellableBytesWriter) Read(p []byte) (int, error) {
-	return c.innerWriter.Read(p)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
-func (c *cancellableBytesWriter) Reset() {
-	c.innerWriter.Reset()
-}
+func (c *cancellableBytesWriter) Reset() { _ = "STUB: not implemented"; return }
 
-func (*cancellableBytesWriter) Close() error {
-	return nil
-}
+func (*cancellableBytesWriter) Close() error { _ = "STUB: not implemented"; return nil }
 
-func (c *cancellableBytesWriter) Len() int {
-	return c.innerWriter.Len()
-}
+func (c *cancellableBytesWriter) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (c *cancellableBytesWriter) Empty() bool {
-	return c.innerWriter.Len() == 0
-}
+func (c *cancellableBytesWriter) Empty() bool { _ = "STUB: not implemented"; return false }
 
-func (c *cancellableBytesWriter) Bytes() []byte {
-	return c.innerWriter.Bytes()
-}
+func (c *cancellableBytesWriter) Bytes() []byte { _ = "STUB: not implemented"; return nil }
 
 type cancellableGzipWriter struct {
 	innerBuffer *bytes.Buffer
@@ -70,98 +56,45 @@ type cancellableGzipWriter struct {
 }
 
 func (c *cancellableGzipWriter) Write(b []byte) (int, error) {
-	if c.maxCapacity == 0 {
-		c.rawLen += len(b)
-		return c.innerWriter.Write(b)
-	}
-
-	// if we see that at a 50% compression rate, we'd be over max capacity, start flushing.
-	if c.rawLen > 0 && (c.rawLen+len(b))/2 > int(c.maxCapacity) {
-		// we flush so the length of the underlying buffer is accurate.
-		if err := c.innerWriter.Flush(); err != nil {
-			return 0, err
-		}
-	}
-
-	// we find that the new content uncompressed, added to our buffer, would overflow our max capacity.
-	if c.innerBuffer.Len()+len(b) > int(c.maxCapacity) {
-		// so we create a copy of our content and add this new data, compressed, to check that it fits.
-		copyBuf := bytes.NewBuffer(make([]byte, 0, c.maxCapacity+bufCapPadding))
-		copyBuf.Write(c.innerBuffer.Bytes())
-		writerCopy := gzip.NewWriter(copyBuf)
-		writerCopy.Reset(copyBuf)
-		if _, err := writerCopy.Write(b); err != nil {
-			return 0, err
-		}
-		if err := writerCopy.Flush(); err != nil {
-			return 0, err
-		}
-		// we find that even compressed, the data overflows.
-		if copyBuf.Len() > int(c.maxCapacity) {
-			return 0, errOverCapacity
-		}
-	}
-
-	c.rawLen += len(b)
-	return c.innerWriter.Write(b)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
+
+// if we see that at a 50% compression rate, we'd be over max capacity, start flushing.
+
+// we flush so the length of the underlying buffer is accurate.
+
+// we find that the new content uncompressed, added to our buffer, would overflow our max capacity.
+
+// so we create a copy of our content and add this new data, compressed, to check that it fits.
+
+// we find that even compressed, the data overflows.
 
 func (c *cancellableGzipWriter) Read(p []byte) (int, error) {
-	return c.innerBuffer.Read(p)
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
-func (c *cancellableGzipWriter) Reset() {
-	c.innerBuffer.Reset()
-	c.innerWriter.Reset(c.innerBuffer)
-	c.rawLen = 0
-}
+func (c *cancellableGzipWriter) Reset() { _ = "STUB: not implemented"; return }
 
-func (c *cancellableGzipWriter) Close() error {
-	return c.innerWriter.Close()
-}
+func (c *cancellableGzipWriter) Close() error { _ = "STUB: not implemented"; return nil }
 
-func (c *cancellableGzipWriter) Len() int {
-	return c.innerBuffer.Len()
-}
+func (c *cancellableGzipWriter) Len() int { _ = "STUB: not implemented"; return 0 }
 
-func (c *cancellableGzipWriter) Empty() bool {
-	return c.rawLen == 0
-}
+func (c *cancellableGzipWriter) Empty() bool { _ = "STUB: not implemented"; return false }
 
-func (c *cancellableGzipWriter) Bytes() []byte {
-	return c.innerBuffer.Bytes()
-}
+func (c *cancellableGzipWriter) Bytes() []byte { _ = "STUB: not implemented"; return nil }
 
 // bufferPool is a pool of buffer objects.
 type bufferPool struct {
 	pool *sync.Pool
 }
 
-func (p bufferPool) get() buffer {
-	return p.pool.Get().(buffer)
-}
+func (p bufferPool) get() buffer { _ = "STUB: not implemented"; return *new(buffer) }
 
-func (p bufferPool) put(bf buffer) {
-	p.pool.Put(bf)
-}
+func (p bufferPool) put(bf buffer) { _ = "STUB: not implemented"; return }
 
 func newBufferPool(bufCap uint, compressionEnabled bool) bufferPool {
-	return bufferPool{
-		&sync.Pool{
-			New: func() any {
-				innerBuffer := &bytes.Buffer{}
-				if compressionEnabled {
-					return &cancellableGzipWriter{
-						innerBuffer: innerBuffer,
-						innerWriter: gzip.NewWriter(innerBuffer),
-						maxCapacity: bufCap,
-					}
-				}
-				return &cancellableBytesWriter{
-					innerWriter: innerBuffer,
-					maxCapacity: bufCap,
-				}
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(bufferPool)
 }

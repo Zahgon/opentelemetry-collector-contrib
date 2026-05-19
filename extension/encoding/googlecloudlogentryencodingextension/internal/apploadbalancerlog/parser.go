@@ -4,13 +4,7 @@
 package apploadbalancerlog // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/apploadbalancerlog"
 
 import (
-	"fmt"
-
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -135,107 +129,25 @@ type mtlsInfo struct {
 	ClientCertChain             string `json:"clientCertChain"`
 }
 
-func isValid(log *loadbalancerlog) error {
-	if log.Type != loadBalancerLogType {
-		return fmt.Errorf("expected @type to be %s, got %s", loadBalancerLogType, log.Type)
-	}
-	return nil
-}
+func isValid(log *loadbalancerlog) error { _ = "STUB: not implemented"; return nil }
 
 func handleRequestMetadata(log *loadbalancerlog, attr pcommon.Map) error {
-	if _, err := shared.PutStrIfNotPresent(string(conventions.NetworkPeerAddressKey), log.RemoteIP, attr); err != nil {
-		return fmt.Errorf("error setting security policy attribute: %w", err)
-	}
-
-	shared.PutStr(gcpLoadBalancingStatusDetails, log.StatusDetails, attr)
-	shared.PutStr(gcpLoadBalancingBackendTargetProjectNumber, log.BackendTargetProjectNumber, attr)
-	shared.PutStr(gcpLoadBalancingProxyStatus, log.ProxyStatus, attr)
-	shared.PutInt(gcpLoadBalancingOverrideResponseCode, log.OverrideResponseCode, attr)
-	shared.PutStr(gcpLoadBalancingScheme, log.LoadBalancingScheme, attr)
-	shared.PutStr(gcpLoadBalancingErrorService, log.ErrorService, attr)
-	shared.PutStr(gcpLoadBalancingBackendNetworkName, log.BackendNetworkName, attr)
-	shared.PutStr(gcpLoadBalancingCacheID, log.CacheID, attr)
-
-	if len(log.CacheDecision) > 0 {
-		cacheDecisions := attr.PutEmptySlice(gcpLoadBalancingCacheDecision)
-		for _, decision := range log.CacheDecision {
-			cacheDecisions.AppendEmpty().SetStr(decision)
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func handleAuthPolicyInfo(authPolicyInfo *authPolicyInfo, attr pcommon.Map) {
-	if authPolicyInfo == nil {
-		return
-	}
-	shared.PutStr(gcpLoadBalancingAuthPolicyInfoResult, authPolicyInfo.OverallResult, attr)
-
-	if len(authPolicyInfo.Policies) > 0 {
-		policiesSlice := attr.PutEmptySlice(gcpLoadBalancingAuthPolicyInfoPolicies)
-		for _, policy := range authPolicyInfo.Policies {
-			policyMap := policiesSlice.AppendEmpty().SetEmptyMap()
-			shared.PutStr(gcpLoadBalancingAuthPolicyName, policy.Name, policyMap)
-			shared.PutStr(gcpLoadBalancingAuthPolicyResult, policy.Result, policyMap)
-			shared.PutStr(gcpLoadBalancingAuthPolicyDetails, policy.Details, policyMap)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func handleTLSInfo(tlsInfo *tlsInfo, attr pcommon.Map) {
-	if tlsInfo == nil {
-		return
-	}
-	tlsMap := attr.PutEmptyMap(gcpLoadBalancingTLSInfo)
-	shared.PutBool(gcpLoadBalancingTLSEarlyDataRequest, tlsInfo.EarlyDataRequest, tlsMap)
-	shared.PutStr(string(conventions.TLSProtocolNameKey), tlsInfo.Protocol, tlsMap)
-	shared.PutStr(string(conventions.TLSCipherKey), tlsInfo.Cipher, tlsMap)
-}
+func handleTLSInfo(tlsInfo *tlsInfo, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func handleMtlsInfo(mtlsInfo *mtlsInfo, attr pcommon.Map) {
-	if mtlsInfo == nil {
-		return
-	}
-
-	mtlsMap := attr.PutEmptyMap(gcpLoadBalancingMtlsInfo)
-	shared.PutBool(gcpLoadBalancingMtlsClientCertPresent, mtlsInfo.ClientCertPresent, mtlsMap)
-	shared.PutBool(gcpLoadBalancingMtlsClientCertChainVerified, mtlsInfo.ClientCertChainVerified, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertError, mtlsInfo.ClientCertError, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientHashSha256Key), mtlsInfo.ClientCertSha256Fingerprint, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertSerialNumber, mtlsInfo.ClientCertSerialNumber, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientNotBeforeKey), mtlsInfo.ClientCertValidStartTime, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientNotAfterKey), mtlsInfo.ClientCertValidEndTime, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertSpiffeID, mtlsInfo.ClientCertSpiffeID, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertURISans, mtlsInfo.ClientCertURISans, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertDnsnameSans, mtlsInfo.ClientCertDnsnameSans, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientIssuerKey), mtlsInfo.ClientCertIssuerDn, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientSubjectKey), mtlsInfo.ClientCertSubjectDn, mtlsMap)
-	shared.PutStr(gcpLoadBalancingMtlsClientCertLeaf, mtlsInfo.ClientCertLeaf, mtlsMap)
-	shared.PutStr(string(conventions.TLSClientCertificateChainKey), mtlsInfo.ClientCertChain, mtlsMap)
-}
+func handleMtlsInfo(mtlsInfo *mtlsInfo, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log loadbalancerlog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("failed to unmarshal Load Balancer log: %w", err)
-	}
-
-	if err := isValid(&log); err != nil {
-		return err
-	}
-
-	if err := handleRequestMetadata(&log, attr); err != nil {
-		return fmt.Errorf("error handling request metadata: %w", err)
-	}
-
-	handleAuthPolicyInfo(log.AuthPolicyInfo, attr)
-	handleTLSInfo(log.TLSInfo, attr)
-	handleMtlsInfo(log.MtlsInfo, attr)
-
-	// Handle embedded Armor log fields
-	if err := handleArmorLogAttributes(&log.armorlog, attr); err != nil {
-		return fmt.Errorf("error handling embedded Armor log fields: %w", err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Handle embedded Armor log fields

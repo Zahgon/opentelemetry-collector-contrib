@@ -60,20 +60,12 @@ type Sync2Async struct {
 // If more than concurrency DoSync() calls are made, the DoSync() call will block
 // until one of the previous calls completes and returns a result.
 func NewSync2Async(logger *zap.Logger, concurrency int, async Async) *Sync2Async {
-	s := &Sync2Async{
-		logger:             logger,
-		async:              async,
-		resultChannelsRing: make(chan chan AsyncResult, concurrency),
-	}
-
-	for range concurrency {
-		// We need 1 element in the channel to make sure reporting the results via channel is not
-		// blocked when the recipient of the channel gave up.
-		s.resultChannelsRing <- make(chan AsyncResult, 1)
-	}
-
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// We need 1 element in the channel to make sure reporting the results via channel is not
+// blocked when the recipient of the channel gave up.
 
 // DoSync performs a synchronous operation. It will trigger the execution of the
 // provided Async operation with supplied data and will block until the async
@@ -89,52 +81,30 @@ func NewSync2Async(logger *zap.Logger, concurrency int, async Async) *Sync2Async
 // If ctx is cancelled before the async operation is started (e.g. due to being
 // blocked on concurrency limit) then an error will be returned as well.
 func (s *Sync2Async) DoSync(ctx context.Context, data any) error {
+	_ = "STUB: not implemented"
 	// Acquire a resultChan from the ring of channels if one is available.
-	var resultChan chan AsyncResult
-	select {
-	case resultChan = <-s.resultChannelsRing:
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-	defer func() {
-		// Put it back into the ring of channels when we are done with it.
-		s.resultChannelsRing <- resultChan
-	}()
-
-	// Begin async operation. This will return immediately and the result
-	// will be reported via the resultChan some time in the future.
-	dataID, err := s.async(ctx, data, resultChan)
-	if err != nil {
-		return err
-	}
-
-	// Now we need to wait for the result of the async operation.
-	select {
-	case result := <-resultChan:
-		// Async operation completed. We can return the result.
-		if result.DataID != dataID {
-			// Received ack on the wrong data item. This should normally not happen and indicates a bug somewhere.
-			s.logger.Error(
-				"Received ack on the wrong data item",
-				zap.Uint64("expected", uint64(dataID)),
-				zap.Uint64("actual", uint64(result.DataID)),
-			)
-		}
-		return result.Err
-
-	case <-ctx.Done():
-		// Async operation is still executing, but we have to abandon it and return to our
-		// caller immediately.
-		// Abandon the ack channel that was given to async() because we don't know when/if
-		// the Async operation will complete and that channel will fire, so we don't want to
-		// touch it anymore.
-		// Just allocate a new channel. The new resultChan will be returned to resultChannelsRing
-		// when this func returns.
-		// If after this the previously started Async operation completes, it will push the result
-		// into an abandoned channel, which will have no effect.
-		// Note that Async can push into an abandoned channel without blocking since the channel
-		// has 1 buffered element.
-		resultChan = make(chan AsyncResult)
-		return ctx.Err()
-	}
+	return nil
 }
+
+// Put it back into the ring of channels when we are done with it.
+
+// Begin async operation. This will return immediately and the result
+// will be reported via the resultChan some time in the future.
+
+// Now we need to wait for the result of the async operation.
+
+// Async operation completed. We can return the result.
+
+// Received ack on the wrong data item. This should normally not happen and indicates a bug somewhere.
+
+// Async operation is still executing, but we have to abandon it and return to our
+// caller immediately.
+// Abandon the ack channel that was given to async() because we don't know when/if
+// the Async operation will complete and that channel will fire, so we don't want to
+// touch it anymore.
+// Just allocate a new channel. The new resultChan will be returned to resultChannelsRing
+// when this func returns.
+// If after this the previously started Async operation completes, it will push the result
+// into an abandoned channel, which will have no effect.
+// Note that Async can push into an abandoned channel without blocking since the channel
+// has 1 buffered element.

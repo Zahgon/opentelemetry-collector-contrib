@@ -23,219 +23,86 @@ import "go.opentelemetry.io/collector/pdata/pmetric"
 //
 // Each byte in the input string is a unique ID for the corresponding element.
 func NewGauges(resourceIDs, scopeIDs, metricIDs, dataPointIDs string) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rm := md.ResourceMetrics().AppendEmpty()
-		rm.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sm := rm.ScopeMetrics().AppendEmpty()
-			sm.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for metricN := 0; metricN < len(metricIDs); metricN++ {
-				m := sm.Metrics().AppendEmpty()
-				m.SetName("metric" + string(metricIDs[metricN]))
-				dps := m.SetEmptyGauge()
-				for dataPointN := 0; dataPointN < len(dataPointIDs); dataPointN++ {
-					dp := dps.DataPoints().AppendEmpty()
-					dp.Attributes().PutStr("dpName", "dp"+string(dataPointIDs[dataPointN]))
-				}
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func NewSums(resourceIDs, scopeIDs, metricIDs, dataPointIDs string, isMonotonic bool, aggregationTemporality pmetric.AggregationTemporality) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rm := md.ResourceMetrics().AppendEmpty()
-		rm.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sm := rm.ScopeMetrics().AppendEmpty()
-			sm.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for metricN := 0; metricN < len(metricIDs); metricN++ {
-				m := sm.Metrics().AppendEmpty()
-				m.SetName("metric" + string(metricIDs[metricN]))
-				dps := m.SetEmptySum()
-				dps.SetAggregationTemporality(aggregationTemporality)
-				dps.SetIsMonotonic(isMonotonic)
-				for dataPointN := 0; dataPointN < len(dataPointIDs); dataPointN++ {
-					dp := dps.DataPoints().AppendEmpty()
-					dp.Attributes().PutStr("dpName", "dp"+string(dataPointIDs[dataPointN]))
-				}
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func NewHistograms(resourceIDs, scopeIDs, metricIDs, dataPointIDs string, aggregationTemporality pmetric.AggregationTemporality) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rm := md.ResourceMetrics().AppendEmpty()
-		rm.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sm := rm.ScopeMetrics().AppendEmpty()
-			sm.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for metricN := 0; metricN < len(metricIDs); metricN++ {
-				m := sm.Metrics().AppendEmpty()
-				m.SetName("metric" + string(metricIDs[metricN]))
-				dps := m.SetEmptyHistogram()
-				dps.SetAggregationTemporality(aggregationTemporality)
-				for dataPointN := 0; dataPointN < len(dataPointIDs); dataPointN++ {
-					dp := dps.DataPoints().AppendEmpty()
-					dp.Attributes().PutStr("dpName", "dp"+string(dataPointIDs[dataPointN]))
-				}
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func NewExponentialHistograms(resourceIDs, scopeIDs, metricIDs, dataPointIDs string, aggregationTemporality pmetric.AggregationTemporality) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rm := md.ResourceMetrics().AppendEmpty()
-		rm.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sm := rm.ScopeMetrics().AppendEmpty()
-			sm.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for metricN := 0; metricN < len(metricIDs); metricN++ {
-				m := sm.Metrics().AppendEmpty()
-				m.SetName("metric" + string(metricIDs[metricN]))
-				dps := m.SetEmptyExponentialHistogram()
-				dps.SetAggregationTemporality(aggregationTemporality)
-				for dataPointN := 0; dataPointN < len(dataPointIDs); dataPointN++ {
-					dp := dps.DataPoints().AppendEmpty()
-					dp.Attributes().PutStr("dpName", "dp"+string(dataPointIDs[dataPointN]))
-				}
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func NewSummaries(resourceIDs, scopeIDs, metricIDs, dataPointIDs string) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for resourceN := 0; resourceN < len(resourceIDs); resourceN++ {
-		rm := md.ResourceMetrics().AppendEmpty()
-		rm.Resource().Attributes().PutStr("resourceName", "resource"+string(resourceIDs[resourceN]))
-		for scopeN := 0; scopeN < len(scopeIDs); scopeN++ {
-			sm := rm.ScopeMetrics().AppendEmpty()
-			sm.Scope().SetName("scope" + string(scopeIDs[scopeN]))
-			for metricN := 0; metricN < len(metricIDs); metricN++ {
-				m := sm.Metrics().AppendEmpty()
-				m.SetName("metric" + string(metricIDs[metricN]))
-				dps := m.SetEmptySummary()
-				for dataPointN := 0; dataPointN < len(dataPointIDs); dataPointN++ {
-					dp := dps.DataPoints().AppendEmpty()
-					dp.Attributes().PutStr("dpName", "dp"+string(dataPointIDs[dataPointN]))
-				}
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func NewMetricsFromOpts(resources ...pmetric.ResourceMetrics) pmetric.Metrics {
-	md := pmetric.NewMetrics()
-	for _, resource := range resources {
-		resource.CopyTo(md.ResourceMetrics().AppendEmpty())
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 func Resource(id string, scopes ...pmetric.ScopeMetrics) pmetric.ResourceMetrics {
-	rm := pmetric.NewResourceMetrics()
-	rm.Resource().Attributes().PutStr("resourceName", "resource"+id)
-	for _, scope := range scopes {
-		scope.CopyTo(rm.ScopeMetrics().AppendEmpty())
-	}
-	return rm
+	_ = "STUB: not implemented"
+	return *new(pmetric.ResourceMetrics)
 }
 
 func Scope(id string, metrics ...pmetric.Metric) pmetric.ScopeMetrics {
-	s := pmetric.NewScopeMetrics()
-	s.Scope().SetName("scope" + id)
-	for _, metric := range metrics {
-		metric.CopyTo(s.Metrics().AppendEmpty())
-	}
-	return s
+	_ = "STUB: not implemented"
+	return *new(pmetric.ScopeMetrics)
 }
 
 func Gauge(id string, dps ...pmetric.NumberDataPoint) pmetric.Metric {
-	m := pmetric.NewMetric()
-	m.SetName("metric" + id)
-	g := m.SetEmptyGauge()
-	for _, dp := range dps {
-		dp.CopyTo(g.DataPoints().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func Sum(id string, isMonotonic bool, aggregationTemporality pmetric.AggregationTemporality, dps ...pmetric.NumberDataPoint) pmetric.Metric {
-	m := pmetric.NewMetric()
-	m.SetName("metric" + id)
-	g := m.SetEmptySum()
-	g.SetIsMonotonic(isMonotonic)
-	g.SetAggregationTemporality(aggregationTemporality)
-	for _, dp := range dps {
-		dp.CopyTo(g.DataPoints().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func NumberDataPoint(id string) pmetric.NumberDataPoint {
-	dp := pmetric.NewNumberDataPoint()
-	dp.Attributes().PutStr("dpName", "dp"+id)
-	return dp
+	_ = "STUB: not implemented"
+	return *new(pmetric.NumberDataPoint)
 }
 
 func Histogram(id string, aggregationTemporality pmetric.AggregationTemporality, dps ...pmetric.HistogramDataPoint) pmetric.Metric {
-	m := pmetric.NewMetric()
-	m.SetName("metric" + id)
-	g := m.SetEmptyHistogram()
-	g.SetAggregationTemporality(aggregationTemporality)
-	for _, dp := range dps {
-		dp.CopyTo(g.DataPoints().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func HistogramDataPoint(id string) pmetric.HistogramDataPoint {
-	dp := pmetric.NewHistogramDataPoint()
-	dp.Attributes().PutStr("dpName", "dp"+id)
-	return dp
+	_ = "STUB: not implemented"
+	return *new(pmetric.HistogramDataPoint)
 }
 
 func ExponentialHistogram(id string, aggregationTemporality pmetric.AggregationTemporality, dps ...pmetric.ExponentialHistogramDataPoint) pmetric.Metric {
-	m := pmetric.NewMetric()
-	m.SetName("metric" + id)
-	g := m.SetEmptyExponentialHistogram()
-	g.SetAggregationTemporality(aggregationTemporality)
-	for _, dp := range dps {
-		dp.CopyTo(g.DataPoints().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func ExponentialHistogramDataPoint(id string) pmetric.ExponentialHistogramDataPoint {
-	dp := pmetric.NewExponentialHistogramDataPoint()
-	dp.Attributes().PutStr("dpName", "dp"+id)
-	return dp
+	_ = "STUB: not implemented"
+	return *new(pmetric.ExponentialHistogramDataPoint)
 }
 
 func Summary(id string, dps ...pmetric.SummaryDataPoint) pmetric.Metric {
-	m := pmetric.NewMetric()
-	m.SetName("metric" + id)
-	g := m.SetEmptySummary()
-	for _, dp := range dps {
-		dp.CopyTo(g.DataPoints().AppendEmpty())
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metric)
 }
 
 func SummaryDataPoint(id string) pmetric.SummaryDataPoint {
-	dp := pmetric.NewSummaryDataPoint()
-	dp.Attributes().PutStr("dpName", "dp"+id)
-	return dp
+	_ = "STUB: not implemented"
+	return *new(pmetric.SummaryDataPoint)
 }

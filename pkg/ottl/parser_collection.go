@@ -4,10 +4,7 @@
 package ottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/component"
-	"go.uber.org/zap"
 )
 
 // StatementsGetter represents a set of statements to be parsed.
@@ -22,7 +19,8 @@ type StatementsGetter interface {
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func NewStatementsGetter(statements []string) StatementsGetter {
-	return defaultOTTLGetter(statements)
+	_ = "STUB: not implemented"
+	return *new(StatementsGetter)
 }
 
 // ConditionsGetter represents a set of conditions to be parsed.
@@ -37,7 +35,8 @@ type ConditionsGetter interface {
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func NewConditionsGetter(conditions []string) ConditionsGetter {
-	return defaultOTTLGetter(conditions)
+	_ = "STUB: not implemented"
+	return *new(ConditionsGetter)
 }
 
 // ValueExpressionsGetter represents a set of value expressions to be parsed.
@@ -52,28 +51,27 @@ type ValueExpressionsGetter interface {
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func NewValueExpressionsGetter(expressions []string) ValueExpressionsGetter {
-	return defaultOTTLGetter(expressions)
+	_ = "STUB: not implemented"
+	return *new(ValueExpressionsGetter)
 }
 
 type defaultOTTLGetter []string
 
-func (d defaultOTTLGetter) GetStatements() []string {
-	return d
-}
+func (d defaultOTTLGetter) GetStatements() []string { _ = "STUB: not implemented"; return nil }
 
-func (d defaultOTTLGetter) GetConditions() []string {
-	return d
-}
+func (d defaultOTTLGetter) GetConditions() []string { _ = "STUB: not implemented"; return nil }
 
 func (d defaultOTTLGetter) GetValueExpressions() []string {
-	return d
+	_ = "STUB: not implemented"
+
+	// ParserCollection is a configurable set of ottl.Parser that can handle multiple OTTL contexts
+	// parsings, inferring the context, choosing the right parser for the given statements, and
+	// transforming the parsed ottl.Statement[K] slice into a common result of type R.
+	//
+	// Experimental: *NOTE* this API is subject to change or removal in the future.
+	return nil
 }
 
-// ParserCollection is a configurable set of ottl.Parser that can handle multiple OTTL contexts
-// parsings, inferring the context, choosing the right parser for the given statements, and
-// transforming the parsed ottl.Statement[K] slice into a common result of type R.
-//
-// Experimental: *NOTE* this API is subject to change or removal in the future.
 type ParserCollection[R any] struct {
 	contextParsers            map[string]*ParserCollectionContextParser[R]
 	contextInferrer           contextInferrer
@@ -96,23 +94,8 @@ func NewParserCollection[R any](
 	settings component.TelemetrySettings,
 	options ...ParserCollectionOption[R],
 ) (*ParserCollection[R], error) {
-	contextInferrerCandidates := map[string]*priorityContextInferrerCandidate{}
-	pc := &ParserCollection[R]{
-		Settings:                  settings,
-		contextParsers:            map[string]*ParserCollectionContextParser[R]{},
-		contextInferrer:           newPriorityContextInferrer(settings, contextInferrerCandidates),
-		contextInferrerCandidates: contextInferrerCandidates,
-		candidatesLowerContexts:   map[string][]string{},
-	}
-
-	for _, op := range options {
-		err := op(pc)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return pc, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ParsedStatementsConverter is a function that converts the parsed ottl.Statement[K] into
@@ -143,33 +126,18 @@ type ParsedConditionsConverter[K any, R any] func(collection *ParserCollection[R
 type ParsedValueExpressionsConverter[K any, R any] func(collection *ParserCollection[R], expressions ValueExpressionsGetter, parsedValueExpressions []*ValueExpression[K]) (R, error)
 
 func newNopParsedStatementsConverter[K any]() ParsedStatementsConverter[K, any] {
-	return func(
-		_ *ParserCollection[any],
-		_ StatementsGetter,
-		parsedStatements []*Statement[K],
-	) (any, error) {
-		return parsedStatements, nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newNopParsedConditionsConverter[K any]() ParsedConditionsConverter[K, any] {
-	return func(
-		_ *ParserCollection[any],
-		_ ConditionsGetter,
-		parsedConditions []*Condition[K],
-	) (any, error) {
-		return parsedConditions, nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newNopParsedValueExpressionsConverter[K any]() ParsedValueExpressionsConverter[K, any] {
-	return func(
-		_ *ParserCollection[any],
-		_ ValueExpressionsGetter,
-		parsedValueExpressions []*ValueExpression[K],
-	) (any, error) {
-		return parsedValueExpressions, nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type (
@@ -197,113 +165,20 @@ type (
 
 // createConditionsParserWithConverter is a method to create the necessary parser wrapper and shadowing the K type.
 func createConditionsParserWithConverter[K, R any](converter ParsedConditionsConverter[K, R], parser *Parser[K]) parserCollectionContextParserFunc[R, ConditionsGetter] {
-	return func(pc *ParserCollection[R], context string, conditions ConditionsGetter, prependPathsContext bool) (R, error) {
-		var err error
-		var parsingConditions []string
-		if prependPathsContext {
-			originalConditions := conditions.GetConditions()
-			parsingConditions = make([]string, 0, len(originalConditions))
-			for _, cond := range originalConditions {
-				prependedCondition, prependErr := parser.prependContextToConditionPaths(context, cond)
-				if prependErr != nil {
-					err = prependErr
-					break
-				}
-				parsingConditions = append(parsingConditions, prependedCondition)
-			}
-			if err != nil {
-				return *new(R), err
-			}
-			if pc.modifiedLogging {
-				pc.logModifications(originalConditions, parsingConditions)
-			}
-		} else {
-			parsingConditions = conditions.GetConditions()
-		}
-		parsedConditions, err := parser.ParseConditions(parsingConditions)
-		if err != nil {
-			return *new(R), err
-		}
-		return converter(
-			pc,
-			conditions,
-			parsedConditions,
-		)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createValueExpressionsParserWithConverter is a method to create the necessary parser wrapper and shadowing the K type.
 func createValueExpressionsParserWithConverter[K, R any](converter ParsedValueExpressionsConverter[K, R], parser *Parser[K]) parserCollectionContextParserFunc[R, ValueExpressionsGetter] {
-	return func(pc *ParserCollection[R], context string, expressions ValueExpressionsGetter, prependPathsContext bool) (R, error) {
-		var err error
-		var parsingValueExpressions []string
-		if prependPathsContext {
-			originalValueExpressions := expressions.GetValueExpressions()
-			parsingValueExpressions = make([]string, 0, len(originalValueExpressions))
-			for _, expr := range originalValueExpressions {
-				prependedValueExpression, prependErr := parser.prependContextToValueExpressionPaths(context, expr)
-				if prependErr != nil {
-					err = prependErr
-					break
-				}
-				parsingValueExpressions = append(parsingValueExpressions, prependedValueExpression)
-			}
-			if err != nil {
-				return *new(R), err
-			}
-			if pc.modifiedLogging {
-				pc.logModifications(originalValueExpressions, parsingValueExpressions)
-			}
-		} else {
-			parsingValueExpressions = expressions.GetValueExpressions()
-		}
-		parsedValueExpressions, err := parser.ParseValueExpressions(parsingValueExpressions)
-		if err != nil {
-			return *new(R), err
-		}
-		return converter(
-			pc,
-			expressions,
-			parsedValueExpressions,
-		)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createStatementsParserWithConverter is a method to create the necessary parser wrapper and shadowing the K type.
 func createStatementsParserWithConverter[K, R any](converter ParsedStatementsConverter[K, R], parser *Parser[K]) parserCollectionContextParserFunc[R, StatementsGetter] {
-	return func(pc *ParserCollection[R], context string, statements StatementsGetter, prependPathsContext bool) (R, error) {
-		var err error
-		var parsingStatements []string
-		if prependPathsContext {
-			originalStatements := statements.GetStatements()
-			parsingStatements = make([]string, 0, len(originalStatements))
-			for _, cond := range originalStatements {
-				prependedStatement, prependErr := parser.prependContextToStatementPaths(context, cond)
-				if prependErr != nil {
-					err = prependErr
-					break
-				}
-				parsingStatements = append(parsingStatements, prependedStatement)
-			}
-			if err != nil {
-				return *new(R), err
-			}
-			if pc.modifiedLogging {
-				pc.logModifications(originalStatements, parsingStatements)
-			}
-		} else {
-			parsingStatements = statements.GetStatements()
-		}
-		parsedStatements, err := parser.ParseStatements(parsingStatements)
-		if err != nil {
-			return *new(R), err
-		}
-		return converter(
-			pc,
-			statements,
-			parsedStatements,
-		)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithConditionConverter sets the condition converter for the given context.
@@ -312,9 +187,8 @@ func createStatementsParserWithConverter[K, R any](converter ParsedStatementsCon
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func WithConditionConverter[K, R any](converter ParsedConditionsConverter[K, R]) ParserCollectionContextOption[K, R] {
-	return func(pcp *ParserCollectionContextParser[R], parser *Parser[K]) {
-		pcp.parseConditions = createConditionsParserWithConverter(converter, parser)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithValueExpressionConverter sets the value expression converter for the given context.
@@ -323,9 +197,8 @@ func WithConditionConverter[K, R any](converter ParsedConditionsConverter[K, R])
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func WithValueExpressionConverter[K, R any](converter ParsedValueExpressionsConverter[K, R]) ParserCollectionContextOption[K, R] {
-	return func(pcp *ParserCollectionContextParser[R], parser *Parser[K]) {
-		pcp.parseValueExpressions = createValueExpressionsParserWithConverter(converter, parser)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithStatementConverter sets the statement converter for the given context.
@@ -334,9 +207,8 @@ func WithValueExpressionConverter[K, R any](converter ParsedValueExpressionsConv
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func WithStatementConverter[K, R any](converter ParsedStatementsConverter[K, R]) ParserCollectionContextOption[K, R] {
-	return func(pcp *ParserCollectionContextParser[R], parser *Parser[K]) {
-		pcp.parseStatements = createStatementsParserWithConverter(converter, parser)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithParserCollectionContext configures an ottl.Parser for the given context.
@@ -349,39 +221,13 @@ func WithParserCollectionContext[K, R any](
 	parser *Parser[K],
 	opts ...ParserCollectionContextOption[K, R],
 ) ParserCollectionOption[R] {
-	return func(mp *ParserCollection[R]) error {
-		if _, ok := parser.pathContextNames[context]; !ok {
-			return fmt.Errorf(`context "%s" must be a valid "%T" path context name`, context, parser)
-		}
-		pcp := &ParserCollectionContextParser[R]{}
-		for _, o := range opts {
-			o(pcp, parser)
-		}
-		mp.contextParsers[context] = pcp
-
-		for lowerContext := range parser.pathContextNames {
-			if lowerContext != context {
-				mp.candidatesLowerContexts[lowerContext] = append(mp.candidatesLowerContexts[lowerContext], context)
-			}
-		}
-
-		mp.contextInferrerCandidates[context] = &priorityContextInferrerCandidate{
-			hasEnumSymbol: func(enum *EnumSymbol) bool {
-				_, err := parser.enumParser(enum)
-				return err == nil
-			},
-			hasFunctionName: func(name string) bool {
-				_, ok := parser.functions[name]
-				return ok
-			},
-			getLowerContexts: mp.getLowerContexts,
-		}
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (pc *ParserCollection[R]) getLowerContexts(context string) []string {
-	return pc.candidatesLowerContexts[context]
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithParserCollectionErrorMode has no effect on the ParserCollection, but might be used
@@ -389,10 +235,8 @@ func (pc *ParserCollection[R]) getLowerContexts(context string) []string {
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func WithParserCollectionErrorMode[R any](errorMode ErrorMode) ParserCollectionOption[R] {
-	return func(tp *ParserCollection[R]) error {
-		tp.ErrorMode = errorMode
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EnableParserCollectionModifiedPathsLogging controls the modification logs.
@@ -401,10 +245,8 @@ func WithParserCollectionErrorMode[R any](errorMode ErrorMode) ParserCollectionO
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func EnableParserCollectionModifiedPathsLogging[R any](enabled bool) ParserCollectionOption[R] {
-	return func(tp *ParserCollection[R]) error {
-		tp.modifiedLogging = enabled
-		return nil
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type parseCollectionContextInferenceOptions struct {
@@ -423,9 +265,8 @@ type ParserCollectionContextInferenceOption func(p *parseCollectionContextInfere
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func WithContextInferenceConditions(conditions []string) ParserCollectionContextInferenceOption {
-	return func(p *parseCollectionContextInferenceOptions) {
-		p.conditions = conditions
-	}
+	_ = "STUB: not implemented"
+	return *new(ParserCollectionContextInferenceOption)
 }
 
 // ParseStatements parses the given statements into [R] using the configured context's ottl.Parser
@@ -442,37 +283,8 @@ func WithContextInferenceConditions(conditions []string) ParserCollectionContext
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseStatements(statements StatementsGetter, options ...ParserCollectionContextInferenceOption) (R, error) {
-	statementsValues := statements.GetStatements()
-
-	parseStatementsOpts := parseCollectionContextInferenceOptions{}
-	for _, opt := range options {
-		opt(&parseStatementsOpts)
-	}
-
-	conditionsValues := parseStatementsOpts.conditions
-
-	var inferredContext string
-	var err error
-	if len(conditionsValues) > 0 {
-		inferredContext, err = pc.contextInferrer.infer(statementsValues, conditionsValues, nil)
-	} else {
-		inferredContext, err = pc.contextInferrer.inferFromStatements(statementsValues)
-	}
-
-	if err != nil {
-		return *new(R), fmt.Errorf("unable to infer a valid context (%+q) from statements %+q and conditions %+q: %w", pc.supportedContextNames(), statementsValues, conditionsValues, err)
-	}
-
-	if inferredContext == "" {
-		return *new(R), fmt.Errorf("unable to infer context from statements %+q and conditions %+q, path's first segment must be a valid context name %+q, and at least one context must be capable of parsing all statements", pc.supportedContextNames(), statementsValues, conditionsValues)
-	}
-
-	_, ok := pc.contextParsers[inferredContext]
-	if !ok {
-		return *new(R), fmt.Errorf(`context "%s" inferred from the statements %+q and conditions %+q is not a supported context: %+q`, inferredContext, statementsValues, conditionsValues, pc.supportedContextNames())
-	}
-
-	return pc.ParseStatementsWithContext(inferredContext, statements, false)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 // ParseStatementsWithContext parses the given statements into [R] using the configured
@@ -487,19 +299,8 @@ func (pc *ParserCollection[R]) ParseStatements(statements StatementsGetter, opti
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseStatementsWithContext(context string, statements StatementsGetter, prependPathsContext bool) (R, error) {
-	contextParser, ok := pc.contextParsers[context]
-	if !ok {
-		return *new(R), fmt.Errorf(`unknown context "%s" for statements: %v`, context, statements.GetStatements())
-	}
-	if contextParser.parseStatements == nil {
-		return *new(R), fmt.Errorf(`context "%s" has no configured converter for statements: %v`, context, statements.GetStatements())
-	}
-	return contextParser.parseStatements(
-		pc,
-		context,
-		statements,
-		prependPathsContext,
-	)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 // ParseConditions parses the given conditions into [R] using the configured context's ottl.Parser
@@ -512,22 +313,8 @@ func (pc *ParserCollection[R]) ParseStatementsWithContext(context string, statem
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseConditions(conditions ConditionsGetter) (R, error) {
-	conditionsValues := conditions.GetConditions()
-	inferredContext, err := pc.contextInferrer.inferFromConditions(conditionsValues)
-	if err != nil {
-		return *new(R), err
-	}
-
-	if inferredContext == "" {
-		return *new(R), fmt.Errorf("unable to infer context from conditions, path's first segment must be a valid context name: %+q, and at least one context must be capable of parsing all conditions: %+q", pc.supportedContextNames(), conditionsValues)
-	}
-
-	_, ok := pc.contextParsers[inferredContext]
-	if !ok {
-		return *new(R), fmt.Errorf(`context "%s" inferred from the conditions %+q is not a supported context: %+q`, inferredContext, conditionsValues, pc.supportedContextNames())
-	}
-
-	return pc.ParseConditionsWithContext(inferredContext, conditions, false)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 // ParseConditionsWithContext parses the given conditions into [R] using the configured
@@ -542,20 +329,8 @@ func (pc *ParserCollection[R]) ParseConditions(conditions ConditionsGetter) (R, 
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseConditionsWithContext(context string, conditions ConditionsGetter, prependPathsContext bool) (R, error) {
-	contextParser, ok := pc.contextParsers[context]
-	if !ok {
-		return *new(R), fmt.Errorf(`unknown context "%s" for conditions: %v`, context, conditions.GetConditions())
-	}
-	if contextParser.parseConditions == nil {
-		return *new(R), fmt.Errorf(`context "%s" has no configured converter for conditions: %v`, context, conditions.GetConditions())
-	}
-
-	return contextParser.parseConditions(
-		pc,
-		context,
-		conditions,
-		prependPathsContext,
-	)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 // ParseValueExpressions parses the given expressions into [R] using the configured context's ottl.Parser
@@ -568,38 +343,8 @@ func (pc *ParserCollection[R]) ParseConditionsWithContext(context string, condit
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseValueExpressions(expressions ValueExpressionsGetter, options ...ParserCollectionContextInferenceOption) (R, error) {
-	expressionStrings := expressions.GetValueExpressions()
-
-	parseStatementsOpts := parseCollectionContextInferenceOptions{}
-	for _, opt := range options {
-		opt(&parseStatementsOpts)
-	}
-	conditionsValues := parseStatementsOpts.conditions
-
-	inferredContext, err := pc.contextInferrer.infer(nil, conditionsValues, expressionStrings)
-	if err != nil {
-		return *new(R), err
-	}
-
-	if inferredContext == "" {
-		return *new(R), fmt.Errorf(
-			"unable to infer context from expressions, path's first segment must be a valid context name: %+q, and at least one context must be capable of parsing all expressions: %+q",
-			pc.supportedContextNames(),
-			expressionStrings,
-		)
-	}
-
-	_, ok := pc.contextParsers[inferredContext]
-	if !ok {
-		return *new(R), fmt.Errorf(
-			`context "%s" inferred from the expressions %+q is not a supported context: %+q`,
-			inferredContext,
-			expressionStrings,
-			pc.supportedContextNames(),
-		)
-	}
-
-	return pc.ParseValueExpressionsWithContext(inferredContext, expressions, false)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 // ParseValueExpressionsWithContext parses the given expressions into [R] using the configured
@@ -614,43 +359,16 @@ func (pc *ParserCollection[R]) ParseValueExpressions(expressions ValueExpression
 //
 // Experimental: *NOTE* this API is subject to change or removal in the future.
 func (pc *ParserCollection[R]) ParseValueExpressionsWithContext(context string, expressions ValueExpressionsGetter, prependPathsContext bool) (R, error) {
-	contextParser, ok := pc.contextParsers[context]
-	if !ok {
-		return *new(R), fmt.Errorf(`unknown context "%s" for value expressions: %v`, context, expressions.GetValueExpressions())
-	}
-	if contextParser.parseValueExpressions == nil {
-		return *new(R), fmt.Errorf(`context "%s" has no configured converter for value expressions: %v`, context, expressions.GetValueExpressions())
-	}
-
-	return contextParser.parseValueExpressions(
-		pc,
-		context,
-		expressions,
-		prependPathsContext,
-	)
+	_ = "STUB: not implemented"
+	return *new(R), nil
 }
 
 func (pc *ParserCollection[R]) logModifications(originalStatements, modifiedStatements []string) {
-	var fields []zap.Field
-	for i, original := range originalStatements {
-		if modifiedStatements[i] != original {
-			statementKey := fmt.Sprintf("[%v]", i)
-			fields = append(fields, zap.Dict(
-				statementKey,
-				zap.String("original", original),
-				zap.String("modified", modifiedStatements[i])),
-			)
-		}
-	}
-	if len(fields) > 0 {
-		pc.Settings.Logger.Info("one or more paths were modified to include their context prefix, please rewrite them accordingly", zap.Dict("values", fields...))
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (pc *ParserCollection[R]) supportedContextNames() []string {
-	contextsNames := make([]string, 0, len(pc.contextParsers))
-	for k := range pc.contextParsers {
-		contextsNames = append(contextsNames, k)
-	}
-	return contextsNames
+	_ = "STUB: not implemented"
+	return nil
 }

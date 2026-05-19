@@ -20,22 +20,16 @@ type AlwaysIncreasingClock struct {
 }
 
 func NewAlwaysIncreasingClock() AlwaysIncreasingClock {
-	return AlwaysIncreasingClock{
-		FakeClock: clockwork.NewFakeClock(),
-	}
+	_ = "STUB: not implemented"
+	return *new(AlwaysIncreasingClock)
 }
 
-func (c AlwaysIncreasingClock) Now() time.Time {
-	c.FakeClock.Advance(time.Nanosecond)
-	return c.FakeClock.Now()
-}
+func (c AlwaysIncreasingClock) Now() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
 
 func (c AlwaysIncreasingClock) Since(t time.Time) time.Duration {
+	_ = "STUB: not implemented"
 	// ensure that internal c.FakeClock.Now() will return a greater value
-	c.FakeClock.Advance(time.Nanosecond)
-	return c.FakeClock.Since(t)
+	return *new(time.Duration)
 }
 
-func (c AlwaysIncreasingClock) Advance(d time.Duration) {
-	c.FakeClock.Advance(d)
-}
+func (c AlwaysIncreasingClock) Advance(d time.Duration) { _ = "STUB: not implemented"; return }

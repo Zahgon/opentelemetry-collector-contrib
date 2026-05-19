@@ -4,8 +4,6 @@
 package vcenterreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver"
 
 import (
-	"fmt"
-
 	"github.com/vmware/govmomi/vim25/mo"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver/internal/metadata"
@@ -17,11 +15,8 @@ func (v *vcenterMetricScraper) createDatastoreResourceBuilder(
 	dc *mo.Datacenter,
 	ds *mo.Datastore,
 ) *metadata.ResourceBuilder {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	rb.SetVcenterDatastoreName(ds.Name)
-
-	return rb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createDatacenterResourceBuilder returns a ResourceBuilder with
@@ -29,9 +24,8 @@ func (v *vcenterMetricScraper) createDatastoreResourceBuilder(
 func (v *vcenterMetricScraper) createDatacenterResourceBuilder(
 	dc *mo.Datacenter,
 ) *metadata.ResourceBuilder {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	return rb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createClusterResourceBuilder returns a ResourceBuilder with
@@ -40,11 +34,8 @@ func (v *vcenterMetricScraper) createClusterResourceBuilder(
 	dc *mo.Datacenter,
 	cr *mo.ComputeResource,
 ) *metadata.ResourceBuilder {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	rb.SetVcenterClusterName(cr.Name)
-
-	return rb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createResourcePoolResourceBuilder returns a ResourceBuilder with
@@ -54,32 +45,8 @@ func (v *vcenterMetricScraper) createResourcePoolResourceBuilder(
 	cr *mo.ComputeResource,
 	rp *mo.ResourcePool,
 ) (*metadata.ResourceBuilder, error) {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	if cr.Reference().Type == "ClusterComputeResource" {
-		rb.SetVcenterClusterName(cr.Name)
-	}
-	if cr.Reference().Type == "ComputeResource" {
-		if len(cr.Host) == 0 {
-			return nil, fmt.Errorf("no Hosts found for Resource Pool [%s]'s owner ref: %s", rp.Name, cr.Reference().Value)
-		}
-
-		hsRef := cr.Host[0]
-		hs := v.scrapeData.hostsByRef[hsRef.Value]
-		if hs == nil {
-			return nil, fmt.Errorf("no Hosts found for Resource Pool [%s]'s owner ref: %s", rp.Name, cr.Reference().Value)
-		}
-
-		rb.SetVcenterHostName(hs.Name)
-	}
-	rb.SetVcenterResourcePoolName(rp.Name)
-	iPath := v.scrapeData.rPoolIPathsByRef[rp.Reference().Value]
-	if iPath == nil {
-		return nil, fmt.Errorf("no inventory path found for collected ResourcePool: %s", rp.Name)
-	}
-	rb.SetVcenterResourcePoolInventoryPath(*iPath)
-
-	return rb, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // createHostResourceBuilder returns a ResourceBuilder with
@@ -89,14 +56,8 @@ func (v *vcenterMetricScraper) createHostResourceBuilder(
 	cr *mo.ComputeResource,
 	hs *mo.HostSystem,
 ) *metadata.ResourceBuilder {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	if cr.Reference().Type == "ClusterComputeResource" {
-		rb.SetVcenterClusterName(cr.Name)
-	}
-	rb.SetVcenterHostName(hs.Name)
-
-	return rb
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // createVMResourceBuilder returns a ResourceBuilder with
@@ -108,44 +69,6 @@ func (v *vcenterMetricScraper) createVMResourceBuilder(
 	rp *mo.ResourcePool,
 	vm *mo.VirtualMachine,
 ) (*metadata.ResourceBuilder, error) {
-	rb := v.mb.NewResourceBuilder()
-	rb.SetVcenterDatacenterName(dc.Name)
-	if cr.Reference().Type == "ClusterComputeResource" {
-		rb.SetVcenterClusterName(cr.Name)
-	}
-	rb.SetVcenterHostName(hs.Name)
-
-	if vm.Config != nil && vm.Config.Template {
-		rb.SetVcenterVMTemplateName(vm.Name)
-		rb.SetVcenterVMTemplateID(vm.Config.InstanceUuid)
-
-		return rb, nil
-	}
-
-	rb.SetVcenterVMName(vm.Name)
-	if vm.Config != nil {
-		rb.SetVcenterVMID(vm.Config.InstanceUuid)
-	}
-
-	if rp == nil {
-		return nil, fmt.Errorf("no Resource Pool found for VM: %s", vm.Name)
-	}
-
-	if rp.Reference().Type == "VirtualApp" {
-		rb.SetVcenterVirtualAppName(rp.Name)
-		iPath := v.scrapeData.vAppIPathsByRef[rp.Reference().Value]
-		if iPath == nil {
-			return nil, fmt.Errorf("no inventory path found for VM [%s]'s collected vApp: %s", vm.Name, rp.Name)
-		}
-		rb.SetVcenterVirtualAppInventoryPath(*iPath)
-	} else {
-		rb.SetVcenterResourcePoolName(rp.Name)
-		iPath := v.scrapeData.rPoolIPathsByRef[rp.Reference().Value]
-		if iPath == nil {
-			return nil, fmt.Errorf("no inventory path found for VM [%s]'s collected ResourcePool: %s", vm.Name, rp.Name)
-		}
-		rb.SetVcenterResourcePoolInventoryPath(*iPath)
-	}
-
-	return rb, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

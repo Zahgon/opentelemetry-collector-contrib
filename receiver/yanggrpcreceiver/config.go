@@ -4,7 +4,6 @@
 package yanggrpcreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/yanggrpcreceiver"
 
 import (
-	"errors"
 	"time"
 
 	"go.opentelemetry.io/collector/config/configgrpc"
@@ -25,9 +24,7 @@ type SecurityConfig struct {
 	EnableMetrics bool `mapstructure:"enable_metrics"`
 }
 
-func (s *SecurityConfig) Validate() error {
-	return s.RateLimiting.Validate()
-}
+func (s *SecurityConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // RateLimitingConfig contains rate limiting configuration
 type RateLimitingConfig struct {
@@ -44,15 +41,7 @@ type RateLimitingConfig struct {
 	CleanupInterval time.Duration `mapstructure:"cleanup_interval"`
 }
 
-func (r *RateLimitingConfig) Validate() error {
-	if r.BurstSize < 0 {
-		return errors.New("burst_size must be positive")
-	}
-	if r.RequestsPerSecond < 0 {
-		return errors.New("requests_per_second must be positive")
-	}
-	return nil
-}
+func (r *RateLimitingConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // YANGConfig contains YANG parser configuration
 type YANGConfig struct {
@@ -83,19 +72,13 @@ type Config struct {
 
 // Validate checks the receiver configuration is valid.
 func (c *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// Validate the base gRPC server configuration (endpoint, TLS, etc.)
-	if err := c.ServerConfig.Validate(); err != nil {
-		return err
-	}
-
-	// Validate security settings
-	if err := c.Security.Validate(); err != nil {
-		return err
-	}
-
-	// Optional: You could add a check here to ensure ModulePaths aren't empty
-	// if EnableRFCParser is true, but since we have a "fallback" logic
-	// in grpc_service.go, it's better to keep it optional.
-
 	return nil
 }
+
+// Validate security settings
+
+// Optional: You could add a check here to ensure ModulePaths aren't empty
+// if EnableRFCParser is true, but since we have a "fallback" logic
+// in grpc_service.go, it's better to keep it optional.

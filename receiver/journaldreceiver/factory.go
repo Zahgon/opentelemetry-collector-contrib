@@ -8,6 +8,4 @@ import (
 )
 
 // NewFactory creates a factory for journald receiver
-func NewFactory() receiver.Factory {
-	return newFactoryAdapter()
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }

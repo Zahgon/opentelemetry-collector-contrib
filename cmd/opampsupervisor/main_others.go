@@ -5,6 +5,4 @@
 
 package main
 
-func run() error {
-	return runInteractive()
-}
+func run() error { _ = "STUB: not implemented"; return nil }

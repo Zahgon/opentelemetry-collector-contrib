@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -16,16 +14,7 @@ type OracledbConsistentGetsMetricConfig struct {
 }
 
 func (ms *OracledbConsistentGetsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -36,16 +25,7 @@ type OracledbCPUTimeMetricConfig struct {
 }
 
 func (ms *OracledbCPUTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -56,16 +36,7 @@ type OracledbDataDictionaryHitRatioMetricConfig struct {
 }
 
 func (ms *OracledbDataDictionaryHitRatioMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -76,16 +47,7 @@ type OracledbDbBlockGetsMetricConfig struct {
 }
 
 func (ms *OracledbDbBlockGetsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -96,16 +58,7 @@ type OracledbDdlStatementsParallelizedMetricConfig struct {
 }
 
 func (ms *OracledbDdlStatementsParallelizedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -116,16 +69,7 @@ type OracledbDmlLocksLimitMetricConfig struct {
 }
 
 func (ms *OracledbDmlLocksLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -136,16 +80,7 @@ type OracledbDmlLocksUsageMetricConfig struct {
 }
 
 func (ms *OracledbDmlLocksUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -156,16 +91,7 @@ type OracledbDmlStatementsParallelizedMetricConfig struct {
 }
 
 func (ms *OracledbDmlStatementsParallelizedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -176,16 +102,7 @@ type OracledbEnqueueDeadlocksMetricConfig struct {
 }
 
 func (ms *OracledbEnqueueDeadlocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -196,16 +113,7 @@ type OracledbEnqueueLocksLimitMetricConfig struct {
 }
 
 func (ms *OracledbEnqueueLocksLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -216,16 +124,7 @@ type OracledbEnqueueLocksUsageMetricConfig struct {
 }
 
 func (ms *OracledbEnqueueLocksUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -236,16 +135,7 @@ type OracledbEnqueueResourcesLimitMetricConfig struct {
 }
 
 func (ms *OracledbEnqueueResourcesLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -256,16 +146,7 @@ type OracledbEnqueueResourcesUsageMetricConfig struct {
 }
 
 func (ms *OracledbEnqueueResourcesUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -276,16 +157,7 @@ type OracledbExchangeDeadlocksMetricConfig struct {
 }
 
 func (ms *OracledbExchangeDeadlocksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -296,16 +168,7 @@ type OracledbExecutionsMetricConfig struct {
 }
 
 func (ms *OracledbExecutionsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -316,16 +179,7 @@ type OracledbHardParsesMetricConfig struct {
 }
 
 func (ms *OracledbHardParsesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -336,16 +190,7 @@ type OracledbLogicalReadsMetricConfig struct {
 }
 
 func (ms *OracledbLogicalReadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -356,16 +201,7 @@ type OracledbLogonsMetricConfig struct {
 }
 
 func (ms *OracledbLogonsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -376,16 +212,7 @@ type OracledbParallelOperationsDowngraded1To25PctMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsDowngraded1To25PctMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -396,16 +223,7 @@ type OracledbParallelOperationsDowngraded25To50PctMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsDowngraded25To50PctMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -416,16 +234,7 @@ type OracledbParallelOperationsDowngraded50To75PctMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsDowngraded50To75PctMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -436,16 +245,7 @@ type OracledbParallelOperationsDowngraded75To99PctMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsDowngraded75To99PctMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -456,16 +256,7 @@ type OracledbParallelOperationsDowngradedToSerialMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsDowngradedToSerialMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -476,16 +267,7 @@ type OracledbParallelOperationsNotDowngradedMetricConfig struct {
 }
 
 func (ms *OracledbParallelOperationsNotDowngradedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -496,16 +278,7 @@ type OracledbParseCallsMetricConfig struct {
 }
 
 func (ms *OracledbParseCallsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -516,16 +289,7 @@ type OracledbPgaMemoryMetricConfig struct {
 }
 
 func (ms *OracledbPgaMemoryMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -536,16 +300,7 @@ type OracledbPhysicalReadIoRequestsMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalReadIoRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -556,16 +311,7 @@ type OracledbPhysicalReadsMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalReadsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -576,16 +322,7 @@ type OracledbPhysicalReadsDirectMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalReadsDirectMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -596,16 +333,7 @@ type OracledbPhysicalWriteIoRequestsMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalWriteIoRequestsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -616,16 +344,7 @@ type OracledbPhysicalWritesMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalWritesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -636,16 +355,7 @@ type OracledbPhysicalWritesDirectMetricConfig struct {
 }
 
 func (ms *OracledbPhysicalWritesDirectMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -656,16 +366,7 @@ type OracledbProcessesLimitMetricConfig struct {
 }
 
 func (ms *OracledbProcessesLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -676,16 +377,7 @@ type OracledbProcessesUsageMetricConfig struct {
 }
 
 func (ms *OracledbProcessesUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -696,16 +388,7 @@ type OracledbQueriesParallelizedMetricConfig struct {
 }
 
 func (ms *OracledbQueriesParallelizedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -716,16 +399,7 @@ type OracledbRecycleBinLimitMetricConfig struct {
 }
 
 func (ms *OracledbRecycleBinLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -736,16 +410,7 @@ type OracledbSessionsLimitMetricConfig struct {
 }
 
 func (ms *OracledbSessionsLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -767,34 +432,12 @@ type OracledbSessionsUsageMetricConfig struct {
 }
 
 func (ms *OracledbSessionsUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *OracledbSessionsUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case OracledbSessionsUsageMetricAttributeKeySessionType, OracledbSessionsUsageMetricAttributeKeySessionStatus:
-		default:
-			return fmt.Errorf("metric oracledb.sessions.usage doesn't have an attribute %v, valid attributes: [session_type, session_status]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -805,16 +448,7 @@ type OracledbStorageUsageMetricConfig struct {
 }
 
 func (ms *OracledbStorageUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -825,16 +459,7 @@ type OracledbStorageUtilizationMetricConfig struct {
 }
 
 func (ms *OracledbStorageUtilizationMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -855,34 +480,12 @@ type OracledbTablespaceSizeLimitMetricConfig struct {
 }
 
 func (ms *OracledbTablespaceSizeLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *OracledbTablespaceSizeLimitMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case OracledbTablespaceSizeLimitMetricAttributeKeyTablespaceName:
-		default:
-			return fmt.Errorf("metric oracledb.tablespace_size.limit doesn't have an attribute %v, valid attributes: [tablespace_name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -903,34 +506,12 @@ type OracledbTablespaceSizeUsageMetricConfig struct {
 }
 
 func (ms *OracledbTablespaceSizeUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *OracledbTablespaceSizeUsageMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case OracledbTablespaceSizeUsageMetricAttributeKeyTablespaceName:
-		default:
-			return fmt.Errorf("metric oracledb.tablespace_size.usage doesn't have an attribute %v, valid attributes: [tablespace_name]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -941,16 +522,7 @@ type OracledbTransactionsLimitMetricConfig struct {
 }
 
 func (ms *OracledbTransactionsLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -961,16 +533,7 @@ type OracledbTransactionsUsageMetricConfig struct {
 }
 
 func (ms *OracledbTransactionsUsageMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -981,16 +544,7 @@ type OracledbUserCommitsMetricConfig struct {
 }
 
 func (ms *OracledbUserCommitsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1001,16 +555,7 @@ type OracledbUserRollbacksMetricConfig struct {
 }
 
 func (ms *OracledbUserRollbacksMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1064,154 +609,7 @@ type MetricsConfig struct {
 	OracledbUserRollbacks                         OracledbUserRollbacksMetricConfig                         `mapstructure:"oracledb.user_rollbacks"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		OracledbConsistentGets: OracledbConsistentGetsMetricConfig{
-			Enabled: false,
-		},
-		OracledbCPUTime: OracledbCPUTimeMetricConfig{
-			Enabled: true,
-		},
-		OracledbDataDictionaryHitRatio: OracledbDataDictionaryHitRatioMetricConfig{
-			Enabled: false,
-		},
-		OracledbDbBlockGets: OracledbDbBlockGetsMetricConfig{
-			Enabled: false,
-		},
-		OracledbDdlStatementsParallelized: OracledbDdlStatementsParallelizedMetricConfig{
-			Enabled: false,
-		},
-		OracledbDmlLocksLimit: OracledbDmlLocksLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbDmlLocksUsage: OracledbDmlLocksUsageMetricConfig{
-			Enabled: true,
-		},
-		OracledbDmlStatementsParallelized: OracledbDmlStatementsParallelizedMetricConfig{
-			Enabled: false,
-		},
-		OracledbEnqueueDeadlocks: OracledbEnqueueDeadlocksMetricConfig{
-			Enabled: true,
-		},
-		OracledbEnqueueLocksLimit: OracledbEnqueueLocksLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbEnqueueLocksUsage: OracledbEnqueueLocksUsageMetricConfig{
-			Enabled: true,
-		},
-		OracledbEnqueueResourcesLimit: OracledbEnqueueResourcesLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbEnqueueResourcesUsage: OracledbEnqueueResourcesUsageMetricConfig{
-			Enabled: true,
-		},
-		OracledbExchangeDeadlocks: OracledbExchangeDeadlocksMetricConfig{
-			Enabled: true,
-		},
-		OracledbExecutions: OracledbExecutionsMetricConfig{
-			Enabled: true,
-		},
-		OracledbHardParses: OracledbHardParsesMetricConfig{
-			Enabled: true,
-		},
-		OracledbLogicalReads: OracledbLogicalReadsMetricConfig{
-			Enabled: true,
-		},
-		OracledbLogons: OracledbLogonsMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsDowngraded1To25Pct: OracledbParallelOperationsDowngraded1To25PctMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsDowngraded25To50Pct: OracledbParallelOperationsDowngraded25To50PctMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsDowngraded50To75Pct: OracledbParallelOperationsDowngraded50To75PctMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsDowngraded75To99Pct: OracledbParallelOperationsDowngraded75To99PctMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsDowngradedToSerial: OracledbParallelOperationsDowngradedToSerialMetricConfig{
-			Enabled: false,
-		},
-		OracledbParallelOperationsNotDowngraded: OracledbParallelOperationsNotDowngradedMetricConfig{
-			Enabled: false,
-		},
-		OracledbParseCalls: OracledbParseCallsMetricConfig{
-			Enabled: true,
-		},
-		OracledbPgaMemory: OracledbPgaMemoryMetricConfig{
-			Enabled: true,
-		},
-		OracledbPhysicalReadIoRequests: OracledbPhysicalReadIoRequestsMetricConfig{
-			Enabled: false,
-		},
-		OracledbPhysicalReads: OracledbPhysicalReadsMetricConfig{
-			Enabled: true,
-		},
-		OracledbPhysicalReadsDirect: OracledbPhysicalReadsDirectMetricConfig{
-			Enabled: false,
-		},
-		OracledbPhysicalWriteIoRequests: OracledbPhysicalWriteIoRequestsMetricConfig{
-			Enabled: false,
-		},
-		OracledbPhysicalWrites: OracledbPhysicalWritesMetricConfig{
-			Enabled: false,
-		},
-		OracledbPhysicalWritesDirect: OracledbPhysicalWritesDirectMetricConfig{
-			Enabled: false,
-		},
-		OracledbProcessesLimit: OracledbProcessesLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbProcessesUsage: OracledbProcessesUsageMetricConfig{
-			Enabled: true,
-		},
-		OracledbQueriesParallelized: OracledbQueriesParallelizedMetricConfig{
-			Enabled: false,
-		},
-		OracledbRecycleBinLimit: OracledbRecycleBinLimitMetricConfig{
-			Enabled: false,
-		},
-		OracledbSessionsLimit: OracledbSessionsLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbSessionsUsage: OracledbSessionsUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []OracledbSessionsUsageMetricAttributeKey{OracledbSessionsUsageMetricAttributeKeySessionType, OracledbSessionsUsageMetricAttributeKeySessionStatus},
-		},
-		OracledbStorageUsage: OracledbStorageUsageMetricConfig{
-			Enabled: false,
-		},
-		OracledbStorageUtilization: OracledbStorageUtilizationMetricConfig{
-			Enabled: false,
-		},
-		OracledbTablespaceSizeLimit: OracledbTablespaceSizeLimitMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []OracledbTablespaceSizeLimitMetricAttributeKey{OracledbTablespaceSizeLimitMetricAttributeKeyTablespaceName},
-		},
-		OracledbTablespaceSizeUsage: OracledbTablespaceSizeUsageMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []OracledbTablespaceSizeUsageMetricAttributeKey{OracledbTablespaceSizeUsageMetricAttributeKeyTablespaceName},
-		},
-		OracledbTransactionsLimit: OracledbTransactionsLimitMetricConfig{
-			Enabled: true,
-		},
-		OracledbTransactionsUsage: OracledbTransactionsUsageMetricConfig{
-			Enabled: true,
-		},
-		OracledbUserCommits: OracledbUserCommitsMetricConfig{
-			Enabled: true,
-		},
-		OracledbUserRollbacks: OracledbUserRollbacksMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // EventConfig provides common config for a particular event.
 type EventConfig struct {
@@ -1220,17 +618,7 @@ type EventConfig struct {
 	enabledSetByUser bool
 }
 
-func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(ec)
-	if err != nil {
-		return err
-	}
-	ec.enabledSetByUser = parser.IsSet("enabled")
-	return nil
-}
+func (ec *EventConfig) Unmarshal(parser *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // EventsConfig provides config for oracledb events.
 type EventsConfig struct {
@@ -1238,16 +626,7 @@ type EventsConfig struct {
 	DbServerTopQuery    EventConfig `mapstructure:"db.server.top_query"`
 }
 
-func DefaultEventsConfig() EventsConfig {
-	return EventsConfig{
-		DbServerQuerySample: EventConfig{
-			Enabled: false,
-		},
-		DbServerTopQuery: EventConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultEventsConfig() EventsConfig { _ = "STUB: not implemented"; return *new(EventsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1271,14 +650,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1290,17 +662,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		HostName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OracledbInstanceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ServiceInstanceID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for oracledb metrics builder.
@@ -1310,15 +673,14 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // LogsBuilderConfig is a configuration for oracledb logs builder.
@@ -1328,8 +690,6 @@ type LogsBuilderConfig struct {
 }
 
 func DefaultLogsBuilderConfig() LogsBuilderConfig {
-	return LogsBuilderConfig{
-		Events:             DefaultEventsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(LogsBuilderConfig)
 }

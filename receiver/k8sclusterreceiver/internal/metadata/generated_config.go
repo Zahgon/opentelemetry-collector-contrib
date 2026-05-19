@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/filter"
 )
@@ -17,16 +14,7 @@ type K8sContainerCPULimitMetricConfig struct {
 }
 
 func (ms *K8sContainerCPULimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -37,16 +25,7 @@ type K8sContainerCPURequestMetricConfig struct {
 }
 
 func (ms *K8sContainerCPURequestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -57,16 +36,7 @@ type K8sContainerEphemeralstorageLimitMetricConfig struct {
 }
 
 func (ms *K8sContainerEphemeralstorageLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -77,16 +47,7 @@ type K8sContainerEphemeralstorageRequestMetricConfig struct {
 }
 
 func (ms *K8sContainerEphemeralstorageRequestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -97,16 +58,7 @@ type K8sContainerMemoryLimitMetricConfig struct {
 }
 
 func (ms *K8sContainerMemoryLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -117,16 +69,7 @@ type K8sContainerMemoryRequestMetricConfig struct {
 }
 
 func (ms *K8sContainerMemoryRequestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -137,16 +80,7 @@ type K8sContainerReadyMetricConfig struct {
 }
 
 func (ms *K8sContainerReadyMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -157,16 +91,7 @@ type K8sContainerRestartsMetricConfig struct {
 }
 
 func (ms *K8sContainerRestartsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -177,16 +102,7 @@ type K8sContainerStatusReasonMetricConfig struct {
 }
 
 func (ms *K8sContainerStatusReasonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -197,16 +113,7 @@ type K8sContainerStatusStateMetricConfig struct {
 }
 
 func (ms *K8sContainerStatusStateMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -217,16 +124,7 @@ type K8sContainerStorageLimitMetricConfig struct {
 }
 
 func (ms *K8sContainerStorageLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -237,16 +135,7 @@ type K8sContainerStorageRequestMetricConfig struct {
 }
 
 func (ms *K8sContainerStorageRequestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -257,16 +146,7 @@ type K8sCronjobActiveJobsMetricConfig struct {
 }
 
 func (ms *K8sCronjobActiveJobsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -277,16 +157,7 @@ type K8sDaemonsetCurrentScheduledNodesMetricConfig struct {
 }
 
 func (ms *K8sDaemonsetCurrentScheduledNodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -297,16 +168,7 @@ type K8sDaemonsetDesiredScheduledNodesMetricConfig struct {
 }
 
 func (ms *K8sDaemonsetDesiredScheduledNodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -317,16 +179,7 @@ type K8sDaemonsetMisscheduledNodesMetricConfig struct {
 }
 
 func (ms *K8sDaemonsetMisscheduledNodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -337,16 +190,7 @@ type K8sDaemonsetReadyNodesMetricConfig struct {
 }
 
 func (ms *K8sDaemonsetReadyNodesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -357,16 +201,7 @@ type K8sDeploymentAvailableMetricConfig struct {
 }
 
 func (ms *K8sDeploymentAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -377,16 +212,7 @@ type K8sDeploymentDesiredMetricConfig struct {
 }
 
 func (ms *K8sDeploymentDesiredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -397,16 +223,7 @@ type K8sHpaCurrentReplicasMetricConfig struct {
 }
 
 func (ms *K8sHpaCurrentReplicasMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -417,16 +234,7 @@ type K8sHpaDesiredReplicasMetricConfig struct {
 }
 
 func (ms *K8sHpaDesiredReplicasMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -437,16 +245,7 @@ type K8sHpaMaxReplicasMetricConfig struct {
 }
 
 func (ms *K8sHpaMaxReplicasMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -457,16 +256,7 @@ type K8sHpaMinReplicasMetricConfig struct {
 }
 
 func (ms *K8sHpaMinReplicasMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -477,16 +267,7 @@ type K8sJobActivePodsMetricConfig struct {
 }
 
 func (ms *K8sJobActivePodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -497,16 +278,7 @@ type K8sJobDesiredSuccessfulPodsMetricConfig struct {
 }
 
 func (ms *K8sJobDesiredSuccessfulPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -517,16 +289,7 @@ type K8sJobFailedPodsMetricConfig struct {
 }
 
 func (ms *K8sJobFailedPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -537,16 +300,7 @@ type K8sJobMaxParallelPodsMetricConfig struct {
 }
 
 func (ms *K8sJobMaxParallelPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -557,16 +311,7 @@ type K8sJobSuccessfulPodsMetricConfig struct {
 }
 
 func (ms *K8sJobSuccessfulPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -577,16 +322,7 @@ type K8sNamespacePhaseMetricConfig struct {
 }
 
 func (ms *K8sNamespacePhaseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -597,16 +333,7 @@ type K8sNodeConditionMetricConfig struct {
 }
 
 func (ms *K8sNodeConditionMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -617,16 +344,7 @@ type K8sPersistentvolumeStatusPhaseMetricConfig struct {
 }
 
 func (ms *K8sPersistentvolumeStatusPhaseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -637,16 +355,7 @@ type K8sPersistentvolumeStorageCapacityMetricConfig struct {
 }
 
 func (ms *K8sPersistentvolumeStorageCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -657,16 +366,7 @@ type K8sPersistentvolumeclaimStatusPhaseMetricConfig struct {
 }
 
 func (ms *K8sPersistentvolumeclaimStatusPhaseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -677,16 +377,7 @@ type K8sPersistentvolumeclaimStorageCapacityMetricConfig struct {
 }
 
 func (ms *K8sPersistentvolumeclaimStorageCapacityMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -697,16 +388,7 @@ type K8sPersistentvolumeclaimStorageRequestMetricConfig struct {
 }
 
 func (ms *K8sPersistentvolumeclaimStorageRequestMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -717,16 +399,7 @@ type K8sPodPhaseMetricConfig struct {
 }
 
 func (ms *K8sPodPhaseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -737,16 +410,7 @@ type K8sPodStatusReasonMetricConfig struct {
 }
 
 func (ms *K8sPodStatusReasonMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -757,16 +421,7 @@ type K8sReplicasetAvailableMetricConfig struct {
 }
 
 func (ms *K8sReplicasetAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -777,16 +432,7 @@ type K8sReplicasetDesiredMetricConfig struct {
 }
 
 func (ms *K8sReplicasetDesiredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -797,16 +443,7 @@ type K8sReplicationControllerAvailableMetricConfig struct {
 }
 
 func (ms *K8sReplicationControllerAvailableMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -817,16 +454,7 @@ type K8sReplicationControllerDesiredMetricConfig struct {
 }
 
 func (ms *K8sReplicationControllerDesiredMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -837,16 +465,7 @@ type K8sResourceQuotaHardLimitMetricConfig struct {
 }
 
 func (ms *K8sResourceQuotaHardLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -857,16 +476,7 @@ type K8sResourceQuotaUsedMetricConfig struct {
 }
 
 func (ms *K8sResourceQuotaUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -889,34 +499,12 @@ type K8sServiceEndpointCountMetricConfig struct {
 }
 
 func (ms *K8sServiceEndpointCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *K8sServiceEndpointCountMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointAddressType, K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointCondition, K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointZone:
-		default:
-			return fmt.Errorf("metric k8s.service.endpoint.count doesn't have an attribute %v, valid attributes: [k8s.service.endpoint.address_type, k8s.service.endpoint.condition, k8s.service.endpoint.zone]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -927,16 +515,7 @@ type K8sServiceLoadBalancerIngressCountMetricConfig struct {
 }
 
 func (ms *K8sServiceLoadBalancerIngressCountMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -947,16 +526,7 @@ type K8sStatefulsetCurrentPodsMetricConfig struct {
 }
 
 func (ms *K8sStatefulsetCurrentPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -967,16 +537,7 @@ type K8sStatefulsetDesiredPodsMetricConfig struct {
 }
 
 func (ms *K8sStatefulsetDesiredPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -987,16 +548,7 @@ type K8sStatefulsetReadyPodsMetricConfig struct {
 }
 
 func (ms *K8sStatefulsetReadyPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1007,16 +559,7 @@ type K8sStatefulsetUpdatedPodsMetricConfig struct {
 }
 
 func (ms *K8sStatefulsetUpdatedPodsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1038,37 +581,12 @@ type OpenshiftAppliedclusterquotaLimitMetricConfig struct {
 }
 
 func (ms *OpenshiftAppliedclusterquotaLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *OpenshiftAppliedclusterquotaLimitMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case OpenshiftAppliedclusterquotaLimitMetricAttributeKeyK8sNamespaceName, OpenshiftAppliedclusterquotaLimitMetricAttributeKeyResource:
-		default:
-			return fmt.Errorf("metric openshift.appliedclusterquota.limit doesn't have an attribute %v, valid attributes: [k8s.namespace.name, resource]", val)
-		}
-	}
-	if !slices.Contains(ms.EnabledAttributes, OpenshiftAppliedclusterquotaLimitMetricAttributeKeyResource) {
-		return fmt.Errorf("resource is a required attribute for openshift.appliedclusterquota.limit metric and must be included")
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1090,37 +608,12 @@ type OpenshiftAppliedclusterquotaUsedMetricConfig struct {
 }
 
 func (ms *OpenshiftAppliedclusterquotaUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *OpenshiftAppliedclusterquotaUsedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case OpenshiftAppliedclusterquotaUsedMetricAttributeKeyK8sNamespaceName, OpenshiftAppliedclusterquotaUsedMetricAttributeKeyResource:
-		default:
-			return fmt.Errorf("metric openshift.appliedclusterquota.used doesn't have an attribute %v, valid attributes: [k8s.namespace.name, resource]", val)
-		}
-	}
-	if !slices.Contains(ms.EnabledAttributes, OpenshiftAppliedclusterquotaUsedMetricAttributeKeyResource) {
-		return fmt.Errorf("resource is a required attribute for openshift.appliedclusterquota.used metric and must be included")
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1131,16 +624,7 @@ type OpenshiftClusterquotaLimitMetricConfig struct {
 }
 
 func (ms *OpenshiftClusterquotaLimitMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1151,16 +635,7 @@ type OpenshiftClusterquotaUsedMetricConfig struct {
 }
 
 func (ms *OpenshiftClusterquotaUsedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1221,175 +696,7 @@ type MetricsConfig struct {
 	OpenshiftClusterquotaUsed               OpenshiftClusterquotaUsedMetricConfig               `mapstructure:"openshift.clusterquota.used"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		K8sContainerCPULimit: K8sContainerCPULimitMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerCPURequest: K8sContainerCPURequestMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerEphemeralstorageLimit: K8sContainerEphemeralstorageLimitMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerEphemeralstorageRequest: K8sContainerEphemeralstorageRequestMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerMemoryLimit: K8sContainerMemoryLimitMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerMemoryRequest: K8sContainerMemoryRequestMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerReady: K8sContainerReadyMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerRestarts: K8sContainerRestartsMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerStatusReason: K8sContainerStatusReasonMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerStatusState: K8sContainerStatusStateMetricConfig{
-			Enabled: false,
-		},
-		K8sContainerStorageLimit: K8sContainerStorageLimitMetricConfig{
-			Enabled: true,
-		},
-		K8sContainerStorageRequest: K8sContainerStorageRequestMetricConfig{
-			Enabled: true,
-		},
-		K8sCronjobActiveJobs: K8sCronjobActiveJobsMetricConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetCurrentScheduledNodes: K8sDaemonsetCurrentScheduledNodesMetricConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetDesiredScheduledNodes: K8sDaemonsetDesiredScheduledNodesMetricConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetMisscheduledNodes: K8sDaemonsetMisscheduledNodesMetricConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetReadyNodes: K8sDaemonsetReadyNodesMetricConfig{
-			Enabled: true,
-		},
-		K8sDeploymentAvailable: K8sDeploymentAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sDeploymentDesired: K8sDeploymentDesiredMetricConfig{
-			Enabled: true,
-		},
-		K8sHpaCurrentReplicas: K8sHpaCurrentReplicasMetricConfig{
-			Enabled: true,
-		},
-		K8sHpaDesiredReplicas: K8sHpaDesiredReplicasMetricConfig{
-			Enabled: true,
-		},
-		K8sHpaMaxReplicas: K8sHpaMaxReplicasMetricConfig{
-			Enabled: true,
-		},
-		K8sHpaMinReplicas: K8sHpaMinReplicasMetricConfig{
-			Enabled: true,
-		},
-		K8sJobActivePods: K8sJobActivePodsMetricConfig{
-			Enabled: true,
-		},
-		K8sJobDesiredSuccessfulPods: K8sJobDesiredSuccessfulPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sJobFailedPods: K8sJobFailedPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sJobMaxParallelPods: K8sJobMaxParallelPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sJobSuccessfulPods: K8sJobSuccessfulPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sNamespacePhase: K8sNamespacePhaseMetricConfig{
-			Enabled: true,
-		},
-		K8sNodeCondition: K8sNodeConditionMetricConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeStatusPhase: K8sPersistentvolumeStatusPhaseMetricConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeStorageCapacity: K8sPersistentvolumeStorageCapacityMetricConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeclaimStatusPhase: K8sPersistentvolumeclaimStatusPhaseMetricConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeclaimStorageCapacity: K8sPersistentvolumeclaimStorageCapacityMetricConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeclaimStorageRequest: K8sPersistentvolumeclaimStorageRequestMetricConfig{
-			Enabled: false,
-		},
-		K8sPodPhase: K8sPodPhaseMetricConfig{
-			Enabled: true,
-		},
-		K8sPodStatusReason: K8sPodStatusReasonMetricConfig{
-			Enabled: false,
-		},
-		K8sReplicasetAvailable: K8sReplicasetAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sReplicasetDesired: K8sReplicasetDesiredMetricConfig{
-			Enabled: true,
-		},
-		K8sReplicationControllerAvailable: K8sReplicationControllerAvailableMetricConfig{
-			Enabled: true,
-		},
-		K8sReplicationControllerDesired: K8sReplicationControllerDesiredMetricConfig{
-			Enabled: true,
-		},
-		K8sResourceQuotaHardLimit: K8sResourceQuotaHardLimitMetricConfig{
-			Enabled: true,
-		},
-		K8sResourceQuotaUsed: K8sResourceQuotaUsedMetricConfig{
-			Enabled: true,
-		},
-		K8sServiceEndpointCount: K8sServiceEndpointCountMetricConfig{
-			Enabled:             false,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []K8sServiceEndpointCountMetricAttributeKey{K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointAddressType, K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointCondition, K8sServiceEndpointCountMetricAttributeKeyK8sServiceEndpointZone},
-		},
-		K8sServiceLoadBalancerIngressCount: K8sServiceLoadBalancerIngressCountMetricConfig{
-			Enabled: false,
-		},
-		K8sStatefulsetCurrentPods: K8sStatefulsetCurrentPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sStatefulsetDesiredPods: K8sStatefulsetDesiredPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sStatefulsetReadyPods: K8sStatefulsetReadyPodsMetricConfig{
-			Enabled: true,
-		},
-		K8sStatefulsetUpdatedPods: K8sStatefulsetUpdatedPodsMetricConfig{
-			Enabled: true,
-		},
-		OpenshiftAppliedclusterquotaLimit: OpenshiftAppliedclusterquotaLimitMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []OpenshiftAppliedclusterquotaLimitMetricAttributeKey{OpenshiftAppliedclusterquotaLimitMetricAttributeKeyK8sNamespaceName, OpenshiftAppliedclusterquotaLimitMetricAttributeKeyResource},
-		},
-		OpenshiftAppliedclusterquotaUsed: OpenshiftAppliedclusterquotaUsedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategyAvg,
-			EnabledAttributes:   []OpenshiftAppliedclusterquotaUsedMetricAttributeKey{OpenshiftAppliedclusterquotaUsedMetricAttributeKeyK8sNamespaceName, OpenshiftAppliedclusterquotaUsedMetricAttributeKeyResource},
-		},
-		OpenshiftClusterquotaLimit: OpenshiftClusterquotaLimitMetricConfig{
-			Enabled: true,
-		},
-		OpenshiftClusterquotaUsed: OpenshiftClusterquotaUsedMetricConfig{
-			Enabled: true,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // ResourceAttributeConfig provides common config for a particular resource attribute.
 type ResourceAttributeConfig struct {
@@ -1406,14 +713,7 @@ type ResourceAttributeConfig struct {
 }
 
 func (rac *ResourceAttributeConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-	err := parser.Unmarshal(rac)
-	if err != nil {
-		return err
-	}
-	rac.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -1473,161 +773,8 @@ type ResourceAttributesConfig struct {
 }
 
 func DefaultResourceAttributesConfig() ResourceAttributesConfig {
-	return ResourceAttributesConfig{
-		ContainerID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerImageTag: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		ContainerRuntime: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		ContainerRuntimeVersion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sContainerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sContainerStatusLastTerminatedReason: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sCronjobName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sCronjobUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sDaemonsetUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sDeploymentName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sDeploymentUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sHpaName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sHpaScaletargetrefApiversion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sHpaScaletargetrefKind: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sHpaScaletargetrefName: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sHpaUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sJobName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sJobUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sKubeletVersion: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sNamespaceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNamespaceUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sNodeUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPersistentvolumeName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPersistentvolumeReclaimPolicy: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sPersistentvolumeUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPersistentvolumeclaimName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPersistentvolumeclaimUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sPodQosClass: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sPodUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sReplicasetName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sReplicasetUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sReplicationcontrollerName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sReplicationcontrollerUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sResourcequotaName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sResourcequotaUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sServiceName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sServicePublishNotReadyAddresses: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sServiceTrafficDistribution: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		K8sServiceType: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sServiceUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sStatefulsetName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sStatefulsetUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		K8sStorageclassName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OpenshiftClusterquotaName: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OpenshiftClusterquotaUID: ResourceAttributeConfig{
-			Enabled: true,
-		},
-		OsDescription: ResourceAttributeConfig{
-			Enabled: false,
-		},
-		OsType: ResourceAttributeConfig{
-			Enabled: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceAttributesConfig)
 }
 
 // MetricsBuilderConfig is a configuration for k8s_cluster metrics builder.
@@ -1637,13 +784,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics:            DefaultMetricsConfig(),
-		ResourceAttributes: DefaultResourceAttributesConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

@@ -12,7 +12,6 @@ type writeMetricsOptions struct {
 
 // SkipMetricTimestampNormalization is an option that skips normalizing timestamps before writing metrics to disk.
 func SkipMetricTimestampNormalization() WriteMetricsOption {
-	return func(wmo *writeMetricsOptions) {
-		wmo.normalizeTimestamps = false
-	}
+	_ = "STUB: not implemented"
+	return *new(WriteMetricsOption)
 }

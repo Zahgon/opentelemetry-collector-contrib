@@ -9,7 +9,6 @@ import (
 	"github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/attributes"
 	"github.com/DataDog/datadog-agent/pkg/opentelemetry-mapping-go/otlp/metrics"
 	"github.com/DataDog/datadog-agent/pkg/util/quantile"
-	"github.com/DataDog/datadog-api-client-go/v2/api/datadog"
 	"github.com/DataDog/datadog-api-client-go/v2/api/datadogV2"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -35,70 +34,30 @@ type Consumer struct {
 
 // NewConsumer creates a new Datadog consumer. It implements metrics.Consumer.
 func NewConsumer(gatewayUsage *attributes.GatewayUsage) *Consumer {
-	return &Consumer{
-		seenHosts:    make(map[string]struct{}),
-		seenTags:     make(map[string]struct{}),
-		gatewayUsage: gatewayUsage,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // toDataType maps translator datatypes to DatadogV2's datatypes.
 func (*Consumer) toDataType(dt metrics.DataType) (out datadogV2.MetricIntakeType) {
-	out = datadogV2.METRICINTAKETYPE_UNSPECIFIED
-
-	switch dt {
-	case metrics.Count:
-		out = datadogV2.METRICINTAKETYPE_COUNT
-	case metrics.Gauge:
-		out = datadogV2.METRICINTAKETYPE_GAUGE
-	}
-
-	return out
+	_ = "STUB: not implemented"
+	return *new(datadogV2.MetricIntakeType)
 }
 
 // runningMetrics gets the running metrics for the exporter.
 func (c *Consumer) runningMetrics(timestamp uint64, buildInfo component.BuildInfo, metadata metrics.Metadata) (series []datadogV2.MetricSeries) {
-	buildTags := TagsFromBuildInfo(buildInfo)
-	for host := range c.seenHosts {
-		// Report the host as running
-		runningMetric := DefaultMetrics("metrics", host, timestamp, buildTags)
-		if c.gatewayUsage != nil {
-			series = append(series, GatewayUsageGauge(timestamp, host, buildTags, c.gatewayUsage))
-		}
-		series = append(series, runningMetric...)
-	}
-
-	for tag := range c.seenTags {
-		runningMetrics := DefaultMetrics("metrics", "", timestamp, buildTags)
-		for i := range runningMetrics {
-			runningMetrics[i].Tags = append(runningMetrics[i].Tags, tag)
-		}
-		series = append(series, runningMetrics...)
-	}
-
-	for _, lang := range metadata.Languages {
-		tags := append(buildTags, "language:"+lang) //nolint:gocritic
-		runningMetric := DefaultMetrics("runtime_metrics", "", timestamp, tags)
-		series = append(series, runningMetric...)
-	}
-
-	return series
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Report the host as running
+
+//nolint:gocritic
 
 // All gets all metrics (consumed metrics and running metrics).
 func (c *Consumer) All(timestamp uint64, buildInfo component.BuildInfo, tags []string, metadata metrics.Metadata) ([]datadogV2.MetricSeries, sketches.SketchSeriesList) {
-	series := c.ms
-	series = append(series, c.runningMetrics(timestamp, buildInfo, metadata)...)
-	if len(tags) == 0 {
-		return series, c.sl
-	}
-	for i := range series {
-		series[i].Tags = append(series[i].Tags, tags...)
-	}
-	for i := range c.sl {
-		c.sl[i].Tags = append(c.sl[i].Tags, tags...)
-	}
-	return series, c.sl
+	_ = "STUB: not implemented"
+	return nil, *new(sketches.SketchSeriesList)
 }
 
 // ConsumeTimeSeries implements the metrics.Consumer interface.
@@ -110,15 +69,8 @@ func (c *Consumer) ConsumeTimeSeries(
 	interval int64,
 	value float64,
 ) {
-	dt := c.toDataType(typ)
-	met := NewMetric(dims.Name(), dt, timestamp, interval, value, dims.Tags())
-	met.SetResources([]datadogV2.MetricResource{
-		{
-			Name: datadog.PtrString(dims.Host()),
-			Type: datadog.PtrString("host"),
-		},
-	})
-	c.ms = append(c.ms, met)
+	_ = "STUB: not implemented"
+	return
 }
 
 // ConsumeSketch implements the metrics.Consumer interface.
@@ -129,27 +81,15 @@ func (c *Consumer) ConsumeSketch(
 	interval int64,
 	sketch *quantile.Sketch,
 ) {
-	c.sl = append(c.sl, sketches.SketchSeries{
-		Name:     dims.Name(),
-		Tags:     dims.Tags(),
-		Host:     dims.Host(),
-		Interval: interval,
-		Points: []sketches.SketchPoint{{
-			Ts:     int64(timestamp / 1e9),
-			Sketch: sketch,
-		}},
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
 // ConsumeHost implements the metrics.HostConsumer interface.
-func (c *Consumer) ConsumeHost(host string) {
-	c.seenHosts[host] = struct{}{}
-}
+func (c *Consumer) ConsumeHost(host string) { _ = "STUB: not implemented"; return }
 
 // ConsumeTag implements the metrics.TagsConsumer interface.
-func (c *Consumer) ConsumeTag(tag string) {
-	c.seenTags[tag] = struct{}{}
-}
+func (c *Consumer) ConsumeTag(tag string) { _ = "STUB: not implemented"; return }
 
 // ConsumeExplicitBoundHistogram implements the metrics.ExplicitBoundHistogramConsumer interface.
 // This is a no-op implementation as we use sketch-based histograms.
@@ -158,7 +98,9 @@ func (*Consumer) ConsumeExplicitBoundHistogram(
 	_ *metrics.Dimensions,
 	_ pmetric.HistogramDataPointSlice,
 ) {
+	_ = "STUB: not implemented"
 	// No-op: we use sketch-based histograms
+	return
 }
 
 // ConsumeExponentialHistogram implements the metrics.ExponentialHistogramConsumer interface.
@@ -168,5 +110,7 @@ func (*Consumer) ConsumeExponentialHistogram(
 	_ *metrics.Dimensions,
 	_ pmetric.ExponentialHistogramDataPointSlice,
 ) {
+	_ = "STUB: not implemented"
 	// No-op: we use sketch-based histograms
+	return
 }

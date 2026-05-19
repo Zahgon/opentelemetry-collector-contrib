@@ -19,37 +19,18 @@ type sumDP struct {
 	dblVal float64
 }
 
-func newSumDP(attrs pcommon.Map, isDbl bool) *sumDP {
-	return &sumDP{
-		isDbl: isDbl,
-		attrs: attrs,
-	}
-}
+func newSumDP(attrs pcommon.Map, isDbl bool) *sumDP { _ = "STUB: not implemented"; return nil }
 
-func (dp *sumDP) AggregateInt(v int64) {
-	if dp.isDbl {
-		panic("unexpected usage of sum datapoint, only integer value expected")
-	}
-	dp.intVal += v
-}
+func (dp *sumDP) AggregateInt(v int64) { _ = "STUB: not implemented"; return }
 
-func (dp *sumDP) AggregateDouble(v float64) {
-	if !dp.isDbl {
-		panic("unexpected usage of sum datapoint, only double value expected")
-	}
-	dp.dblVal += v
-}
+func (dp *sumDP) AggregateDouble(v float64) { _ = "STUB: not implemented"; return }
 
 func (dp *sumDP) Copy(
 	timestamp time.Time,
 	dest pmetric.NumberDataPoint,
 ) {
-	dp.attrs.CopyTo(dest.Attributes())
-	if dp.isDbl {
-		dest.SetDoubleValue(dp.dblVal)
-	} else {
-		dest.SetIntValue(dp.intVal)
-	}
-	// TODO determine appropriate start time
-	dest.SetTimestamp(pcommon.NewTimestampFromTime(timestamp))
+	_ = "STUB: not implemented"
+	return
 }
+
+// TODO determine appropriate start time

@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -29,15 +26,7 @@ const (
 )
 
 // String returns the string representation of the AttributeBindType.
-func (av AttributeBindType) String() string {
-	switch av {
-	case AttributeBindTypeServer:
-		return "server"
-	case AttributeBindTypeClient:
-		return "client"
-	}
-	return ""
-}
+func (av AttributeBindType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeBindType is a helper map of string to AttributeBindType attribute value.
 var MapAttributeBindType = map[string]AttributeBindType{
@@ -55,15 +44,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionSent:
-		return "sent"
-	case AttributeDirectionReceived:
-		return "received"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -81,15 +62,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNetworkDataType.
-func (av AttributeNetworkDataType) String() string {
-	switch av {
-	case AttributeNetworkDataTypeCompressed:
-		return "compressed"
-	case AttributeNetworkDataTypeUncompressed:
-		return "uncompressed"
-	}
-	return ""
-}
+func (av AttributeNetworkDataType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNetworkDataType is a helper map of string to AttributeNetworkDataType attribute value.
 var MapAttributeNetworkDataType = map[string]AttributeNetworkDataType{
@@ -108,17 +81,7 @@ const (
 )
 
 // String returns the string representation of the AttributeOperationType.
-func (av AttributeOperationType) String() string {
-	switch av {
-	case AttributeOperationTypeRead:
-		return "read"
-	case AttributeOperationTypeWrite:
-		return "write"
-	case AttributeOperationTypeSearch:
-		return "search"
-	}
-	return ""
-}
+func (av AttributeOperationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeOperationType is a helper map of string to AttributeOperationType attribute value.
 var MapAttributeOperationType = map[string]AttributeOperationType{
@@ -137,15 +100,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSuboperationType.
-func (av AttributeSuboperationType) String() string {
-	switch av {
-	case AttributeSuboperationTypeSecurityDescriptorPropagationsEvent:
-		return "security_descriptor_propagations_event"
-	case AttributeSuboperationTypeSearch:
-		return "search"
-	}
-	return ""
-}
+func (av AttributeSuboperationType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSuboperationType is a helper map of string to AttributeSuboperationType attribute value.
 var MapAttributeSuboperationType = map[string]AttributeSuboperationType{
@@ -164,17 +119,7 @@ const (
 )
 
 // String returns the string representation of the AttributeSyncResult.
-func (av AttributeSyncResult) String() string {
-	switch av {
-	case AttributeSyncResultSuccess:
-		return "success"
-	case AttributeSyncResultSchemaMismatch:
-		return "schema_mismatch"
-	case AttributeSyncResultOther:
-		return "other"
-	}
-	return ""
-}
+func (av AttributeSyncResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeSyncResult is a helper map of string to AttributeSyncResult attribute value.
 var MapAttributeSyncResult = map[string]AttributeSyncResult{
@@ -193,15 +138,7 @@ const (
 )
 
 // String returns the string representation of the AttributeValueType.
-func (av AttributeValueType) String() string {
-	switch av {
-	case AttributeValueTypeDistinguishedNames:
-		return "distinguished_names"
-	case AttributeValueTypeOther:
-		return "other"
-	}
-	return ""
-}
+func (av AttributeValueType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeValueType is a helper map of string to AttributeValueType attribute value.
 var MapAttributeValueType = map[string]AttributeValueType{
@@ -311,75 +248,22 @@ func (m *metricActiveDirectoryDsBindRate) init() {
 }
 
 func (m *metricActiveDirectoryDsBindRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, bindTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsBindRateMetricAttributeKeyBindType) {
-		dp.Attributes().PutStr("type", bindTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricActiveDirectoryDsBindRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricActiveDirectoryDsBindRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsBindRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsBindRate(cfg ActiveDirectoryDsBindRateMetricConfig) metricActiveDirectoryDsBindRate {
-	m := metricActiveDirectoryDsBindRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsBindRate)
 }
 
 type metricActiveDirectoryDsLdapBindLastSuccessfulTime struct {
@@ -397,39 +281,25 @@ func (m *metricActiveDirectoryDsLdapBindLastSuccessfulTime) init() {
 }
 
 func (m *metricActiveDirectoryDsLdapBindLastSuccessfulTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsLdapBindLastSuccessfulTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsLdapBindLastSuccessfulTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsLdapBindLastSuccessfulTime(cfg ActiveDirectoryDsLdapBindLastSuccessfulTimeMetricConfig) metricActiveDirectoryDsLdapBindLastSuccessfulTime {
-	m := metricActiveDirectoryDsLdapBindLastSuccessfulTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsLdapBindLastSuccessfulTime)
 }
 
 type metricActiveDirectoryDsLdapBindRate struct {
@@ -449,39 +319,22 @@ func (m *metricActiveDirectoryDsLdapBindRate) init() {
 }
 
 func (m *metricActiveDirectoryDsLdapBindRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricActiveDirectoryDsLdapBindRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricActiveDirectoryDsLdapBindRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsLdapBindRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsLdapBindRate(cfg ActiveDirectoryDsLdapBindRateMetricConfig) metricActiveDirectoryDsLdapBindRate {
-	m := metricActiveDirectoryDsLdapBindRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsLdapBindRate)
 }
 
 type metricActiveDirectoryDsLdapClientSessionCount struct {
@@ -501,39 +354,25 @@ func (m *metricActiveDirectoryDsLdapClientSessionCount) init() {
 }
 
 func (m *metricActiveDirectoryDsLdapClientSessionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsLdapClientSessionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsLdapClientSessionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsLdapClientSessionCount(cfg ActiveDirectoryDsLdapClientSessionCountMetricConfig) metricActiveDirectoryDsLdapClientSessionCount {
-	m := metricActiveDirectoryDsLdapClientSessionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsLdapClientSessionCount)
 }
 
 type metricActiveDirectoryDsLdapSearchRate struct {
@@ -553,39 +392,22 @@ func (m *metricActiveDirectoryDsLdapSearchRate) init() {
 }
 
 func (m *metricActiveDirectoryDsLdapSearchRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricActiveDirectoryDsLdapSearchRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricActiveDirectoryDsLdapSearchRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsLdapSearchRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsLdapSearchRate(cfg ActiveDirectoryDsLdapSearchRateMetricConfig) metricActiveDirectoryDsLdapSearchRate {
-	m := metricActiveDirectoryDsLdapSearchRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsLdapSearchRate)
 }
 
 type metricActiveDirectoryDsNameCacheHitRate struct {
@@ -603,39 +425,25 @@ func (m *metricActiveDirectoryDsNameCacheHitRate) init() {
 }
 
 func (m *metricActiveDirectoryDsNameCacheHitRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsNameCacheHitRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsNameCacheHitRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsNameCacheHitRate(cfg ActiveDirectoryDsNameCacheHitRateMetricConfig) metricActiveDirectoryDsNameCacheHitRate {
-	m := metricActiveDirectoryDsNameCacheHitRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsNameCacheHitRate)
 }
 
 type metricActiveDirectoryDsNotificationQueued struct {
@@ -655,39 +463,25 @@ func (m *metricActiveDirectoryDsNotificationQueued) init() {
 }
 
 func (m *metricActiveDirectoryDsNotificationQueued) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsNotificationQueued) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsNotificationQueued) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsNotificationQueued(cfg ActiveDirectoryDsNotificationQueuedMetricConfig) metricActiveDirectoryDsNotificationQueued {
-	m := metricActiveDirectoryDsNotificationQueued{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsNotificationQueued)
 }
 
 type metricActiveDirectoryDsOperationRate struct {
@@ -710,75 +504,22 @@ func (m *metricActiveDirectoryDsOperationRate) init() {
 }
 
 func (m *metricActiveDirectoryDsOperationRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, operationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsOperationRateMetricAttributeKeyOperationType) {
-		dp.Attributes().PutStr("type", operationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricActiveDirectoryDsOperationRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricActiveDirectoryDsOperationRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsOperationRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsOperationRate(cfg ActiveDirectoryDsOperationRateMetricConfig) metricActiveDirectoryDsOperationRate {
-	m := metricActiveDirectoryDsOperationRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsOperationRate)
 }
 
 type metricActiveDirectoryDsReplicationNetworkIo struct {
@@ -801,78 +542,25 @@ func (m *metricActiveDirectoryDsReplicationNetworkIo) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, directionAttributeValue string, networkDataTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationNetworkIoMetricAttributeKeyNetworkDataType) {
-		dp.Attributes().PutStr("type", networkDataTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationNetworkIo(cfg ActiveDirectoryDsReplicationNetworkIoMetricConfig) metricActiveDirectoryDsReplicationNetworkIo {
-	m := metricActiveDirectoryDsReplicationNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationNetworkIo)
 }
 
 type metricActiveDirectoryDsReplicationObjectRate struct {
@@ -895,75 +583,25 @@ func (m *metricActiveDirectoryDsReplicationObjectRate) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationObjectRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationObjectRateMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationObjectRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationObjectRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationObjectRate(cfg ActiveDirectoryDsReplicationObjectRateMetricConfig) metricActiveDirectoryDsReplicationObjectRate {
-	m := metricActiveDirectoryDsReplicationObjectRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationObjectRate)
 }
 
 type metricActiveDirectoryDsReplicationOperationPending struct {
@@ -983,39 +621,25 @@ func (m *metricActiveDirectoryDsReplicationOperationPending) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationOperationPending) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationOperationPending) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationOperationPending) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationOperationPending(cfg ActiveDirectoryDsReplicationOperationPendingMetricConfig) metricActiveDirectoryDsReplicationOperationPending {
-	m := metricActiveDirectoryDsReplicationOperationPending{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationOperationPending)
 }
 
 type metricActiveDirectoryDsReplicationPropertyRate struct {
@@ -1038,75 +662,25 @@ func (m *metricActiveDirectoryDsReplicationPropertyRate) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationPropertyRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationPropertyRateMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationPropertyRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationPropertyRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationPropertyRate(cfg ActiveDirectoryDsReplicationPropertyRateMetricConfig) metricActiveDirectoryDsReplicationPropertyRate {
-	m := metricActiveDirectoryDsReplicationPropertyRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationPropertyRate)
 }
 
 type metricActiveDirectoryDsReplicationSyncObjectPending struct {
@@ -1126,39 +700,25 @@ func (m *metricActiveDirectoryDsReplicationSyncObjectPending) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationSyncObjectPending) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationSyncObjectPending) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationSyncObjectPending) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationSyncObjectPending(cfg ActiveDirectoryDsReplicationSyncObjectPendingMetricConfig) metricActiveDirectoryDsReplicationSyncObjectPending {
-	m := metricActiveDirectoryDsReplicationSyncObjectPending{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationSyncObjectPending)
 }
 
 type metricActiveDirectoryDsReplicationSyncRequestCount struct {
@@ -1181,75 +741,25 @@ func (m *metricActiveDirectoryDsReplicationSyncRequestCount) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationSyncRequestCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, syncResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationSyncRequestCountMetricAttributeKeySyncResult) {
-		dp.Attributes().PutStr("result", syncResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationSyncRequestCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationSyncRequestCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationSyncRequestCount(cfg ActiveDirectoryDsReplicationSyncRequestCountMetricConfig) metricActiveDirectoryDsReplicationSyncRequestCount {
-	m := metricActiveDirectoryDsReplicationSyncRequestCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationSyncRequestCount)
 }
 
 type metricActiveDirectoryDsReplicationValueRate struct {
@@ -1272,78 +782,25 @@ func (m *metricActiveDirectoryDsReplicationValueRate) init() {
 }
 
 func (m *metricActiveDirectoryDsReplicationValueRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string, valueTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationValueRateMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsReplicationValueRateMetricAttributeKeyValueType) {
-		dp.Attributes().PutStr("type", valueTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsReplicationValueRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsReplicationValueRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsReplicationValueRate(cfg ActiveDirectoryDsReplicationValueRateMetricConfig) metricActiveDirectoryDsReplicationValueRate {
-	m := metricActiveDirectoryDsReplicationValueRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsReplicationValueRate)
 }
 
 type metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued struct {
@@ -1363,39 +820,25 @@ func (m *metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued) init(
 }
 
 func (m *metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued(cfg ActiveDirectoryDsSecurityDescriptorPropagationsEventQueuedMetricConfig) metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued {
-	m := metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued)
 }
 
 type metricActiveDirectoryDsSuboperationRate struct {
@@ -1418,75 +861,25 @@ func (m *metricActiveDirectoryDsSuboperationRate) init() {
 }
 
 func (m *metricActiveDirectoryDsSuboperationRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, suboperationTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ActiveDirectoryDsSuboperationRateMetricAttributeKeySuboperationType) {
-		dp.Attributes().PutStr("type", suboperationTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricActiveDirectoryDsSuboperationRate) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsSuboperationRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsSuboperationRate(cfg ActiveDirectoryDsSuboperationRateMetricConfig) metricActiveDirectoryDsSuboperationRate {
-	m := metricActiveDirectoryDsSuboperationRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsSuboperationRate)
 }
 
 type metricActiveDirectoryDsThreadCount struct {
@@ -1506,39 +899,22 @@ func (m *metricActiveDirectoryDsThreadCount) init() {
 }
 
 func (m *metricActiveDirectoryDsThreadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricActiveDirectoryDsThreadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricActiveDirectoryDsThreadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricActiveDirectoryDsThreadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricActiveDirectoryDsThreadCount(cfg ActiveDirectoryDsThreadCountMetricConfig) metricActiveDirectoryDsThreadCount {
-	m := metricActiveDirectoryDsThreadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricActiveDirectoryDsThreadCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1577,52 +953,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                          mbc,
-		startTime:                       pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                   pmetric.NewMetrics(),
-		buildInfo:                       settings.BuildInfo,
-		metricActiveDirectoryDsBindRate: newMetricActiveDirectoryDsBindRate(mbc.Metrics.ActiveDirectoryDsBindRate),
-		metricActiveDirectoryDsLdapBindLastSuccessfulTime:                newMetricActiveDirectoryDsLdapBindLastSuccessfulTime(mbc.Metrics.ActiveDirectoryDsLdapBindLastSuccessfulTime),
-		metricActiveDirectoryDsLdapBindRate:                              newMetricActiveDirectoryDsLdapBindRate(mbc.Metrics.ActiveDirectoryDsLdapBindRate),
-		metricActiveDirectoryDsLdapClientSessionCount:                    newMetricActiveDirectoryDsLdapClientSessionCount(mbc.Metrics.ActiveDirectoryDsLdapClientSessionCount),
-		metricActiveDirectoryDsLdapSearchRate:                            newMetricActiveDirectoryDsLdapSearchRate(mbc.Metrics.ActiveDirectoryDsLdapSearchRate),
-		metricActiveDirectoryDsNameCacheHitRate:                          newMetricActiveDirectoryDsNameCacheHitRate(mbc.Metrics.ActiveDirectoryDsNameCacheHitRate),
-		metricActiveDirectoryDsNotificationQueued:                        newMetricActiveDirectoryDsNotificationQueued(mbc.Metrics.ActiveDirectoryDsNotificationQueued),
-		metricActiveDirectoryDsOperationRate:                             newMetricActiveDirectoryDsOperationRate(mbc.Metrics.ActiveDirectoryDsOperationRate),
-		metricActiveDirectoryDsReplicationNetworkIo:                      newMetricActiveDirectoryDsReplicationNetworkIo(mbc.Metrics.ActiveDirectoryDsReplicationNetworkIo),
-		metricActiveDirectoryDsReplicationObjectRate:                     newMetricActiveDirectoryDsReplicationObjectRate(mbc.Metrics.ActiveDirectoryDsReplicationObjectRate),
-		metricActiveDirectoryDsReplicationOperationPending:               newMetricActiveDirectoryDsReplicationOperationPending(mbc.Metrics.ActiveDirectoryDsReplicationOperationPending),
-		metricActiveDirectoryDsReplicationPropertyRate:                   newMetricActiveDirectoryDsReplicationPropertyRate(mbc.Metrics.ActiveDirectoryDsReplicationPropertyRate),
-		metricActiveDirectoryDsReplicationSyncObjectPending:              newMetricActiveDirectoryDsReplicationSyncObjectPending(mbc.Metrics.ActiveDirectoryDsReplicationSyncObjectPending),
-		metricActiveDirectoryDsReplicationSyncRequestCount:               newMetricActiveDirectoryDsReplicationSyncRequestCount(mbc.Metrics.ActiveDirectoryDsReplicationSyncRequestCount),
-		metricActiveDirectoryDsReplicationValueRate:                      newMetricActiveDirectoryDsReplicationValueRate(mbc.Metrics.ActiveDirectoryDsReplicationValueRate),
-		metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued: newMetricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued(mbc.Metrics.ActiveDirectoryDsSecurityDescriptorPropagationsEventQueued),
-		metricActiveDirectoryDsSuboperationRate:                          newMetricActiveDirectoryDsSuboperationRate(mbc.Metrics.ActiveDirectoryDsSuboperationRate),
-		metricActiveDirectoryDsThreadCount:                               newMetricActiveDirectoryDsThreadCount(mbc.Metrics.ActiveDirectoryDsThreadCount),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1633,35 +983,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1670,145 +1008,126 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricActiveDirectoryDsBindRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsLdapBindLastSuccessfulTime.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsLdapBindRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsLdapClientSessionCount.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsLdapSearchRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsNameCacheHitRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsNotificationQueued.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsOperationRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationNetworkIo.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationObjectRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationOperationPending.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationPropertyRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationSyncObjectPending.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationSyncRequestCount.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsReplicationValueRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsSuboperationRate.emit(ils.Metrics())
-	mb.metricActiveDirectoryDsThreadCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordActiveDirectoryDsBindRateDataPoint adds a data point to active_directory.ds.bind.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsBindRateDataPoint(ts pcommon.Timestamp, val float64, bindTypeAttributeValue AttributeBindType) {
-	mb.metricActiveDirectoryDsBindRate.recordDataPoint(mb.startTime, ts, val, bindTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsLdapBindLastSuccessfulTimeDataPoint adds a data point to active_directory.ds.ldap.bind.last_successful.time metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsLdapBindLastSuccessfulTimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsLdapBindLastSuccessfulTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsLdapBindRateDataPoint adds a data point to active_directory.ds.ldap.bind.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsLdapBindRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricActiveDirectoryDsLdapBindRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsLdapClientSessionCountDataPoint adds a data point to active_directory.ds.ldap.client.session.count metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsLdapClientSessionCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsLdapClientSessionCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsLdapSearchRateDataPoint adds a data point to active_directory.ds.ldap.search.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsLdapSearchRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricActiveDirectoryDsLdapSearchRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsNameCacheHitRateDataPoint adds a data point to active_directory.ds.name_cache.hit_rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsNameCacheHitRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricActiveDirectoryDsNameCacheHitRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsNotificationQueuedDataPoint adds a data point to active_directory.ds.notification.queued metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsNotificationQueuedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsNotificationQueued.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsOperationRateDataPoint adds a data point to active_directory.ds.operation.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsOperationRateDataPoint(ts pcommon.Timestamp, val float64, operationTypeAttributeValue AttributeOperationType) {
-	mb.metricActiveDirectoryDsOperationRate.recordDataPoint(mb.startTime, ts, val, operationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationNetworkIoDataPoint adds a data point to active_directory.ds.replication.network.io metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationNetworkIoDataPoint(ts pcommon.Timestamp, val int64, directionAttributeValue AttributeDirection, networkDataTypeAttributeValue AttributeNetworkDataType) {
-	mb.metricActiveDirectoryDsReplicationNetworkIo.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String(), networkDataTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationObjectRateDataPoint adds a data point to active_directory.ds.replication.object.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationObjectRateDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricActiveDirectoryDsReplicationObjectRate.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationOperationPendingDataPoint adds a data point to active_directory.ds.replication.operation.pending metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationOperationPendingDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsReplicationOperationPending.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationPropertyRateDataPoint adds a data point to active_directory.ds.replication.property.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationPropertyRateDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricActiveDirectoryDsReplicationPropertyRate.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationSyncObjectPendingDataPoint adds a data point to active_directory.ds.replication.sync.object.pending metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationSyncObjectPendingDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsReplicationSyncObjectPending.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationSyncRequestCountDataPoint adds a data point to active_directory.ds.replication.sync.request.count metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationSyncRequestCountDataPoint(ts pcommon.Timestamp, val int64, syncResultAttributeValue AttributeSyncResult) {
-	mb.metricActiveDirectoryDsReplicationSyncRequestCount.recordDataPoint(mb.startTime, ts, val, syncResultAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsReplicationValueRateDataPoint adds a data point to active_directory.ds.replication.value.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsReplicationValueRateDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection, valueTypeAttributeValue AttributeValueType) {
-	mb.metricActiveDirectoryDsReplicationValueRate.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String(), valueTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsSecurityDescriptorPropagationsEventQueuedDataPoint adds a data point to active_directory.ds.security_descriptor_propagations_event.queued metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsSecurityDescriptorPropagationsEventQueuedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsSecurityDescriptorPropagationsEventQueued.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsSuboperationRateDataPoint adds a data point to active_directory.ds.suboperation.rate metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsSuboperationRateDataPoint(ts pcommon.Timestamp, val float64, suboperationTypeAttributeValue AttributeSuboperationType) {
-	mb.metricActiveDirectoryDsSuboperationRate.recordDataPoint(mb.startTime, ts, val, suboperationTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordActiveDirectoryDsThreadCountDataPoint adds a data point to active_directory.ds.thread.count metric.
 func (mb *MetricsBuilder) RecordActiveDirectoryDsThreadCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricActiveDirectoryDsThreadCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

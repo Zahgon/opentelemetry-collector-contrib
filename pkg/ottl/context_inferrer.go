@@ -4,15 +4,7 @@
 package ottl // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 
 import (
-	"cmp"
-	"errors"
-	"fmt"
-	"math"
-	"slices"
-
 	"go.opentelemetry.io/collector/component"
-	"go.uber.org/zap"
-	"golang.org/x/exp/maps"
 )
 
 var defaultContextInferPriority = []string{
@@ -65,124 +57,45 @@ type priorityContextInferrerOption func(*priorityContextInferrer)
 // If non-prioritized contexts are found on the statements, they get assigned the lowest possible priority,
 // and are only selected if no other prioritized context is found.
 func newPriorityContextInferrer(telemetrySettings component.TelemetrySettings, contextsCandidate map[string]*priorityContextInferrerCandidate, options ...priorityContextInferrerOption) contextInferrer {
-	c := &priorityContextInferrer{
-		telemetrySettings: telemetrySettings,
-		contextCandidate:  contextsCandidate,
-	}
-	for _, opt := range options {
-		opt(c)
-	}
-	if len(c.contextPriority) == 0 {
-		withContextInferrerPriorities(defaultContextInferPriority)(c)
-	}
-	return c
+	_ = "STUB: not implemented"
+	return *new(contextInferrer)
 }
 
 // withContextInferrerPriorities sets the contexts candidates priorities. The lower the
 // context position is in the array, the more priority it will have over other items.
 func withContextInferrerPriorities(priorities []string) priorityContextInferrerOption {
-	return func(c *priorityContextInferrer) {
-		contextPriority := map[string]int{}
-		for pri, context := range priorities {
-			contextPriority[context] = pri
-		}
-		c.contextPriority = contextPriority
-	}
+	_ = "STUB: not implemented"
+	return *new(priorityContextInferrerOption)
 }
 
 func (s *priorityContextInferrer) inferFromConditions(conditions []string) (inferredContext string, err error) {
-	return s.infer(nil, conditions, nil)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (s *priorityContextInferrer) inferFromStatements(statements []string) (inferredContext string, err error) {
-	return s.infer(statements, nil, nil)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (s *priorityContextInferrer) inferFromValueExpressions(expressions []string) (inferredContext string, err error) {
-	return s.infer(nil, nil, expressions)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (s *priorityContextInferrer) infer(statements, conditions, valueExprs []string) (inferredContext string, err error) {
-	var statementsHints, conditionsHints, valueExprsHints []priorityContextInferrerHints
-	if len(statements) > 0 {
-		statementsHints, err = s.getStatementsHints(statements)
-		if err != nil {
-			return "", err
-		}
-	}
-	if len(conditions) > 0 {
-		conditionsHints, err = s.getConditionsHints(conditions)
-		if err != nil {
-			return "", err
-		}
-	}
-	if len(valueExprs) > 0 {
-		valueExprsHints, err = s.getValueExpressionsHints(valueExprs)
-		if err != nil {
-			return "", err
-		}
-	}
-	if s.telemetrySettings.Logger.Core().Enabled(zap.DebugLevel) {
-		s.telemetrySettings.Logger.Debug("Inferring OTTL context",
-			zap.Strings("candidates", maps.Keys(s.contextCandidate)),
-			zap.Any("priority", s.contextPriority),
-			zap.Strings("statements", statements),
-			zap.Strings("conditions", conditions),
-			zap.Strings("value_expressions", valueExprs),
-		)
-	}
-	return s.inferFromHints(slices.Concat(statementsHints, conditionsHints, valueExprsHints))
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (s *priorityContextInferrer) inferFromHints(hints []priorityContextInferrerHints) (inferredContext string, err error) {
-	defer func() {
-		if inferredContext != "" {
-			s.telemetrySettings.Logger.Debug(fmt.Sprintf(`Inferred OTTL context: %q`, inferredContext))
-		} else {
-			s.telemetrySettings.Logger.Debug("Unable to infer OTTL context", zap.Error(err))
-		}
-	}()
-
-	requiredFunctions := map[string]struct{}{}
-	requiredEnums := map[enumSymbol]struct{}{}
-
-	var inferredContextPriority int
-	for _, hint := range hints {
-		for _, p := range hint.paths {
-			candidate := p.Context
-			candidatePriority, ok := s.contextPriority[candidate]
-			if !ok {
-				candidatePriority = math.MaxInt
-			}
-			if inferredContext == "" || candidatePriority < inferredContextPriority {
-				inferredContext = candidate
-				inferredContextPriority = candidatePriority
-			}
-		}
-		for function := range hint.functions {
-			requiredFunctions[function] = struct{}{}
-		}
-		for enum := range hint.enumsSymbols {
-			requiredEnums[enum] = struct{}{}
-		}
-	}
-	// No inferred context
-	if inferredContext == "" {
-		s.telemetrySettings.Logger.Debug("No OTTL context candidate found")
-		return "", nil
-	}
-	// If no functions or enums are required, return the inferred context directly.
-	if len(requiredFunctions) == 0 && len(requiredEnums) == 0 {
-		return inferredContext, nil
-	}
-	if err = s.validateContextCandidate(inferredContext, requiredFunctions, requiredEnums); err == nil {
-		return inferredContext, nil
-	}
-	if inferredFromLowerContexts, lowerContextErr := s.inferFromLowerContexts(inferredContext, requiredFunctions, requiredEnums); lowerContextErr == nil {
-		return inferredFromLowerContexts, nil
-	}
-	return "", err
+	_ = "STUB: not implemented"
+	return "", nil
 }
+
+// No inferred context
+
+// If no functions or enums are required, return the inferred context directly.
 
 // validateContextCandidate checks if the given context candidate has all required functions names
 // and enums symbols. The functions arity are not verified.
@@ -191,24 +104,7 @@ func (s *priorityContextInferrer) validateContextCandidate(
 	requiredFunctions map[string]struct{},
 	requiredEnums map[enumSymbol]struct{},
 ) error {
-	s.telemetrySettings.Logger.Debug(fmt.Sprintf(`Validating selected context candidate: %q`, context))
-	candidate, ok := s.contextCandidate[context]
-	if !ok {
-		return fmt.Errorf(`inferred context "%s" is not a valid candidate`, context)
-	}
-	if len(requiredFunctions) == 0 && len(requiredEnums) == 0 {
-		return nil
-	}
-	for function := range requiredFunctions {
-		if !candidate.hasFunctionName(function) {
-			return fmt.Errorf(`inferred context "%s" does not support the function "%s"`, context, function)
-		}
-	}
-	for enum := range requiredEnums {
-		if !candidate.hasEnumSymbol((*EnumSymbol)(&enum)) {
-			return fmt.Errorf(`inferred context "%s" does not support the enum symbol "%s"`, context, string(enum))
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -221,103 +117,38 @@ func (s *priorityContextInferrer) inferFromLowerContexts(
 	requiredFunctions map[string]struct{},
 	requiredEnums map[enumSymbol]struct{},
 ) (inferredContext string, err error) {
-	s.telemetrySettings.Logger.Debug(fmt.Sprintf(`Trying to infer context using %q lower contexts`, context))
-
-	defer func() {
-		if err != nil {
-			s.telemetrySettings.Logger.Debug("Unable to infer context from lower contexts", zap.Error(err))
-		}
-	}()
-
-	inferredContextCandidate, ok := s.contextCandidate[context]
-	if !ok {
-		return "", fmt.Errorf(`context "%s" is not a valid candidate`, context)
-	}
-
-	lowerContextCandidates := inferredContextCandidate.getLowerContexts(context)
-	if len(lowerContextCandidates) == 0 {
-		return "", fmt.Errorf(`context "%s" has no lower contexts candidates`, context)
-	}
-
-	s.sortContextCandidates(lowerContextCandidates)
-	for _, lowerCandidate := range lowerContextCandidates {
-		if candidateErr := s.validateContextCandidate(lowerCandidate, requiredFunctions, requiredEnums); candidateErr == nil {
-			return lowerCandidate, nil
-		}
-		s.telemetrySettings.Logger.Debug(fmt.Sprintf(`lower context %q is not a valid candidate`, lowerCandidate), zap.Error(err))
-	}
-	return "", errors.New("no valid lower context found")
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // sortContextCandidates sorts the slice candidates using the priorityContextInferrer.contextsPriority order.
 func (s *priorityContextInferrer) sortContextCandidates(candidates []string) {
-	slices.SortFunc(candidates, func(l, r string) int {
-		lp, ok := s.contextPriority[l]
-		if !ok {
-			lp = math.MaxInt
-		}
-		rp, ok := s.contextPriority[r]
-		if !ok {
-			rp = math.MaxInt
-		}
-		return cmp.Compare(lp, rp)
-	})
+	_ = "STUB: not implemented"
+	return
 }
 
 // getConditionsHints extracts all path, function names (editor and converter), and enumSymbol
 // from the given condition. These values are used by the context inferrer as hints to
 // select a context in which the function/enum are supported.
 func (*priorityContextInferrer) getConditionsHints(conditions []string) ([]priorityContextInferrerHints, error) {
-	hints := make([]priorityContextInferrerHints, 0, len(conditions))
-	for _, condition := range conditions {
-		parsed, err := parseCondition(condition)
-		if err != nil {
-			return nil, err
-		}
-
-		visitor := newGrammarContextInferrerVisitor()
-		parsed.accept(&visitor)
-		hints = append(hints, visitor)
-	}
-	return hints, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // getStatementsHints extracts all path, function names (editor and converter), and enumSymbol
 // from the given statement. These values are used by the context inferrer as hints to
 // select a context in which the function/enum are supported.
 func (*priorityContextInferrer) getStatementsHints(statements []string) ([]priorityContextInferrerHints, error) {
-	hints := make([]priorityContextInferrerHints, 0, len(statements))
-	for _, statement := range statements {
-		parsed, err := parseStatement(statement)
-		if err != nil {
-			return nil, err
-		}
-		visitor := newGrammarContextInferrerVisitor()
-		parsed.Editor.accept(&visitor)
-		if parsed.WhereClause != nil {
-			parsed.WhereClause.accept(&visitor)
-		}
-		hints = append(hints, visitor)
-	}
-	return hints, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // getValueExpressionsHints extracts all path, function (converter) names, and enumSymbol
 // from the given value expressions. These values are used by the context inferrer as hints to
 // select a context in which the function/enum are supported.
 func (*priorityContextInferrer) getValueExpressionsHints(exprs []string) ([]priorityContextInferrerHints, error) {
-	hints := make([]priorityContextInferrerHints, 0, len(exprs))
-	for _, expr := range exprs {
-		parsed, err := parseValueExpression(expr)
-		if err != nil {
-			return nil, err
-		}
-
-		visitor := newGrammarContextInferrerVisitor()
-		parsed.accept(&visitor)
-		hints = append(hints, visitor)
-	}
-	return hints, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // priorityContextInferrerHints is a grammarVisitor implementation that collects
@@ -329,29 +160,22 @@ type priorityContextInferrerHints struct {
 }
 
 func newGrammarContextInferrerVisitor() priorityContextInferrerHints {
-	return priorityContextInferrerHints{
-		paths:        []path{},
-		functions:    make(map[string]struct{}),
-		enumsSymbols: make(map[enumSymbol]struct{}),
-	}
+	_ = "STUB: not implemented"
+	return *new(priorityContextInferrerHints)
 }
 
-func (*priorityContextInferrerHints) visitMathExprLiteral(*mathExprLiteral) {}
-
-func (v *priorityContextInferrerHints) visitEditor(e *editor) {
-	v.functions[e.Function] = struct{}{}
+func (*priorityContextInferrerHints) visitMathExprLiteral(*mathExprLiteral) {
+	_ = "STUB: not implemented"
+	return
 }
+
+func (v *priorityContextInferrerHints) visitEditor(e *editor) { _ = "STUB: not implemented"; return }
 
 func (v *priorityContextInferrerHints) visitConverter(c *converter) {
-	v.functions[c.Function] = struct{}{}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (v *priorityContextInferrerHints) visitValue(va *value) {
-	if va.Enum != nil {
-		v.enumsSymbols[*va.Enum] = struct{}{}
-	}
-}
+func (v *priorityContextInferrerHints) visitValue(va *value) { _ = "STUB: not implemented"; return }
 
-func (v *priorityContextInferrerHints) visitPath(value *path) {
-	v.paths = append(v.paths, *value)
-}
+func (v *priorityContextInferrerHints) visitPath(value *path) { _ = "STUB: not implemented"; return }

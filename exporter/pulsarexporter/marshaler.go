@@ -40,35 +40,10 @@ type LogsMarshaler interface {
 }
 
 // tracesMarshalers returns map of supported encodings with TracesMarshaler.
-func tracesMarshalers() map[string]TracesMarshaler {
-	otlpProto := newPdataTracesMarshaler(&ptrace.ProtoMarshaler{}, defaultEncoding)
-	otlpJSON := newPdataTracesMarshaler(&ptrace.JSONMarshaler{}, "otlp_json")
-	jaegerProto := jaegerMarshaler{marshaler: jaegerProtoBatchMarshaler{}}
-	jaegerJSON := jaegerMarshaler{marshaler: newJaegerJSONMarshaler()}
-	return map[string]TracesMarshaler{
-		otlpProto.Encoding():   otlpProto,
-		otlpJSON.Encoding():    otlpJSON,
-		jaegerProto.Encoding(): jaegerProto,
-		jaegerJSON.Encoding():  jaegerJSON,
-	}
-}
+func tracesMarshalers() map[string]TracesMarshaler { _ = "STUB: not implemented"; return nil }
 
 // metricsMarshalers returns map of supported encodings and MetricsMarshaler
-func metricsMarshalers() map[string]MetricsMarshaler {
-	proto := newPdataMetricsMarshaler(&pmetric.ProtoMarshaler{}, defaultEncoding)
-	json := newPdataMetricsMarshaler(&pmetric.JSONMarshaler{}, "otlp_json")
-	return map[string]MetricsMarshaler{
-		proto.Encoding(): proto,
-		json.Encoding():  json,
-	}
-}
+func metricsMarshalers() map[string]MetricsMarshaler { _ = "STUB: not implemented"; return nil }
 
 // logsMarshalers returns map of supported encodings and LogsMarshaler
-func logsMarshalers() map[string]LogsMarshaler {
-	proto := newPdataLogsMarshaler(&plog.ProtoMarshaler{}, defaultEncoding)
-	json := newPdataLogsMarshaler(&plog.JSONMarshaler{}, "otlp_json")
-	return map[string]LogsMarshaler{
-		proto.Encoding(): proto,
-		json.Encoding():  json,
-	}
-}
+func logsMarshalers() map[string]LogsMarshaler { _ = "STUB: not implemented"; return nil }

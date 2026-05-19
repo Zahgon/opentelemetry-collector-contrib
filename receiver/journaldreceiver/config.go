@@ -6,22 +6,15 @@ package journaldreceiver // import "github.com/open-telemetry/opentelemetry-coll
 import (
 	"go.opentelemetry.io/collector/component"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/consumerretry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/journald"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/journaldreceiver/internal/metadata"
 )
 
 // createDefaultConfig creates a config with type and version
 func createDefaultConfig() component.Config {
-	return &JournaldConfig{
-		BaseConfig: adapter.BaseConfig{
-			Operators:      []operator.Config{},
-			RetryOnFailure: consumerretry.NewDefaultConfig(),
-		},
-		InputConfig: *journald.NewConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // receiverType implements adapter.LogReceiverType
@@ -30,12 +23,16 @@ type receiverType struct{}
 
 // Type is the receiver type
 func (receiverType) Type() component.Type {
-	return metadata.Type
+	_ = "STUB: not implemented"
+	return *
+
+	// BaseConfig gets the base config from config, for now
+	new(component.Type)
 }
 
-// BaseConfig gets the base config from config, for now
 func (receiverType) BaseConfig(cfg component.Config) adapter.BaseConfig {
-	return cfg.(*JournaldConfig).BaseConfig
+	_ = "STUB: not implemented"
+	return *new(adapter.BaseConfig)
 }
 
 // JournaldConfig defines configuration for the journald receiver
@@ -49,10 +46,12 @@ type JournaldConfig struct {
 
 // InputConfig unmarshals the input operator
 func (receiverType) InputConfig(cfg component.Config) operator.Config {
-	return operator.NewConfig(&cfg.(*JournaldConfig).InputConfig)
+	_ = "STUB: not implemented"
+	return *new(operator.Config)
 }
 
 // CreateDefaultConfig creates a config with type and version
 func (receiverType) CreateDefaultConfig() component.Config {
-	return createDefaultConfig()
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

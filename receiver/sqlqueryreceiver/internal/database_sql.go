@@ -24,12 +24,8 @@ import (
 func NewPool(opener sqlquery.SQLOpenerFunc, driver, dsn string, maxOpenConns int) interface {
 	DB() (*sql.DB, error)
 } {
-	return &sqlPool{
-		DriverName:     driver,
-		DataSourceName: dsn,
-		MaxOpenConns:   maxOpenConns,
-		Opener:         opener,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type sqlPool struct {
@@ -47,20 +43,4 @@ type sqlPool struct {
 //
 // This method exists to satisfy [sqlquery.DbProviderFunc], but the way
 // [sqlquery.Scraper] closes [sql.DB] can interfere with other Scrapers.
-func (sp *sqlPool) DB() (*sql.DB, error) {
-	sp.mutex.Lock()
-	defer sp.mutex.Unlock()
-
-	if sp.db == nil {
-		db, err := sp.Opener(sp.DriverName, sp.DataSourceName)
-
-		if err == nil && db != nil {
-			db.SetMaxOpenConns(sp.MaxOpenConns)
-			sp.db = db
-		}
-
-		return sp.db, err
-	}
-
-	return sp.db, nil
-}
+func (sp *sqlPool) DB() (*sql.DB, error) { _ = "STUB: not implemented"; return nil, nil }

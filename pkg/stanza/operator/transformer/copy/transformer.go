@@ -5,7 +5,6 @@ package copy // import "github.com/open-telemetry/opentelemetry-collector-contri
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/entry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/helper"
@@ -19,19 +18,15 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will process an entry with a copy transformation.
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Transform will apply the copy operation to an entry
-func (t *Transformer) Transform(e *entry.Entry) error {
-	val, exist := t.From.Get(e)
-	if !exist {
-		return fmt.Errorf("copy: from field does not exist in this entry: %s", t.From.String())
-	}
-	return t.To.Set(e, val)
-}
+func (t *Transformer) Transform(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }

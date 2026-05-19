@@ -23,22 +23,21 @@ import (
 // See also https://www.apache.org/dev/crypto.html and/or seek legal counsel.
 
 func calculateCPUPercent(v *ctypes.StatsResponse) float64 {
+	_ = "STUB: not implemented"
 	// Max number of 100ns intervals between the previous time read and now
-	possIntervals := uint64(v.Read.Sub(v.PreRead).Nanoseconds()) // Start with number of ns intervals
-	possIntervals /= 100                                         // Convert to number of 100ns intervals
-	possIntervals *= uint64(v.NumProcs)                          // Multiple by the number of processors
-
-	// Intervals used
-	intervalsUsed := v.CPUStats.CPUUsage.TotalUsage - v.PreCPUStats.CPUUsage.TotalUsage
-
-	// Percentage avoiding divide-by-zero
-	if possIntervals > 0 {
-		return float64(intervalsUsed) / float64(possIntervals) * 100.0
-	}
-	return 0.00
+	return 0
 }
+
+// Start with number of ns intervals
+// Convert to number of 100ns intervals
+// Multiple by the number of processors
+
+// Intervals used
+
+// Percentage avoiding divide-by-zero
 
 // calculateMemUsageNoCache calculate memory usage of the container.
 func calculateMemUsageNoCache(memoryStats *ctypes.MemoryStats) uint64 {
-	return memoryStats.PrivateWorkingSet
+	_ = "STUB: not implemented"
+	return 0
 }

@@ -5,8 +5,6 @@ package azureeventhubreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
@@ -17,8 +15,6 @@ import (
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/receiverhelper"
 	"go.uber.org/zap"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azureeventhubreceiver/internal/metadata"
 )
 
 type dataConsumer interface {
@@ -54,107 +50,48 @@ type eventhubReceiver struct {
 }
 
 func (receiver *eventhubReceiver) Start(ctx context.Context, host component.Host) error {
-	return receiver.eventHandler.run(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (receiver *eventhubReceiver) Shutdown(ctx context.Context) error {
-	return receiver.eventHandler.close(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (receiver *eventhubReceiver) setNextLogsConsumer(nextLogsConsumer consumer.Logs) {
-	receiver.nextLogsConsumer = nextLogsConsumer
+	_ = "STUB: not implemented"
+	return
 }
 
 func (receiver *eventhubReceiver) setNextMetricsConsumer(nextMetricsConsumer consumer.Metrics) {
-	receiver.nextMetricsConsumer = nextMetricsConsumer
+	_ = "STUB: not implemented"
+	return
 }
 
 func (receiver *eventhubReceiver) setNextTracesConsumer(nextTracesConsumer consumer.Traces) {
-	receiver.nextTracesConsumer = nextTracesConsumer
+	_ = "STUB: not implemented"
+	return
 }
 
 func (receiver *eventhubReceiver) consume(ctx context.Context, event *azureEvent) error {
-	switch receiver.signal {
-	case pipeline.SignalLogs:
-		return receiver.consumeLogs(ctx, event)
-	case pipeline.SignalMetrics:
-		return receiver.consumeMetrics(ctx, event)
-	case pipeline.SignalTraces:
-		return receiver.consumeTraces(ctx, event)
-	default:
-		return fmt.Errorf("invalid data type: %v", receiver.signal)
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (receiver *eventhubReceiver) consumeLogs(ctx context.Context, event *azureEvent) error {
-	if receiver.nextLogsConsumer == nil {
-		return nil
-	}
-
-	if receiver.logsUnmarshaler == nil {
-		return errors.New("unable to unmarshal logs with configured format")
-	}
-
-	logsContext := receiver.obsrecv.StartLogsOp(ctx)
-
-	logs, err := receiver.logsUnmarshaler.UnmarshalLogs(event)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal logs: %w", err)
-	}
-
-	receiver.logger.Debug("Log Records", zap.Any("logs", logs))
-	err = receiver.nextLogsConsumer.ConsumeLogs(logsContext, logs)
-	receiver.obsrecv.EndLogsOp(logsContext, metadata.Type.String(), 1, err)
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (receiver *eventhubReceiver) consumeMetrics(ctx context.Context, event *azureEvent) error {
-	if receiver.nextMetricsConsumer == nil {
-		return nil
-	}
-
-	if receiver.metricsUnmarshaler == nil {
-		return errors.New("unable to unmarshal metrics with configured format")
-	}
-
-	metricsContext := receiver.obsrecv.StartMetricsOp(ctx)
-
-	metrics, err := receiver.metricsUnmarshaler.UnmarshalMetrics(event)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal metrics: %w", err)
-	}
-
-	receiver.logger.Debug("Metric Records", zap.Any("metrics", metrics))
-	err = receiver.nextMetricsConsumer.ConsumeMetrics(metricsContext, metrics)
-
-	receiver.obsrecv.EndMetricsOp(metricsContext, metadata.Type.String(), 1, err)
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (receiver *eventhubReceiver) consumeTraces(ctx context.Context, event *azureEvent) error {
-	if receiver.nextTracesConsumer == nil {
-		return nil
-	}
-
-	if receiver.tracesUnmarshaler == nil {
-		return errors.New("unable to unmarshal traces with configured format")
-	}
-
-	tracesContext := receiver.obsrecv.StartTracesOp(ctx)
-
-	traces, err := receiver.tracesUnmarshaler.UnmarshalTraces(event)
-	if err != nil {
-		return fmt.Errorf("failed to unmarshal traces: %w", err)
-	}
-
-	receiver.logger.Debug("traces Records", zap.Any("traces", traces))
-	err = receiver.nextTracesConsumer.ConsumeTraces(tracesContext, traces)
-
-	receiver.obsrecv.EndTracesOp(tracesContext, metadata.Type.String(), 1, err)
-
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func newReceiver(
@@ -165,26 +102,6 @@ func newReceiver(
 	eventHandler *eventhubHandler,
 	settings receiver.Settings,
 ) (component.Component, error) {
-	obsrecv, err := receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{
-		ReceiverID:             settings.ID,
-		Transport:              "event",
-		ReceiverCreateSettings: settings,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	eventhubReceiver := &eventhubReceiver{
-		signal:             signal,
-		eventHandler:       eventHandler,
-		logger:             settings.Logger,
-		logsUnmarshaler:    logsUnmarshaler,
-		metricsUnmarshaler: metricsUnmarshaler,
-		tracesUnmarshaler:  tracesUnmarshaler,
-		obsrecv:            obsrecv,
-	}
-
-	eventHandler.setDataConsumer(eventhubReceiver)
-
-	return eventhubReceiver, nil
+	_ = "STUB: not implemented"
+	return *new(component.Component), nil
 }

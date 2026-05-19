@@ -9,13 +9,14 @@ type nopDecisionCache struct{}
 
 var _ Cache = (*nopDecisionCache)(nil)
 
-func NewNopDecisionCache() Cache {
-	return &nopDecisionCache{}
-}
+func NewNopDecisionCache() Cache { _ = "STUB: not implemented"; return *new(Cache) }
 
 func (*nopDecisionCache) Get(pcommon.TraceID) (DecisionMetadata, bool) {
-	return DecisionMetadata{}, false
+	_ = "STUB: not implemented"
+	return *new(DecisionMetadata), false
 }
 
 func (*nopDecisionCache) Put(_ pcommon.TraceID, _ DecisionMetadata) {
+	_ = "STUB: not implemented"
+	return
 }

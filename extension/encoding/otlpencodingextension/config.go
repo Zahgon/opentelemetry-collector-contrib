@@ -3,8 +3,6 @@
 
 package otlpencodingextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/otlpencodingextension"
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap/xconfmap"
 )
 
@@ -16,10 +14,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if c.Protocol != otlpProto && c.Protocol != otlpJSON {
-		return fmt.Errorf("unsupported protocol: %q", c.Protocol)
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

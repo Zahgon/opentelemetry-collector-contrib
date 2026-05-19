@@ -8,25 +8,13 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/exporter"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/exporter/xexporter"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/honeycombmarkerexporter/internal/metadata"
 )
 
-func NewFactory() exporter.Factory {
-	return xexporter.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xexporter.WithLogs(createLogsExporter, metadata.LogsStability),
-		xexporter.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		APIURL: "https://api.honeycomb.io",
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createLogsExporter(
@@ -34,21 +22,6 @@ func createLogsExporter(
 	set exporter.Settings,
 	cfg component.Config,
 ) (exporter.Logs, error) {
-	cf := cfg.(*Config)
-
-	logsExp, err := newHoneycombLogsExporter(set, cf)
-	if err != nil {
-		return nil, err
-	}
-
-	return exporterhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		logsExp.exportMarkers,
-		exporterhelper.WithTimeout(exporterhelper.TimeoutConfig{Timeout: 0}),
-		exporterhelper.WithRetry(cf.BackOffConfig),
-		exporterhelper.WithQueue(cf.QueueSettings),
-		exporterhelper.WithStart(logsExp.start),
-	)
+	_ = "STUB: not implemented"
+	return *new(exporter.Logs), nil
 }

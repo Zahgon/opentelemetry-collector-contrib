@@ -15,22 +15,15 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetMysqlInstanceEndpoint sets provided value as "mysql.instance.endpoint" attribute.
-func (rb *ResourceBuilder) SetMysqlInstanceEndpoint(val string) {
-	if rb.config.MysqlInstanceEndpoint.Enabled {
-		rb.res.Attributes().PutStr("mysql.instance.endpoint", val)
-	}
-}
+func (rb *ResourceBuilder) SetMysqlInstanceEndpoint(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

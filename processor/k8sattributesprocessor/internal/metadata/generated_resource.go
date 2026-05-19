@@ -15,232 +15,108 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetContainerID sets provided value as "container.id" attribute.
-func (rb *ResourceBuilder) SetContainerID(val string) {
-	if rb.config.ContainerID.Enabled {
-		rb.res.Attributes().PutStr("container.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerID(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerImageName sets provided value as "container.image.name" attribute.
-func (rb *ResourceBuilder) SetContainerImageName(val string) {
-	if rb.config.ContainerImageName.Enabled {
-		rb.res.Attributes().PutStr("container.image.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageName(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerImageRepoDigests sets provided value as "container.image.repo_digests" attribute.
 func (rb *ResourceBuilder) SetContainerImageRepoDigests(val []any) {
-	if rb.config.ContainerImageRepoDigests.Enabled {
-		rb.res.Attributes().PutEmptySlice("container.image.repo_digests").FromRaw(val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetContainerImageTag sets provided value as "container.image.tag" attribute.
-func (rb *ResourceBuilder) SetContainerImageTag(val string) {
-	if rb.config.ContainerImageTag.Enabled {
-		rb.res.Attributes().PutStr("container.image.tag", val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageTag(val string) { _ = "STUB: not implemented"; return }
 
 // SetContainerImageTags sets provided value as "container.image.tags" attribute.
-func (rb *ResourceBuilder) SetContainerImageTags(val []any) {
-	if rb.config.ContainerImageTags.Enabled {
-		rb.res.Attributes().PutEmptySlice("container.image.tags").FromRaw(val)
-	}
-}
+func (rb *ResourceBuilder) SetContainerImageTags(val []any) { _ = "STUB: not implemented"; return }
 
 // SetK8sClusterUID sets provided value as "k8s.cluster.uid" attribute.
-func (rb *ResourceBuilder) SetK8sClusterUID(val string) {
-	if rb.config.K8sClusterUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.cluster.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sClusterUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sContainerName sets provided value as "k8s.container.name" attribute.
-func (rb *ResourceBuilder) SetK8sContainerName(val string) {
-	if rb.config.K8sContainerName.Enabled {
-		rb.res.Attributes().PutStr("k8s.container.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sContainerName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sCronjobName sets provided value as "k8s.cronjob.name" attribute.
-func (rb *ResourceBuilder) SetK8sCronjobName(val string) {
-	if rb.config.K8sCronjobName.Enabled {
-		rb.res.Attributes().PutStr("k8s.cronjob.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sCronjobName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sCronjobUID sets provided value as "k8s.cronjob.uid" attribute.
-func (rb *ResourceBuilder) SetK8sCronjobUID(val string) {
-	if rb.config.K8sCronjobUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.cronjob.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sCronjobUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sDaemonsetName sets provided value as "k8s.daemonset.name" attribute.
-func (rb *ResourceBuilder) SetK8sDaemonsetName(val string) {
-	if rb.config.K8sDaemonsetName.Enabled {
-		rb.res.Attributes().PutStr("k8s.daemonset.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sDaemonsetName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sDaemonsetUID sets provided value as "k8s.daemonset.uid" attribute.
-func (rb *ResourceBuilder) SetK8sDaemonsetUID(val string) {
-	if rb.config.K8sDaemonsetUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.daemonset.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sDaemonsetUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sDeploymentName sets provided value as "k8s.deployment.name" attribute.
-func (rb *ResourceBuilder) SetK8sDeploymentName(val string) {
-	if rb.config.K8sDeploymentName.Enabled {
-		rb.res.Attributes().PutStr("k8s.deployment.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sDeploymentName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sDeploymentUID sets provided value as "k8s.deployment.uid" attribute.
-func (rb *ResourceBuilder) SetK8sDeploymentUID(val string) {
-	if rb.config.K8sDeploymentUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.deployment.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sDeploymentUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sJobName sets provided value as "k8s.job.name" attribute.
-func (rb *ResourceBuilder) SetK8sJobName(val string) {
-	if rb.config.K8sJobName.Enabled {
-		rb.res.Attributes().PutStr("k8s.job.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sJobName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sJobUID sets provided value as "k8s.job.uid" attribute.
-func (rb *ResourceBuilder) SetK8sJobUID(val string) {
-	if rb.config.K8sJobUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.job.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sJobUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNamespaceName sets provided value as "k8s.namespace.name" attribute.
-func (rb *ResourceBuilder) SetK8sNamespaceName(val string) {
-	if rb.config.K8sNamespaceName.Enabled {
-		rb.res.Attributes().PutStr("k8s.namespace.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sNamespaceName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNodeName sets provided value as "k8s.node.name" attribute.
-func (rb *ResourceBuilder) SetK8sNodeName(val string) {
-	if rb.config.K8sNodeName.Enabled {
-		rb.res.Attributes().PutStr("k8s.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sNodeUID sets provided value as "k8s.node.uid" attribute.
-func (rb *ResourceBuilder) SetK8sNodeUID(val string) {
-	if rb.config.K8sNodeUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.node.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sNodeUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodHostname sets provided value as "k8s.pod.hostname" attribute.
-func (rb *ResourceBuilder) SetK8sPodHostname(val string) {
-	if rb.config.K8sPodHostname.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.hostname", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodHostname(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodIP sets provided value as "k8s.pod.ip" attribute.
-func (rb *ResourceBuilder) SetK8sPodIP(val string) {
-	if rb.config.K8sPodIP.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.ip", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodIP(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodName sets provided value as "k8s.pod.name" attribute.
-func (rb *ResourceBuilder) SetK8sPodName(val string) {
-	if rb.config.K8sPodName.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodStartTime sets provided value as "k8s.pod.start_time" attribute.
-func (rb *ResourceBuilder) SetK8sPodStartTime(val string) {
-	if rb.config.K8sPodStartTime.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.start_time", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodStartTime(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sPodUID sets provided value as "k8s.pod.uid" attribute.
-func (rb *ResourceBuilder) SetK8sPodUID(val string) {
-	if rb.config.K8sPodUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.pod.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sPodUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sReplicasetName sets provided value as "k8s.replicaset.name" attribute.
-func (rb *ResourceBuilder) SetK8sReplicasetName(val string) {
-	if rb.config.K8sReplicasetName.Enabled {
-		rb.res.Attributes().PutStr("k8s.replicaset.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sReplicasetName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sReplicasetUID sets provided value as "k8s.replicaset.uid" attribute.
-func (rb *ResourceBuilder) SetK8sReplicasetUID(val string) {
-	if rb.config.K8sReplicasetUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.replicaset.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sReplicasetUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sStatefulsetName sets provided value as "k8s.statefulset.name" attribute.
-func (rb *ResourceBuilder) SetK8sStatefulsetName(val string) {
-	if rb.config.K8sStatefulsetName.Enabled {
-		rb.res.Attributes().PutStr("k8s.statefulset.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sStatefulsetName(val string) { _ = "STUB: not implemented"; return }
 
 // SetK8sStatefulsetUID sets provided value as "k8s.statefulset.uid" attribute.
-func (rb *ResourceBuilder) SetK8sStatefulsetUID(val string) {
-	if rb.config.K8sStatefulsetUID.Enabled {
-		rb.res.Attributes().PutStr("k8s.statefulset.uid", val)
-	}
-}
+func (rb *ResourceBuilder) SetK8sStatefulsetUID(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceInstanceID sets provided value as "service.instance.id" attribute.
-func (rb *ResourceBuilder) SetServiceInstanceID(val string) {
-	if rb.config.ServiceInstanceID.Enabled {
-		rb.res.Attributes().PutStr("service.instance.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceInstanceID(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceName sets provided value as "service.name" attribute.
-func (rb *ResourceBuilder) SetServiceName(val string) {
-	if rb.config.ServiceName.Enabled {
-		rb.res.Attributes().PutStr("service.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceName(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceNamespace sets provided value as "service.namespace" attribute.
-func (rb *ResourceBuilder) SetServiceNamespace(val string) {
-	if rb.config.ServiceNamespace.Enabled {
-		rb.res.Attributes().PutStr("service.namespace", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceNamespace(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceVersion sets provided value as "service.version" attribute.
-func (rb *ResourceBuilder) SetServiceVersion(val string) {
-	if rb.config.ServiceVersion.Enabled {
-		rb.res.Attributes().PutStr("service.version", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceVersion(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

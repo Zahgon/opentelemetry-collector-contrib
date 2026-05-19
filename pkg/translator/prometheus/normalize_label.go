@@ -4,9 +4,6 @@
 package prometheus // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus"
 
 import (
-	"strings"
-	"unicode"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/prometheus/internal/metadata"
 )
 
@@ -20,28 +17,14 @@ var DropSanitizationGate = metadata.PkgTranslatorPrometheusPermissiveLabelSaniti
 //
 // Exception is made for double-underscores which are allowed
 func NormalizeLabel(label string) string {
+	_ = "STUB: not implemented"
 	// Trivial case
-	if label == "" {
-		return label
-	}
-
-	// Replace all non-alphanumeric runes with underscores
-	label = strings.Map(sanitizeRune, label)
-
-	// If label starts with a number, prepend with "key_"
-	if unicode.IsDigit(rune(label[0])) {
-		label = "key_" + label
-	} else if strings.HasPrefix(label, "_") && !strings.HasPrefix(label, "__") && !DropSanitizationGate.IsEnabled() {
-		label = "key" + label
-	}
-
-	return label
+	return ""
 }
+
+// Replace all non-alphanumeric runes with underscores
+
+// If label starts with a number, prepend with "key_"
 
 // Return '_' for anything non-alphanumeric
-func sanitizeRune(r rune) rune {
-	if unicode.IsLetter(r) || unicode.IsDigit(r) {
-		return r
-	}
-	return '_'
-}
+func sanitizeRune(r rune) rune { _ = "STUB: not implemented"; return 0 }

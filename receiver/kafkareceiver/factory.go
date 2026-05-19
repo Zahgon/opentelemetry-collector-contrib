@@ -11,9 +11,6 @@ import (
 	"go.opentelemetry.io/collector/consumer/xconsumer"
 	"go.opentelemetry.io/collector/receiver"
 	"go.opentelemetry.io/collector/receiver/xreceiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/kafka/configkafka"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/kafkareceiver/internal/metadata"
 )
 
 const (
@@ -31,46 +28,11 @@ const (
 )
 
 // NewFactory creates Kafka receiver factory.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithTraces(createTracesReceiver, metadata.TracesStability),
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithProfiles(createProfilesReceiver, metadata.ProfilesStability),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ClientConfig:   configkafka.NewDefaultClientConfig(),
-		ConsumerConfig: configkafka.NewDefaultConsumerConfig(),
-		Logs: TopicEncodingConfig{
-			Topics:   []string{defaultLogsTopic},
-			Encoding: defaultLogsEncoding,
-		},
-		Metrics: TopicEncodingConfig{
-			Topics:   []string{defaultMetricsTopic},
-			Encoding: defaultMetricsEncoding,
-		},
-		Traces: TopicEncodingConfig{
-			Topics:   []string{defaultTracesTopic},
-			Encoding: defaultTracesEncoding,
-		},
-		Profiles: TopicEncodingConfig{
-			Topics:   []string{defaultProfilesTopic},
-			Encoding: defaultProfilesEncoding,
-		},
-		MessageMarking: MessageMarking{
-			After:            false,
-			OnError:          false,
-			OnPermanentError: false,
-		},
-		HeaderExtraction: HeaderExtraction{
-			ExtractHeaders: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createTracesReceiver(
@@ -79,7 +41,8 @@ func createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	return newTracesReceiver(cfg.(*Config), set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func createMetricsReceiver(
@@ -88,7 +51,8 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	return newMetricsReceiver(cfg.(*Config), set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func createLogsReceiver(
@@ -97,7 +61,8 @@ func createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	return newLogsReceiver(cfg.(*Config), set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func createProfilesReceiver(
@@ -106,5 +71,6 @@ func createProfilesReceiver(
 	cfg component.Config,
 	nextConsumer xconsumer.Profiles,
 ) (xreceiver.Profiles, error) {
-	return newProfilesReceiver(cfg.(*Config), set, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(xreceiver.Profiles), nil
 }

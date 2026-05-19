@@ -10,11 +10,6 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/googlecloudspannerreceiver/internal/metadata"
 )
 
 const (
@@ -25,22 +20,11 @@ const (
 	defaultTruncateText                      = false
 )
 
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ControllerConfig:                  scraperhelper.NewDefaultControllerConfig(),
-		TopMetricsQueryMaxRows:            defaultTopMetricsQueryMaxRows,
-		BackfillEnabled:                   defaultBackfillEnabled,
-		HideTopnLockstatsRowrangestartkey: defaultHideTopnLockstatsRowrangestartkey,
-		TruncateText:                      defaultTruncateText,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -49,15 +33,6 @@ func createMetricsReceiver(
 	baseCfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	rCfg := baseCfg.(*Config)
-	r := newGoogleCloudSpannerReceiver(settings.Logger, rCfg)
-
-	s, err := scraper.NewMetrics(r.Scrape, scraper.WithStart(r.Start),
-		scraper.WithShutdown(r.Shutdown))
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(&rCfg.ControllerConfig, settings, consumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s))
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

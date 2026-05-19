@@ -4,7 +4,6 @@
 package aggregator // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/signaltometricsconnector/internal/aggregator"
 
 import (
-	"sort"
 	"time"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -34,28 +33,21 @@ type explicitHistogramDP struct {
 }
 
 func newExplicitHistogramDP(attrs pcommon.Map, bounds []float64) *explicitHistogramDP {
-	return &explicitHistogramDP{
-		attrs:  attrs,
-		bounds: bounds,
-		counts: make([]uint64, len(bounds)+1),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (dp *explicitHistogramDP) Aggregate(value float64, count int64) {
-	dp.sum += value * float64(count)
-	dp.count += uint64(count)
-	dp.counts[sort.SearchFloat64s(dp.bounds, value)] += uint64(count)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (dp *explicitHistogramDP) Copy(
 	timestamp time.Time,
 	dest pmetric.HistogramDataPoint,
 ) {
-	dp.attrs.CopyTo(dest.Attributes())
-	dest.ExplicitBounds().FromRaw(dp.bounds)
-	dest.BucketCounts().FromRaw(dp.counts)
-	dest.SetCount(dp.count)
-	dest.SetSum(dp.sum)
-	// TODO determine appropriate start time
-	dest.SetTimestamp(pcommon.NewTimestampFromTime(timestamp))
+	_ = "STUB: not implemented"
+	return
 }
+
+// TODO determine appropriate start time

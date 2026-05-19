@@ -5,7 +5,6 @@ package netstats // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"strings"
 
 	"google.golang.org/grpc/stats"
 )
@@ -19,12 +18,14 @@ type statsHandler struct {
 var _ stats.Handler = statsHandler{}
 
 func (rep *NetworkReporter) Handler() stats.Handler {
-	return statsHandler{rep: rep}
+	_ = "STUB: not implemented"
+	return *new(stats.Handler)
 }
 
 // TagRPC implements grpc/stats.Handler
 func (statsHandler) TagRPC(ctx context.Context, s *stats.RPCTagInfo) context.Context {
-	return context.WithValue(ctx, netstatsContext{}, s.FullMethodName)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
 // trustUncompressed is a super hacky way of knowing when the
@@ -36,48 +37,26 @@ func (statsHandler) TagRPC(ctx context.Context, s *stats.RPCTagInfo) context.Con
 // ugly.  when non-arrow RPCs are sent, the instrumentation works
 // correctly, this avoids special instrumentation outside of the Arrow
 // components.
-func trustUncompressed(method string) bool {
-	return !strings.Contains(method, "arrow.v1")
-}
+func trustUncompressed(method string) bool { _ = "STUB: not implemented"; return false }
 
 func (h statsHandler) HandleRPC(ctx context.Context, rs stats.RPCStats) {
-	switch rs.(type) {
-	case *stats.InHeader, *stats.InTrailer, *stats.Begin, *stats.OutHeader, *stats.OutTrailer:
-		// Note we have some info about header WireLength,
-		// but intentionally not counting.
-		return
-	}
-	method := "unknown"
-	if name := ctx.Value(netstatsContext{}); name != nil {
-		method = name.(string)
-	}
-	switch s := rs.(type) {
-	case *stats.InPayload:
-		var ss SizesStruct
-		ss.Method = method
-		if trustUncompressed(method) {
-			ss.Length = int64(s.Length)
-		}
-		ss.WireLength = int64(s.WireLength)
-		h.rep.CountReceive(ctx, ss)
-
-	case *stats.OutPayload:
-		var ss SizesStruct
-		ss.Method = method
-		if trustUncompressed(method) {
-			ss.Length = int64(s.Length)
-		}
-		ss.WireLength = int64(s.WireLength)
-		h.rep.CountSend(ctx, ss)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Note we have some info about header WireLength,
+// but intentionally not counting.
 
 // TagConn implements grpc/stats.Handler
 func (statsHandler) TagConn(ctx context.Context, _ *stats.ConnTagInfo) context.Context {
-	return ctx
+	_ = "STUB: not implemented"
+
+	// HandleConn implements grpc/stats.Handler
+	return *new(context.Context)
 }
 
-// HandleConn implements grpc/stats.Handler
 func (statsHandler) HandleConn(_ context.Context, _ stats.ConnStats) {
+	_ = "STUB: not implemented"
 	// Note: ConnBegin and ConnEnd
+	return
 }

@@ -8,7 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	classicprovider "github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/ibmcloud/classic"
@@ -33,31 +32,14 @@ type Detector struct {
 
 // NewDetector creates an IBM Cloud Classic detector.
 func NewDetector(p processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-
-	return &Detector{
-		provider: classicprovider.NewProvider(),
-		logger:   p.Logger,
-		rb:       metadata.NewResourceBuilder(cfg.ResourceAttributes),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 // Detect detects IBM Cloud Classic instance metadata and returns a resource with the available attributes.
 func (d *Detector) Detect(ctx context.Context) (pcommon.Resource, string, error) {
-	meta, err := d.provider.InstanceMetadata(ctx)
-	if err != nil {
-		d.logger.Debug("IBM Cloud Classic metadata not available", zap.Error(err))
-		return pcommon.NewResource(), "", nil
-	}
-
-	d.rb.SetCloudProvider(conventions.CloudProviderIBMCloud.Value.AsString())
-	// TODO: Use semconv constant once CloudPlatformIBMCloudClassic is added.
-	d.rb.SetCloudPlatform("ibm_cloud.classic")
-	d.rb.SetCloudAccountID(meta.AccountID)
-	d.rb.SetCloudAvailabilityZone(meta.Datacenter)
-	d.rb.SetCloudResourceID(meta.GlobalIdentifier)
-	d.rb.SetHostID(meta.ID)
-	d.rb.SetHostName(meta.Hostname)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }
+
+// TODO: Use semconv constant once CloudPlatformIBMCloudClassic is added.

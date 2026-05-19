@@ -13,15 +13,12 @@ type Clock interface {
 
 type realClock struct{}
 
-func (*realClock) Now() time.Time {
-	return time.Now()
-}
+func (*realClock) Now() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
 
 type mockClock struct {
 	now time.Time
 }
 
-func (c *mockClock) Now() time.Time {
-	c.now = c.now.Add(100 * time.Millisecond) // Add 100ms to the mock clock to avoid timestamp collisions
-	return c.now
-}
+func (c *mockClock) Now() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
+
+// Add 100ms to the mock clock to avoid timestamp collisions

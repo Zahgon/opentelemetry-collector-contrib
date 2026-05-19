@@ -16,11 +16,4 @@ type FlowControlConfig struct {
 	MaxOutstandingBytes int64
 }
 
-func NewDefaultFlowControlConfig() *FlowControlConfig {
-	return &FlowControlConfig{
-		TriggerAckBatchDuration: 10 * time.Second,
-		StreamAckDeadline:       60 * time.Second,
-		MaxOutstandingMessages:  0,
-		MaxOutstandingBytes:     0,
-	}
-}
+func NewDefaultFlowControlConfig() *FlowControlConfig { _ = "STUB: not implemented"; return nil }

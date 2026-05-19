@@ -5,18 +5,12 @@ package filterprocessor // import "github.com/open-telemetry/opentelemetry-colle
 
 import (
 	"errors"
-	"fmt"
-	"reflect"
-	"strings"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/confmap"
 	"go.opentelemetry.io/collector/pdata/plog"
-	"go.uber.org/multierr"
-	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterconfig"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterset/regexp"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
@@ -203,22 +197,16 @@ type logSeverity string
 
 // validate checks that the logSeverity is valid
 func (l logSeverity) validate() error {
-	if l == "" {
-		// No severity specified, which means to ignore this field.
-		return nil
-	}
+	_ = "STUB: not implemented"
 
-	capsSeverity := strings.ToUpper(string(l))
-	if _, ok := severityToNumber[capsSeverity]; !ok {
-		return fmt.Errorf("'%s' is not a valid severity: %w", string(l), errInvalidSeverity)
-	}
+	// No severity specified, which means to ignore this field.
 	return nil
 }
 
 // severityNumber returns the severity number that the logSeverity represents
 func (l logSeverity) severityNumber() plog.SeverityNumber {
-	capsSeverity := strings.ToUpper(string(l))
-	return severityToNumber[capsSeverity]
+	_ = "STUB: not implemented"
+	return *new(plog.SeverityNumber)
 }
 
 // LogMatchProperties specifies the set of properties in a log to match against and the
@@ -248,43 +236,19 @@ type LogMatchProperties struct {
 }
 
 // validate checks that the LogMatchProperties is valid
-func (lmp LogMatchProperties) validate() error {
-	if lmp.SeverityNumberProperties != nil {
-		return lmp.SeverityNumberProperties.validate()
-	}
-	return nil
-}
+func (lmp LogMatchProperties) validate() error { _ = "STUB: not implemented"; return nil }
 
 // isEmpty returns true if the properties is "empty" (meaning, there are no filters specified)
 // if this is the case, the filter should be ignored.
-func (lmp LogMatchProperties) isEmpty() bool {
-	return len(lmp.ResourceAttributes) == 0 && len(lmp.RecordAttributes) == 0 &&
-		len(lmp.SeverityTexts) == 0 && len(lmp.LogBodies) == 0 &&
-		lmp.SeverityNumberProperties == nil
-}
+func (lmp LogMatchProperties) isEmpty() bool { _ = "STUB: not implemented"; return false }
 
 // matchProperties converts the LogMatchProperties to a corresponding filterconfig.MatchProperties
 func (lmp LogMatchProperties) matchProperties() *filterconfig.MatchProperties {
-	mp := &filterconfig.MatchProperties{
-		Config: filterset.Config{
-			MatchType: filterset.MatchType(lmp.LogMatchType),
-		},
-		Resources:        lmp.ResourceAttributes,
-		Attributes:       lmp.RecordAttributes,
-		LogSeverityTexts: lmp.SeverityTexts,
-		LogBodies:        lmp.LogBodies,
-	}
-
-	// Include SeverityNumberProperties if defined
-	if lmp.SeverityNumberProperties != nil {
-		mp.LogSeverityNumber = &filterconfig.LogSeverityNumberMatchProperties{
-			Min:            lmp.SeverityNumberProperties.Min.severityNumber(),
-			MatchUndefined: lmp.SeverityNumberProperties.MatchUndefined,
-		}
-	}
-
-	return mp
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Include SeverityNumberProperties if defined
 
 type LogSeverityNumberMatchProperties struct {
 	// Min is the minimum severity needed for the log record to match.
@@ -299,9 +263,7 @@ type LogSeverityNumberMatchProperties struct {
 }
 
 // validate checks that the LogMatchProperties is valid
-func (lmp LogSeverityNumberMatchProperties) validate() error {
-	return lmp.Min.validate()
-}
+func (lmp LogSeverityNumberMatchProperties) validate() error { _ = "STUB: not implemented"; return nil }
 
 // ProfileFilters filters by OTTL conditions
 type ProfileFilters struct {
@@ -337,265 +299,40 @@ type ProfileFilters struct {
 //	    conditions:
 //	      - attributes["key1"] == "value"
 //	      - attributes["key2"] == "value"
-func (cfg *Config) Unmarshal(conf *confmap.Conf) error {
-	if conf == nil {
-		return nil
-	}
+func (cfg *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
-	contextConditionsFields := map[string]*[]condition.ContextConditions{
-		"trace_conditions":   &cfg.TraceConditions,
-		"metric_conditions":  &cfg.MetricConditions,
-		"log_conditions":     &cfg.LogConditions,
-		"profile_conditions": &cfg.ProfileConditions,
-	}
-
-	contextConditionsPatch := map[string]any{}
-	for fieldName := range contextConditionsFields {
-		if !conf.IsSet(fieldName) {
-			continue
-		}
-		rawVal := conf.Get(fieldName)
-		values, ok := rawVal.([]any)
-		if !ok {
-			return fmt.Errorf("invalid %s type, expected: array, got: %t", fieldName, rawVal)
-		}
-		if len(values) == 0 {
-			continue
-		}
-
-		conditionsConfigs := make([]any, 0, len(values))
-		var basicConditions []any
-		for _, value := range values {
-			switch {
-			case value == nil:
-				return errors.New("condition cannot be empty")
-			case reflect.TypeOf(value).Kind() == reflect.String:
-				// Array of strings means it's a basic configuration style
-				if len(conditionsConfigs) > 0 {
-					return errors.New("configuring multiple configuration styles is not supported, please use only Basic configuration or only Advanced configuration")
-				}
-				basicConditions = append(basicConditions, value)
-			default:
-				if len(basicConditions) > 0 {
-					return errors.New("configuring multiple configuration styles is not supported, please use only Basic configuration or only Advanced configuration")
-				}
-				conditionsConfigs = append(conditionsConfigs, value)
-			}
-		}
-
-		if len(basicConditions) > 0 {
-			conditionsConfigs = append(conditionsConfigs, map[string]any{"conditions": basicConditions})
-		}
-
-		contextConditionsPatch[fieldName] = conditionsConfigs
-	}
-
-	if len(contextConditionsPatch) > 0 {
-		err := conf.Merge(confmap.NewFromStringMap(contextConditionsPatch))
-		if err != nil {
-			return err
-		}
-	}
-
-	err := conf.Unmarshal(cfg)
-	if err != nil {
-		return err
-	}
-
-	return err
-}
+// Array of strings means it's a basic configuration style
 
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the processor configuration is valid
-func (cfg *Config) Validate() error {
-	if err := cfg.validateInferredContextConfig(); err != nil {
-		return err
-	}
-	return cfg.validateExplicitContextConfig()
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *Config) validateExplicitContextConfig() error {
-	if (cfg.Traces.ResourceConditions != nil || cfg.Traces.SpanConditions != nil || cfg.Traces.SpanEventConditions != nil) && (cfg.Spans.Include != nil || cfg.Spans.Exclude != nil) {
-		return errors.New(`cannot use "traces.resource", "traces.span", "traces.spanevent" and the span settings "spans.include", "spans.exclude" at the same time`)
-	}
-	if (cfg.Metrics.ResourceConditions != nil || cfg.Metrics.MetricConditions != nil || cfg.Metrics.DataPointConditions != nil) && (cfg.Metrics.Include != nil || cfg.Metrics.Exclude != nil) {
-		return errors.New(`cannot use "metrics.resource", "metrics.metric", "metrics.datapoint" and the settings "metrics.include", "metrics.exclude" at the same time`)
-	}
-	if (cfg.Logs.ResourceConditions != nil || cfg.Logs.LogConditions != nil) && (cfg.Logs.Include != nil || cfg.Logs.Exclude != nil) {
-		return errors.New(`cannot use "logs.resource", "logs.log" and the settings "logs.include", "logs.exclude" at the same time`)
-	}
-
-	var errs error
-
-	if cfg.Traces.ResourceConditions != nil {
-		_, err := filterottl.NewBoolExprForResource(cfg.Traces.ResourceConditions, cfg.resourceFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Traces.SpanConditions != nil {
-		_, err := filterottl.NewBoolExprForSpan(cfg.Traces.SpanConditions, cfg.spanFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Traces.SpanEventConditions != nil {
-		_, err := filterottl.NewBoolExprForSpanEvent(cfg.Traces.SpanEventConditions, cfg.spanEventFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Metrics.ResourceConditions != nil {
-		_, err := filterottl.NewBoolExprForResource(cfg.Metrics.ResourceConditions, cfg.resourceFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Metrics.MetricConditions != nil {
-		_, err := filterottl.NewBoolExprForMetric(cfg.Metrics.MetricConditions, cfg.metricFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Metrics.DataPointConditions != nil {
-		_, err := filterottl.NewBoolExprForDataPoint(cfg.Metrics.DataPointConditions, cfg.dataPointFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Logs.ResourceConditions != nil {
-		_, err := filterottl.NewBoolExprForResource(cfg.Logs.ResourceConditions, cfg.resourceFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Logs.LogConditions != nil {
-		_, err := filterottl.NewBoolExprForLog(cfg.Logs.LogConditions, cfg.logFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Profiles.ResourceConditions != nil {
-		_, err := filterottl.NewBoolExprForResource(cfg.Profiles.ResourceConditions, cfg.resourceFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Profiles.ProfileConditions != nil {
-		_, err := filterottl.NewBoolExprForProfile(cfg.Profiles.ProfileConditions, cfg.profileFunctions, ottl.PropagateError, component.TelemetrySettings{Logger: zap.NewNop()})
-		errs = multierr.Append(errs, err)
-	}
-
-	if cfg.Logs.Include != nil {
-		errs = multierr.Append(errs, cfg.Logs.Include.validate())
-	}
-
-	if cfg.Logs.Exclude != nil {
-		errs = multierr.Append(errs, cfg.Logs.Exclude.validate())
-	}
-
-	return errs
-}
+func (cfg *Config) validateExplicitContextConfig() error { _ = "STUB: not implemented"; return nil }
 
 func (cfg *Config) validateInferredContextConfig() error {
+	_ = "STUB: not implemented"
 	// Remove the old format.
 	// https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/41176
-	if cfg.TraceConditions != nil && (cfg.Traces.ResourceConditions != nil || cfg.Traces.SpanConditions != nil || cfg.Traces.SpanEventConditions != nil) {
-		return errors.New(`cannot use context inferred trace conditions "trace_conditions" and the settings "traces.resource", "traces.span", "traces.spanevent" at the same time`)
-	}
-	if cfg.MetricConditions != nil && (cfg.Metrics.ResourceConditions != nil || cfg.Metrics.MetricConditions != nil ||
-		cfg.Metrics.DataPointConditions != nil ||
-		cfg.Metrics.Include != nil ||
-		cfg.Metrics.Exclude != nil) {
-		return errors.New(`cannot use context inferred metric conditions "metric_conditions" and the settings "metrics.resource", "metrics.metric", "metrics.datapoint", "metrics.include", "metrics.exclude" at the same time`)
-	}
-	if cfg.LogConditions != nil && (cfg.Logs.ResourceConditions != nil || cfg.Logs.LogConditions != nil ||
-		cfg.Logs.Include != nil ||
-		cfg.Logs.Exclude != nil) {
-		return errors.New(`cannot use context inferred log conditions "log_conditions" and the settings "logs.resource", "logs.log", "logs.include", "logs.exclude" at the same time`)
-	}
-	if cfg.ProfileConditions != nil && (cfg.Profiles.ResourceConditions != nil || cfg.Profiles.ProfileConditions != nil) {
-		return errors.New(`cannot use context inferred profile conditions "profile_conditions" and the settings "profiles.resource", "profiles.profile" at the same time`)
-	}
-
-	var errs error
-
-	if len(cfg.TraceConditions) > 0 {
-		pc, err := cfg.newTraceParserCollection(component.TelemetrySettings{Logger: zap.NewNop()})
-		if err != nil {
-			return err
-		}
-		for _, cs := range cfg.TraceConditions {
-			_, err = pc.ParseContextConditions(cs)
-			if err != nil {
-				errs = multierr.Append(errs, err)
-			}
-		}
-	}
-
-	if len(cfg.MetricConditions) > 0 {
-		pc, err := cfg.newMetricParserCollection(component.TelemetrySettings{Logger: zap.NewNop()})
-		if err != nil {
-			return err
-		}
-		for _, cs := range cfg.MetricConditions {
-			_, err = pc.ParseContextConditions(cs)
-			if err != nil {
-				errs = multierr.Append(errs, err)
-			}
-		}
-	}
-
-	if len(cfg.LogConditions) > 0 {
-		pc, err := cfg.newLogParserCollection(component.TelemetrySettings{Logger: zap.NewNop()})
-		if err != nil {
-			return err
-		}
-		for _, cs := range cfg.LogConditions {
-			_, err = pc.ParseContextConditions(cs)
-			if err != nil {
-				errs = multierr.Append(errs, err)
-			}
-		}
-	}
-
-	if len(cfg.ProfileConditions) > 0 {
-		pc, err := cfg.newProfileParserCollection(component.TelemetrySettings{Logger: zap.NewNop()})
-		if err != nil {
-			return err
-		}
-		for _, cs := range cfg.ProfileConditions {
-			_, err = pc.ParseContextConditions(cs)
-			if err != nil {
-				errs = multierr.Append(errs, err)
-			}
-		}
-	}
-	return errs
+	return nil
 }
 
 func (cfg *Config) newTraceParserCollection(telemetrySettings component.TelemetrySettings) (*condition.TraceParserCollection, error) {
-	return condition.NewTraceParserCollection(telemetrySettings,
-		condition.WithSpanParser(cfg.spanFunctions),
-		condition.WithSpanEventParser(cfg.spanEventFunctions),
-		condition.WithTraceErrorMode(cfg.ErrorMode),
-		condition.WithTraceCommonParsers(cfg.resourceFunctions),
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (cfg *Config) newMetricParserCollection(telemetrySettings component.TelemetrySettings) (*condition.MetricParserCollection, error) {
-	return condition.NewMetricParserCollection(telemetrySettings,
-		condition.WithMetricParser(cfg.metricFunctions),
-		condition.WithDataPointParser(cfg.dataPointFunctions),
-		condition.WithMetricErrorMode(cfg.ErrorMode),
-		condition.WithMetricCommonParsers(cfg.resourceFunctions),
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (cfg *Config) newLogParserCollection(telemetrySettings component.TelemetrySettings) (*condition.LogParserCollection, error) {
-	return condition.NewLogParserCollection(telemetrySettings,
-		condition.WithLogParser(cfg.logFunctions),
-		condition.WithLogErrorMode(cfg.ErrorMode),
-		condition.WithLogCommonParsers(cfg.resourceFunctions),
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (cfg *Config) newProfileParserCollection(telemetrySettings component.TelemetrySettings) (*condition.ProfileParserCollection, error) {
-	return condition.NewProfileParserCollection(telemetrySettings,
-		condition.WithProfileParser(cfg.profileFunctions),
-		condition.WithProfileErrorMode(cfg.ErrorMode),
-		condition.WithProfileCommonParsers(cfg.resourceFunctions),
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

@@ -16,52 +16,16 @@ type Metadata struct {
 }
 
 func (m Metadata) MetricsMetadata() (*metadata.MetricsMetadata, error) {
-	queryLabelValuesMetadata, err := m.toLabelValuesMetadata()
-	if err != nil {
-		return nil, err
-	}
-
-	queryMetricValuesMetadata, err := m.toMetricValuesMetadata()
-	if err != nil {
-		return nil, err
-	}
-
-	return &metadata.MetricsMetadata{
-		Name:                      m.Name,
-		Query:                     m.Query,
-		MetricNamePrefix:          m.MetricNamePrefix,
-		TimestampColumnName:       m.TimestampColumnName,
-		HighCardinality:           m.HighCardinality,
-		QueryLabelValuesMetadata:  queryLabelValuesMetadata,
-		QueryMetricValuesMetadata: queryMetricValuesMetadata,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m Metadata) toLabelValuesMetadata() ([]metadata.LabelValueMetadata, error) {
-	valuesMetadata := make([]metadata.LabelValueMetadata, len(m.Labels))
-
-	for i, label := range m.Labels {
-		value, err := label.toLabelValueMetadata()
-		if err != nil {
-			return nil, err
-		}
-
-		valuesMetadata[i] = value
-	}
-
-	return valuesMetadata, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (m Metadata) toMetricValuesMetadata() ([]metadata.MetricValueMetadata, error) {
-	valuesMetadata := make([]metadata.MetricValueMetadata, len(m.Metrics))
-	for i, metric := range m.Metrics {
-		value, err := metric.toMetricValueMetadata()
-		if err != nil {
-			return nil, err
-		}
-
-		valuesMetadata[i] = value
-	}
-
-	return valuesMetadata, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

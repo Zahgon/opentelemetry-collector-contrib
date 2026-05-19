@@ -5,14 +5,9 @@ package elasticsearchreceiver // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"context"
-	"encoding/base64"
-	"encoding/json"
 	"errors"
-	"fmt"
-	"io"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/hashicorp/go-version"
 	"go.opentelemetry.io/collector/component"
@@ -49,34 +44,11 @@ type defaultElasticsearchClient struct {
 var _ elasticsearchClient = (*defaultElasticsearchClient)(nil)
 
 func newElasticsearchClient(ctx context.Context, settings component.TelemetrySettings, c Config, h component.Host) (*defaultElasticsearchClient, error) {
-	client, err := c.ToClient(ctx, h.GetExtensions(), settings)
-	if err != nil {
-		return nil, err
-	}
-
-	endpoint, err := url.Parse(c.Endpoint)
-	if err != nil {
-		return nil, err
-	}
-
-	var authHeader string
-	if c.Username != "" && c.Password != "" {
-		userPass := fmt.Sprintf("%s:%s", c.Username, string(c.Password))
-		authb64 := base64.StdEncoding.EncodeToString([]byte(userPass))
-		authHeader = "Basic " + authb64
-	}
-
-	esClient := defaultElasticsearchClient{
-		client:     client,
-		authHeader: authHeader,
-		endpoint:   endpoint,
-		logger:     settings.Logger,
-	}
-
-	// Try update es version
-	_, _ = esClient.ClusterMetadata(context.Background())
-	return &esClient, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// Try update es version
 
 var es7_9 = func() *version.Version {
 	v, _ := version.NewVersion("7.9")
@@ -105,160 +77,39 @@ const (
 )
 
 func (c defaultElasticsearchClient) Nodes(ctx context.Context, nodeIDs []string) (*model.Nodes, error) {
-	var nodeSpec string
-	if len(nodeIDs) > 0 {
-		nodeSpec = strings.Join(nodeIDs, ",")
-	} else {
-		nodeSpec = "_all"
-	}
-
-	nodesPath := fmt.Sprintf("_nodes/%s/%s", nodeSpec, nodesMetrics)
-
-	body, err := c.doRequest(ctx, nodesPath)
-	if err != nil {
-		return nil, err
-	}
-
-	nodes := model.Nodes{}
-	err = json.Unmarshal(body, &nodes)
-	return &nodes, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c defaultElasticsearchClient) NodeStats(ctx context.Context, nodes []string) (*model.NodeStats, error) {
-	var nodeSpec string
-	if len(nodes) > 0 {
-		nodeSpec = strings.Join(nodes, ",")
-	} else {
-		nodeSpec = "_all"
-	}
-
-	nodeStatsMetrics := defaultNodeStatsMetrics
-	if c.version != nil && c.version.GreaterThanOrEqual(es7_9) {
-		nodeStatsMetrics += nodeStatsMetricsAfter7_9
-	}
-	nodeStatsPath := fmt.Sprintf("_nodes/%s/stats/%s/%s", nodeSpec, nodeStatsMetrics, nodeStatsIndexMetrics)
-
-	body, err := c.doRequest(ctx, nodeStatsPath)
-	if err != nil {
-		return nil, err
-	}
-
-	nodeStats := model.NodeStats{}
-	err = json.Unmarshal(body, &nodeStats)
-	return &nodeStats, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c defaultElasticsearchClient) ClusterHealth(ctx context.Context) (*model.ClusterHealth, error) {
-	body, err := c.doRequest(ctx, "_cluster/health")
-	if err != nil {
-		return nil, err
-	}
-
-	clusterHealth := model.ClusterHealth{}
-	err = json.Unmarshal(body, &clusterHealth)
-	return &clusterHealth, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c defaultElasticsearchClient) IndexStats(ctx context.Context, indices []string) (*model.IndexStats, error) {
-	var indexSpec string
-	if len(indices) > 0 {
-		indexSpec = strings.Join(indices, ",")
-	} else {
-		indexSpec = "_all"
-	}
-
-	indexStatsPath := fmt.Sprintf("%s/_stats/%s", indexSpec, indexStatsMetrics)
-
-	body, err := c.doRequest(ctx, indexStatsPath)
-	if err != nil {
-		return nil, err
-	}
-
-	indexStats := model.IndexStats{}
-	err = json.Unmarshal(body, &indexStats)
-
-	return &indexStats, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *defaultElasticsearchClient) ClusterMetadata(ctx context.Context) (*model.ClusterMetadataResponse, error) {
-	body, err := c.doRequest(ctx, "")
-	if err != nil {
-		return nil, err
-	}
-
-	versionResponse := model.ClusterMetadataResponse{}
-	err = json.Unmarshal(body, &versionResponse)
-	if c.version == nil {
-		c.version, _ = version.NewVersion(versionResponse.Version.Number)
-	}
-	return &versionResponse, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c defaultElasticsearchClient) ClusterStats(ctx context.Context, nodes []string) (*model.ClusterStats, error) {
-	var nodesSpec string
-	if len(nodes) > 0 {
-		nodesSpec = strings.Join(nodes, ",")
-	} else {
-		nodesSpec = "_all"
-	}
-
-	clusterStatsPath := "_cluster/stats/nodes/" + nodesSpec
-
-	body, err := c.doRequest(ctx, clusterStatsPath)
-	if err != nil {
-		return nil, err
-	}
-
-	clusterStats := model.ClusterStats{}
-	err = json.Unmarshal(body, &clusterStats)
-
-	return &clusterStats, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c defaultElasticsearchClient) doRequest(ctx context.Context, path string) ([]byte, error) {
-	endpoint, err := c.endpoint.Parse(path)
-	if err != nil {
-		return nil, err
-	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, endpoint.String(), http.NoBody)
-	if err != nil {
-		return nil, err
-	}
-
-	if c.authHeader != "" {
-		req.Header.Add("Authorization", c.authHeader)
-	}
-
-	// See https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions#api-compatibility
-	// the compatible-with=8 should signal to newer version of Elasticsearch to use the v8.x API format
-	req.Header.Add("Accept", "application/vnd.elasticsearch+json; compatible-with=8")
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode == http.StatusOK {
-		return io.ReadAll(resp.Body)
-	}
-
-	body, err := io.ReadAll(resp.Body)
-	c.logger.Debug(
-		"Failed to make request to Elasticsearch",
-		zap.String("path", path),
-		zap.Int("status_code", resp.StatusCode),
-		zap.ByteString("body", body),
-		zap.NamedError("body_read_error", err),
-	)
-
-	switch resp.StatusCode {
-	case http.StatusUnauthorized:
-		return nil, errUnauthenticated
-	case http.StatusForbidden:
-		return nil, errUnauthorized
-	default:
-		return nil, fmt.Errorf("got non 200 status code %d", resp.StatusCode)
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
+
+// See https://www.elastic.co/docs/reference/elasticsearch/rest-apis/api-conventions#api-compatibility
+// the compatible-with=8 should signal to newer version of Elasticsearch to use the v8.x API format

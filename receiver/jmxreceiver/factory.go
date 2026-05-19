@@ -5,42 +5,21 @@ package jmxreceiver // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
-	"go.opentelemetry.io/collector/exporter/exporterhelper"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/jmxreceiver/internal/metadata"
 )
 
 const (
 	otlpEndpoint = "0.0.0.0:0"
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	scs := scraperhelper.NewDefaultControllerConfig()
-	scs.CollectionInterval = 10 * time.Second
-	scs.InitialDelay = 1 * time.Second
-	return &Config{
-		JARPath:          "/opt/opentelemetry-java-contrib-jmx-metrics.jar",
-		ControllerConfig: scs,
-		OTLPExporterConfig: otlpExporterConfig{
-			Endpoint: otlpEndpoint,
-			TimeoutSettings: exporterhelper.TimeoutConfig{
-				Timeout: 5 * time.Second,
-			},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createReceiver(
@@ -49,6 +28,6 @@ func createReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	jmxConfig := cfg.(*Config)
-	return newJMXMetricReceiver(params, jmxConfig, consumer), nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

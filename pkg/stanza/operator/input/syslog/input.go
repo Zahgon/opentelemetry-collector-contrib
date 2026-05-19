@@ -5,8 +5,6 @@ package syslog // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"bufio"
-	"regexp"
-	"strconv"
 
 	"golang.org/x/text/encoding"
 
@@ -26,59 +24,30 @@ type Input struct {
 }
 
 // Start will start listening for log entries over tcp or udp.
-func (i *Input) Start(p operator.Persister) error {
-	if i.tcp != nil {
-		return i.tcp.Start(p)
-	}
-	return i.udp.Start(p)
-}
+func (i *Input) Start(p operator.Persister) error { _ = "STUB: not implemented"; return nil }
 
 // Stop will stop listening for messages.
-func (i *Input) Stop() error {
-	if i.tcp != nil {
-		return i.tcp.Stop()
-	}
-	return i.udp.Stop()
-}
+func (i *Input) Stop() error { _ = "STUB: not implemented"; return nil }
 
 // SetOutputs will set the outputs of the internal syslog parser.
 func (i *Input) SetOutputs(operators []operator.Operator) error {
-	i.parser.SetOutputIDs(i.GetOutputIDs())
-	return i.parser.SetOutputs(operators)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func OctetSplitFuncBuilder(_ encoding.Encoding) (bufio.SplitFunc, error) {
-	return newOctetFrameSplitFunc(true), nil
+	_ = "STUB: not implemented"
+	return *new(bufio.SplitFunc), nil
 }
 
 func newOctetFrameSplitFunc(flushAtEOF bool) bufio.SplitFunc {
-	frameRegex := regexp.MustCompile(`^[1-9]\d*\s`)
-	return func(data []byte, atEOF bool) (int, []byte, error) {
-		frameLoc := frameRegex.FindIndex(data)
-		if frameLoc == nil {
-			// Flush if no more data is expected
-			if len(data) != 0 && atEOF && flushAtEOF {
-				return len(data), data, nil
-			}
-			return 0, nil, nil
-		}
-
-		frameMaxIndex := frameLoc[1]
-		// Remove the delimiter (space) between length and log, and parse the length
-		frameLenValue, err := strconv.Atoi(string(data[:frameMaxIndex-1]))
-		if err != nil {
-			// This should not be possible because the regex matched.
-			// However, return an error just in case.
-			return 0, nil, err
-		}
-
-		advance := frameMaxIndex + frameLenValue
-		if advance > len(data) {
-			if atEOF && flushAtEOF {
-				return len(data), data, nil
-			}
-			return 0, nil, nil
-		}
-		return advance, data[:advance], nil
-	}
+	_ = "STUB: not implemented"
+	return *new(bufio.SplitFunc)
 }
+
+// Flush if no more data is expected
+
+// Remove the delimiter (space) between length and log, and parse the length
+
+// This should not be possible because the regex matched.
+// However, return an error just in case.

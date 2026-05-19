@@ -4,8 +4,6 @@
 package zipkinencodingextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/zipkinencodingextension"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap/xconfmap"
 )
 
@@ -18,13 +16,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if c.Protocol != zipkinProtobufEncoding && c.Protocol != zipkinJSONEncoding && c.Protocol != zipkinThriftEncoding {
-		return fmt.Errorf("unsupported protocol: %q", c.Protocol)
-	}
-	if c.Version != v1 && c.Version != v2 {
-		return fmt.Errorf("unsupported version: %q", c.Version)
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

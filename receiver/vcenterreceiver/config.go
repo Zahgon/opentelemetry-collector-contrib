@@ -4,15 +4,11 @@
 package vcenterreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver"
 
 import (
-	"context"
-	"errors"
-	"fmt"
 	"net/url"
 
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/vcenterreceiver/internal/metadata"
 )
@@ -29,43 +25,7 @@ type Config struct {
 }
 
 // Validate checks to see if the supplied config will work for the receiver
-func (c *Config) Validate() error {
-	if c.Endpoint == "" {
-		return errors.New("no endpoint was provided")
-	}
-
-	var err error
-	res, err := url.Parse(c.Endpoint)
-	if err != nil {
-		err = multierr.Append(err, fmt.Errorf("unable to parse url %s: %w", c.Endpoint, err))
-		return err
-	}
-
-	if res.Scheme != "http" && res.Scheme != "https" {
-		err = multierr.Append(err, errors.New("url scheme must be http or https"))
-	}
-
-	if c.Username == "" {
-		err = multierr.Append(err, errors.New("username not provided and is required"))
-	}
-
-	if c.Password == "" {
-		err = multierr.Append(err, errors.New("password not provided and is required"))
-	}
-
-	if _, tlsErr := c.LoadTLSConfig(context.Background()); tlsErr != nil {
-		err = multierr.Append(err, fmt.Errorf("error loading tls configuration: %w", tlsErr))
-	}
-
-	return err
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SDKUrl returns the url for the vCenter SDK
-func (c *Config) SDKUrl() (*url.URL, error) {
-	res, err := url.Parse(c.Endpoint)
-	if err != nil {
-		return res, err
-	}
-	res.Path = "/sdk"
-	return res, nil
-}
+func (c *Config) SDKUrl() (*url.URL, error) { _ = "STUB: not implemented"; return nil, nil }

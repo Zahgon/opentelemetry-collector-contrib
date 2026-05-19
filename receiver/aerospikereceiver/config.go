@@ -4,17 +4,12 @@
 package aerospikereceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/aerospikereceiver"
 
 import (
-	"context"
 	"errors"
-	"fmt"
-	"net"
-	"strconv"
 	"time"
 
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/aerospikereceiver/internal/metadata"
 )
@@ -44,52 +39,4 @@ type Config struct {
 }
 
 // Validate validates the values of the given Config, and returns an error if validation fails
-func (c *Config) Validate() error {
-	var allErrs error
-
-	if c.Endpoint == "" {
-		return multierr.Append(allErrs, errEmptyEndpoint)
-	}
-
-	host, portStr, err := net.SplitHostPort(c.Endpoint)
-	if err != nil {
-		return multierr.Append(allErrs, fmt.Errorf("%w: %s", errBadEndpoint, err.Error()))
-	}
-
-	if host == "" {
-		allErrs = multierr.Append(allErrs, errBadEndpoint)
-	}
-
-	port, err := strconv.ParseInt(portStr, 10, 32)
-	if err != nil {
-		allErrs = multierr.Append(allErrs, fmt.Errorf("%w: %s", errBadPort, err.Error()))
-	}
-
-	if port < 0 || port > 65535 {
-		allErrs = multierr.Append(allErrs, fmt.Errorf("%w: %d", errBadPort, port))
-	}
-
-	if c.Username != "" && c.Password == "" {
-		allErrs = multierr.Append(allErrs, errEmptyPassword)
-	}
-
-	if c.Password != "" && c.Username == "" {
-		allErrs = multierr.Append(allErrs, errEmptyUsername)
-	}
-	if c.Timeout.Milliseconds() < 0 {
-		allErrs = multierr.Append(allErrs, fmt.Errorf("%w: must be positive", errNegativeTimeout))
-	}
-
-	if c.TLS != nil {
-		_, err := c.TLS.LoadTLSConfig(context.Background())
-		if err != nil {
-			allErrs = multierr.Append(allErrs, fmt.Errorf("%w: %s", errFailedTLSLoad, err.Error()))
-		}
-	}
-
-	if c.TLS != nil && c.TLSName == "" {
-		allErrs = multierr.Append(allErrs, fmt.Errorf("%w: when using TLS", errEmptyEndpointTLSName))
-	}
-
-	return allErrs
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

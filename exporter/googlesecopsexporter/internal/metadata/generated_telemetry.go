@@ -3,7 +3,6 @@
 package metadata
 
 import (
-	"errors"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -12,11 +11,13 @@ import (
 )
 
 func Meter(settings component.TelemetrySettings) metric.Meter {
-	return settings.MeterProvider.Meter("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlesecopsexporter")
+	_ = "STUB: not implemented"
+	return *new(metric.Meter)
 }
 
 func Tracer(settings component.TelemetrySettings) trace.Tracer {
-	return settings.TracerProvider.Tracer("github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlesecopsexporter")
+	_ = "STUB: not implemented"
+	return *new(trace.Tracer)
 }
 
 // TelemetryBuilder provides an interface for components to report telemetry
@@ -39,52 +40,17 @@ type TelemetryBuilderOption interface {
 type telemetryBuilderOptionFunc func(mb *TelemetryBuilder)
 
 func (tbof telemetryBuilderOptionFunc) apply(mb *TelemetryBuilder) {
-	tbof(mb)
+	_ = "STUB: not implemented"
+
+	// Shutdown unregister all registered callbacks for async instruments.
+	return
 }
 
-// Shutdown unregister all registered callbacks for async instruments.
-func (builder *TelemetryBuilder) Shutdown() {
-	builder.mu.Lock()
-	defer builder.mu.Unlock()
-	for _, reg := range builder.registrations {
-		reg.Unregister()
-	}
-}
+func (builder *TelemetryBuilder) Shutdown() { _ = "STUB: not implemented"; return }
 
 // NewTelemetryBuilder provides a struct with methods to update all internal telemetry
 // for a component
 func NewTelemetryBuilder(settings component.TelemetrySettings, options ...TelemetryBuilderOption) (*TelemetryBuilder, error) {
-	builder := TelemetryBuilder{}
-	for _, op := range options {
-		op.apply(&builder)
-	}
-	builder.meter = Meter(settings)
-	var err, errs error
-	builder.GoogleSecopsExporterBytesSent, err = builder.meter.Int64Counter(
-		"otelcol_google_secops.exporter.bytes.sent",
-		metric.WithDescription("The total number of raw bytes sent. [Alpha]"),
-		metric.WithUnit("By"),
-	)
-	errs = errors.Join(errs, err)
-	builder.GoogleSecopsExporterPayloadSize, err = builder.meter.Int64Histogram(
-		"otelcol_google_secops.exporter.payload.size",
-		metric.WithDescription("The size of the payload in bytes. [Alpha]"),
-		metric.WithUnit("By"),
-		metric.WithExplicitBucketBoundaries([]float64{10000, 50000, 100000, 250000, 500000, 750000, 1e+06, 1.25e+06, 1.5e+06, 1.75e+06, 2e+06, 2.25e+06, 2.5e+06, 2.75e+06, 3e+06, 3.25e+06, 3.5e+06, 3.75e+06, 4e+06, 4.25e+06, 4.5e+06, 4.75e+06, 5e+06}...),
-	)
-	errs = errors.Join(errs, err)
-	builder.GoogleSecopsExporterRequestCount, err = builder.meter.Int64Counter(
-		"otelcol_google_secops.exporter.request.count",
-		metric.WithDescription("The total number of requests made. [Alpha]"),
-		metric.WithUnit("{request}"),
-	)
-	errs = errors.Join(errs, err)
-	builder.GoogleSecopsExporterRequestLatency, err = builder.meter.Int64Histogram(
-		"otelcol_google_secops.exporter.request.latency",
-		metric.WithDescription("The latency of the request in milliseconds. [Alpha]"),
-		metric.WithUnit("ms"),
-		metric.WithExplicitBucketBoundaries([]float64{100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 10000, 15000, 20000, 30000, 60000}...),
-	)
-	errs = errors.Join(errs, err)
-	return &builder, errs
+	_ = "STUB: not implemented"
+	return nil, nil
 }

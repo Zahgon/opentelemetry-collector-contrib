@@ -11,13 +11,8 @@ import (
 )
 
 func NewRestClient(baseEndpoint url.URL, clientSettings confighttp.ClientConfig, settings component.TelemetrySettings) (RestClient, error) {
-	clientProvider := NewClientProvider(baseEndpoint, clientSettings, &nopHost{}, settings)
-
-	client, err := clientProvider.BuildClient()
-	if err != nil {
-		return nil, err
-	}
-	return NewRestClientFromClient(client), nil
+	_ = "STUB: not implemented"
+	return *new(RestClient), nil
 }
 
 // TODO: Instead of using this, expose it as a argument to NewRestClient.
@@ -26,7 +21,8 @@ type nopHost struct {
 }
 
 func (*nopHost) GetExtensions() map[component.ID]component.Component {
-	return map[component.ID]component.Component{}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RestClient is swappable for testing.
@@ -42,14 +38,12 @@ type TaskMetadataRestClient struct {
 
 // NewRestClientFromClient creates a new copy of the Client
 func NewRestClientFromClient(client Client) *TaskMetadataRestClient {
-	return &TaskMetadataRestClient{client: client}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetResponse gets the desired path from the configured metadata endpoint
 func (c *TaskMetadataRestClient) GetResponse(path string) ([]byte, error) {
-	response, err := c.client.Get(path)
-	if err != nil {
-		return nil, err
-	}
-	return response, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

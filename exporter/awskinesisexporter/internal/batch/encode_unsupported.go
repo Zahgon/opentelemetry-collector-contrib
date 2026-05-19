@@ -18,13 +18,16 @@ var (
 )
 
 func (unsupported) MarshalTraces(_ ptrace.Traces) ([]byte, error) {
-	return nil, ErrUnsupportedEncoding
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (unsupported) MarshalMetrics(_ pmetric.Metrics) ([]byte, error) {
-	return nil, ErrUnsupportedEncoding
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (unsupported) MarshalLogs(_ plog.Logs) ([]byte, error) {
-	return nil, ErrUnsupportedEncoding
+	_ = "STUB: not implemented"
+	return nil, nil
 }

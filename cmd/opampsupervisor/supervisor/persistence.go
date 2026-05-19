@@ -4,14 +4,9 @@
 package supervisor
 
 import (
-	"encoding/hex"
-	"errors"
-	"os"
-
 	"github.com/google/uuid"
 	"github.com/open-telemetry/opamp-go/protobufs"
 	"go.uber.org/zap"
-	"gopkg.in/yaml.v3"
 )
 
 // persistentState represents persistent state for the supervisor
@@ -37,96 +32,34 @@ type RemoteConfigStatus struct {
 	ErrorMessage string `yaml:"error_message"`
 }
 
-func (p *persistentState) SetInstanceID(id uuid.UUID) error {
-	p.InstanceID = id
-	return p.writeState()
-}
+func (p *persistentState) SetInstanceID(id uuid.UUID) error { _ = "STUB: not implemented"; return nil }
 
 func (p *persistentState) SetLastRemoteConfigStatus(status *protobufs.RemoteConfigStatus) error {
-	p.LastRemoteConfigStatus = &RemoteConfigStatus{
-		Status:               status.Status,
-		LastRemoteConfigHash: hex.EncodeToString(status.LastRemoteConfigHash),
-		ErrorMessage:         status.ErrorMessage,
-	}
-	return p.writeState()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (p *persistentState) GetLastRemoteConfigStatus() *protobufs.RemoteConfigStatus {
-	if p.LastRemoteConfigStatus == nil {
-		return nil
-	}
-	lastRemoteConfigHash, err := hex.DecodeString(p.LastRemoteConfigStatus.LastRemoteConfigHash)
-	if err != nil {
-		p.logger.Error("Failed to decode last remote config hash, returning empty status", zap.Error(err))
-		return nil
-	}
-	return &protobufs.RemoteConfigStatus{
-		Status:               p.LastRemoteConfigStatus.Status,
-		LastRemoteConfigHash: lastRemoteConfigHash,
-		ErrorMessage:         p.LastRemoteConfigStatus.ErrorMessage,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (p *persistentState) writeState() error {
-	by, err := yaml.Marshal(p)
-	if err != nil {
-		return err
-	}
-
-	return os.WriteFile(p.configPath, by, 0o600)
-}
+func (p *persistentState) writeState() error { _ = "STUB: not implemented"; return nil }
 
 // loadOrCreatePersistentState attempts to load the persistent state from disk. If it doesn't
 // exist, a new persistent state file is created.
 // instanceID must be a valid UUID string, or an empty string to generate a new UUIDv7 automatically.
 func loadOrCreatePersistentState(file, instanceID string, logger *zap.Logger) (*persistentState, error) {
-	state, err := loadPersistentState(file, logger)
-	switch {
-	case errors.Is(err, os.ErrNotExist):
-		return createNewPersistentState(file, instanceID, logger)
-	case err != nil:
-		return nil, err
-	default:
-		return state, nil
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func loadPersistentState(file string, logger *zap.Logger) (*persistentState, error) {
-	var state *persistentState
-
-	by, err := os.ReadFile(file)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := yaml.Unmarshal(by, &state); err != nil {
-		return nil, err
-	}
-
-	state.configPath = file
-	state.logger = logger
-
-	return state, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func createNewPersistentState(file, instanceID string, logger *zap.Logger) (*persistentState, error) {
-	id, err := uuid.Parse(instanceID)
-	if err != nil {
-		if instanceID != "" {
-			logger.Warn("Failed to parse instance_id, generating one automatically", zap.Error(err))
-		}
-		id, err = uuid.NewV7()
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	p := &persistentState{
-		InstanceID: id,
-		configPath: file,
-		logger:     logger,
-	}
-
-	err = p.writeState()
-	return p, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }

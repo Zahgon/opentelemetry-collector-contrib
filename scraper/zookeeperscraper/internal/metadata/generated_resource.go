@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetServerState sets provided value as "server.state" attribute.
-func (rb *ResourceBuilder) SetServerState(val string) {
-	if rb.config.ServerState.Enabled {
-		rb.res.Attributes().PutStr("server.state", val)
-	}
-}
+func (rb *ResourceBuilder) SetServerState(val string) { _ = "STUB: not implemented"; return }
 
 // SetZkVersion sets provided value as "zk.version" attribute.
-func (rb *ResourceBuilder) SetZkVersion(val string) {
-	if rb.config.ZkVersion.Enabled {
-		rb.res.Attributes().PutStr("zk.version", val)
-	}
-}
+func (rb *ResourceBuilder) SetZkVersion(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

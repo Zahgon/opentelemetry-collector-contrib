@@ -7,13 +7,8 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/cloudfoundryreceiver/internal/metadata"
 )
 
 // This file implements factory for Cloud Foundry receiver.
@@ -25,37 +20,11 @@ const (
 )
 
 // NewFactory creates a factory for collectd receiver.
-func NewFactory() receiver.Factory {
-	return xreceiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		xreceiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		xreceiver.WithLogs(createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Endpoint = defaultURL
-	clientConfig.TLS = configtls.ClientConfig{
-		InsecureSkipVerify: false,
-	}
-	return &Config{
-		RLPGateway: RLPGatewayConfig{
-			ClientConfig: clientConfig,
-			ShardID:      defaultRLPGatewayShardID,
-		},
-		UAA: UAAConfig{
-			LimitedClientConfig: LimitedClientConfig{
-				Endpoint: defaultURL,
-				TLS: LimitedTLSClientSetting{
-					InsecureSkipVerify: false,
-				},
-			},
-			Username: defaultUAAUsername,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -64,8 +33,8 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c := cfg.(*Config)
-	return newCloudFoundryMetricsReceiver(params, *c, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 func createLogsReceiver(
@@ -74,6 +43,6 @@ func createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	c := cfg.(*Config)
-	return newCloudFoundryLogsReceiver(params, *c, nextConsumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }

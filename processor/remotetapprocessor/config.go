@@ -6,7 +6,6 @@ package remotetapprocessor // import "github.com/open-telemetry/opentelemetry-co
 import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"golang.org/x/time/rate"
 )
 
@@ -24,11 +23,6 @@ type Config struct {
 }
 
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultEndpoint
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{NetAddr: netAddr},
-		Limit:        1,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

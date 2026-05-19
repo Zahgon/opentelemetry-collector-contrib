@@ -13,30 +13,19 @@ type N struct {
 	c chan struct{}
 }
 
-func newNotification() N {
-	return N{c: make(chan struct{})}
-}
+func newNotification() N { _ = "STUB: not implemented"; return *new(N) }
 
-func (n *N) Notify() {
-	close(n.c)
-}
+func (n *N) Notify() { _ = "STUB: not implemented"; return }
 
-func (n *N) HasBeenNotified() bool {
-	select {
-	case <-n.c:
-		return true
-	default:
-		return false
-	}
-}
+func (n *N) HasBeenNotified() bool { _ = "STUB: not implemented"; return false }
 
 func (n *N) WaitForNotification() {
-	<-n.c
+	_ = "STUB: not implemented"
+
+	// Chan allows a caller to wait for the notification as part of a
+	// select statement. Outside of a select statement, prefer writing
+	// WaitForNotification().
+	return
 }
 
-// Chan allows a caller to wait for the notification as part of a
-// select statement. Outside of a select statement, prefer writing
-// WaitForNotification().
-func (n *N) Chan() <-chan struct{} {
-	return n.c
-}
+func (n *N) Chan() <-chan struct{} { _ = "STUB: not implemented"; return nil }

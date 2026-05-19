@@ -21,17 +21,14 @@ var _ samplingpolicy.Evaluator = (*alwaysSample)(nil)
 
 // NewAlwaysSample creates a policy evaluator the samples all traces.
 func NewAlwaysSample(settings component.TelemetrySettings) samplingpolicy.Evaluator {
-	return &alwaysSample{
-		logger: settings.Logger,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 func (as *alwaysSample) Evaluate(context.Context, pcommon.TraceID, *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	as.logger.Debug("Evaluating spans in always-sample filter")
-	return samplingpolicy.Sampled, nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (*alwaysSample) IsStateful() bool {
-	return false
-}
+func (*alwaysSample) IsStateful() bool { _ = "STUB: not implemented"; return false }

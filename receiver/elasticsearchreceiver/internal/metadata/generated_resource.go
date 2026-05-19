@@ -15,43 +15,30 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetElasticsearchClusterName sets provided value as "elasticsearch.cluster.name" attribute.
 func (rb *ResourceBuilder) SetElasticsearchClusterName(val string) {
-	if rb.config.ElasticsearchClusterName.Enabled {
-		rb.res.Attributes().PutStr("elasticsearch.cluster.name", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // SetElasticsearchIndexName sets provided value as "elasticsearch.index.name" attribute.
-func (rb *ResourceBuilder) SetElasticsearchIndexName(val string) {
-	if rb.config.ElasticsearchIndexName.Enabled {
-		rb.res.Attributes().PutStr("elasticsearch.index.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetElasticsearchIndexName(val string) { _ = "STUB: not implemented"; return }
 
 // SetElasticsearchNodeName sets provided value as "elasticsearch.node.name" attribute.
-func (rb *ResourceBuilder) SetElasticsearchNodeName(val string) {
-	if rb.config.ElasticsearchNodeName.Enabled {
-		rb.res.Attributes().PutStr("elasticsearch.node.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetElasticsearchNodeName(val string) { _ = "STUB: not implemented"; return }
 
 // SetElasticsearchNodeVersion sets provided value as "elasticsearch.node.version" attribute.
 func (rb *ResourceBuilder) SetElasticsearchNodeVersion(val string) {
-	if rb.config.ElasticsearchNodeVersion.Enabled {
-		rb.res.Attributes().PutStr("elasticsearch.node.version", val)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

@@ -31,16 +31,6 @@ type AWSSessionSettings struct {
 }
 
 func CreateDefaultSessionConfig() AWSSessionSettings {
-	return AWSSessionSettings{
-		NumberOfWorkers:       8,
-		Endpoint:              "",
-		RequestTimeoutSeconds: 30,
-		MaxRetries:            2,
-		NoVerifySSL:           false,
-		ProxyAddress:          "",
-		Region:                "",
-		LocalMode:             false,
-		ResourceARN:           "",
-		RoleARN:               "",
-	}
+	_ = "STUB: not implemented"
+	return *new(AWSSessionSettings)
 }

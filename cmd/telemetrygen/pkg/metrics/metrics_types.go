@@ -3,10 +3,6 @@
 
 package metrics
 
-import (
-	"errors"
-)
-
 type MetricType string
 
 const (
@@ -18,21 +14,13 @@ const (
 
 // String is used both by fmt.Print and by Cobra in help text
 func (e *MetricType) String() string {
-	return string(*e)
+	_ = "STUB: not implemented"
+
+	// Set must have pointer receiver so it doesn't change the value of a copy
+	return ""
 }
 
-// Set must have pointer receiver so it doesn't change the value of a copy
-func (e *MetricType) Set(v string) error {
-	switch v {
-	case "Gauge", "Sum", "Histogram", "ExponentialHistogram":
-		*e = MetricType(v)
-		return nil
-	default:
-		return errors.New(`must be one of "Gauge", "Sum", "Histogram", "ExponentialHistogram"`)
-	}
-}
+func (e *MetricType) Set(v string) error { _ = "STUB: not implemented"; return nil }
 
 // Type is only used in help text
-func (*MetricType) Type() string {
-	return "MetricType"
-}
+func (*MetricType) Type() string { _ = "STUB: not implemented"; return "" }

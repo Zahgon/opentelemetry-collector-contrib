@@ -8,10 +8,8 @@ import (
 )
 
 func createFormatter(protocol string, octetCounting bool) formatter {
-	if protocol == protocolRFC5424Str {
-		return newRFC5424Formatter(octetCounting)
-	}
-	return newRFC3164Formatter()
+	_ = "STUB: not implemented"
+	return *new(formatter)
 }
 
 type formatter interface {
@@ -21,9 +19,6 @@ type formatter interface {
 // getAttributeValueOrDefault returns the value of the requested log record's attribute as a string.
 // If the attribute was not found, it returns the provided default value.
 func getAttributeValueOrDefault(logRecord plog.LogRecord, attributeName, defaultValue string) string {
-	value := defaultValue
-	if attributeValue, found := logRecord.Attributes().Get(attributeName); found {
-		value = attributeValue.AsString()
-	}
-	return value
+	_ = "STUB: not implemented"
+	return ""
 }

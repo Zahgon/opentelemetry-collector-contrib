@@ -4,15 +4,9 @@
 package datasetexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/datasetexporter"
 
 import (
-	"errors"
-	"fmt"
 	"time"
 
-	"github.com/cenkalti/backoff/v5"
-	"github.com/scalyr/dataset-go/pkg/buffer"
-	"github.com/scalyr/dataset-go/pkg/buffer_config"
 	datasetConfig "github.com/scalyr/dataset-go/pkg/config"
-	"github.com/scalyr/dataset-go/pkg/server_host_config"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -38,10 +32,8 @@ type exportSettings struct {
 
 // newDefaultExportSettings returns the default settings for exportSettings.
 func newDefaultExportSettings() exportSettings {
-	return exportSettings{
-		ExportSeparator:            exportSeparatorDefault,
-		ExportDistinguishingSuffix: exportDistinguishingSuffix,
-	}
+	_ = "STUB: not implemented"
+	return *new(exportSettings)
 }
 
 type TracesSettings struct {
@@ -51,9 +43,8 @@ type TracesSettings struct {
 
 // newDefaultTracesSettings returns the default settings for TracesSettings.
 func newDefaultTracesSettings() TracesSettings {
-	return TracesSettings{
-		exportSettings: newDefaultExportSettings(),
-	}
+	_ = "STUB: not implemented"
+	return *new(TracesSettings)
 }
 
 const (
@@ -99,17 +90,7 @@ type LogsSettings struct {
 }
 
 // newDefaultLogsSettings returns the default settings for LogsSettings.
-func newDefaultLogsSettings() LogsSettings {
-	return LogsSettings{
-		ExportResourceInfo:             logsExportResourceInfoDefault,
-		ExportResourcePrefix:           logsExportResourcePrefixDefault,
-		ExportScopeInfo:                logsExportScopeInfoDefault,
-		ExportScopePrefix:              logsExportScopePrefixDefault,
-		DecomposeComplexMessageField:   logsDecomposeComplexMessageFieldDefault,
-		DecomposedComplexMessagePrefix: logsDecomposedComplexMessageFieldPrefixDefault,
-		exportSettings:                 newDefaultExportSettings(),
-	}
-}
+func newDefaultLogsSettings() LogsSettings { _ = "STUB: not implemented"; return *new(LogsSettings) }
 
 const (
 	bufferMaxLifetime          = 5 * time.Second
@@ -134,16 +115,8 @@ type BufferSettings struct {
 
 // newDefaultBufferSettings returns the default settings for BufferSettings.
 func newDefaultBufferSettings() BufferSettings {
-	return BufferSettings{
-		MaxLifetime:          bufferMaxLifetime,
-		PurgeOlderThan:       bufferPurgeOlderThan,
-		GroupBy:              []string{},
-		RetryInitialInterval: bufferRetryInitialInterval,
-		RetryMaxInterval:     bufferRetryMaxInterval,
-		RetryMaxElapsedTime:  bufferRetryMaxElapsedTime,
-		RetryShutdownTimeout: bufferRetryShutdownTimeout,
-		MaxParallelOutgoing:  bufferMaxParallelOutgoing,
-	}
+	_ = "STUB: not implemented"
+	return *new(BufferSettings)
 }
 
 type ServerHostSettings struct {
@@ -153,10 +126,8 @@ type ServerHostSettings struct {
 
 // newDefaultBufferSettings returns the default settings for BufferSettings.
 func newDefaultServerHostSettings() ServerHostSettings {
-	return ServerHostSettings{
-		UseHostName: true,
-		ServerHost:  "",
-	}
+	_ = "STUB: not implemented"
+	return *new(ServerHostSettings)
 }
 
 const debugDefault = false
@@ -174,74 +145,17 @@ type Config struct {
 	TimeoutSettings           exporterhelper.TimeoutConfig                             `mapstructure:"timeout"`
 }
 
-func (c *Config) Unmarshal(conf *confmap.Conf) error {
-	if err := conf.Unmarshal(c); err != nil {
-		return fmt.Errorf("cannot unmarshal config: %w", err)
-	}
-
-	return nil
-}
+func (c *Config) Unmarshal(conf *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 // Validate checks if all required fields in Config are set and have valid values.
 // If any of the required fields are missing or have invalid values, it returns an error.
-func (c *Config) Validate() error {
-	if c.APIKey == "" {
-		return errors.New("api_key is required")
-	}
-	if c.DatasetURL == "" {
-		return errors.New("dataset_url is required")
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // String returns a string representation of the Config object.
 // It includes all the fields and their values in the format "field_name: field_value".
-func (c *Config) String() string {
-	apiKey, _ := c.APIKey.MarshalText()
-	s := ""
-	s += fmt.Sprintf("%s: %s; ", "DatasetURL", c.DatasetURL)
-	s += fmt.Sprintf("%s: %s (%d); ", "APIKey", apiKey, len(c.APIKey))
-	s += fmt.Sprintf("%s: %t; ", "Debug", c.Debug)
-	s += fmt.Sprintf("%s: %+v; ", "BufferSettings", c.BufferSettings)
-	s += fmt.Sprintf("%s: %+v; ", "LogsSettings", c.LogsSettings)
-	s += fmt.Sprintf("%s: %+v; ", "TracesSettings", c.TracesSettings)
-	s += fmt.Sprintf("%s: %+v; ", "ServerHostSettings", c.ServerHostSettings)
-	s += fmt.Sprintf("%s: %+v; ", "BackOffConfig", c.BackOffConfig)
-	s += fmt.Sprintf("%s: %+v; ", "QueueSettings", c.QueueSettings)
-	s += fmt.Sprintf("%s: %+v", "TimeoutSettings", c.TimeoutSettings)
-	return s
-}
+func (c *Config) String() string { _ = "STUB: not implemented"; return "" }
 
-func (c *Config) convert() *exporterConfig {
-	return &exporterConfig{
-		datasetConfig: &datasetConfig.DataSetConfig{
-			Endpoint: c.DatasetURL,
-			Tokens:   datasetConfig.DataSetTokens{WriteLog: string(c.APIKey)},
-			BufferSettings: buffer_config.DataSetBufferSettings{
-				MaxLifetime:              c.MaxLifetime,
-				PurgeOlderThan:           c.PurgeOlderThan,
-				MaxSize:                  buffer.LimitBufferSize,
-				GroupBy:                  c.GroupBy,
-				RetryInitialInterval:     c.RetryInitialInterval,
-				RetryMaxInterval:         c.RetryMaxInterval,
-				RetryMaxElapsedTime:      c.RetryMaxElapsedTime,
-				RetryMultiplier:          backoff.DefaultMultiplier,
-				RetryRandomizationFactor: backoff.DefaultRandomizationFactor,
-				RetryShutdownTimeout:     c.RetryShutdownTimeout,
-				MaxParallelOutgoing:      c.MaxParallelOutgoing,
-			},
-			ServerHostSettings: server_host_config.DataSetServerHostSettings{
-				UseHostName: c.UseHostName,
-				ServerHost:  c.ServerHost,
-			},
-			Debug: c.Debug,
-		},
-		tracesSettings:     c.TracesSettings,
-		logsSettings:       c.LogsSettings,
-		serverHostSettings: c.ServerHostSettings,
-	}
-}
+func (c *Config) convert() *exporterConfig { _ = "STUB: not implemented"; return nil }
 
 type exporterConfig struct {
 	datasetConfig      *datasetConfig.DataSetConfig

@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -96,96 +93,22 @@ func (m *metricChassisPowerstate) init() {
 }
 
 func (m *metricChassisPowerstate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisAssetTag) {
-		dp.Attributes().PutStr("chassis.asset_tag", chassisAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisModel) {
-		dp.Attributes().PutStr("chassis.model", chassisModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisName) {
-		dp.Attributes().PutStr("chassis.name", chassisNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisManufacturer) {
-		dp.Attributes().PutStr("chassis.manufacturer", chassisManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisSerialNumber) {
-		dp.Attributes().PutStr("chassis.serial_number", chassisSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisSku) {
-		dp.Attributes().PutStr("chassis.sku", chassisSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisPowerstateMetricAttributeKeyChassisChassisType) {
-		dp.Attributes().PutStr("chassis.chassis_type", chassisChassisTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricChassisPowerstate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricChassisPowerstate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricChassisPowerstate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricChassisPowerstate(cfg ChassisPowerstateMetricConfig) metricChassisPowerstate {
-	m := metricChassisPowerstate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricChassisPowerstate)
 }
 
 type metricChassisStatusHealth struct {
@@ -206,96 +129,22 @@ func (m *metricChassisStatusHealth) init() {
 }
 
 func (m *metricChassisStatusHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisAssetTag) {
-		dp.Attributes().PutStr("chassis.asset_tag", chassisAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisModel) {
-		dp.Attributes().PutStr("chassis.model", chassisModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisName) {
-		dp.Attributes().PutStr("chassis.name", chassisNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisManufacturer) {
-		dp.Attributes().PutStr("chassis.manufacturer", chassisManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisSerialNumber) {
-		dp.Attributes().PutStr("chassis.serial_number", chassisSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisSku) {
-		dp.Attributes().PutStr("chassis.sku", chassisSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusHealthMetricAttributeKeyChassisChassisType) {
-		dp.Attributes().PutStr("chassis.chassis_type", chassisChassisTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricChassisStatusHealth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricChassisStatusHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricChassisStatusHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricChassisStatusHealth(cfg ChassisStatusHealthMetricConfig) metricChassisStatusHealth {
-	m := metricChassisStatusHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricChassisStatusHealth)
 }
 
 type metricChassisStatusState struct {
@@ -316,96 +165,22 @@ func (m *metricChassisStatusState) init() {
 }
 
 func (m *metricChassisStatusState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisAssetTag) {
-		dp.Attributes().PutStr("chassis.asset_tag", chassisAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisModel) {
-		dp.Attributes().PutStr("chassis.model", chassisModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisName) {
-		dp.Attributes().PutStr("chassis.name", chassisNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisManufacturer) {
-		dp.Attributes().PutStr("chassis.manufacturer", chassisManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisSerialNumber) {
-		dp.Attributes().PutStr("chassis.serial_number", chassisSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisSku) {
-		dp.Attributes().PutStr("chassis.sku", chassisSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, ChassisStatusStateMetricAttributeKeyChassisChassisType) {
-		dp.Attributes().PutStr("chassis.chassis_type", chassisChassisTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricChassisStatusState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricChassisStatusState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricChassisStatusState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricChassisStatusState(cfg ChassisStatusStateMetricConfig) metricChassisStatusState {
-	m := metricChassisStatusState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricChassisStatusState)
 }
 
 type metricFanReading struct {
@@ -426,81 +201,19 @@ func (m *metricFanReading) init() {
 }
 
 func (m *metricFanReading) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string, fanReadingUnitsAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, FanReadingMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, FanReadingMetricAttributeKeyFanName) {
-		dp.Attributes().PutStr("fan.name", fanNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, FanReadingMetricAttributeKeyFanReadingUnits) {
-		dp.Attributes().PutStr("fan.reading_units", fanReadingUnitsAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFanReading) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricFanReading) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricFanReading) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricFanReading) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricFanReading(cfg FanReadingMetricConfig) metricFanReading {
-	m := metricFanReading{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFanReading)
 }
 
 type metricFanStatusHealth struct {
@@ -521,78 +234,22 @@ func (m *metricFanStatusHealth) init() {
 }
 
 func (m *metricFanStatusHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, FanStatusHealthMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, FanStatusHealthMetricAttributeKeyFanName) {
-		dp.Attributes().PutStr("fan.name", fanNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFanStatusHealth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricFanStatusHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricFanStatusHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricFanStatusHealth(cfg FanStatusHealthMetricConfig) metricFanStatusHealth {
-	m := metricFanStatusHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFanStatusHealth)
 }
 
 type metricFanStatusState struct {
@@ -613,78 +270,19 @@ func (m *metricFanStatusState) init() {
 }
 
 func (m *metricFanStatusState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, FanStatusStateMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, FanStatusStateMetricAttributeKeyFanName) {
-		dp.Attributes().PutStr("fan.name", fanNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricFanStatusState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricFanStatusState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricFanStatusState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricFanStatusState) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricFanStatusState(cfg FanStatusStateMetricConfig) metricFanStatusState {
-	m := metricFanStatusState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricFanStatusState)
 }
 
 type metricSystemPowerstate struct {
@@ -705,99 +303,22 @@ func (m *metricSystemPowerstate) init() {
 }
 
 func (m *metricSystemPowerstate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemID) {
-		dp.Attributes().PutStr("system.id", systemIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemAssetTag) {
-		dp.Attributes().PutStr("system.asset_tag", systemAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemBiosVersion) {
-		dp.Attributes().PutStr("system.bios_version", systemBiosVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemModel) {
-		dp.Attributes().PutStr("system.model", systemModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemName) {
-		dp.Attributes().PutStr("system.name", systemNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemManufacturer) {
-		dp.Attributes().PutStr("system.manufacturer", systemManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemSerialNumber) {
-		dp.Attributes().PutStr("system.serial_number", systemSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemSku) {
-		dp.Attributes().PutStr("system.sku", systemSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemPowerstateMetricAttributeKeySystemSystemType) {
-		dp.Attributes().PutStr("system.system_type", systemSystemTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemPowerstate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemPowerstate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemPowerstate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemPowerstate(cfg SystemPowerstateMetricConfig) metricSystemPowerstate {
-	m := metricSystemPowerstate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemPowerstate)
 }
 
 type metricSystemStatusHealth struct {
@@ -818,99 +339,22 @@ func (m *metricSystemStatusHealth) init() {
 }
 
 func (m *metricSystemStatusHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemID) {
-		dp.Attributes().PutStr("system.id", systemIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemAssetTag) {
-		dp.Attributes().PutStr("system.asset_tag", systemAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemBiosVersion) {
-		dp.Attributes().PutStr("system.bios_version", systemBiosVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemModel) {
-		dp.Attributes().PutStr("system.model", systemModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemName) {
-		dp.Attributes().PutStr("system.name", systemNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemManufacturer) {
-		dp.Attributes().PutStr("system.manufacturer", systemManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemSerialNumber) {
-		dp.Attributes().PutStr("system.serial_number", systemSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemSku) {
-		dp.Attributes().PutStr("system.sku", systemSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusHealthMetricAttributeKeySystemSystemType) {
-		dp.Attributes().PutStr("system.system_type", systemSystemTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemStatusHealth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemStatusHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemStatusHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemStatusHealth(cfg SystemStatusHealthMetricConfig) metricSystemStatusHealth {
-	m := metricSystemStatusHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemStatusHealth)
 }
 
 type metricSystemStatusState struct {
@@ -931,99 +375,22 @@ func (m *metricSystemStatusState) init() {
 }
 
 func (m *metricSystemStatusState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemID) {
-		dp.Attributes().PutStr("system.id", systemIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemAssetTag) {
-		dp.Attributes().PutStr("system.asset_tag", systemAssetTagAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemBiosVersion) {
-		dp.Attributes().PutStr("system.bios_version", systemBiosVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemModel) {
-		dp.Attributes().PutStr("system.model", systemModelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemName) {
-		dp.Attributes().PutStr("system.name", systemNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemManufacturer) {
-		dp.Attributes().PutStr("system.manufacturer", systemManufacturerAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemSerialNumber) {
-		dp.Attributes().PutStr("system.serial_number", systemSerialNumberAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemSku) {
-		dp.Attributes().PutStr("system.sku", systemSkuAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SystemStatusStateMetricAttributeKeySystemSystemType) {
-		dp.Attributes().PutStr("system.system_type", systemSystemTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSystemStatusState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSystemStatusState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSystemStatusState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSystemStatusState(cfg SystemStatusStateMetricConfig) metricSystemStatusState {
-	m := metricSystemStatusState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSystemStatusState)
 }
 
 type metricTemperatureReading struct {
@@ -1044,78 +411,22 @@ func (m *metricTemperatureReading) init() {
 }
 
 func (m *metricTemperatureReading) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, TemperatureReadingMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, TemperatureReadingMetricAttributeKeyTemperatureName) {
-		dp.Attributes().PutStr("temperature.name", temperatureNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricTemperatureReading) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricTemperatureReading) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricTemperatureReading) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricTemperatureReading(cfg TemperatureReadingMetricConfig) metricTemperatureReading {
-	m := metricTemperatureReading{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricTemperatureReading)
 }
 
 type metricTemperatureStatusHealth struct {
@@ -1136,78 +447,22 @@ func (m *metricTemperatureStatusHealth) init() {
 }
 
 func (m *metricTemperatureStatusHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, TemperatureStatusHealthMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, TemperatureStatusHealthMetricAttributeKeyTemperatureName) {
-		dp.Attributes().PutStr("temperature.name", temperatureNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricTemperatureStatusHealth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricTemperatureStatusHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricTemperatureStatusHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricTemperatureStatusHealth(cfg TemperatureStatusHealthMetricConfig) metricTemperatureStatusHealth {
-	m := metricTemperatureStatusHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricTemperatureStatusHealth)
 }
 
 type metricTemperatureStatusState struct {
@@ -1228,78 +483,22 @@ func (m *metricTemperatureStatusState) init() {
 }
 
 func (m *metricTemperatureStatusState) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, TemperatureStatusStateMetricAttributeKeyChassisID) {
-		dp.Attributes().PutStr("chassis.id", chassisIDAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, TemperatureStatusStateMetricAttributeKeyTemperatureName) {
-		dp.Attributes().PutStr("temperature.name", temperatureNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricTemperatureStatusState) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricTemperatureStatusState) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricTemperatureStatusState) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricTemperatureStatusState(cfg TemperatureStatusStateMetricConfig) metricTemperatureStatusState {
-	m := metricTemperatureStatusState{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricTemperatureStatusState)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1334,65 +533,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                         mbc,
-		startTime:                      pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                  pmetric.NewMetrics(),
-		buildInfo:                      settings.BuildInfo,
-		metricChassisPowerstate:        newMetricChassisPowerstate(mbc.Metrics.ChassisPowerstate),
-		metricChassisStatusHealth:      newMetricChassisStatusHealth(mbc.Metrics.ChassisStatusHealth),
-		metricChassisStatusState:       newMetricChassisStatusState(mbc.Metrics.ChassisStatusState),
-		metricFanReading:               newMetricFanReading(mbc.Metrics.FanReading),
-		metricFanStatusHealth:          newMetricFanStatusHealth(mbc.Metrics.FanStatusHealth),
-		metricFanStatusState:           newMetricFanStatusState(mbc.Metrics.FanStatusState),
-		metricSystemPowerstate:         newMetricSystemPowerstate(mbc.Metrics.SystemPowerstate),
-		metricSystemStatusHealth:       newMetricSystemStatusHealth(mbc.Metrics.SystemStatusHealth),
-		metricSystemStatusState:        newMetricSystemStatusState(mbc.Metrics.SystemStatusState),
-		metricTemperatureReading:       newMetricTemperatureReading(mbc.Metrics.TemperatureReading),
-		metricTemperatureStatusHealth:  newMetricTemperatureStatusHealth(mbc.Metrics.TemperatureStatusHealth),
-		metricTemperatureStatusState:   newMetricTemperatureStatusState(mbc.Metrics.TemperatureStatusState),
-		resourceAttributeIncludeFilter: make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter: make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.HostName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.HostName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["host.name"] = filter.CreateFilter(mbc.ResourceAttributes.HostName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.URLFull.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["url.full"] = filter.CreateFilter(mbc.ResourceAttributes.URLFull.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.URLFull.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["url.full"] = filter.CreateFilter(mbc.ResourceAttributes.URLFull.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1403,35 +569,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1440,119 +594,90 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricChassisPowerstate.emit(ils.Metrics())
-	mb.metricChassisStatusHealth.emit(ils.Metrics())
-	mb.metricChassisStatusState.emit(ils.Metrics())
-	mb.metricFanReading.emit(ils.Metrics())
-	mb.metricFanStatusHealth.emit(ils.Metrics())
-	mb.metricFanStatusState.emit(ils.Metrics())
-	mb.metricSystemPowerstate.emit(ils.Metrics())
-	mb.metricSystemStatusHealth.emit(ils.Metrics())
-	mb.metricSystemStatusState.emit(ils.Metrics())
-	mb.metricTemperatureReading.emit(ils.Metrics())
-	mb.metricTemperatureStatusHealth.emit(ils.Metrics())
-	mb.metricTemperatureStatusState.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordChassisPowerstateDataPoint adds a data point to chassis.powerstate metric.
 func (mb *MetricsBuilder) RecordChassisPowerstateDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	mb.metricChassisPowerstate.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, chassisAssetTagAttributeValue, chassisModelAttributeValue, chassisNameAttributeValue, chassisManufacturerAttributeValue, chassisSerialNumberAttributeValue, chassisSkuAttributeValue, chassisChassisTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordChassisStatusHealthDataPoint adds a data point to chassis.status.health metric.
 func (mb *MetricsBuilder) RecordChassisStatusHealthDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	mb.metricChassisStatusHealth.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, chassisAssetTagAttributeValue, chassisModelAttributeValue, chassisNameAttributeValue, chassisManufacturerAttributeValue, chassisSerialNumberAttributeValue, chassisSkuAttributeValue, chassisChassisTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordChassisStatusStateDataPoint adds a data point to chassis.status.state metric.
 func (mb *MetricsBuilder) RecordChassisStatusStateDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, chassisAssetTagAttributeValue string, chassisModelAttributeValue string, chassisNameAttributeValue string, chassisManufacturerAttributeValue string, chassisSerialNumberAttributeValue string, chassisSkuAttributeValue string, chassisChassisTypeAttributeValue string) {
-	mb.metricChassisStatusState.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, chassisAssetTagAttributeValue, chassisModelAttributeValue, chassisNameAttributeValue, chassisManufacturerAttributeValue, chassisSerialNumberAttributeValue, chassisSkuAttributeValue, chassisChassisTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordFanReadingDataPoint adds a data point to fan.reading metric.
 func (mb *MetricsBuilder) RecordFanReadingDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string, fanReadingUnitsAttributeValue string) {
-	mb.metricFanReading.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, fanNameAttributeValue, fanReadingUnitsAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordFanStatusHealthDataPoint adds a data point to fan.status.health metric.
 func (mb *MetricsBuilder) RecordFanStatusHealthDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string) {
-	mb.metricFanStatusHealth.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, fanNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordFanStatusStateDataPoint adds a data point to fan.status.state metric.
 func (mb *MetricsBuilder) RecordFanStatusStateDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, fanNameAttributeValue string) {
-	mb.metricFanStatusState.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, fanNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemPowerstateDataPoint adds a data point to system.powerstate metric.
 func (mb *MetricsBuilder) RecordSystemPowerstateDataPoint(ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	mb.metricSystemPowerstate.recordDataPoint(mb.startTime, ts, val, systemIDAttributeValue, systemAssetTagAttributeValue, systemBiosVersionAttributeValue, systemModelAttributeValue, systemNameAttributeValue, systemManufacturerAttributeValue, systemSerialNumberAttributeValue, systemSkuAttributeValue, systemSystemTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemStatusHealthDataPoint adds a data point to system.status.health metric.
 func (mb *MetricsBuilder) RecordSystemStatusHealthDataPoint(ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	mb.metricSystemStatusHealth.recordDataPoint(mb.startTime, ts, val, systemIDAttributeValue, systemAssetTagAttributeValue, systemBiosVersionAttributeValue, systemModelAttributeValue, systemNameAttributeValue, systemManufacturerAttributeValue, systemSerialNumberAttributeValue, systemSkuAttributeValue, systemSystemTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSystemStatusStateDataPoint adds a data point to system.status.state metric.
 func (mb *MetricsBuilder) RecordSystemStatusStateDataPoint(ts pcommon.Timestamp, val int64, systemIDAttributeValue string, systemAssetTagAttributeValue string, systemBiosVersionAttributeValue string, systemModelAttributeValue string, systemNameAttributeValue string, systemManufacturerAttributeValue string, systemSerialNumberAttributeValue string, systemSkuAttributeValue string, systemSystemTypeAttributeValue string) {
-	mb.metricSystemStatusState.recordDataPoint(mb.startTime, ts, val, systemIDAttributeValue, systemAssetTagAttributeValue, systemBiosVersionAttributeValue, systemModelAttributeValue, systemNameAttributeValue, systemManufacturerAttributeValue, systemSerialNumberAttributeValue, systemSkuAttributeValue, systemSystemTypeAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordTemperatureReadingDataPoint adds a data point to temperature.reading metric.
 func (mb *MetricsBuilder) RecordTemperatureReadingDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	mb.metricTemperatureReading.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, temperatureNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordTemperatureStatusHealthDataPoint adds a data point to temperature.status.health metric.
 func (mb *MetricsBuilder) RecordTemperatureStatusHealthDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	mb.metricTemperatureStatusHealth.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, temperatureNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordTemperatureStatusStateDataPoint adds a data point to temperature.status.state metric.
 func (mb *MetricsBuilder) RecordTemperatureStatusStateDataPoint(ts pcommon.Timestamp, val int64, chassisIDAttributeValue string, temperatureNameAttributeValue string) {
-	mb.metricTemperatureStatusState.recordDataPoint(mb.startTime, ts, val, chassisIDAttributeValue, temperatureNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

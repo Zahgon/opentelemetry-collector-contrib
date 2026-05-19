@@ -17,25 +17,13 @@ type metricsReceivedIndex struct {
 }
 
 func newMetricsReceivedIndex(pdms []pmetric.Metrics) *metricsReceivedIndex {
-	mi := &metricsReceivedIndex{m: map[string]*metricReceived{}}
-	for _, pdm := range pdms {
-		metrics := pdm.ResourceMetrics().At(0).ScopeMetrics().At(0).Metrics()
-		name := metrics.At(0).Name()
-		mi.m[name] = &metricReceived{pdm: pdm}
-	}
-	return mi
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (mi *metricsReceivedIndex) lookup(name string) (*metricReceived, bool) {
-	mr, ok := mi.m[name]
-	return mr, ok
+	_ = "STUB: not implemented"
+	return nil, false
 }
 
-func (mi *metricsReceivedIndex) allReceived() bool {
-	for _, m := range mi.m {
-		if !m.received {
-			return false
-		}
-	}
-	return true
-}
+func (mi *metricsReceivedIndex) allReceived() bool { _ = "STUB: not implemented"; return false }

@@ -28,5 +28,6 @@ var allTCPStates = []string{
 }
 
 func (*networkScraper) recordNetworkConntrackMetrics(context.Context) error {
+	_ = "STUB: not implemented"
 	return nil
 }

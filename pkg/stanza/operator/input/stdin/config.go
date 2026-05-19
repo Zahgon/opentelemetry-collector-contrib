@@ -4,8 +4,6 @@
 package stdin // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/stdin"
 
 import (
-	"os"
-
 	"go.opentelemetry.io/collector/component"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
@@ -19,11 +17,7 @@ func init() {
 }
 
 // NewConfig creates a new stdin input config with default values
-func NewConfig(operatorID string) *Config {
-	return &Config{
-		InputConfig: helper.NewInputConfig(operatorID, operatorType),
-	}
-}
+func NewConfig(operatorID string) *Config { _ = "STUB: not implemented"; return nil }
 
 // Config is the configuration of a stdin input operator.
 type Config struct {
@@ -32,13 +26,6 @@ type Config struct {
 
 // Build will build a stdin input operator.
 func (c *Config) Build(set component.TelemetrySettings) (operator.Operator, error) {
-	inputOperator, err := c.InputConfig.Build(set)
-	if err != nil {
-		return nil, err
-	}
-
-	return &Input{
-		InputOperator: inputOperator,
-		stdin:         os.Stdin,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(operator.Operator), nil
 }

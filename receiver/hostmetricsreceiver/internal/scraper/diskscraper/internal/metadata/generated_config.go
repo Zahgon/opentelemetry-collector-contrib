@@ -3,8 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap"
 )
 
@@ -26,36 +24,11 @@ type SystemDiskIoMetricConfig struct {
 }
 
 func (ms *SystemDiskIoMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemDiskIoMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskIoMetricAttributeKeyDevice, SystemDiskIoMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.disk.io doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemDiskIoMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemDiskIoTimeMetricAttributeKey specifies the key of an attribute for the system.disk.io_time metric.
 type SystemDiskIoTimeMetricAttributeKey string
@@ -74,36 +47,11 @@ type SystemDiskIoTimeMetricConfig struct {
 }
 
 func (ms *SystemDiskIoTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemDiskIoTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskIoTimeMetricAttributeKeyDevice:
-		default:
-			return fmt.Errorf("metric system.disk.io_time doesn't have an attribute %v, valid attributes: [device]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemDiskIoTimeMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemDiskMergedMetricAttributeKey specifies the key of an attribute for the system.disk.merged metric.
 type SystemDiskMergedMetricAttributeKey string
@@ -123,36 +71,11 @@ type SystemDiskMergedMetricConfig struct {
 }
 
 func (ms *SystemDiskMergedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemDiskMergedMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskMergedMetricAttributeKeyDevice, SystemDiskMergedMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.disk.merged doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemDiskMergedMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemDiskOperationTimeMetricAttributeKey specifies the key of an attribute for the system.disk.operation_time metric.
 type SystemDiskOperationTimeMetricAttributeKey string
@@ -172,34 +95,12 @@ type SystemDiskOperationTimeMetricConfig struct {
 }
 
 func (ms *SystemDiskOperationTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SystemDiskOperationTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskOperationTimeMetricAttributeKeyDevice, SystemDiskOperationTimeMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.disk.operation_time doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -221,36 +122,11 @@ type SystemDiskOperationsMetricConfig struct {
 }
 
 func (ms *SystemDiskOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (ms *SystemDiskOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskOperationsMetricAttributeKeyDevice, SystemDiskOperationsMetricAttributeKeyDirection:
-		default:
-			return fmt.Errorf("metric system.disk.operations doesn't have an attribute %v, valid attributes: [device, direction]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
-	return nil
-}
+func (ms *SystemDiskOperationsMetricConfig) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // SystemDiskPendingOperationsMetricAttributeKey specifies the key of an attribute for the system.disk.pending_operations metric.
 type SystemDiskPendingOperationsMetricAttributeKey string
@@ -269,34 +145,12 @@ type SystemDiskPendingOperationsMetricConfig struct {
 }
 
 func (ms *SystemDiskPendingOperationsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SystemDiskPendingOperationsMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskPendingOperationsMetricAttributeKeyDevice:
-		default:
-			return fmt.Errorf("metric system.disk.pending_operations doesn't have an attribute %v, valid attributes: [device]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -317,34 +171,12 @@ type SystemDiskWeightedIoTimeMetricConfig struct {
 }
 
 func (ms *SystemDiskWeightedIoTimeMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ms *SystemDiskWeightedIoTimeMetricConfig) Validate() error {
-	for _, val := range ms.EnabledAttributes {
-		switch val {
-		case SystemDiskWeightedIoTimeMetricAttributeKeyDevice:
-		default:
-			return fmt.Errorf("metric system.disk.weighted_io_time doesn't have an attribute %v, valid attributes: [device]", val)
-		}
-	}
-
-	switch ms.AggregationStrategy {
-	case AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax:
-	default:
-		return fmt.Errorf("invalid aggregation strategy %q, valid strategies: [%s, %s, %s, %s]", ms.AggregationStrategy, AggregationStrategySum, AggregationStrategyAvg, AggregationStrategyMin, AggregationStrategyMax)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -359,45 +191,7 @@ type MetricsConfig struct {
 	SystemDiskWeightedIoTime    SystemDiskWeightedIoTimeMetricConfig    `mapstructure:"system.disk.weighted_io_time"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		SystemDiskIo: SystemDiskIoMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskIoMetricAttributeKey{SystemDiskIoMetricAttributeKeyDevice, SystemDiskIoMetricAttributeKeyDirection},
-		},
-		SystemDiskIoTime: SystemDiskIoTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskIoTimeMetricAttributeKey{SystemDiskIoTimeMetricAttributeKeyDevice},
-		},
-		SystemDiskMerged: SystemDiskMergedMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskMergedMetricAttributeKey{SystemDiskMergedMetricAttributeKeyDevice, SystemDiskMergedMetricAttributeKeyDirection},
-		},
-		SystemDiskOperationTime: SystemDiskOperationTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskOperationTimeMetricAttributeKey{SystemDiskOperationTimeMetricAttributeKeyDevice, SystemDiskOperationTimeMetricAttributeKeyDirection},
-		},
-		SystemDiskOperations: SystemDiskOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskOperationsMetricAttributeKey{SystemDiskOperationsMetricAttributeKeyDevice, SystemDiskOperationsMetricAttributeKeyDirection},
-		},
-		SystemDiskPendingOperations: SystemDiskPendingOperationsMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskPendingOperationsMetricAttributeKey{SystemDiskPendingOperationsMetricAttributeKeyDevice},
-		},
-		SystemDiskWeightedIoTime: SystemDiskWeightedIoTimeMetricConfig{
-			Enabled:             true,
-			AggregationStrategy: AggregationStrategySum,
-			EnabledAttributes:   []SystemDiskWeightedIoTimeMetricAttributeKey{SystemDiskWeightedIoTimeMetricAttributeKeyDevice},
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for disk metrics builder.
 type MetricsBuilderConfig struct {
@@ -405,12 +199,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

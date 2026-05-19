@@ -4,7 +4,6 @@
 package logzioexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/logzioexporter"
 
 import (
-	"fmt"
 	"io"
 	"log"
 
@@ -20,96 +19,110 @@ type hclog2ZapLogger struct {
 	name string
 }
 
-func (*hclog2ZapLogger) Log(hclog.Level, string, ...any) {}
+func (*hclog2ZapLogger) Log(hclog.Level, string, ...any) { _ = "STUB: not implemented"; return }
 
-func (*hclog2ZapLogger) ImpliedArgs() []any {
-	return nil
-}
+func (*hclog2ZapLogger) ImpliedArgs() []any { _ = "STUB: not implemented"; return nil }
 
-func (l *hclog2ZapLogger) Name() string {
-	return l.name
-}
+func (l *hclog2ZapLogger) Name() string { _ = "STUB: not implemented"; return "" }
 
 func (*hclog2ZapLogger) StandardWriter(*hclog.StandardLoggerOptions) io.Writer {
-	return nil
+	_ = "STUB: not implemented"
+
+	// Trace implementation.
+	return *new(io.Writer)
 }
 
-// Trace implementation.
-func (*hclog2ZapLogger) Trace(string, ...any) {}
+func (*hclog2ZapLogger) Trace(string, ...any) {
+	_ = "STUB: not implemented"
 
-// Debug implementation.
-func (l *hclog2ZapLogger) Debug(msg string, args ...any) {
-	l.Zap.Debug(msg, argsToFields(args...)...)
+	// Debug implementation.
+	return
 }
+
+func (l *hclog2ZapLogger) Debug(msg string, args ...any) { _ = "STUB: not implemented"; return }
 
 // Info implementation.
-func (l *hclog2ZapLogger) Info(msg string, args ...any) {
-	l.Zap.Info(msg, argsToFields(args...)...)
-}
+func (l *hclog2ZapLogger) Info(msg string, args ...any) { _ = "STUB: not implemented"; return }
 
 // Warn implementation.
-func (l *hclog2ZapLogger) Warn(msg string, args ...any) {
-	l.Zap.Warn(msg, argsToFields(args...)...)
-}
+func (l *hclog2ZapLogger) Warn(msg string, args ...any) { _ = "STUB: not implemented"; return }
 
 // Error implementation.
-func (l *hclog2ZapLogger) Error(msg string, args ...any) {
-	l.Zap.Error(msg, argsToFields(args...)...)
-}
+func (l *hclog2ZapLogger) Error(msg string, args ...any) { _ = "STUB: not implemented"; return }
 
 // IsTrace implementation.
-func (*hclog2ZapLogger) IsTrace() bool { return false }
+func (*hclog2ZapLogger) IsTrace() bool {
+	_ = "STUB: not implemented"
 
-// IsDebug implementation.
-func (*hclog2ZapLogger) IsDebug() bool { return false }
+	// IsDebug implementation.
+	return false
+}
 
-// IsInfo implementation.
-func (*hclog2ZapLogger) IsInfo() bool { return false }
+func (*hclog2ZapLogger) IsDebug() bool {
+	_ = "STUB: not implemented"
 
-// IsWarn implementation.
-func (*hclog2ZapLogger) IsWarn() bool { return false }
+	// IsInfo implementation.
+	return false
+}
 
-// IsError implementation.
-func (*hclog2ZapLogger) IsError() bool { return false }
+func (*hclog2ZapLogger) IsInfo() bool {
+	_ = "STUB: not implemented"
 
-// With implementation.
+	// IsWarn implementation.
+	return false
+}
+
+func (*hclog2ZapLogger) IsWarn() bool {
+	_ = "STUB: not implemented"
+
+	// IsError implementation.
+	return false
+}
+
+func (*hclog2ZapLogger) IsError() bool {
+	_ = "STUB: not implemented"
+
+	// With implementation.
+	return false
+}
+
 func (l *hclog2ZapLogger) With(args ...any) hclog.Logger {
-	return &hclog2ZapLogger{Zap: l.Zap.With(argsToFields(args...)...)}
+	_ = "STUB: not implemented"
+	return *new(hclog.Logger)
 }
 
 // Named implementation.
 func (l *hclog2ZapLogger) Named(name string) hclog.Logger {
-	return &hclog2ZapLogger{Zap: l.Zap.Named(name)}
+	_ = "STUB: not implemented"
+	return *new(hclog.Logger)
 }
 
 // ResetNamed implementation.
 func (*hclog2ZapLogger) ResetNamed(string) hclog.Logger {
+	_ = "STUB: not implemented"
 	// no need to implement that as go-plugin doesn't use this method.
-	return &hclog2ZapLogger{}
+	return *new(hclog.Logger)
 }
 
 // SetLevel implementation.
 func (*hclog2ZapLogger) SetLevel(hclog.Level) {
+	_ = "STUB: not implemented"
 	// no need to implement that as go-plugin doesn't use this method.
+	return
 }
 
 // GetLevel implementation.
 func (*hclog2ZapLogger) GetLevel() hclog.Level {
+	_ = "STUB: not implemented"
 	// no need to implement that as go-plugin doesn't use this method.
-	return hclog.NoLevel
+	return *new(hclog.Level)
 }
 
 // StandardLogger implementation.
 func (*hclog2ZapLogger) StandardLogger(*hclog.StandardLoggerOptions) *log.Logger {
+	_ = "STUB: not implemented"
 	// no need to implement that as go-plugin doesn't use this method.
-	return log.New(io.Discard, "", 0)
+	return nil
 }
 
-func argsToFields(args ...any) []zapcore.Field {
-	var fields []zapcore.Field
-	for i := 0; i < len(args); i += 2 {
-		fields = append(fields, zap.String(args[i].(string), fmt.Sprintf("%v", args[i+1])))
-	}
-
-	return fields
-}
+func argsToFields(args ...any) []zapcore.Field { _ = "STUB: not implemented"; return nil }

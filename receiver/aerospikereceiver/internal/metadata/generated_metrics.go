@@ -3,11 +3,6 @@
 package metadata
 
 import (
-	"fmt"
-	"slices"
-	"strconv"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -32,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeConnectionOp.
-func (av AttributeConnectionOp) String() string {
-	switch av {
-	case AttributeConnectionOpClose:
-		return "close"
-	case AttributeConnectionOpOpen:
-		return "open"
-	}
-	return ""
-}
+func (av AttributeConnectionOp) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeConnectionOp is a helper map of string to AttributeConnectionOp attribute value.
 var MapAttributeConnectionOp = map[string]AttributeConnectionOp{
@@ -59,17 +46,7 @@ const (
 )
 
 // String returns the string representation of the AttributeConnectionType.
-func (av AttributeConnectionType) String() string {
-	switch av {
-	case AttributeConnectionTypeClient:
-		return "client"
-	case AttributeConnectionTypeFabric:
-		return "fabric"
-	case AttributeConnectionTypeHeartbeat:
-		return "heartbeat"
-	}
-	return ""
-}
+func (av AttributeConnectionType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeConnectionType is a helper map of string to AttributeConnectionType attribute value.
 var MapAttributeConnectionType = map[string]AttributeConnectionType{
@@ -88,15 +65,7 @@ const (
 )
 
 // String returns the string representation of the AttributeIndexType.
-func (av AttributeIndexType) String() string {
-	switch av {
-	case AttributeIndexTypePrimary:
-		return "primary"
-	case AttributeIndexTypeSecondary:
-		return "secondary"
-	}
-	return ""
-}
+func (av AttributeIndexType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeIndexType is a helper map of string to AttributeIndexType attribute value.
 var MapAttributeIndexType = map[string]AttributeIndexType{
@@ -116,19 +85,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNamespaceComponent.
-func (av AttributeNamespaceComponent) String() string {
-	switch av {
-	case AttributeNamespaceComponentData:
-		return "data"
-	case AttributeNamespaceComponentIndex:
-		return "index"
-	case AttributeNamespaceComponentSetIndex:
-		return "set_index"
-	case AttributeNamespaceComponentSecondaryIndex:
-		return "secondary_index"
-	}
-	return ""
-}
+func (av AttributeNamespaceComponent) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNamespaceComponent is a helper map of string to AttributeNamespaceComponent attribute value.
 var MapAttributeNamespaceComponent = map[string]AttributeNamespaceComponent{
@@ -150,19 +107,7 @@ const (
 )
 
 // String returns the string representation of the AttributeQueryResult.
-func (av AttributeQueryResult) String() string {
-	switch av {
-	case AttributeQueryResultAbort:
-		return "abort"
-	case AttributeQueryResultComplete:
-		return "complete"
-	case AttributeQueryResultError:
-		return "error"
-	case AttributeQueryResultTimeout:
-		return "timeout"
-	}
-	return ""
-}
+func (av AttributeQueryResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeQueryResult is a helper map of string to AttributeQueryResult attribute value.
 var MapAttributeQueryResult = map[string]AttributeQueryResult{
@@ -187,25 +132,7 @@ const (
 )
 
 // String returns the string representation of the AttributeQueryType.
-func (av AttributeQueryType) String() string {
-	switch av {
-	case AttributeQueryTypeAggregation:
-		return "aggregation"
-	case AttributeQueryTypeBasic:
-		return "basic"
-	case AttributeQueryTypeShort:
-		return "short"
-	case AttributeQueryTypeLongBasic:
-		return "long_basic"
-	case AttributeQueryTypeShortBasic:
-		return "short_basic"
-	case AttributeQueryTypeOpsBackground:
-		return "ops_background"
-	case AttributeQueryTypeUdfBackground:
-		return "udf_background"
-	}
-	return ""
-}
+func (av AttributeQueryType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeQueryType is a helper map of string to AttributeQueryType attribute value.
 var MapAttributeQueryType = map[string]AttributeQueryType{
@@ -229,17 +156,7 @@ const (
 )
 
 // String returns the string representation of the AttributeScanResult.
-func (av AttributeScanResult) String() string {
-	switch av {
-	case AttributeScanResultAbort:
-		return "abort"
-	case AttributeScanResultComplete:
-		return "complete"
-	case AttributeScanResultError:
-		return "error"
-	}
-	return ""
-}
+func (av AttributeScanResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeScanResult is a helper map of string to AttributeScanResult attribute value.
 var MapAttributeScanResult = map[string]AttributeScanResult{
@@ -260,19 +177,7 @@ const (
 )
 
 // String returns the string representation of the AttributeScanType.
-func (av AttributeScanType) String() string {
-	switch av {
-	case AttributeScanTypeAggregation:
-		return "aggregation"
-	case AttributeScanTypeBasic:
-		return "basic"
-	case AttributeScanTypeOpsBackground:
-		return "ops_background"
-	case AttributeScanTypeUdfBackground:
-		return "udf_background"
-	}
-	return ""
-}
+func (av AttributeScanType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeScanType is a helper map of string to AttributeScanType attribute value.
 var MapAttributeScanType = map[string]AttributeScanType{
@@ -295,21 +200,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTransactionResult.
-func (av AttributeTransactionResult) String() string {
-	switch av {
-	case AttributeTransactionResultError:
-		return "error"
-	case AttributeTransactionResultFilteredOut:
-		return "filtered_out"
-	case AttributeTransactionResultNotFound:
-		return "not_found"
-	case AttributeTransactionResultSuccess:
-		return "success"
-	case AttributeTransactionResultTimeout:
-		return "timeout"
-	}
-	return ""
-}
+func (av AttributeTransactionResult) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTransactionResult is a helper map of string to AttributeTransactionResult attribute value.
 var MapAttributeTransactionResult = map[string]AttributeTransactionResult{
@@ -332,19 +223,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTransactionType.
-func (av AttributeTransactionType) String() string {
-	switch av {
-	case AttributeTransactionTypeDelete:
-		return "delete"
-	case AttributeTransactionTypeRead:
-		return "read"
-	case AttributeTransactionTypeUdf:
-		return "udf"
-	case AttributeTransactionTypeWrite:
-		return "write"
-	}
-	return ""
-}
+func (av AttributeTransactionType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTransactionType is a helper map of string to AttributeTransactionType attribute value.
 var MapAttributeTransactionType = map[string]AttributeTransactionType{
@@ -435,39 +314,22 @@ func (m *metricAerospikeNamespaceDiskAvailable) init() {
 }
 
 func (m *metricAerospikeNamespaceDiskAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNamespaceDiskAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNamespaceDiskAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceDiskAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceDiskAvailable(cfg AerospikeNamespaceDiskAvailableMetricConfig) metricAerospikeNamespaceDiskAvailable {
-	m := metricAerospikeNamespaceDiskAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceDiskAvailable)
 }
 
 type metricAerospikeNamespaceGeojsonRegionQueryCells struct {
@@ -487,39 +349,25 @@ func (m *metricAerospikeNamespaceGeojsonRegionQueryCells) init() {
 }
 
 func (m *metricAerospikeNamespaceGeojsonRegionQueryCells) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryCells) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryCells) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceGeojsonRegionQueryCells(cfg AerospikeNamespaceGeojsonRegionQueryCellsMetricConfig) metricAerospikeNamespaceGeojsonRegionQueryCells {
-	m := metricAerospikeNamespaceGeojsonRegionQueryCells{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceGeojsonRegionQueryCells)
 }
 
 type metricAerospikeNamespaceGeojsonRegionQueryFalsePositive struct {
@@ -539,39 +387,25 @@ func (m *metricAerospikeNamespaceGeojsonRegionQueryFalsePositive) init() {
 }
 
 func (m *metricAerospikeNamespaceGeojsonRegionQueryFalsePositive) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryFalsePositive) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryFalsePositive) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceGeojsonRegionQueryFalsePositive(cfg AerospikeNamespaceGeojsonRegionQueryFalsePositiveMetricConfig) metricAerospikeNamespaceGeojsonRegionQueryFalsePositive {
-	m := metricAerospikeNamespaceGeojsonRegionQueryFalsePositive{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceGeojsonRegionQueryFalsePositive)
 }
 
 type metricAerospikeNamespaceGeojsonRegionQueryPoints struct {
@@ -591,39 +425,25 @@ func (m *metricAerospikeNamespaceGeojsonRegionQueryPoints) init() {
 }
 
 func (m *metricAerospikeNamespaceGeojsonRegionQueryPoints) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryPoints) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryPoints) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceGeojsonRegionQueryPoints(cfg AerospikeNamespaceGeojsonRegionQueryPointsMetricConfig) metricAerospikeNamespaceGeojsonRegionQueryPoints {
-	m := metricAerospikeNamespaceGeojsonRegionQueryPoints{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceGeojsonRegionQueryPoints)
 }
 
 type metricAerospikeNamespaceGeojsonRegionQueryRequests struct {
@@ -643,39 +463,25 @@ func (m *metricAerospikeNamespaceGeojsonRegionQueryRequests) init() {
 }
 
 func (m *metricAerospikeNamespaceGeojsonRegionQueryRequests) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryRequests) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceGeojsonRegionQueryRequests) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceGeojsonRegionQueryRequests(cfg AerospikeNamespaceGeojsonRegionQueryRequestsMetricConfig) metricAerospikeNamespaceGeojsonRegionQueryRequests {
-	m := metricAerospikeNamespaceGeojsonRegionQueryRequests{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceGeojsonRegionQueryRequests)
 }
 
 type metricAerospikeNamespaceMemoryFree struct {
@@ -693,39 +499,22 @@ func (m *metricAerospikeNamespaceMemoryFree) init() {
 }
 
 func (m *metricAerospikeNamespaceMemoryFree) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNamespaceMemoryFree) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNamespaceMemoryFree) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceMemoryFree) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceMemoryFree(cfg AerospikeNamespaceMemoryFreeMetricConfig) metricAerospikeNamespaceMemoryFree {
-	m := metricAerospikeNamespaceMemoryFree{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceMemoryFree)
 }
 
 type metricAerospikeNamespaceMemoryUsage struct {
@@ -748,75 +537,22 @@ func (m *metricAerospikeNamespaceMemoryUsage) init() {
 }
 
 func (m *metricAerospikeNamespaceMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, namespaceComponentAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceMemoryUsageMetricAttributeKeyNamespaceComponent) {
-		dp.Attributes().PutStr("component", namespaceComponentAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNamespaceMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNamespaceMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceMemoryUsage(cfg AerospikeNamespaceMemoryUsageMetricConfig) metricAerospikeNamespaceMemoryUsage {
-	m := metricAerospikeNamespaceMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceMemoryUsage)
 }
 
 type metricAerospikeNamespaceQueryCount struct {
@@ -839,81 +575,22 @@ func (m *metricAerospikeNamespaceQueryCount) init() {
 }
 
 func (m *metricAerospikeNamespaceQueryCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, queryTypeAttributeValue string, indexTypeAttributeValue string, queryResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceQueryCountMetricAttributeKeyQueryType) {
-		dp.Attributes().PutStr("type", queryTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceQueryCountMetricAttributeKeyIndexType) {
-		dp.Attributes().PutStr("index", indexTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceQueryCountMetricAttributeKeyQueryResult) {
-		dp.Attributes().PutStr("result", queryResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNamespaceQueryCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNamespaceQueryCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceQueryCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceQueryCount(cfg AerospikeNamespaceQueryCountMetricConfig) metricAerospikeNamespaceQueryCount {
-	m := metricAerospikeNamespaceQueryCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceQueryCount)
 }
 
 type metricAerospikeNamespaceScanCount struct {
@@ -936,78 +613,22 @@ func (m *metricAerospikeNamespaceScanCount) init() {
 }
 
 func (m *metricAerospikeNamespaceScanCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, scanTypeAttributeValue string, scanResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceScanCountMetricAttributeKeyScanType) {
-		dp.Attributes().PutStr("type", scanTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceScanCountMetricAttributeKeyScanResult) {
-		dp.Attributes().PutStr("result", scanResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNamespaceScanCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNamespaceScanCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceScanCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceScanCount(cfg AerospikeNamespaceScanCountMetricConfig) metricAerospikeNamespaceScanCount {
-	m := metricAerospikeNamespaceScanCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceScanCount)
 }
 
 type metricAerospikeNamespaceTransactionCount struct {
@@ -1030,78 +651,25 @@ func (m *metricAerospikeNamespaceTransactionCount) init() {
 }
 
 func (m *metricAerospikeNamespaceTransactionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, transactionTypeAttributeValue string, transactionResultAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionType) {
-		dp.Attributes().PutStr("type", transactionTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNamespaceTransactionCountMetricAttributeKeyTransactionResult) {
-		dp.Attributes().PutStr("result", transactionResultAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricAerospikeNamespaceTransactionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNamespaceTransactionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNamespaceTransactionCount(cfg AerospikeNamespaceTransactionCountMetricConfig) metricAerospikeNamespaceTransactionCount {
-	m := metricAerospikeNamespaceTransactionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNamespaceTransactionCount)
 }
 
 type metricAerospikeNodeConnectionCount struct {
@@ -1124,78 +692,22 @@ func (m *metricAerospikeNodeConnectionCount) init() {
 }
 
 func (m *metricAerospikeNodeConnectionCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, connectionTypeAttributeValue string, connectionOpAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNodeConnectionCountMetricAttributeKeyConnectionType) {
-		dp.Attributes().PutStr("type", connectionTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNodeConnectionCountMetricAttributeKeyConnectionOp) {
-		dp.Attributes().PutStr("operation", connectionOpAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNodeConnectionCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNodeConnectionCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNodeConnectionCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNodeConnectionCount(cfg AerospikeNodeConnectionCountMetricConfig) metricAerospikeNodeConnectionCount {
-	m := metricAerospikeNodeConnectionCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNodeConnectionCount)
 }
 
 type metricAerospikeNodeConnectionOpen struct {
@@ -1218,75 +730,22 @@ func (m *metricAerospikeNodeConnectionOpen) init() {
 }
 
 func (m *metricAerospikeNodeConnectionOpen) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, connectionTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, AerospikeNodeConnectionOpenMetricAttributeKeyConnectionType) {
-		dp.Attributes().PutStr("type", connectionTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNodeConnectionOpen) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNodeConnectionOpen) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNodeConnectionOpen) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNodeConnectionOpen(cfg AerospikeNodeConnectionOpenMetricConfig) metricAerospikeNodeConnectionOpen {
-	m := metricAerospikeNodeConnectionOpen{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNodeConnectionOpen)
 }
 
 type metricAerospikeNodeMemoryFree struct {
@@ -1304,39 +763,22 @@ func (m *metricAerospikeNodeMemoryFree) init() {
 }
 
 func (m *metricAerospikeNodeMemoryFree) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNodeMemoryFree) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNodeMemoryFree) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNodeMemoryFree) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNodeMemoryFree(cfg AerospikeNodeMemoryFreeMetricConfig) metricAerospikeNodeMemoryFree {
-	m := metricAerospikeNodeMemoryFree{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNodeMemoryFree)
 }
 
 type metricAerospikeNodeQueryTracked struct {
@@ -1356,39 +798,22 @@ func (m *metricAerospikeNodeQueryTracked) init() {
 }
 
 func (m *metricAerospikeNodeQueryTracked) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricAerospikeNodeQueryTracked) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricAerospikeNodeQueryTracked) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricAerospikeNodeQueryTracked) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricAerospikeNodeQueryTracked(cfg AerospikeNodeQueryTrackedMetricConfig) metricAerospikeNodeQueryTracked {
-	m := metricAerospikeNodeQueryTracked{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricAerospikeNodeQueryTracked)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1425,67 +850,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                mbc,
-		startTime:                             pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                         pmetric.NewMetrics(),
-		buildInfo:                             settings.BuildInfo,
-		metricAerospikeNamespaceDiskAvailable: newMetricAerospikeNamespaceDiskAvailable(mbc.Metrics.AerospikeNamespaceDiskAvailable),
-		metricAerospikeNamespaceGeojsonRegionQueryCells:         newMetricAerospikeNamespaceGeojsonRegionQueryCells(mbc.Metrics.AerospikeNamespaceGeojsonRegionQueryCells),
-		metricAerospikeNamespaceGeojsonRegionQueryFalsePositive: newMetricAerospikeNamespaceGeojsonRegionQueryFalsePositive(mbc.Metrics.AerospikeNamespaceGeojsonRegionQueryFalsePositive),
-		metricAerospikeNamespaceGeojsonRegionQueryPoints:        newMetricAerospikeNamespaceGeojsonRegionQueryPoints(mbc.Metrics.AerospikeNamespaceGeojsonRegionQueryPoints),
-		metricAerospikeNamespaceGeojsonRegionQueryRequests:      newMetricAerospikeNamespaceGeojsonRegionQueryRequests(mbc.Metrics.AerospikeNamespaceGeojsonRegionQueryRequests),
-		metricAerospikeNamespaceMemoryFree:                      newMetricAerospikeNamespaceMemoryFree(mbc.Metrics.AerospikeNamespaceMemoryFree),
-		metricAerospikeNamespaceMemoryUsage:                     newMetricAerospikeNamespaceMemoryUsage(mbc.Metrics.AerospikeNamespaceMemoryUsage),
-		metricAerospikeNamespaceQueryCount:                      newMetricAerospikeNamespaceQueryCount(mbc.Metrics.AerospikeNamespaceQueryCount),
-		metricAerospikeNamespaceScanCount:                       newMetricAerospikeNamespaceScanCount(mbc.Metrics.AerospikeNamespaceScanCount),
-		metricAerospikeNamespaceTransactionCount:                newMetricAerospikeNamespaceTransactionCount(mbc.Metrics.AerospikeNamespaceTransactionCount),
-		metricAerospikeNodeConnectionCount:                      newMetricAerospikeNodeConnectionCount(mbc.Metrics.AerospikeNodeConnectionCount),
-		metricAerospikeNodeConnectionOpen:                       newMetricAerospikeNodeConnectionOpen(mbc.Metrics.AerospikeNodeConnectionOpen),
-		metricAerospikeNodeMemoryFree:                           newMetricAerospikeNodeMemoryFree(mbc.Metrics.AerospikeNodeMemoryFree),
-		metricAerospikeNodeQueryTracked:                         newMetricAerospikeNodeQueryTracked(mbc.Metrics.AerospikeNodeQueryTracked),
-		resourceAttributeIncludeFilter:                          make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                          make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.AerospikeNamespace.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["aerospike.namespace"] = filter.CreateFilter(mbc.ResourceAttributes.AerospikeNamespace.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.AerospikeNamespace.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["aerospike.namespace"] = filter.CreateFilter(mbc.ResourceAttributes.AerospikeNamespace.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.AerospikeNodeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["aerospike.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.AerospikeNodeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.AerospikeNodeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["aerospike.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.AerospikeNodeName.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1496,35 +886,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1533,201 +911,102 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricAerospikeNamespaceDiskAvailable.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceGeojsonRegionQueryCells.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceGeojsonRegionQueryFalsePositive.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceGeojsonRegionQueryPoints.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceGeojsonRegionQueryRequests.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceMemoryFree.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceMemoryUsage.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceQueryCount.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceScanCount.emit(ils.Metrics())
-	mb.metricAerospikeNamespaceTransactionCount.emit(ils.Metrics())
-	mb.metricAerospikeNodeConnectionCount.emit(ils.Metrics())
-	mb.metricAerospikeNodeConnectionOpen.emit(ils.Metrics())
-	mb.metricAerospikeNodeMemoryFree.emit(ils.Metrics())
-	mb.metricAerospikeNodeQueryTracked.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordAerospikeNamespaceDiskAvailableDataPoint adds a data point to aerospike.namespace.disk.available metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceDiskAvailableDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceDiskAvailable, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceDiskAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceGeojsonRegionQueryCellsDataPoint adds a data point to aerospike.namespace.geojson.region_query_cells metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceGeojsonRegionQueryCellsDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceGeojsonRegionQueryCells, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceGeojsonRegionQueryCells.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceGeojsonRegionQueryFalsePositiveDataPoint adds a data point to aerospike.namespace.geojson.region_query_false_positive metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceGeojsonRegionQueryFalsePositiveDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceGeojsonRegionQueryFalsePositive, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceGeojsonRegionQueryFalsePositive.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceGeojsonRegionQueryPointsDataPoint adds a data point to aerospike.namespace.geojson.region_query_points metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceGeojsonRegionQueryPointsDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceGeojsonRegionQueryPoints, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceGeojsonRegionQueryPoints.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceGeojsonRegionQueryRequestsDataPoint adds a data point to aerospike.namespace.geojson.region_query_requests metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceGeojsonRegionQueryRequestsDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceGeojsonRegionQueryRequests, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceGeojsonRegionQueryRequests.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceMemoryFreeDataPoint adds a data point to aerospike.namespace.memory.free metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceMemoryFreeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceMemoryFree, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceMemoryFree.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceMemoryUsageDataPoint adds a data point to aerospike.namespace.memory.usage metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceMemoryUsageDataPoint(ts pcommon.Timestamp, inputVal string, namespaceComponentAttributeValue AttributeNamespaceComponent) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceMemoryUsage, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceMemoryUsage.recordDataPoint(mb.startTime, ts, val, namespaceComponentAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceQueryCountDataPoint adds a data point to aerospike.namespace.query.count metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceQueryCountDataPoint(ts pcommon.Timestamp, inputVal string, queryTypeAttributeValue AttributeQueryType, indexTypeAttributeValue AttributeIndexType, queryResultAttributeValue AttributeQueryResult) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceQueryCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceQueryCount.recordDataPoint(mb.startTime, ts, val, queryTypeAttributeValue.String(), indexTypeAttributeValue.String(), queryResultAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceScanCountDataPoint adds a data point to aerospike.namespace.scan.count metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceScanCountDataPoint(ts pcommon.Timestamp, inputVal string, scanTypeAttributeValue AttributeScanType, scanResultAttributeValue AttributeScanResult) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceScanCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceScanCount.recordDataPoint(mb.startTime, ts, val, scanTypeAttributeValue.String(), scanResultAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNamespaceTransactionCountDataPoint adds a data point to aerospike.namespace.transaction.count metric.
 func (mb *MetricsBuilder) RecordAerospikeNamespaceTransactionCountDataPoint(ts pcommon.Timestamp, inputVal string, transactionTypeAttributeValue AttributeTransactionType, transactionResultAttributeValue AttributeTransactionResult) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNamespaceTransactionCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNamespaceTransactionCount.recordDataPoint(mb.startTime, ts, val, transactionTypeAttributeValue.String(), transactionResultAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNodeConnectionCountDataPoint adds a data point to aerospike.node.connection.count metric.
 func (mb *MetricsBuilder) RecordAerospikeNodeConnectionCountDataPoint(ts pcommon.Timestamp, inputVal string, connectionTypeAttributeValue AttributeConnectionType, connectionOpAttributeValue AttributeConnectionOp) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNodeConnectionCount, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNodeConnectionCount.recordDataPoint(mb.startTime, ts, val, connectionTypeAttributeValue.String(), connectionOpAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNodeConnectionOpenDataPoint adds a data point to aerospike.node.connection.open metric.
 func (mb *MetricsBuilder) RecordAerospikeNodeConnectionOpenDataPoint(ts pcommon.Timestamp, inputVal string, connectionTypeAttributeValue AttributeConnectionType) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNodeConnectionOpen, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNodeConnectionOpen.recordDataPoint(mb.startTime, ts, val, connectionTypeAttributeValue.String())
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNodeMemoryFreeDataPoint adds a data point to aerospike.node.memory.free metric.
 func (mb *MetricsBuilder) RecordAerospikeNodeMemoryFreeDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNodeMemoryFree, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNodeMemoryFree.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // RecordAerospikeNodeQueryTrackedDataPoint adds a data point to aerospike.node.query.tracked metric.
 func (mb *MetricsBuilder) RecordAerospikeNodeQueryTrackedDataPoint(ts pcommon.Timestamp, inputVal string) error {
-	val, err := strconv.ParseInt(inputVal, 10, 64)
-	if err != nil {
-		return fmt.Errorf("failed to parse int64 for AerospikeNodeQueryTracked, value was %s: %w", inputVal, err)
-	}
-	mb.metricAerospikeNodeQueryTracked.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

@@ -16,8 +16,6 @@ import (
 // See https://github.com/open-telemetry/opentelemetry-collector/issues/15020;
 // replace this with the generated equivalent once it lands.
 func validatePlatformEnabledMetrics(cfg *Config, logger *zap.Logger) {
-	if cfg.Metrics.ProcessHandles.Enabled {
-		logger.Warn("process.handles is only supported on Windows; disabling metric on this platform")
-		cfg.Metrics.ProcessHandles.Enabled = false
-	}
+	_ = "STUB: not implemented"
+	return
 }

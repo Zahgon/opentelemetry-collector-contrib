@@ -6,8 +6,6 @@ package proxy // import "github.com/open-telemetry/opentelemetry-collector-contr
 import (
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configtls"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/common/testutil"
 )
 
 // Config is the configuration for the local TCP proxy server.
@@ -46,19 +44,4 @@ type Config struct {
 	ServiceName string `mapstructure:"service_name"`
 }
 
-func DefaultConfig() *Config {
-	return &Config{
-		TCPAddrConfig: confignet.TCPAddrConfig{
-			Endpoint: testutil.EndpointForPort(2000),
-		},
-		ProxyAddress: "",
-		TLS: configtls.ClientConfig{
-			Insecure:   false,
-			ServerName: "",
-		},
-		Region:      "",
-		RoleARN:     "",
-		AWSEndpoint: "",
-		ServiceName: "xray",
-	}
-}
+func DefaultConfig() *Config { _ = "STUB: not implemented"; return nil }

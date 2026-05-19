@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -30,15 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionReceive:
-		return "receive"
-	case AttributeDirectionTransmit:
-		return "transmit"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -56,15 +45,7 @@ const (
 )
 
 // String returns the string representation of the AttributeFsType.
-func (av AttributeFsType) String() string {
-	switch av {
-	case AttributeFsTypeRootfs:
-		return "rootfs"
-	case AttributeFsTypeLogs:
-		return "logs"
-	}
-	return ""
-}
+func (av AttributeFsType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeFsType is a helper map of string to AttributeFsType attribute value.
 var MapAttributeFsType = map[string]AttributeFsType{
@@ -351,39 +332,22 @@ func (m *metricContainerCPUTime) init() {
 }
 
 func (m *metricContainerCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricContainerCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerCPUTime(cfg ContainerCPUTimeMetricConfig) metricContainerCPUTime {
-	m := metricContainerCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerCPUTime)
 }
 
 type metricContainerCPUUsage struct {
@@ -401,39 +365,22 @@ func (m *metricContainerCPUUsage) init() {
 }
 
 func (m *metricContainerCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerCPUUsage(cfg ContainerCPUUsageMetricConfig) metricContainerCPUUsage {
-	m := metricContainerCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerCPUUsage)
 }
 
 type metricContainerFilesystemAvailable struct {
@@ -451,39 +398,22 @@ func (m *metricContainerFilesystemAvailable) init() {
 }
 
 func (m *metricContainerFilesystemAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerFilesystemAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerFilesystemAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerFilesystemAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerFilesystemAvailable(cfg ContainerFilesystemAvailableMetricConfig) metricContainerFilesystemAvailable {
-	m := metricContainerFilesystemAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerFilesystemAvailable)
 }
 
 type metricContainerFilesystemCapacity struct {
@@ -501,39 +431,22 @@ func (m *metricContainerFilesystemCapacity) init() {
 }
 
 func (m *metricContainerFilesystemCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerFilesystemCapacity) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerFilesystemCapacity) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerFilesystemCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerFilesystemCapacity(cfg ContainerFilesystemCapacityMetricConfig) metricContainerFilesystemCapacity {
-	m := metricContainerFilesystemCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerFilesystemCapacity)
 }
 
 type metricContainerFilesystemUsage struct {
@@ -551,39 +464,22 @@ func (m *metricContainerFilesystemUsage) init() {
 }
 
 func (m *metricContainerFilesystemUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerFilesystemUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerFilesystemUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerFilesystemUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerFilesystemUsage(cfg ContainerFilesystemUsageMetricConfig) metricContainerFilesystemUsage {
-	m := metricContainerFilesystemUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerFilesystemUsage)
 }
 
 type metricContainerMemoryAvailable struct {
@@ -601,39 +497,22 @@ func (m *metricContainerMemoryAvailable) init() {
 }
 
 func (m *metricContainerMemoryAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryAvailable(cfg ContainerMemoryAvailableMetricConfig) metricContainerMemoryAvailable {
-	m := metricContainerMemoryAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryAvailable)
 }
 
 type metricContainerMemoryMajorPageFaults struct {
@@ -651,39 +530,22 @@ func (m *metricContainerMemoryMajorPageFaults) init() {
 }
 
 func (m *metricContainerMemoryMajorPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryMajorPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryMajorPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryMajorPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryMajorPageFaults(cfg ContainerMemoryMajorPageFaultsMetricConfig) metricContainerMemoryMajorPageFaults {
-	m := metricContainerMemoryMajorPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryMajorPageFaults)
 }
 
 type metricContainerMemoryPageFaults struct {
@@ -701,39 +563,22 @@ func (m *metricContainerMemoryPageFaults) init() {
 }
 
 func (m *metricContainerMemoryPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryPageFaults(cfg ContainerMemoryPageFaultsMetricConfig) metricContainerMemoryPageFaults {
-	m := metricContainerMemoryPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryPageFaults)
 }
 
 type metricContainerMemoryRss struct {
@@ -751,39 +596,22 @@ func (m *metricContainerMemoryRss) init() {
 }
 
 func (m *metricContainerMemoryRss) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryRss) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryRss) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryRss) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryRss(cfg ContainerMemoryRssMetricConfig) metricContainerMemoryRss {
-	m := metricContainerMemoryRss{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryRss)
 }
 
 type metricContainerMemoryUsage struct {
@@ -801,39 +629,22 @@ func (m *metricContainerMemoryUsage) init() {
 }
 
 func (m *metricContainerMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryUsage(cfg ContainerMemoryUsageMetricConfig) metricContainerMemoryUsage {
-	m := metricContainerMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryUsage)
 }
 
 type metricContainerMemoryWorkingSet struct {
@@ -851,39 +662,22 @@ func (m *metricContainerMemoryWorkingSet) init() {
 }
 
 func (m *metricContainerMemoryWorkingSet) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerMemoryWorkingSet) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricContainerMemoryWorkingSet) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerMemoryWorkingSet) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerMemoryWorkingSet(cfg ContainerMemoryWorkingSetMetricConfig) metricContainerMemoryWorkingSet {
-	m := metricContainerMemoryWorkingSet{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerMemoryWorkingSet)
 }
 
 type metricContainerUptime struct {
@@ -903,39 +697,22 @@ func (m *metricContainerUptime) init() {
 }
 
 func (m *metricContainerUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricContainerUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricContainerUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricContainerUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricContainerUptime(cfg ContainerUptimeMetricConfig) metricContainerUptime {
-	m := metricContainerUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricContainerUptime)
 }
 
 type metricK8sContainerCPUNodeUtilization struct {
@@ -953,39 +730,22 @@ func (m *metricK8sContainerCPUNodeUtilization) init() {
 }
 
 func (m *metricK8sContainerCPUNodeUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sContainerCPUNodeUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sContainerCPUNodeUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerCPUNodeUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerCPUNodeUtilization(cfg K8sContainerCPUNodeUtilizationMetricConfig) metricK8sContainerCPUNodeUtilization {
-	m := metricK8sContainerCPUNodeUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerCPUNodeUtilization)
 }
 
 type metricK8sContainerCPULimitUtilization struct {
@@ -1003,39 +763,22 @@ func (m *metricK8sContainerCPULimitUtilization) init() {
 }
 
 func (m *metricK8sContainerCPULimitUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sContainerCPULimitUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sContainerCPULimitUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerCPULimitUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerCPULimitUtilization(cfg K8sContainerCPULimitUtilizationMetricConfig) metricK8sContainerCPULimitUtilization {
-	m := metricK8sContainerCPULimitUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerCPULimitUtilization)
 }
 
 type metricK8sContainerCPURequestUtilization struct {
@@ -1053,39 +796,25 @@ func (m *metricK8sContainerCPURequestUtilization) init() {
 }
 
 func (m *metricK8sContainerCPURequestUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sContainerCPURequestUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerCPURequestUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerCPURequestUtilization(cfg K8sContainerCPURequestUtilizationMetricConfig) metricK8sContainerCPURequestUtilization {
-	m := metricK8sContainerCPURequestUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerCPURequestUtilization)
 }
 
 type metricK8sContainerEphemeralStorageUsage struct {
@@ -1108,75 +837,25 @@ func (m *metricK8sContainerEphemeralStorageUsage) init() {
 }
 
 func (m *metricK8sContainerEphemeralStorageUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, fsTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, K8sContainerEphemeralStorageUsageMetricAttributeKeyFsType) {
-		dp.Attributes().PutStr("fs.type", fsTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sContainerEphemeralStorageUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerEphemeralStorageUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerEphemeralStorageUsage(cfg K8sContainerEphemeralStorageUsageMetricConfig) metricK8sContainerEphemeralStorageUsage {
-	m := metricK8sContainerEphemeralStorageUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerEphemeralStorageUsage)
 }
 
 type metricK8sContainerMemoryNodeUtilization struct {
@@ -1194,39 +873,25 @@ func (m *metricK8sContainerMemoryNodeUtilization) init() {
 }
 
 func (m *metricK8sContainerMemoryNodeUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sContainerMemoryNodeUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerMemoryNodeUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerMemoryNodeUtilization(cfg K8sContainerMemoryNodeUtilizationMetricConfig) metricK8sContainerMemoryNodeUtilization {
-	m := metricK8sContainerMemoryNodeUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerMemoryNodeUtilization)
 }
 
 type metricK8sContainerMemoryLimitUtilization struct {
@@ -1244,39 +909,25 @@ func (m *metricK8sContainerMemoryLimitUtilization) init() {
 }
 
 func (m *metricK8sContainerMemoryLimitUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sContainerMemoryLimitUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerMemoryLimitUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerMemoryLimitUtilization(cfg K8sContainerMemoryLimitUtilizationMetricConfig) metricK8sContainerMemoryLimitUtilization {
-	m := metricK8sContainerMemoryLimitUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerMemoryLimitUtilization)
 }
 
 type metricK8sContainerMemoryRequestUtilization struct {
@@ -1294,39 +945,25 @@ func (m *metricK8sContainerMemoryRequestUtilization) init() {
 }
 
 func (m *metricK8sContainerMemoryRequestUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sContainerMemoryRequestUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sContainerMemoryRequestUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sContainerMemoryRequestUtilization(cfg K8sContainerMemoryRequestUtilizationMetricConfig) metricK8sContainerMemoryRequestUtilization {
-	m := metricK8sContainerMemoryRequestUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sContainerMemoryRequestUtilization)
 }
 
 type metricK8sNodeCPUTime struct {
@@ -1346,39 +983,19 @@ func (m *metricK8sNodeCPUTime) init() {
 }
 
 func (m *metricK8sNodeCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricK8sNodeCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricK8sNodeCPUTime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricK8sNodeCPUTime(cfg K8sNodeCPUTimeMetricConfig) metricK8sNodeCPUTime {
-	m := metricK8sNodeCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeCPUTime)
 }
 
 type metricK8sNodeCPUUsage struct {
@@ -1396,39 +1013,22 @@ func (m *metricK8sNodeCPUUsage) init() {
 }
 
 func (m *metricK8sNodeCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeCPUUsage(cfg K8sNodeCPUUsageMetricConfig) metricK8sNodeCPUUsage {
-	m := metricK8sNodeCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeCPUUsage)
 }
 
 type metricK8sNodeFilesystemAvailable struct {
@@ -1446,39 +1046,22 @@ func (m *metricK8sNodeFilesystemAvailable) init() {
 }
 
 func (m *metricK8sNodeFilesystemAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeFilesystemAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeFilesystemAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeFilesystemAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeFilesystemAvailable(cfg K8sNodeFilesystemAvailableMetricConfig) metricK8sNodeFilesystemAvailable {
-	m := metricK8sNodeFilesystemAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeFilesystemAvailable)
 }
 
 type metricK8sNodeFilesystemCapacity struct {
@@ -1496,39 +1079,22 @@ func (m *metricK8sNodeFilesystemCapacity) init() {
 }
 
 func (m *metricK8sNodeFilesystemCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeFilesystemCapacity) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeFilesystemCapacity) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeFilesystemCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeFilesystemCapacity(cfg K8sNodeFilesystemCapacityMetricConfig) metricK8sNodeFilesystemCapacity {
-	m := metricK8sNodeFilesystemCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeFilesystemCapacity)
 }
 
 type metricK8sNodeFilesystemUsage struct {
@@ -1546,39 +1112,22 @@ func (m *metricK8sNodeFilesystemUsage) init() {
 }
 
 func (m *metricK8sNodeFilesystemUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeFilesystemUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeFilesystemUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeFilesystemUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeFilesystemUsage(cfg K8sNodeFilesystemUsageMetricConfig) metricK8sNodeFilesystemUsage {
-	m := metricK8sNodeFilesystemUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeFilesystemUsage)
 }
 
 type metricK8sNodeMemoryAvailable struct {
@@ -1596,39 +1145,22 @@ func (m *metricK8sNodeMemoryAvailable) init() {
 }
 
 func (m *metricK8sNodeMemoryAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryAvailable(cfg K8sNodeMemoryAvailableMetricConfig) metricK8sNodeMemoryAvailable {
-	m := metricK8sNodeMemoryAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryAvailable)
 }
 
 type metricK8sNodeMemoryMajorPageFaults struct {
@@ -1646,39 +1178,22 @@ func (m *metricK8sNodeMemoryMajorPageFaults) init() {
 }
 
 func (m *metricK8sNodeMemoryMajorPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryMajorPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryMajorPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryMajorPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryMajorPageFaults(cfg K8sNodeMemoryMajorPageFaultsMetricConfig) metricK8sNodeMemoryMajorPageFaults {
-	m := metricK8sNodeMemoryMajorPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryMajorPageFaults)
 }
 
 type metricK8sNodeMemoryPageFaults struct {
@@ -1696,39 +1211,22 @@ func (m *metricK8sNodeMemoryPageFaults) init() {
 }
 
 func (m *metricK8sNodeMemoryPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryPageFaults(cfg K8sNodeMemoryPageFaultsMetricConfig) metricK8sNodeMemoryPageFaults {
-	m := metricK8sNodeMemoryPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryPageFaults)
 }
 
 type metricK8sNodeMemoryRss struct {
@@ -1746,39 +1244,22 @@ func (m *metricK8sNodeMemoryRss) init() {
 }
 
 func (m *metricK8sNodeMemoryRss) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryRss) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryRss) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryRss) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryRss(cfg K8sNodeMemoryRssMetricConfig) metricK8sNodeMemoryRss {
-	m := metricK8sNodeMemoryRss{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryRss)
 }
 
 type metricK8sNodeMemoryUsage struct {
@@ -1796,39 +1277,22 @@ func (m *metricK8sNodeMemoryUsage) init() {
 }
 
 func (m *metricK8sNodeMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryUsage(cfg K8sNodeMemoryUsageMetricConfig) metricK8sNodeMemoryUsage {
-	m := metricK8sNodeMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryUsage)
 }
 
 type metricK8sNodeMemoryWorkingSet struct {
@@ -1846,39 +1310,22 @@ func (m *metricK8sNodeMemoryWorkingSet) init() {
 }
 
 func (m *metricK8sNodeMemoryWorkingSet) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeMemoryWorkingSet) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeMemoryWorkingSet) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeMemoryWorkingSet) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeMemoryWorkingSet(cfg K8sNodeMemoryWorkingSetMetricConfig) metricK8sNodeMemoryWorkingSet {
-	m := metricK8sNodeMemoryWorkingSet{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeMemoryWorkingSet)
 }
 
 type metricK8sNodeNetworkErrors struct {
@@ -1901,78 +1348,22 @@ func (m *metricK8sNodeNetworkErrors) init() {
 }
 
 func (m *metricK8sNodeNetworkErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, K8sNodeNetworkErrorsMetricAttributeKeyInterface) {
-		dp.Attributes().PutStr("interface", interfaceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, K8sNodeNetworkErrorsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeNetworkErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeNetworkErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeNetworkErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeNetworkErrors(cfg K8sNodeNetworkErrorsMetricConfig) metricK8sNodeNetworkErrors {
-	m := metricK8sNodeNetworkErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeNetworkErrors)
 }
 
 type metricK8sNodeNetworkIo struct {
@@ -1995,78 +1386,22 @@ func (m *metricK8sNodeNetworkIo) init() {
 }
 
 func (m *metricK8sNodeNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, K8sNodeNetworkIoMetricAttributeKeyInterface) {
-		dp.Attributes().PutStr("interface", interfaceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, K8sNodeNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeNetworkIo(cfg K8sNodeNetworkIoMetricConfig) metricK8sNodeNetworkIo {
-	m := metricK8sNodeNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeNetworkIo)
 }
 
 type metricK8sNodeSystemContainerCPUTime struct {
@@ -2086,39 +1421,22 @@ func (m *metricK8sNodeSystemContainerCPUTime) init() {
 }
 
 func (m *metricK8sNodeSystemContainerCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeSystemContainerCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeSystemContainerCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeSystemContainerCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeSystemContainerCPUTime(cfg K8sNodeSystemContainerCPUTimeMetricConfig) metricK8sNodeSystemContainerCPUTime {
-	m := metricK8sNodeSystemContainerCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeSystemContainerCPUTime)
 }
 
 type metricK8sNodeSystemContainerCPUUsage struct {
@@ -2136,39 +1454,22 @@ func (m *metricK8sNodeSystemContainerCPUUsage) init() {
 }
 
 func (m *metricK8sNodeSystemContainerCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeSystemContainerCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeSystemContainerCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeSystemContainerCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeSystemContainerCPUUsage(cfg K8sNodeSystemContainerCPUUsageMetricConfig) metricK8sNodeSystemContainerCPUUsage {
-	m := metricK8sNodeSystemContainerCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeSystemContainerCPUUsage)
 }
 
 type metricK8sNodeSystemContainerMemoryUsage struct {
@@ -2186,39 +1487,25 @@ func (m *metricK8sNodeSystemContainerMemoryUsage) init() {
 }
 
 func (m *metricK8sNodeSystemContainerMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sNodeSystemContainerMemoryUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeSystemContainerMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeSystemContainerMemoryUsage(cfg K8sNodeSystemContainerMemoryUsageMetricConfig) metricK8sNodeSystemContainerMemoryUsage {
-	m := metricK8sNodeSystemContainerMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeSystemContainerMemoryUsage)
 }
 
 type metricK8sNodeSystemContainerMemoryWorkingSet struct {
@@ -2236,39 +1523,25 @@ func (m *metricK8sNodeSystemContainerMemoryWorkingSet) init() {
 }
 
 func (m *metricK8sNodeSystemContainerMemoryWorkingSet) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricK8sNodeSystemContainerMemoryWorkingSet) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sNodeSystemContainerMemoryWorkingSet) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sNodeSystemContainerMemoryWorkingSet(cfg K8sNodeSystemContainerMemoryWorkingSetMetricConfig) metricK8sNodeSystemContainerMemoryWorkingSet {
-	m := metricK8sNodeSystemContainerMemoryWorkingSet{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeSystemContainerMemoryWorkingSet)
 }
 
 type metricK8sNodeUptime struct {
@@ -2288,39 +1561,19 @@ func (m *metricK8sNodeUptime) init() {
 }
 
 func (m *metricK8sNodeUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sNodeUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sNodeUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricK8sNodeUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricK8sNodeUptime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricK8sNodeUptime(cfg K8sNodeUptimeMetricConfig) metricK8sNodeUptime {
-	m := metricK8sNodeUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sNodeUptime)
 }
 
 type metricK8sPodCPUNodeUtilization struct {
@@ -2338,39 +1591,22 @@ func (m *metricK8sPodCPUNodeUtilization) init() {
 }
 
 func (m *metricK8sPodCPUNodeUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodCPUNodeUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodCPUNodeUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodCPUNodeUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodCPUNodeUtilization(cfg K8sPodCPUNodeUtilizationMetricConfig) metricK8sPodCPUNodeUtilization {
-	m := metricK8sPodCPUNodeUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodCPUNodeUtilization)
 }
 
 type metricK8sPodCPUTime struct {
@@ -2390,39 +1626,19 @@ func (m *metricK8sPodCPUTime) init() {
 }
 
 func (m *metricK8sPodCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodCPUTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricK8sPodCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricK8sPodCPUTime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricK8sPodCPUTime(cfg K8sPodCPUTimeMetricConfig) metricK8sPodCPUTime {
-	m := metricK8sPodCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodCPUTime)
 }
 
 type metricK8sPodCPUUsage struct {
@@ -2440,39 +1656,19 @@ func (m *metricK8sPodCPUUsage) init() {
 }
 
 func (m *metricK8sPodCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricK8sPodCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricK8sPodCPUUsage) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricK8sPodCPUUsage(cfg K8sPodCPUUsageMetricConfig) metricK8sPodCPUUsage {
-	m := metricK8sPodCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodCPUUsage)
 }
 
 type metricK8sPodCPULimitUtilization struct {
@@ -2490,39 +1686,22 @@ func (m *metricK8sPodCPULimitUtilization) init() {
 }
 
 func (m *metricK8sPodCPULimitUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodCPULimitUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodCPULimitUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodCPULimitUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodCPULimitUtilization(cfg K8sPodCPULimitUtilizationMetricConfig) metricK8sPodCPULimitUtilization {
-	m := metricK8sPodCPULimitUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodCPULimitUtilization)
 }
 
 type metricK8sPodCPURequestUtilization struct {
@@ -2540,39 +1719,22 @@ func (m *metricK8sPodCPURequestUtilization) init() {
 }
 
 func (m *metricK8sPodCPURequestUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodCPURequestUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodCPURequestUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodCPURequestUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodCPURequestUtilization(cfg K8sPodCPURequestUtilizationMetricConfig) metricK8sPodCPURequestUtilization {
-	m := metricK8sPodCPURequestUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodCPURequestUtilization)
 }
 
 type metricK8sPodFilesystemAvailable struct {
@@ -2590,39 +1752,22 @@ func (m *metricK8sPodFilesystemAvailable) init() {
 }
 
 func (m *metricK8sPodFilesystemAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodFilesystemAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodFilesystemAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodFilesystemAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodFilesystemAvailable(cfg K8sPodFilesystemAvailableMetricConfig) metricK8sPodFilesystemAvailable {
-	m := metricK8sPodFilesystemAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodFilesystemAvailable)
 }
 
 type metricK8sPodFilesystemCapacity struct {
@@ -2640,39 +1785,22 @@ func (m *metricK8sPodFilesystemCapacity) init() {
 }
 
 func (m *metricK8sPodFilesystemCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodFilesystemCapacity) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodFilesystemCapacity) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodFilesystemCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodFilesystemCapacity(cfg K8sPodFilesystemCapacityMetricConfig) metricK8sPodFilesystemCapacity {
-	m := metricK8sPodFilesystemCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodFilesystemCapacity)
 }
 
 type metricK8sPodFilesystemUsage struct {
@@ -2690,39 +1818,22 @@ func (m *metricK8sPodFilesystemUsage) init() {
 }
 
 func (m *metricK8sPodFilesystemUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodFilesystemUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodFilesystemUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodFilesystemUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodFilesystemUsage(cfg K8sPodFilesystemUsageMetricConfig) metricK8sPodFilesystemUsage {
-	m := metricK8sPodFilesystemUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodFilesystemUsage)
 }
 
 type metricK8sPodMemoryAvailable struct {
@@ -2740,39 +1851,22 @@ func (m *metricK8sPodMemoryAvailable) init() {
 }
 
 func (m *metricK8sPodMemoryAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryAvailable(cfg K8sPodMemoryAvailableMetricConfig) metricK8sPodMemoryAvailable {
-	m := metricK8sPodMemoryAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryAvailable)
 }
 
 type metricK8sPodMemoryMajorPageFaults struct {
@@ -2790,39 +1884,22 @@ func (m *metricK8sPodMemoryMajorPageFaults) init() {
 }
 
 func (m *metricK8sPodMemoryMajorPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryMajorPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryMajorPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryMajorPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryMajorPageFaults(cfg K8sPodMemoryMajorPageFaultsMetricConfig) metricK8sPodMemoryMajorPageFaults {
-	m := metricK8sPodMemoryMajorPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryMajorPageFaults)
 }
 
 type metricK8sPodMemoryNodeUtilization struct {
@@ -2840,39 +1917,22 @@ func (m *metricK8sPodMemoryNodeUtilization) init() {
 }
 
 func (m *metricK8sPodMemoryNodeUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryNodeUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryNodeUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryNodeUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryNodeUtilization(cfg K8sPodMemoryNodeUtilizationMetricConfig) metricK8sPodMemoryNodeUtilization {
-	m := metricK8sPodMemoryNodeUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryNodeUtilization)
 }
 
 type metricK8sPodMemoryPageFaults struct {
@@ -2890,39 +1950,22 @@ func (m *metricK8sPodMemoryPageFaults) init() {
 }
 
 func (m *metricK8sPodMemoryPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryPageFaults(cfg K8sPodMemoryPageFaultsMetricConfig) metricK8sPodMemoryPageFaults {
-	m := metricK8sPodMemoryPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryPageFaults)
 }
 
 type metricK8sPodMemoryRss struct {
@@ -2940,39 +1983,22 @@ func (m *metricK8sPodMemoryRss) init() {
 }
 
 func (m *metricK8sPodMemoryRss) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryRss) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryRss) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryRss) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryRss(cfg K8sPodMemoryRssMetricConfig) metricK8sPodMemoryRss {
-	m := metricK8sPodMemoryRss{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryRss)
 }
 
 type metricK8sPodMemoryUsage struct {
@@ -2990,39 +2016,22 @@ func (m *metricK8sPodMemoryUsage) init() {
 }
 
 func (m *metricK8sPodMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryUsage(cfg K8sPodMemoryUsageMetricConfig) metricK8sPodMemoryUsage {
-	m := metricK8sPodMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryUsage)
 }
 
 type metricK8sPodMemoryWorkingSet struct {
@@ -3040,39 +2049,22 @@ func (m *metricK8sPodMemoryWorkingSet) init() {
 }
 
 func (m *metricK8sPodMemoryWorkingSet) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryWorkingSet) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryWorkingSet) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryWorkingSet) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryWorkingSet(cfg K8sPodMemoryWorkingSetMetricConfig) metricK8sPodMemoryWorkingSet {
-	m := metricK8sPodMemoryWorkingSet{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryWorkingSet)
 }
 
 type metricK8sPodMemoryLimitUtilization struct {
@@ -3090,39 +2082,22 @@ func (m *metricK8sPodMemoryLimitUtilization) init() {
 }
 
 func (m *metricK8sPodMemoryLimitUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryLimitUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryLimitUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryLimitUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryLimitUtilization(cfg K8sPodMemoryLimitUtilizationMetricConfig) metricK8sPodMemoryLimitUtilization {
-	m := metricK8sPodMemoryLimitUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryLimitUtilization)
 }
 
 type metricK8sPodMemoryRequestUtilization struct {
@@ -3140,39 +2115,22 @@ func (m *metricK8sPodMemoryRequestUtilization) init() {
 }
 
 func (m *metricK8sPodMemoryRequestUtilization) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodMemoryRequestUtilization) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodMemoryRequestUtilization) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodMemoryRequestUtilization) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodMemoryRequestUtilization(cfg K8sPodMemoryRequestUtilizationMetricConfig) metricK8sPodMemoryRequestUtilization {
-	m := metricK8sPodMemoryRequestUtilization{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodMemoryRequestUtilization)
 }
 
 type metricK8sPodNetworkErrors struct {
@@ -3195,78 +2153,22 @@ func (m *metricK8sPodNetworkErrors) init() {
 }
 
 func (m *metricK8sPodNetworkErrors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, K8sPodNetworkErrorsMetricAttributeKeyInterface) {
-		dp.Attributes().PutStr("interface", interfaceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, K8sPodNetworkErrorsMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodNetworkErrors) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodNetworkErrors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodNetworkErrors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodNetworkErrors(cfg K8sPodNetworkErrorsMetricConfig) metricK8sPodNetworkErrors {
-	m := metricK8sPodNetworkErrors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodNetworkErrors)
 }
 
 type metricK8sPodNetworkIo struct {
@@ -3289,78 +2191,22 @@ func (m *metricK8sPodNetworkIo) init() {
 }
 
 func (m *metricK8sPodNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, K8sPodNetworkIoMetricAttributeKeyInterface) {
-		dp.Attributes().PutStr("interface", interfaceAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, K8sPodNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodNetworkIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodNetworkIo(cfg K8sPodNetworkIoMetricConfig) metricK8sPodNetworkIo {
-	m := metricK8sPodNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodNetworkIo)
 }
 
 type metricK8sPodUptime struct {
@@ -3380,39 +2226,19 @@ func (m *metricK8sPodUptime) init() {
 }
 
 func (m *metricK8sPodUptime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodUptime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodUptime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricK8sPodUptime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricK8sPodUptime) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricK8sPodUptime(cfg K8sPodUptimeMetricConfig) metricK8sPodUptime {
-	m := metricK8sPodUptime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodUptime)
 }
 
 type metricK8sPodVolumeUsage struct {
@@ -3432,39 +2258,22 @@ func (m *metricK8sPodVolumeUsage) init() {
 }
 
 func (m *metricK8sPodVolumeUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sPodVolumeUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricK8sPodVolumeUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sPodVolumeUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sPodVolumeUsage(cfg K8sPodVolumeUsageMetricConfig) metricK8sPodVolumeUsage {
-	m := metricK8sPodVolumeUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sPodVolumeUsage)
 }
 
 type metricK8sVolumeAvailable struct {
@@ -3482,39 +2291,22 @@ func (m *metricK8sVolumeAvailable) init() {
 }
 
 func (m *metricK8sVolumeAvailable) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sVolumeAvailable) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sVolumeAvailable) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sVolumeAvailable) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sVolumeAvailable(cfg K8sVolumeAvailableMetricConfig) metricK8sVolumeAvailable {
-	m := metricK8sVolumeAvailable{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sVolumeAvailable)
 }
 
 type metricK8sVolumeCapacity struct {
@@ -3532,39 +2324,22 @@ func (m *metricK8sVolumeCapacity) init() {
 }
 
 func (m *metricK8sVolumeCapacity) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sVolumeCapacity) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sVolumeCapacity) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sVolumeCapacity) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sVolumeCapacity(cfg K8sVolumeCapacityMetricConfig) metricK8sVolumeCapacity {
-	m := metricK8sVolumeCapacity{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sVolumeCapacity)
 }
 
 type metricK8sVolumeInodes struct {
@@ -3582,39 +2357,22 @@ func (m *metricK8sVolumeInodes) init() {
 }
 
 func (m *metricK8sVolumeInodes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sVolumeInodes) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sVolumeInodes) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sVolumeInodes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sVolumeInodes(cfg K8sVolumeInodesMetricConfig) metricK8sVolumeInodes {
-	m := metricK8sVolumeInodes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sVolumeInodes)
 }
 
 type metricK8sVolumeInodesFree struct {
@@ -3632,39 +2390,22 @@ func (m *metricK8sVolumeInodesFree) init() {
 }
 
 func (m *metricK8sVolumeInodesFree) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sVolumeInodesFree) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sVolumeInodesFree) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sVolumeInodesFree) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sVolumeInodesFree(cfg K8sVolumeInodesFreeMetricConfig) metricK8sVolumeInodesFree {
-	m := metricK8sVolumeInodesFree{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sVolumeInodesFree)
 }
 
 type metricK8sVolumeInodesUsed struct {
@@ -3682,39 +2423,22 @@ func (m *metricK8sVolumeInodesUsed) init() {
 }
 
 func (m *metricK8sVolumeInodesUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricK8sVolumeInodesUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricK8sVolumeInodesUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricK8sVolumeInodesUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricK8sVolumeInodesUsed(cfg K8sVolumeInodesUsedMetricConfig) metricK8sVolumeInodesUsed {
-	m := metricK8sVolumeInodesUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricK8sVolumeInodesUsed)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -3800,218 +2524,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	if mbc.ResourceAttributes.AwsVolumeID.Enabled {
-		settings.Logger.Warn("[WARNING] `aws.volume.id` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	if mbc.ResourceAttributes.FsType.Enabled {
-		settings.Logger.Warn("[WARNING] `fs.type` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	if mbc.ResourceAttributes.GcePdName.Enabled {
-		settings.Logger.Warn("[WARNING] `gce.pd.name` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	if mbc.ResourceAttributes.GlusterfsEndpointsName.Enabled {
-		settings.Logger.Warn("[WARNING] `glusterfs.endpoints.name` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	if mbc.ResourceAttributes.GlusterfsPath.Enabled {
-		settings.Logger.Warn("[WARNING] `glusterfs.path` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	if mbc.ResourceAttributes.Partition.Enabled {
-		settings.Logger.Warn("[WARNING] `partition` should not be enabled: This resource_attribute is deprecated and will be removed soon")
-	}
-	mb := &MetricsBuilder{
-		config:                                       mbc,
-		startTime:                                    pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                                pmetric.NewMetrics(),
-		buildInfo:                                    settings.BuildInfo,
-		metricContainerCPUTime:                       newMetricContainerCPUTime(mbc.Metrics.ContainerCPUTime),
-		metricContainerCPUUsage:                      newMetricContainerCPUUsage(mbc.Metrics.ContainerCPUUsage),
-		metricContainerFilesystemAvailable:           newMetricContainerFilesystemAvailable(mbc.Metrics.ContainerFilesystemAvailable),
-		metricContainerFilesystemCapacity:            newMetricContainerFilesystemCapacity(mbc.Metrics.ContainerFilesystemCapacity),
-		metricContainerFilesystemUsage:               newMetricContainerFilesystemUsage(mbc.Metrics.ContainerFilesystemUsage),
-		metricContainerMemoryAvailable:               newMetricContainerMemoryAvailable(mbc.Metrics.ContainerMemoryAvailable),
-		metricContainerMemoryMajorPageFaults:         newMetricContainerMemoryMajorPageFaults(mbc.Metrics.ContainerMemoryMajorPageFaults),
-		metricContainerMemoryPageFaults:              newMetricContainerMemoryPageFaults(mbc.Metrics.ContainerMemoryPageFaults),
-		metricContainerMemoryRss:                     newMetricContainerMemoryRss(mbc.Metrics.ContainerMemoryRss),
-		metricContainerMemoryUsage:                   newMetricContainerMemoryUsage(mbc.Metrics.ContainerMemoryUsage),
-		metricContainerMemoryWorkingSet:              newMetricContainerMemoryWorkingSet(mbc.Metrics.ContainerMemoryWorkingSet),
-		metricContainerUptime:                        newMetricContainerUptime(mbc.Metrics.ContainerUptime),
-		metricK8sContainerCPUNodeUtilization:         newMetricK8sContainerCPUNodeUtilization(mbc.Metrics.K8sContainerCPUNodeUtilization),
-		metricK8sContainerCPULimitUtilization:        newMetricK8sContainerCPULimitUtilization(mbc.Metrics.K8sContainerCPULimitUtilization),
-		metricK8sContainerCPURequestUtilization:      newMetricK8sContainerCPURequestUtilization(mbc.Metrics.K8sContainerCPURequestUtilization),
-		metricK8sContainerEphemeralStorageUsage:      newMetricK8sContainerEphemeralStorageUsage(mbc.Metrics.K8sContainerEphemeralStorageUsage),
-		metricK8sContainerMemoryNodeUtilization:      newMetricK8sContainerMemoryNodeUtilization(mbc.Metrics.K8sContainerMemoryNodeUtilization),
-		metricK8sContainerMemoryLimitUtilization:     newMetricK8sContainerMemoryLimitUtilization(mbc.Metrics.K8sContainerMemoryLimitUtilization),
-		metricK8sContainerMemoryRequestUtilization:   newMetricK8sContainerMemoryRequestUtilization(mbc.Metrics.K8sContainerMemoryRequestUtilization),
-		metricK8sNodeCPUTime:                         newMetricK8sNodeCPUTime(mbc.Metrics.K8sNodeCPUTime),
-		metricK8sNodeCPUUsage:                        newMetricK8sNodeCPUUsage(mbc.Metrics.K8sNodeCPUUsage),
-		metricK8sNodeFilesystemAvailable:             newMetricK8sNodeFilesystemAvailable(mbc.Metrics.K8sNodeFilesystemAvailable),
-		metricK8sNodeFilesystemCapacity:              newMetricK8sNodeFilesystemCapacity(mbc.Metrics.K8sNodeFilesystemCapacity),
-		metricK8sNodeFilesystemUsage:                 newMetricK8sNodeFilesystemUsage(mbc.Metrics.K8sNodeFilesystemUsage),
-		metricK8sNodeMemoryAvailable:                 newMetricK8sNodeMemoryAvailable(mbc.Metrics.K8sNodeMemoryAvailable),
-		metricK8sNodeMemoryMajorPageFaults:           newMetricK8sNodeMemoryMajorPageFaults(mbc.Metrics.K8sNodeMemoryMajorPageFaults),
-		metricK8sNodeMemoryPageFaults:                newMetricK8sNodeMemoryPageFaults(mbc.Metrics.K8sNodeMemoryPageFaults),
-		metricK8sNodeMemoryRss:                       newMetricK8sNodeMemoryRss(mbc.Metrics.K8sNodeMemoryRss),
-		metricK8sNodeMemoryUsage:                     newMetricK8sNodeMemoryUsage(mbc.Metrics.K8sNodeMemoryUsage),
-		metricK8sNodeMemoryWorkingSet:                newMetricK8sNodeMemoryWorkingSet(mbc.Metrics.K8sNodeMemoryWorkingSet),
-		metricK8sNodeNetworkErrors:                   newMetricK8sNodeNetworkErrors(mbc.Metrics.K8sNodeNetworkErrors),
-		metricK8sNodeNetworkIo:                       newMetricK8sNodeNetworkIo(mbc.Metrics.K8sNodeNetworkIo),
-		metricK8sNodeSystemContainerCPUTime:          newMetricK8sNodeSystemContainerCPUTime(mbc.Metrics.K8sNodeSystemContainerCPUTime),
-		metricK8sNodeSystemContainerCPUUsage:         newMetricK8sNodeSystemContainerCPUUsage(mbc.Metrics.K8sNodeSystemContainerCPUUsage),
-		metricK8sNodeSystemContainerMemoryUsage:      newMetricK8sNodeSystemContainerMemoryUsage(mbc.Metrics.K8sNodeSystemContainerMemoryUsage),
-		metricK8sNodeSystemContainerMemoryWorkingSet: newMetricK8sNodeSystemContainerMemoryWorkingSet(mbc.Metrics.K8sNodeSystemContainerMemoryWorkingSet),
-		metricK8sNodeUptime:                          newMetricK8sNodeUptime(mbc.Metrics.K8sNodeUptime),
-		metricK8sPodCPUNodeUtilization:               newMetricK8sPodCPUNodeUtilization(mbc.Metrics.K8sPodCPUNodeUtilization),
-		metricK8sPodCPUTime:                          newMetricK8sPodCPUTime(mbc.Metrics.K8sPodCPUTime),
-		metricK8sPodCPUUsage:                         newMetricK8sPodCPUUsage(mbc.Metrics.K8sPodCPUUsage),
-		metricK8sPodCPULimitUtilization:              newMetricK8sPodCPULimitUtilization(mbc.Metrics.K8sPodCPULimitUtilization),
-		metricK8sPodCPURequestUtilization:            newMetricK8sPodCPURequestUtilization(mbc.Metrics.K8sPodCPURequestUtilization),
-		metricK8sPodFilesystemAvailable:              newMetricK8sPodFilesystemAvailable(mbc.Metrics.K8sPodFilesystemAvailable),
-		metricK8sPodFilesystemCapacity:               newMetricK8sPodFilesystemCapacity(mbc.Metrics.K8sPodFilesystemCapacity),
-		metricK8sPodFilesystemUsage:                  newMetricK8sPodFilesystemUsage(mbc.Metrics.K8sPodFilesystemUsage),
-		metricK8sPodMemoryAvailable:                  newMetricK8sPodMemoryAvailable(mbc.Metrics.K8sPodMemoryAvailable),
-		metricK8sPodMemoryMajorPageFaults:            newMetricK8sPodMemoryMajorPageFaults(mbc.Metrics.K8sPodMemoryMajorPageFaults),
-		metricK8sPodMemoryNodeUtilization:            newMetricK8sPodMemoryNodeUtilization(mbc.Metrics.K8sPodMemoryNodeUtilization),
-		metricK8sPodMemoryPageFaults:                 newMetricK8sPodMemoryPageFaults(mbc.Metrics.K8sPodMemoryPageFaults),
-		metricK8sPodMemoryRss:                        newMetricK8sPodMemoryRss(mbc.Metrics.K8sPodMemoryRss),
-		metricK8sPodMemoryUsage:                      newMetricK8sPodMemoryUsage(mbc.Metrics.K8sPodMemoryUsage),
-		metricK8sPodMemoryWorkingSet:                 newMetricK8sPodMemoryWorkingSet(mbc.Metrics.K8sPodMemoryWorkingSet),
-		metricK8sPodMemoryLimitUtilization:           newMetricK8sPodMemoryLimitUtilization(mbc.Metrics.K8sPodMemoryLimitUtilization),
-		metricK8sPodMemoryRequestUtilization:         newMetricK8sPodMemoryRequestUtilization(mbc.Metrics.K8sPodMemoryRequestUtilization),
-		metricK8sPodNetworkErrors:                    newMetricK8sPodNetworkErrors(mbc.Metrics.K8sPodNetworkErrors),
-		metricK8sPodNetworkIo:                        newMetricK8sPodNetworkIo(mbc.Metrics.K8sPodNetworkIo),
-		metricK8sPodUptime:                           newMetricK8sPodUptime(mbc.Metrics.K8sPodUptime),
-		metricK8sPodVolumeUsage:                      newMetricK8sPodVolumeUsage(mbc.Metrics.K8sPodVolumeUsage),
-		metricK8sVolumeAvailable:                     newMetricK8sVolumeAvailable(mbc.Metrics.K8sVolumeAvailable),
-		metricK8sVolumeCapacity:                      newMetricK8sVolumeCapacity(mbc.Metrics.K8sVolumeCapacity),
-		metricK8sVolumeInodes:                        newMetricK8sVolumeInodes(mbc.Metrics.K8sVolumeInodes),
-		metricK8sVolumeInodesFree:                    newMetricK8sVolumeInodesFree(mbc.Metrics.K8sVolumeInodesFree),
-		metricK8sVolumeInodesUsed:                    newMetricK8sVolumeInodesUsed(mbc.Metrics.K8sVolumeInodesUsed),
-		resourceAttributeIncludeFilter:               make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:               make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.AwsVolumeID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["aws.volume.id"] = filter.CreateFilter(mbc.ResourceAttributes.AwsVolumeID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.AwsVolumeID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["aws.volume.id"] = filter.CreateFilter(mbc.ResourceAttributes.AwsVolumeID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.ContainerID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["container.id"] = filter.CreateFilter(mbc.ResourceAttributes.ContainerID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.ContainerID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["container.id"] = filter.CreateFilter(mbc.ResourceAttributes.ContainerID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.FsType.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["fs.type"] = filter.CreateFilter(mbc.ResourceAttributes.FsType.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.FsType.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["fs.type"] = filter.CreateFilter(mbc.ResourceAttributes.FsType.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.GcePdName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["gce.pd.name"] = filter.CreateFilter(mbc.ResourceAttributes.GcePdName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.GcePdName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["gce.pd.name"] = filter.CreateFilter(mbc.ResourceAttributes.GcePdName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.GlusterfsEndpointsName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["glusterfs.endpoints.name"] = filter.CreateFilter(mbc.ResourceAttributes.GlusterfsEndpointsName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.GlusterfsEndpointsName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["glusterfs.endpoints.name"] = filter.CreateFilter(mbc.ResourceAttributes.GlusterfsEndpointsName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.GlusterfsPath.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["glusterfs.path"] = filter.CreateFilter(mbc.ResourceAttributes.GlusterfsPath.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.GlusterfsPath.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["glusterfs.path"] = filter.CreateFilter(mbc.ResourceAttributes.GlusterfsPath.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sContainerName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.container.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sContainerName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sContainerName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.container.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sContainerName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sNamespaceName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.namespace.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNamespaceName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sNamespaceName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.namespace.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNamespaceName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sNodeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNodeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sNodeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.node.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNodeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sNodeSystemContainerName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.node.system_container.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNodeSystemContainerName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sNodeSystemContainerName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.node.system_container.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sNodeSystemContainerName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sPersistentvolumeclaimName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.persistentvolumeclaim.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPersistentvolumeclaimName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sPersistentvolumeclaimName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.persistentvolumeclaim.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPersistentvolumeclaimName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sPodName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.pod.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPodName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sPodName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.pod.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPodName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sPodUID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.pod.uid"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPodUID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sPodUID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.pod.uid"] = filter.CreateFilter(mbc.ResourceAttributes.K8sPodUID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sVolumeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.volume.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sVolumeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sVolumeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.volume.name"] = filter.CreateFilter(mbc.ResourceAttributes.K8sVolumeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.K8sVolumeType.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["k8s.volume.type"] = filter.CreateFilter(mbc.ResourceAttributes.K8sVolumeType.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.K8sVolumeType.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["k8s.volume.type"] = filter.CreateFilter(mbc.ResourceAttributes.K8sVolumeType.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.Partition.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["partition"] = filter.CreateFilter(mbc.ResourceAttributes.Partition.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.Partition.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["partition"] = filter.CreateFilter(mbc.ResourceAttributes.Partition.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -4022,35 +2560,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -4059,425 +2585,396 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricContainerCPUTime.emit(ils.Metrics())
-	mb.metricContainerCPUUsage.emit(ils.Metrics())
-	mb.metricContainerFilesystemAvailable.emit(ils.Metrics())
-	mb.metricContainerFilesystemCapacity.emit(ils.Metrics())
-	mb.metricContainerFilesystemUsage.emit(ils.Metrics())
-	mb.metricContainerMemoryAvailable.emit(ils.Metrics())
-	mb.metricContainerMemoryMajorPageFaults.emit(ils.Metrics())
-	mb.metricContainerMemoryPageFaults.emit(ils.Metrics())
-	mb.metricContainerMemoryRss.emit(ils.Metrics())
-	mb.metricContainerMemoryUsage.emit(ils.Metrics())
-	mb.metricContainerMemoryWorkingSet.emit(ils.Metrics())
-	mb.metricContainerUptime.emit(ils.Metrics())
-	mb.metricK8sContainerCPUNodeUtilization.emit(ils.Metrics())
-	mb.metricK8sContainerCPULimitUtilization.emit(ils.Metrics())
-	mb.metricK8sContainerCPURequestUtilization.emit(ils.Metrics())
-	mb.metricK8sContainerEphemeralStorageUsage.emit(ils.Metrics())
-	mb.metricK8sContainerMemoryNodeUtilization.emit(ils.Metrics())
-	mb.metricK8sContainerMemoryLimitUtilization.emit(ils.Metrics())
-	mb.metricK8sContainerMemoryRequestUtilization.emit(ils.Metrics())
-	mb.metricK8sNodeCPUTime.emit(ils.Metrics())
-	mb.metricK8sNodeCPUUsage.emit(ils.Metrics())
-	mb.metricK8sNodeFilesystemAvailable.emit(ils.Metrics())
-	mb.metricK8sNodeFilesystemCapacity.emit(ils.Metrics())
-	mb.metricK8sNodeFilesystemUsage.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryAvailable.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryMajorPageFaults.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryPageFaults.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryRss.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryUsage.emit(ils.Metrics())
-	mb.metricK8sNodeMemoryWorkingSet.emit(ils.Metrics())
-	mb.metricK8sNodeNetworkErrors.emit(ils.Metrics())
-	mb.metricK8sNodeNetworkIo.emit(ils.Metrics())
-	mb.metricK8sNodeSystemContainerCPUTime.emit(ils.Metrics())
-	mb.metricK8sNodeSystemContainerCPUUsage.emit(ils.Metrics())
-	mb.metricK8sNodeSystemContainerMemoryUsage.emit(ils.Metrics())
-	mb.metricK8sNodeSystemContainerMemoryWorkingSet.emit(ils.Metrics())
-	mb.metricK8sNodeUptime.emit(ils.Metrics())
-	mb.metricK8sPodCPUNodeUtilization.emit(ils.Metrics())
-	mb.metricK8sPodCPUTime.emit(ils.Metrics())
-	mb.metricK8sPodCPUUsage.emit(ils.Metrics())
-	mb.metricK8sPodCPULimitUtilization.emit(ils.Metrics())
-	mb.metricK8sPodCPURequestUtilization.emit(ils.Metrics())
-	mb.metricK8sPodFilesystemAvailable.emit(ils.Metrics())
-	mb.metricK8sPodFilesystemCapacity.emit(ils.Metrics())
-	mb.metricK8sPodFilesystemUsage.emit(ils.Metrics())
-	mb.metricK8sPodMemoryAvailable.emit(ils.Metrics())
-	mb.metricK8sPodMemoryMajorPageFaults.emit(ils.Metrics())
-	mb.metricK8sPodMemoryNodeUtilization.emit(ils.Metrics())
-	mb.metricK8sPodMemoryPageFaults.emit(ils.Metrics())
-	mb.metricK8sPodMemoryRss.emit(ils.Metrics())
-	mb.metricK8sPodMemoryUsage.emit(ils.Metrics())
-	mb.metricK8sPodMemoryWorkingSet.emit(ils.Metrics())
-	mb.metricK8sPodMemoryLimitUtilization.emit(ils.Metrics())
-	mb.metricK8sPodMemoryRequestUtilization.emit(ils.Metrics())
-	mb.metricK8sPodNetworkErrors.emit(ils.Metrics())
-	mb.metricK8sPodNetworkIo.emit(ils.Metrics())
-	mb.metricK8sPodUptime.emit(ils.Metrics())
-	mb.metricK8sPodVolumeUsage.emit(ils.Metrics())
-	mb.metricK8sVolumeAvailable.emit(ils.Metrics())
-	mb.metricK8sVolumeCapacity.emit(ils.Metrics())
-	mb.metricK8sVolumeInodes.emit(ils.Metrics())
-	mb.metricK8sVolumeInodesFree.emit(ils.Metrics())
-	mb.metricK8sVolumeInodesUsed.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordContainerCPUTimeDataPoint adds a data point to container.cpu.time metric.
 func (mb *MetricsBuilder) RecordContainerCPUTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricContainerCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerCPUUsageDataPoint adds a data point to container.cpu.usage metric.
 func (mb *MetricsBuilder) RecordContainerCPUUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricContainerCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerFilesystemAvailableDataPoint adds a data point to container.filesystem.available metric.
 func (mb *MetricsBuilder) RecordContainerFilesystemAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerFilesystemAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerFilesystemCapacityDataPoint adds a data point to container.filesystem.capacity metric.
 func (mb *MetricsBuilder) RecordContainerFilesystemCapacityDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerFilesystemCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerFilesystemUsageDataPoint adds a data point to container.filesystem.usage metric.
 func (mb *MetricsBuilder) RecordContainerFilesystemUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerFilesystemUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryAvailableDataPoint adds a data point to container.memory.available metric.
 func (mb *MetricsBuilder) RecordContainerMemoryAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryMajorPageFaultsDataPoint adds a data point to container.memory.major_page_faults metric.
 func (mb *MetricsBuilder) RecordContainerMemoryMajorPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryMajorPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryPageFaultsDataPoint adds a data point to container.memory.page_faults metric.
 func (mb *MetricsBuilder) RecordContainerMemoryPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryRssDataPoint adds a data point to container.memory.rss metric.
 func (mb *MetricsBuilder) RecordContainerMemoryRssDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryRss.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryUsageDataPoint adds a data point to container.memory.usage metric.
 func (mb *MetricsBuilder) RecordContainerMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerMemoryWorkingSetDataPoint adds a data point to container.memory.working_set metric.
 func (mb *MetricsBuilder) RecordContainerMemoryWorkingSetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerMemoryWorkingSet.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordContainerUptimeDataPoint adds a data point to container.uptime metric.
 func (mb *MetricsBuilder) RecordContainerUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricContainerUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerCPUNodeUtilizationDataPoint adds a data point to k8s.container.cpu.node.utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerCPUNodeUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerCPUNodeUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerCPULimitUtilizationDataPoint adds a data point to k8s.container.cpu_limit_utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerCPULimitUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerCPULimitUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerCPURequestUtilizationDataPoint adds a data point to k8s.container.cpu_request_utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerCPURequestUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerCPURequestUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerEphemeralStorageUsageDataPoint adds a data point to k8s.container.ephemeral_storage.usage metric.
 func (mb *MetricsBuilder) RecordK8sContainerEphemeralStorageUsageDataPoint(ts pcommon.Timestamp, val int64, fsTypeAttributeValue AttributeFsType) {
-	mb.metricK8sContainerEphemeralStorageUsage.recordDataPoint(mb.startTime, ts, val, fsTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerMemoryNodeUtilizationDataPoint adds a data point to k8s.container.memory.node.utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerMemoryNodeUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerMemoryNodeUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerMemoryLimitUtilizationDataPoint adds a data point to k8s.container.memory_limit_utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerMemoryLimitUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerMemoryLimitUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sContainerMemoryRequestUtilizationDataPoint adds a data point to k8s.container.memory_request_utilization metric.
 func (mb *MetricsBuilder) RecordK8sContainerMemoryRequestUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sContainerMemoryRequestUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeCPUTimeDataPoint adds a data point to k8s.node.cpu.time metric.
 func (mb *MetricsBuilder) RecordK8sNodeCPUTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sNodeCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeCPUUsageDataPoint adds a data point to k8s.node.cpu.usage metric.
 func (mb *MetricsBuilder) RecordK8sNodeCPUUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sNodeCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeFilesystemAvailableDataPoint adds a data point to k8s.node.filesystem.available metric.
 func (mb *MetricsBuilder) RecordK8sNodeFilesystemAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeFilesystemAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeFilesystemCapacityDataPoint adds a data point to k8s.node.filesystem.capacity metric.
 func (mb *MetricsBuilder) RecordK8sNodeFilesystemCapacityDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeFilesystemCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeFilesystemUsageDataPoint adds a data point to k8s.node.filesystem.usage metric.
 func (mb *MetricsBuilder) RecordK8sNodeFilesystemUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeFilesystemUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryAvailableDataPoint adds a data point to k8s.node.memory.available metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryMajorPageFaultsDataPoint adds a data point to k8s.node.memory.major_page_faults metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryMajorPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryMajorPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryPageFaultsDataPoint adds a data point to k8s.node.memory.page_faults metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryRssDataPoint adds a data point to k8s.node.memory.rss metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryRssDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryRss.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryUsageDataPoint adds a data point to k8s.node.memory.usage metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeMemoryWorkingSetDataPoint adds a data point to k8s.node.memory.working_set metric.
 func (mb *MetricsBuilder) RecordK8sNodeMemoryWorkingSetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeMemoryWorkingSet.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeNetworkErrorsDataPoint adds a data point to k8s.node.network.errors metric.
 func (mb *MetricsBuilder) RecordK8sNodeNetworkErrorsDataPoint(ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue AttributeDirection) {
-	mb.metricK8sNodeNetworkErrors.recordDataPoint(mb.startTime, ts, val, interfaceAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeNetworkIoDataPoint adds a data point to k8s.node.network.io metric.
 func (mb *MetricsBuilder) RecordK8sNodeNetworkIoDataPoint(ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue AttributeDirection) {
-	mb.metricK8sNodeNetworkIo.recordDataPoint(mb.startTime, ts, val, interfaceAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeSystemContainerCPUTimeDataPoint adds a data point to k8s.node.system_container.cpu.time metric.
 func (mb *MetricsBuilder) RecordK8sNodeSystemContainerCPUTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sNodeSystemContainerCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeSystemContainerCPUUsageDataPoint adds a data point to k8s.node.system_container.cpu.usage metric.
 func (mb *MetricsBuilder) RecordK8sNodeSystemContainerCPUUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sNodeSystemContainerCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeSystemContainerMemoryUsageDataPoint adds a data point to k8s.node.system_container.memory.usage metric.
 func (mb *MetricsBuilder) RecordK8sNodeSystemContainerMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeSystemContainerMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeSystemContainerMemoryWorkingSetDataPoint adds a data point to k8s.node.system_container.memory.working_set metric.
 func (mb *MetricsBuilder) RecordK8sNodeSystemContainerMemoryWorkingSetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeSystemContainerMemoryWorkingSet.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sNodeUptimeDataPoint adds a data point to k8s.node.uptime metric.
 func (mb *MetricsBuilder) RecordK8sNodeUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sNodeUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodCPUNodeUtilizationDataPoint adds a data point to k8s.pod.cpu.node.utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodCPUNodeUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodCPUNodeUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodCPUTimeDataPoint adds a data point to k8s.pod.cpu.time metric.
 func (mb *MetricsBuilder) RecordK8sPodCPUTimeDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodCPUTime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodCPUUsageDataPoint adds a data point to k8s.pod.cpu.usage metric.
 func (mb *MetricsBuilder) RecordK8sPodCPUUsageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodCPUUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodCPULimitUtilizationDataPoint adds a data point to k8s.pod.cpu_limit_utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodCPULimitUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodCPULimitUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodCPURequestUtilizationDataPoint adds a data point to k8s.pod.cpu_request_utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodCPURequestUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodCPURequestUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodFilesystemAvailableDataPoint adds a data point to k8s.pod.filesystem.available metric.
 func (mb *MetricsBuilder) RecordK8sPodFilesystemAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodFilesystemAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodFilesystemCapacityDataPoint adds a data point to k8s.pod.filesystem.capacity metric.
 func (mb *MetricsBuilder) RecordK8sPodFilesystemCapacityDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodFilesystemCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodFilesystemUsageDataPoint adds a data point to k8s.pod.filesystem.usage metric.
 func (mb *MetricsBuilder) RecordK8sPodFilesystemUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodFilesystemUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryAvailableDataPoint adds a data point to k8s.pod.memory.available metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryMajorPageFaultsDataPoint adds a data point to k8s.pod.memory.major_page_faults metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryMajorPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryMajorPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryNodeUtilizationDataPoint adds a data point to k8s.pod.memory.node.utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryNodeUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodMemoryNodeUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryPageFaultsDataPoint adds a data point to k8s.pod.memory.page_faults metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryPageFaultsDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryPageFaults.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryRssDataPoint adds a data point to k8s.pod.memory.rss metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryRssDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryRss.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryUsageDataPoint adds a data point to k8s.pod.memory.usage metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryWorkingSetDataPoint adds a data point to k8s.pod.memory.working_set metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryWorkingSetDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodMemoryWorkingSet.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryLimitUtilizationDataPoint adds a data point to k8s.pod.memory_limit_utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryLimitUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodMemoryLimitUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodMemoryRequestUtilizationDataPoint adds a data point to k8s.pod.memory_request_utilization metric.
 func (mb *MetricsBuilder) RecordK8sPodMemoryRequestUtilizationDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricK8sPodMemoryRequestUtilization.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodNetworkErrorsDataPoint adds a data point to k8s.pod.network.errors metric.
 func (mb *MetricsBuilder) RecordK8sPodNetworkErrorsDataPoint(ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue AttributeDirection) {
-	mb.metricK8sPodNetworkErrors.recordDataPoint(mb.startTime, ts, val, interfaceAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodNetworkIoDataPoint adds a data point to k8s.pod.network.io metric.
 func (mb *MetricsBuilder) RecordK8sPodNetworkIoDataPoint(ts pcommon.Timestamp, val int64, interfaceAttributeValue string, directionAttributeValue AttributeDirection) {
-	mb.metricK8sPodNetworkIo.recordDataPoint(mb.startTime, ts, val, interfaceAttributeValue, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodUptimeDataPoint adds a data point to k8s.pod.uptime metric.
 func (mb *MetricsBuilder) RecordK8sPodUptimeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodUptime.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sPodVolumeUsageDataPoint adds a data point to k8s.pod.volume.usage metric.
 func (mb *MetricsBuilder) RecordK8sPodVolumeUsageDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sPodVolumeUsage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sVolumeAvailableDataPoint adds a data point to k8s.volume.available metric.
 func (mb *MetricsBuilder) RecordK8sVolumeAvailableDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sVolumeAvailable.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sVolumeCapacityDataPoint adds a data point to k8s.volume.capacity metric.
 func (mb *MetricsBuilder) RecordK8sVolumeCapacityDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sVolumeCapacity.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sVolumeInodesDataPoint adds a data point to k8s.volume.inodes metric.
 func (mb *MetricsBuilder) RecordK8sVolumeInodesDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sVolumeInodes.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sVolumeInodesFreeDataPoint adds a data point to k8s.volume.inodes.free metric.
 func (mb *MetricsBuilder) RecordK8sVolumeInodesFreeDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sVolumeInodesFree.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordK8sVolumeInodesUsedDataPoint adds a data point to k8s.volume.inodes.used metric.
 func (mb *MetricsBuilder) RecordK8sVolumeInodesUsedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricK8sVolumeInodesUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

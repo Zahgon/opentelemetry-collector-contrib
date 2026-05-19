@@ -14,30 +14,16 @@ type inMemoryTailStorage struct {
 	idToSpans map[pcommon.TraceID]ptrace.Traces
 }
 
-func NewInMemoryTailStorage() TailStorage {
-	return &inMemoryTailStorage{
-		idToSpans: make(map[pcommon.TraceID]ptrace.Traces),
-	}
-}
+func NewInMemoryTailStorage() TailStorage { _ = "STUB: not implemented"; return *new(TailStorage) }
 
 func (s *inMemoryTailStorage) Append(traceID pcommon.TraceID, rss ptrace.ResourceSpans) {
-	td, ok := s.idToSpans[traceID]
-	if !ok {
-		td = ptrace.NewTraces()
-		s.idToSpans[traceID] = td
-	}
-	rs := td.ResourceSpans().AppendEmpty()
-	rss.MoveTo(rs)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *inMemoryTailStorage) Take(traceID pcommon.TraceID) (ptrace.Traces, bool) {
-	td, ok := s.idToSpans[traceID]
-	if ok {
-		delete(s.idToSpans, traceID)
-	}
-	return td, ok
+	_ = "STUB: not implemented"
+	return *new(ptrace.Traces), false
 }
 
-func (s *inMemoryTailStorage) Delete(traceID pcommon.TraceID) {
-	delete(s.idToSpans, traceID)
-}
+func (s *inMemoryTailStorage) Delete(traceID pcommon.TraceID) { _ = "STUB: not implemented"; return }

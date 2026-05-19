@@ -5,7 +5,6 @@ package remotesource // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"time"
 
@@ -13,7 +12,6 @@ import (
 	"go.opentelemetry.io/collector/config/configgrpc"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/jaegerremotesampling/internal/source"
 )
@@ -33,42 +31,22 @@ func NewRemoteSource(
 	grpcClientSettings *configgrpc.ClientConfig,
 	reloadInterval time.Duration,
 ) (source.Source, io.Closer) {
-	cache := newNoopStrategyCache()
-	if reloadInterval > 0 {
-		cache = newServiceStrategyCache(reloadInterval)
-	}
-
-	return &grpcRemoteStrategyStore{
-		headerAdditions: grpcClientSettings.Headers,
-		delegate:        NewConfigManager(conn),
-		cache:           cache,
-	}, cache
+	_ = "STUB: not implemented"
+	return *new(source.Source), *new(io.Closer)
 }
 
 func (g *grpcRemoteStrategyStore) GetSamplingStrategy(
 	ctx context.Context,
 	serviceName string,
 ) (*api_v2.SamplingStrategyResponse, error) {
-	if cachedResponse, ok := g.cache.get(ctx, serviceName); ok {
-		return cachedResponse, nil
-	}
-	freshResult, err := g.delegate.GetSamplingStrategy(g.enhanceContext(ctx), serviceName)
-	if err != nil {
-		return nil, fmt.Errorf("remote call failed: %w", err)
-	}
-	g.cache.put(ctx, serviceName, freshResult)
-	return freshResult, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // This function is used to add the extension configuration defined HTTP headers to a given outbound gRPC call's context.
 func (g *grpcRemoteStrategyStore) enhanceContext(ctx context.Context) context.Context {
-	md := metadata.New(nil)
-	for k, v := range g.headerAdditions.Iter {
-		md.Set(k, string(v))
-	}
-	return metadata.NewOutgoingContext(ctx, md)
+	_ = "STUB: not implemented"
+	return *new(context.Context)
 }
 
-func (g *grpcRemoteStrategyStore) Close() error {
-	return g.cache.Close()
-}
+func (g *grpcRemoteStrategyStore) Close() error { _ = "STUB: not implemented"; return nil }

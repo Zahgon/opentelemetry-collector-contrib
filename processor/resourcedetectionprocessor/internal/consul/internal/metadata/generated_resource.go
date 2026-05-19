@@ -15,36 +15,21 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetCloudRegion sets provided value as "cloud.region" attribute.
-func (rb *ResourceBuilder) SetCloudRegion(val string) {
-	if rb.config.CloudRegion.Enabled {
-		rb.res.Attributes().PutStr("cloud.region", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudRegion(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostID sets provided value as "host.id" attribute.
-func (rb *ResourceBuilder) SetHostID(val string) {
-	if rb.config.HostID.Enabled {
-		rb.res.Attributes().PutStr("host.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

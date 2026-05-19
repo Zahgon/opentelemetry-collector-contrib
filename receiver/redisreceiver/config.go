@@ -4,9 +4,6 @@
 package redisreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/redisreceiver"
 
 import (
-	"fmt"
-	"net"
-
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
@@ -45,9 +42,6 @@ type configInfo struct {
 }
 
 func newConfigInfo(cfg *Config) (configInfo, error) {
-	address, port, err := net.SplitHostPort(cfg.Endpoint)
-	if err != nil {
-		return configInfo{}, fmt.Errorf("invalid endpoint %q: %w", cfg.Endpoint, err)
-	}
-	return configInfo{Address: address, Port: port}, nil
+	_ = "STUB: not implemented"
+	return *new(configInfo), nil
 }

@@ -15,29 +15,18 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetDbSystem sets provided value as "db.system" attribute.
-func (rb *ResourceBuilder) SetDbSystem(val string) {
-	if rb.config.DbSystem.Enabled {
-		rb.res.Attributes().PutStr("db.system", val)
-	}
-}
+func (rb *ResourceBuilder) SetDbSystem(val string) { _ = "STUB: not implemented"; return }
 
 // SetSaphanaHost sets provided value as "saphana.host" attribute.
-func (rb *ResourceBuilder) SetSaphanaHost(val string) {
-	if rb.config.SaphanaHost.Enabled {
-		rb.res.Attributes().PutStr("saphana.host", val)
-	}
-}
+func (rb *ResourceBuilder) SetSaphanaHost(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

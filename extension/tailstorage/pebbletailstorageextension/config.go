@@ -3,8 +3,6 @@
 
 package pebbletailstorageextension // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/tailstorage/pebbletailstorageextension"
 
-import "errors"
-
 type Config struct {
 	// Directory is where the extension stores Pebble DB files.
 	Directory string `mapstructure:"directory"`
@@ -12,9 +10,4 @@ type Config struct {
 	_ struct{}
 }
 
-func (c *Config) Validate() error {
-	if c.Directory == "" {
-		return errors.New("directory must be set")
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

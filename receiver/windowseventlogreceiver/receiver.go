@@ -4,26 +4,18 @@
 package windowseventlogreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/windowseventlogreceiver"
 
 import (
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/component"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/consumerretry"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/adapter"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/stanza/operator/input/windows"
 )
 
 // createDefaultConfig creates a config with type and version
 func createDefaultConfig() component.Config {
-	return &WindowsLogConfig{
-		BaseConfig: adapter.BaseConfig{
-			Operators:      []operator.Config{},
-			RetryOnFailure: consumerretry.NewDefaultConfig(),
-		},
-		InputConfig: *windows.NewConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // WindowsLogConfig defines configuration for the Windows Event Log receiver.
@@ -56,9 +48,4 @@ type ResolveSIDsConfig struct {
 }
 
 // Validate checks if the configuration is valid
-func (c *ResolveSIDsConfig) Validate() error {
-	if c.CacheTTL < 0 {
-		return fmt.Errorf("cache_ttl must not be negative, got: %s", c.CacheTTL)
-	}
-	return nil
-}
+func (c *ResolveSIDsConfig) Validate() error { _ = "STUB: not implemented"; return nil }

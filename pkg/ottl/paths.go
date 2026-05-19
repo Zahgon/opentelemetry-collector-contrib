@@ -8,32 +8,18 @@ type grammarPathVisitor struct {
 	paths []path
 }
 
-func (*grammarPathVisitor) visitEditor(*editor)                   {}
-func (*grammarPathVisitor) visitConverter(*converter)             {}
-func (*grammarPathVisitor) visitValue(*value)                     {}
-func (*grammarPathVisitor) visitMathExprLiteral(*mathExprLiteral) {}
-
-func (v *grammarPathVisitor) visitPath(value *path) {
-	v.paths = append(v.paths, *value)
+func (*grammarPathVisitor) visitEditor(*editor)       { _ = "STUB: not implemented"; return }
+func (*grammarPathVisitor) visitConverter(*converter) { _ = "STUB: not implemented"; return }
+func (*grammarPathVisitor) visitValue(*value)         { _ = "STUB: not implemented"; return }
+func (*grammarPathVisitor) visitMathExprLiteral(*mathExprLiteral) {
+	_ = "STUB: not implemented"
+	return
 }
 
-func getParsedStatementPaths(ps *parsedStatement) []path {
-	visitor := &grammarPathVisitor{}
-	ps.Editor.accept(visitor)
-	if ps.WhereClause != nil {
-		ps.WhereClause.accept(visitor)
-	}
-	return visitor.paths
-}
+func (v *grammarPathVisitor) visitPath(value *path) { _ = "STUB: not implemented"; return }
 
-func getBooleanExpressionPaths(be *booleanExpression) []path {
-	visitor := &grammarPathVisitor{}
-	be.accept(visitor)
-	return visitor.paths
-}
+func getParsedStatementPaths(ps *parsedStatement) []path { _ = "STUB: not implemented"; return nil }
 
-func getValuePaths(v *value) []path {
-	visitor := &grammarPathVisitor{}
-	v.accept(visitor)
-	return visitor.paths
-}
+func getBooleanExpressionPaths(be *booleanExpression) []path { _ = "STUB: not implemented"; return nil }
+
+func getValuePaths(v *value) []path { _ = "STUB: not implemented"; return nil }

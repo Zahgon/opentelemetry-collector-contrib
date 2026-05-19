@@ -18,15 +18,8 @@ type Config interface {
 }
 
 func NewEnvVarFactory(delegate scraper.Factory, envMap common.EnvMap) scraper.Factory {
-	return scraper.NewFactory(delegate.Type(), func() component.Config {
-		return delegate.CreateDefaultConfig()
-	}, scraper.WithMetrics(func(ctx context.Context, settings scraper.Settings, config component.Config) (scraper.Metrics, error) {
-		scrp, err := delegate.CreateMetrics(ctx, settings, config)
-		if err != nil {
-			return nil, err
-		}
-		return &envVarScraper{delegate: scrp, envMap: envMap}, nil
-	}, delegate.MetricsStability()))
+	_ = "STUB: not implemented"
+	return *new(scraper.Factory)
 }
 
 type envVarScraper struct {
@@ -35,16 +28,16 @@ type envVarScraper struct {
 }
 
 func (evs *envVarScraper) Start(ctx context.Context, host component.Host) error {
-	ctx = context.WithValue(ctx, common.EnvKey, evs.envMap)
-	return evs.delegate.Start(ctx, host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (evs *envVarScraper) ScrapeMetrics(ctx context.Context) (pmetric.Metrics, error) {
-	ctx = context.WithValue(ctx, common.EnvKey, evs.envMap)
-	return evs.delegate.ScrapeMetrics(ctx)
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics), nil
 }
 
 func (evs *envVarScraper) Shutdown(ctx context.Context) error {
-	ctx = context.WithValue(ctx, common.EnvKey, evs.envMap)
-	return evs.delegate.Shutdown(ctx)
+	_ = "STUB: not implemented"
+	return nil
 }

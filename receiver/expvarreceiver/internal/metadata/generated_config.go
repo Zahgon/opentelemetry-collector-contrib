@@ -13,16 +13,7 @@ type ProcessRuntimeMemstatsBuckHashSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsBuckHashSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -33,16 +24,7 @@ type ProcessRuntimeMemstatsFreesMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsFreesMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -53,16 +35,7 @@ type ProcessRuntimeMemstatsGcCPUFractionMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsGcCPUFractionMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -73,16 +46,7 @@ type ProcessRuntimeMemstatsGcSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsGcSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -93,16 +57,7 @@ type ProcessRuntimeMemstatsHeapAllocMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapAllocMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -113,16 +68,7 @@ type ProcessRuntimeMemstatsHeapIdleMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapIdleMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -133,16 +79,7 @@ type ProcessRuntimeMemstatsHeapInuseMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapInuseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -153,16 +90,7 @@ type ProcessRuntimeMemstatsHeapObjectsMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapObjectsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -173,16 +101,7 @@ type ProcessRuntimeMemstatsHeapReleasedMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapReleasedMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -193,16 +112,7 @@ type ProcessRuntimeMemstatsHeapSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsHeapSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -213,16 +123,7 @@ type ProcessRuntimeMemstatsLastPauseMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsLastPauseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -233,16 +134,7 @@ type ProcessRuntimeMemstatsLookupsMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsLookupsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -253,16 +145,7 @@ type ProcessRuntimeMemstatsMallocsMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsMallocsMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -273,16 +156,7 @@ type ProcessRuntimeMemstatsMcacheInuseMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsMcacheInuseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -293,16 +167,7 @@ type ProcessRuntimeMemstatsMcacheSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsMcacheSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -313,16 +178,7 @@ type ProcessRuntimeMemstatsMspanInuseMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsMspanInuseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -333,16 +189,7 @@ type ProcessRuntimeMemstatsMspanSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsMspanSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -353,16 +200,7 @@ type ProcessRuntimeMemstatsNextGcMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsNextGcMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -373,16 +211,7 @@ type ProcessRuntimeMemstatsNumForcedGcMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsNumForcedGcMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -393,16 +222,7 @@ type ProcessRuntimeMemstatsNumGcMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsNumGcMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -413,16 +233,7 @@ type ProcessRuntimeMemstatsOtherSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsOtherSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -433,16 +244,7 @@ type ProcessRuntimeMemstatsPauseTotalMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsPauseTotalMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -453,16 +255,7 @@ type ProcessRuntimeMemstatsStackInuseMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsStackInuseMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -473,16 +266,7 @@ type ProcessRuntimeMemstatsStackSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsStackSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -493,16 +277,7 @@ type ProcessRuntimeMemstatsSysMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsSysMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -513,16 +288,7 @@ type ProcessRuntimeMemstatsTotalAllocMetricConfig struct {
 }
 
 func (ms *ProcessRuntimeMemstatsTotalAllocMetricConfig) Unmarshal(parser *confmap.Conf) error {
-	if parser == nil {
-		return nil
-	}
-
-	err := parser.Unmarshal(ms)
-	if err != nil {
-		return err
-	}
-
-	ms.enabledSetByUser = parser.IsSet("enabled")
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -556,88 +322,7 @@ type MetricsConfig struct {
 	ProcessRuntimeMemstatsTotalAlloc    ProcessRuntimeMemstatsTotalAllocMetricConfig    `mapstructure:"process.runtime.memstats.total_alloc"`
 }
 
-func DefaultMetricsConfig() MetricsConfig {
-	return MetricsConfig{
-		ProcessRuntimeMemstatsBuckHashSys: ProcessRuntimeMemstatsBuckHashSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsFrees: ProcessRuntimeMemstatsFreesMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsGcCPUFraction: ProcessRuntimeMemstatsGcCPUFractionMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsGcSys: ProcessRuntimeMemstatsGcSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapAlloc: ProcessRuntimeMemstatsHeapAllocMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapIdle: ProcessRuntimeMemstatsHeapIdleMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapInuse: ProcessRuntimeMemstatsHeapInuseMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapObjects: ProcessRuntimeMemstatsHeapObjectsMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapReleased: ProcessRuntimeMemstatsHeapReleasedMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsHeapSys: ProcessRuntimeMemstatsHeapSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsLastPause: ProcessRuntimeMemstatsLastPauseMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsLookups: ProcessRuntimeMemstatsLookupsMetricConfig{
-			Enabled: false,
-		},
-		ProcessRuntimeMemstatsMallocs: ProcessRuntimeMemstatsMallocsMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsMcacheInuse: ProcessRuntimeMemstatsMcacheInuseMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsMcacheSys: ProcessRuntimeMemstatsMcacheSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsMspanInuse: ProcessRuntimeMemstatsMspanInuseMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsMspanSys: ProcessRuntimeMemstatsMspanSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsNextGc: ProcessRuntimeMemstatsNextGcMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsNumForcedGc: ProcessRuntimeMemstatsNumForcedGcMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsNumGc: ProcessRuntimeMemstatsNumGcMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsOtherSys: ProcessRuntimeMemstatsOtherSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsPauseTotal: ProcessRuntimeMemstatsPauseTotalMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsStackInuse: ProcessRuntimeMemstatsStackInuseMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsStackSys: ProcessRuntimeMemstatsStackSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsSys: ProcessRuntimeMemstatsSysMetricConfig{
-			Enabled: true,
-		},
-		ProcessRuntimeMemstatsTotalAlloc: ProcessRuntimeMemstatsTotalAllocMetricConfig{
-			Enabled: false,
-		},
-	}
-}
+func DefaultMetricsConfig() MetricsConfig { _ = "STUB: not implemented"; return *new(MetricsConfig) }
 
 // MetricsBuilderConfig is a configuration for expvar metrics builder.
 type MetricsBuilderConfig struct {
@@ -645,12 +330,12 @@ type MetricsBuilderConfig struct {
 }
 
 func NewDefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return MetricsBuilderConfig{
-		Metrics: DefaultMetricsConfig(),
-	}
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }
 
 // Deprecated: Use NewDefaultMetricsBuilderConfig.
 func DefaultMetricsBuilderConfig() MetricsBuilderConfig {
-	return NewDefaultMetricsBuilderConfig()
+	_ = "STUB: not implemented"
+	return *new(MetricsBuilderConfig)
 }

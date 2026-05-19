@@ -4,9 +4,6 @@
 package dorisexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/dorisexporter"
 
 import (
-	"errors"
-	"fmt"
-	"regexp"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confighttp"
@@ -64,66 +61,15 @@ type Table struct {
 	Metrics string `mapstructure:"metrics"`
 }
 
-func (cfg *Config) Validate() (err error) {
-	if cfg.Endpoint == "" {
-		err = errors.Join(err, errors.New("endpoint must be specified"))
-	}
-	if cfg.CreateSchema {
-		if cfg.MySQLEndpoint == "" {
-			err = errors.Join(err, errors.New("mysql_endpoint must be specified"))
-		}
+func (cfg *Config) Validate() (err error) { _ = "STUB: not implemented"; return nil }
 
-		if cfg.HistoryDays < 0 {
-			err = errors.Join(err, errors.New("history_days must be greater than or equal to 0"))
-		}
-
-		if cfg.CreateHistoryDays < 0 {
-			err = errors.Join(err, errors.New("create_history_days must be greater than or equal to 0"))
-		}
-
-		if cfg.HistoryDays > 0 && cfg.CreateHistoryDays > cfg.HistoryDays {
-			err = errors.Join(err, errors.New("create_history_days must be less than or equal to history_days"))
-		}
-
-		if cfg.ReplicationNum < 1 {
-			err = errors.Join(err, errors.New("replication_num must be greater than or equal to 1"))
-		}
-	}
-
-	// Preventing SQL Injection Attacks
-	re := regexp.MustCompile(`^[a-zA-Z0-9_]+$`)
-	if !re.MatchString(cfg.Database) {
-		err = errors.Join(err, errors.New("database name must be alphanumeric and underscore"))
-	}
-	if !re.MatchString(cfg.Logs) {
-		err = errors.Join(err, errors.New("logs table name must be alphanumeric and underscore"))
-	}
-	if !re.MatchString(cfg.Traces) {
-		err = errors.Join(err, errors.New("traces table name must be alphanumeric and underscore"))
-	}
-	if !re.MatchString(cfg.Metrics) {
-		err = errors.Join(err, errors.New("metrics table name must be alphanumeric and underscore"))
-	}
-
-	var errT error
-	cfg.timeLocation, errT = time.LoadLocation(cfg.TimeZone)
-	if errT != nil {
-		err = errors.Join(err, errors.New("invalid timezone"))
-	}
-
-	return err
-}
+// Preventing SQL Injection Attacks
 
 const (
 	defaultStart = -2147483648 // IntMin
 )
 
-func (cfg *Config) startHistoryDays() int32 {
-	if cfg.HistoryDays == 0 {
-		return defaultStart
-	}
-	return -cfg.HistoryDays
-}
+func (cfg *Config) startHistoryDays() int32 { _ = "STUB: not implemented"; return 0 }
 
 const (
 	properties = `
@@ -149,11 +95,7 @@ const (
 )
 
 // // propertiesStr returns the properties string for non-unique key tables.
-func (cfg *Config) propertiesStr() string {
-	return fmt.Sprintf(properties, cfg.ReplicationNum, compactionPolicyTimeSeries, cfg.startHistoryDays(), cfg.CreateHistoryDays)
-}
+func (cfg *Config) propertiesStr() string { _ = "STUB: not implemented"; return "" }
 
 // // propertiesStrForUniqueKey returns the properties string for unique key tables.
-func (cfg *Config) propertiesStrForUniqueKey() string {
-	return fmt.Sprintf(properties, cfg.ReplicationNum, compactionPolicySizeBased, cfg.startHistoryDays(), cfg.CreateHistoryDays)
-}
+func (cfg *Config) propertiesStrForUniqueKey() string { _ = "STUB: not implemented"; return "" }

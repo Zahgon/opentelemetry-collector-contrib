@@ -5,12 +5,10 @@ package digitalocean // import "github.com/open-telemetry/opentelemetry-collecto
 
 import (
 	"context"
-	"fmt"
 
 	do "github.com/digitalocean/go-metadata"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal"
@@ -38,27 +36,12 @@ type Detector struct {
 
 // NewDetector creates a new DigitalOcean metadata detector.
 func NewDetector(p processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-
-	return &Detector{
-		client: newDigitalOceanClient(),
-		logger: p.Logger,
-		rb:     metadata.NewResourceBuilder(cfg.ResourceAttributes),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 // Detect detects system metadata and returns a resource with the available ones.
 func (d *Detector) Detect(_ context.Context) (pcommon.Resource, string, error) {
-	md, err := d.client.Metadata()
-	if err != nil || md == nil {
-		d.logger.Debug("DigitalOcean detector: not running on DigitalOcean or metadata unavailable", zap.Error(err))
-		return pcommon.NewResource(), "", nil
-	}
-
-	d.rb.SetCloudProvider(TypeStr)
-	d.rb.SetHostID(fmt.Sprintf("%d", md.DropletID))
-	d.rb.SetHostName(md.Hostname)
-	d.rb.SetCloudRegion(md.Region)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }

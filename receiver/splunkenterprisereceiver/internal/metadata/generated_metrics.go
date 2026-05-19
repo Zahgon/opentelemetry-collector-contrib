@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
@@ -251,81 +248,22 @@ func (m *metricSplunkAggregationQueueRatio) init() {
 }
 
 func (m *metricSplunkAggregationQueueRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkAggregationQueueRatioMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkAggregationQueueRatioMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkAggregationQueueRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkAggregationQueueRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkAggregationQueueRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkAggregationQueueRatio(cfg SplunkAggregationQueueRatioMetricConfig) metricSplunkAggregationQueueRatio {
-	m := metricSplunkAggregationQueueRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkAggregationQueueRatio)
 }
 
 type metricSplunkBucketsSearchableStatus struct {
@@ -346,84 +284,22 @@ func (m *metricSplunkBucketsSearchableStatus) init() {
 }
 
 func (m *metricSplunkBucketsSearchableStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkIndexerSearchableAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkBucketsSearchableStatusMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkBucketsSearchableStatusMetricAttributeKeySplunkIndexerSearchable) {
-		dp.Attributes().PutStr("splunk.indexer.searchable", splunkIndexerSearchableAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkBucketsSearchableStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkBucketsSearchableStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkBucketsSearchableStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkBucketsSearchableStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkBucketsSearchableStatus(cfg SplunkBucketsSearchableStatusMetricConfig) metricSplunkBucketsSearchableStatus {
-	m := metricSplunkBucketsSearchableStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkBucketsSearchableStatus)
 }
 
 type metricSplunkDataIndexesExtendedBucketCount struct {
@@ -444,81 +320,25 @@ func (m *metricSplunkDataIndexesExtendedBucketCount) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedBucketCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedBucketCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedBucketCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedBucketCount(cfg SplunkDataIndexesExtendedBucketCountMetricConfig) metricSplunkDataIndexesExtendedBucketCount {
-	m := metricSplunkDataIndexesExtendedBucketCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedBucketCount)
 }
 
 type metricSplunkDataIndexesExtendedBucketEventCount struct {
@@ -539,84 +359,25 @@ func (m *metricSplunkDataIndexesExtendedBucketEventCount) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedBucketEventCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkBucketDir) {
-		dp.Attributes().PutStr("splunk.bucket.dir", splunkBucketDirAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketEventCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedBucketEventCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedBucketEventCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedBucketEventCount(cfg SplunkDataIndexesExtendedBucketEventCountMetricConfig) metricSplunkDataIndexesExtendedBucketEventCount {
-	m := metricSplunkDataIndexesExtendedBucketEventCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedBucketEventCount)
 }
 
 type metricSplunkDataIndexesExtendedBucketHotCount struct {
@@ -637,84 +398,25 @@ func (m *metricSplunkDataIndexesExtendedBucketHotCount) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedBucketHotCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkBucketDir) {
-		dp.Attributes().PutStr("splunk.bucket.dir", splunkBucketDirAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketHotCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedBucketHotCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedBucketHotCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedBucketHotCount(cfg SplunkDataIndexesExtendedBucketHotCountMetricConfig) metricSplunkDataIndexesExtendedBucketHotCount {
-	m := metricSplunkDataIndexesExtendedBucketHotCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedBucketHotCount)
 }
 
 type metricSplunkDataIndexesExtendedBucketWarmCount struct {
@@ -735,84 +437,25 @@ func (m *metricSplunkDataIndexesExtendedBucketWarmCount) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedBucketWarmCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkBucketDir) {
-		dp.Attributes().PutStr("splunk.bucket.dir", splunkBucketDirAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedBucketWarmCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedBucketWarmCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedBucketWarmCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedBucketWarmCount(cfg SplunkDataIndexesExtendedBucketWarmCountMetricConfig) metricSplunkDataIndexesExtendedBucketWarmCount {
-	m := metricSplunkDataIndexesExtendedBucketWarmCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedBucketWarmCount)
 }
 
 type metricSplunkDataIndexesExtendedEventCount struct {
@@ -833,81 +476,25 @@ func (m *metricSplunkDataIndexesExtendedEventCount) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedEventCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedEventCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedEventCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedEventCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedEventCount(cfg SplunkDataIndexesExtendedEventCountMetricConfig) metricSplunkDataIndexesExtendedEventCount {
-	m := metricSplunkDataIndexesExtendedEventCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedEventCount)
 }
 
 type metricSplunkDataIndexesExtendedRawSize struct {
@@ -928,81 +515,25 @@ func (m *metricSplunkDataIndexesExtendedRawSize) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedRawSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedRawSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedRawSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedRawSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedRawSize(cfg SplunkDataIndexesExtendedRawSizeMetricConfig) metricSplunkDataIndexesExtendedRawSize {
-	m := metricSplunkDataIndexesExtendedRawSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedRawSize)
 }
 
 type metricSplunkDataIndexesExtendedTotalSize struct {
@@ -1023,81 +554,25 @@ func (m *metricSplunkDataIndexesExtendedTotalSize) init() {
 }
 
 func (m *metricSplunkDataIndexesExtendedTotalSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkDataIndexesExtendedTotalSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkDataIndexesExtendedTotalSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkDataIndexesExtendedTotalSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkDataIndexesExtendedTotalSize(cfg SplunkDataIndexesExtendedTotalSizeMetricConfig) metricSplunkDataIndexesExtendedTotalSize {
-	m := metricSplunkDataIndexesExtendedTotalSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkDataIndexesExtendedTotalSize)
 }
 
 type metricSplunkHealth struct {
@@ -1118,84 +593,19 @@ func (m *metricSplunkHealth) init() {
 }
 
 func (m *metricSplunkHealth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkFeatureAttributeValue string, splunkFeatureHealthAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkHealthMetricAttributeKeySplunkFeature) {
-		dp.Attributes().PutStr("splunk.feature", splunkFeatureAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkHealthMetricAttributeKeySplunkFeatureHealth) {
-		dp.Attributes().PutStr("splunk.feature.health", splunkFeatureHealthAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkHealthMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkHealthMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkHealth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkHealth) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricSplunkHealth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricSplunkHealth) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricSplunkHealth(cfg SplunkHealthMetricConfig) metricSplunkHealth {
-	m := metricSplunkHealth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkHealth)
 }
 
 type metricSplunkIndexerAvgRate struct {
@@ -1216,81 +626,22 @@ func (m *metricSplunkIndexerAvgRate) init() {
 }
 
 func (m *metricSplunkIndexerAvgRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerAvgRateMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerAvgRateMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexerAvgRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexerAvgRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerAvgRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerAvgRate(cfg SplunkIndexerAvgRateMetricConfig) metricSplunkIndexerAvgRate {
-	m := metricSplunkIndexerAvgRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerAvgRate)
 }
 
 type metricSplunkIndexerCPUTime struct {
@@ -1311,81 +662,22 @@ func (m *metricSplunkIndexerCPUTime) init() {
 }
 
 func (m *metricSplunkIndexerCPUTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerCPUTimeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerCPUTimeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexerCPUTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexerCPUTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerCPUTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerCPUTime(cfg SplunkIndexerCPUTimeMetricConfig) metricSplunkIndexerCPUTime {
-	m := metricSplunkIndexerCPUTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerCPUTime)
 }
 
 type metricSplunkIndexerQueueRatio struct {
@@ -1406,81 +698,22 @@ func (m *metricSplunkIndexerQueueRatio) init() {
 }
 
 func (m *metricSplunkIndexerQueueRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerQueueRatioMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerQueueRatioMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexerQueueRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexerQueueRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerQueueRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerQueueRatio(cfg SplunkIndexerQueueRatioMetricConfig) metricSplunkIndexerQueueRatio {
-	m := metricSplunkIndexerQueueRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerQueueRatio)
 }
 
 type metricSplunkIndexerRawWriteTime struct {
@@ -1501,81 +734,22 @@ func (m *metricSplunkIndexerRawWriteTime) init() {
 }
 
 func (m *metricSplunkIndexerRawWriteTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRawWriteTimeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexerRawWriteTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexerRawWriteTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerRawWriteTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerRawWriteTime(cfg SplunkIndexerRawWriteTimeMetricConfig) metricSplunkIndexerRawWriteTime {
-	m := metricSplunkIndexerRawWriteTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerRawWriteTime)
 }
 
 type metricSplunkIndexerRollingrestartStatus struct {
@@ -1596,84 +770,25 @@ func (m *metricSplunkIndexerRollingrestartStatus) init() {
 }
 
 func (m *metricSplunkIndexerRollingrestartStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkSearchableRestartAttributeValue bool, splunkRollingorrestartAttributeValue bool, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSearchableRestart) {
-		dp.Attributes().PutBool("splunk.searchable.restart", splunkSearchableRestartAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkRollingorrestart) {
-		dp.Attributes().PutBool("splunk.rollingorrestart", splunkRollingorrestartAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerRollingrestartStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkIndexerRollingrestartStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerRollingrestartStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerRollingrestartStatus(cfg SplunkIndexerRollingrestartStatusMetricConfig) metricSplunkIndexerRollingrestartStatus {
-	m := metricSplunkIndexerRollingrestartStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerRollingrestartStatus)
 }
 
 type metricSplunkIndexerThroughput struct {
@@ -1694,81 +809,22 @@ func (m *metricSplunkIndexerThroughput) init() {
 }
 
 func (m *metricSplunkIndexerThroughput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkIndexerStatusAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerThroughputMetricAttributeKeySplunkIndexerStatus) {
-		dp.Attributes().PutStr("splunk.indexer.status", splunkIndexerStatusAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexerThroughputMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexerThroughput) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexerThroughput) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexerThroughput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexerThroughput(cfg SplunkIndexerThroughputMetricConfig) metricSplunkIndexerThroughput {
-	m := metricSplunkIndexerThroughput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexerThroughput)
 }
 
 type metricSplunkIndexesAvgSize struct {
@@ -1789,81 +845,22 @@ func (m *metricSplunkIndexesAvgSize) init() {
 }
 
 func (m *metricSplunkIndexesAvgSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgSizeMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexesAvgSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexesAvgSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexesAvgSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexesAvgSize(cfg SplunkIndexesAvgSizeMetricConfig) metricSplunkIndexesAvgSize {
-	m := metricSplunkIndexesAvgSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexesAvgSize)
 }
 
 type metricSplunkIndexesAvgUsage struct {
@@ -1884,81 +881,22 @@ func (m *metricSplunkIndexesAvgUsage) init() {
 }
 
 func (m *metricSplunkIndexesAvgUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgUsageMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesAvgUsageMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexesAvgUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexesAvgUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexesAvgUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexesAvgUsage(cfg SplunkIndexesAvgUsageMetricConfig) metricSplunkIndexesAvgUsage {
-	m := metricSplunkIndexesAvgUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexesAvgUsage)
 }
 
 type metricSplunkIndexesBucketCount struct {
@@ -1979,81 +917,22 @@ func (m *metricSplunkIndexesBucketCount) init() {
 }
 
 func (m *metricSplunkIndexesBucketCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesBucketCountMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesBucketCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexesBucketCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexesBucketCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexesBucketCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexesBucketCount(cfg SplunkIndexesBucketCountMetricConfig) metricSplunkIndexesBucketCount {
-	m := metricSplunkIndexesBucketCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexesBucketCount)
 }
 
 type metricSplunkIndexesMedianDataAge struct {
@@ -2074,81 +953,22 @@ func (m *metricSplunkIndexesMedianDataAge) init() {
 }
 
 func (m *metricSplunkIndexesMedianDataAge) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesMedianDataAgeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexesMedianDataAge) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexesMedianDataAge) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexesMedianDataAge) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexesMedianDataAge(cfg SplunkIndexesMedianDataAgeMetricConfig) metricSplunkIndexesMedianDataAge {
-	m := metricSplunkIndexesMedianDataAge{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexesMedianDataAge)
 }
 
 type metricSplunkIndexesSize struct {
@@ -2169,81 +989,22 @@ func (m *metricSplunkIndexesSize) init() {
 }
 
 func (m *metricSplunkIndexesSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesSizeMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIndexesSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIndexesSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIndexesSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIndexesSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIndexesSize(cfg SplunkIndexesSizeMetricConfig) metricSplunkIndexesSize {
-	m := metricSplunkIndexesSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIndexesSize)
 }
 
 type metricSplunkIoAvgIops struct {
@@ -2264,81 +1025,22 @@ func (m *metricSplunkIoAvgIops) init() {
 }
 
 func (m *metricSplunkIoAvgIops) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkIoAvgIopsMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkIoAvgIopsMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkIoAvgIops) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkIoAvgIops) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkIoAvgIops) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkIoAvgIops(cfg SplunkIoAvgIopsMetricConfig) metricSplunkIoAvgIops {
-	m := metricSplunkIoAvgIops{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkIoAvgIops)
 }
 
 type metricSplunkKvstoreBackupStatus struct {
@@ -2359,81 +1061,22 @@ func (m *metricSplunkKvstoreBackupStatus) init() {
 }
 
 func (m *metricSplunkKvstoreBackupStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreBackupStatusMetricAttributeKeySplunkKvstoreStatusValue) {
-		dp.Attributes().PutStr("splunk.kvstore.status.value", splunkKvstoreStatusValueAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreBackupStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkKvstoreBackupStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkKvstoreBackupStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkKvstoreBackupStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkKvstoreBackupStatus(cfg SplunkKvstoreBackupStatusMetricConfig) metricSplunkKvstoreBackupStatus {
-	m := metricSplunkKvstoreBackupStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkKvstoreBackupStatus)
 }
 
 type metricSplunkKvstoreReplicationStatus struct {
@@ -2454,81 +1097,22 @@ func (m *metricSplunkKvstoreReplicationStatus) init() {
 }
 
 func (m *metricSplunkKvstoreReplicationStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkKvstoreStatusValue) {
-		dp.Attributes().PutStr("splunk.kvstore.status.value", splunkKvstoreStatusValueAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreReplicationStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkKvstoreReplicationStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkKvstoreReplicationStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkKvstoreReplicationStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkKvstoreReplicationStatus(cfg SplunkKvstoreReplicationStatusMetricConfig) metricSplunkKvstoreReplicationStatus {
-	m := metricSplunkKvstoreReplicationStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkKvstoreReplicationStatus)
 }
 
 type metricSplunkKvstoreStatus struct {
@@ -2549,87 +1133,22 @@ func (m *metricSplunkKvstoreStatus) init() {
 }
 
 func (m *metricSplunkKvstoreStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkKvstoreStorageEngineAttributeValue string, splunkKvstoreExternalAttributeValue string, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStorageEngine) {
-		dp.Attributes().PutStr("splunk.kvstore.storage.engine", splunkKvstoreStorageEngineAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreExternal) {
-		dp.Attributes().PutStr("splunk.kvstore.external", splunkKvstoreExternalAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreStatusMetricAttributeKeySplunkKvstoreStatusValue) {
-		dp.Attributes().PutStr("splunk.kvstore.status.value", splunkKvstoreStatusValueAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkKvstoreStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkKvstoreStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkKvstoreStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkKvstoreStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkKvstoreStatus(cfg SplunkKvstoreStatusMetricConfig) metricSplunkKvstoreStatus {
-	m := metricSplunkKvstoreStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkKvstoreStatus)
 }
 
 type metricSplunkLicenseExpirationSecondsRemaining struct {
@@ -2650,87 +1169,25 @@ func (m *metricSplunkLicenseExpirationSecondsRemaining) init() {
 }
 
 func (m *metricSplunkLicenseExpirationSecondsRemaining) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkLicenseStatusAttributeValue string, splunkLicenseLabelAttributeValue string, splunkLicenseTypeAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseStatus) {
-		dp.Attributes().PutStr("splunk.license.status", splunkLicenseStatusAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseLabel) {
-		dp.Attributes().PutStr("splunk.license.label", splunkLicenseLabelAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkLicenseType) {
-		dp.Attributes().PutStr("splunk.license.type", splunkLicenseTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseExpirationSecondsRemainingMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkLicenseExpirationSecondsRemaining) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkLicenseExpirationSecondsRemaining) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkLicenseExpirationSecondsRemaining(cfg SplunkLicenseExpirationSecondsRemainingMetricConfig) metricSplunkLicenseExpirationSecondsRemaining {
-	m := metricSplunkLicenseExpirationSecondsRemaining{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkLicenseExpirationSecondsRemaining)
 }
 
 type metricSplunkLicenseIndexUsage struct {
@@ -2751,81 +1208,22 @@ func (m *metricSplunkLicenseIndexUsage) init() {
 }
 
 func (m *metricSplunkLicenseIndexUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseIndexUsageMetricAttributeKeySplunkIndexName) {
-		dp.Attributes().PutStr("splunk.index.name", splunkIndexNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkLicenseIndexUsageMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkLicenseIndexUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkLicenseIndexUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkLicenseIndexUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkLicenseIndexUsage(cfg SplunkLicenseIndexUsageMetricConfig) metricSplunkLicenseIndexUsage {
-	m := metricSplunkLicenseIndexUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkLicenseIndexUsage)
 }
 
 type metricSplunkParseQueueRatio struct {
@@ -2846,81 +1244,22 @@ func (m *metricSplunkParseQueueRatio) init() {
 }
 
 func (m *metricSplunkParseQueueRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkParseQueueRatioMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkParseQueueRatioMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkParseQueueRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkParseQueueRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkParseQueueRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkParseQueueRatio(cfg SplunkParseQueueRatioMetricConfig) metricSplunkParseQueueRatio {
-	m := metricSplunkParseQueueRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkParseQueueRatio)
 }
 
 type metricSplunkPipelineSetCount struct {
@@ -2941,81 +1280,22 @@ func (m *metricSplunkPipelineSetCount) init() {
 }
 
 func (m *metricSplunkPipelineSetCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkPipelineSetCountMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkPipelineSetCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkPipelineSetCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkPipelineSetCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkPipelineSetCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkPipelineSetCount(cfg SplunkPipelineSetCountMetricConfig) metricSplunkPipelineSetCount {
-	m := metricSplunkPipelineSetCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkPipelineSetCount)
 }
 
 type metricSplunkSchedulerAvgExecutionLatency struct {
@@ -3036,81 +1316,25 @@ func (m *metricSplunkSchedulerAvgExecutionLatency) init() {
 }
 
 func (m *metricSplunkSchedulerAvgExecutionLatency) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgExecutionLatencyMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkSchedulerAvgExecutionLatency) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSchedulerAvgExecutionLatency) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSchedulerAvgExecutionLatency(cfg SplunkSchedulerAvgExecutionLatencyMetricConfig) metricSplunkSchedulerAvgExecutionLatency {
-	m := metricSplunkSchedulerAvgExecutionLatency{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSchedulerAvgExecutionLatency)
 }
 
 type metricSplunkSchedulerAvgRunTime struct {
@@ -3131,81 +1355,22 @@ func (m *metricSplunkSchedulerAvgRunTime) init() {
 }
 
 func (m *metricSplunkSchedulerAvgRunTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerAvgRunTimeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSchedulerAvgRunTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSchedulerAvgRunTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSchedulerAvgRunTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSchedulerAvgRunTime(cfg SplunkSchedulerAvgRunTimeMetricConfig) metricSplunkSchedulerAvgRunTime {
-	m := metricSplunkSchedulerAvgRunTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSchedulerAvgRunTime)
 }
 
 type metricSplunkSchedulerCompletionRatio struct {
@@ -3226,81 +1391,22 @@ func (m *metricSplunkSchedulerCompletionRatio) init() {
 }
 
 func (m *metricSplunkSchedulerCompletionRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSchedulerCompletionRatioMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSchedulerCompletionRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSchedulerCompletionRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSchedulerCompletionRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSchedulerCompletionRatio(cfg SplunkSchedulerCompletionRatioMetricConfig) metricSplunkSchedulerCompletionRatio {
-	m := metricSplunkSchedulerCompletionRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSchedulerCompletionRatio)
 }
 
 type metricSplunkSearchDuration struct {
@@ -3321,78 +1427,22 @@ func (m *metricSplunkSearchDuration) init() {
 }
 
 func (m *metricSplunkSearchDuration) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchDurationMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchDurationMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSearchDuration) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSearchDuration) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSearchDuration) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSearchDuration(cfg SplunkSearchDurationMetricConfig) metricSplunkSearchDuration {
-	m := metricSplunkSearchDuration{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSearchDuration)
 }
 
 type metricSplunkSearchInitiation struct {
@@ -3413,78 +1463,22 @@ func (m *metricSplunkSearchInitiation) init() {
 }
 
 func (m *metricSplunkSearchInitiation) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchInitiationMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchInitiationMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSearchInitiation) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSearchInitiation) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSearchInitiation) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSearchInitiation(cfg SplunkSearchInitiationMetricConfig) metricSplunkSearchInitiation {
-	m := metricSplunkSearchInitiation{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSearchInitiation)
 }
 
 type metricSplunkSearchStatus struct {
@@ -3505,81 +1499,22 @@ func (m *metricSplunkSearchStatus) init() {
 }
 
 func (m *metricSplunkSearchStatus) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkSearchStateAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchStatusMetricAttributeKeySplunkSearchState) {
-		dp.Attributes().PutStr("splunk.search.state", splunkSearchStateAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchStatusMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchStatusMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSearchStatus) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSearchStatus) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSearchStatus) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSearchStatus(cfg SplunkSearchStatusMetricConfig) metricSplunkSearchStatus {
-	m := metricSplunkSearchStatus{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSearchStatus)
 }
 
 type metricSplunkSearchSuccess struct {
@@ -3600,78 +1535,22 @@ func (m *metricSplunkSearchSuccess) init() {
 }
 
 func (m *metricSplunkSearchSuccess) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchSuccessMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkSearchSuccessMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkSearchSuccess) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkSearchSuccess) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkSearchSuccess) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkSearchSuccess(cfg SplunkSearchSuccessMetricConfig) metricSplunkSearchSuccess {
-	m := metricSplunkSearchSuccess{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkSearchSuccess)
 }
 
 type metricSplunkServerIntrospectionQueuesCurrent struct {
@@ -3692,81 +1571,25 @@ func (m *metricSplunkServerIntrospectionQueuesCurrent) init() {
 }
 
 func (m *metricSplunkServerIntrospectionQueuesCurrent) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkQueueNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkQueueName) {
-		dp.Attributes().PutStr("splunk.queue.name", splunkQueueNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerIntrospectionQueuesCurrent) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerIntrospectionQueuesCurrent) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerIntrospectionQueuesCurrent(cfg SplunkServerIntrospectionQueuesCurrentMetricConfig) metricSplunkServerIntrospectionQueuesCurrent {
-	m := metricSplunkServerIntrospectionQueuesCurrent{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerIntrospectionQueuesCurrent)
 }
 
 type metricSplunkServerIntrospectionQueuesCurrentBytes struct {
@@ -3787,81 +1610,25 @@ func (m *metricSplunkServerIntrospectionQueuesCurrentBytes) init() {
 }
 
 func (m *metricSplunkServerIntrospectionQueuesCurrentBytes) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkQueueNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkQueueName) {
-		dp.Attributes().PutStr("splunk.queue.name", splunkQueueNameAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerIntrospectionQueuesCurrentBytesMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerIntrospectionQueuesCurrentBytes) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerIntrospectionQueuesCurrentBytes) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerIntrospectionQueuesCurrentBytes(cfg SplunkServerIntrospectionQueuesCurrentBytesMetricConfig) metricSplunkServerIntrospectionQueuesCurrentBytes {
-	m := metricSplunkServerIntrospectionQueuesCurrentBytes{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerIntrospectionQueuesCurrentBytes)
 }
 
 type metricSplunkServerSearchartifactsAdhoc struct {
@@ -3882,81 +1649,25 @@ func (m *metricSplunkServerSearchartifactsAdhoc) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsAdhoc) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsAdhoc) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsAdhoc) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsAdhoc(cfg SplunkServerSearchartifactsAdhocMetricConfig) metricSplunkServerSearchartifactsAdhoc {
-	m := metricSplunkServerSearchartifactsAdhoc{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsAdhoc)
 }
 
 type metricSplunkServerSearchartifactsAdhocSize struct {
@@ -3977,81 +1688,25 @@ func (m *metricSplunkServerSearchartifactsAdhocSize) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsAdhocSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsAdhocSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsAdhocSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsAdhocSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsAdhocSize(cfg SplunkServerSearchartifactsAdhocSizeMetricConfig) metricSplunkServerSearchartifactsAdhocSize {
-	m := metricSplunkServerSearchartifactsAdhocSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsAdhocSize)
 }
 
 type metricSplunkServerSearchartifactsCompleted struct {
@@ -4072,81 +1727,25 @@ func (m *metricSplunkServerSearchartifactsCompleted) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsCompleted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsCompleted) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsCompleted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsCompleted(cfg SplunkServerSearchartifactsCompletedMetricConfig) metricSplunkServerSearchartifactsCompleted {
-	m := metricSplunkServerSearchartifactsCompleted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsCompleted)
 }
 
 type metricSplunkServerSearchartifactsCompletedSize struct {
@@ -4167,81 +1766,25 @@ func (m *metricSplunkServerSearchartifactsCompletedSize) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsCompletedSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsCompletedSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsCompletedSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsCompletedSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsCompletedSize(cfg SplunkServerSearchartifactsCompletedSizeMetricConfig) metricSplunkServerSearchartifactsCompletedSize {
-	m := metricSplunkServerSearchartifactsCompletedSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsCompletedSize)
 }
 
 type metricSplunkServerSearchartifactsIncomplete struct {
@@ -4262,81 +1805,25 @@ func (m *metricSplunkServerSearchartifactsIncomplete) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsIncomplete) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsIncomplete) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsIncomplete) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsIncomplete(cfg SplunkServerSearchartifactsIncompleteMetricConfig) metricSplunkServerSearchartifactsIncomplete {
-	m := metricSplunkServerSearchartifactsIncomplete{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsIncomplete)
 }
 
 type metricSplunkServerSearchartifactsIncompleteSize struct {
@@ -4357,81 +1844,25 @@ func (m *metricSplunkServerSearchartifactsIncompleteSize) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsIncompleteSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsIncompleteSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsIncompleteSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsIncompleteSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsIncompleteSize(cfg SplunkServerSearchartifactsIncompleteSizeMetricConfig) metricSplunkServerSearchartifactsIncompleteSize {
-	m := metricSplunkServerSearchartifactsIncompleteSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsIncompleteSize)
 }
 
 type metricSplunkServerSearchartifactsInvalid struct {
@@ -4452,81 +1883,25 @@ func (m *metricSplunkServerSearchartifactsInvalid) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsInvalid) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsInvalidMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsInvalid) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsInvalid) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsInvalid(cfg SplunkServerSearchartifactsInvalidMetricConfig) metricSplunkServerSearchartifactsInvalid {
-	m := metricSplunkServerSearchartifactsInvalid{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsInvalid)
 }
 
 type metricSplunkServerSearchartifactsJobCacheCount struct {
@@ -4547,81 +1922,25 @@ func (m *metricSplunkServerSearchartifactsJobCacheCount) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsJobCacheCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheCountMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsJobCacheCount) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsJobCacheCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsJobCacheCount(cfg SplunkServerSearchartifactsJobCacheCountMetricConfig) metricSplunkServerSearchartifactsJobCacheCount {
-	m := metricSplunkServerSearchartifactsJobCacheCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsJobCacheCount)
 }
 
 type metricSplunkServerSearchartifactsJobCacheSize struct {
@@ -4642,84 +1961,25 @@ func (m *metricSplunkServerSearchartifactsJobCacheSize) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsJobCacheSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSearchartifactsCacheTypeAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSearchartifactsCacheType) {
-		dp.Attributes().PutStr("splunk.searchartifacts.cache.type", splunkSearchartifactsCacheTypeAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsJobCacheSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsJobCacheSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsJobCacheSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsJobCacheSize(cfg SplunkServerSearchartifactsJobCacheSizeMetricConfig) metricSplunkServerSearchartifactsJobCacheSize {
-	m := metricSplunkServerSearchartifactsJobCacheSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsJobCacheSize)
 }
 
 type metricSplunkServerSearchartifactsSavedsearches struct {
@@ -4740,81 +2000,25 @@ func (m *metricSplunkServerSearchartifactsSavedsearches) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsSavedsearches) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsSavedsearchesMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsSavedsearches) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsSavedsearches) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsSavedsearches(cfg SplunkServerSearchartifactsSavedsearchesMetricConfig) metricSplunkServerSearchartifactsSavedsearches {
-	m := metricSplunkServerSearchartifactsSavedsearches{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsSavedsearches)
 }
 
 type metricSplunkServerSearchartifactsScheduled struct {
@@ -4835,81 +2039,25 @@ func (m *metricSplunkServerSearchartifactsScheduled) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsScheduled) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsScheduled) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsScheduled) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsScheduled(cfg SplunkServerSearchartifactsScheduledMetricConfig) metricSplunkServerSearchartifactsScheduled {
-	m := metricSplunkServerSearchartifactsScheduled{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsScheduled)
 }
 
 type metricSplunkServerSearchartifactsScheduledSize struct {
@@ -4930,81 +2078,25 @@ func (m *metricSplunkServerSearchartifactsScheduledSize) init() {
 }
 
 func (m *metricSplunkServerSearchartifactsScheduledSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkServerSearchartifactsScheduledSizeMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricSplunkServerSearchartifactsScheduledSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkServerSearchartifactsScheduledSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetIntValue(m.data.Gauge().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkServerSearchartifactsScheduledSize(cfg SplunkServerSearchartifactsScheduledSizeMetricConfig) metricSplunkServerSearchartifactsScheduledSize {
-	m := metricSplunkServerSearchartifactsScheduledSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkServerSearchartifactsScheduledSize)
 }
 
 type metricSplunkTypingQueueRatio struct {
@@ -5025,81 +2117,22 @@ func (m *metricSplunkTypingQueueRatio) init() {
 }
 
 func (m *metricSplunkTypingQueueRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, SplunkTypingQueueRatioMetricAttributeKeySplunkHost) {
-		dp.Attributes().PutStr("splunk.host", splunkHostAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdBuild) {
-		dp.Attributes().PutStr("splunk.splunkd.build", splunkSplunkdBuildAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, SplunkTypingQueueRatioMetricAttributeKeySplunkSplunkdVersion) {
-		dp.Attributes().PutStr("splunk.splunkd.version", splunkSplunkdVersionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricSplunkTypingQueueRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricSplunkTypingQueueRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricSplunkTypingQueueRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricSplunkTypingQueueRatio(cfg SplunkTypingQueueRatioMetricConfig) metricSplunkTypingQueueRatio {
-	m := metricSplunkTypingQueueRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricSplunkTypingQueueRatio)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -5171,85 +2204,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                              mbc,
-		startTime:                           pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                       pmetric.NewMetrics(),
-		buildInfo:                           settings.BuildInfo,
-		metricSplunkAggregationQueueRatio:   newMetricSplunkAggregationQueueRatio(mbc.Metrics.SplunkAggregationQueueRatio),
-		metricSplunkBucketsSearchableStatus: newMetricSplunkBucketsSearchableStatus(mbc.Metrics.SplunkBucketsSearchableStatus),
-		metricSplunkDataIndexesExtendedBucketCount:        newMetricSplunkDataIndexesExtendedBucketCount(mbc.Metrics.SplunkDataIndexesExtendedBucketCount),
-		metricSplunkDataIndexesExtendedBucketEventCount:   newMetricSplunkDataIndexesExtendedBucketEventCount(mbc.Metrics.SplunkDataIndexesExtendedBucketEventCount),
-		metricSplunkDataIndexesExtendedBucketHotCount:     newMetricSplunkDataIndexesExtendedBucketHotCount(mbc.Metrics.SplunkDataIndexesExtendedBucketHotCount),
-		metricSplunkDataIndexesExtendedBucketWarmCount:    newMetricSplunkDataIndexesExtendedBucketWarmCount(mbc.Metrics.SplunkDataIndexesExtendedBucketWarmCount),
-		metricSplunkDataIndexesExtendedEventCount:         newMetricSplunkDataIndexesExtendedEventCount(mbc.Metrics.SplunkDataIndexesExtendedEventCount),
-		metricSplunkDataIndexesExtendedRawSize:            newMetricSplunkDataIndexesExtendedRawSize(mbc.Metrics.SplunkDataIndexesExtendedRawSize),
-		metricSplunkDataIndexesExtendedTotalSize:          newMetricSplunkDataIndexesExtendedTotalSize(mbc.Metrics.SplunkDataIndexesExtendedTotalSize),
-		metricSplunkHealth:                                newMetricSplunkHealth(mbc.Metrics.SplunkHealth),
-		metricSplunkIndexerAvgRate:                        newMetricSplunkIndexerAvgRate(mbc.Metrics.SplunkIndexerAvgRate),
-		metricSplunkIndexerCPUTime:                        newMetricSplunkIndexerCPUTime(mbc.Metrics.SplunkIndexerCPUTime),
-		metricSplunkIndexerQueueRatio:                     newMetricSplunkIndexerQueueRatio(mbc.Metrics.SplunkIndexerQueueRatio),
-		metricSplunkIndexerRawWriteTime:                   newMetricSplunkIndexerRawWriteTime(mbc.Metrics.SplunkIndexerRawWriteTime),
-		metricSplunkIndexerRollingrestartStatus:           newMetricSplunkIndexerRollingrestartStatus(mbc.Metrics.SplunkIndexerRollingrestartStatus),
-		metricSplunkIndexerThroughput:                     newMetricSplunkIndexerThroughput(mbc.Metrics.SplunkIndexerThroughput),
-		metricSplunkIndexesAvgSize:                        newMetricSplunkIndexesAvgSize(mbc.Metrics.SplunkIndexesAvgSize),
-		metricSplunkIndexesAvgUsage:                       newMetricSplunkIndexesAvgUsage(mbc.Metrics.SplunkIndexesAvgUsage),
-		metricSplunkIndexesBucketCount:                    newMetricSplunkIndexesBucketCount(mbc.Metrics.SplunkIndexesBucketCount),
-		metricSplunkIndexesMedianDataAge:                  newMetricSplunkIndexesMedianDataAge(mbc.Metrics.SplunkIndexesMedianDataAge),
-		metricSplunkIndexesSize:                           newMetricSplunkIndexesSize(mbc.Metrics.SplunkIndexesSize),
-		metricSplunkIoAvgIops:                             newMetricSplunkIoAvgIops(mbc.Metrics.SplunkIoAvgIops),
-		metricSplunkKvstoreBackupStatus:                   newMetricSplunkKvstoreBackupStatus(mbc.Metrics.SplunkKvstoreBackupStatus),
-		metricSplunkKvstoreReplicationStatus:              newMetricSplunkKvstoreReplicationStatus(mbc.Metrics.SplunkKvstoreReplicationStatus),
-		metricSplunkKvstoreStatus:                         newMetricSplunkKvstoreStatus(mbc.Metrics.SplunkKvstoreStatus),
-		metricSplunkLicenseExpirationSecondsRemaining:     newMetricSplunkLicenseExpirationSecondsRemaining(mbc.Metrics.SplunkLicenseExpirationSecondsRemaining),
-		metricSplunkLicenseIndexUsage:                     newMetricSplunkLicenseIndexUsage(mbc.Metrics.SplunkLicenseIndexUsage),
-		metricSplunkParseQueueRatio:                       newMetricSplunkParseQueueRatio(mbc.Metrics.SplunkParseQueueRatio),
-		metricSplunkPipelineSetCount:                      newMetricSplunkPipelineSetCount(mbc.Metrics.SplunkPipelineSetCount),
-		metricSplunkSchedulerAvgExecutionLatency:          newMetricSplunkSchedulerAvgExecutionLatency(mbc.Metrics.SplunkSchedulerAvgExecutionLatency),
-		metricSplunkSchedulerAvgRunTime:                   newMetricSplunkSchedulerAvgRunTime(mbc.Metrics.SplunkSchedulerAvgRunTime),
-		metricSplunkSchedulerCompletionRatio:              newMetricSplunkSchedulerCompletionRatio(mbc.Metrics.SplunkSchedulerCompletionRatio),
-		metricSplunkSearchDuration:                        newMetricSplunkSearchDuration(mbc.Metrics.SplunkSearchDuration),
-		metricSplunkSearchInitiation:                      newMetricSplunkSearchInitiation(mbc.Metrics.SplunkSearchInitiation),
-		metricSplunkSearchStatus:                          newMetricSplunkSearchStatus(mbc.Metrics.SplunkSearchStatus),
-		metricSplunkSearchSuccess:                         newMetricSplunkSearchSuccess(mbc.Metrics.SplunkSearchSuccess),
-		metricSplunkServerIntrospectionQueuesCurrent:      newMetricSplunkServerIntrospectionQueuesCurrent(mbc.Metrics.SplunkServerIntrospectionQueuesCurrent),
-		metricSplunkServerIntrospectionQueuesCurrentBytes: newMetricSplunkServerIntrospectionQueuesCurrentBytes(mbc.Metrics.SplunkServerIntrospectionQueuesCurrentBytes),
-		metricSplunkServerSearchartifactsAdhoc:            newMetricSplunkServerSearchartifactsAdhoc(mbc.Metrics.SplunkServerSearchartifactsAdhoc),
-		metricSplunkServerSearchartifactsAdhocSize:        newMetricSplunkServerSearchartifactsAdhocSize(mbc.Metrics.SplunkServerSearchartifactsAdhocSize),
-		metricSplunkServerSearchartifactsCompleted:        newMetricSplunkServerSearchartifactsCompleted(mbc.Metrics.SplunkServerSearchartifactsCompleted),
-		metricSplunkServerSearchartifactsCompletedSize:    newMetricSplunkServerSearchartifactsCompletedSize(mbc.Metrics.SplunkServerSearchartifactsCompletedSize),
-		metricSplunkServerSearchartifactsIncomplete:       newMetricSplunkServerSearchartifactsIncomplete(mbc.Metrics.SplunkServerSearchartifactsIncomplete),
-		metricSplunkServerSearchartifactsIncompleteSize:   newMetricSplunkServerSearchartifactsIncompleteSize(mbc.Metrics.SplunkServerSearchartifactsIncompleteSize),
-		metricSplunkServerSearchartifactsInvalid:          newMetricSplunkServerSearchartifactsInvalid(mbc.Metrics.SplunkServerSearchartifactsInvalid),
-		metricSplunkServerSearchartifactsJobCacheCount:    newMetricSplunkServerSearchartifactsJobCacheCount(mbc.Metrics.SplunkServerSearchartifactsJobCacheCount),
-		metricSplunkServerSearchartifactsJobCacheSize:     newMetricSplunkServerSearchartifactsJobCacheSize(mbc.Metrics.SplunkServerSearchartifactsJobCacheSize),
-		metricSplunkServerSearchartifactsSavedsearches:    newMetricSplunkServerSearchartifactsSavedsearches(mbc.Metrics.SplunkServerSearchartifactsSavedsearches),
-		metricSplunkServerSearchartifactsScheduled:        newMetricSplunkServerSearchartifactsScheduled(mbc.Metrics.SplunkServerSearchartifactsScheduled),
-		metricSplunkServerSearchartifactsScheduledSize:    newMetricSplunkServerSearchartifactsScheduledSize(mbc.Metrics.SplunkServerSearchartifactsScheduledSize),
-		metricSplunkTypingQueueRatio:                      newMetricSplunkTypingQueueRatio(mbc.Metrics.SplunkTypingQueueRatio),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -5260,35 +2234,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -5297,343 +2259,324 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricSplunkAggregationQueueRatio.emit(ils.Metrics())
-	mb.metricSplunkBucketsSearchableStatus.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedBucketCount.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedBucketEventCount.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedBucketHotCount.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedBucketWarmCount.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedEventCount.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedRawSize.emit(ils.Metrics())
-	mb.metricSplunkDataIndexesExtendedTotalSize.emit(ils.Metrics())
-	mb.metricSplunkHealth.emit(ils.Metrics())
-	mb.metricSplunkIndexerAvgRate.emit(ils.Metrics())
-	mb.metricSplunkIndexerCPUTime.emit(ils.Metrics())
-	mb.metricSplunkIndexerQueueRatio.emit(ils.Metrics())
-	mb.metricSplunkIndexerRawWriteTime.emit(ils.Metrics())
-	mb.metricSplunkIndexerRollingrestartStatus.emit(ils.Metrics())
-	mb.metricSplunkIndexerThroughput.emit(ils.Metrics())
-	mb.metricSplunkIndexesAvgSize.emit(ils.Metrics())
-	mb.metricSplunkIndexesAvgUsage.emit(ils.Metrics())
-	mb.metricSplunkIndexesBucketCount.emit(ils.Metrics())
-	mb.metricSplunkIndexesMedianDataAge.emit(ils.Metrics())
-	mb.metricSplunkIndexesSize.emit(ils.Metrics())
-	mb.metricSplunkIoAvgIops.emit(ils.Metrics())
-	mb.metricSplunkKvstoreBackupStatus.emit(ils.Metrics())
-	mb.metricSplunkKvstoreReplicationStatus.emit(ils.Metrics())
-	mb.metricSplunkKvstoreStatus.emit(ils.Metrics())
-	mb.metricSplunkLicenseExpirationSecondsRemaining.emit(ils.Metrics())
-	mb.metricSplunkLicenseIndexUsage.emit(ils.Metrics())
-	mb.metricSplunkParseQueueRatio.emit(ils.Metrics())
-	mb.metricSplunkPipelineSetCount.emit(ils.Metrics())
-	mb.metricSplunkSchedulerAvgExecutionLatency.emit(ils.Metrics())
-	mb.metricSplunkSchedulerAvgRunTime.emit(ils.Metrics())
-	mb.metricSplunkSchedulerCompletionRatio.emit(ils.Metrics())
-	mb.metricSplunkSearchDuration.emit(ils.Metrics())
-	mb.metricSplunkSearchInitiation.emit(ils.Metrics())
-	mb.metricSplunkSearchStatus.emit(ils.Metrics())
-	mb.metricSplunkSearchSuccess.emit(ils.Metrics())
-	mb.metricSplunkServerIntrospectionQueuesCurrent.emit(ils.Metrics())
-	mb.metricSplunkServerIntrospectionQueuesCurrentBytes.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsAdhoc.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsAdhocSize.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsCompleted.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsCompletedSize.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsIncomplete.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsIncompleteSize.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsInvalid.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsJobCacheCount.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsJobCacheSize.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsSavedsearches.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsScheduled.emit(ils.Metrics())
-	mb.metricSplunkServerSearchartifactsScheduledSize.emit(ils.Metrics())
-	mb.metricSplunkTypingQueueRatio.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordSplunkAggregationQueueRatioDataPoint adds a data point to splunk.aggregation.queue.ratio metric.
 func (mb *MetricsBuilder) RecordSplunkAggregationQueueRatioDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkAggregationQueueRatio.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkBucketsSearchableStatusDataPoint adds a data point to splunk.buckets.searchable.status metric.
 func (mb *MetricsBuilder) RecordSplunkBucketsSearchableStatusDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkIndexerSearchableAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkBucketsSearchableStatus.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkIndexerSearchableAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedBucketCountDataPoint adds a data point to splunk.data.indexes.extended.bucket.count metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedBucketCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedBucketCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedBucketEventCountDataPoint adds a data point to splunk.data.indexes.extended.bucket.event.count metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedBucketEventCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedBucketEventCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkBucketDirAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedBucketHotCountDataPoint adds a data point to splunk.data.indexes.extended.bucket.hot.count metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedBucketHotCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedBucketHotCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkBucketDirAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedBucketWarmCountDataPoint adds a data point to splunk.data.indexes.extended.bucket.warm.count metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedBucketWarmCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkBucketDirAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedBucketWarmCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkBucketDirAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedEventCountDataPoint adds a data point to splunk.data.indexes.extended.event.count metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedEventCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedEventCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedRawSizeDataPoint adds a data point to splunk.data.indexes.extended.raw.size metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedRawSizeDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedRawSize.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkDataIndexesExtendedTotalSizeDataPoint adds a data point to splunk.data.indexes.extended.total.size metric.
 func (mb *MetricsBuilder) RecordSplunkDataIndexesExtendedTotalSizeDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkDataIndexesExtendedTotalSize.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkHealthDataPoint adds a data point to splunk.health metric.
 func (mb *MetricsBuilder) RecordSplunkHealthDataPoint(ts pcommon.Timestamp, val int64, splunkFeatureAttributeValue string, splunkFeatureHealthAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkHealth.recordDataPoint(mb.startTime, ts, val, splunkFeatureAttributeValue, splunkFeatureHealthAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerAvgRateDataPoint adds a data point to splunk.indexer.avg.rate metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerAvgRateDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerAvgRate.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerCPUTimeDataPoint adds a data point to splunk.indexer.cpu.time metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerCPUTimeDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerCPUTime.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerQueueRatioDataPoint adds a data point to splunk.indexer.queue.ratio metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerQueueRatioDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerQueueRatio.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerRawWriteTimeDataPoint adds a data point to splunk.indexer.raw.write.time metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerRawWriteTimeDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerRawWriteTime.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerRollingrestartStatusDataPoint adds a data point to splunk.indexer.rollingrestart.status metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerRollingrestartStatusDataPoint(ts pcommon.Timestamp, val int64, splunkSearchableRestartAttributeValue bool, splunkRollingorrestartAttributeValue bool, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerRollingrestartStatus.recordDataPoint(mb.startTime, ts, val, splunkSearchableRestartAttributeValue, splunkRollingorrestartAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexerThroughputDataPoint adds a data point to splunk.indexer.throughput metric.
 func (mb *MetricsBuilder) RecordSplunkIndexerThroughputDataPoint(ts pcommon.Timestamp, val float64, splunkIndexerStatusAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexerThroughput.recordDataPoint(mb.startTime, ts, val, splunkIndexerStatusAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexesAvgSizeDataPoint adds a data point to splunk.indexes.avg.size metric.
 func (mb *MetricsBuilder) RecordSplunkIndexesAvgSizeDataPoint(ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexesAvgSize.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexesAvgUsageDataPoint adds a data point to splunk.indexes.avg.usage metric.
 func (mb *MetricsBuilder) RecordSplunkIndexesAvgUsageDataPoint(ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexesAvgUsage.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexesBucketCountDataPoint adds a data point to splunk.indexes.bucket.count metric.
 func (mb *MetricsBuilder) RecordSplunkIndexesBucketCountDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexesBucketCount.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexesMedianDataAgeDataPoint adds a data point to splunk.indexes.median.data.age metric.
 func (mb *MetricsBuilder) RecordSplunkIndexesMedianDataAgeDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexesMedianDataAge.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIndexesSizeDataPoint adds a data point to splunk.indexes.size metric.
 func (mb *MetricsBuilder) RecordSplunkIndexesSizeDataPoint(ts pcommon.Timestamp, val float64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIndexesSize.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkIoAvgIopsDataPoint adds a data point to splunk.io.avg.iops metric.
 func (mb *MetricsBuilder) RecordSplunkIoAvgIopsDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkIoAvgIops.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkKvstoreBackupStatusDataPoint adds a data point to splunk.kvstore.backup.status metric.
 func (mb *MetricsBuilder) RecordSplunkKvstoreBackupStatusDataPoint(ts pcommon.Timestamp, val int64, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkKvstoreBackupStatus.recordDataPoint(mb.startTime, ts, val, splunkKvstoreStatusValueAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkKvstoreReplicationStatusDataPoint adds a data point to splunk.kvstore.replication.status metric.
 func (mb *MetricsBuilder) RecordSplunkKvstoreReplicationStatusDataPoint(ts pcommon.Timestamp, val int64, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkKvstoreReplicationStatus.recordDataPoint(mb.startTime, ts, val, splunkKvstoreStatusValueAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkKvstoreStatusDataPoint adds a data point to splunk.kvstore.status metric.
 func (mb *MetricsBuilder) RecordSplunkKvstoreStatusDataPoint(ts pcommon.Timestamp, val int64, splunkKvstoreStorageEngineAttributeValue string, splunkKvstoreExternalAttributeValue string, splunkKvstoreStatusValueAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkKvstoreStatus.recordDataPoint(mb.startTime, ts, val, splunkKvstoreStorageEngineAttributeValue, splunkKvstoreExternalAttributeValue, splunkKvstoreStatusValueAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkLicenseExpirationSecondsRemainingDataPoint adds a data point to splunk.license.expiration.seconds_remaining metric.
 func (mb *MetricsBuilder) RecordSplunkLicenseExpirationSecondsRemainingDataPoint(ts pcommon.Timestamp, val int64, splunkLicenseStatusAttributeValue string, splunkLicenseLabelAttributeValue string, splunkLicenseTypeAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkLicenseExpirationSecondsRemaining.recordDataPoint(mb.startTime, ts, val, splunkLicenseStatusAttributeValue, splunkLicenseLabelAttributeValue, splunkLicenseTypeAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkLicenseIndexUsageDataPoint adds a data point to splunk.license.index.usage metric.
 func (mb *MetricsBuilder) RecordSplunkLicenseIndexUsageDataPoint(ts pcommon.Timestamp, val int64, splunkIndexNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkLicenseIndexUsage.recordDataPoint(mb.startTime, ts, val, splunkIndexNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkParseQueueRatioDataPoint adds a data point to splunk.parse.queue.ratio metric.
 func (mb *MetricsBuilder) RecordSplunkParseQueueRatioDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkParseQueueRatio.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkPipelineSetCountDataPoint adds a data point to splunk.pipeline.set.count metric.
 func (mb *MetricsBuilder) RecordSplunkPipelineSetCountDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkPipelineSetCount.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSchedulerAvgExecutionLatencyDataPoint adds a data point to splunk.scheduler.avg.execution.latency metric.
 func (mb *MetricsBuilder) RecordSplunkSchedulerAvgExecutionLatencyDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSchedulerAvgExecutionLatency.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSchedulerAvgRunTimeDataPoint adds a data point to splunk.scheduler.avg.run.time metric.
 func (mb *MetricsBuilder) RecordSplunkSchedulerAvgRunTimeDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSchedulerAvgRunTime.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSchedulerCompletionRatioDataPoint adds a data point to splunk.scheduler.completion.ratio metric.
 func (mb *MetricsBuilder) RecordSplunkSchedulerCompletionRatioDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSchedulerCompletionRatio.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSearchDurationDataPoint adds a data point to splunk.search.duration metric.
 func (mb *MetricsBuilder) RecordSplunkSearchDurationDataPoint(ts pcommon.Timestamp, val float64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSearchDuration.recordDataPoint(mb.startTime, ts, val, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSearchInitiationDataPoint adds a data point to splunk.search.initiation metric.
 func (mb *MetricsBuilder) RecordSplunkSearchInitiationDataPoint(ts pcommon.Timestamp, val int64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSearchInitiation.recordDataPoint(mb.startTime, ts, val, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSearchStatusDataPoint adds a data point to splunk.search.status metric.
 func (mb *MetricsBuilder) RecordSplunkSearchStatusDataPoint(ts pcommon.Timestamp, val int64, splunkSearchStateAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSearchStatus.recordDataPoint(mb.startTime, ts, val, splunkSearchStateAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkSearchSuccessDataPoint adds a data point to splunk.search.success metric.
 func (mb *MetricsBuilder) RecordSplunkSearchSuccessDataPoint(ts pcommon.Timestamp, val int64, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkSearchSuccess.recordDataPoint(mb.startTime, ts, val, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerIntrospectionQueuesCurrentDataPoint adds a data point to splunk.server.introspection.queues.current metric.
 func (mb *MetricsBuilder) RecordSplunkServerIntrospectionQueuesCurrentDataPoint(ts pcommon.Timestamp, val int64, splunkQueueNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerIntrospectionQueuesCurrent.recordDataPoint(mb.startTime, ts, val, splunkQueueNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerIntrospectionQueuesCurrentBytesDataPoint adds a data point to splunk.server.introspection.queues.current.bytes metric.
 func (mb *MetricsBuilder) RecordSplunkServerIntrospectionQueuesCurrentBytesDataPoint(ts pcommon.Timestamp, val int64, splunkQueueNameAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerIntrospectionQueuesCurrentBytes.recordDataPoint(mb.startTime, ts, val, splunkQueueNameAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsAdhocDataPoint adds a data point to splunk.server.searchartifacts.adhoc metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsAdhocDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsAdhoc.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsAdhocSizeDataPoint adds a data point to splunk.server.searchartifacts.adhoc.size metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsAdhocSizeDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsAdhocSize.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsCompletedDataPoint adds a data point to splunk.server.searchartifacts.completed metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsCompletedDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsCompleted.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsCompletedSizeDataPoint adds a data point to splunk.server.searchartifacts.completed.size metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsCompletedSizeDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsCompletedSize.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsIncompleteDataPoint adds a data point to splunk.server.searchartifacts.incomplete metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsIncompleteDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsIncomplete.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsIncompleteSizeDataPoint adds a data point to splunk.server.searchartifacts.incomplete.size metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsIncompleteSizeDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsIncompleteSize.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsInvalidDataPoint adds a data point to splunk.server.searchartifacts.invalid metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsInvalidDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsInvalid.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsJobCacheCountDataPoint adds a data point to splunk.server.searchartifacts.job.cache.count metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsJobCacheCountDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsJobCacheCount.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsJobCacheSizeDataPoint adds a data point to splunk.server.searchartifacts.job.cache.size metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsJobCacheSizeDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSearchartifactsCacheTypeAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsJobCacheSize.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSearchartifactsCacheTypeAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsSavedsearchesDataPoint adds a data point to splunk.server.searchartifacts.savedsearches metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsSavedsearchesDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsSavedsearches.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsScheduledDataPoint adds a data point to splunk.server.searchartifacts.scheduled metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsScheduledDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsScheduled.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkServerSearchartifactsScheduledSizeDataPoint adds a data point to splunk.server.searchartifacts.scheduled.size metric.
 func (mb *MetricsBuilder) RecordSplunkServerSearchartifactsScheduledSizeDataPoint(ts pcommon.Timestamp, val int64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkServerSearchartifactsScheduledSize.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordSplunkTypingQueueRatioDataPoint adds a data point to splunk.typing.queue.ratio metric.
 func (mb *MetricsBuilder) RecordSplunkTypingQueueRatioDataPoint(ts pcommon.Timestamp, val float64, splunkHostAttributeValue string, splunkSplunkdBuildAttributeValue string, splunkSplunkdVersionAttributeValue string) {
-	mb.metricSplunkTypingQueueRatio.recordDataPoint(mb.startTime, ts, val, splunkHostAttributeValue, splunkSplunkdBuildAttributeValue, splunkSplunkdVersionAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

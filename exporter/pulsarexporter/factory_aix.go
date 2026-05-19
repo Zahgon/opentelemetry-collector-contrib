@@ -9,6 +9,4 @@ package pulsarexporter // import "github.com/open-telemetry/opentelemetry-collec
 import "go.opentelemetry.io/collector/exporter"
 
 // NewFactory creates Pulsar exporter factory.
-func NewFactory() exporter.Factory {
-	panic("AIX is not supported")
-}
+func NewFactory() exporter.Factory { _ = "STUB: not implemented"; return *new(exporter.Factory) }

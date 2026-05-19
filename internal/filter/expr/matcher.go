@@ -17,48 +17,28 @@ type notMatcher[K any] struct {
 }
 
 func (nm notMatcher[K]) Eval(ctx context.Context, tCtx K) (bool, error) {
-	ret, err := nm.matcher.Eval(ctx, tCtx)
-	return !ret, err
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
-func Not[K any](matcher BoolExpr[K]) BoolExpr[K] {
-	return notMatcher[K]{matcher: matcher}
-}
+func Not[K any](matcher BoolExpr[K]) BoolExpr[K] { _ = "STUB: not implemented"; return nil }
 
 type alwaysTrueMatcher[K any] struct{}
 
 func (alwaysTrueMatcher[K]) Eval(context.Context, K) (bool, error) {
-	return true, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
-func AlwaysTrue[K any]() BoolExpr[K] {
-	return alwaysTrueMatcher[K]{}
-}
+func AlwaysTrue[K any]() BoolExpr[K] { _ = "STUB: not implemented"; return nil }
 
 type orMatcher[K any] struct {
 	matchers []BoolExpr[K]
 }
 
 func (om orMatcher[K]) Eval(ctx context.Context, tCtx K) (bool, error) {
-	for i := range om.matchers {
-		ret, err := om.matchers[i].Eval(ctx, tCtx)
-		if err != nil {
-			return false, err
-		}
-		if ret {
-			return true, nil
-		}
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }
 
-func Or[K any](matchers ...BoolExpr[K]) BoolExpr[K] {
-	switch len(matchers) {
-	case 0:
-		return nil
-	case 1:
-		return matchers[0]
-	default:
-		return orMatcher[K]{matchers: matchers}
-	}
-}
+func Or[K any](matchers ...BoolExpr[K]) BoolExpr[K] { _ = "STUB: not implemented"; return nil }

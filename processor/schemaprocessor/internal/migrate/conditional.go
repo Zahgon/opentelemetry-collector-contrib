@@ -22,34 +22,23 @@ type ConditionalAttributeSet struct {
 type ConditionalAttributeSetSlice []*ConditionalAttributeSet
 
 func NewConditionalAttributeSet[Match ValueMatch](mappings map[string]string, copyAttributes bool, matches ...Match) ConditionalAttributeSet {
-	on := make(map[string]struct{})
-	for _, m := range matches {
-		on[string(m)] = struct{}{}
-	}
-	return ConditionalAttributeSet{
-		on:    on,
-		attrs: NewAttributeChangeSet(mappings, copyAttributes),
-	}
+	_ = "STUB: not implemented"
+	return *new(ConditionalAttributeSet)
 }
 
-func (ConditionalAttributeSet) IsMigrator() {}
+func (ConditionalAttributeSet) IsMigrator() {
+	_ = "STUB: not implemented"
 
-// Do applies the attribute changes specified in the constructor if any of the values in values matches the matches specified in the constructor.
+	// Do applies the attribute changes specified in the constructor if any of the values in values matches the matches specified in the constructor.
+	return
+}
+
 func (ca *ConditionalAttributeSet) Do(ss StateSelector, attrs pcommon.Map, values ...string) (errs error) {
-	if ca.check(values...) {
-		errs = ca.attrs.Do(ss, attrs)
-	}
-	return errs
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ca *ConditionalAttributeSet) check(values ...string) bool {
-	if len(ca.on) == 0 {
-		return true
-	}
-	for _, v := range values {
-		if _, ok := (ca.on)[v]; !ok {
-			return false
-		}
-	}
-	return true
+	_ = "STUB: not implemented"
+	return false
 }

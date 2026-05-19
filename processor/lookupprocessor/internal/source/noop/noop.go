@@ -14,20 +14,16 @@ const sourceType = "noop"
 
 type Config struct{}
 
-func (*Config) Validate() error {
-	return nil
-}
+func (*Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func NewFactory() lookupsource.SourceFactory {
-	return lookupsource.NewSourceFactory(
-		sourceType,
-		createDefaultConfig,
-		createSource,
-	)
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceFactory)
 }
 
 func createDefaultConfig() lookupsource.SourceConfig {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(lookupsource.SourceConfig)
 }
 
 func createSource(
@@ -35,15 +31,15 @@ func createSource(
 	_ lookupsource.CreateSettings,
 	_ lookupsource.SourceConfig,
 ) (lookupsource.Source, error) {
-	return lookupsource.NewSource(
-		noopLookup,
-		func() string { return sourceType },
-		nil, // no start needed
-		nil, // no shutdown needed
-	), nil
+	_ = "STUB: not implemented"
+	return *new(lookupsource.Source), nil
 }
+
+// no start needed
+// no shutdown needed
 
 // noopLookup always returns not found.
 func noopLookup(_ context.Context, _ string) (any, bool, error) {
-	return nil, false, nil
+	_ = "STUB: not implemented"
+	return *new(any), false, nil
 }

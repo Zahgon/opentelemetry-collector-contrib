@@ -6,16 +6,13 @@ package lru // import "github.com/open-telemetry/opentelemetry-collector-contrib
 import (
 	"time"
 
-	"github.com/cespare/xxhash/v2"
 	"github.com/elastic/go-freelru"
 	"go.opentelemetry.io/ebpf-profiler/libpf/xsync"
 )
 
 type void struct{}
 
-func stringHashFn(s string) uint32 {
-	return uint32(xxhash.Sum64String(s))
-}
+func stringHashFn(s string) uint32 { _ = "STUB: not implemented"; return 0 }
 
 // LockedLRUSet is the interface provided to the LRUSet once a lock has been
 // acquired.
@@ -33,22 +30,11 @@ type LRUSet struct {
 	syncMu *xsync.RWMutex[*freelru.LRU[string, void]]
 }
 
-func (l *LRUSet) WithLock(fn func(LockedLRUSet) error) error {
-	lru := l.syncMu.WLock()
-	defer l.syncMu.WUnlock(&lru)
-
-	return fn(lockedLRUSet{*lru})
-}
+func (l *LRUSet) WithLock(fn func(LockedLRUSet) error) error { _ = "STUB: not implemented"; return nil }
 
 func NewLRUSet(size uint32, rollover time.Duration) (*LRUSet, error) {
-	lru, err := freelru.New[string, void](size, stringHashFn)
-	if err != nil {
-		return nil, err
-	}
-	lru.SetLifetime(rollover)
-
-	syncMu := xsync.NewRWMutex(lru)
-	return &LRUSet{syncMu: &syncMu}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type lockedLRUSet struct {
@@ -56,9 +42,6 @@ type lockedLRUSet struct {
 }
 
 func (l lockedLRUSet) CheckAndAdd(entry string) (excluded bool) {
-	if _, exclude := (l.lru).Get(entry); exclude {
-		return true
-	}
-	(l.lru).Add(entry, void{})
+	_ = "STUB: not implemented"
 	return false
 }

@@ -5,26 +5,15 @@ package skywalkingreceiver // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"net"
 	"net/http"
 	"sync"
 
-	"github.com/gorilla/mux"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/component/componentstatus"
 	"go.opentelemetry.io/collector/config/configgrpc"
 	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.uber.org/multierr"
 	"google.golang.org/grpc"
-	cds "skywalking.apache.org/repo/goapi/collect/agent/configuration/v3"
-	event "skywalking.apache.org/repo/goapi/collect/event/v3"
-	v3 "skywalking.apache.org/repo/goapi/collect/language/agent/v3"
-	profile "skywalking.apache.org/repo/goapi/collect/language/profile/v3"
-	management "skywalking.apache.org/repo/goapi/collect/management/v3"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/skywalkingreceiver/internal/metrics"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/skywalkingreceiver/internal/trace"
@@ -63,128 +52,36 @@ func newSkywalkingReceiver(
 	config *configuration,
 	set receiver.Settings,
 ) *swReceiver {
-	return &swReceiver{
-		config:   config,
-		settings: set,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // registerTraceConsumer register a TracesReceiver that receives trace
 func (sr *swReceiver) registerTraceConsumer(tc consumer.Traces) error {
-	var err error
-	sr.traceReceiver, err = trace.NewReceiver(tc, sr.settings)
-	if err != nil {
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // registerTraceConsumer register a TracesReceiver that receives trace
 func (sr *swReceiver) registerMetricsConsumer(mc consumer.Metrics) error {
-	var err error
-	sr.metricsReceiver, err = metrics.NewReceiver(mc, sr.settings)
-	if err != nil {
-		return err
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (sr *swReceiver) collectorGRPCAddr() string {
-	var port int
-	if sr.config != nil {
-		port = sr.config.CollectorGRPCPort
-	}
-	return fmt.Sprintf(":%d", port)
-}
+func (sr *swReceiver) collectorGRPCAddr() string { _ = "STUB: not implemented"; return "" }
 
-func (sr *swReceiver) collectorGRPCEnabled() bool {
-	return sr.config != nil && sr.config.CollectorGRPCPort > 0
-}
+func (sr *swReceiver) collectorGRPCEnabled() bool { _ = "STUB: not implemented"; return false }
 
-func (sr *swReceiver) collectorHTTPEnabled() bool {
-	return sr.config != nil && sr.config.CollectorHTTPPort > 0
-}
+func (sr *swReceiver) collectorHTTPEnabled() bool { _ = "STUB: not implemented"; return false }
 
 func (sr *swReceiver) Start(_ context.Context, host component.Host) error {
-	return sr.startCollector(host)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (sr *swReceiver) Shutdown(ctx context.Context) error {
-	var errs error
-
-	if sr.collectorServer != nil {
-		if cerr := sr.collectorServer.Shutdown(ctx); cerr != nil {
-			errs = multierr.Append(errs, cerr)
-		}
-	}
-	if sr.grpc != nil {
-		sr.grpc.GracefulStop()
-	}
-
-	sr.goroutines.Wait()
-	return errs
-}
+func (sr *swReceiver) Shutdown(ctx context.Context) error { _ = "STUB: not implemented"; return nil }
 
 func (sr *swReceiver) startCollector(host component.Host) error {
-	if !sr.collectorGRPCEnabled() && !sr.collectorHTTPEnabled() {
-		return nil
-	}
-
-	ctx := context.Background()
-
-	if sr.collectorHTTPEnabled() {
-		cln, cerr := sr.config.CollectorHTTPSettings.ToListener(ctx)
-		if cerr != nil {
-			return fmt.Errorf("failed to bind to Collector address %q: %w",
-				sr.config.CollectorHTTPSettings.NetAddr.Endpoint, cerr)
-		}
-
-		nr := mux.NewRouter()
-		nr.HandleFunc("/v3/segments", sr.traceReceiver.HTTPHandler).Methods(http.MethodPost)
-		sr.collectorServer, cerr = sr.config.CollectorHTTPSettings.ToServer(ctx, host.GetExtensions(), sr.settings.TelemetrySettings, nr)
-		if cerr != nil {
-			return cerr
-		}
-
-		sr.goroutines.Go(func() {
-			if errHTTP := sr.collectorServer.Serve(cln); !errors.Is(errHTTP, http.ErrServerClosed) && errHTTP != nil {
-				componentstatus.ReportStatus(host, componentstatus.NewFatalErrorEvent(errHTTP))
-			}
-		})
-	}
-
-	if sr.collectorGRPCEnabled() {
-		var err error
-		sr.grpc, err = sr.config.CollectorGRPCServerSettings.ToServer(ctx, host.GetExtensions(), sr.settings.TelemetrySettings)
-		if err != nil {
-			return fmt.Errorf("failed to build the options for the Skywalking gRPC Collector: %w", err)
-		}
-		gaddr := sr.collectorGRPCAddr()
-		gln, gerr := net.Listen("tcp", gaddr)
-		if gerr != nil {
-			return fmt.Errorf("failed to bind to gRPC address %q: %w", gaddr, gerr)
-		}
-		if sr.traceReceiver != nil {
-			v3.RegisterTraceSegmentReportServiceServer(sr.grpc, sr.traceReceiver)
-		}
-		if sr.metricsReceiver != nil {
-			v3.RegisterJVMMetricReportServiceServer(sr.grpc, sr.metricsReceiver)
-		}
-		sr.dummyReportService = &dummyReportService{}
-		management.RegisterManagementServiceServer(sr.grpc, sr.dummyReportService)
-		cds.RegisterConfigurationDiscoveryServiceServer(sr.grpc, sr.dummyReportService)
-		event.RegisterEventServiceServer(sr.grpc, &eventService{})
-		profile.RegisterProfileTaskServer(sr.grpc, sr.dummyReportService)
-		v3.RegisterMeterReportServiceServer(sr.grpc, &meterService{})
-		v3.RegisterCLRMetricReportServiceServer(sr.grpc, &clrService{})
-		v3.RegisterBrowserPerfServiceServer(sr.grpc, sr.dummyReportService)
-
-		sr.goroutines.Go(func() {
-			if errGrpc := sr.grpc.Serve(gln); !errors.Is(errGrpc, grpc.ErrServerStopped) && errGrpc != nil {
-				componentstatus.ReportStatus(host, componentstatus.NewFatalErrorEvent(errGrpc))
-			}
-		})
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

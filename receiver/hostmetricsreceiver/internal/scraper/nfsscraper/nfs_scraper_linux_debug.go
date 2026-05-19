@@ -5,11 +5,4 @@
 
 package nfsscraper // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/nfsscraper"
 
-import (
-	"fmt"
-	"os"
-)
-
-func debugLine(prefix, line string) {
-	fmt.Fprintf(os.Stderr, "%s: %s\n", prefix, line)
-}
+func debugLine(prefix, line string) { _ = "STUB: not implemented"; return }

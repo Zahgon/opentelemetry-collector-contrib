@@ -5,15 +5,10 @@ package collectdreceiver // import "github.com/open-telemetry/opentelemetry-coll
 
 import (
 	"context"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/collectdreceiver/internal/metadata"
 )
 
 // This file implements factory for CollectD receiver.
@@ -24,22 +19,11 @@ const (
 )
 
 // NewFactory creates a factory for collectd receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultBindEndpoint
-	return &Config{
-		ServerConfig: confighttp.ServerConfig{NetAddr: netAddr},
-		Timeout:      30 * time.Second,
-		Encoding:     defaultEncodingFormat,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -48,6 +32,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	c := cfg.(*Config)
-	return newCollectdReceiver(cs.Logger, c, c.AttributesPrefix, nextConsumer, cs)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

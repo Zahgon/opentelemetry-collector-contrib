@@ -5,38 +5,17 @@ package huaweicloudcesreceiver // import "github.com/open-telemetry/opentelemetr
 
 import (
 	"context"
-	"time"
 
-	"github.com/cenkalti/backoff/v4"
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/huaweicloudcesreceiver/internal/metadata"
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		BackOffConfig: configretry.BackOffConfig{
-			Enabled:             true,
-			InitialInterval:     100 * time.Millisecond,
-			MaxInterval:         time.Second,
-			MaxElapsedTime:      15 * time.Second,
-			RandomizationFactor: backoff.DefaultRandomizationFactor,
-			Multiplier:          backoff.DefaultMultiplier,
-		},
-		huaweiSessionConfig: huaweiSessionConfig{
-			NoVerifySSL: false,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -45,5 +24,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	next consumer.Metrics,
 ) (receiver.Metrics, error) {
-	return newHuaweiCloudCesReceiver(params, cfg.(*Config), next), nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

@@ -7,54 +7,33 @@ package redactionprocessor // import "github.com/open-telemetry/opentelemetry-co
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-	"go.opentelemetry.io/collector/processor/processorhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/redactionprocessor/internal/metadata"
 )
 
 // NewFactory creates a factory for the redaction processor.
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithTraces(createTracesProcessor, metadata.TracesStability),
-		processor.WithLogs(createLogsProcessor, metadata.LogsStability),
-		processor.WithMetrics(createMetricsProcessor, metadata.MetricsStability),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+
+	// createTracesProcessor creates an instance of redaction for processing traces
+	return *new(component.Config)
 }
 
-// createTracesProcessor creates an instance of redaction for processing traces
 func createTracesProcessor(
 	ctx context.Context,
 	set processor.Settings,
 	cfg component.Config,
 	next consumer.Traces,
 ) (processor.Traces, error) {
-	oCfg := cfg.(*Config)
-
-	redaction, err := newRedaction(ctx, oCfg, set.Logger)
-	if err != nil {
-		// TODO: Placeholder for an error metric in the next PR
-		return nil, fmt.Errorf("error creating a redaction processor: %w", err)
-	}
-
-	return processorhelper.NewTraces(
-		ctx,
-		set,
-		cfg,
-		next,
-		redaction.processTraces,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}))
+	_ = "STUB: not implemented"
+	return *new(processor.Traces), nil
 }
+
+// TODO: Placeholder for an error metric in the next PR
 
 // createLogsProcessor creates an instance of redaction for processing logs
 func createLogsProcessor(
@@ -63,27 +42,14 @@ func createLogsProcessor(
 	cfg component.Config,
 	next consumer.Logs,
 ) (processor.Logs, error) {
-	oCfg := cfg.(*Config)
-	logCfg := *oCfg
-	// Attributes are defined for metrics and traces:
-	// https://opentelemetry.io/docs/specs/semconv/database/
-	// For logs, we don't rely on the "db.system.name" attribute to
-	// do the sanitization.
-	logCfg.DBSanitizer.AllowFallbackWithoutSystem = true
-
-	red, err := newRedaction(ctx, &logCfg, set.Logger)
-	if err != nil {
-		return nil, fmt.Errorf("error creating a redaction processor: %w", err)
-	}
-
-	return processorhelper.NewLogs(
-		ctx,
-		set,
-		cfg,
-		next,
-		red.processLogs,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}))
+	_ = "STUB: not implemented"
+	return *new(processor.Logs), nil
 }
+
+// Attributes are defined for metrics and traces:
+// https://opentelemetry.io/docs/specs/semconv/database/
+// For logs, we don't rely on the "db.system.name" attribute to
+// do the sanitization.
 
 // createMetricsProcessor creates an instance of redaction for processing metrics
 func createMetricsProcessor(
@@ -92,18 +58,6 @@ func createMetricsProcessor(
 	cfg component.Config,
 	next consumer.Metrics,
 ) (processor.Metrics, error) {
-	oCfg := cfg.(*Config)
-
-	red, err := newRedaction(ctx, oCfg, set.Logger)
-	if err != nil {
-		return nil, fmt.Errorf("error creating a redaction processor: %w", err)
-	}
-
-	return processorhelper.NewMetrics(
-		ctx,
-		set,
-		cfg,
-		next,
-		red.processMetrics,
-		processorhelper.WithCapabilities(consumer.Capabilities{MutatesData: true}))
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }

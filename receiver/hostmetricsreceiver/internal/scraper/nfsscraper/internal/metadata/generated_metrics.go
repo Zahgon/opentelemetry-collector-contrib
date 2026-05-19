@@ -3,14 +3,10 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 	"go.opentelemetry.io/collector/scraper"
-	conventions "go.opentelemetry.io/otel/semconv/v1.9.0"
 )
 
 const (
@@ -31,17 +27,7 @@ const (
 )
 
 // String returns the string representation of the AttributeErrorType.
-func (av AttributeErrorType) String() string {
-	switch av {
-	case AttributeErrorTypeFormat:
-		return "format"
-	case AttributeErrorTypeAuth:
-		return "auth"
-	case AttributeErrorTypeClient:
-		return "client"
-	}
-	return ""
-}
+func (av AttributeErrorType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeErrorType is a helper map of string to AttributeErrorType attribute value.
 var MapAttributeErrorType = map[string]AttributeErrorType{
@@ -60,15 +46,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNetworkIoDirection.
-func (av AttributeNetworkIoDirection) String() string {
-	switch av {
-	case AttributeNetworkIoDirectionTransmit:
-		return "transmit"
-	case AttributeNetworkIoDirectionReceive:
-		return "receive"
-	}
-	return ""
-}
+func (av AttributeNetworkIoDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNetworkIoDirection is a helper map of string to AttributeNetworkIoDirection attribute value.
 var MapAttributeNetworkIoDirection = map[string]AttributeNetworkIoDirection{
@@ -86,15 +64,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNetworkTransport.
-func (av AttributeNetworkTransport) String() string {
-	switch av {
-	case AttributeNetworkTransportUdp:
-		return "udp"
-	case AttributeNetworkTransportTcp:
-		return "tcp"
-	}
-	return ""
-}
+func (av AttributeNetworkTransport) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNetworkTransport is a helper map of string to AttributeNetworkTransport attribute value.
 var MapAttributeNetworkTransport = map[string]AttributeNetworkTransport{
@@ -113,17 +83,7 @@ const (
 )
 
 // String returns the string representation of the AttributeNfsServerRepcacheStatus.
-func (av AttributeNfsServerRepcacheStatus) String() string {
-	switch av {
-	case AttributeNfsServerRepcacheStatusHit:
-		return "hit"
-	case AttributeNfsServerRepcacheStatusMiss:
-		return "miss"
-	case AttributeNfsServerRepcacheStatusNocache:
-		return "nocache"
-	}
-	return ""
-}
+func (av AttributeNfsServerRepcacheStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeNfsServerRepcacheStatus is a helper map of string to AttributeNfsServerRepcacheStatus attribute value.
 var MapAttributeNfsServerRepcacheStatus = map[string]AttributeNfsServerRepcacheStatus{
@@ -226,75 +186,22 @@ func (m *metricNfsClientNetCount) init() {
 }
 
 func (m *metricNfsClientNetCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkTransportAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsClientNetCountMetricAttributeKeyNetworkTransport) {
-		dp.Attributes().PutStr("network.transport", networkTransportAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientNetCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientNetCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientNetCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientNetCount(cfg NfsClientNetCountMetricConfig) metricNfsClientNetCount {
-	m := metricNfsClientNetCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientNetCount)
 }
 
 type metricNfsClientNetTCPConnectionAccepted struct {
@@ -314,39 +221,25 @@ func (m *metricNfsClientNetTCPConnectionAccepted) init() {
 }
 
 func (m *metricNfsClientNetTCPConnectionAccepted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricNfsClientNetTCPConnectionAccepted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientNetTCPConnectionAccepted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientNetTCPConnectionAccepted(cfg NfsClientNetTCPConnectionAcceptedMetricConfig) metricNfsClientNetTCPConnectionAccepted {
-	m := metricNfsClientNetTCPConnectionAccepted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientNetTCPConnectionAccepted)
 }
 
 type metricNfsClientOperationCount struct {
@@ -369,78 +262,22 @@ func (m *metricNfsClientOperationCount) init() {
 }
 
 func (m *metricNfsClientOperationCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, nfsOperationNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsClientOperationCountMetricAttributeKeyOncRPCVersion) {
-		dp.Attributes().PutInt("onc_rpc.version", oncRPCVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, NfsClientOperationCountMetricAttributeKeyNfsOperationName) {
-		dp.Attributes().PutStr("nfs.operation.name", nfsOperationNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientOperationCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientOperationCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientOperationCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientOperationCount(cfg NfsClientOperationCountMetricConfig) metricNfsClientOperationCount {
-	m := metricNfsClientOperationCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientOperationCount)
 }
 
 type metricNfsClientProcedureCount struct {
@@ -463,78 +300,22 @@ func (m *metricNfsClientProcedureCount) init() {
 }
 
 func (m *metricNfsClientProcedureCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, oncRPCProcedureNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsClientProcedureCountMetricAttributeKeyOncRPCVersion) {
-		dp.Attributes().PutInt("onc_rpc.version", oncRPCVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, NfsClientProcedureCountMetricAttributeKeyOncRPCProcedureName) {
-		dp.Attributes().PutStr("onc_rpc.procedure.name", oncRPCProcedureNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientProcedureCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientProcedureCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientProcedureCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientProcedureCount(cfg NfsClientProcedureCountMetricConfig) metricNfsClientProcedureCount {
-	m := metricNfsClientProcedureCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientProcedureCount)
 }
 
 type metricNfsClientRPCAuthrefreshCount struct {
@@ -554,39 +335,22 @@ func (m *metricNfsClientRPCAuthrefreshCount) init() {
 }
 
 func (m *metricNfsClientRPCAuthrefreshCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientRPCAuthrefreshCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientRPCAuthrefreshCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientRPCAuthrefreshCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientRPCAuthrefreshCount(cfg NfsClientRPCAuthrefreshCountMetricConfig) metricNfsClientRPCAuthrefreshCount {
-	m := metricNfsClientRPCAuthrefreshCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientRPCAuthrefreshCount)
 }
 
 type metricNfsClientRPCCount struct {
@@ -606,39 +370,22 @@ func (m *metricNfsClientRPCCount) init() {
 }
 
 func (m *metricNfsClientRPCCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientRPCCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientRPCCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientRPCCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientRPCCount(cfg NfsClientRPCCountMetricConfig) metricNfsClientRPCCount {
-	m := metricNfsClientRPCCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientRPCCount)
 }
 
 type metricNfsClientRPCRetransmitCount struct {
@@ -658,39 +405,22 @@ func (m *metricNfsClientRPCRetransmitCount) init() {
 }
 
 func (m *metricNfsClientRPCRetransmitCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsClientRPCRetransmitCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsClientRPCRetransmitCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsClientRPCRetransmitCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsClientRPCRetransmitCount(cfg NfsClientRPCRetransmitCountMetricConfig) metricNfsClientRPCRetransmitCount {
-	m := metricNfsClientRPCRetransmitCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsClientRPCRetransmitCount)
 }
 
 type metricNfsServerFhStaleCount struct {
@@ -710,39 +440,22 @@ func (m *metricNfsServerFhStaleCount) init() {
 }
 
 func (m *metricNfsServerFhStaleCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerFhStaleCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerFhStaleCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerFhStaleCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerFhStaleCount(cfg NfsServerFhStaleCountMetricConfig) metricNfsServerFhStaleCount {
-	m := metricNfsServerFhStaleCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerFhStaleCount)
 }
 
 type metricNfsServerIo struct {
@@ -765,75 +478,19 @@ func (m *metricNfsServerIo) init() {
 }
 
 func (m *metricNfsServerIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerIoMetricAttributeKeyNetworkIoDirection) {
-		dp.Attributes().PutStr("network.io.direction", networkIoDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerIo) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
-func (m *metricNfsServerIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
-}
+func (m *metricNfsServerIo) emit(metrics pmetric.MetricSlice) { _ = "STUB: not implemented"; return }
 
 func newMetricNfsServerIo(cfg NfsServerIoMetricConfig) metricNfsServerIo {
-	m := metricNfsServerIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerIo)
 }
 
 type metricNfsServerNetCount struct {
@@ -856,75 +513,22 @@ func (m *metricNfsServerNetCount) init() {
 }
 
 func (m *metricNfsServerNetCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, networkTransportAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerNetCountMetricAttributeKeyNetworkTransport) {
-		dp.Attributes().PutStr("network.transport", networkTransportAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerNetCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerNetCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerNetCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerNetCount(cfg NfsServerNetCountMetricConfig) metricNfsServerNetCount {
-	m := metricNfsServerNetCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerNetCount)
 }
 
 type metricNfsServerNetTCPConnectionAccepted struct {
@@ -944,39 +548,25 @@ func (m *metricNfsServerNetTCPConnectionAccepted) init() {
 }
 
 func (m *metricNfsServerNetTCPConnectionAccepted) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricNfsServerNetTCPConnectionAccepted) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerNetTCPConnectionAccepted) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerNetTCPConnectionAccepted(cfg NfsServerNetTCPConnectionAcceptedMetricConfig) metricNfsServerNetTCPConnectionAccepted {
-	m := metricNfsServerNetTCPConnectionAccepted{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerNetTCPConnectionAccepted)
 }
 
 type metricNfsServerOperationCount struct {
@@ -999,78 +589,22 @@ func (m *metricNfsServerOperationCount) init() {
 }
 
 func (m *metricNfsServerOperationCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, nfsOperationNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerOperationCountMetricAttributeKeyOncRPCVersion) {
-		dp.Attributes().PutInt("onc_rpc.version", oncRPCVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, NfsServerOperationCountMetricAttributeKeyNfsOperationName) {
-		dp.Attributes().PutStr("nfs.operation.name", nfsOperationNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerOperationCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerOperationCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerOperationCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerOperationCount(cfg NfsServerOperationCountMetricConfig) metricNfsServerOperationCount {
-	m := metricNfsServerOperationCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerOperationCount)
 }
 
 type metricNfsServerProcedureCount struct {
@@ -1093,78 +627,22 @@ func (m *metricNfsServerProcedureCount) init() {
 }
 
 func (m *metricNfsServerProcedureCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, oncRPCProcedureNameAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerProcedureCountMetricAttributeKeyOncRPCVersion) {
-		dp.Attributes().PutInt("onc_rpc.version", oncRPCVersionAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, NfsServerProcedureCountMetricAttributeKeyOncRPCProcedureName) {
-		dp.Attributes().PutStr("onc_rpc.procedure.name", oncRPCProcedureNameAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerProcedureCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerProcedureCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerProcedureCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerProcedureCount(cfg NfsServerProcedureCountMetricConfig) metricNfsServerProcedureCount {
-	m := metricNfsServerProcedureCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerProcedureCount)
 }
 
 type metricNfsServerRepcacheRequests struct {
@@ -1187,75 +665,22 @@ func (m *metricNfsServerRepcacheRequests) init() {
 }
 
 func (m *metricNfsServerRepcacheRequests) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, nfsServerRepcacheStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerRepcacheRequestsMetricAttributeKeyNfsServerRepcacheStatus) {
-		dp.Attributes().PutStr("nfs.server.repcache.status", nfsServerRepcacheStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerRepcacheRequests) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerRepcacheRequests) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerRepcacheRequests) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerRepcacheRequests(cfg NfsServerRepcacheRequestsMetricConfig) metricNfsServerRepcacheRequests {
-	m := metricNfsServerRepcacheRequests{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerRepcacheRequests)
 }
 
 type metricNfsServerRPCCount struct {
@@ -1278,75 +703,22 @@ func (m *metricNfsServerRPCCount) init() {
 }
 
 func (m *metricNfsServerRPCCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64, errorTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, NfsServerRPCCountMetricAttributeKeyErrorType) {
-		dp.Attributes().PutStr("error.type", errorTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetIntValue(dpi.IntValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.IntValue() > val {
-					dpi.SetIntValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.IntValue() < val {
-					dpi.SetIntValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetIntValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerRPCCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerRPCCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerRPCCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetIntValue(m.data.Sum().DataPoints().At(i).IntValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerRPCCount(cfg NfsServerRPCCountMetricConfig) metricNfsServerRPCCount {
-	m := metricNfsServerRPCCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerRPCCount)
 }
 
 type metricNfsServerThreadCount struct {
@@ -1366,39 +738,22 @@ func (m *metricNfsServerThreadCount) init() {
 }
 
 func (m *metricNfsServerThreadCount) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val int64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetIntValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricNfsServerThreadCount) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricNfsServerThreadCount) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricNfsServerThreadCount) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricNfsServerThreadCount(cfg NfsServerThreadCountMetricConfig) metricNfsServerThreadCount {
-	m := metricNfsServerThreadCount{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricNfsServerThreadCount)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -1435,50 +790,26 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                                  mbc,
-		startTime:                               pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:                           pmetric.NewMetrics(),
-		buildInfo:                               settings.BuildInfo,
-		metricNfsClientNetCount:                 newMetricNfsClientNetCount(mbc.Metrics.NfsClientNetCount),
-		metricNfsClientNetTCPConnectionAccepted: newMetricNfsClientNetTCPConnectionAccepted(mbc.Metrics.NfsClientNetTCPConnectionAccepted),
-		metricNfsClientOperationCount:           newMetricNfsClientOperationCount(mbc.Metrics.NfsClientOperationCount),
-		metricNfsClientProcedureCount:           newMetricNfsClientProcedureCount(mbc.Metrics.NfsClientProcedureCount),
-		metricNfsClientRPCAuthrefreshCount:      newMetricNfsClientRPCAuthrefreshCount(mbc.Metrics.NfsClientRPCAuthrefreshCount),
-		metricNfsClientRPCCount:                 newMetricNfsClientRPCCount(mbc.Metrics.NfsClientRPCCount),
-		metricNfsClientRPCRetransmitCount:       newMetricNfsClientRPCRetransmitCount(mbc.Metrics.NfsClientRPCRetransmitCount),
-		metricNfsServerFhStaleCount:             newMetricNfsServerFhStaleCount(mbc.Metrics.NfsServerFhStaleCount),
-		metricNfsServerIo:                       newMetricNfsServerIo(mbc.Metrics.NfsServerIo),
-		metricNfsServerNetCount:                 newMetricNfsServerNetCount(mbc.Metrics.NfsServerNetCount),
-		metricNfsServerNetTCPConnectionAccepted: newMetricNfsServerNetTCPConnectionAccepted(mbc.Metrics.NfsServerNetTCPConnectionAccepted),
-		metricNfsServerOperationCount:           newMetricNfsServerOperationCount(mbc.Metrics.NfsServerOperationCount),
-		metricNfsServerProcedureCount:           newMetricNfsServerProcedureCount(mbc.Metrics.NfsServerProcedureCount),
-		metricNfsServerRepcacheRequests:         newMetricNfsServerRepcacheRequests(mbc.Metrics.NfsServerRepcacheRequests),
-		metricNfsServerRPCCount:                 newMetricNfsServerRPCCount(mbc.Metrics.NfsServerRPCCount),
-		metricNfsServerThreadCount:              newMetricNfsServerThreadCount(mbc.Metrics.NfsServerThreadCount),
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings scraper.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -1489,35 +820,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -1526,134 +845,114 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	rm.SetSchemaUrl(conventions.SchemaURL)
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricNfsClientNetCount.emit(ils.Metrics())
-	mb.metricNfsClientNetTCPConnectionAccepted.emit(ils.Metrics())
-	mb.metricNfsClientOperationCount.emit(ils.Metrics())
-	mb.metricNfsClientProcedureCount.emit(ils.Metrics())
-	mb.metricNfsClientRPCAuthrefreshCount.emit(ils.Metrics())
-	mb.metricNfsClientRPCCount.emit(ils.Metrics())
-	mb.metricNfsClientRPCRetransmitCount.emit(ils.Metrics())
-	mb.metricNfsServerFhStaleCount.emit(ils.Metrics())
-	mb.metricNfsServerIo.emit(ils.Metrics())
-	mb.metricNfsServerNetCount.emit(ils.Metrics())
-	mb.metricNfsServerNetTCPConnectionAccepted.emit(ils.Metrics())
-	mb.metricNfsServerOperationCount.emit(ils.Metrics())
-	mb.metricNfsServerProcedureCount.emit(ils.Metrics())
-	mb.metricNfsServerRepcacheRequests.emit(ils.Metrics())
-	mb.metricNfsServerRPCCount.emit(ils.Metrics())
-	mb.metricNfsServerThreadCount.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordNfsClientNetCountDataPoint adds a data point to nfs.client.net.count metric.
 func (mb *MetricsBuilder) RecordNfsClientNetCountDataPoint(ts pcommon.Timestamp, val int64, networkTransportAttributeValue AttributeNetworkTransport) {
-	mb.metricNfsClientNetCount.recordDataPoint(mb.startTime, ts, val, networkTransportAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientNetTCPConnectionAcceptedDataPoint adds a data point to nfs.client.net.tcp.connection.accepted metric.
 func (mb *MetricsBuilder) RecordNfsClientNetTCPConnectionAcceptedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsClientNetTCPConnectionAccepted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientOperationCountDataPoint adds a data point to nfs.client.operation.count metric.
 func (mb *MetricsBuilder) RecordNfsClientOperationCountDataPoint(ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, nfsOperationNameAttributeValue string) {
-	mb.metricNfsClientOperationCount.recordDataPoint(mb.startTime, ts, val, oncRPCVersionAttributeValue, nfsOperationNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientProcedureCountDataPoint adds a data point to nfs.client.procedure.count metric.
 func (mb *MetricsBuilder) RecordNfsClientProcedureCountDataPoint(ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, oncRPCProcedureNameAttributeValue string) {
-	mb.metricNfsClientProcedureCount.recordDataPoint(mb.startTime, ts, val, oncRPCVersionAttributeValue, oncRPCProcedureNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientRPCAuthrefreshCountDataPoint adds a data point to nfs.client.rpc.authrefresh.count metric.
 func (mb *MetricsBuilder) RecordNfsClientRPCAuthrefreshCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsClientRPCAuthrefreshCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientRPCCountDataPoint adds a data point to nfs.client.rpc.count metric.
 func (mb *MetricsBuilder) RecordNfsClientRPCCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsClientRPCCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsClientRPCRetransmitCountDataPoint adds a data point to nfs.client.rpc.retransmit.count metric.
 func (mb *MetricsBuilder) RecordNfsClientRPCRetransmitCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsClientRPCRetransmitCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerFhStaleCountDataPoint adds a data point to nfs.server.fh.stale.count metric.
 func (mb *MetricsBuilder) RecordNfsServerFhStaleCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsServerFhStaleCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerIoDataPoint adds a data point to nfs.server.io metric.
 func (mb *MetricsBuilder) RecordNfsServerIoDataPoint(ts pcommon.Timestamp, val int64, networkIoDirectionAttributeValue AttributeNetworkIoDirection) {
-	mb.metricNfsServerIo.recordDataPoint(mb.startTime, ts, val, networkIoDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerNetCountDataPoint adds a data point to nfs.server.net.count metric.
 func (mb *MetricsBuilder) RecordNfsServerNetCountDataPoint(ts pcommon.Timestamp, val int64, networkTransportAttributeValue AttributeNetworkTransport) {
-	mb.metricNfsServerNetCount.recordDataPoint(mb.startTime, ts, val, networkTransportAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerNetTCPConnectionAcceptedDataPoint adds a data point to nfs.server.net.tcp.connection.accepted metric.
 func (mb *MetricsBuilder) RecordNfsServerNetTCPConnectionAcceptedDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsServerNetTCPConnectionAccepted.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerOperationCountDataPoint adds a data point to nfs.server.operation.count metric.
 func (mb *MetricsBuilder) RecordNfsServerOperationCountDataPoint(ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, nfsOperationNameAttributeValue string) {
-	mb.metricNfsServerOperationCount.recordDataPoint(mb.startTime, ts, val, oncRPCVersionAttributeValue, nfsOperationNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerProcedureCountDataPoint adds a data point to nfs.server.procedure.count metric.
 func (mb *MetricsBuilder) RecordNfsServerProcedureCountDataPoint(ts pcommon.Timestamp, val int64, oncRPCVersionAttributeValue int64, oncRPCProcedureNameAttributeValue string) {
-	mb.metricNfsServerProcedureCount.recordDataPoint(mb.startTime, ts, val, oncRPCVersionAttributeValue, oncRPCProcedureNameAttributeValue)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerRepcacheRequestsDataPoint adds a data point to nfs.server.repcache.requests metric.
 func (mb *MetricsBuilder) RecordNfsServerRepcacheRequestsDataPoint(ts pcommon.Timestamp, val int64, nfsServerRepcacheStatusAttributeValue AttributeNfsServerRepcacheStatus) {
-	mb.metricNfsServerRepcacheRequests.recordDataPoint(mb.startTime, ts, val, nfsServerRepcacheStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerRPCCountDataPoint adds a data point to nfs.server.rpc.count metric.
 func (mb *MetricsBuilder) RecordNfsServerRPCCountDataPoint(ts pcommon.Timestamp, val int64, errorTypeAttributeValue AttributeErrorType) {
-	mb.metricNfsServerRPCCount.recordDataPoint(mb.startTime, ts, val, errorTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordNfsServerThreadCountDataPoint adds a data point to nfs.server.thread.count metric.
 func (mb *MetricsBuilder) RecordNfsServerThreadCountDataPoint(ts pcommon.Timestamp, val int64) {
-	mb.metricNfsServerThreadCount.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }

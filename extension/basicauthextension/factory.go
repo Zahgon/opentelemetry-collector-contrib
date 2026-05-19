@@ -8,30 +8,18 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/basicauthextension/internal/metadata"
 )
 
 // NewFactory creates a factory for the static bearer token Authenticator extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
+	_ = "STUB: not implemented"
 	// check if config is a server auth(Htpasswd should be set)
-	if cfg.(*Config).Htpasswd != nil {
-		return newServerAuthExtension(cfg.(*Config))
-	}
-	ext := newClientAuthExtension(cfg.(*Config))
-	ext.logger = set.Logger
-	return ext, nil
+	return *new(extension.Extension), nil
 }

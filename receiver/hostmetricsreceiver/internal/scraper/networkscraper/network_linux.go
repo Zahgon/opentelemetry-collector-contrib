@@ -7,10 +7,6 @@ package networkscraper // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"fmt"
-	"time"
-
-	"go.opentelemetry.io/collector/pdata/pcommon"
 )
 
 const (
@@ -33,15 +29,6 @@ var allTCPStates = []string{
 }
 
 func (s *networkScraper) recordNetworkConntrackMetrics(ctx context.Context) error {
-	if !s.config.Metrics.SystemNetworkConntrackCount.Enabled && !s.config.Metrics.SystemNetworkConntrackMax.Enabled {
-		return nil
-	}
-	now := pcommon.NewTimestampFromTime(time.Now())
-	conntrack, err := s.conntrack(ctx)
-	if err != nil {
-		return fmt.Errorf("failed to read conntrack info: %w", err)
-	}
-	s.mb.RecordSystemNetworkConntrackCountDataPoint(now, conntrack[0].ConnTrackCount)
-	s.mb.RecordSystemNetworkConntrackMaxDataPoint(now, conntrack[0].ConnTrackMax)
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -5,9 +5,7 @@ package elasticsearchexporter // import "github.com/open-telemetry/opentelemetry
 
 import (
 	"bytes"
-	"encoding/json"
 	"errors"
-	"fmt"
 	"time"
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -20,9 +18,7 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/datapoints"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/elasticsearch"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/objmodel"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/serializer"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/exporter/elasticsearchexporter/internal/serializer/otelserializer"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/coreinternal/traceutil"
 )
 
 type conversionEntry struct {
@@ -35,15 +31,8 @@ type conversionEntry struct {
 // collectECSFields extracts all target ECS field paths from conversion maps
 // and returns them as a set (map) for efficient lookups.
 func collectECSFields(maps ...map[string]conversionEntry) map[string]struct{} {
-	fields := make(map[string]struct{})
-	for _, m := range maps {
-		for _, entry := range m {
-			if entry.to != "" && !entry.skip {
-				fields[entry.to] = struct{}{}
-			}
-		}
-	}
-	return fields
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // resourceAttrsConversionMap contains conversions for resource-level attributes
@@ -145,44 +134,8 @@ type encodingContext struct {
 }
 
 func newEncoder(mode MappingMode) (documentEncoder, error) {
-	switch mode {
-	case MappingNone:
-		return legacyModeEncoder{
-			metricsUnsupportedEncoder:  metricsUnsupportedEncoder{mode: mode},
-			profilesUnsupportedEncoder: profilesUnsupportedEncoder{mode: mode},
-			nonOTelSpanEncoder: nonOTelSpanEncoder{
-				attributesPrefix: "Attributes",
-				eventsPrefix:     "Events",
-			},
-			attributesPrefix: "Attributes",
-		}, nil
-	case MappingRaw:
-		return legacyModeEncoder{
-			metricsUnsupportedEncoder:  metricsUnsupportedEncoder{mode: mode},
-			profilesUnsupportedEncoder: profilesUnsupportedEncoder{mode: mode},
-			nonOTelSpanEncoder: nonOTelSpanEncoder{
-				attributesPrefix: "",
-				eventsPrefix:     "",
-			},
-			attributesPrefix: "",
-		}, nil
-	case MappingECS:
-		return ecsModeEncoder{
-			profilesUnsupportedEncoder: profilesUnsupportedEncoder{mode: mode},
-		}, nil
-	case MappingBodyMap:
-		return bodymapModeEncoder{
-			metricsUnsupportedEncoder:  metricsUnsupportedEncoder{mode: mode},
-			profilesUnsupportedEncoder: profilesUnsupportedEncoder{mode: mode},
-		}, nil
-	case MappingOTel:
-		ser, err := otelserializer.New()
-		if err != nil {
-			return nil, err
-		}
-		return otelModeEncoder{serializer: ser}, nil
-	}
-	return nil, fmt.Errorf("unknown mapping mode %q (%d)", mode, int(mode))
+	_ = "STUB: not implemented"
+	return *new(documentEncoder), nil
 }
 
 type legacyModeEncoder struct {
@@ -215,26 +168,11 @@ const (
 )
 
 func (e legacyModeEncoder) encodeLog(ec encodingContext, record plog.LogRecord, idx elasticsearch.Index, buf *bytes.Buffer) error {
-	var document objmodel.Document
-
-	docTimeStamp := record.Timestamp()
-	if docTimeStamp.AsTime().UnixNano() == 0 {
-		docTimeStamp = record.ObservedTimestamp()
-	}
-	// We use @timestamp in order to ensure that we can index if the default data stream logs template is used.
-	document.AddTimestamp("@timestamp", docTimeStamp)
-	document.AddTraceID("TraceId", record.TraceID())
-	document.AddSpanID("SpanId", record.SpanID())
-	document.AddInt("TraceFlags", int64(record.Flags()))
-	document.AddString("SeverityText", record.SeverityText())
-	document.AddInt("SeverityNumber", int64(record.SeverityNumber()))
-	document.AddAttribute("Body", record.Body())
-	document.AddAttributes("Resource", ec.resource.Attributes())
-	document.AddAttributes("Scope", scopeToAttributes(ec.scope))
-	encodeAttributes(e.attributesPrefix, &document, record.Attributes(), idx)
-
-	return document.Serialize(buf, false, nil)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// We use @timestamp in order to ensure that we can index if the default data stream logs template is used.
 
 func (ecsModeEncoder) encodeLog(
 	ec encodingContext,
@@ -242,32 +180,17 @@ func (ecsModeEncoder) encodeLog(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	var document objmodel.Document
-
-	// First, try to map resource-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, ec.resource.Attributes(), resourceAttrsConversionMap)
-	// Then, try to map scope-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, ec.scope.Attributes(), scopeAttrsConversionMap)
-	// Finally, try to map record-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, record.Attributes(), logRecordAttrsConversionMap)
-	addDataStreamAttributes(&document, "", idx)
-
-	// Handle special cases.
-	encodeLogTimestampECSMode(&document, record)
-	document.AddTraceID("trace.id", record.TraceID())
-	document.AddSpanID("span.id", record.SpanID())
-	if n := record.SeverityNumber(); n != plog.SeverityNumberUnspecified {
-		document.AddInt("event.severity", int64(record.SeverityNumber()))
-	}
-
-	document.AddString("log.level", record.SeverityText())
-
-	if record.Body().Type() == pcommon.ValueTypeStr {
-		document.AddAttribute("message", record.Body())
-	}
-
-	return document.Serialize(buf, true, logProtectedFields)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// First, try to map resource-level attributes to ECS fields.
+
+// Then, try to map scope-level attributes to ECS fields.
+
+// Finally, try to map record-level attributes to ECS fields.
+
+// Handle special cases.
 
 func (ecsModeEncoder) encodeSpan(
 	ec encodingContext,
@@ -275,51 +198,19 @@ func (ecsModeEncoder) encodeSpan(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	var document objmodel.Document
-
-	// First, try to map resource-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, ec.resource.Attributes(), resourceAttrsConversionMap)
-	// Then, try to map scope-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, ec.scope.Attributes(), scopeAttrsConversionMap)
-	// Finally, try to map span-level attributes to ECS fields.
-	encodeAttributesECSMode(&document, span.Attributes(), spanAttrsConversionMap)
-	addDataStreamAttributes(&document, "", idx)
-
-	document.AddTimestamp("@timestamp", span.StartTimestamp())
-	document.AddTraceID("trace.id", span.TraceID())
-	document.AddSpanID("span.id", span.SpanID())
-	document.AddString("span.name", span.Name())
-	document.AddSpanID("parent.id", span.ParentSpanID())
-	if span.Status().Code() == ptrace.StatusCodeOk {
-		document.AddString("event.outcome", "success")
-	} else if span.Status().Code() == ptrace.StatusCodeError {
-		document.AddString("event.outcome", "failure")
-	}
-	document.AddLinks("span.links", span.Links())
-	if spanKind := spanKindToECSStr(span.Kind()); spanKind != "" {
-		document.AddString("span.kind", spanKind)
-	}
-
-	return document.Serialize(buf, true, spanProtectedFields)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// First, try to map resource-level attributes to ECS fields.
+
+// Then, try to map scope-level attributes to ECS fields.
+
+// Finally, try to map span-level attributes to ECS fields.
 
 // spanKindToECSStr converts an OTel SpanKind to its ECS equivalent string representation defined here:
 // https://github.com/elastic/apm-data/blob/main/input/elasticapm/internal/modeldecoder/v2/decoder.go#L1665-L1669
-func spanKindToECSStr(sk ptrace.SpanKind) string {
-	switch sk {
-	case ptrace.SpanKindInternal:
-		return "INTERNAL"
-	case ptrace.SpanKindServer:
-		return "SERVER"
-	case ptrace.SpanKindClient:
-		return "CLIENT"
-	case ptrace.SpanKindProducer:
-		return "PRODUCER"
-	case ptrace.SpanKindConsumer:
-		return "CONSUMER"
-	}
-	return ""
-}
+func spanKindToECSStr(sk ptrace.SpanKind) string { _ = "STUB: not implemented"; return "" }
 
 func (e otelModeEncoder) encodeLog(
 	ec encodingContext,
@@ -327,11 +218,8 @@ func (e otelModeEncoder) encodeLog(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	return e.serializer.SerializeLog(
-		ec.resource, ec.resourceSchemaURL,
-		ec.scope, ec.scopeSchemaURL,
-		record, idx, buf,
-	)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e otelModeEncoder) encodeSpan(
@@ -340,11 +228,8 @@ func (e otelModeEncoder) encodeSpan(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	return e.serializer.SerializeSpan(
-		ec.resource, ec.resourceSchemaURL,
-		ec.scope, ec.scopeSchemaURL,
-		span, idx, buf,
-	)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e otelModeEncoder) encodeSpanEvent(
@@ -354,11 +239,7 @@ func (e otelModeEncoder) encodeSpanEvent(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	e.serializer.SerializeSpanEvent(
-		ec.resource, ec.resourceSchemaURL,
-		ec.scope, ec.scopeSchemaURL,
-		span, spanEvent, idx, buf,
-	)
+	_ = "STUB: not implemented"
 	return nil
 }
 
@@ -369,11 +250,8 @@ func (e otelModeEncoder) encodeMetrics(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) (map[string]string, error) {
-	return e.serializer.SerializeMetrics(
-		ec.resource, ec.resourceSchemaURL,
-		ec.scope, ec.scopeSchemaURL,
-		dataPoints, validationErrors, idx, buf,
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (e otelModeEncoder) encodeProfile(
@@ -382,7 +260,8 @@ func (e otelModeEncoder) encodeProfile(
 	profile pprofile.Profile,
 	pushData func(*bytes.Buffer, string, string) error,
 ) error {
-	return e.serializer.SerializeProfile(dic, ec.resource, ec.scope, profile, pushData)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bodymapModeEncoder) encodeLog(
@@ -391,20 +270,18 @@ func (bodymapModeEncoder) encodeLog(
 	_ elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	body := record.Body()
-	if body.Type() != pcommon.ValueTypeMap {
-		return fmt.Errorf("%w: %q", ErrInvalidTypeForBodyMapMode, body.Type())
-	}
-	serializer.Map(body.Map(), buf)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (bodymapModeEncoder) encodeSpan(encodingContext, ptrace.Span, elasticsearch.Index, *bytes.Buffer) error {
-	return errors.New("bodymap mode does not support encoding spans")
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (bodymapModeEncoder) encodeSpanEvent(encodingContext, ptrace.Span, ptrace.SpanEvent, elasticsearch.Index, *bytes.Buffer) error {
-	return errors.New("bodymap mode does not support encoding span events")
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type metricsUnsupportedEncoder struct {
@@ -419,7 +296,8 @@ func (e metricsUnsupportedEncoder) encodeMetrics(
 	_ elasticsearch.Index,
 	_ *bytes.Buffer,
 ) (map[string]string, error) {
-	return nil, fmt.Errorf("mapping mode %q (%d) does not support metrics", e.mode, int(e.mode))
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 type profilesUnsupportedEncoder struct {
@@ -429,7 +307,8 @@ type profilesUnsupportedEncoder struct {
 func (e profilesUnsupportedEncoder) encodeProfile(
 	_ encodingContext, _ pprofile.ProfilesDictionary, _ pprofile.Profile, _ func(*bytes.Buffer, string, string) error,
 ) error {
-	return fmt.Errorf("mapping mode %q (%d) does not support profiles", e.mode, int(e.mode))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type nonOTelSpanEncoder struct {
@@ -444,24 +323,13 @@ func (e nonOTelSpanEncoder) encodeSpan(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) error {
-	var document objmodel.Document
-	document.AddTimestamp("@timestamp", span.StartTimestamp()) // We use @timestamp in order to ensure that we can index if the default data stream logs template is used.
-	document.AddTimestamp("EndTimestamp", span.EndTimestamp())
-	document.AddTraceID("TraceId", span.TraceID())
-	document.AddSpanID("SpanId", span.SpanID())
-	document.AddSpanID("ParentSpanId", span.ParentSpanID())
-	document.AddString("Name", span.Name())
-	document.AddString("Kind", traceutil.SpanKindStr(span.Kind()))
-	document.AddInt("TraceStatus", int64(span.Status().Code()))
-	document.AddString("TraceStatusDescription", span.Status().Message())
-	document.AddString("Link", spanLinksToString(span.Links()))
-	document.AddAttributes("Resource", ec.resource.Attributes())
-	document.AddInt("Duration", durationAsMicroseconds(span.StartTimestamp().AsTime(), span.EndTimestamp().AsTime())) // unit is microseconds
-	document.AddAttributes("Scope", scopeToAttributes(ec.scope))
-	encodeAttributes(e.attributesPrefix, &document, span.Attributes(), idx)
-	document.AddEvents(e.eventsPrefix, span.Events())
-	return document.Serialize(buf, e.dedot, nil)
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// We use @timestamp in order to ensure that we can index if the default data stream logs template is used.
+
+// unit is microseconds
 
 type ecsDataPointsEncoder struct{}
 
@@ -472,50 +340,13 @@ func (ecsDataPointsEncoder) encodeMetrics(
 	idx elasticsearch.Index,
 	buf *bytes.Buffer,
 ) (map[string]string, error) {
-	dp0 := dataPoints[0]
-	var document objmodel.Document
-
-	encodeAttributesECSMode(&document, ec.resource.Attributes(), resourceAttrsConversionMap)
-	document.AddTimestamp("@timestamp", dp0.Timestamp())
-	document.AddAttributes("", dp0.Attributes())
-	addDataStreamAttributes(&document, "", idx)
-	var docCount uint64
-
-	for _, dp := range dataPoints {
-		value, err := dp.Value()
-		if err != nil {
-			*validationErrors = append(*validationErrors, err)
-			continue
-		}
-		metric := dp.Metric()
-		metricName := metric.Name()
-		document.AddAttribute(metricName, value)
-		if name := dp.DynamicTemplate(metric, datapoints.DynamicTemplateModeECS); name != "" {
-			document.AddDynamicTemplate(metricName, name)
-		}
-
-		if dp.HasMappingHint(elasticsearch.HintDocCount) {
-			docCount = dp.DocCount()
-		}
-	}
-
-	if docCount != 0 {
-		document.AddUInt("_doc_count", docCount)
-	}
-	err := document.Serialize(buf, true, metricsProtectedFields)
-
-	return document.DynamicTemplates(), err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func addDataStreamAttributes(document *objmodel.Document, key string, idx elasticsearch.Index) {
-	if idx.IsDataStream() {
-		if key != "" {
-			key += "."
-		}
-		document.AddString(key+elasticsearch.DataStreamType, idx.Type)
-		document.AddString(key+elasticsearch.DataStreamDataset, idx.Dataset)
-		document.AddString(key+elasticsearch.DataStreamNamespace, idx.Namespace)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // nopSpanEventEncoder is embedded in all non-OTel encoders,
@@ -525,81 +356,44 @@ func addDataStreamAttributes(document *objmodel.Document, key string, idx elasti
 type nopSpanEventEncoder struct{}
 
 func (nopSpanEventEncoder) encodeSpanEvent(encodingContext, ptrace.Span, ptrace.SpanEvent, elasticsearch.Index, *bytes.Buffer) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func encodeAttributes(prefix string, document *objmodel.Document, attributes pcommon.Map, idx elasticsearch.Index) {
-	document.AddAttributes(prefix, attributes)
-	addDataStreamAttributes(document, prefix, idx)
+	_ = "STUB: not implemented"
+	return
 }
 
 func spanLinksToString(spanLinkSlice ptrace.SpanLinkSlice) string {
-	linkArray := make([]map[string]any, 0, spanLinkSlice.Len())
-	for _, spanLink := range spanLinkSlice.All() {
-		link := map[string]any{}
-		link[spanIDField] = traceutil.SpanIDToHexOrEmptyString(spanLink.SpanID())
-		link[traceIDField] = traceutil.TraceIDToHexOrEmptyString(spanLink.TraceID())
-		link[attributeField] = spanLink.Attributes().AsRaw()
-		linkArray = append(linkArray, link)
-	}
-	linkArrayBytes, _ := json.Marshal(&linkArray)
-	return string(linkArrayBytes)
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // durationAsMicroseconds calculate span duration through end - start nanoseconds and converts time.Time to microseconds,
 // which is the format the Duration field is stored in the Span.
-func durationAsMicroseconds(start, end time.Time) int64 {
-	return (end.UnixNano() - start.UnixNano()) / 1000
-}
+func durationAsMicroseconds(start, end time.Time) int64 { _ = "STUB: not implemented"; return 0 }
 
 func scopeToAttributes(scope pcommon.InstrumentationScope) pcommon.Map {
-	attrs := pcommon.NewMap()
-
-	scope.Attributes().CopyTo(attrs)
-
-	attrs.PutStr("name", scope.Name())
-	attrs.PutStr("version", scope.Version())
-
-	return attrs
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 func encodeAttributesECSMode(document *objmodel.Document, attrs pcommon.Map, conversionMap map[string]conversionEntry) {
-	if len(conversionMap) == 0 {
-		// No conversions to be done; add all attributes at top level of
-		// document.
-		document.AddAttributes("", attrs)
-		return
-	}
-
-	for k, v := range attrs.All() {
-		// If ECS key is found for current k in conversion map, use it.
-		if c, exists := conversionMap[k]; exists {
-			if c.skip {
-				// Skip the conversion for this k.
-				continue
-			}
-			if !c.skipIfExists {
-				document.AddAttribute(c.to, v)
-			} else if _, exists := attrs.Get(c.to); !exists {
-				document.AddAttribute(c.to, v)
-			}
-
-			if c.preserveOriginal {
-				document.AddAttribute(k, v)
-			}
-			continue
-		}
-
-		// Otherwise, add key at top level with attribute name as-is.
-		document.AddAttribute(k, v)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func encodeLogTimestampECSMode(document *objmodel.Document, record plog.LogRecord) {
-	if record.Timestamp() != 0 {
-		document.AddTimestamp("@timestamp", record.Timestamp())
-		return
-	}
+// No conversions to be done; add all attributes at top level of
+// document.
 
-	document.AddTimestamp("@timestamp", record.ObservedTimestamp())
+// If ECS key is found for current k in conversion map, use it.
+
+// Skip the conversion for this k.
+
+// Otherwise, add key at top level with attribute name as-is.
+
+func encodeLogTimestampECSMode(document *objmodel.Document, record plog.LogRecord) {
+	_ = "STUB: not implemented"
+	return
 }

@@ -6,8 +6,6 @@ package ec2 // import "github.com/open-telemetry/opentelemetry-collector-contrib
 import (
 	"time"
 
-	"github.com/aws/aws-sdk-go-v2/aws/retry"
-
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/resourcedetectionprocessor/internal/aws/ec2/internal/metadata"
 )
 
@@ -29,11 +27,4 @@ type Config struct {
 	TagsFromIMDS bool `mapstructure:"tags_from_imds"`
 }
 
-func CreateDefaultConfig() Config {
-	return Config{
-		Tags:               []string{},
-		ResourceAttributes: metadata.DefaultResourceAttributesConfig(),
-		MaxAttempts:        retry.DefaultMaxAttempts,
-		MaxBackoff:         retry.DefaultMaxBackoff,
-	}
-}
+func CreateDefaultConfig() Config { _ = "STUB: not implemented"; return *new(Config) }

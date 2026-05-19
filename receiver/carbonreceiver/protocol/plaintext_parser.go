@@ -3,13 +3,6 @@
 
 package protocol // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/protocol"
 
-import (
-	"fmt"
-	"strings"
-
-	"go.opentelemetry.io/collector/pdata/pcommon"
-)
-
 // PlaintextConfig holds the configuration for the plaintext parser.
 type PlaintextConfig struct{}
 
@@ -18,8 +11,8 @@ var _ ParserConfig = (*PlaintextConfig)(nil)
 // BuildParser creates a new Parser instance that receives plaintext
 // Carbon data.
 func (*PlaintextConfig) BuildParser() (Parser, error) {
-	pathParser := &plaintextPathParser{}
-	return newParser(pathParser)
+	_ = "STUB: not implemented"
+	return *new(Parser), nil
 }
 
 // plaintextPathParser converts a line of https://graphite.readthedocs.io/en/latest/feeding-carbon.html#the-plaintext-protocol,
@@ -38,37 +31,14 @@ type plaintextPathParser struct{}
 // tag is of the form "key=val", where key can contain any char except ";!^=" and
 // val can contain any char except ";~".
 func (*plaintextPathParser) parsePath(path string, parsedPath *parsedPath) error {
-	parts := strings.SplitN(path, ";", 2)
-	if len(parts) < 1 || parts[0] == "" {
-		return fmt.Errorf("empty metric name extracted from path [%s]", path)
-	}
-
-	parsedPath.MetricName = parts[0]
-	parsedPath.Attributes = pcommon.NewMap()
-	if len(parts) == 1 {
-		// No tags, no more work here.
-		return nil
-	}
-
-	if parts[1] == "" {
-		// Empty tags, nothing to do.
-		return nil
-	}
-
-	for tag := range strings.SplitSeq(parts[1], ";") {
-		idx := strings.IndexByte(tag, '=')
-		if idx < 1 {
-			return fmt.Errorf("cannot parse metric path [%s]: incorrect key value separator for [%s]", path, tag)
-		}
-
-		key := tag[:idx]
-		value := tag[idx+1:] // If value is empty, ie.: tag == "k=", this will return "".
-		parsedPath.Attributes.PutStr(key, value)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func plaintextDefaultConfig() ParserConfig {
-	return &PlaintextConfig{}
-}
+// No tags, no more work here.
+
+// Empty tags, nothing to do.
+
+// If value is empty, ie.: tag == "k=", this will return "".
+
+func plaintextDefaultConfig() ParserConfig { _ = "STUB: not implemented"; return *new(ParserConfig) }

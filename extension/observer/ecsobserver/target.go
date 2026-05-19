@@ -4,12 +4,7 @@
 package ecsobserver // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer/ecsobserver"
 
 import (
-	"fmt"
 	"regexp"
-	"strconv"
-	"strings"
-
-	"gopkg.in/yaml.v3"
 )
 
 // target.go defines labels and structs in exported target.
@@ -76,57 +71,24 @@ const (
 
 // ToLabels converts fields in the target to map.
 // It also sanitize label name because the requirements on AWS tags and Prometheus are different.
-func (t *prometheusECSTarget) ToLabels() map[string]string {
-	labels := map[string]string{
-		labelSource:                 t.Source,
-		labelAddress:                t.Address,
-		labelMetricsPath:            t.MetricsPath,
-		labelJob:                    t.Job,
-		labelClusterName:            t.ClusterName,
-		labelServiceName:            t.ServiceName,
-		labelTaskDefinitionFamily:   t.TaskDefinitionFamily,
-		labelTaskDefinitionRevision: strconv.Itoa(t.TaskDefinitionRevision),
-		labelTaskStartedBy:          t.TaskStartedBy,
-		labelTaskLaunchType:         t.TaskLaunchType,
-		labelTaskGroup:              t.TaskGroup,
-		labelContainerName:          t.ContainerName,
-		labelHealthStatus:           t.HealthStatus,
-		labelEC2InstanceID:          t.EC2InstanceID,
-		labelEC2InstanceType:        t.EC2InstanceType,
-		labelEC2VpcID:               t.EC2VpcID,
-		labelEC2SubnetID:            t.EC2SubnetID,
-		labelEC2PrivateIP:           t.EC2PrivateIP,
-		labelEC2PublicIP:            t.EC2PublicIP,
-	}
-	trimEmptyValueByKeyPrefix(labels, labelPrefix+"ec2_")
-	addTagsToLabels(t.TaskTags, labelPrefixTaskTags, labels)
-	addTagsToLabels(t.ContainerLabels, labelPrefixContainerLabels, labels)
-	addTagsToLabels(t.EC2Tags, labelPrefixEC2Tags, labels)
-	return labels
-}
+func (t *prometheusECSTarget) ToLabels() map[string]string { _ = "STUB: not implemented"; return nil }
 
 // addTagsToLabels merge tags (from ecs, ec2 etc.) into existing labels.
 // tag key are prefixed with labelNamePrefix and sanitize with sanitizeLabelName.
 func addTagsToLabels(tags map[string]string, labelNamePrefix string, labels map[string]string) {
-	for k, v := range tags {
-		labels[labelNamePrefix+"_"+sanitizeLabelName(k)] = v
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func trimEmptyValueByKeyPrefix(m map[string]string, prefix string) {
-	for k, v := range m {
-		if v == "" && strings.HasPrefix(k, prefix) {
-			delete(m, k)
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 var invalidLabelCharRE = regexp.MustCompile(`[^a-zA-Z0-9_]`)
 
 // Copied from https://github.com/prometheus/prometheus/blob/8d2a8f493905e46fe6181e8c1b79ccdfcbdb57fc/util/strutil/strconv.go#L40-L44
-func sanitizeLabelName(s string) string {
-	return invalidLabelCharRE.ReplaceAllString(s, "_")
-}
+func sanitizeLabelName(s string) string { _ = "STUB: not implemented"; return "" }
 
 type fileSDTarget struct {
 	Targets []string          `yaml:"targets" json:"targets"`
@@ -134,52 +96,22 @@ type fileSDTarget struct {
 }
 
 func targetsToFileSDTargets(targets []prometheusECSTarget, jobLabelName string) ([]fileSDTarget, error) {
-	converted := make([]fileSDTarget, len(targets))
-	omitEmpty := []string{labelJob, labelServiceName}
-	for i := range targets {
-		t := &targets[i]
-		labels := t.ToLabels()
-		address, ok := labels[labelAddress]
-		if !ok {
-			return nil, fmt.Errorf("address label not found for %v", labels)
-		}
-		delete(labels, labelAddress)
-		// Remove some labels if their value is empty
-		for _, k := range omitEmpty {
-			if v, ok := labels[k]; ok && v == "" {
-				delete(labels, k)
-			}
-		}
-		// Rename job label as a workaround for https://github.com/open-telemetry/opentelemetry-collector/issues/575#issuecomment-814558584
-		// In order to keep similar behavior as cloudwatch agent's discovery implementation,
-		// we support getting job name from docker label. However, prometheus receiver is using job and __name__
-		// labels to get metric type, and it believes the job specified in prom config is always the same as
-		// the job label attached to metrics. Prometheus itself allows discovery to provide job names.
-		//
-		// We can't relabel it using prometheus's relabel config as it would cause the same problem on receiver.
-		// We 'relabel' it to job outside prometheus receiver using other processors in collector's pipeline.
-		job := labels[labelJob]
-		if job != "" && jobLabelName != labelJob {
-			delete(labels, labelJob)
-			labels[jobLabelName] = job
-		}
-		pt := fileSDTarget{
-			Targets: []string{address},
-			Labels:  labels,
-		}
-		converted[i] = pt
-	}
-	return converted, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Remove some labels if their value is empty
+
+// Rename job label as a workaround for https://github.com/open-telemetry/opentelemetry-collector/issues/575#issuecomment-814558584
+// In order to keep similar behavior as cloudwatch agent's discovery implementation,
+// we support getting job name from docker label. However, prometheus receiver is using job and __name__
+// labels to get metric type, and it believes the job specified in prom config is always the same as
+// the job label attached to metrics. Prometheus itself allows discovery to provide job names.
+//
+// We can't relabel it using prometheus's relabel config as it would cause the same problem on receiver.
+// We 'relabel' it to job outside prometheus receiver using other processors in collector's pipeline.
+
 func targetsToFileSDYAML(targets []prometheusECSTarget, jobLabelName string) ([]byte, error) {
-	converted, err := targetsToFileSDTargets(targets, jobLabelName)
-	if err != nil {
-		return nil, err
-	}
-	b, err := yaml.Marshal(converted)
-	if err != nil {
-		return nil, fmt.Errorf("encode targets as YAML failed: %w", err)
-	}
-	return b, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

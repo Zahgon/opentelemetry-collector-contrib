@@ -11,6 +11,4 @@ type ComponentHealthConfig struct {
 	RecoveryDuration   time.Duration `mapstructure:"recovery_duration"`
 }
 
-func (c ComponentHealthConfig) Enabled() bool {
-	return c.IncludePermanent || c.IncludeRecoverable
-}
+func (c ComponentHealthConfig) Enabled() bool { _ = "STUB: not implemented"; return false }

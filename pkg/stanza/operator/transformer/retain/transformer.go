@@ -20,43 +20,18 @@ type Transformer struct {
 }
 
 func (t *Transformer) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return t.ProcessBatchWithTransform(ctx, entries, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will process an entry with a retain transformation.
 func (t *Transformer) Process(ctx context.Context, entry *entry.Entry) error {
-	return t.ProcessWith(ctx, entry, t.Transform)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Transform will apply the retain operation to an entry
-func (t *Transformer) Transform(e *entry.Entry) error {
-	retainedEntryFields := entry.New()
+func (t *Transformer) Transform(e *entry.Entry) error { _ = "STUB: not implemented"; return nil }
 
-	if !t.AllResourceFields {
-		retainedEntryFields.Resource = e.Resource
-	}
-	if !t.AllAttributeFields {
-		retainedEntryFields.Attributes = e.Attributes
-	}
-	if !t.AllBodyFields {
-		retainedEntryFields.Body = e.Body
-	}
-
-	for _, field := range t.Fields {
-		val, ok := e.Get(field)
-		if !ok {
-			continue
-		}
-		err := retainedEntryFields.Set(field, val)
-		if err != nil {
-			return err
-		}
-	}
-
-	// The entry's Resource, Attributes & Body are modified.
-	// All other fields are left untouched (Ex: Timestamp, TraceID, ..)
-	e.Resource = retainedEntryFields.Resource
-	e.Attributes = retainedEntryFields.Attributes
-	e.Body = retainedEntryFields.Body
-	return nil
-}
+// The entry's Resource, Attributes & Body are modified.
+// All other fields are left untouched (Ex: Timestamp, TraceID, ..)

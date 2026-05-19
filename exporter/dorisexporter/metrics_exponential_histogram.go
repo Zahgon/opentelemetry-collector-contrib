@@ -5,7 +5,6 @@ package dorisexporter // import "github.com/open-telemetry/opentelemetry-collect
 
 import (
 	_ "embed"
-	"fmt"
 
 	"go.opentelemetry.io/collector/pdata/pmetric"
 )
@@ -39,71 +38,13 @@ type metricModelExponentialHistogram struct {
 }
 
 func (*metricModelExponentialHistogram) metricType() pmetric.MetricType {
-	return pmetric.MetricTypeExponentialHistogram
+	_ = "STUB: not implemented"
+	return *new(pmetric.MetricType)
 }
 
-func (*metricModelExponentialHistogram) tableSuffix() string {
-	return "_exponential_histogram"
-}
+func (*metricModelExponentialHistogram) tableSuffix() string { _ = "STUB: not implemented"; return "" }
 
 func (m *metricModelExponentialHistogram) add(pm pmetric.Metric, dm *dMetric, e *metricsExporter) error {
-	if pm.Type() != pmetric.MetricTypeExponentialHistogram {
-		return fmt.Errorf("metric type is not exponential histogram: %v", pm.Type().String())
-	}
-
-	dataPoints := pm.ExponentialHistogram().DataPoints()
-	for i := 0; i < dataPoints.Len(); i++ {
-		dp := dataPoints.At(i)
-
-		exemplars := dp.Exemplars()
-		newExemplars := make([]*dExemplar, 0, exemplars.Len())
-		for j := 0; j < exemplars.Len(); j++ {
-			exemplar := exemplars.At(j)
-
-			newExemplar := &dExemplar{
-				FilteredAttributes: exemplar.FilteredAttributes().AsRaw(),
-				Timestamp:          e.formatTime(exemplar.Timestamp().AsTime()),
-				Value:              e.getExemplarValue(exemplar),
-				SpanID:             exemplar.SpanID().String(),
-				TraceID:            exemplar.TraceID().String(),
-			}
-
-			newExemplars = append(newExemplars, newExemplar)
-		}
-
-		positiveBucketCounts := dp.Positive().BucketCounts()
-		newPositiveBucketCounts := make([]int64, 0, positiveBucketCounts.Len())
-		for j := 0; j < positiveBucketCounts.Len(); j++ {
-			newPositiveBucketCounts = append(newPositiveBucketCounts, int64(positiveBucketCounts.At(j)))
-		}
-
-		negativeBucketCounts := dp.Negative().BucketCounts()
-		newNegativeBucketCounts := make([]int64, 0, negativeBucketCounts.Len())
-		for j := 0; j < negativeBucketCounts.Len(); j++ {
-			newNegativeBucketCounts = append(newNegativeBucketCounts, int64(negativeBucketCounts.At(j)))
-		}
-
-		metric := &dMetricExponentialHistogram{
-			dMetric:                dm,
-			Timestamp:              e.formatTime(dp.Timestamp().AsTime()),
-			Attributes:             dp.Attributes().AsRaw(),
-			StartTime:              e.formatTime(dp.StartTimestamp().AsTime()),
-			Count:                  int64(dp.Count()),
-			Sum:                    dp.Sum(),
-			Scale:                  dp.Scale(),
-			ZeroCount:              int64(dp.ZeroCount()),
-			PositiveOffset:         dp.Positive().Offset(),
-			PositiveBucketCounts:   newPositiveBucketCounts,
-			NegativeOffset:         dp.Negative().Offset(),
-			NegativeBucketCounts:   newNegativeBucketCounts,
-			Exemplars:              newExemplars,
-			Min:                    dp.Min(),
-			Max:                    dp.Max(),
-			ZeroThreshold:          dp.ZeroThreshold(),
-			AggregationTemporality: pm.ExponentialHistogram().AggregationTemporality().String(),
-		}
-		m.data = append(m.data, metric)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }

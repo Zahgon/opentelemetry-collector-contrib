@@ -5,15 +5,11 @@ package config // import "github.com/open-telemetry/opentelemetry-collector-cont
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
-	"strings"
 	"time"
 
-	"github.com/DataDog/datadog-agent/pkg/util/hostname/validate"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
@@ -118,107 +114,36 @@ type Config struct {
 }
 
 // LogWarnings logs warning messages that were generated on unmarshaling.
-func (c *Config) LogWarnings(logger *zap.Logger) {
-	for _, err := range c.warnings {
-		logger.Warn(fmt.Sprintf("%v", err))
-	}
-}
+func (c *Config) LogWarnings(logger *zap.Logger) { _ = "STUB: not implemented"; return }
 
 // AddWarning adds a warning message to the configuration.
 // This allows external modules to add warnings that will be logged later.
-func (c *Config) AddWarning(warning error) {
-	c.warnings = append(c.warnings, warning)
-}
+func (c *Config) AddWarning(warning error) { _ = "STUB: not implemented"; return }
 
 // AddWarningf adds a formatted warning message to the configuration.
 // This allows external modules to add formatted warnings that will be logged later.
-func (c *Config) AddWarningf(format string, args ...any) {
-	c.warnings = append(c.warnings, fmt.Errorf(format, args...))
-}
+func (c *Config) AddWarningf(format string, args ...any) { _ = "STUB: not implemented"; return }
 
 // GetWarnings returns a copy of all warnings stored in the configuration.
 // This allows external modules to retrieve and process warnings as needed.
 func (c *Config) GetWarnings() []error {
+	_ = "STUB: not implemented"
 	// Return a copy to prevent external modification of the internal slice
-	warnings := make([]error, len(c.warnings))
-	copy(warnings, c.warnings)
-	return warnings
+	return nil
 }
 
 var _ component.Config = (*Config)(nil)
 
 // Validate the configuration for errors. This is required by component.Config.
-func (c *Config) Validate() error {
-	if err := validateClientConfig(c.ClientConfig); err != nil {
-		return err
-	}
-
-	if c.OnlyMetadata && (!c.HostMetadata.Enabled || c.HostMetadata.HostnameSource != HostnameSourceFirstResource) {
-		return ErrNoMetadata
-	}
-
-	if err := validate.ValidHostname(c.Hostname); c.Hostname != "" && err != nil {
-		return fmt.Errorf("hostname field is invalid: %w", err)
-	}
-
-	if c.API.Key == "" {
-		return ErrUnsetAPIKey
-	}
-
-	if err := c.Traces.Validate(); err != nil {
-		return err
-	}
-
-	err := c.Metrics.HistConfig.validate()
-	if err != nil {
-		return err
-	}
-
-	if c.HostMetadata.ReporterPeriod < 5*time.Minute {
-		return errors.New("reporter_period must be 5 minutes or higher")
-	}
-
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // StaticAPIKey Check checks if api::key is either empty or contains invalid (non-hex) characters
 // It does not validate online; this is handled on startup.
 //
 // Deprecated: [v0.136.0] Do not use, will be removed on the next minor version
-func StaticAPIKeyCheck(key string) error {
-	if key == "" {
-		return ErrUnsetAPIKey
-	}
+func StaticAPIKeyCheck(key string) error { _ = "STUB: not implemented"; return nil }
 
-	return nil
-}
-
-func validateClientConfig(cfg confighttp.ClientConfig) error {
-	var unsupported []string
-	if cfg.Auth.HasValue() {
-		unsupported = append(unsupported, "auth")
-	}
-	if cfg.Endpoint != "" {
-		unsupported = append(unsupported, "endpoint")
-	}
-	if cfg.Compression != "" {
-		unsupported = append(unsupported, "compression")
-	}
-	if len(cfg.Headers) > 0 {
-		unsupported = append(unsupported, "headers")
-	}
-	if cfg.HTTP2ReadIdleTimeout != 0 {
-		unsupported = append(unsupported, "http2_read_idle_timeout")
-	}
-	if cfg.HTTP2PingTimeout != 0 {
-		unsupported = append(unsupported, "http2_ping_timeout")
-	}
-
-	if len(unsupported) > 0 {
-		return fmt.Errorf("these confighttp client configs are currently not respected by Datadog exporter: %s", strings.Join(unsupported, ", "))
-	}
-	return nil
-}
+func validateClientConfig(cfg confighttp.ClientConfig) error { _ = "STUB: not implemented"; return nil }
 
 var _ error = (*renameError)(nil)
 
@@ -267,165 +192,36 @@ var removedSettings = []renameError{
 }
 
 // Error implements the error interface.
-func (e renameError) Error() string {
-	return fmt.Sprintf(
-		"%q was removed in favor of %q. See https://github.com/open-telemetry/opentelemetry-collector-contrib/issues/%d",
-		e.oldName,
-		e.newName,
-		e.issueNumber,
-	)
-}
+func (e renameError) Error() string { _ = "STUB: not implemented"; return "" }
 
-func handleRemovedSettings(configMap *confmap.Conf) error {
-	var errs []error
-	for _, removedErr := range removedSettings {
-		if configMap.IsSet(removedErr.oldName) {
-			errs = append(errs, removedErr)
-		}
-	}
-
-	return errors.Join(errs...)
-}
+func handleRemovedSettings(configMap *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
 var _ confmap.Unmarshaler = (*Config)(nil)
 
 // Unmarshal a configuration map into the configuration struct.
-func (c *Config) Unmarshal(configMap *confmap.Conf) error {
-	if err := handleRemovedSettings(configMap); err != nil {
-		return err
-	}
+func (c *Config) Unmarshal(configMap *confmap.Conf) error { _ = "STUB: not implemented"; return nil }
 
-	err := configMap.Unmarshal(c)
-	if err != nil {
-		return err
-	}
+// Add deprecation warnings for deprecated settings.
 
-	// Add deprecation warnings for deprecated settings.
-	renamingWarnings, err := handleRenamedSettings(configMap, c)
-	if err != nil {
-		return err
-	}
-	c.warnings = append(c.warnings, renamingWarnings...)
+// If an endpoint is not explicitly set, override it based on the site.
 
-	if c.HostMetadata.HostnameSource == HostnameSourceFirstResource {
-		c.warnings = append(c.warnings, errors.New("first_resource is deprecated, opt in to https://docs.datadoghq.com/opentelemetry/mapping/host_metadata/ instead"))
-	}
-
-	c.API.Key = configopaque.String(strings.TrimSpace(string(c.API.Key)))
-
-	// If an endpoint is not explicitly set, override it based on the site.
-	if !configMap.IsSet("metrics::endpoint") {
-		c.Metrics.Endpoint = fmt.Sprintf("https://api.%s", c.API.Site)
-	}
-	if !configMap.IsSet("traces::endpoint") {
-		c.Traces.Endpoint = fmt.Sprintf("https://trace.agent.%s", c.API.Site)
-	}
-	if !configMap.IsSet("logs::endpoint") {
-		c.Logs.Endpoint = fmt.Sprintf("https://http-intake.logs.%s", c.API.Site)
-	}
-	if !configMap.IsSet("orchestrator_explorer::endpoint") {
-		c.OrchestratorExplorer.Endpoint = fmt.Sprintf("https://orchestrator.%s/api/v2/orchmanif", c.API.Site)
-	}
-
-	// Return an error if an endpoint is explicitly set to ""
-	if c.Metrics.Endpoint == "" || c.Traces.Endpoint == "" || c.Logs.Endpoint == "" {
-		return ErrEmptyEndpoint
-	}
-
-	const (
-		initialValueSetting = "metrics::sums::initial_cumulative_monotonic_value"
-		cumulMonoMode       = "metrics::sums::cumulative_monotonic_mode"
-	)
-	if configMap.IsSet(initialValueSetting) && c.Metrics.SumConfig.CumulativeMonotonicMode != CumulativeMonotonicSumModeToDelta {
-		return fmt.Errorf("%q can only be configured when %q is set to %q",
-			initialValueSetting, cumulMonoMode, CumulativeMonotonicSumModeToDelta)
-	}
-
-	return nil
-}
+// Return an error if an endpoint is explicitly set to ""
 
 func defaultClientConfig() confighttp.ClientConfig {
-	client := confighttp.NewDefaultClientConfig()
-	client.Timeout = 15 * time.Second
-	return client
+	_ = "STUB: not implemented"
+	return *new(confighttp.ClientConfig)
 }
 
 // CreateDefaultConfig creates the default exporter configuration
 func CreateDefaultConfig() component.Config {
-	return &Config{
-		ClientConfig:  defaultClientConfig(),
-		BackOffConfig: configretry.NewDefaultBackOffConfig(),
-		QueueSettings: configoptional.Some(exporterhelper.NewDefaultQueueConfig()),
-
-		API: APIConfig{
-			Site: "datadoghq.com",
-		},
-
-		Metrics: MetricsConfig{
-			TCPAddrConfig: confignet.TCPAddrConfig{
-				Endpoint: "https://api.datadoghq.com",
-			},
-			DeltaTTL: 3600,
-			ExporterConfig: MetricsExporterConfig{
-				ResourceAttributesAsTags:           false,
-				InstrumentationScopeMetadataAsTags: true,
-			},
-			HistConfig: HistogramConfig{
-				Mode:             "distributions",
-				SendAggregations: false,
-			},
-			SumConfig: SumConfig{
-				CumulativeMonotonicMode:        CumulativeMonotonicSumModeToDelta,
-				InitialCumulativeMonotonicMode: InitialValueModeAuto,
-			},
-			SummaryConfig: SummaryConfig{
-				Mode: SummaryModeGauges,
-			},
-		},
-
-		Traces: TracesExporterConfig{
-			TCPAddrConfig: confignet.TCPAddrConfig{
-				Endpoint: "https://trace.agent.datadoghq.com",
-			},
-			TracesConfig: TracesConfig{
-				IgnoreResources:        []string{},
-				PeerServiceAggregation: true,
-				PeerTagsAggregation:    true,
-				ComputeStatsBySpanKind: true,
-			},
-		},
-
-		Logs: LogsConfig{
-			TCPAddrConfig: confignet.TCPAddrConfig{
-				Endpoint: "https://http-intake.logs.datadoghq.com",
-			},
-			UseCompression:   true,
-			CompressionLevel: 6,
-			BatchWait:        5,
-		},
-
-		HostMetadata: HostMetadataConfig{
-			Enabled:        true,
-			HostnameSource: HostnameSourceConfigOrSystem,
-			ReporterPeriod: 30 * time.Minute,
-		},
-
-		OrchestratorExplorer: OrchestratorExplorerConfig{
-			TCPAddrConfig: confignet.TCPAddrConfig{
-				Endpoint: "https://orchestrator.datadoghq.com/api/v2/orchmanif",
-			},
-			Enabled: false,
-		},
-
-		HostnameDetectionTimeout: 25 * time.Second, // set to 25 to prevent 30-second pod restart on K8s as reported in issue #40372 and #40373
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
+
+// set to 25 to prevent 30-second pod restart on K8s as reported in issue #40372 and #40373
 
 // CheckAndCastConfig checks a component.Config type and casts it to the Datadog Config struct.
 func CheckAndCastConfig(c component.Config) (*Config, error) {
-	cfg, ok := c.(*Config)
-	if !ok {
-		return nil, fmt.Errorf("expected config of type *datadog.Config, got %T", c)
-	}
-	return cfg, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }

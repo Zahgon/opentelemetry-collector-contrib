@@ -4,8 +4,6 @@
 package podmanreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/podmanreceiver"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
@@ -29,12 +27,4 @@ type Config struct {
 	metadata.MetricsBuilderConfig `mapstructure:",squash"`
 }
 
-func (config Config) Validate() error {
-	if config.Endpoint == "" {
-		return errors.New("config.Endpoint must be specified")
-	}
-	if config.CollectionInterval == 0 {
-		return errors.New("config.CollectionInterval must be specified")
-	}
-	return nil
-}
+func (config Config) Validate() error { _ = "STUB: not implemented"; return nil }

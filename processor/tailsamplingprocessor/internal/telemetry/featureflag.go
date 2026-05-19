@@ -3,14 +3,6 @@
 
 package telemetry // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/telemetry"
 
-import (
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/internal/metadata"
-)
+func IsMetricStatCountSpansSampledEnabled() bool { _ = "STUB: not implemented"; return false }
 
-func IsMetricStatCountSpansSampledEnabled() bool {
-	return metadata.ProcessorTailsamplingprocessorMetricstatcountspanssampledFeatureGate.IsEnabled()
-}
-
-func IsRecordPolicyEnabled() bool {
-	return metadata.ProcessorTailsamplingprocessorRecordpolicyFeatureGate.IsEnabled()
-}
+func IsRecordPolicyEnabled() bool { _ = "STUB: not implemented"; return false }

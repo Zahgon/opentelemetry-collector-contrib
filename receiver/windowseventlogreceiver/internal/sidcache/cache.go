@@ -21,14 +21,15 @@ const (
 var sidPattern = regexp.MustCompile(`^S-1-\d+(-\d+)+$`)
 
 // isSIDFormat checks if a string matches the SID format
-func isSIDFormat(sid string) bool {
-	return sidPattern.MatchString(sid)
-}
+func isSIDFormat(sid string) bool { _ = "STUB: not implemented"; return false }
 
 // IsSIDField checks if a field name likely contains a SID
 // Used by the receiver to identify which fields need resolution
 func IsSIDField(fieldName string) bool {
+	_ = "STUB: not implemented"
 	// Common SID field patterns in Windows events
-	return len(fieldName) >= 3 && (fieldName[len(fieldName)-3:] == "Sid" || // ends with "Sid"
-		fieldName == "UserID") // exact match for security.user_id
+	return false
 }
+
+// ends with "Sid"
+// exact match for security.user_id

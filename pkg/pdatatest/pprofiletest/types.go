@@ -3,8 +3,6 @@
 
 package pprofiletest // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/pdatatest/pprofiletest"
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pprofile"
 )
@@ -16,11 +14,8 @@ type Profiles struct {
 }
 
 func (p Profiles) Transform() pprofile.Profiles {
-	pp := pprofile.NewProfiles()
-	for _, rp := range p.ResourceProfiles {
-		rp.Transform(pp)
-	}
-	return pp
+	_ = "STUB: not implemented"
+	return *new(pprofile.Profiles)
 }
 
 type ResourceProfile struct {
@@ -32,14 +27,8 @@ type ResourceProfile struct {
 }
 
 func (rp ResourceProfile) Transform(pp pprofile.Profiles) pprofile.ResourceProfiles {
-	prp := pp.ResourceProfiles().AppendEmpty()
-	for _, sp := range rp.ScopeProfiles {
-		sp.Transform(pp.Dictionary(), prp)
-	}
-
-	rp.Resource.Attributes().CopyTo(prp.Resource().Attributes())
-
-	return prp
+	_ = "STUB: not implemented"
+	return *new(pprofile.ResourceProfiles)
 }
 
 type ScopeProfile struct {
@@ -51,16 +40,8 @@ type ScopeProfile struct {
 }
 
 func (sp ScopeProfile) Transform(dic pprofile.ProfilesDictionary, prp pprofile.ResourceProfiles) pprofile.ScopeProfiles {
-	psp := prp.ScopeProfiles().AppendEmpty()
-	for i := range sp.Profiles {
-		p := &sp.Profiles[i]
-		p.Transform(dic, psp)
-	}
-	psp.SetSchemaUrl(sp.SchemaURL)
-
-	sp.Scope.CopyTo(psp.Scope())
-
-	return psp
+	_ = "STUB: not implemented"
+	return *new(pprofile.ScopeProfiles)
 }
 
 type Profile struct {
@@ -79,47 +60,17 @@ type Profile struct {
 }
 
 func (p *Profile) Transform(dic pprofile.ProfilesDictionary, psp pprofile.ScopeProfiles) pprofile.Profile {
-	pp := psp.Profiles().AppendEmpty()
-
-	// Avoids that 0 (default) string indices point to nowhere.
-	addString(dic, "")
-
-	// If valueTypes are not set, set them to the default value.
-	defaultValueType := ValueType{Typ: "samples", Unit: "count"}
-	if p.PeriodType.Typ == "" && p.PeriodType.Unit == "" {
-		p.PeriodType = defaultValueType
-	}
-
-	p.SampleType.Transform(dic, pp)
-	for _, sa := range p.Sample {
-		sa.Transform(dic, pp)
-	}
-	pp.SetTime(p.TimeNanos)
-	pp.SetDurationNano(p.DurationNanos)
-	p.PeriodType.CopyTo(dic, pp.PeriodType())
-	pp.SetPeriod(p.Period)
-	pp.SetProfileID(p.ProfileID)
-	pp.SetDroppedAttributesCount(p.DroppedAttributesCount)
-	pp.SetOriginalPayloadFormat(p.OriginalPayloadFormat)
-	pp.OriginalPayload().FromRaw(p.OriginalPayload)
-	for _, at := range p.Attributes {
-		at.Transform(dic, pp)
-	}
-	for _, au := range p.KeyValueAndUnits {
-		au.Transform(dic)
-	}
-
-	return pp
+	_ = "STUB: not implemented"
+	return *new(pprofile.Profile)
 }
 
+// Avoids that 0 (default) string indices point to nowhere.
+
+// If valueTypes are not set, set them to the default value.
+
 func addString(dic pprofile.ProfilesDictionary, s string) int32 {
-	for i := range dic.StringTable().Len() {
-		if dic.StringTable().At(i) == s {
-			return int32(i)
-		}
-	}
-	dic.StringTable().Append(s)
-	return int32(dic.StringTable().Len() - 1)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 type ValueType struct {
@@ -128,23 +79,18 @@ type ValueType struct {
 }
 
 func (vt *ValueType) exists(dic pprofile.ProfilesDictionary, pp pprofile.Profile) bool {
-	st := pp.SampleType()
-	if vt.Typ == dic.StringTable().At(int(st.TypeStrindex())) &&
-		vt.Unit == dic.StringTable().At(int(st.UnitStrindex())) {
-		return true
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 func (vt *ValueType) CopyTo(dic pprofile.ProfilesDictionary, pvt pprofile.ValueType) {
-	pvt.SetTypeStrindex(addString(dic, vt.Typ))
-	pvt.SetUnitStrindex(addString(dic, vt.Unit))
+	_ = "STUB: not implemented"
+	return
 }
 
 func (vt *ValueType) Transform(dic pprofile.ProfilesDictionary, pp pprofile.Profile) {
-	if !vt.exists(dic, pp) {
-		vt.CopyTo(dic, pp.SampleType())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 type Sample struct {
@@ -158,38 +104,13 @@ type Sample struct {
 }
 
 func (sa *Sample) Transform(dic pprofile.ProfilesDictionary, pp pprofile.Profile) {
-	stack := dic.StackTable().AppendEmpty()
-	psa := pp.Samples().AppendEmpty()
-	psa.SetStackIndex(int32(dic.StackTable().Len() - 1))
-
-	for _, loc := range sa.Locations {
-		ploc := dic.LocationTable().AppendEmpty()
-		stack.LocationIndices().Append(int32(dic.LocationTable().Len() - 1))
-
-		if loc.Mapping != nil {
-			loc.Mapping.Transform(dic)
-		}
-		ploc.SetAddress(loc.Address)
-		for _, l := range loc.Line {
-			pl := ploc.Lines().AppendEmpty()
-			pl.SetLine(l.Line)
-			pl.SetColumn(l.Column)
-			pl.SetFunctionIndex(l.Function.Transform(dic))
-		}
-		for _, at := range loc.Attributes {
-			at.Transform(dic, ploc)
-		}
-	}
-	psa.Values().FromRaw(sa.Values)
-	for _, at := range sa.Attributes {
-		at.Transform(dic, psa)
-	}
-	//nolint:revive,staticcheck
-	if sa.Link != nil {
-		// psa.SetLinkIndex(sa.Link.Transform(pp)) <-- undefined yet
-	}
-	psa.TimestampsUnixNano().FromRaw(sa.TimestampsUnixNano)
+	_ = "STUB: not implemented"
+	return
 }
+
+//nolint:revive,staticcheck
+
+// psa.SetLinkIndex(sa.Link.Transform(pp)) <-- undefined yet
 
 type Location struct {
 	Mapping    *Mapping
@@ -209,10 +130,8 @@ type Link struct {
 }
 
 func (l *Link) Transform(dic pprofile.ProfilesDictionary) int32 {
-	pl := dic.LinkTable().AppendEmpty()
-	pl.SetTraceID(l.TraceID)
-	pl.SetSpanID(l.SpanID)
-	return int32(dic.LinkTable().Len() - 1)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 type Mapping struct {
@@ -225,16 +144,7 @@ type Mapping struct {
 	_ struct{}
 }
 
-func (m *Mapping) Transform(dic pprofile.ProfilesDictionary) {
-	pm := dic.MappingTable().AppendEmpty()
-	pm.SetMemoryStart(m.MemoryStart)
-	pm.SetMemoryLimit(m.MemoryLimit)
-	pm.SetFileOffset(m.FileOffset)
-	pm.SetFilenameStrindex(addString(dic, m.Filename))
-	for _, at := range m.Attributes {
-		at.Transform(dic, pm)
-	}
-}
+func (m *Mapping) Transform(dic pprofile.ProfilesDictionary) { _ = "STUB: not implemented"; return }
 
 type Attribute struct {
 	Key   string
@@ -248,23 +158,8 @@ type attributable interface {
 }
 
 func (a *Attribute) Transform(dic pprofile.ProfilesDictionary, record attributable) {
-	kvu := pprofile.NewKeyValueAndUnit()
-	keyIdx, err := pprofile.SetString(dic.StringTable(), a.Key)
-	if err != nil {
-		panic(fmt.Sprintf("failed to put key string: %s: %v", a.Key, err))
-	}
-	kvu.SetKeyStrindex(keyIdx)
-	err = kvu.Value().FromRaw(a.Value)
-	if err != nil {
-		panic(fmt.Sprintf("unsupported attribute value: {%s: %v (type %T)}",
-			a.Key, a.Value, a.Value))
-	}
-	idx, err := pprofile.SetAttribute(dic.AttributeTable(), kvu)
-	if err != nil {
-		panic(fmt.Sprintf("failed to set attribute: {%s: %v (type %T)}: %v",
-			a.Key, a.Value, a.Value, err))
-	}
-	record.AttributeIndices().Append(idx)
+	_ = "STUB: not implemented"
+	return
 }
 
 type KeyValueAndUnit struct {
@@ -276,11 +171,8 @@ type KeyValueAndUnit struct {
 }
 
 func (a *KeyValueAndUnit) Transform(dic pprofile.ProfilesDictionary) int32 {
-	pa := dic.AttributeTable().AppendEmpty()
-	pa.SetKeyStrindex(addString(dic, a.Key))
-	_ = pa.Value().FromRaw(a.Value)
-	pa.SetUnitStrindex(addString(dic, a.Unit))
-	return int32(dic.AttributeTable().Len() - 1)
+	_ = "STUB: not implemented"
+	return 0
 }
 
 type Line struct {
@@ -301,10 +193,6 @@ type Function struct {
 }
 
 func (f *Function) Transform(dic pprofile.ProfilesDictionary) int32 {
-	pf := dic.FunctionTable().AppendEmpty()
-	pf.SetNameStrindex(addString(dic, f.Name))
-	pf.SetSystemNameStrindex(addString(dic, f.SystemName))
-	pf.SetFilenameStrindex(addString(dic, f.Filename))
-	pf.SetStartLine(f.StartLine)
-	return int32(dic.FunctionTable().Len() - 1)
+	_ = "STUB: not implemented"
+	return 0
 }

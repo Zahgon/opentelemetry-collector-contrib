@@ -11,39 +11,18 @@ type Aerospike struct {
 
 // Close provides a mock function with given fields:
 func (_m *Aerospike) Close() {
-	_m.Called()
+	_ = "STUB: not implemented"
+
+	// Info provides a mock function with given fields:
+	return
 }
 
-// Info provides a mock function with given fields:
-func (_m *Aerospike) Info() map[string]map[string]string {
-	ret := _m.Called()
-
-	var r0 map[string]map[string]string
-	if rf, ok := ret.Get(0).(func() map[string]map[string]string); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(map[string]map[string]string)
-		}
-	}
-
-	return r0
-}
+func (_m *Aerospike) Info() map[string]map[string]string { _ = "STUB: not implemented"; return nil }
 
 // NamespaceInfo provides a mock function with given fields:
 func (_m *Aerospike) NamespaceInfo() map[string]map[string]map[string]string {
-	ret := _m.Called()
-
-	var r0 map[string]map[string]map[string]string
-	if rf, ok := ret.Get(0).(func() map[string]map[string]map[string]string); ok {
-		r0 = rf()
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(map[string]map[string]map[string]string)
-		}
-	}
-
-	return r0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 type mockConstructorTestingTNewAerospike interface {
@@ -53,10 +32,6 @@ type mockConstructorTestingTNewAerospike interface {
 
 // NewAerospike creates a new instance of Aerospike. It also registers a testing interface on the mock and a cleanup function to assert the mocks expectations.
 func NewAerospike(t mockConstructorTestingTNewAerospike) *Aerospike {
-	mock := &Aerospike{}
-	mock.Mock.Test(t)
-
-	t.Cleanup(func() { mock.AssertExpectations(t) })
-
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }

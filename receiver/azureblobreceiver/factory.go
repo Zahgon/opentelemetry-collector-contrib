@@ -6,17 +6,13 @@ package azureblobreceiver // import "github.com/open-telemetry/opentelemetry-col
 import (
 	"context"
 	"errors"
-	"fmt"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/receiver/xreceiver"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/azureblobreceiver/internal/metadata"
 )
 
 const (
@@ -32,27 +28,11 @@ type blobReceiverFactory struct {
 }
 
 // NewFactory returns a factory for Azure Blob receiver.
-func NewFactory() receiver.Factory {
-	f := &blobReceiverFactory{
-		receivers: sharedcomponent.NewSharedComponents(),
-	}
-
-	return xreceiver.NewFactory(
-		metadata.Type,
-		f.createDefaultConfig,
-		xreceiver.WithTraces(f.createTracesReceiver, metadata.TracesStability),
-		xreceiver.WithLogs(f.createLogsReceiver, metadata.LogsStability),
-		xreceiver.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func (*blobReceiverFactory) createDefaultConfig() component.Config {
-	return &Config{
-		Logs:           LogsConfig{ContainerName: logsContainerName},
-		Traces:         TracesConfig{ContainerName: tracesContainerName},
-		Authentication: ConnectionStringAuth,
-		Cloud:          defaultCloud,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func (f *blobReceiverFactory) createLogsReceiver(
@@ -61,15 +41,8 @@ func (f *blobReceiverFactory) createLogsReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Logs,
 ) (receiver.Logs, error) {
-	receiver, err := f.getReceiver(set, cfg)
-	if err != nil {
-		set.Logger.Error(err.Error())
-		return nil, err
-	}
-
-	receiver.(logsDataConsumer).setNextLogsConsumer(nextConsumer)
-
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 func (f *blobReceiverFactory) createTracesReceiver(
@@ -78,83 +51,21 @@ func (f *blobReceiverFactory) createTracesReceiver(
 	cfg component.Config,
 	nextConsumer consumer.Traces,
 ) (receiver.Traces, error) {
-	receiver, err := f.getReceiver(set, cfg)
-	if err != nil {
-		set.Logger.Error(err.Error())
-		return nil, err
-	}
-
-	receiver.(tracesDataConsumer).setNextTracesConsumer(nextConsumer)
-	return receiver, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Traces), nil
 }
 
 func (f *blobReceiverFactory) getReceiver(
 	set receiver.Settings,
 	cfg component.Config,
 ) (component.Component, error) {
-	var err error
-	r := f.receivers.GetOrAdd(cfg, func() component.Component {
-		receiverConfig, ok := cfg.(*Config)
-
-		if !ok {
-			err = errUnexpectedConfigurationType
-			return nil
-		}
-
-		var beh eventHandler
-		beh, err = f.getEventHandler(receiverConfig, set.Logger)
-		if err != nil {
-			return nil
-		}
-
-		var receiver component.Component
-		receiver, err = newReceiver(set, beh)
-		return receiver
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return r.Unwrap(), err
+	_ = "STUB: not implemented"
+	return *new(component.Component), nil
 }
 
 func (*blobReceiverFactory) getEventHandler(cfg *Config, logger *zap.Logger) (eventHandler, error) {
-	var bc blobClient
-	var err error
-
-	switch cfg.Authentication {
-	case ConnectionStringAuth:
-		bc, err = newBlobClientFromConnectionString(cfg.ConnectionString, logger)
-		if err != nil {
-			return nil, err
-		}
-	case ServicePrincipalAuth:
-		cred, err := azidentity.NewClientSecretCredential(cfg.ServicePrincipal.TenantID, cfg.ServicePrincipal.ClientID, string(cfg.ServicePrincipal.ClientSecret), nil)
-		if err != nil {
-			return nil, err
-		}
-		bc, err = newBlobClientFromCredential(cfg.StorageAccountURL, cred, logger)
-		if err != nil {
-			return nil, err
-		}
-	case DefaultAuth:
-		cred, err := azidentity.NewDefaultAzureCredential(nil)
-		if err != nil {
-			return nil, err
-		}
-		bc, err = newBlobClientFromCredential(cfg.StorageAccountURL, cred, logger)
-		if err != nil {
-			return nil, err
-		}
-	default:
-		return nil, fmt.Errorf("unknown authentication %v", cfg.Authentication)
-	}
-
-	// If Event Hub is not configured, use the Blob Event Handler
-	if cfg.EventHub.EndPoint == "" {
-		return newBlobEventHandler(cfg.Logs.ContainerName, cfg.Traces.ContainerName, bc, logger), nil
-	}
-	return newEventHubEventHandler(cfg.EventHub.EndPoint, cfg.Logs.ContainerName, cfg.Traces.ContainerName, bc, logger),
-		nil
+	_ = "STUB: not implemented"
+	return *new(eventHandler), nil
 }
+
+// If Event Hub is not configured, use the Blob Event Handler

@@ -4,8 +4,6 @@
 package ottlspan // import "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlspan"
 
 import (
-	"errors"
-	"fmt"
 	"sync"
 
 	"go.opentelemetry.io/collector/component"
@@ -16,11 +14,7 @@ import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxcache"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxcommon"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxotelcol"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxresource"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxscope"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/ctxspan"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/internal/logging"
 )
 
 var tcPool = sync.Pool{
@@ -45,11 +39,8 @@ type TransformContext struct {
 
 // MarshalLogObject serializes the TransformContext into a zapcore.ObjectEncoder for logging.
 func (tCtx *TransformContext) MarshalLogObject(encoder zapcore.ObjectEncoder) error {
-	err := encoder.AddObject("resource", logging.Resource(tCtx.GetResource()))
-	err = errors.Join(err, encoder.AddObject("scope", logging.InstrumentationScope(tCtx.GetInstrumentationScope())))
-	err = errors.Join(err, encoder.AddObject("span", logging.Span(tCtx.span)))
-	err = errors.Join(err, encoder.AddObject("cache", logging.Map(tCtx.cache)))
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TransformContextOption represents an option for configuring a TransformContext.
@@ -58,85 +49,67 @@ type TransformContextOption func(*TransformContext)
 // NewTransformContextPtr returns a new TransformContext with the provided parameters from a pool of contexts.
 // Caller must call TransformContext.Close on the returned TransformContext.
 func NewTransformContextPtr(resourceSpans ptrace.ResourceSpans, scopeSpans ptrace.ScopeSpans, span ptrace.Span, options ...TransformContextOption) *TransformContext {
-	tCtx := tcPool.Get().(*TransformContext)
-	tCtx.resourceSpans = resourceSpans
-	tCtx.scopeSpans = scopeSpans
-	tCtx.span = span
-	for _, opt := range options {
-		opt(tCtx)
-	}
-	return tCtx
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Close the current TransformContext.
 // After this function returns this instance cannot be used.
-func (tCtx *TransformContext) Close() {
-	tCtx.resourceSpans = ptrace.ResourceSpans{}
-	tCtx.scopeSpans = ptrace.ScopeSpans{}
-	tCtx.span = ptrace.Span{}
-	tCtx.cache.Clear()
-	tcPool.Put(tCtx)
-}
+func (tCtx *TransformContext) Close() { _ = "STUB: not implemented"; return }
 
 // GetSpan returns the span from the TransformContext.
 func (tCtx *TransformContext) GetSpan() ptrace.Span {
-	return tCtx.span
+	_ = "STUB: not implemented"
+
+	// GetInstrumentationScope returns the instrumentation scope from the TransformContext.
+	return *new(ptrace.Span)
 }
 
-// GetInstrumentationScope returns the instrumentation scope from the TransformContext.
 func (tCtx *TransformContext) GetInstrumentationScope() pcommon.InstrumentationScope {
-	return tCtx.scopeSpans.Scope()
+	_ = "STUB: not implemented"
+	return *new(pcommon.InstrumentationScope)
 }
 
 // GetResource returns the resource from the TransformContext.
 func (tCtx *TransformContext) GetResource() pcommon.Resource {
-	return tCtx.resourceSpans.Resource()
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }
 
 // GetResourceSchemaURLItem returns the schema URL item for the resource from the TransformContext.
 func (tCtx *TransformContext) GetResourceSchemaURLItem() ctxcommon.SchemaURLItem {
-	return tCtx.resourceSpans
+	_ = "STUB: not implemented"
+	return *new(ctxcommon.SchemaURLItem)
 }
 
 // GetScopeSchemaURLItem returns the schema URL item for the scope from the TransformContext.
 func (tCtx *TransformContext) GetScopeSchemaURLItem() ctxcommon.SchemaURLItem {
-	return tCtx.scopeSpans
+	_ = "STUB: not implemented"
+	return *
+
+	// EnablePathContextNames enables the support for path's context names on statements.
+	// When this option is configured, all statement's paths must have a valid context prefix,
+	// otherwise an error is reported.
+	//
+	// Experimental: *NOTE* this option is subject to change or removal in the future.
+	new(ctxcommon.SchemaURLItem)
 }
 
-// EnablePathContextNames enables the support for path's context names on statements.
-// When this option is configured, all statement's paths must have a valid context prefix,
-// otherwise an error is reported.
-//
-// Experimental: *NOTE* this option is subject to change or removal in the future.
-func EnablePathContextNames() ottl.Option[*TransformContext] {
-	return func(p *ottl.Parser[*TransformContext]) {
-		ottl.WithPathContextNames[*TransformContext]([]string{
-			ctxspan.Name,
-			ctxresource.Name,
-			ctxscope.LegacyName,
-			ctxscope.Name,
-			ctxotelcol.Name,
-		})(p)
-	}
-}
+func EnablePathContextNames() ottl.Option[*TransformContext] { _ = "STUB: not implemented"; return nil }
 
 // StatementSequenceOption represents an option for configuring a statement sequence.
 type StatementSequenceOption func(*ottl.StatementSequence[*TransformContext])
 
 // WithStatementSequenceErrorMode sets the error mode for a statement sequence.
 func WithStatementSequenceErrorMode(errorMode ottl.ErrorMode) StatementSequenceOption {
-	return func(s *ottl.StatementSequence[*TransformContext]) {
-		ottl.WithStatementSequenceErrorMode[*TransformContext](errorMode)(s)
-	}
+	_ = "STUB: not implemented"
+	return *new(StatementSequenceOption)
 }
 
 // NewStatementSequence creates a new statement sequence with the provided statements and options.
 func NewStatementSequence(statements []*ottl.Statement[*TransformContext], telemetrySettings component.TelemetrySettings, options ...StatementSequenceOption) ottl.StatementSequence[*TransformContext] {
-	s := ottl.NewStatementSequence(statements, telemetrySettings)
-	for _, op := range options {
-		op(&s)
-	}
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ConditionSequenceOption represents an option for configuring a condition sequence.
@@ -144,18 +117,14 @@ type ConditionSequenceOption func(*ottl.ConditionSequence[*TransformContext])
 
 // WithConditionSequenceErrorMode sets the error mode for a condition sequence.
 func WithConditionSequenceErrorMode(errorMode ottl.ErrorMode) ConditionSequenceOption {
-	return func(c *ottl.ConditionSequence[*TransformContext]) {
-		ottl.WithConditionSequenceErrorMode[*TransformContext](errorMode)(c)
-	}
+	_ = "STUB: not implemented"
+	return *new(ConditionSequenceOption)
 }
 
 // NewConditionSequence creates a new condition sequence with the provided conditions and options.
 func NewConditionSequence(conditions []*ottl.Condition[*TransformContext], telemetrySettings component.TelemetrySettings, options ...ConditionSequenceOption) ottl.ConditionSequence[*TransformContext] {
-	c := ottl.NewConditionSequence(conditions, telemetrySettings)
-	for _, op := range options {
-		op(&c)
-	}
-	return c
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewParser creates a new span parser with the provided functions and options.
@@ -164,39 +133,21 @@ func NewParser(
 	telemetrySettings component.TelemetrySettings,
 	options ...ottl.Option[*TransformContext],
 ) (ottl.Parser[*TransformContext], error) {
-	return ctxcommon.NewParser(
-		functions,
-		telemetrySettings,
-		pathExpressionParser(getCache),
-		parseEnum,
-		options...,
-	)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func parseEnum(val *ottl.EnumSymbol) (*ottl.Enum, error) {
-	if val != nil {
-		if enum, ok := ctxspan.SymbolTable[*val]; ok {
-			return &enum, nil
-		}
-		return nil, fmt.Errorf("enum symbol, %s, not found", *val)
-	}
-	return nil, errors.New("enum symbol not provided")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func getCache(tCtx *TransformContext) pcommon.Map {
-	return tCtx.cache
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
 func pathExpressionParser(cacheGetter ctxcache.Getter[*TransformContext]) ottl.PathExpressionParser[*TransformContext] {
-	return ctxcommon.PathExpressionParser[*TransformContext](
-		ctxspan.Name,
-		ctxspan.DocRef,
-		cacheGetter,
-		map[string]ottl.PathExpressionParser[*TransformContext]{
-			ctxresource.Name:    ctxresource.PathGetSetter[*TransformContext],
-			ctxscope.Name:       ctxscope.PathGetSetter[*TransformContext],
-			ctxscope.LegacyName: ctxscope.PathGetSetter[*TransformContext],
-			ctxspan.Name:        ctxspan.PathGetSetter[*TransformContext],
-			ctxotelcol.Name:     ctxotelcol.PathGetSetter[*TransformContext],
-		})
+	_ = "STUB: not implemented"
+	return nil
 }

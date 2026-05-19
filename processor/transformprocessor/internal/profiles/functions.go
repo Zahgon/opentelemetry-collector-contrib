@@ -6,10 +6,10 @@ package profiles // import "github.com/open-telemetry/opentelemetry-collector-co
 import (
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottlprofile"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/ottlfuncs"
 )
 
 func ProfileFunctions() map[string]ottl.Factory[*ottlprofile.TransformContext] {
+	_ = "STUB: not implemented"
 	// No profiles-only functions yet.
-	return ottlfuncs.StandardFuncs[*ottlprofile.TransformContext]()
+	return nil
 }

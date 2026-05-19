@@ -4,15 +4,10 @@
 package googlemanagedprometheusexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlemanagedprometheusexporter"
 
 import (
-	"fmt"
-
 	"github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/collector"
 	"github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/collector/googlemanagedprometheus"
-	"github.com/prometheus/otlptranslator"
-	prom "github.com/prometheus/prometheus/storage/remote/otlptranslator/prometheusremotewrite"
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.opentelemetry.io/collector/pdata/pmetric"
 )
 
 // Config defines configuration for Google Cloud Managed Service for Prometheus exporter.
@@ -46,43 +41,15 @@ type MetricConfig struct {
 }
 
 func (c *GMPConfig) toCollectorConfig() collector.Config {
+	_ = "STUB: not implemented"
 	// start with whatever the default collector config is.
-	cfg := collector.DefaultConfig()
-	cfg.MetricConfig.Prefix = c.MetricConfig.Prefix
-	cfg.MetricConfig.CumulativeNormalization = c.MetricConfig.CumulativeNormalization
-	if c.MetricConfig.Prefix == "" {
-		cfg.MetricConfig.Prefix = "prometheus.googleapis.com"
-	}
-	cfg.MetricConfig.SkipCreateMetricDescriptor = true
-	cfg.MetricConfig.InstrumentationLibraryLabels = false
-	cfg.MetricConfig.ServiceResourceLabels = false
-	// Update metric naming to match GMP conventions
-	namer := otlptranslator.MetricNamer{WithMetricSuffixes: c.MetricConfig.Config.AddMetricSuffixes}
-	cfg.MetricConfig.GetMetricName = func(baseName string, metric pmetric.Metric) (string, error) {
-		compliantName, err := namer.Build(prom.TranslatorMetricFromOtelMetric(metric))
-		if err != nil {
-			return "", err
-		}
-		return googlemanagedprometheus.GetMetricName(baseName, compliantName, metric)
-	}
-	// Map to the prometheus_target monitored resource
-	cfg.MetricConfig.MapMonitoredResource = c.MetricConfig.Config.MapToPrometheusTarget
-	cfg.MetricConfig.ExtraMetrics = c.MetricConfig.Config.ExtraMetrics
-	cfg.MetricConfig.EnableSumOfSquaredDeviation = true
-	// map the GMP config's fields to the collector config
-	cfg.ProjectID = c.ProjectID
-	cfg.UserAgent = c.UserAgent
-	cfg.MetricConfig.ClientConfig = c.MetricConfig.ClientConfig
-	cfg.MetricConfig.ResourceFilters = c.MetricConfig.ResourceFilters
-	return cfg
+	return *new(collector.Config)
 }
 
-func (cfg *Config) Validate() error {
-	if err := collector.ValidateConfig(cfg.toCollectorConfig()); err != nil {
-		return fmt.Errorf("exporter settings are invalid :%w", err)
-	}
-	if err := cfg.MetricConfig.Config.Validate(); err != nil {
-		return fmt.Errorf("exporter settings are invalid :%w", err)
-	}
-	return nil
-}
+// Update metric naming to match GMP conventions
+
+// Map to the prometheus_target monitored resource
+
+// map the GMP config's fields to the collector config
+
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

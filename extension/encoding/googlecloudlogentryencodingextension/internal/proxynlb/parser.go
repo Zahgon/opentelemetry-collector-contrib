@@ -6,14 +6,9 @@ package proxynlb // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"errors"
-	"fmt"
 	"time"
 
-	gojson "github.com/goccy/go-json"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/encoding/googlecloudlogentryencodingextension/internal/shared"
 )
 
 const (
@@ -60,53 +55,10 @@ type connection struct {
 
 // ParsePayloadIntoAttributes unmarshals the provided payload into the supplied attribute map.
 func ParsePayloadIntoAttributes(payload []byte, attr pcommon.Map) error {
-	var log loadBalancerLog
-	if err := gojson.Unmarshal(payload, &log); err != nil {
-		return fmt.Errorf("%w: %w", ErrUnmarshalPayload, err)
-	}
-
-	if log.Type != loadBalancerLogType {
-		return fmt.Errorf("%w: %q, expected %q", ErrUnexpectedLogType, log.Type, loadBalancerLogType)
-	}
-
-	handleConnection(log.Connection, attr)
-	handleTimestamps(log.StartTime, log.EndTime, attr)
-
-	if err := shared.AddStrAsInt(gcpProxyNLBServerBytesReceived, log.ServerBytesReceived, attr); err != nil {
-		return fmt.Errorf("%w: %w", ErrServerBytesReceived, err)
-	}
-
-	if err := shared.AddStrAsInt(gcpProxyNLBServerBytesSent, log.ServerBytesSent, attr); err != nil {
-		return fmt.Errorf("%w: %w", ErrServerBytesSent, err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func handleConnection(conn *connection, attr pcommon.Map) {
-	if conn == nil {
-		return
-	}
+func handleConnection(conn *connection, attr pcommon.Map) { _ = "STUB: not implemented"; return }
 
-	shared.PutStr(string(conventions.ClientAddressKey), conn.ClientIP, attr)
-	shared.PutInt(string(conventions.ClientPortKey), conn.ClientPort, attr)
-
-	shared.PutStr(string(conventions.ServerAddressKey), conn.ServerIP, attr)
-	shared.PutInt(string(conventions.ServerPortKey), conn.ServerPort, attr)
-
-	if conn.Protocol != nil {
-		if protoName, ok := shared.ProtocolName(uint32(*conn.Protocol)); ok {
-			attr.PutStr(string(conventions.NetworkTransportKey), protoName)
-		}
-	}
-}
-
-func handleTimestamps(start, end *time.Time, attr pcommon.Map) {
-	if start != nil {
-		attr.PutStr(gcpProxyNLBConnectionStartTime, start.Format(time.RFC3339Nano))
-	}
-
-	if end != nil {
-		attr.PutStr(gcpProxyNLBConnectionEndTime, end.Format(time.RFC3339Nano))
-	}
-}
+func handleTimestamps(start, end *time.Time, attr pcommon.Map) { _ = "STUB: not implemented"; return }

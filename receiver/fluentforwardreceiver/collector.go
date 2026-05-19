@@ -27,50 +27,18 @@ type collector struct {
 }
 
 func newCollector(eventCh <-chan event, next consumer.Logs, logger *zap.Logger, obsrecv *receiverhelper.ObsReport, telemetryBuilder *metadata.TelemetryBuilder) *collector {
-	return &collector{
-		nextConsumer:     next,
-		eventCh:          eventCh,
-		logger:           logger,
-		obsrecv:          obsrecv,
-		telemetryBuilder: telemetryBuilder,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (c *collector) Start(ctx context.Context) {
-	go c.processEvents(ctx)
-}
+func (c *collector) Start(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-func (c *collector) processEvents(ctx context.Context) {
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case e := <-c.eventCh:
-			out := plog.NewLogs()
-			rls := out.ResourceLogs().AppendEmpty()
-			logSlice := rls.ScopeLogs().AppendEmpty().LogRecords()
-			e.LogRecords().MoveAndAppendTo(logSlice)
+func (c *collector) processEvents(ctx context.Context) { _ = "STUB: not implemented"; return }
 
-			// Pull out anything waiting on the eventCh to get better
-			// efficiency on LogResource allocations.
-			c.fillBufferUntilChanEmpty(logSlice)
-
-			logRecordCount := out.LogRecordCount()
-			c.telemetryBuilder.FluentRecordsGenerated.Add(ctx, int64(logRecordCount))
-			obsCtx := c.obsrecv.StartLogsOp(ctx)
-			err := c.nextConsumer.ConsumeLogs(obsCtx, out)
-			c.obsrecv.EndLogsOp(obsCtx, "fluent", logRecordCount, err)
-		}
-	}
-}
+// Pull out anything waiting on the eventCh to get better
+// efficiency on LogResource allocations.
 
 func (c *collector) fillBufferUntilChanEmpty(dest plog.LogRecordSlice) {
-	for {
-		select {
-		case e := <-c.eventCh:
-			e.LogRecords().MoveAndAppendTo(dest)
-		default:
-			return
-		}
-	}
+	_ = "STUB: not implemented"
+	return
 }

@@ -17,10 +17,12 @@ type Parser struct {
 }
 
 func (p *Parser) ProcessBatch(ctx context.Context, entries []*entry.Entry) error {
-	return p.ProcessBatchWithTransform(ctx, entries, p.Parse)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Process will parse time from an entry.
 func (p *Parser) Process(ctx context.Context, entry *entry.Entry) error {
-	return p.ProcessWith(ctx, entry, p.Parse)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -12,15 +12,6 @@ import (
 
 // newMetadataConfigfromConfig creates a new metadata pusher config from the main
 func newMetadataConfigfromConfig(cfg *datadogconfig.Config) hostmetadata.PusherConfig {
-	return hostmetadata.PusherConfig{
-		ConfigHostname:      cfg.Hostname,
-		ConfigTags:          cfg.HostMetadata.Tags,
-		MetricsEndpoint:     cfg.Metrics.Endpoint,
-		APIKey:              string(cfg.API.Key),
-		UseResourceMetadata: cfg.HostMetadata.HostnameSource == datadogconfig.HostnameSourceFirstResource,
-		InsecureSkipVerify:  cfg.TLS.InsecureSkipVerify,
-		ClientConfig:        cfg.ClientConfig,
-		RetrySettings:       cfg.BackOffConfig,
-		ReporterPeriod:      cfg.HostMetadata.ReporterPeriod,
-	}
+	_ = "STUB: not implemented"
+	return *new(hostmetadata.PusherConfig)
 }

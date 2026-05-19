@@ -15,64 +15,33 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetFlinkJobName sets provided value as "flink.job.name" attribute.
-func (rb *ResourceBuilder) SetFlinkJobName(val string) {
-	if rb.config.FlinkJobName.Enabled {
-		rb.res.Attributes().PutStr("flink.job.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetFlinkJobName(val string) { _ = "STUB: not implemented"; return }
 
 // SetFlinkResourceTypeJobmanager sets "flink.resource.type=jobmanager" attribute.
-func (rb *ResourceBuilder) SetFlinkResourceTypeJobmanager() {
-	if rb.config.FlinkResourceType.Enabled {
-		rb.res.Attributes().PutStr("flink.resource.type", "jobmanager")
-	}
-}
+func (rb *ResourceBuilder) SetFlinkResourceTypeJobmanager() { _ = "STUB: not implemented"; return }
 
 // SetFlinkResourceTypeTaskmanager sets "flink.resource.type=taskmanager" attribute.
-func (rb *ResourceBuilder) SetFlinkResourceTypeTaskmanager() {
-	if rb.config.FlinkResourceType.Enabled {
-		rb.res.Attributes().PutStr("flink.resource.type", "taskmanager")
-	}
-}
+func (rb *ResourceBuilder) SetFlinkResourceTypeTaskmanager() { _ = "STUB: not implemented"; return }
 
 // SetFlinkSubtaskIndex sets provided value as "flink.subtask.index" attribute.
-func (rb *ResourceBuilder) SetFlinkSubtaskIndex(val string) {
-	if rb.config.FlinkSubtaskIndex.Enabled {
-		rb.res.Attributes().PutStr("flink.subtask.index", val)
-	}
-}
+func (rb *ResourceBuilder) SetFlinkSubtaskIndex(val string) { _ = "STUB: not implemented"; return }
 
 // SetFlinkTaskName sets provided value as "flink.task.name" attribute.
-func (rb *ResourceBuilder) SetFlinkTaskName(val string) {
-	if rb.config.FlinkTaskName.Enabled {
-		rb.res.Attributes().PutStr("flink.task.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetFlinkTaskName(val string) { _ = "STUB: not implemented"; return }
 
 // SetFlinkTaskmanagerID sets provided value as "flink.taskmanager.id" attribute.
-func (rb *ResourceBuilder) SetFlinkTaskmanagerID(val string) {
-	if rb.config.FlinkTaskmanagerID.Enabled {
-		rb.res.Attributes().PutStr("flink.taskmanager.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetFlinkTaskmanagerID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

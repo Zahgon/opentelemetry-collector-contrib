@@ -11,7 +11,8 @@ import (
 )
 
 func NewNopRegistry() telemetry.Registry {
-	return nopRegistryInstance
+	_ = "STUB: not implemented"
+	return *new(telemetry.Registry)
 }
 
 type nopRegistry struct {
@@ -25,17 +26,21 @@ var nopRegistryInstance = &nopRegistry{
 }
 
 func (n nopRegistry) Register(component.ID, telemetry.Config, awsxray.XRayClient, ...telemetry.Option) telemetry.Sender {
-	return n.sender
+	_ = "STUB: not implemented"
+	return *new(telemetry.Sender)
 }
 
 func (n nopRegistry) Load(component.ID) telemetry.Sender {
-	return n.sender
+	_ = "STUB: not implemented"
+	return *new(telemetry.Sender)
 }
 
 func (n nopRegistry) LoadOrNop(component.ID) telemetry.Sender {
-	return n.sender
+	_ = "STUB: not implemented"
+	return *new(telemetry.Sender)
 }
 
 func (n nopRegistry) LoadOrStore(component.ID, telemetry.Sender) (telemetry.Sender, bool) {
-	return n.sender, false
+	_ = "STUB: not implemented"
+	return *new(telemetry.Sender), false
 }

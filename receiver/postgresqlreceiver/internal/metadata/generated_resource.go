@@ -15,50 +15,27 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetPostgresqlDatabaseName sets provided value as "postgresql.database.name" attribute.
-func (rb *ResourceBuilder) SetPostgresqlDatabaseName(val string) {
-	if rb.config.PostgresqlDatabaseName.Enabled {
-		rb.res.Attributes().PutStr("postgresql.database.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetPostgresqlDatabaseName(val string) { _ = "STUB: not implemented"; return }
 
 // SetPostgresqlIndexName sets provided value as "postgresql.index.name" attribute.
-func (rb *ResourceBuilder) SetPostgresqlIndexName(val string) {
-	if rb.config.PostgresqlIndexName.Enabled {
-		rb.res.Attributes().PutStr("postgresql.index.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetPostgresqlIndexName(val string) { _ = "STUB: not implemented"; return }
 
 // SetPostgresqlSchemaName sets provided value as "postgresql.schema.name" attribute.
-func (rb *ResourceBuilder) SetPostgresqlSchemaName(val string) {
-	if rb.config.PostgresqlSchemaName.Enabled {
-		rb.res.Attributes().PutStr("postgresql.schema.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetPostgresqlSchemaName(val string) { _ = "STUB: not implemented"; return }
 
 // SetPostgresqlTableName sets provided value as "postgresql.table.name" attribute.
-func (rb *ResourceBuilder) SetPostgresqlTableName(val string) {
-	if rb.config.PostgresqlTableName.Enabled {
-		rb.res.Attributes().PutStr("postgresql.table.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetPostgresqlTableName(val string) { _ = "STUB: not implemented"; return }
 
 // SetServiceInstanceID sets provided value as "service.instance.id" attribute.
-func (rb *ResourceBuilder) SetServiceInstanceID(val string) {
-	if rb.config.ServiceInstanceID.Enabled {
-		rb.res.Attributes().PutStr("service.instance.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetServiceInstanceID(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

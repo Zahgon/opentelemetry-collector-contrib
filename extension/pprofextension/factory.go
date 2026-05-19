@@ -5,13 +5,9 @@ package pprofextension // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"context"
-	"errors"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/extension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/pprofextension/internal/metadata"
 )
 
 const (
@@ -19,28 +15,14 @@ const (
 )
 
 // NewFactory creates a factory for pprof extension.
-func NewFactory() extension.Factory {
-	return extension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		TCPAddr: confignet.TCPAddrConfig{
-			Endpoint: defaultEndpoint,
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createExtension(_ context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
-	config := cfg.(*Config)
-	if config.TCPAddr.Endpoint == "" {
-		return nil, errors.New("\"endpoint\" is required when using the \"pprof\" extension")
-	}
-
-	return newServer(*config, set.TelemetrySettings), nil
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }

@@ -4,16 +4,12 @@
 package postgresqlreceiver // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/postgresqlreceiver"
 
 import (
-	"errors"
-	"fmt"
-	"net"
 	"time"
 
 	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/config/configopaque"
 	"go.opentelemetry.io/collector/config/configtls"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
-	"go.uber.org/multierr"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/postgresqlreceiver/internal/metadata"
 )
@@ -66,35 +62,6 @@ type ConnectionPool struct {
 	MaxOpen     *int           `mapstructure:"max_open,omitempty"`
 }
 
-func (cfg *Config) Validate() error {
-	var err error
-	if cfg.Username == "" {
-		err = multierr.Append(err, errors.New(ErrNoUsername))
-	}
-	if cfg.Password == "" {
-		err = multierr.Append(err, errors.New(ErrNoPassword))
-	}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-	// The lib/pq module does not support overriding ServerName or specifying supported TLS versions
-	if cfg.ServerName != "" {
-		err = multierr.Append(err, fmt.Errorf(ErrNotSupported, "ServerName"))
-	}
-	if cfg.MaxVersion != "" {
-		err = multierr.Append(err, fmt.Errorf(ErrNotSupported, "MaxVersion"))
-	}
-	if cfg.MinVersion != "" {
-		err = multierr.Append(err, fmt.Errorf(ErrNotSupported, "MinVersion"))
-	}
-
-	switch cfg.Transport {
-	case confignet.TransportTypeTCP, confignet.TransportTypeUnix:
-		_, _, endpointErr := net.SplitHostPort(cfg.Endpoint)
-		if endpointErr != nil {
-			err = multierr.Append(err, errors.New(ErrHostPort))
-		}
-	default:
-		err = multierr.Append(err, errors.New(ErrTransportsSupported))
-	}
-
-	return err
-}
+// The lib/pq module does not support overriding ServerName or specifying supported TLS versions

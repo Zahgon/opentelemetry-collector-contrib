@@ -4,8 +4,6 @@
 package tencentcloudlogserviceexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/tencentcloudlogserviceexporter"
 
 import (
-	"errors"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/config/configopaque"
 )
@@ -29,9 +27,4 @@ type Config struct {
 var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
-func (cfg *Config) Validate() error {
-	if cfg == nil || cfg.Region == "" || cfg.LogSet == "" || cfg.Topic == "" {
-		return errors.New("missing tencentcloudlogservice params: Region, LogSet, Topic")
-	}
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }

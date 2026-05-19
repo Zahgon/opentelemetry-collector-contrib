@@ -16,5 +16,6 @@ type FileSource struct {
 }
 
 func (fs *FileSource) Get(_ context.Context) (string, error) {
-	return fs.Resolver.Value(), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

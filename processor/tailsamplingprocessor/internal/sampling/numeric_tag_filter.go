@@ -5,11 +5,9 @@ package sampling // import "github.com/open-telemetry/opentelemetry-collector-co
 
 import (
 	"context"
-	"math"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-	"go.opentelemetry.io/collector/pdata/ptrace"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/tailsamplingprocessor/pkg/samplingpolicy"
@@ -29,79 +27,16 @@ var _ samplingpolicy.Evaluator = (*numericAttributeFilter)(nil)
 // the given attribute in the given numeric range. If minValue is nil, it will use math.MinInt64.
 // If maxValue is nil, it will use math.MaxInt64. At least one of minValue or maxValue must be set.
 func NewNumericAttributeFilter(settings component.TelemetrySettings, key string, minValue, maxValue *int64, invertMatch bool) samplingpolicy.Evaluator {
-	if minValue == nil && maxValue == nil {
-		settings.Logger.Error("At least one of minValue or maxValue must be set")
-		return nil
-	}
-	return &numericAttributeFilter{
-		key:         key,
-		minValue:    minValue,
-		maxValue:    maxValue,
-		logger:      settings.Logger,
-		invertMatch: invertMatch,
-	}
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Evaluator)
 }
 
 // Evaluate looks at the trace data and returns a corresponding SamplingDecision.
 func (naf *numericAttributeFilter) Evaluate(_ context.Context, _ pcommon.TraceID, trace *samplingpolicy.TraceData) (samplingpolicy.Decision, error) {
-	batches := trace.ReceivedBatches
-
-	// Get the effective min/max values
-	minVal := int64(math.MinInt64)
-	if naf.minValue != nil {
-		minVal = *naf.minValue
-	}
-	maxVal := int64(math.MaxInt64)
-	if naf.maxValue != nil {
-		maxVal = *naf.maxValue
-	}
-
-	if naf.invertMatch {
-		return invertHasResourceOrSpanWithCondition(
-			batches,
-			func(resource pcommon.Resource) bool {
-				if v, ok := resource.Attributes().Get(naf.key); ok {
-					value := v.Int()
-					if value >= minVal && value <= maxVal {
-						return false
-					}
-				}
-				return true
-			},
-			func(span ptrace.Span) bool {
-				if v, ok := span.Attributes().Get(naf.key); ok {
-					value := v.Int()
-					if value >= minVal && value <= maxVal {
-						return false
-					}
-				}
-				return true
-			},
-		), nil
-	}
-	return hasResourceOrSpanWithCondition(
-		batches,
-		func(resource pcommon.Resource) bool {
-			if v, ok := resource.Attributes().Get(naf.key); ok {
-				value := v.Int()
-				if value >= minVal && value <= maxVal {
-					return true
-				}
-			}
-			return false
-		},
-		func(span ptrace.Span) bool {
-			if v, ok := span.Attributes().Get(naf.key); ok {
-				value := v.Int()
-				if value >= minVal && value <= maxVal {
-					return true
-				}
-			}
-			return false
-		},
-	), nil
+	_ = "STUB: not implemented"
+	return *new(samplingpolicy.Decision), nil
 }
 
-func (*numericAttributeFilter) IsStateful() bool {
-	return false
-}
+// Get the effective min/max values
+
+func (*numericAttributeFilter) IsStateful() bool { _ = "STUB: not implemented"; return false }

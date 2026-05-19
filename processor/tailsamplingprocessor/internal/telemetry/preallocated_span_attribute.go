@@ -29,33 +29,21 @@ type DecisionAttributes struct {
 //	spanDecisionAttrs := NewDecisionAttributes(attribute.Key("decision.final"))
 //	attr := spanDecisionAttrs.Get(samplingpolicy.Sampled) // Returns pre-allocated KeyValue
 func NewDecisionAttributes(attrKey attribute.Key) *DecisionAttributes {
-	da := &DecisionAttributes{
-		key: attrKey,
-	}
-
-	// Pre-compute all 8 decision attributes
-	da.attrs[samplingpolicy.Unspecified] = attrKey.String(samplingpolicy.Unspecified.String())
-	da.attrs[samplingpolicy.Pending] = attrKey.String(samplingpolicy.Pending.String())
-	da.attrs[samplingpolicy.Sampled] = attrKey.String(samplingpolicy.Sampled.String())
-	da.attrs[samplingpolicy.NotSampled] = attrKey.String(samplingpolicy.NotSampled.String())
-	da.attrs[samplingpolicy.Dropped] = attrKey.String(samplingpolicy.Dropped.String())
-	da.attrs[samplingpolicy.Error] = attrKey.String(samplingpolicy.Error.String())
-	//nolint:staticcheck // InvertSampled is deprecated but we need to support existing decision values
-	da.attrs[samplingpolicy.InvertSampled] = attrKey.String(samplingpolicy.InvertSampled.String())
-	//nolint:staticcheck // InvertNotSampled is deprecated but we need to support existing decision values
-	da.attrs[samplingpolicy.InvertNotSampled] = attrKey.String(samplingpolicy.InvertNotSampled.String())
-
-	// Pre-compute the unknown attribute for out-of-bounds decisions
-	da.unknownAttr = attrKey.String("missing.preallocation")
-
-	return da
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Pre-compute all 8 decision attributes
+
+//nolint:staticcheck // InvertSampled is deprecated but we need to support existing decision values
+
+//nolint:staticcheck // InvertNotSampled is deprecated but we need to support existing decision values
+
+// Pre-compute the unknown attribute for out-of-bounds decisions
 
 // Get returns the pre-allocated KeyValue for the given decision.
 func (d *DecisionAttributes) Get(decision samplingpolicy.Decision) attribute.KeyValue {
+	_ = "STUB: not implemented"
 	// Bounds check: valid decisions are 0-7 (inclusive)
-	if decision < 0 || decision >= samplingpolicy.Decision(len(d.attrs)) {
-		return d.unknownAttr
-	}
-	return d.attrs[decision]
+	return *new(attribute.KeyValue)
 }

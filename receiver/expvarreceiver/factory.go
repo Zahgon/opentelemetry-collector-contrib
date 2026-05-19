@@ -8,13 +8,8 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/expvarreceiver/internal/metadata"
 )
 
 const (
@@ -23,12 +18,7 @@ const (
 	defaultTimeout  = 3 * time.Second
 )
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		newDefaultConfig,
-		receiver.WithMetrics(newMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func newMetricsReceiver(
 	_ context.Context,
@@ -36,32 +26,8 @@ func newMetricsReceiver(
 	rCfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	cfg := rCfg.(*Config)
-
-	expVar := newExpVarScraper(cfg, set)
-	s, err := scraper.NewMetrics(
-		expVar.scrape,
-		scraper.WithStart(expVar.start),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(
-		&cfg.ControllerConfig,
-		set,
-		consumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
-func newDefaultConfig() component.Config {
-	clientConfig := confighttp.NewDefaultClientConfig()
-	clientConfig.Endpoint = defaultEndpoint
-	clientConfig.Timeout = defaultTimeout
-	return &Config{
-		ControllerConfig:     scraperhelper.NewDefaultControllerConfig(),
-		ClientConfig:         clientConfig,
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-	}
-}
+func newDefaultConfig() component.Config { _ = "STUB: not implemented"; return *new(component.Config) }

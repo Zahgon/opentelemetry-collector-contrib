@@ -8,27 +8,16 @@ import (
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/extension"
-	"go.opentelemetry.io/collector/extension/xextension"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/extension/azureauthextension/internal/metadata"
 )
 
-func NewFactory() extension.Factory {
-	return xextension.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		createExtension,
-		metadata.ExtensionStability,
-		xextension.WithDeprecatedTypeAlias(metadata.DeprecatedType),
-	)
-}
+func NewFactory() extension.Factory { _ = "STUB: not implemented"; return *new(extension.Factory) }
 
 func createExtension(_ context.Context, set extension.Settings, cfg component.Config) (extension.Extension, error) {
-	return newAzureAuthenticator(cfg.(*Config), set.Logger)
+	_ = "STUB: not implemented"
+	return *new(extension.Extension), nil
 }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		UseDefault: false,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }

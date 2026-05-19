@@ -15,92 +15,45 @@ type ResourceBuilder struct {
 
 // NewResourceBuilder creates a new ResourceBuilder. This method should be called on the start of the application.
 func NewResourceBuilder(rac ResourceAttributesConfig) *ResourceBuilder {
-	return &ResourceBuilder{
-		config: rac,
-		res:    pcommon.NewResource(),
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetAzureResourcegroupName sets provided value as "azure.resourcegroup.name" attribute.
-func (rb *ResourceBuilder) SetAzureResourcegroupName(val string) {
-	if rb.config.AzureResourcegroupName.Enabled {
-		rb.res.Attributes().PutStr("azure.resourcegroup.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetAzureResourcegroupName(val string) { _ = "STUB: not implemented"; return }
 
 // SetAzureVMName sets provided value as "azure.vm.name" attribute.
-func (rb *ResourceBuilder) SetAzureVMName(val string) {
-	if rb.config.AzureVMName.Enabled {
-		rb.res.Attributes().PutStr("azure.vm.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetAzureVMName(val string) { _ = "STUB: not implemented"; return }
 
 // SetAzureVMScalesetName sets provided value as "azure.vm.scaleset.name" attribute.
-func (rb *ResourceBuilder) SetAzureVMScalesetName(val string) {
-	if rb.config.AzureVMScalesetName.Enabled {
-		rb.res.Attributes().PutStr("azure.vm.scaleset.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetAzureVMScalesetName(val string) { _ = "STUB: not implemented"; return }
 
 // SetAzureVMSize sets provided value as "azure.vm.size" attribute.
-func (rb *ResourceBuilder) SetAzureVMSize(val string) {
-	if rb.config.AzureVMSize.Enabled {
-		rb.res.Attributes().PutStr("azure.vm.size", val)
-	}
-}
+func (rb *ResourceBuilder) SetAzureVMSize(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudAccountID sets provided value as "cloud.account.id" attribute.
-func (rb *ResourceBuilder) SetCloudAccountID(val string) {
-	if rb.config.CloudAccountID.Enabled {
-		rb.res.Attributes().PutStr("cloud.account.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudAccountID(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudAvailabilityZone sets provided value as "cloud.availability_zone" attribute.
-func (rb *ResourceBuilder) SetCloudAvailabilityZone(val string) {
-	if rb.config.CloudAvailabilityZone.Enabled {
-		rb.res.Attributes().PutStr("cloud.availability_zone", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudAvailabilityZone(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudPlatform sets provided value as "cloud.platform" attribute.
-func (rb *ResourceBuilder) SetCloudPlatform(val string) {
-	if rb.config.CloudPlatform.Enabled {
-		rb.res.Attributes().PutStr("cloud.platform", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudPlatform(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudProvider sets provided value as "cloud.provider" attribute.
-func (rb *ResourceBuilder) SetCloudProvider(val string) {
-	if rb.config.CloudProvider.Enabled {
-		rb.res.Attributes().PutStr("cloud.provider", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudProvider(val string) { _ = "STUB: not implemented"; return }
 
 // SetCloudRegion sets provided value as "cloud.region" attribute.
-func (rb *ResourceBuilder) SetCloudRegion(val string) {
-	if rb.config.CloudRegion.Enabled {
-		rb.res.Attributes().PutStr("cloud.region", val)
-	}
-}
+func (rb *ResourceBuilder) SetCloudRegion(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostID sets provided value as "host.id" attribute.
-func (rb *ResourceBuilder) SetHostID(val string) {
-	if rb.config.HostID.Enabled {
-		rb.res.Attributes().PutStr("host.id", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostID(val string) { _ = "STUB: not implemented"; return }
 
 // SetHostName sets provided value as "host.name" attribute.
-func (rb *ResourceBuilder) SetHostName(val string) {
-	if rb.config.HostName.Enabled {
-		rb.res.Attributes().PutStr("host.name", val)
-	}
-}
+func (rb *ResourceBuilder) SetHostName(val string) { _ = "STUB: not implemented"; return }
 
 // Emit returns the built resource and resets the internal builder state.
 func (rb *ResourceBuilder) Emit() pcommon.Resource {
-	r := rb.res
-	rb.res = pcommon.NewResource()
-	return r
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource)
 }

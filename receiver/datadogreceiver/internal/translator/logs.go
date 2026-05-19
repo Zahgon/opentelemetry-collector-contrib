@@ -19,24 +19,6 @@ type DatadogLogPayload struct {
 }
 
 func ToPlog(incomingLogs []*DatadogLogPayload) plog.Logs {
-	plogPayload := plog.NewLogs()
-	if len(incomingLogs) == 0 {
-		return plogPayload
-	}
-
-	resourceLogs := plogPayload.ResourceLogs().AppendEmpty()
-	scopeLogs := resourceLogs.ScopeLogs().AppendEmpty()
-	scopeLogs.LogRecords().EnsureCapacity(len(incomingLogs))
-	for _, incomingLog := range incomingLogs {
-		logRecord := scopeLogs.LogRecords().AppendEmpty()
-		logRecord.Body().SetStr(incomingLog.Message)
-		logRecord.Attributes().PutStr("status", incomingLog.Status)
-		logRecord.Attributes().PutInt("timestamp", incomingLog.Timestamp)
-		logRecord.Attributes().PutStr("hostname", incomingLog.Hostname)
-		logRecord.Attributes().PutStr("service", incomingLog.Service)
-		logRecord.Attributes().PutStr("ddsource", incomingLog.Source)
-		logRecord.Attributes().PutStr("ddtags", incomingLog.Tags)
-	}
-
-	return plogPayload
+	_ = "STUB: not implemented"
+	return *new(plog.Logs)
 }

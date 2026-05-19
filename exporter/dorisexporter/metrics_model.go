@@ -19,19 +19,17 @@ type metricModelCommon[T metric] struct {
 	lbl  string
 }
 
-func (m *metricModelCommon[T]) size() int {
-	return len(m.data)
-}
+func (m *metricModelCommon[T]) size() int { _ = "STUB: not implemented"; return 0 }
 
-func (m *metricModelCommon[T]) bytes() ([]byte, error) {
-	return toJSONLines(m.data)
-}
+func (m *metricModelCommon[T]) bytes() ([]byte, error) { _ = "STUB: not implemented"; return nil, nil }
 
 func (m *metricModelCommon[T]) label() string {
-	return m.lbl
+	_ = "STUB: not implemented"
+
+	// dMetric Basic Metric
+	return ""
 }
 
-// dMetric Basic Metric
 type dMetric struct {
 	ServiceName        string         `json:"service_name"`
 	ServiceInstanceID  string         `json:"service_instance_id"`

@@ -12,16 +12,6 @@ import (
 // GetEventTimestamp returns the EventTimestamp based on the populated k8s event timestamps.
 // Priority: EventTime > LastTimestamp > FirstTimestamp.
 func GetEventTimestamp(ev *corev1.Event) time.Time {
-	var eventTimestamp time.Time
-
-	switch {
-	case ev.EventTime.Time != time.Time{}:
-		eventTimestamp = ev.EventTime.Time
-	case ev.LastTimestamp.Time != time.Time{}:
-		eventTimestamp = ev.LastTimestamp.Time
-	case ev.FirstTimestamp.Time != time.Time{}:
-		eventTimestamp = ev.FirstTimestamp.Time
-	}
-
-	return eventTimestamp
+	_ = "STUB: not implemented"
+	return *new(time.Time)
 }

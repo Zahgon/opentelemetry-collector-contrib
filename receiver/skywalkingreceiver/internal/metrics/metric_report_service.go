@@ -27,42 +27,17 @@ type Receiver struct {
 
 // NewReceiver creates a new Receiver reference.
 func NewReceiver(nextConsumer consumer.Metrics, set receiver.Settings) (*Receiver, error) {
-	grpcObsrecv, err := receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{
-		ReceiverID:             set.ID,
-		Transport:              grpcTransport,
-		ReceiverCreateSettings: set,
-	})
-	if err != nil {
-		return nil, err
-	}
-	httpObsrecv, err := receiverhelper.NewObsReport(receiverhelper.ObsReportSettings{
-		ReceiverID:             set.ID,
-		Transport:              collectorHTTPTransport,
-		ReceiverCreateSettings: set,
-	})
-	if err != nil {
-		return nil, err
-	}
-	return &Receiver{
-		nextConsumer: nextConsumer,
-		grpcObsrecv:  grpcObsrecv,
-		httpObsrecv:  httpObsrecv,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // Collect implements the service Collect traces func.
 func (r *Receiver) Collect(ctx context.Context, jvmMetricCollection *agent.JVMMetricCollection) (*common.Commands, error) {
-	err := consumeMetrics(ctx, jvmMetricCollection, r.nextConsumer)
-	if err != nil {
-		return &common.Commands{}, err
-	}
-	return &common.Commands{}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func consumeMetrics(ctx context.Context, collection *agent.JVMMetricCollection, nextConsumer consumer.Metrics) error {
-	if collection == nil {
-		return nil
-	}
-	pmd := SwMetricsToMetrics(collection)
-	return nextConsumer.ConsumeMetrics(ctx, pmd)
+	_ = "STUB: not implemented"
+	return nil
 }

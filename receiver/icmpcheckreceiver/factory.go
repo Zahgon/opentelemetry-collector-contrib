@@ -10,27 +10,15 @@ import (
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	"go.opentelemetry.io/collector/scraper"
-	"go.opentelemetry.io/collector/scraper/scraperhelper"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/icmpcheckreceiver/internal/metadata"
 )
 
 var errConfigNotICMPCheck = errors.New("config was not a ICMP check receiver config")
 
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		ControllerConfig:     scraperhelper.NewDefaultControllerConfig(),
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
-		Targets:              []PingTarget{},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -39,21 +27,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	config, ok := cfg.(*Config)
-	if !ok {
-		return nil, errConfigNotICMPCheck
-	}
-
-	icmpCheckScraper := newScraper(config, settings)
-	s, err := scraper.NewMetrics(icmpCheckScraper.scrape, scraper.WithStart(icmpCheckScraper.start))
-	if err != nil {
-		return nil, err
-	}
-
-	return scraperhelper.NewMetricsController(
-		&config.ControllerConfig,
-		settings,
-		consumer,
-		scraperhelper.AddMetricsScraper(metadata.Type, s),
-	)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

@@ -38,77 +38,27 @@ func newIntervalStatsReader(
 	metricsMetadata *metadata.MetricsMetadata,
 	config ReaderConfig,
 ) *intervalStatsReader {
-	reader := currentStatsReader{
-		logger:                 logger,
-		database:               database,
-		metricsMetadata:        metricsMetadata,
-		statement:              intervalStatsStatement,
-		topMetricsQueryMaxRows: config.TopMetricsQueryMaxRows,
-	}
-	tsGenerator := &timestampsGenerator{
-		backfillEnabled: config.BackfillEnabled,
-		difference:      time.Minute,
-	}
-
-	return &intervalStatsReader{
-		currentStatsReader:                reader,
-		timestampsGenerator:               tsGenerator,
-		hideTopnLockstatsRowrangestartkey: config.HideTopnLockstatsRowrangestartkey,
-		truncateText:                      config.TruncateText,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (reader *intervalStatsReader) Read(ctx context.Context) ([]*metadata.MetricsDataPoint, error) {
-	reader.logger.Debug("Executing read method", zap.String("reader", reader.Name()))
-
-	// Generating pull timestamps
-	pullTimestamps := reader.timestampsGenerator.pullTimestamps(reader.lastPullTimestamp, time.Now().UTC())
-
-	var collectedDataPoints []*metadata.MetricsDataPoint
-
-	// Pulling metrics for each generated pull timestamp
-	timestampsAmount := len(pullTimestamps)
-	for i, pullTimestamp := range pullTimestamps {
-		stmt := reader.newPullStatement(pullTimestamp)
-		// Latest timestamp for backfilling must be read from actual data(not stale)
-		if i == (timestampsAmount-1) && reader.isBackfillExecution() {
-			stmt.stalenessRead = false
-		}
-		dataPoints, err := reader.pull(ctx, stmt)
-		if err != nil {
-			return nil, err
-		}
-		metricMetadata := reader.metricsMetadata
-		if reader.hideTopnLockstatsRowrangestartkey && metricMetadata != nil && metricMetadata.Name == topLockStatsMetricName {
-			for _, dataPoint := range dataPoints {
-				dataPoint.HideLockStatsRowrangestartkeyPII()
-			}
-		}
-		if reader.truncateText && metricMetadata != nil && metricMetadata.Name == topQueryStatsMetricName {
-			for _, dataPoint := range dataPoints {
-				dataPoint.TruncateQueryText(maxLengthTruncateText)
-			}
-		}
-
-		collectedDataPoints = append(collectedDataPoints, dataPoints...)
-	}
-
-	reader.lastPullTimestamp = pullTimestamps[timestampsAmount-1]
-
-	return collectedDataPoints, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (reader *intervalStatsReader) newPullStatement(pullTimestamp time.Time) statsStatement {
-	args := statementArgs{
-		query:                  reader.metricsMetadata.Query,
-		topMetricsQueryMaxRows: reader.topMetricsQueryMaxRows,
-		pullTimestamp:          pullTimestamp,
-		stalenessRead:          reader.isBackfillExecution(),
-	}
+// Generating pull timestamps
 
-	return reader.statement(args)
+// Pulling metrics for each generated pull timestamp
+
+// Latest timestamp for backfilling must be read from actual data(not stale)
+
+func (reader *intervalStatsReader) newPullStatement(pullTimestamp time.Time) statsStatement {
+	_ = "STUB: not implemented"
+	return *new(statsStatement)
 }
 
 func (reader *intervalStatsReader) isBackfillExecution() bool {
-	return reader.timestampsGenerator.isBackfillExecution(reader.lastPullTimestamp)
+	_ = "STUB: not implemented"
+	return false
 }

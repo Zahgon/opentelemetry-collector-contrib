@@ -59,14 +59,8 @@ const (
 // Unlike Frexp(), this returns k for the equation f x 2**k where f is
 // in the range [1, 2).  Note that this function is not called for
 // subnormal numbers.
-func GetNormalBase2(value float64) int32 {
-	rawBits := math.Float64bits(value)
-	rawExponent := (int64(rawBits) & ExponentMask) >> SignificandWidth
-	return int32(rawExponent - ExponentBias)
-}
+func GetNormalBase2(value float64) int32 { _ = "STUB: not implemented"; return 0 }
 
 // GetSignificand returns the 52 bit (unsigned) significand as a
 // signed value.
-func GetSignificand(value float64) int64 {
-	return int64(math.Float64bits(value)) & SignificandMask
-}
+func GetSignificand(value float64) int64 { _ = "STUB: not implemented"; return 0 }

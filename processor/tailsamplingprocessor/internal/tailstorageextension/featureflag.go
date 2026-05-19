@@ -9,6 +9,4 @@ import (
 
 var FeatureGateID = metadata.ProcessorTailsamplingprocessorTailstorageextensionFeatureGate.ID()
 
-func IsFeatureGateEnabled() bool {
-	return metadata.ProcessorTailsamplingprocessorTailstorageextensionFeatureGate.IsEnabled()
-}
+func IsFeatureGateEnabled() bool { _ = "STUB: not implemented"; return false }

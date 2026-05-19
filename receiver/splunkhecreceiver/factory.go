@@ -7,16 +7,10 @@ import (
 	"context"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confighttp"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/sharedcomponent"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/splunk"
-	translator "github.com/open-telemetry/opentelemetry-collector-contrib/pkg/translator/splunk"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/splunkhecreceiver/internal/metadata"
 )
 
 // This file implements factory for Splunk HEC receiver.
@@ -27,36 +21,12 @@ const (
 )
 
 // NewFactory creates a factory for Splunk HEC receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability),
-		receiver.WithLogs(createLogsReceiver, metadata.LogsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 // CreateDefaultConfig creates the default configuration for Splunk HEC receiver.
 func createDefaultConfig() component.Config {
-	netAddr := confignet.NewDefaultAddrConfig()
-	netAddr.Transport = confignet.TransportTypeTCP
-	netAddr.Endpoint = defaultEndpoint
-	return &Config{
-		ServerConfig:                 confighttp.ServerConfig{NetAddr: netAddr},
-		AccessTokenPassthroughConfig: splunk.AccessTokenPassthroughConfig{},
-		HecToOtelAttrs: translator.HecToOtelAttrs{
-			Source:     splunk.DefaultSourceLabel,
-			SourceType: splunk.DefaultSourceTypeLabel,
-			Index:      splunk.DefaultIndexLabel,
-			Host:       string(conventions.HostNameKey),
-		},
-		RawPath:    splunk.DefaultRawPath,
-		HealthPath: splunk.DefaultHealthPath,
-		Ack: Ack{
-			Extension: nil,
-			Path:      splunk.DefaultAckPath,
-		},
-		Splitting: SplittingStrategyLine,
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 // CreateMetrics creates a metrics receiver based on provided config.
@@ -66,18 +36,8 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	var err error
-	var recv receiver.Metrics
-	rCfg := cfg.(*Config)
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		recv, err = newReceiver(params, *rCfg)
-		return recv
-	})
-	if err != nil {
-		return nil, err
-	}
-	r.Unwrap().(*splunkReceiver).metricsConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }
 
 // createLogsReceiver creates a logs receiver based on provided config.
@@ -87,18 +47,8 @@ func createLogsReceiver(
 	cfg component.Config,
 	consumer consumer.Logs,
 ) (receiver.Logs, error) {
-	var err error
-	var recv receiver.Logs
-	rCfg := cfg.(*Config)
-	r := receivers.GetOrAdd(cfg, func() component.Component {
-		recv, err = newReceiver(params, *rCfg)
-		return recv
-	})
-	if err != nil {
-		return nil, err
-	}
-	r.Unwrap().(*splunkReceiver).logsConsumer = consumer
-	return r, nil
+	_ = "STUB: not implemented"
+	return *new(receiver.Logs), nil
 }
 
 var receivers = sharedcomponent.NewSharedComponents()

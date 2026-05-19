@@ -10,7 +10,6 @@ import (
 	"go.opentelemetry.io/collector/exporter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/pdata/pmetric"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 )
 
 // Settings defines configuration for converting resource attributes to telemetry attributes.
@@ -36,117 +35,63 @@ type wrapperMetricsExporter struct {
 }
 
 func (wme *wrapperMetricsExporter) ConsumeMetrics(ctx context.Context, md pmetric.Metrics) error {
-	return wme.Metrics.ConsumeMetrics(ctx, wme.convertToMetricsAttributes(md))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*wrapperMetricsExporter) Capabilities() consumer.Capabilities {
+	_ = "STUB: not implemented"
 	// Always return true since this wrapper modifies data inplace.
-	return consumer.Capabilities{MutatesData: true}
+	return *new(consumer.Capabilities)
 }
 
 // WrapMetricsExporter wraps a given exporter.Metrics and based on the given settings
 // converts incoming resource attributes to metrics attributes.
 func WrapMetricsExporter(set Settings, exporter exporter.Metrics) exporter.Metrics {
-	if !set.Enabled {
-		return exporter
-	}
-	return &wrapperMetricsExporter{
-		Metrics:                  exporter,
-		excludeServiceAttributes: set.ExcludeServiceAttributes,
-	}
+	_ = "STUB: not implemented"
+	return *new(exporter.Metrics)
 }
 
 func (wme *wrapperMetricsExporter) convertToMetricsAttributes(md pmetric.Metrics) pmetric.Metrics {
-	rms := md.ResourceMetrics()
-	for i := 0; i < rms.Len(); i++ {
-		resourceAttrs := rms.At(i).Resource().Attributes()
-
-		// Filter resource attributes if excludeServiceAttributes is enabled
-		attrsToAdd := resourceAttrs
-		if wme.excludeServiceAttributes {
-			attrsToAdd = filterServiceAttributes(resourceAttrs)
-		}
-
-		ilms := rms.At(i).ScopeMetrics()
-		for j := 0; j < ilms.Len(); j++ {
-			ilm := ilms.At(j)
-			metricSlice := ilm.Metrics()
-			for k := 0; k < metricSlice.Len(); k++ {
-				addAttributesToMetric(metricSlice.At(k), attrsToAdd)
-			}
-		}
-	}
-	return md
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
+
+// Filter resource attributes if excludeServiceAttributes is enabled
 
 // filterServiceAttributes returns a new Map without service.name and service.instance.id attributes.
 func filterServiceAttributes(attrs pcommon.Map) pcommon.Map {
-	filtered := pcommon.NewMap()
-	filtered.EnsureCapacity(attrs.Len())
-	for k, v := range attrs.All() {
-		if shouldSkipResourceAttributeKey(k) {
-			continue
-		}
-		v.CopyTo(filtered.PutEmpty(k))
-	}
-	return filtered
+	_ = "STUB: not implemented"
+	return *new(pcommon.Map)
 }
 
-func shouldSkipResourceAttributeKey(k string) bool {
-	switch k {
-	case string(conventions.ServiceNameKey),
-		string(conventions.ServiceInstanceIDKey),
-		string(conventions.ServiceNamespaceKey):
-		return true
-	default:
-		return false
-	}
-}
+func shouldSkipResourceAttributeKey(k string) bool { _ = "STUB: not implemented"; return false }
 
 // addAttributesToMetric adds additional labels to the given metric
 func addAttributesToMetric(metric pmetric.Metric, labelMap pcommon.Map) {
+	_ = "STUB: not implemented"
 	//exhaustive:enforce
-	switch metric.Type() {
-	case pmetric.MetricTypeGauge:
-		addAttributesToNumberDataPoints(metric.Gauge().DataPoints(), labelMap)
-	case pmetric.MetricTypeSum:
-		addAttributesToNumberDataPoints(metric.Sum().DataPoints(), labelMap)
-	case pmetric.MetricTypeHistogram:
-		addAttributesToHistogramDataPoints(metric.Histogram().DataPoints(), labelMap)
-	case pmetric.MetricTypeSummary:
-		addAttributesToSummaryDataPoints(metric.Summary().DataPoints(), labelMap)
-	case pmetric.MetricTypeExponentialHistogram:
-		addAttributesToExponentialHistogramDataPoints(metric.ExponentialHistogram().DataPoints(), labelMap)
-	}
+	return
 }
 
 func addAttributesToNumberDataPoints(ps pmetric.NumberDataPointSlice, newAttributeMap pcommon.Map) {
-	for i := 0; i < ps.Len(); i++ {
-		joinAttributeMaps(newAttributeMap, ps.At(i).Attributes())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func addAttributesToHistogramDataPoints(ps pmetric.HistogramDataPointSlice, newAttributeMap pcommon.Map) {
-	for i := 0; i < ps.Len(); i++ {
-		joinAttributeMaps(newAttributeMap, ps.At(i).Attributes())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func addAttributesToSummaryDataPoints(ps pmetric.SummaryDataPointSlice, newAttributeMap pcommon.Map) {
-	for i := 0; i < ps.Len(); i++ {
-		joinAttributeMaps(newAttributeMap, ps.At(i).Attributes())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func addAttributesToExponentialHistogramDataPoints(ps pmetric.ExponentialHistogramDataPointSlice, newAttributeMap pcommon.Map) {
-	for i := 0; i < ps.Len(); i++ {
-		joinAttributeMaps(newAttributeMap, ps.At(i).Attributes())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func joinAttributeMaps(from, to pcommon.Map) {
-	to.EnsureCapacity(from.Len() + to.Len())
-	for k, v := range from.All() {
-		v.CopyTo(to.PutEmpty(k))
-	}
-}
+func joinAttributeMaps(from, to pcommon.Map) { _ = "STUB: not implemented"; return }

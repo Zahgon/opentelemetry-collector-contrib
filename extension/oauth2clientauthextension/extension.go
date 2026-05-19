@@ -6,7 +6,6 @@ package oauth2clientauthextension // import "github.com/open-telemetry/opentelem
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -57,45 +56,16 @@ type clientAuthenticator struct {
 }
 
 func newClientAuthenticator(cfg *Config, logger *zap.Logger) (*clientAuthenticator, error) {
-	transport := http.DefaultTransport.(*http.Transport).Clone()
-
-	tlsCfg, err := cfg.TLS.LoadTLSConfig(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	transport.TLSClientConfig = tlsCfg
-
-	var credentials TokenSourceConfiguration
-
-	switch cfg.GrantType {
-	case grantTypeJWTBearer:
-		credentials, err = newJwtGrantTypeConfig(cfg)
-		if err != nil {
-			return nil, err
-		}
-	case grantTypeClientCredentials, "":
-		credentials = newClientCredentialsGrantTypeConfig(cfg)
-	default:
-		return nil, fmt.Errorf("unknown grant type %q", cfg.GrantType)
-	}
-
-	return &clientAuthenticator{
-		credentials:  credentials,
-		logger:       logger,
-		expiryBuffer: cfg.ExpiryBuffer,
-		sem:          make(chan struct{}, 1),
-		client: &http.Client{
-			Transport: transport,
-			Timeout:   cfg.Timeout,
-		},
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RoundTripper wraps the provided base http.RoundTripper with an oauth2.Transport
 // that injects OAuth2 tokens into outgoing HTTP requests. The returned RoundTripper
 // will refresh tokens as needed using the context of the outgoing HTTP request.
 func (o *clientAuthenticator) RoundTripper(base http.RoundTripper) (http.RoundTripper, error) {
-	return &roundTripper{o: o, base: base}, nil
+	_ = "STUB: not implemented"
+	return *new(http.RoundTripper), nil
 }
 
 type roundTripper struct {
@@ -104,47 +74,23 @@ type roundTripper struct {
 }
 
 func (rt *roundTripper) RoundTrip(r *http.Request) (*http.Response, error) {
-	token, err := rt.o.Token(r.Context())
-	if err != nil {
-		return nil, err
-	}
-	r2 := r.Clone(r.Context())
-	token.SetAuthHeader(r2)
-	return rt.base.RoundTrip(r2)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PerRPCCredentials returns a gRPC PerRPCCredentials that injects OAuth2 tokens into
 // outgoing gRPC requests. The returned PerRPCCredentials will refresh tokens as needed
 // using the request context.
 func (o *clientAuthenticator) PerRPCCredentials() (credentials.PerRPCCredentials, error) {
-	return &perRPCCredentials{o: o}, nil
+	_ = "STUB: not implemented"
+	return *new(credentials.PerRPCCredentials), nil
 }
 
 // Token returns an oauth2.Token, refreshing as needed with the provided context.
 // The returned Token must not be modified.
 func (o *clientAuthenticator) Token(ctx context.Context) (*oauth2.Token, error) {
-	select {
-	case o.sem <- struct{}{}:
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	}
-	defer func() { <-o.sem }()
-
-	if o.token.Valid() && (o.token.Expiry.IsZero() || time.Until(o.token.Expiry) > o.expiryBuffer) {
-		return o.token, nil
-	}
-
-	ctx = context.WithValue(ctx, oauth2.HTTPClient, o.client)
-	ts := o.credentials.TokenSource(ctx)
-	tok, err := ts.Token()
-	if err != nil {
-		return nil, fmt.Errorf(
-			"%w (endpoint %q): %w",
-			errFailedToGetSecurityToken, o.credentials.TokenEndpoint(), err,
-		)
-	}
-	o.token = tok
-	return tok, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // perRPCCredentials is based on google.golang.org/grpc/credentials/oauth.TokenSource,
@@ -155,20 +101,9 @@ type perRPCCredentials struct {
 
 // GetRequestMetadata gets the request metadata as a map from a TokenSource.
 func (c *perRPCCredentials) GetRequestMetadata(ctx context.Context, _ ...string) (map[string]string, error) {
-	token, err := c.o.Token(ctx)
-	if err != nil {
-		return nil, err
-	}
-	ri, _ := credentials.RequestInfoFromContext(ctx)
-	if err = credentials.CheckSecurityLevel(ri.AuthInfo, credentials.PrivacyAndIntegrity); err != nil {
-		return nil, fmt.Errorf("unable to transfer PerRPCCredentials: %w", err)
-	}
-	return map[string]string{
-		"authorization": token.Type() + " " + token.AccessToken,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RequireTransportSecurity indicates whether the credentials requires transport security.
-func (*perRPCCredentials) RequireTransportSecurity() bool {
-	return true
-}
+func (*perRPCCredentials) RequireTransportSecurity() bool { _ = "STUB: not implemented"; return false }

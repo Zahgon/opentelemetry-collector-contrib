@@ -8,7 +8,6 @@ import (
 
 	"go.opentelemetry.io/collector/pdata/pcommon"
 	"go.opentelemetry.io/collector/processor"
-	conventions "go.opentelemetry.io/otel/semconv/v1.40.0"
 	"go.uber.org/zap"
 
 	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/metadataproviders/upcloud"
@@ -37,31 +36,12 @@ type Detector struct {
 
 // NewDetector creates a new Upcloud metadata detector.
 func NewDetector(p processor.Settings, dcfg internal.DetectorConfig) (internal.Detector, error) {
-	cfg := dcfg.(Config)
-
-	return &Detector{
-		provider:              newUpcloudProvider(),
-		logger:                p.Logger,
-		rb:                    metadata.NewResourceBuilder(cfg.ResourceAttributes),
-		failOnMissingMetadata: cfg.FailOnMissingMetadata,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(internal.Detector), nil
 }
 
 // Detect queries the Upcloud metadata service and returns a populated resource.
 func (d *Detector) Detect(ctx context.Context) (pcommon.Resource, string, error) {
-	md, err := d.provider.Metadata(ctx)
-	if err != nil {
-		d.logger.Debug("Upcloud metadata unavailable", zap.Error(err))
-		if d.failOnMissingMetadata {
-			return pcommon.NewResource(), "", err
-		}
-		return pcommon.NewResource(), "", nil
-	}
-
-	d.rb.SetCloudProvider(md.CloudName)
-	d.rb.SetCloudRegion(md.Region)
-	d.rb.SetHostID(md.InstanceID)
-	d.rb.SetHostName(md.Hostname)
-
-	return d.rb.Emit(), conventions.SchemaURL, nil
+	_ = "STUB: not implemented"
+	return *new(pcommon.Resource), "", nil
 }

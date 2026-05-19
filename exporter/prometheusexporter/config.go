@@ -4,7 +4,6 @@
 package prometheusexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/prometheusexporter"
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -58,14 +57,8 @@ var _ component.Config = (*Config)(nil)
 
 // Validate checks if the exporter configuration is valid
 func (cfg *Config) Validate() error {
+	_ = "STUB: not implemented"
 	// Validate translation strategy if set
-	if cfg.TranslationStrategy != "" {
-		switch cfg.TranslationStrategy {
-		case underscoreEscapingWithSuffixes, underscoreEscapingWithoutSuffixes, noUTF8EscapingWithSuffixes, noTranslation:
-		default:
-			return fmt.Errorf("invalid translation_strategy: %s", cfg.TranslationStrategy)
-		}
-	}
 	return nil
 }
 

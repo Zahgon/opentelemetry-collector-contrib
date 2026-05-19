@@ -10,11 +10,10 @@ import (
 	"syscall"
 )
 
-func sendShutdownSignal(process *os.Process) error {
-	return process.Signal(os.Interrupt)
-}
+func sendShutdownSignal(process *os.Process) error { _ = "STUB: not implemented"; return nil }
 
 func sysProcAttrs() *syscall.SysProcAttr {
+	_ = "STUB: not implemented"
 	// On non-windows systems, no extra attributes are needed.
 	return nil
 }

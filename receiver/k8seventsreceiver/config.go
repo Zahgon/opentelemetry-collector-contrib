@@ -30,20 +30,14 @@ type Config struct {
 	makeDynamicClient func(apiConf k8sconfig.APIConfig) (dynamic.Interface, error)
 }
 
-func (cfg *Config) Validate() error {
-	return cfg.APIConfig.Validate()
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 func (cfg *Config) getK8sClient() (k8s.Interface, error) {
-	if cfg.makeClient == nil {
-		cfg.makeClient = k8sconfig.MakeClient
-	}
-	return cfg.makeClient(cfg.APIConfig)
+	_ = "STUB: not implemented"
+	return *new(k8s.Interface), nil
 }
 
 func (cfg *Config) getDynamicClient() (dynamic.Interface, error) {
-	if cfg.makeDynamicClient == nil {
-		cfg.makeDynamicClient = k8sconfig.MakeDynamicClient
-	}
-	return cfg.makeDynamicClient(cfg.APIConfig)
+	_ = "STUB: not implemented"
+	return *new(dynamic.Interface), nil
 }

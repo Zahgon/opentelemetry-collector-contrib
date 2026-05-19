@@ -8,12 +8,8 @@ import (
 	"time"
 
 	"go.opentelemetry.io/collector/component"
-	"go.opentelemetry.io/collector/config/confignet"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/receiver"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/carbonreceiver/protocol"
 )
 
 const (
@@ -24,25 +20,11 @@ const (
 // This file implements factory for Carbon receiver.
 
 // NewFactory creates a factory for Carbon receiver.
-func NewFactory() receiver.Factory {
-	return receiver.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		receiver.WithMetrics(createMetricsReceiver, metadata.MetricsStability))
-}
+func NewFactory() receiver.Factory { _ = "STUB: not implemented"; return *new(receiver.Factory) }
 
 func createDefaultConfig() component.Config {
-	return &Config{
-		AddrConfig: confignet.AddrConfig{
-			Endpoint:  "localhost:2003",
-			Transport: confignet.TransportTypeTCP,
-		},
-		TCPIdleTimeout: tcpIdleTimeoutDefault,
-		Parser: &protocol.Config{
-			Type:   "plaintext",
-			Config: &protocol.PlaintextConfig{},
-		},
-	}
+	_ = "STUB: not implemented"
+	return *new(component.Config)
 }
 
 func createMetricsReceiver(
@@ -51,6 +33,6 @@ func createMetricsReceiver(
 	cfg component.Config,
 	consumer consumer.Metrics,
 ) (receiver.Metrics, error) {
-	rCfg := cfg.(*Config)
-	return newMetricsReceiver(params, *rCfg, consumer)
+	_ = "STUB: not implemented"
+	return *new(receiver.Metrics), nil
 }

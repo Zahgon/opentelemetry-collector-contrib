@@ -4,8 +4,6 @@
 package exceptionsconnector // import "github.com/open-telemetry/opentelemetry-collector-contrib/connector/exceptionsconnector"
 
 import (
-	"fmt"
-
 	"go.opentelemetry.io/collector/confmap/xconfmap"
 )
 
@@ -42,27 +40,7 @@ type Config struct {
 var _ xconfmap.Validator = (*Config)(nil)
 
 // Validate checks if the connector configuration is valid
-func (c Config) Validate() error {
-	err := validateDimensions(c.Dimensions)
-	if err != nil {
-		return err
-	}
-	return nil
-}
+func (c Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // validateDimensions checks duplicates for reserved dimensions and additional dimensions.
-func validateDimensions(dimensions []Dimension) error {
-	labelNames := make(map[string]struct{})
-	for _, key := range []string{serviceNameKey, spanKindKey, spanNameKey, statusCodeKey} {
-		labelNames[key] = struct{}{}
-	}
-
-	for _, key := range dimensions {
-		if _, ok := labelNames[key.Name]; ok {
-			return fmt.Errorf("duplicate dimension name %q", key.Name)
-		}
-		labelNames[key.Name] = struct{}{}
-	}
-
-	return nil
-}
+func validateDimensions(dimensions []Dimension) error { _ = "STUB: not implemented"; return nil }

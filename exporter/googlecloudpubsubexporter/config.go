@@ -4,8 +4,6 @@
 package googlecloudpubsubexporter // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/googlecloudpubsubexporter"
 
 import (
-	"errors"
-	"fmt"
 	"regexp"
 	"time"
 
@@ -13,7 +11,6 @@ import (
 	"go.opentelemetry.io/collector/config/configoptional"
 	"go.opentelemetry.io/collector/config/configretry"
 	"go.opentelemetry.io/collector/exporter/exporterhelper"
-	"go.uber.org/multierr"
 )
 
 var topicMatcher = regexp.MustCompile(`^projects/[a-z][a-z0-9\-]*/topics/`)
@@ -76,52 +73,18 @@ type SignalConfig struct {
 	Attributes map[string]string `mapstructure:"attributes"`
 }
 
-func (config *Config) Validate() error {
-	var errors error
-	if !topicMatcher.MatchString(config.Topic) {
-		errors = multierr.Append(errors, fmt.Errorf("topic '%s' is not a valid format, use 'projects/<project_id>/topics/<name>'", config.Topic))
-	}
-	if _, err := config.parseCompression(); err != nil {
-		errors = multierr.Append(errors, err)
-	}
-	errors = multierr.Append(errors, config.Watermark.validate())
-	errors = multierr.Append(errors, config.Ordering.validate())
-	return errors
-}
+func (config *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
-func (config *WatermarkConfig) validate() error {
-	if config.AllowedDrift == 0 {
-		config.AllowedDrift = 1<<63 - 1
-	}
-	_, err := config.parseWatermarkBehavior()
-	return err
-}
+func (config *WatermarkConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
-func (cfg *OrderingConfig) validate() error {
-	if cfg.Enabled && cfg.FromResourceAttribute == "" {
-		return errors.New("'from_resource_attribute' is required if ordering is enabled")
-	}
-	return nil
-}
+func (cfg *OrderingConfig) validate() error { _ = "STUB: not implemented"; return nil }
 
 func (config *Config) parseCompression() (compression, error) {
-	switch config.Compression {
-	case "gzip":
-		return gZip, nil
-	case "":
-		return uncompressed, nil
-	}
-	return uncompressed, fmt.Errorf("compression %v is not supported.  supported compression formats include [gzip]", config.Compression)
+	_ = "STUB: not implemented"
+	return *new(compression), nil
 }
 
 func (config *WatermarkConfig) parseWatermarkBehavior() (WatermarkBehavior, error) {
-	switch config.Behavior {
-	case "earliest":
-		return earliest, nil
-	case "current":
-		return current, nil
-	case "":
-		return current, nil
-	}
-	return current, fmt.Errorf("behavior %v is not supported.  supported compression formats include [current,earliest]", config.Behavior)
+	_ = "STUB: not implemented"
+	return *new(WatermarkBehavior), nil
 }

@@ -5,14 +5,8 @@
 
 package nfsscraper // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/nfsscraper"
 
-func getOSNfsStats() (*NfsStats, error) {
-	return nil, nil
-}
+func getOSNfsStats() (*NfsStats, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func getOSNfsdStats() (*nfsdStats, error) {
-	return nil, nil
-}
+func getOSNfsdStats() (*nfsdStats, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func CanScrapeAll() bool {
-	return false
-}
+func CanScrapeAll() bool { _ = "STUB: not implemented"; return false }

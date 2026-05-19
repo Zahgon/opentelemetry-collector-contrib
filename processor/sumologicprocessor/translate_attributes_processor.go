@@ -41,72 +41,35 @@ var attributeTranslations = map[string]string{
 }
 
 func newTranslateAttributesProcessor(shouldTranslate bool) *translateAttributesProcessor {
-	return &translateAttributesProcessor{
-		shouldTranslate: shouldTranslate,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (proc *translateAttributesProcessor) processLogs(logs plog.Logs) error {
-	if !proc.shouldTranslate {
-		return nil
-	}
-
-	for i := 0; i < logs.ResourceLogs().Len(); i++ {
-		translateAttributes(logs.ResourceLogs().At(i).Resource().Attributes())
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (proc *translateAttributesProcessor) processMetrics(metrics pmetric.Metrics) error {
-	if !proc.shouldTranslate {
-		return nil
-	}
-
-	for i := 0; i < metrics.ResourceMetrics().Len(); i++ {
-		translateAttributes(metrics.ResourceMetrics().At(i).Resource().Attributes())
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*translateAttributesProcessor) processTraces(ptrace.Traces) error {
+	_ = "STUB: not implemented"
 	// No-op. Traces should not be translated.
 	return nil
 }
 
-func (proc *translateAttributesProcessor) isEnabled() bool {
-	return proc.shouldTranslate
-}
+func (proc *translateAttributesProcessor) isEnabled() bool { _ = "STUB: not implemented"; return false }
 
 func (*translateAttributesProcessor) ConfigPropertyName() string {
-	return "translate_attributes"
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func translateAttributes(attributes pcommon.Map) {
-	result := pcommon.NewMap()
-	result.EnsureCapacity(attributes.Len())
+func translateAttributes(attributes pcommon.Map) { _ = "STUB: not implemented"; return }
 
-	for otKey, value := range attributes.All() {
-		if sumoKey, ok := attributeTranslations[otKey]; ok {
-			// Only insert if it doesn't exist yet to prevent overwriting.
-			// We have to do it this way since the final return value is not
-			// ready yet to rely on .Insert() not overwriting.
-			if _, exists := attributes.Get(sumoKey); !exists {
-				if _, ok := result.Get(sumoKey); !ok {
-					value.CopyTo(result.PutEmpty(sumoKey))
-				}
-			} else {
-				if _, ok := result.Get(otKey); !ok {
-					value.CopyTo(result.PutEmpty(otKey))
-				}
-			}
-		} else {
-			if _, ok := result.Get(otKey); !ok {
-				value.CopyTo(result.PutEmpty(otKey))
-			}
-		}
-	}
-
-	result.CopyTo(attributes)
-}
+// Only insert if it doesn't exist yet to prevent overwriting.
+// We have to do it this way since the final return value is not
+// ready yet to rely on .Insert() not overwriting.

@@ -5,9 +5,6 @@ package translation // import "github.com/open-telemetry/opentelemetry-collector
 
 import (
 	"context"
-	"errors"
-	"fmt"
-	"io"
 	"net/http"
 )
 
@@ -26,38 +23,11 @@ var _ Provider = (*httpProvider)(nil)
 
 // NewHTTPProvider creates a new HTTP-based Provider.
 func NewHTTPProvider(client *http.Client) Provider {
-	if client == nil {
-		client = http.DefaultClient
-	}
-	return &httpProvider{client: client}
+	_ = "STUB: not implemented"
+	return *new(Provider)
 }
 
 func (hp *httpProvider) Retrieve(ctx context.Context, schemaURL string) (string, error) {
-	if schemaURL == "" {
-		return "", errors.New("schema URL cannot be empty")
-	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, schemaURL, http.NoBody)
-	if err != nil {
-		return "", fmt.Errorf("failed to create request: %w", err)
-	}
-
-	resp, err := hp.client.Do(req)
-	if err != nil {
-		return "", fmt.Errorf("request failed: %w", err)
-	}
-	defer func() {
-		_ = resp.Body.Close()
-	}()
-
-	if resp.StatusCode != http.StatusOK {
-		return "", fmt.Errorf("unexpected status code: %d", resp.StatusCode)
-	}
-
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return "", fmt.Errorf("failed to read response body: %w", err)
-	}
-
-	return string(data), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

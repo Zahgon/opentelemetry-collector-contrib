@@ -3,12 +3,6 @@
 
 package observer // import "github.com/open-telemetry/opentelemetry-collector-contrib/extension/observer"
 
-import (
-	"errors"
-	"fmt"
-	"net"
-)
-
 type (
 	// EndpointID unique identifies an endpoint per-observer instance.
 	EndpointID string
@@ -67,42 +61,20 @@ type Endpoint struct {
 
 // Env converts an endpoint into a map suitable for expr evaluation.
 func (e *Endpoint) Env() (EndpointEnv, error) {
-	if e.Details == nil {
-		return nil, errors.New("endpoint is missing details")
-	}
-
-	env := e.Details.Env()
-	env["endpoint"] = e.Target
-	env["type"] = string(e.Details.Type())
-	env["id"] = string(e.ID)
-
-	// Exposing the target as a split "host" and "port" enables the receiver creator
-	// to be able to discover receivers that require these options to be configured
-	// separately.
-	const hostKey = "host"
-	const portKey = "port"
-	host, port, err := net.SplitHostPort(e.Target)
-	// An error most likely means there was no port when splitting, so the host
-	// can simply be the target.
-	if err != nil {
-		host = e.Target
-	} else {
-		// Only try to set the port if a valid port was found when splitting the target
-		if _, keyExists := env[portKey]; !keyExists {
-			env[portKey] = port
-		}
-	}
-
-	if _, keyExists := env[hostKey]; !keyExists {
-		env[hostKey] = host
-	}
-
-	return env, nil
+	_ = "STUB: not implemented"
+	return *new(EndpointEnv), nil
 }
 
-func (e *Endpoint) String() string {
-	return fmt.Sprintf("Endpoint{ID: %v, Target: %v, Details: %T%+v}", e.ID, e.Target, e.Details, e.Details)
-}
+// Exposing the target as a split "host" and "port" enables the receiver creator
+// to be able to discover receivers that require these options to be configured
+// separately.
+
+// An error most likely means there was no port when splitting, so the host
+// can simply be the target.
+
+// Only try to set the port if a valid port was found when splitting the target
+
+func (e *Endpoint) String() string { _ = "STUB: not implemented"; return "" }
 
 // K8sService is a discovered k8s service.
 type K8sService struct {
@@ -122,23 +94,16 @@ type K8sService struct {
 	ServiceType string
 }
 
-func (s *K8sService) Env() EndpointEnv {
-	return map[string]any{
-		"uid":          s.UID,
-		"name":         s.Name,
-		"labels":       s.Labels,
-		"annotations":  s.Annotations,
-		"namespace":    s.Namespace,
-		"cluster_ip":   s.ClusterIP,
-		"service_type": s.ServiceType,
-	}
-}
+func (s *K8sService) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*K8sService) Type() EndpointType {
-	return K8sServiceType
+	_ = "STUB: not implemented"
+	return *
+
+	// K8sIngress is a discovered k8s ingress.
+	new(EndpointType)
 }
 
-// K8sIngress is a discovered k8s ingress.
 type K8sIngress struct {
 	// Name of the ingress.
 	Name string
@@ -158,24 +123,16 @@ type K8sIngress struct {
 	Path string
 }
 
-func (s *K8sIngress) Env() EndpointEnv {
-	return map[string]any{
-		"uid":         s.UID,
-		"name":        s.Name,
-		"labels":      s.Labels,
-		"annotations": s.Annotations,
-		"namespace":   s.Namespace,
-		"scheme":      s.Scheme,
-		"host":        s.Host,
-		"path":        s.Path,
-	}
-}
+func (s *K8sIngress) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*K8sIngress) Type() EndpointType {
-	return K8sIngressType
+	_ = "STUB: not implemented"
+	return *
+
+	// Pod is a discovered k8s pod.
+	new(EndpointType)
 }
 
-// Pod is a discovered k8s pod.
 type Pod struct {
 	// Name of the pod.
 	Name string
@@ -189,21 +146,15 @@ type Pod struct {
 	Namespace string
 }
 
-func (p *Pod) Env() EndpointEnv {
-	return map[string]any{
-		"uid":         p.UID,
-		"name":        p.Name,
-		"labels":      p.Labels,
-		"annotations": p.Annotations,
-		"namespace":   p.Namespace,
-	}
-}
+func (p *Pod) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*Pod) Type() EndpointType {
-	return PodType
+	_ = "STUB: not implemented"
+
+	// PodContainer is a discovered k8s pod's container
+	return *new(EndpointType)
 }
 
-// PodContainer is a discovered k8s pod's container
 type PodContainer struct {
 	// Name of the container
 	Name string `mapstructure:"container_name"`
@@ -215,20 +166,16 @@ type PodContainer struct {
 	Pod Pod
 }
 
-func (p *PodContainer) Env() EndpointEnv {
-	return map[string]any{
-		"container_name":  p.Name,
-		"container_id":    p.ContainerID,
-		"container_image": p.Image,
-		"pod":             p.Pod.Env(),
-	}
-}
+func (p *PodContainer) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*PodContainer) Type() EndpointType {
-	return PodContainerType
+	_ = "STUB: not implemented"
+	return *
+
+	// Port is an endpoint that has a target as well as a port.
+	new(EndpointType)
 }
 
-// Port is an endpoint that has a target as well as a port.
 type Port struct {
 	// Name is the name of the container port.
 	Name string
@@ -246,23 +193,15 @@ type Port struct {
 	ContainerImage string
 }
 
-func (p *Port) Env() EndpointEnv {
-	return map[string]any{
-		"name":            p.Name,
-		"port":            p.Port,
-		"pod":             p.Pod.Env(),
-		"transport":       p.Transport,
-		"container_name":  p.ContainerName,
-		"container_id":    p.ContainerID,
-		"container_image": p.ContainerImage,
-	}
-}
+func (p *Port) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*Port) Type() EndpointType {
-	return PortType
+	_ = "STUB: not implemented"
+
+	// HostPort is an endpoint discovered on a host.
+	return *new(EndpointType)
 }
 
-// HostPort is an endpoint discovered on a host.
 type HostPort struct {
 	// ProcessName of the process associated to Endpoint.  If host_observer
 	// is unable to collect information about process using the
@@ -278,21 +217,16 @@ type HostPort struct {
 	IsIPv6 bool
 }
 
-func (h *HostPort) Env() EndpointEnv {
-	return map[string]any{
-		"process_name": h.ProcessName,
-		"command":      h.Command,
-		"is_ipv6":      h.IsIPv6,
-		"port":         h.Port,
-		"transport":    h.Transport,
-	}
-}
+func (h *HostPort) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*HostPort) Type() EndpointType {
-	return HostPortType
+	_ = "STUB: not implemented"
+	return *
+
+	// Container is a discovered container
+	new(EndpointType)
 }
 
-// Container is a discovered container
 type Container struct {
 	// Name is the primary name of the container
 	Name string
@@ -317,27 +251,17 @@ type Container struct {
 	Labels map[string]string
 }
 
-func (c *Container) Env() EndpointEnv {
-	return map[string]any{
-		"name":           c.Name,
-		"image":          c.Image,
-		"tag":            c.Tag,
-		"port":           c.Port,
-		"alternate_port": c.AlternatePort,
-		"command":        c.Command,
-		"container_id":   c.ContainerID,
-		"host":           c.Host,
-		"transport":      c.Transport,
-		"labels":         c.Labels,
-	}
-}
+func (c *Container) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
 func (*Container) Type() EndpointType {
-	return ContainerType
+	_ = "STUB: not implemented"
+	return *
+
+	// K8sNode represents a Kubernetes Node object:
+	// https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/resource/semantic_conventions/k8s.md#node
+	new(EndpointType)
 }
 
-// K8sNode represents a Kubernetes Node object:
-// https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/resource/semantic_conventions/k8s.md#node
 type K8sNode struct {
 	// Name is the name of the Kubernetes Node.
 	Name string
@@ -361,31 +285,12 @@ type K8sNode struct {
 	KubeletEndpointPort uint16
 }
 
-func (n *K8sNode) Env() EndpointEnv {
-	return map[string]any{
-		"name":                  n.Name,
-		"uid":                   n.UID,
-		"annotations":           n.Annotations,
-		"labels":                n.Labels,
-		"hostname":              n.Hostname,
-		"external_ip":           n.ExternalIP,
-		"internal_ip":           n.InternalIP,
-		"external_dns":          n.ExternalDNS,
-		"internal_dns":          n.InternalDNS,
-		"kubelet_endpoint_port": n.KubeletEndpointPort,
-	}
-}
+func (n *K8sNode) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
-func (*K8sNode) Type() EndpointType {
-	return K8sNodeType
-}
+func (*K8sNode) Type() EndpointType { _ = "STUB: not implemented"; return *new(EndpointType) }
 
 type KafkaTopic struct{}
 
-func (*KafkaTopic) Env() EndpointEnv {
-	return map[string]any{}
-}
+func (*KafkaTopic) Env() EndpointEnv { _ = "STUB: not implemented"; return *new(EndpointEnv) }
 
-func (*KafkaTopic) Type() EndpointType {
-	return KafkaTopicType
-}
+func (*KafkaTopic) Type() EndpointType { _ = "STUB: not implemented"; return *new(EndpointType) }

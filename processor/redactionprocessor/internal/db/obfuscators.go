@@ -4,9 +4,6 @@
 package db // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/redactionprocessor/internal/db"
 
 import (
-	"encoding/json"
-	"strings"
-
 	"github.com/DataDog/datadog-agent/pkg/obfuscate"
 	"go.uber.org/zap"
 )
@@ -25,14 +22,13 @@ type dbAttributes struct {
 }
 
 func (d *dbAttributes) ShouldProcessAttribute(attributeKey string) bool {
-	return d.attributes[attributeKey]
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (d *dbAttributes) SupportsSystem(dbSystem string) bool {
-	if len(d.dbSystems) == 0 || dbSystem == "" {
-		return false
-	}
-	return d.dbSystems[dbSystem]
+	_ = "STUB: not implemented"
+	return false
 }
 
 type sqlObfuscator struct {
@@ -43,26 +39,18 @@ type sqlObfuscator struct {
 var _ databaseObfuscator = &sqlObfuscator{}
 
 func (o *sqlObfuscator) Obfuscate(s string) (string, error) {
-	obfuscatedQuery, err := o.obfuscator.ObfuscateSQLString(s)
-	if err != nil {
-		return s, err
-	}
-	return obfuscatedQuery.Query, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *sqlObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *sqlObfuscator) ObfuscateWithSystem(s, dbSystem string) (string, error) {
-	obfuscatedQuery, err := o.obfuscator.ObfuscateSQLStringForDBMS(s, dbSystem)
-	if err != nil {
-		return s, err
-	}
-	return obfuscatedQuery.Query, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type redisObfuscator struct {
@@ -73,18 +61,18 @@ type redisObfuscator struct {
 var _ databaseObfuscator = &redisObfuscator{}
 
 func (o *redisObfuscator) Obfuscate(s string) (string, error) {
-	return o.obfuscator.ObfuscateRedisString(s), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *redisObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *redisObfuscator) ObfuscateWithSystem(s, _ string) (string, error) {
-	return o.Obfuscate(s)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type memcachedObfuscator struct {
@@ -95,18 +83,18 @@ type memcachedObfuscator struct {
 var _ databaseObfuscator = &memcachedObfuscator{}
 
 func (o *memcachedObfuscator) Obfuscate(s string) (string, error) {
-	return o.obfuscator.ObfuscateMemcachedString(s), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *memcachedObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *memcachedObfuscator) ObfuscateWithSystem(s, _ string) (string, error) {
-	return o.Obfuscate(s)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type mongoObfuscator struct {
@@ -118,22 +106,18 @@ type mongoObfuscator struct {
 var _ databaseObfuscator = &mongoObfuscator{}
 
 func (o *mongoObfuscator) Obfuscate(s string) (string, error) {
-	if !isValidJSON(s) {
-		o.logger.Debug("mongo span name not obfuscated due to invalid JSON input")
-		return s, nil
-	}
-	return o.obfuscator.ObfuscateMongoDBString(s), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *mongoObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *mongoObfuscator) ObfuscateWithSystem(s, _ string) (string, error) {
-	return o.Obfuscate(s)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type opensearchObfuscator struct {
@@ -145,22 +129,18 @@ type opensearchObfuscator struct {
 var _ databaseObfuscator = &opensearchObfuscator{}
 
 func (o *opensearchObfuscator) Obfuscate(s string) (string, error) {
-	if !isValidJSON(s) {
-		o.logger.Debug("opensearch span name not obfuscated due to invalid JSON input")
-		return s, nil
-	}
-	return o.obfuscator.ObfuscateOpenSearchString(s), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *opensearchObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *opensearchObfuscator) ObfuscateWithSystem(s, _ string) (string, error) {
-	return o.Obfuscate(s)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 type esObfuscator struct {
@@ -172,27 +152,18 @@ type esObfuscator struct {
 var _ databaseObfuscator = &esObfuscator{}
 
 func (o *esObfuscator) Obfuscate(s string) (string, error) {
-	if !isValidJSON(s) {
-		o.logger.Debug("elasticsearch span name not obfuscated due to invalid JSON input")
-		return s, nil
-	}
-	return o.obfuscator.ObfuscateElasticSearchString(s), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *esObfuscator) ObfuscateAttribute(attributeValue, attributeKey string) (string, error) {
-	if !o.ShouldProcessAttribute(attributeKey) {
-		return attributeValue, nil
-	}
-	return o.Obfuscate(attributeValue)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (o *esObfuscator) ObfuscateWithSystem(s, _ string) (string, error) {
-	return o.Obfuscate(s)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
-func isValidJSON(value string) bool {
-	if strings.TrimSpace(value) == "" {
-		return false
-	}
-	return json.Valid([]byte(value))
-}
+func isValidJSON(value string) bool { _ = "STUB: not implemented"; return false }

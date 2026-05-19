@@ -4,10 +4,6 @@
 package filterprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/filterprocessor"
 
 import (
-	"maps"
-	"slices"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/internal/filter/filterottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottldatapoint"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/pkg/ottl/contexts/ottllog"
@@ -19,94 +15,112 @@ import (
 )
 
 func DefaultResourceFunctions() []ottl.Factory[*ottlresource.TransformContext] {
-	return slices.Collect(maps.Values(defaultResourceFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultLogFunctions() []ottl.Factory[*ottllog.TransformContext] {
-	return slices.Collect(maps.Values(defaultLogFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultLogFunctions.
 func DefaultLogFunctionsNew() []ottl.Factory[*ottllog.TransformContext] {
-	return DefaultLogFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultMetricFunctions() []ottl.Factory[*ottlmetric.TransformContext] {
-	return slices.Collect(maps.Values(defaultMetricFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultMetricFunctions.
 func DefaultMetricFunctionsNew() []ottl.Factory[*ottlmetric.TransformContext] {
-	return DefaultMetricFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultDataPointFunctions() []ottl.Factory[*ottldatapoint.TransformContext] {
-	return slices.Collect(maps.Values(defaultDataPointFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultDataPointFunctions.
 func DefaultDataPointFunctionsNew() []ottl.Factory[*ottldatapoint.TransformContext] {
-	return DefaultDataPointFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultSpanFunctions() []ottl.Factory[*ottlspan.TransformContext] {
-	return slices.Collect(maps.Values(defaultSpanFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultSpanFunctions.
 func DefaultSpanFunctionsNew() []ottl.Factory[*ottlspan.TransformContext] {
-	return DefaultSpanFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultSpanEventFunctions() []ottl.Factory[*ottlspanevent.TransformContext] {
-	return slices.Collect(maps.Values(defaultSpanEventFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultSpanEventFunctions.
 func DefaultSpanEventFunctionsNew() []ottl.Factory[*ottlspanevent.TransformContext] {
-	return DefaultSpanEventFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func DefaultProfileFunctions() []ottl.Factory[*ottlprofile.TransformContext] {
-	return slices.Collect(maps.Values(defaultProfileFunctionsMap()))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Deprecated: [v0.152.0] use DefaultProfileFunctions.
 func DefaultProfileFunctionsNew() []ottl.Factory[*ottlprofile.TransformContext] {
-	return DefaultProfileFunctions()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultResourceFunctionsMap() map[string]ottl.Factory[*ottlresource.TransformContext] {
-	return filterottl.StandardResourceFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultLogFunctionsMap() map[string]ottl.Factory[*ottllog.TransformContext] {
-	return filterottl.StandardLogFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultMetricFunctionsMap() map[string]ottl.Factory[*ottlmetric.TransformContext] {
-	return filterottl.StandardMetricFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultDataPointFunctionsMap() map[string]ottl.Factory[*ottldatapoint.TransformContext] {
-	return filterottl.StandardDataPointFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultSpanFunctionsMap() map[string]ottl.Factory[*ottlspan.TransformContext] {
-	return filterottl.StandardSpanFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultSpanEventFunctionsMap() map[string]ottl.Factory[*ottlspanevent.TransformContext] {
-	return filterottl.StandardSpanEventFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func defaultProfileFunctionsMap() map[string]ottl.Factory[*ottlprofile.TransformContext] {
-	return filterottl.StandardProfileFuncs()
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func mergeFunctionsToMap[K any](functionMap map[string]ottl.Factory[K], functions []ottl.Factory[K]) map[string]ottl.Factory[K] {
-	for _, f := range functions {
-		functionMap[f.Name()] = f
-	}
-	return functionMap
+	_ = "STUB: not implemented"
+	return nil
 }

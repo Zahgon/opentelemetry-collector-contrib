@@ -7,7 +7,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/pdata/pmetric"
 
@@ -39,64 +38,20 @@ func newTestHarness(
 	ds testbed.MetricDataSender,
 	diffConsumer diffConsumer,
 ) *testHarness {
-	return &testHarness{
-		t:                  t,
-		metricSupplier:     s,
-		metricIndex:        mi,
-		sender:             ds,
-		diffConsumer:       diffConsumer,
-		allMetricsReceived: make(chan struct{}),
-	}
-}
-
-func (*testHarness) Capabilities() consumer.Capabilities {
-	return consumer.Capabilities{MutatesData: false}
-}
-
-func (h *testHarness) ConsumeMetrics(_ context.Context, pdm pmetric.Metrics) error {
-	h.compare(pdm)
-	if h.metricIndex.allReceived() {
-		close(h.allMetricsReceived)
-	}
-	if !h.outOfMetrics {
-		h.sendNextMetric()
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (h *testHarness) compare(pdm pmetric.Metrics) {
-	pdms := pdm.ResourceMetrics().At(0).ScopeMetrics().At(0).Metrics()
-	var diffs []*metricstestutil.MetricDiff
-	for i := 0; i < pdms.Len(); i++ {
-		pdmRecd := pdms.At(i)
-		metricName := pdmRecd.Name()
-		metric, found := h.metricIndex.lookup(metricName)
-		if !found {
-			h.diffConsumer.accept(metricName, []*metricstestutil.MetricDiff{{
-				ExpectedValue: metricName,
-				Msg:           "Metric name not found in index",
-			}})
-		}
-		if !metric.received {
-			metric.received = true
-			sent := metric.pdm
-			pdmExpected := sent.ResourceMetrics().At(0).ScopeMetrics().At(0).Metrics().At(0)
-			diffs = metricstestutil.DiffMetric(
-				diffs,
-				pdmExpected,
-				pdmRecd,
-			)
-			h.diffConsumer.accept(metricName, diffs)
-		}
-	}
+func (*testHarness) Capabilities() consumer.Capabilities {
+	_ = "STUB: not implemented"
+	return *new(consumer.Capabilities)
 }
 
-func (h *testHarness) sendNextMetric() {
-	var pdm pmetric.Metrics
-	pdm, h.outOfMetrics = h.metricSupplier.nextMetrics()
-	if h.outOfMetrics {
-		return
-	}
-	err := h.sender.ConsumeMetrics(context.Background(), pdm)
-	require.NoError(h.t, err)
+func (h *testHarness) ConsumeMetrics(_ context.Context, pdm pmetric.Metrics) error {
+	_ = "STUB: not implemented"
+	return nil
 }
+
+func (h *testHarness) compare(pdm pmetric.Metrics) { _ = "STUB: not implemented"; return }
+
+func (h *testHarness) sendNextMetric() { _ = "STUB: not implemented"; return }

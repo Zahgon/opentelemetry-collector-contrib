@@ -19,26 +19,26 @@ type nopTranslation struct{}
 
 var _ Translation = (*nopTranslation)(nil)
 
-func (nopTranslation) SupportedVersion(_ *Version) bool {
-	return false
-}
+func (nopTranslation) SupportedVersion(_ *Version) bool { _ = "STUB: not implemented"; return false }
 
-func (nopTranslation) TargetSchemaURL() string {
-	return ""
-}
+func (nopTranslation) TargetSchemaURL() string { _ = "STUB: not implemented"; return "" }
 
 func (nopTranslation) ApplyAllResourceChanges(_ alias.Resource, _ string) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (nopTranslation) ApplyScopeSpanChanges(_ ptrace.ScopeSpans, _ string) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (nopTranslation) ApplyScopeLogChanges(_ plog.ScopeLogs, _ string) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (nopTranslation) ApplyScopeMetricChanges(_ pmetric.ScopeMetrics, _ string) error {
+	_ = "STUB: not implemented"
 	return nil
 }

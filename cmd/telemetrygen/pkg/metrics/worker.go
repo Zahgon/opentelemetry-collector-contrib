@@ -4,12 +4,9 @@
 package metrics
 
 import (
-	"context"
-	"fmt"
 	"math/rand/v2"
 	"sync"
 	"sync/atomic"
-	"time"
 
 	"github.com/lightstep/go-expohisto/structure"
 	"go.opentelemetry.io/otel/attribute"
@@ -19,7 +16,6 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/time/rate"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/internal/config"
 	types "github.com/open-telemetry/opentelemetry-collector-contrib/cmd/telemetrygen/pkg"
 )
 
@@ -97,207 +93,37 @@ var histogramBucketSamples = []struct {
 }
 
 func (w *worker) simulateMetrics(res *resource.Resource, exporter sdkmetric.Exporter, signalAttrs []attribute.KeyValue, tb *timeBox) {
-	limiter := rate.NewLimiter(w.limitPerSecond, 1)
-
-	startTime := w.clock.Now()
-
-	var i int64
-	for w.running.Load() {
-		if w.enforceUnique {
-			signalAttrs = append(signalAttrs, tb.getAttribute())
-		}
-
-		// Add load size attributes if specified
-		loadAttrs := signalAttrs
-		if w.loadSize > 0 {
-			for j := 0; j < w.loadSize; j++ {
-				loadAttrs = append(loadAttrs, config.CreateLoadAttribute(fmt.Sprintf("load-%v", j), 1))
-			}
-		}
-		var metrics []metricdata.Metrics
-		now := w.clock.Now()
-		if w.aggregationTemporality.AsTemporality() == metricdata.DeltaTemporality {
-			startTime = now.Add(-1 * time.Second)
-		}
-
-		switch w.metricType {
-		case MetricTypeGauge:
-			metrics = append(metrics, metricdata.Metrics{
-				Name: w.metricName,
-				Data: metricdata.Gauge[int64]{
-					DataPoints: []metricdata.DataPoint[int64]{
-						{
-							Time:       now,
-							Value:      i,
-							Attributes: attribute.NewSet(loadAttrs...),
-							Exemplars:  w.exemplars,
-						},
-					},
-				},
-			})
-		case MetricTypeSum:
-			metrics = append(metrics, metricdata.Metrics{
-				Name: w.metricName,
-				Data: metricdata.Sum[int64]{
-					IsMonotonic: true,
-					Temporality: w.aggregationTemporality.AsTemporality(),
-					DataPoints: []metricdata.DataPoint[int64]{
-						{
-							StartTime:  startTime,
-							Time:       now,
-							Value:      i,
-							Attributes: attribute.NewSet(loadAttrs...),
-							Exemplars:  w.exemplars,
-						},
-					},
-				},
-			})
-		case MetricTypeHistogram:
-			var totalCount uint64
-			iteration := uint64(i) % 10
-			sum := histogramBucketSamples[iteration].sum
-			bucketCounts := histogramBucketSamples[iteration].bucketCounts
-			for _, count := range bucketCounts {
-				totalCount += count
-			}
-			metrics = append(metrics, metricdata.Metrics{
-				Name: w.metricName,
-				Data: metricdata.Histogram[int64]{
-					Temporality: w.aggregationTemporality.AsTemporality(),
-					DataPoints: []metricdata.HistogramDataPoint[int64]{
-						{
-							StartTime:  startTime,
-							Time:       now,
-							Attributes: attribute.NewSet(loadAttrs...),
-							Exemplars:  w.exemplars,
-							Count:      totalCount,
-							Sum:        sum,
-							// Bounds from https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/metrics/sdk.md#explicit-bucket-histogram-aggregation
-							Bounds:       []float64{0, 5, 10, 25, 50, 75, 100, 250, 500, 750, 1000, 2500, 5000, 7500, 10000},
-							BucketCounts: bucketCounts,
-						},
-					},
-				},
-			})
-		case MetricTypeExponentialHistogram:
-			// Generate realistic exponential histogram data using go-expohisto
-			cfg := structure.NewConfig(structure.WithMaxSize(8))
-			hist := structure.NewFloat64(cfg)
-
-			// Add random values to the histogram
-			count := 10 + w.rand.IntN(20) // Random count between 10-30
-			for range count {
-				value := float64(w.rand.IntN(1000))
-				hist.Update(value)
-			}
-
-			// Create the data point and convert using utility function
-			dp := &metricdata.ExponentialHistogramDataPoint[int64]{
-				StartTime:  startTime,
-				Time:       now,
-				Attributes: attribute.NewSet(signalAttrs...),
-				Exemplars:  w.exemplars,
-			}
-			expoHistToSDKExponentialDataPoint(hist, dp)
-
-			metrics = append(metrics, metricdata.Metrics{
-				Name: w.metricName,
-				Data: metricdata.ExponentialHistogram[int64]{
-					Temporality: w.aggregationTemporality.AsTemporality(),
-					DataPoints:  []metricdata.ExponentialHistogramDataPoint[int64]{*dp},
-				},
-			})
-		default:
-			w.logger.Fatal("unknown metric type")
-		}
-
-		rm := metricdata.ResourceMetrics{
-			Resource:     res,
-			ScopeMetrics: []metricdata.ScopeMetrics{{Metrics: metrics}},
-		}
-
-		if err := limiter.Wait(context.Background()); err != nil {
-			w.logger.Fatal("limiter wait failed, retry", zap.Error(err))
-		}
-
-		if w.batch {
-			w.addToBuffer(rm, exporter)
-		} else {
-			if err := exporter.Export(context.Background(), &rm); err != nil {
-				if w.allowFailures {
-					w.logger.Error("exporter failed, continuing due to --allow-export-failures", zap.Error(err))
-				} else {
-					w.logger.Fatal("exporter failed", zap.Error(err))
-				}
-			}
-		}
-
-		i++
-		if w.numMetrics != 0 && i >= int64(w.numMetrics) {
-			break
-		}
-	}
-
-	w.flushBuffer(exporter)
-
-	w.logger.Info("metrics generated", zap.Int64("metrics", i))
-	w.wg.Done()
+	_ = "STUB: not implemented"
+	return
 }
+
+// Add load size attributes if specified
+
+// Bounds from https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/metrics/sdk.md#explicit-bucket-histogram-aggregation
+
+// Generate realistic exponential histogram data using go-expohisto
+
+// Add random values to the histogram
+// Random count between 10-30
+
+// Create the data point and convert using utility function
 
 func (w *worker) addToBuffer(rm metricdata.ResourceMetrics, exporter sdkmetric.Exporter) {
-	w.bufferMutex.Lock()
-	defer w.bufferMutex.Unlock()
-
-	w.metricBuffer = append(w.metricBuffer, rm)
-
-	if len(w.metricBuffer) >= w.batchSize {
-		w.flushBuffer(exporter)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
-func (w *worker) flushBuffer(exporter sdkmetric.Exporter) {
-	if len(w.metricBuffer) == 0 {
-		return
-	}
-
-	merged := w.metricBuffer[0]
-	for i := 1; i < len(w.metricBuffer); i++ {
-		for j := 0; j < len(w.metricBuffer[i].ScopeMetrics); j++ {
-			merged.ScopeMetrics = append(merged.ScopeMetrics, w.metricBuffer[i].ScopeMetrics[j])
-		}
-	}
-
-	if err := exporter.Export(context.Background(), &merged); err != nil {
-		w.logger.Error("failed to export batch", zap.Error(err), zap.Int("count", len(w.metricBuffer)))
-	} else {
-		w.logger.Debug("exported batch", zap.Int("count", len(w.metricBuffer)))
-	}
-
-	w.metricBuffer = w.metricBuffer[:0]
-}
+func (w *worker) flushBuffer(exporter sdkmetric.Exporter) { _ = "STUB: not implemented"; return }
 
 // expoHistToSDKExponentialDataPoint copies `lightstep/go-expohisto` structure.Histogram to
 // metricdata.ExponentialHistogramDataPoint
 func expoHistToSDKExponentialDataPoint(agg *structure.Histogram[float64], dp *metricdata.ExponentialHistogramDataPoint[int64]) {
-	dp.Count = agg.Count()
-	dp.Sum = int64(agg.Sum())
-	dp.ZeroCount = agg.ZeroCount()
-	dp.Scale = agg.Scale()
-	dp.ZeroThreshold = 0.0 // go-expohisto doesn't expose ZeroThreshold, use default
-
-	// Convert positive buckets
-	posBuckets := agg.Positive()
-	dp.PositiveBucket.Offset = posBuckets.Offset()
-	dp.PositiveBucket.Counts = make([]uint64, posBuckets.Len())
-	for i := uint32(0); i < posBuckets.Len(); i++ {
-		dp.PositiveBucket.Counts[i] = posBuckets.At(i)
-	}
-
-	// Convert negative buckets
-	negBuckets := agg.Negative()
-	dp.NegativeBucket.Offset = negBuckets.Offset()
-	dp.NegativeBucket.Counts = make([]uint64, negBuckets.Len())
-	for i := uint32(0); i < negBuckets.Len(); i++ {
-		dp.NegativeBucket.Counts[i] = negBuckets.At(i)
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// go-expohisto doesn't expose ZeroThreshold, use default
+
+// Convert positive buckets
+
+// Convert negative buckets

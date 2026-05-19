@@ -5,34 +5,15 @@ package deltatocumulativeprocessor // import "github.com/open-telemetry/opentele
 
 import (
 	"context"
-	"errors"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/consumer"
 	"go.opentelemetry.io/collector/processor"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor/internal/metadata"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/processor/deltatocumulativeprocessor/internal/telemetry"
 )
 
-func NewFactory() processor.Factory {
-	return processor.NewFactory(
-		metadata.Type,
-		createDefaultConfig,
-		processor.WithMetrics(createMetricsProcessor, metadata.MetricsStability),
-	)
-}
+func NewFactory() processor.Factory { _ = "STUB: not implemented"; return *new(processor.Factory) }
 
 func createMetricsProcessor(_ context.Context, set processor.Settings, cfg component.Config, next consumer.Metrics) (processor.Metrics, error) {
-	pcfg, ok := cfg.(*Config)
-	if !ok {
-		return nil, errors.New("configuration parsing error")
-	}
-
-	tel, err := telemetry.New(set.TelemetrySettings)
-	if err != nil {
-		return nil, err
-	}
-
-	return newProcessor(pcfg, tel, next), nil
+	_ = "STUB: not implemented"
+	return *new(processor.Metrics), nil
 }

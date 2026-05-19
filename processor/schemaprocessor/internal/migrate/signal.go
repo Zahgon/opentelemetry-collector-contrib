@@ -21,31 +21,13 @@ type SignalNameChange struct {
 // NewSignalNameChange will create a `Signal` that will check the provided mappings if it can update a `alias.NamedSignal`
 // and if no values are provided for `matches`, then all values will be updated.
 func NewSignalNameChange[Key, Value SignalType](mappings map[Key]Value) SignalNameChange {
-	sig := SignalNameChange{
-		updates:  make(map[string]string, len(mappings)),
-		rollback: make(map[string]string, len(mappings)),
-	}
-	for k, v := range mappings {
-		sig.updates[string(k)] = string(v)
-		sig.rollback[string(v)] = string(k)
-	}
-	return sig
+	_ = "STUB: not implemented"
+	return *new(SignalNameChange)
 }
 
-func (SignalNameChange) IsMigrator() {}
+func (SignalNameChange) IsMigrator() { _ = "STUB: not implemented"; return }
 
 func (s *SignalNameChange) Do(ss StateSelector, signal alias.NamedSignal) {
-	var (
-		name    string
-		matched bool
-	)
-	switch ss {
-	case StateSelectorApply:
-		name, matched = s.updates[signal.Name()]
-	case StateSelectorRollback:
-		name, matched = s.rollback[signal.Name()]
-	}
-	if matched {
-		signal.SetName(name)
-	}
+	_ = "STUB: not implemented"
+	return
 }

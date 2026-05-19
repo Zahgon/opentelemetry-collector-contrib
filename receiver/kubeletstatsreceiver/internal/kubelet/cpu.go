@@ -18,15 +18,8 @@ func addCPUMetrics(
 	r resources,
 	nodeCPULimit float64,
 ) {
-	if s == nil {
-		return
-	}
-	if s.UsageNanoCores != nil {
-		usageCores := float64(*s.UsageNanoCores) / 1_000_000_000
-		cpuMetrics.Usage(mb, currentTime, usageCores)
-		addCPUUtilizationMetrics(mb, cpuMetrics, usageCores, currentTime, r, nodeCPULimit)
-	}
-	addCPUTimeMetric(mb, cpuMetrics.Time, s, currentTime)
+	_ = "STUB: not implemented"
+	return
 }
 
 func addCPUUtilizationMetrics(
@@ -37,21 +30,11 @@ func addCPUUtilizationMetrics(
 	r resources,
 	nodeCPULimit float64,
 ) {
-	if nodeCPULimit > 0 {
-		cpuMetrics.NodeUtilization(mb, currentTime, usageCores/nodeCPULimit)
-	}
-	if r.cpuLimit > 0 {
-		cpuMetrics.LimitUtilization(mb, currentTime, usageCores/r.cpuLimit)
-	}
-	if r.cpuRequest > 0 {
-		cpuMetrics.RequestUtilization(mb, currentTime, usageCores/r.cpuRequest)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func addCPUTimeMetric(mb *metadata.MetricsBuilder, recordDataPoint metadata.RecordDoubleDataPointFunc, s *stats.CPUStats, currentTime pcommon.Timestamp) {
-	if s.UsageCoreNanoSeconds == nil {
-		return
-	}
-	value := float64(*s.UsageCoreNanoSeconds) / 1_000_000_000
-	recordDataPoint(mb, currentTime, value)
+	_ = "STUB: not implemented"
+	return
 }

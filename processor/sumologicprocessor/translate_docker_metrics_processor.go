@@ -75,82 +75,41 @@ var dockerResourceAttributeTranslations = map[string]string{
 }
 
 func newTranslateDockerMetricsProcessor(shouldTranslate bool) *translateDockerMetricsProcessor {
-	return &translateDockerMetricsProcessor{
-		shouldTranslate: shouldTranslate,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*translateDockerMetricsProcessor) processLogs(plog.Logs) error {
+	_ = "STUB: not implemented"
 	// No-op, this subprocessor doesn't process logs.
 	return nil
 }
 
 func (proc *translateDockerMetricsProcessor) processMetrics(metrics pmetric.Metrics) error {
-	if !proc.shouldTranslate {
-		return nil
-	}
-
-	for i := 0; i < metrics.ResourceMetrics().Len(); i++ {
-		rm := metrics.ResourceMetrics().At(i)
-		translateDockerResourceAttributes(rm.Resource().Attributes())
-
-		for j := 0; j < rm.ScopeMetrics().Len(); j++ {
-			metricsSlice := rm.ScopeMetrics().At(j).Metrics()
-
-			for k := 0; k < metricsSlice.Len(); k++ {
-				translateDockerMetric(metricsSlice.At(k))
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*translateDockerMetricsProcessor) processTraces(ptrace.Traces) error {
+	_ = "STUB: not implemented"
 	// No-op, this subprocessor doesn't process traces.
 	return nil
 }
 
 func (proc *translateDockerMetricsProcessor) isEnabled() bool {
-	return proc.shouldTranslate
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (*translateDockerMetricsProcessor) ConfigPropertyName() string {
-	return "translate_docker_metrics"
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func translateDockerMetric(m pmetric.Metric) {
-	name, exists := dockerMetricsTranslations[m.Name()]
+func translateDockerMetric(m pmetric.Metric) { _ = "STUB: not implemented"; return }
 
-	if exists {
-		m.SetName(name)
-	}
-}
+func translateDockerResourceAttributes(attributes pcommon.Map) { _ = "STUB: not implemented"; return }
 
-func translateDockerResourceAttributes(attributes pcommon.Map) {
-	result := pcommon.NewMap()
-	result.EnsureCapacity(attributes.Len())
-
-	for otKey, value := range attributes.All() {
-		if sumoKey, ok := dockerResourceAttributeTranslations[otKey]; ok {
-			// Only insert if it doesn't exist yet to prevent overwriting.
-			// We have to do it this way since the final return value is not
-			// ready yet to rely on .Insert() not overwriting.
-			if _, exists := attributes.Get(sumoKey); !exists {
-				if _, ok := result.Get(sumoKey); !ok {
-					value.CopyTo(result.PutEmpty(sumoKey))
-				}
-			} else {
-				if _, ok := result.Get(otKey); !ok {
-					value.CopyTo(result.PutEmpty(otKey))
-				}
-			}
-		} else {
-			if _, ok := result.Get(otKey); !ok {
-				value.CopyTo(result.PutEmpty(otKey))
-			}
-		}
-	}
-
-	result.CopyTo(attributes)
-}
+// Only insert if it doesn't exist yet to prevent overwriting.
+// We have to do it this way since the final return value is not
+// ready yet to rely on .Insert() not overwriting.

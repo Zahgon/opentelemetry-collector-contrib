@@ -17,10 +17,10 @@ const (
 
 // NewZapToGokitLogAdapter create an adapter for zap.Logger to gokitLog.Logger
 func NewZapToGokitLogAdapter(logger *zap.Logger) gokitLog.Logger {
+	_ = "STUB: not implemented"
 	// need to skip two levels in order to get the correct caller
 	// one for this method, the other for gokitLog
-	logger = logger.WithOptions(zap.AddCallerSkip(2))
-	return &zapToGokitLogAdapter{l: logger.Sugar()}
+	return *new(gokitLog.Logger)
 }
 
 type zapToGokitLogAdapter struct {
@@ -34,109 +34,41 @@ type logData struct {
 }
 
 func (w *zapToGokitLogAdapter) Log(keyvals ...any) error {
+	_ = "STUB: not implemented"
 	// expecting key value pairs, the number of items need to be even
-	if len(keyvals)%2 == 0 {
-		// Extract log level and message and log them using corresponding zap function
-		ld := extractLogData(keyvals)
-		logFunc := levelToFunc(w.l, ld.level)
-		logFunc(ld.msg, ld.otherFields...)
-	} else {
-		// in case something goes wrong
-		w.l.Info(keyvals...)
-	}
 	return nil
 }
 
-func extractLogData(keyvals []any) logData {
-	ld := logData{
-		level: level.InfoValue(), // default
-	}
+// Extract log level and message and log them using corresponding zap function
 
-	for i := 0; i < len(keyvals); i += 2 {
-		key := keyvals[i]
-		val := keyvals[i+1]
+// in case something goes wrong
 
-		if l, ok := matchLogLevel(key, val); ok {
-			ld.level = l
-			continue
-		}
+func extractLogData(keyvals []any) logData { _ = "STUB: not implemented"; return *new(logData) }
 
-		if m, ok := matchLogMessage(key, val); ok {
-			ld.msg = m
-			continue
-		}
-
-		if err, ok := matchError(key, val); ok {
-			ld.otherFields = append(ld.otherFields, zap.Error(err))
-			continue
-		}
-
-		ld.otherFields = append(ld.otherFields, key, val)
-	}
-
-	return ld
-}
+// default
 
 // check if a given key-value pair represents go-kit log message and return it
-func matchLogMessage(key, val any) (string, bool) {
-	if strKey, ok := key.(string); !ok || strKey != msgKey {
-		return "", false
-	}
-
-	msg, ok := val.(string)
-	if !ok {
-		return "", false
-	}
-	return msg, true
-}
+func matchLogMessage(key, val any) (string, bool) { _ = "STUB: not implemented"; return "", false }
 
 // check if a given key-value pair represents go-kit log level and return it
 func matchLogLevel(key, val any) (level.Value, bool) {
-	strKey, ok := key.(string)
-	if !ok || strKey != levelKey {
-		return nil, false
-	}
-
-	levelVal, ok := val.(level.Value)
-	if !ok {
-		return nil, false
-	}
-	return levelVal, true
+	_ = "STUB: not implemented"
+	return *new(level.Value), false
 }
 
 //revive:disable:error-return
 
 // check if a given key-value pair represents an error and return it
-func matchError(key, val any) (error, bool) {
-	strKey, ok := key.(string)
-	if !ok || strKey != errKey {
-		return nil, false
-	}
-
-	err, ok := val.(error)
-	if !ok {
-		return nil, false
-	}
-	return err, true
-}
+func matchError(key, val any) (error, bool) { _ = "STUB: not implemented"; return nil, false }
 
 //revive:enable:error-return
 
 // find a matching zap logging function to be used for a given level
 func levelToFunc(logger *zap.SugaredLogger, lvl level.Value) func(string, ...any) {
-	switch lvl {
-	case level.DebugValue():
-		return logger.Debugw
-	case level.InfoValue():
-		return logger.Infow
-	case level.WarnValue():
-		return logger.Warnw
-	case level.ErrorValue():
-		return logger.Errorw
-	}
-
-	// default
-	return logger.Infow
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// default
 
 var _ gokitLog.Logger = (*zapToGokitLogAdapter)(nil)

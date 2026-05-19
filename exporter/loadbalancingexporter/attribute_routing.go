@@ -9,17 +9,21 @@ import (
 
 // buildAttributeRoutingKey encodes a missing attribute as "name=|".
 func buildAttributeRoutingKey(attr string) string {
-	return attr + "=|"
+	_ = "STUB: not implemented"
+
+	// buildAttributeRoutingKeyStrValue encodes a single string attribute key/value pair as
+	// "name=value|".
+	return ""
 }
 
-// buildAttributeRoutingKeyStrValue encodes a single string attribute key/value pair as
-// "name=value|".
 func buildAttributeRoutingKeyStrValue(attr, value string) string {
-	return attr + "=" + value + "|"
+	_ = "STUB: not implemented"
+	return ""
 }
 
 // buildAttributeRoutingKeyValue encodes a single attribute key/value pair as
 // "name=value|".
 func buildAttributeRoutingKeyValue(attr string, value pcommon.Value) string {
-	return attr + "=" + value.AsString() + "|"
+	_ = "STUB: not implemented"
+	return ""
 }

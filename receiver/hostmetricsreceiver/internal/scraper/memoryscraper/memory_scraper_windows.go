@@ -8,20 +8,19 @@ package memoryscraper // import "github.com/open-telemetry/opentelemetry-collect
 import (
 	"github.com/shirou/gopsutil/v4/mem"
 	"go.opentelemetry.io/collector/pdata/pcommon"
-
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/precision"
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/hostmetricsreceiver/internal/scraper/memoryscraper/internal/metadata"
 )
 
 func (s *memoryScraper) recordMemoryUsageMetric(now pcommon.Timestamp, memInfo *mem.VirtualMemoryStat) {
-	s.mb.RecordSystemMemoryUsageDataPoint(now, int64(memInfo.Used), metadata.AttributeStateUsed)
-	s.mb.RecordSystemMemoryUsageDataPoint(now, int64(memInfo.Free), metadata.AttributeStateFree)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (s *memoryScraper) recordMemoryUtilizationMetric(now pcommon.Timestamp, memInfo *mem.VirtualMemoryStat) {
-	s.mb.RecordSystemMemoryUtilizationDataPoint(now, precision.Ratio(memInfo.Used, memInfo.Total), metadata.AttributeStateUsed)
-	s.mb.RecordSystemMemoryUtilizationDataPoint(now, precision.Ratio(memInfo.Free, memInfo.Total), metadata.AttributeStateFree)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (*memoryScraper) recordSystemSpecificMetrics(pcommon.Timestamp, *mem.VirtualMemoryStat) {
+	_ = "STUB: not implemented"
+	return
 }

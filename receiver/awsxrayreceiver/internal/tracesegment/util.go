@@ -3,15 +3,6 @@
 
 package tracesegment // import "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsxrayreceiver/internal/tracesegment"
 
-import (
-	"bytes"
-	"encoding/json"
-	"errors"
-	"fmt"
-
-	recvErr "github.com/open-telemetry/opentelemetry-collector-contrib/receiver/awsxrayreceiver/internal/errors"
-)
-
 // ProtocolSeparator is the character used to split the header and body in an
 // X-Ray segment
 const ProtocolSeparator = '\n'
@@ -21,31 +12,6 @@ const ProtocolSeparator = '\n'
 // 1. header and body can be correctly separated
 // 2. header is valid
 func SplitHeaderBody(buf []byte) (*Header, []byte, error) {
-	if buf == nil {
-		return nil, nil, &recvErr.ErrRecoverable{
-			Err: errors.New("buffer to split is nil"),
-		}
-	}
-
-	var headerBytes, bodyBytes []byte
-	before, after, ok := bytes.Cut(buf, []byte{byte(ProtocolSeparator)})
-	if !ok {
-		return nil, nil, &recvErr.ErrRecoverable{
-			Err: fmt.Errorf("unable to split incoming data as header and segment, incoming bytes: %v", buf),
-		}
-	}
-	headerBytes = before
-	bodyBytes = after
-
-	header := Header{}
-	err := json.Unmarshal(headerBytes, &header)
-	if err != nil {
-		return nil, nil, fmt.Errorf("invalid header %w",
-			&recvErr.ErrRecoverable{Err: err})
-	} else if !header.IsValid() {
-		return nil, nil, &recvErr.ErrRecoverable{
-			Err: fmt.Errorf("invalid header %+v", header),
-		}
-	}
-	return &header, bodyBytes, nil
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }

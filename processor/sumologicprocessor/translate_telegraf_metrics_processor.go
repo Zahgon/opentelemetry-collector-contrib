@@ -73,53 +73,35 @@ var metricsTranslations = map[string]string{
 }
 
 func newTranslateTelegrafMetricsProcessor(shouldTranslate bool) *translateTelegrafMetricsProcessor {
-	return &translateTelegrafMetricsProcessor{
-		shouldTranslate: shouldTranslate,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*translateTelegrafMetricsProcessor) processLogs(plog.Logs) error {
+	_ = "STUB: not implemented"
 	// No-op, this subprocessor doesn't process logs.
 	return nil
 }
 
 func (proc *translateTelegrafMetricsProcessor) processMetrics(metrics pmetric.Metrics) error {
-	if !proc.shouldTranslate {
-		return nil
-	}
-
-	for i := 0; i < metrics.ResourceMetrics().Len(); i++ {
-		rm := metrics.ResourceMetrics().At(i)
-
-		for j := 0; j < rm.ScopeMetrics().Len(); j++ {
-			metricsSlice := rm.ScopeMetrics().At(j).Metrics()
-
-			for k := 0; k < metricsSlice.Len(); k++ {
-				translateTelegrafMetric(metricsSlice.At(k))
-			}
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (*translateTelegrafMetricsProcessor) processTraces(ptrace.Traces) error {
+	_ = "STUB: not implemented"
 	// No-op, this subprocessor doesn't process traces.
 	return nil
 }
 
 func (proc *translateTelegrafMetricsProcessor) isEnabled() bool {
-	return proc.shouldTranslate
+	_ = "STUB: not implemented"
+	return false
 }
 
 func (*translateTelegrafMetricsProcessor) ConfigPropertyName() string {
-	return "translate_telegraf_attributes"
+	_ = "STUB: not implemented"
+	return ""
 }
 
-func translateTelegrafMetric(m pmetric.Metric) {
-	name, exists := metricsTranslations[m.Name()]
-
-	if exists {
-		m.SetName(name)
-	}
-}
+func translateTelegrafMetric(m pmetric.Metric) { _ = "STUB: not implemented"; return }

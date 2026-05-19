@@ -3,12 +3,6 @@
 
 package operationsmanagement // import "github.com/open-telemetry/opentelemetry-collector-contrib/exporter/bmchelixexporter/internal/operationsmanagement"
 
-import (
-	"strings"
-)
-
 // NormalizeLabelValue normalizes the label value by replacing commas with whitespace.
 // Commas are not allowed in label values as they may interfere with parsing.
-func NormalizeLabelValue(value string) string {
-	return strings.ReplaceAll(value, ",", " ")
-}
+func NormalizeLabelValue(value string) string { _ = "STUB: not implemented"; return "" }

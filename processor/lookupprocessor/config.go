@@ -4,10 +4,6 @@
 package lookupprocessor // import "github.com/open-telemetry/opentelemetry-collector-contrib/processor/lookupprocessor"
 
 import (
-	"errors"
-	"fmt"
-	"strings"
-
 	"go.opentelemetry.io/collector/component"
 )
 
@@ -19,16 +15,7 @@ const (
 	ContextResource ContextID = "resource"
 )
 
-func (c *ContextID) UnmarshalText(text []byte) error {
-	str := ContextID(strings.ToLower(string(text)))
-	switch str {
-	case ContextRecord, ContextResource:
-		*c = str
-		return nil
-	default:
-		return fmt.Errorf("invalid context %q, must be one of: record, resource", str)
-	}
-}
+func (c *ContextID) UnmarshalText(text []byte) error { _ = "STUB: not implemented"; return nil }
 
 type Config struct {
 	Source SourceConfig `mapstructure:"source"`
@@ -102,40 +89,13 @@ type AttributeMapping struct {
 
 var _ component.Config = (*Config)(nil)
 
-func (cfg *Config) Validate() error {
-	if len(cfg.Lookups) == 0 {
-		return errors.New("at least one lookup must be configured")
-	}
-
-	for i, lookup := range cfg.Lookups {
-		if lookup.Key == "" {
-			return fmt.Errorf("lookups[%d]: key is required", i)
-		}
-		if len(lookup.Attributes) == 0 {
-			return fmt.Errorf("lookups[%d]: at least one attribute mapping is required", i)
-		}
-		for j, attr := range lookup.Attributes {
-			if attr.Destination == "" {
-				return fmt.Errorf("lookups[%d].attributes[%d]: destination is required", i, j)
-			}
-		}
-	}
-
-	return nil
-}
+func (cfg *Config) Validate() error { _ = "STUB: not implemented"; return nil }
 
 // GetContext returns the context for this lookup, defaulting to ContextRecord.
-func (l *LookupConfig) GetContext() ContextID {
-	if l.Context == "" {
-		return ContextRecord
-	}
-	return l.Context
-}
+func (l *LookupConfig) GetContext() ContextID { _ = "STUB: not implemented"; return *new(ContextID) }
 
 // GetContext returns the context for this mapping, falling back to the parent context.
 func (m *AttributeMapping) GetContext(parent ContextID) ContextID {
-	if m.Context == "" {
-		return parent
-	}
-	return m.Context
+	_ = "STUB: not implemented"
+	return *new(ContextID)
 }

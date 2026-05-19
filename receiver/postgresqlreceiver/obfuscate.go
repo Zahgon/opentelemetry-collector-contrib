@@ -173,39 +173,16 @@ var defaultSQLPlanObfuscateSettings = obfuscate.JSONConfig{
 }
 
 // lazyInitObfuscator initializes the obfuscator the first time it is used.
-func lazyInitObfuscator() *obfuscate.Obfuscator {
-	obfuscatorLoader.Do(func() {
-		obfuscator = obfuscate.NewObfuscator(obfuscate.Config{
-			SQL: obfuscate.SQLConfig{
-				DBMS:         "postgresql",
-				KeepSQLAlias: true,
-				KeepBoolean:  true,
-				KeepNull:     true,
-			},
-			SQLExecPlan:          defaultSQLPlanObfuscateSettings,
-			SQLExecPlanNormalize: defaultSQLPlanNormalizeSettings,
-		})
-	})
-	return obfuscator
-}
+func lazyInitObfuscator() *obfuscate.Obfuscator { _ = "STUB: not implemented"; return nil }
 
 // obfuscateSQL obfuscates & normalizes the provided SQL query, writing the error into errResult if the operation fails.
-func obfuscateSQL(rawQuery string) (string, error) {
-	obfuscatedQuery, err := lazyInitObfuscator().ObfuscateSQLString(rawQuery)
-	if err != nil {
-		return "", err
-	}
-
-	return obfuscatedQuery.Query, nil
-}
+func obfuscateSQL(rawQuery string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // obfuscateSQLExecPlan obfuscates the provided json query execution plan, writing the error into errResult if the
 // operation fails
 func obfuscateSQLExecPlan(rawPlan string) (string, error) {
-	return lazyInitObfuscator().ObfuscateSQLExecPlan(
-		rawPlan,
-		true,
-	)
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // Ending source(Apache 2.0): https://github.com/DataDog/datadog-agent/blob/main/pkg/collector/python/datadog_agent.go

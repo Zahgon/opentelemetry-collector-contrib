@@ -5,14 +5,10 @@ package chronyreceiver // import "github.com/open-telemetry/opentelemetry-collec
 
 import (
 	"errors"
-	"fmt"
-	"os"
-	"time"
 
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/scraper/scraperhelper"
 
-	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/chronyreceiver/internal/chrony"
 	"github.com/open-telemetry/opentelemetry-collector-contrib/receiver/chronyreceiver/internal/metadata"
 )
 
@@ -49,36 +45,6 @@ var (
 	errInvalidValue = errors.New("invalid value")
 )
 
-func newDefaultConfig() component.Config {
-	cfg := scraperhelper.NewDefaultControllerConfig()
-	cfg.Timeout = 10 * time.Second
-	return &Config{
-		ControllerConfig:     cfg,
-		MetricsBuilderConfig: metadata.NewDefaultMetricsBuilderConfig(),
+func newDefaultConfig() component.Config { _ = "STUB: not implemented"; return *new(component.Config) }
 
-		Endpoint: "unix:///var/run/chrony/chronyd.sock",
-	}
-}
-
-func (c *Config) Validate() error {
-	if c.Timeout < 1 {
-		return fmt.Errorf("must have a positive timeout: %w", errInvalidValue)
-	}
-	network, _, err := chrony.SplitNetworkEndpoint(c.Endpoint)
-	if err != nil {
-		return err
-	}
-	if c.FileMountPath != "" {
-		if network != "unixgram" {
-			return fmt.Errorf("file_mount_path is only supported with unix/unixgram endpoints: %w", errInvalidValue)
-		}
-		fi, err := os.Stat(c.FileMountPath)
-		if err != nil {
-			return fmt.Errorf("file_mount_path directory %q: %w", c.FileMountPath, err)
-		}
-		if !fi.IsDir() {
-			return fmt.Errorf("file_mount_path %q is not a directory: %w", c.FileMountPath, errInvalidValue)
-		}
-	}
-	return nil
-}
+func (c *Config) Validate() error { _ = "STUB: not implemented"; return nil }

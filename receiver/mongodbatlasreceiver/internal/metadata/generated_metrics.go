@@ -3,9 +3,6 @@
 package metadata
 
 import (
-	"slices"
-	"time"
-
 	"go.opentelemetry.io/collector/component"
 	"go.opentelemetry.io/collector/filter"
 	"go.opentelemetry.io/collector/pdata/pcommon"
@@ -32,19 +29,7 @@ const (
 )
 
 // String returns the string representation of the AttributeAssertType.
-func (av AttributeAssertType) String() string {
-	switch av {
-	case AttributeAssertTypeRegular:
-		return "regular"
-	case AttributeAssertTypeWarning:
-		return "warning"
-	case AttributeAssertTypeMsg:
-		return "msg"
-	case AttributeAssertTypeUser:
-		return "user"
-	}
-	return ""
-}
+func (av AttributeAssertType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeAssertType is a helper map of string to AttributeAssertType attribute value.
 var MapAttributeAssertType = map[string]AttributeAssertType{
@@ -65,17 +50,7 @@ const (
 )
 
 // String returns the string representation of the AttributeBtreeCounterType.
-func (av AttributeBtreeCounterType) String() string {
-	switch av {
-	case AttributeBtreeCounterTypeAccesses:
-		return "accesses"
-	case AttributeBtreeCounterTypeHits:
-		return "hits"
-	case AttributeBtreeCounterTypeMisses:
-		return "misses"
-	}
-	return ""
-}
+func (av AttributeBtreeCounterType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeBtreeCounterType is a helper map of string to AttributeBtreeCounterType attribute value.
 var MapAttributeBtreeCounterType = map[string]AttributeBtreeCounterType{
@@ -94,15 +69,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCacheDirection.
-func (av AttributeCacheDirection) String() string {
-	switch av {
-	case AttributeCacheDirectionReadInto:
-		return "read_into"
-	case AttributeCacheDirectionWrittenFrom:
-		return "written_from"
-	}
-	return ""
-}
+func (av AttributeCacheDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCacheDirection is a helper map of string to AttributeCacheDirection attribute value.
 var MapAttributeCacheDirection = map[string]AttributeCacheDirection{
@@ -120,15 +87,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCacheRatioType.
-func (av AttributeCacheRatioType) String() string {
-	switch av {
-	case AttributeCacheRatioTypeCacheFill:
-		return "cache_fill"
-	case AttributeCacheRatioTypeDirtyFill:
-		return "dirty_fill"
-	}
-	return ""
-}
+func (av AttributeCacheRatioType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCacheRatioType is a helper map of string to AttributeCacheRatioType attribute value.
 var MapAttributeCacheRatioType = map[string]AttributeCacheRatioType{
@@ -146,15 +105,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCacheStatus.
-func (av AttributeCacheStatus) String() string {
-	switch av {
-	case AttributeCacheStatusDirty:
-		return "dirty"
-	case AttributeCacheStatusUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeCacheStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCacheStatus is a helper map of string to AttributeCacheStatus attribute value.
 var MapAttributeCacheStatus = map[string]AttributeCacheStatus{
@@ -172,15 +123,7 @@ const (
 )
 
 // String returns the string representation of the AttributeClusterRole.
-func (av AttributeClusterRole) String() string {
-	switch av {
-	case AttributeClusterRolePrimary:
-		return "primary"
-	case AttributeClusterRoleReplica:
-		return "replica"
-	}
-	return ""
-}
+func (av AttributeClusterRole) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeClusterRole is a helper map of string to AttributeClusterRole attribute value.
 var MapAttributeClusterRole = map[string]AttributeClusterRole{
@@ -204,27 +147,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCPUState.
-func (av AttributeCPUState) String() string {
-	switch av {
-	case AttributeCPUStateKernel:
-		return "kernel"
-	case AttributeCPUStateUser:
-		return "user"
-	case AttributeCPUStateNice:
-		return "nice"
-	case AttributeCPUStateIowait:
-		return "iowait"
-	case AttributeCPUStateIrq:
-		return "irq"
-	case AttributeCPUStateSoftirq:
-		return "softirq"
-	case AttributeCPUStateGuest:
-		return "guest"
-	case AttributeCPUStateSteal:
-		return "steal"
-	}
-	return ""
-}
+func (av AttributeCPUState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCPUState is a helper map of string to AttributeCPUState attribute value.
 var MapAttributeCPUState = map[string]AttributeCPUState{
@@ -248,15 +171,7 @@ const (
 )
 
 // String returns the string representation of the AttributeCursorState.
-func (av AttributeCursorState) String() string {
-	switch av {
-	case AttributeCursorStateTimedOut:
-		return "timed_out"
-	case AttributeCursorStateOpen:
-		return "open"
-	}
-	return ""
-}
+func (av AttributeCursorState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeCursorState is a helper map of string to AttributeCursorState attribute value.
 var MapAttributeCursorState = map[string]AttributeCursorState{
@@ -274,15 +189,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDirection.
-func (av AttributeDirection) String() string {
-	switch av {
-	case AttributeDirectionReceive:
-		return "receive"
-	case AttributeDirectionTransmit:
-		return "transmit"
-	}
-	return ""
-}
+func (av AttributeDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDirection is a helper map of string to AttributeDirection attribute value.
 var MapAttributeDirection = map[string]AttributeDirection{
@@ -301,17 +208,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDiskDirection.
-func (av AttributeDiskDirection) String() string {
-	switch av {
-	case AttributeDiskDirectionRead:
-		return "read"
-	case AttributeDiskDirectionWrite:
-		return "write"
-	case AttributeDiskDirectionTotal:
-		return "total"
-	}
-	return ""
-}
+func (av AttributeDiskDirection) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDiskDirection is a helper map of string to AttributeDiskDirection attribute value.
 var MapAttributeDiskDirection = map[string]AttributeDiskDirection{
@@ -330,15 +227,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDiskStatus.
-func (av AttributeDiskStatus) String() string {
-	switch av {
-	case AttributeDiskStatusFree:
-		return "free"
-	case AttributeDiskStatusUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeDiskStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDiskStatus is a helper map of string to AttributeDiskStatus attribute value.
 var MapAttributeDiskStatus = map[string]AttributeDiskStatus{
@@ -358,19 +247,7 @@ const (
 )
 
 // String returns the string representation of the AttributeDocumentStatus.
-func (av AttributeDocumentStatus) String() string {
-	switch av {
-	case AttributeDocumentStatusReturned:
-		return "returned"
-	case AttributeDocumentStatusInserted:
-		return "inserted"
-	case AttributeDocumentStatusUpdated:
-		return "updated"
-	case AttributeDocumentStatusDeleted:
-		return "deleted"
-	}
-	return ""
-}
+func (av AttributeDocumentStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeDocumentStatus is a helper map of string to AttributeDocumentStatus attribute value.
 var MapAttributeDocumentStatus = map[string]AttributeDocumentStatus{
@@ -391,17 +268,7 @@ const (
 )
 
 // String returns the string representation of the AttributeExecutionType.
-func (av AttributeExecutionType) String() string {
-	switch av {
-	case AttributeExecutionTypeReads:
-		return "reads"
-	case AttributeExecutionTypeWrites:
-		return "writes"
-	case AttributeExecutionTypeCommands:
-		return "commands"
-	}
-	return ""
-}
+func (av AttributeExecutionType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeExecutionType is a helper map of string to AttributeExecutionType attribute value.
 var MapAttributeExecutionType = map[string]AttributeExecutionType{
@@ -421,17 +288,7 @@ const (
 )
 
 // String returns the string representation of the AttributeGlobalLockState.
-func (av AttributeGlobalLockState) String() string {
-	switch av {
-	case AttributeGlobalLockStateCurrentQueueTotal:
-		return "current_queue_total"
-	case AttributeGlobalLockStateCurrentQueueReaders:
-		return "current_queue_readers"
-	case AttributeGlobalLockStateCurrentQueueWriters:
-		return "current_queue_writers"
-	}
-	return ""
-}
+func (av AttributeGlobalLockState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeGlobalLockState is a helper map of string to AttributeGlobalLockState attribute value.
 var MapAttributeGlobalLockState = map[string]AttributeGlobalLockState{
@@ -451,17 +308,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMemoryIssueType.
-func (av AttributeMemoryIssueType) String() string {
-	switch av {
-	case AttributeMemoryIssueTypeExtraInfo:
-		return "extra_info"
-	case AttributeMemoryIssueTypeGlobalAccessesNotInMemory:
-		return "global_accesses_not_in_memory"
-	case AttributeMemoryIssueTypeExceptionsThrown:
-		return "exceptions_thrown"
-	}
-	return ""
-}
+func (av AttributeMemoryIssueType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMemoryIssueType is a helper map of string to AttributeMemoryIssueType attribute value.
 var MapAttributeMemoryIssueType = map[string]AttributeMemoryIssueType{
@@ -485,25 +332,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMemoryState.
-func (av AttributeMemoryState) String() string {
-	switch av {
-	case AttributeMemoryStateResident:
-		return "resident"
-	case AttributeMemoryStateVirtual:
-		return "virtual"
-	case AttributeMemoryStateMapped:
-		return "mapped"
-	case AttributeMemoryStateComputed:
-		return "computed"
-	case AttributeMemoryStateShared:
-		return "shared"
-	case AttributeMemoryStateFree:
-		return "free"
-	case AttributeMemoryStateUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeMemoryState) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMemoryState is a helper map of string to AttributeMemoryState attribute value.
 var MapAttributeMemoryState = map[string]AttributeMemoryState{
@@ -530,23 +359,7 @@ const (
 )
 
 // String returns the string representation of the AttributeMemoryStatus.
-func (av AttributeMemoryStatus) String() string {
-	switch av {
-	case AttributeMemoryStatusAvailable:
-		return "available"
-	case AttributeMemoryStatusBuffers:
-		return "buffers"
-	case AttributeMemoryStatusCached:
-		return "cached"
-	case AttributeMemoryStatusFree:
-		return "free"
-	case AttributeMemoryStatusShared:
-		return "shared"
-	case AttributeMemoryStatusUsed:
-		return "used"
-	}
-	return ""
-}
+func (av AttributeMemoryStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeMemoryStatus is a helper map of string to AttributeMemoryStatus attribute value.
 var MapAttributeMemoryStatus = map[string]AttributeMemoryStatus{
@@ -573,25 +386,7 @@ const (
 )
 
 // String returns the string representation of the AttributeObjectType.
-func (av AttributeObjectType) String() string {
-	switch av {
-	case AttributeObjectTypeCollection:
-		return "collection"
-	case AttributeObjectTypeIndex:
-		return "index"
-	case AttributeObjectTypeExtent:
-		return "extent"
-	case AttributeObjectTypeObject:
-		return "object"
-	case AttributeObjectTypeView:
-		return "view"
-	case AttributeObjectTypeStorage:
-		return "storage"
-	case AttributeObjectTypeData:
-		return "data"
-	}
-	return ""
-}
+func (av AttributeObjectType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeObjectType is a helper map of string to AttributeObjectType attribute value.
 var MapAttributeObjectType = map[string]AttributeObjectType{
@@ -620,27 +415,7 @@ const (
 )
 
 // String returns the string representation of the AttributeOperation.
-func (av AttributeOperation) String() string {
-	switch av {
-	case AttributeOperationCmd:
-		return "cmd"
-	case AttributeOperationQuery:
-		return "query"
-	case AttributeOperationUpdate:
-		return "update"
-	case AttributeOperationDelete:
-		return "delete"
-	case AttributeOperationGetmore:
-		return "getmore"
-	case AttributeOperationInsert:
-		return "insert"
-	case AttributeOperationScanAndOrder:
-		return "scan_and_order"
-	case AttributeOperationTTLDeleted:
-		return "ttl_deleted"
-	}
-	return ""
-}
+func (av AttributeOperation) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeOperation is a helper map of string to AttributeOperation attribute value.
 var MapAttributeOperation = map[string]AttributeOperation{
@@ -665,17 +440,7 @@ const (
 )
 
 // String returns the string representation of the AttributeOplogType.
-func (av AttributeOplogType) String() string {
-	switch av {
-	case AttributeOplogTypeSlaveLagMasterTime:
-		return "slave_lag_master_time"
-	case AttributeOplogTypeMasterTime:
-		return "master_time"
-	case AttributeOplogTypeMasterLagTimeDiff:
-		return "master_lag_time_diff"
-	}
-	return ""
-}
+func (av AttributeOplogType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeOplogType is a helper map of string to AttributeOplogType attribute value.
 var MapAttributeOplogType = map[string]AttributeOplogType{
@@ -694,15 +459,7 @@ const (
 )
 
 // String returns the string representation of the AttributeScannedType.
-func (av AttributeScannedType) String() string {
-	switch av {
-	case AttributeScannedTypeIndexItems:
-		return "index_items"
-	case AttributeScannedTypeObjects:
-		return "objects"
-	}
-	return ""
-}
+func (av AttributeScannedType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeScannedType is a helper map of string to AttributeScannedType attribute value.
 var MapAttributeScannedType = map[string]AttributeScannedType{
@@ -722,19 +479,7 @@ const (
 )
 
 // String returns the string representation of the AttributeStorageStatus.
-func (av AttributeStorageStatus) String() string {
-	switch av {
-	case AttributeStorageStatusTotal:
-		return "total"
-	case AttributeStorageStatusDataSize:
-		return "data_size"
-	case AttributeStorageStatusIndexSize:
-		return "index_size"
-	case AttributeStorageStatusDataSizeWoSystem:
-		return "data_size_wo_system"
-	}
-	return ""
-}
+func (av AttributeStorageStatus) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeStorageStatus is a helper map of string to AttributeStorageStatus attribute value.
 var MapAttributeStorageStatus = map[string]AttributeStorageStatus{
@@ -754,15 +499,7 @@ const (
 )
 
 // String returns the string representation of the AttributeTicketType.
-func (av AttributeTicketType) String() string {
-	switch av {
-	case AttributeTicketTypeAvailableReads:
-		return "available_reads"
-	case AttributeTicketTypeAvailableWrites:
-		return "available_writes"
-	}
-	return ""
-}
+func (av AttributeTicketType) String() string { _ = "STUB: not implemented"; return "" }
 
 // MapAttributeTicketType is a helper map of string to AttributeTicketType attribute value.
 var MapAttributeTicketType = map[string]AttributeTicketType{
@@ -1058,75 +795,22 @@ func (m *metricMongodbatlasDbCounts) init() {
 }
 
 func (m *metricMongodbatlasDbCounts) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, objectTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDbCountsMetricAttributeKeyObjectType) {
-		dp.Attributes().PutStr("object_type", objectTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasDbCounts) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasDbCounts) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDbCounts) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDbCounts(cfg MongodbatlasDbCountsMetricConfig) metricMongodbatlasDbCounts {
-	m := metricMongodbatlasDbCounts{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDbCounts)
 }
 
 type metricMongodbatlasDbSize struct {
@@ -1147,75 +831,22 @@ func (m *metricMongodbatlasDbSize) init() {
 }
 
 func (m *metricMongodbatlasDbSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, objectTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDbSizeMetricAttributeKeyObjectType) {
-		dp.Attributes().PutStr("object_type", objectTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasDbSize) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasDbSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDbSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDbSize(cfg MongodbatlasDbSizeMetricConfig) metricMongodbatlasDbSize {
-	m := metricMongodbatlasDbSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDbSize)
 }
 
 type metricMongodbatlasDiskPartitionIopsAverage struct {
@@ -1236,75 +867,25 @@ func (m *metricMongodbatlasDiskPartitionIopsAverage) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionIopsAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionIopsAverageMetricAttributeKeyDiskDirection) {
-		dp.Attributes().PutStr("disk_direction", diskDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionIopsAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionIopsAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionIopsAverage(cfg MongodbatlasDiskPartitionIopsAverageMetricConfig) metricMongodbatlasDiskPartitionIopsAverage {
-	m := metricMongodbatlasDiskPartitionIopsAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionIopsAverage)
 }
 
 type metricMongodbatlasDiskPartitionIopsMax struct {
@@ -1325,75 +906,25 @@ func (m *metricMongodbatlasDiskPartitionIopsMax) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionIopsMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionIopsMaxMetricAttributeKeyDiskDirection) {
-		dp.Attributes().PutStr("disk_direction", diskDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionIopsMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionIopsMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionIopsMax(cfg MongodbatlasDiskPartitionIopsMaxMetricConfig) metricMongodbatlasDiskPartitionIopsMax {
-	m := metricMongodbatlasDiskPartitionIopsMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionIopsMax)
 }
 
 type metricMongodbatlasDiskPartitionLatencyAverage struct {
@@ -1414,75 +945,25 @@ func (m *metricMongodbatlasDiskPartitionLatencyAverage) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionLatencyAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionLatencyAverageMetricAttributeKeyDiskDirection) {
-		dp.Attributes().PutStr("disk_direction", diskDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionLatencyAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionLatencyAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionLatencyAverage(cfg MongodbatlasDiskPartitionLatencyAverageMetricConfig) metricMongodbatlasDiskPartitionLatencyAverage {
-	m := metricMongodbatlasDiskPartitionLatencyAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionLatencyAverage)
 }
 
 type metricMongodbatlasDiskPartitionLatencyMax struct {
@@ -1503,75 +984,25 @@ func (m *metricMongodbatlasDiskPartitionLatencyMax) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionLatencyMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionLatencyMaxMetricAttributeKeyDiskDirection) {
-		dp.Attributes().PutStr("disk_direction", diskDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionLatencyMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionLatencyMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionLatencyMax(cfg MongodbatlasDiskPartitionLatencyMaxMetricConfig) metricMongodbatlasDiskPartitionLatencyMax {
-	m := metricMongodbatlasDiskPartitionLatencyMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionLatencyMax)
 }
 
 type metricMongodbatlasDiskPartitionQueueDepth struct {
@@ -1589,39 +1020,25 @@ func (m *metricMongodbatlasDiskPartitionQueueDepth) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionQueueDepth) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionQueueDepth) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionQueueDepth) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionQueueDepth(cfg MongodbatlasDiskPartitionQueueDepthMetricConfig) metricMongodbatlasDiskPartitionQueueDepth {
-	m := metricMongodbatlasDiskPartitionQueueDepth{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionQueueDepth)
 }
 
 type metricMongodbatlasDiskPartitionSpaceAverage struct {
@@ -1642,75 +1059,25 @@ func (m *metricMongodbatlasDiskPartitionSpaceAverage) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionSpaceAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionSpaceAverageMetricAttributeKeyDiskStatus) {
-		dp.Attributes().PutStr("disk_status", diskStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionSpaceAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionSpaceAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionSpaceAverage(cfg MongodbatlasDiskPartitionSpaceAverageMetricConfig) metricMongodbatlasDiskPartitionSpaceAverage {
-	m := metricMongodbatlasDiskPartitionSpaceAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionSpaceAverage)
 }
 
 type metricMongodbatlasDiskPartitionSpaceMax struct {
@@ -1731,75 +1098,25 @@ func (m *metricMongodbatlasDiskPartitionSpaceMax) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionSpaceMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionSpaceMaxMetricAttributeKeyDiskStatus) {
-		dp.Attributes().PutStr("disk_status", diskStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionSpaceMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionSpaceMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionSpaceMax(cfg MongodbatlasDiskPartitionSpaceMaxMetricConfig) metricMongodbatlasDiskPartitionSpaceMax {
-	m := metricMongodbatlasDiskPartitionSpaceMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionSpaceMax)
 }
 
 type metricMongodbatlasDiskPartitionThroughput struct {
@@ -1820,75 +1137,25 @@ func (m *metricMongodbatlasDiskPartitionThroughput) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionThroughput) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionThroughputMetricAttributeKeyDiskDirection) {
-		dp.Attributes().PutStr("disk_direction", diskDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionThroughput) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionThroughput) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionThroughput(cfg MongodbatlasDiskPartitionThroughputMetricConfig) metricMongodbatlasDiskPartitionThroughput {
-	m := metricMongodbatlasDiskPartitionThroughput{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionThroughput)
 }
 
 type metricMongodbatlasDiskPartitionUsageAverage struct {
@@ -1909,75 +1176,25 @@ func (m *metricMongodbatlasDiskPartitionUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionUsageAverageMetricAttributeKeyDiskStatus) {
-		dp.Attributes().PutStr("disk_status", diskStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionUsageAverage(cfg MongodbatlasDiskPartitionUsageAverageMetricConfig) metricMongodbatlasDiskPartitionUsageAverage {
-	m := metricMongodbatlasDiskPartitionUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionUsageAverage)
 }
 
 type metricMongodbatlasDiskPartitionUsageMax struct {
@@ -1998,75 +1215,25 @@ func (m *metricMongodbatlasDiskPartitionUsageMax) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, diskStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasDiskPartitionUsageMaxMetricAttributeKeyDiskStatus) {
-		dp.Attributes().PutStr("disk_status", diskStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionUsageMax(cfg MongodbatlasDiskPartitionUsageMaxMetricConfig) metricMongodbatlasDiskPartitionUsageMax {
-	m := metricMongodbatlasDiskPartitionUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionUsageMax)
 }
 
 type metricMongodbatlasDiskPartitionUtilizationAverage struct {
@@ -2084,39 +1251,25 @@ func (m *metricMongodbatlasDiskPartitionUtilizationAverage) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionUtilizationAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionUtilizationAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionUtilizationAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionUtilizationAverage(cfg MongodbatlasDiskPartitionUtilizationAverageMetricConfig) metricMongodbatlasDiskPartitionUtilizationAverage {
-	m := metricMongodbatlasDiskPartitionUtilizationAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionUtilizationAverage)
 }
 
 type metricMongodbatlasDiskPartitionUtilizationMax struct {
@@ -2134,39 +1287,25 @@ func (m *metricMongodbatlasDiskPartitionUtilizationMax) init() {
 }
 
 func (m *metricMongodbatlasDiskPartitionUtilizationMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasDiskPartitionUtilizationMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasDiskPartitionUtilizationMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasDiskPartitionUtilizationMax(cfg MongodbatlasDiskPartitionUtilizationMaxMetricConfig) metricMongodbatlasDiskPartitionUtilizationMax {
-	m := metricMongodbatlasDiskPartitionUtilizationMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasDiskPartitionUtilizationMax)
 }
 
 type metricMongodbatlasProcessAsserts struct {
@@ -2187,75 +1326,22 @@ func (m *metricMongodbatlasProcessAsserts) init() {
 }
 
 func (m *metricMongodbatlasProcessAsserts) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, assertTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessAssertsMetricAttributeKeyAssertType) {
-		dp.Attributes().PutStr("assert_type", assertTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessAsserts) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessAsserts) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessAsserts) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessAsserts(cfg MongodbatlasProcessAssertsMetricConfig) metricMongodbatlasProcessAsserts {
-	m := metricMongodbatlasProcessAsserts{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessAsserts)
 }
 
 type metricMongodbatlasProcessBackgroundFlush struct {
@@ -2273,39 +1359,25 @@ func (m *metricMongodbatlasProcessBackgroundFlush) init() {
 }
 
 func (m *metricMongodbatlasProcessBackgroundFlush) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessBackgroundFlush) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessBackgroundFlush) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessBackgroundFlush(cfg MongodbatlasProcessBackgroundFlushMetricConfig) metricMongodbatlasProcessBackgroundFlush {
-	m := metricMongodbatlasProcessBackgroundFlush{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessBackgroundFlush)
 }
 
 type metricMongodbatlasProcessCacheIo struct {
@@ -2326,75 +1398,22 @@ func (m *metricMongodbatlasProcessCacheIo) init() {
 }
 
 func (m *metricMongodbatlasProcessCacheIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cacheDirectionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCacheIoMetricAttributeKeyCacheDirection) {
-		dp.Attributes().PutStr("cache_direction", cacheDirectionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessCacheIo) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessCacheIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCacheIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCacheIo(cfg MongodbatlasProcessCacheIoMetricConfig) metricMongodbatlasProcessCacheIo {
-	m := metricMongodbatlasProcessCacheIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCacheIo)
 }
 
 type metricMongodbatlasProcessCacheRatio struct {
@@ -2415,75 +1434,22 @@ func (m *metricMongodbatlasProcessCacheRatio) init() {
 }
 
 func (m *metricMongodbatlasProcessCacheRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cacheRatioTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCacheRatioMetricAttributeKeyCacheRatioType) {
-		dp.Attributes().PutStr("cache_ratio_type", cacheRatioTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessCacheRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessCacheRatio) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCacheRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCacheRatio(cfg MongodbatlasProcessCacheRatioMetricConfig) metricMongodbatlasProcessCacheRatio {
-	m := metricMongodbatlasProcessCacheRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCacheRatio)
 }
 
 type metricMongodbatlasProcessCacheSize struct {
@@ -2506,75 +1472,22 @@ func (m *metricMongodbatlasProcessCacheSize) init() {
 }
 
 func (m *metricMongodbatlasProcessCacheSize) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cacheStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCacheSizeMetricAttributeKeyCacheStatus) {
-		dp.Attributes().PutStr("cache_status", cacheStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessCacheSize) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessCacheSize) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCacheSize) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCacheSize(cfg MongodbatlasProcessCacheSizeMetricConfig) metricMongodbatlasProcessCacheSize {
-	m := metricMongodbatlasProcessCacheSize{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCacheSize)
 }
 
 type metricMongodbatlasProcessConnections struct {
@@ -2594,39 +1507,22 @@ func (m *metricMongodbatlasProcessConnections) init() {
 }
 
 func (m *metricMongodbatlasProcessConnections) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessConnections) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessConnections) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessConnections) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessConnections(cfg MongodbatlasProcessConnectionsMetricConfig) metricMongodbatlasProcessConnections {
-	m := metricMongodbatlasProcessConnections{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessConnections)
 }
 
 type metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage struct {
@@ -2647,75 +1543,25 @@ func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUChildrenNormalizedUsageAverage(cfg MongodbatlasProcessCPUChildrenNormalizedUsageAverageMetricConfig) metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage {
-	m := metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage)
 }
 
 type metricMongodbatlasProcessCPUChildrenNormalizedUsageMax struct {
@@ -2736,75 +1582,25 @@ func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageMax) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUChildrenNormalizedUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUChildrenNormalizedUsageMax(cfg MongodbatlasProcessCPUChildrenNormalizedUsageMaxMetricConfig) metricMongodbatlasProcessCPUChildrenNormalizedUsageMax {
-	m := metricMongodbatlasProcessCPUChildrenNormalizedUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUChildrenNormalizedUsageMax)
 }
 
 type metricMongodbatlasProcessCPUChildrenUsageAverage struct {
@@ -2825,75 +1621,25 @@ func (m *metricMongodbatlasProcessCPUChildrenUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUChildrenUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUChildrenUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUChildrenUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUChildrenUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUChildrenUsageAverage(cfg MongodbatlasProcessCPUChildrenUsageAverageMetricConfig) metricMongodbatlasProcessCPUChildrenUsageAverage {
-	m := metricMongodbatlasProcessCPUChildrenUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUChildrenUsageAverage)
 }
 
 type metricMongodbatlasProcessCPUChildrenUsageMax struct {
@@ -2914,75 +1660,25 @@ func (m *metricMongodbatlasProcessCPUChildrenUsageMax) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUChildrenUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUChildrenUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUChildrenUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUChildrenUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUChildrenUsageMax(cfg MongodbatlasProcessCPUChildrenUsageMaxMetricConfig) metricMongodbatlasProcessCPUChildrenUsageMax {
-	m := metricMongodbatlasProcessCPUChildrenUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUChildrenUsageMax)
 }
 
 type metricMongodbatlasProcessCPUNormalizedUsageAverage struct {
@@ -3003,75 +1699,25 @@ func (m *metricMongodbatlasProcessCPUNormalizedUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUNormalizedUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUNormalizedUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUNormalizedUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUNormalizedUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUNormalizedUsageAverage(cfg MongodbatlasProcessCPUNormalizedUsageAverageMetricConfig) metricMongodbatlasProcessCPUNormalizedUsageAverage {
-	m := metricMongodbatlasProcessCPUNormalizedUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUNormalizedUsageAverage)
 }
 
 type metricMongodbatlasProcessCPUNormalizedUsageMax struct {
@@ -3092,75 +1738,25 @@ func (m *metricMongodbatlasProcessCPUNormalizedUsageMax) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUNormalizedUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUNormalizedUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUNormalizedUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUNormalizedUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUNormalizedUsageMax(cfg MongodbatlasProcessCPUNormalizedUsageMaxMetricConfig) metricMongodbatlasProcessCPUNormalizedUsageMax {
-	m := metricMongodbatlasProcessCPUNormalizedUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUNormalizedUsageMax)
 }
 
 type metricMongodbatlasProcessCPUUsageAverage struct {
@@ -3181,75 +1777,25 @@ func (m *metricMongodbatlasProcessCPUUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessCPUUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUUsageAverage(cfg MongodbatlasProcessCPUUsageAverageMetricConfig) metricMongodbatlasProcessCPUUsageAverage {
-	m := metricMongodbatlasProcessCPUUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUUsageAverage)
 }
 
 type metricMongodbatlasProcessCPUUsageMax struct {
@@ -3270,75 +1816,22 @@ func (m *metricMongodbatlasProcessCPUUsageMax) init() {
 }
 
 func (m *metricMongodbatlasProcessCPUUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCPUUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessCPUUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessCPUUsageMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCPUUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCPUUsageMax(cfg MongodbatlasProcessCPUUsageMaxMetricConfig) metricMongodbatlasProcessCPUUsageMax {
-	m := metricMongodbatlasProcessCPUUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCPUUsageMax)
 }
 
 type metricMongodbatlasProcessCursors struct {
@@ -3359,75 +1852,22 @@ func (m *metricMongodbatlasProcessCursors) init() {
 }
 
 func (m *metricMongodbatlasProcessCursors) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cursorStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessCursorsMetricAttributeKeyCursorState) {
-		dp.Attributes().PutStr("cursor_state", cursorStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessCursors) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessCursors) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessCursors) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessCursors(cfg MongodbatlasProcessCursorsMetricConfig) metricMongodbatlasProcessCursors {
-	m := metricMongodbatlasProcessCursors{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessCursors)
 }
 
 type metricMongodbatlasProcessDbDocumentRate struct {
@@ -3448,75 +1888,25 @@ func (m *metricMongodbatlasProcessDbDocumentRate) init() {
 }
 
 func (m *metricMongodbatlasProcessDbDocumentRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, documentStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbDocumentRateMetricAttributeKeyDocumentStatus) {
-		dp.Attributes().PutStr("document_status", documentStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessDbDocumentRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbDocumentRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbDocumentRate(cfg MongodbatlasProcessDbDocumentRateMetricConfig) metricMongodbatlasProcessDbDocumentRate {
-	m := metricMongodbatlasProcessDbDocumentRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbDocumentRate)
 }
 
 type metricMongodbatlasProcessDbOperationsRate struct {
@@ -3537,78 +1927,25 @@ func (m *metricMongodbatlasProcessDbOperationsRate) init() {
 }
 
 func (m *metricMongodbatlasProcessDbOperationsRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, operationAttributeValue string, clusterRoleAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbOperationsRateMetricAttributeKeyOperation) {
-		dp.Attributes().PutStr("operation", operationAttributeValue)
-	}
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbOperationsRateMetricAttributeKeyClusterRole) {
-		dp.Attributes().PutStr("cluster_role", clusterRoleAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessDbOperationsRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbOperationsRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbOperationsRate(cfg MongodbatlasProcessDbOperationsRateMetricConfig) metricMongodbatlasProcessDbOperationsRate {
-	m := metricMongodbatlasProcessDbOperationsRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbOperationsRate)
 }
 
 type metricMongodbatlasProcessDbOperationsTime struct {
@@ -3631,75 +1968,25 @@ func (m *metricMongodbatlasProcessDbOperationsTime) init() {
 }
 
 func (m *metricMongodbatlasProcessDbOperationsTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, executionTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbOperationsTimeMetricAttributeKeyExecutionType) {
-		dp.Attributes().PutStr("execution_type", executionTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessDbOperationsTime) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbOperationsTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbOperationsTime(cfg MongodbatlasProcessDbOperationsTimeMetricConfig) metricMongodbatlasProcessDbOperationsTime {
-	m := metricMongodbatlasProcessDbOperationsTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbOperationsTime)
 }
 
 type metricMongodbatlasProcessDbQueryExecutorScanned struct {
@@ -3720,75 +2007,25 @@ func (m *metricMongodbatlasProcessDbQueryExecutorScanned) init() {
 }
 
 func (m *metricMongodbatlasProcessDbQueryExecutorScanned) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, scannedTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbQueryExecutorScannedMetricAttributeKeyScannedType) {
-		dp.Attributes().PutStr("scanned_type", scannedTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessDbQueryExecutorScanned) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbQueryExecutorScanned) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbQueryExecutorScanned(cfg MongodbatlasProcessDbQueryExecutorScannedMetricConfig) metricMongodbatlasProcessDbQueryExecutorScanned {
-	m := metricMongodbatlasProcessDbQueryExecutorScanned{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbQueryExecutorScanned)
 }
 
 type metricMongodbatlasProcessDbQueryTargetingScannedPerReturned struct {
@@ -3809,75 +2046,25 @@ func (m *metricMongodbatlasProcessDbQueryTargetingScannedPerReturned) init() {
 }
 
 func (m *metricMongodbatlasProcessDbQueryTargetingScannedPerReturned) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, scannedTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricAttributeKeyScannedType) {
-		dp.Attributes().PutStr("scanned_type", scannedTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessDbQueryTargetingScannedPerReturned) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbQueryTargetingScannedPerReturned) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbQueryTargetingScannedPerReturned(cfg MongodbatlasProcessDbQueryTargetingScannedPerReturnedMetricConfig) metricMongodbatlasProcessDbQueryTargetingScannedPerReturned {
-	m := metricMongodbatlasProcessDbQueryTargetingScannedPerReturned{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbQueryTargetingScannedPerReturned)
 }
 
 type metricMongodbatlasProcessDbStorage struct {
@@ -3898,75 +2085,22 @@ func (m *metricMongodbatlasProcessDbStorage) init() {
 }
 
 func (m *metricMongodbatlasProcessDbStorage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, storageStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessDbStorageMetricAttributeKeyStorageStatus) {
-		dp.Attributes().PutStr("storage_status", storageStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessDbStorage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessDbStorage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessDbStorage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessDbStorage(cfg MongodbatlasProcessDbStorageMetricConfig) metricMongodbatlasProcessDbStorage {
-	m := metricMongodbatlasProcessDbStorage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessDbStorage)
 }
 
 type metricMongodbatlasProcessGlobalLock struct {
@@ -3987,75 +2121,22 @@ func (m *metricMongodbatlasProcessGlobalLock) init() {
 }
 
 func (m *metricMongodbatlasProcessGlobalLock) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, globalLockStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessGlobalLockMetricAttributeKeyGlobalLockState) {
-		dp.Attributes().PutStr("global_lock_state", globalLockStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessGlobalLock) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessGlobalLock) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessGlobalLock) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessGlobalLock(cfg MongodbatlasProcessGlobalLockMetricConfig) metricMongodbatlasProcessGlobalLock {
-	m := metricMongodbatlasProcessGlobalLock{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessGlobalLock)
 }
 
 type metricMongodbatlasProcessIndexBtreeMissRatio struct {
@@ -4073,39 +2154,25 @@ func (m *metricMongodbatlasProcessIndexBtreeMissRatio) init() {
 }
 
 func (m *metricMongodbatlasProcessIndexBtreeMissRatio) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessIndexBtreeMissRatio) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessIndexBtreeMissRatio) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessIndexBtreeMissRatio(cfg MongodbatlasProcessIndexBtreeMissRatioMetricConfig) metricMongodbatlasProcessIndexBtreeMissRatio {
-	m := metricMongodbatlasProcessIndexBtreeMissRatio{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessIndexBtreeMissRatio)
 }
 
 type metricMongodbatlasProcessIndexCounters struct {
@@ -4126,75 +2193,25 @@ func (m *metricMongodbatlasProcessIndexCounters) init() {
 }
 
 func (m *metricMongodbatlasProcessIndexCounters) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, btreeCounterTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessIndexCountersMetricAttributeKeyBtreeCounterType) {
-		dp.Attributes().PutStr("btree_counter_type", btreeCounterTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessIndexCounters) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessIndexCounters) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessIndexCounters(cfg MongodbatlasProcessIndexCountersMetricConfig) metricMongodbatlasProcessIndexCounters {
-	m := metricMongodbatlasProcessIndexCounters{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessIndexCounters)
 }
 
 type metricMongodbatlasProcessJournalingCommits struct {
@@ -4212,39 +2229,25 @@ func (m *metricMongodbatlasProcessJournalingCommits) init() {
 }
 
 func (m *metricMongodbatlasProcessJournalingCommits) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessJournalingCommits) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessJournalingCommits) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessJournalingCommits(cfg MongodbatlasProcessJournalingCommitsMetricConfig) metricMongodbatlasProcessJournalingCommits {
-	m := metricMongodbatlasProcessJournalingCommits{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessJournalingCommits)
 }
 
 type metricMongodbatlasProcessJournalingDataFiles struct {
@@ -4262,39 +2265,25 @@ func (m *metricMongodbatlasProcessJournalingDataFiles) init() {
 }
 
 func (m *metricMongodbatlasProcessJournalingDataFiles) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessJournalingDataFiles) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessJournalingDataFiles) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessJournalingDataFiles(cfg MongodbatlasProcessJournalingDataFilesMetricConfig) metricMongodbatlasProcessJournalingDataFiles {
-	m := metricMongodbatlasProcessJournalingDataFiles{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessJournalingDataFiles)
 }
 
 type metricMongodbatlasProcessJournalingWritten struct {
@@ -4312,39 +2301,25 @@ func (m *metricMongodbatlasProcessJournalingWritten) init() {
 }
 
 func (m *metricMongodbatlasProcessJournalingWritten) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessJournalingWritten) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessJournalingWritten) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessJournalingWritten(cfg MongodbatlasProcessJournalingWrittenMetricConfig) metricMongodbatlasProcessJournalingWritten {
-	m := metricMongodbatlasProcessJournalingWritten{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessJournalingWritten)
 }
 
 type metricMongodbatlasProcessMemoryUsage struct {
@@ -4365,75 +2340,22 @@ func (m *metricMongodbatlasProcessMemoryUsage) init() {
 }
 
 func (m *metricMongodbatlasProcessMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessMemoryUsageMetricAttributeKeyMemoryState) {
-		dp.Attributes().PutStr("memory_state", memoryStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessMemoryUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessMemoryUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessMemoryUsage(cfg MongodbatlasProcessMemoryUsageMetricConfig) metricMongodbatlasProcessMemoryUsage {
-	m := metricMongodbatlasProcessMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessMemoryUsage)
 }
 
 type metricMongodbatlasProcessNetworkIo struct {
@@ -4454,75 +2376,22 @@ func (m *metricMongodbatlasProcessNetworkIo) init() {
 }
 
 func (m *metricMongodbatlasProcessNetworkIo) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessNetworkIoMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessNetworkIo) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessNetworkIo) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessNetworkIo) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessNetworkIo(cfg MongodbatlasProcessNetworkIoMetricConfig) metricMongodbatlasProcessNetworkIo {
-	m := metricMongodbatlasProcessNetworkIo{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessNetworkIo)
 }
 
 type metricMongodbatlasProcessNetworkRequests struct {
@@ -4542,39 +2411,25 @@ func (m *metricMongodbatlasProcessNetworkRequests) init() {
 }
 
 func (m *metricMongodbatlasProcessNetworkRequests) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Sum().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasProcessNetworkRequests) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessNetworkRequests) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessNetworkRequests(cfg MongodbatlasProcessNetworkRequestsMetricConfig) metricMongodbatlasProcessNetworkRequests {
-	m := metricMongodbatlasProcessNetworkRequests{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessNetworkRequests)
 }
 
 type metricMongodbatlasProcessOplogRate struct {
@@ -4592,39 +2447,22 @@ func (m *metricMongodbatlasProcessOplogRate) init() {
 }
 
 func (m *metricMongodbatlasProcessOplogRate) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessOplogRate) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessOplogRate) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessOplogRate) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessOplogRate(cfg MongodbatlasProcessOplogRateMetricConfig) metricMongodbatlasProcessOplogRate {
-	m := metricMongodbatlasProcessOplogRate{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessOplogRate)
 }
 
 type metricMongodbatlasProcessOplogTime struct {
@@ -4645,75 +2483,22 @@ func (m *metricMongodbatlasProcessOplogTime) init() {
 }
 
 func (m *metricMongodbatlasProcessOplogTime) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, oplogTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessOplogTimeMetricAttributeKeyOplogType) {
-		dp.Attributes().PutStr("oplog_type", oplogTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessOplogTime) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessOplogTime) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessOplogTime) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessOplogTime(cfg MongodbatlasProcessOplogTimeMetricConfig) metricMongodbatlasProcessOplogTime {
-	m := metricMongodbatlasProcessOplogTime{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessOplogTime)
 }
 
 type metricMongodbatlasProcessPageFaults struct {
@@ -4734,75 +2519,22 @@ func (m *metricMongodbatlasProcessPageFaults) init() {
 }
 
 func (m *metricMongodbatlasProcessPageFaults) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryIssueTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessPageFaultsMetricAttributeKeyMemoryIssueType) {
-		dp.Attributes().PutStr("memory_issue_type", memoryIssueTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessPageFaults) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessPageFaults) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessPageFaults) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessPageFaults(cfg MongodbatlasProcessPageFaultsMetricConfig) metricMongodbatlasProcessPageFaults {
-	m := metricMongodbatlasProcessPageFaults{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessPageFaults)
 }
 
 type metricMongodbatlasProcessRestarts struct {
@@ -4820,39 +2552,22 @@ func (m *metricMongodbatlasProcessRestarts) init() {
 }
 
 func (m *metricMongodbatlasProcessRestarts) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessRestarts) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessRestarts) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessRestarts) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessRestarts(cfg MongodbatlasProcessRestartsMetricConfig) metricMongodbatlasProcessRestarts {
-	m := metricMongodbatlasProcessRestarts{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessRestarts)
 }
 
 type metricMongodbatlasProcessTickets struct {
@@ -4873,75 +2588,22 @@ func (m *metricMongodbatlasProcessTickets) init() {
 }
 
 func (m *metricMongodbatlasProcessTickets) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, ticketTypeAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasProcessTicketsMetricAttributeKeyTicketType) {
-		dp.Attributes().PutStr("ticket_type", ticketTypeAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasProcessTickets) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasProcessTickets) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasProcessTickets) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasProcessTickets(cfg MongodbatlasProcessTicketsMetricConfig) metricMongodbatlasProcessTickets {
-	m := metricMongodbatlasProcessTickets{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasProcessTickets)
 }
 
 type metricMongodbatlasSystemCPUNormalizedUsageAverage struct {
@@ -4962,75 +2624,25 @@ func (m *metricMongodbatlasSystemCPUNormalizedUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemCPUNormalizedUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemCPUNormalizedUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemCPUNormalizedUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemCPUNormalizedUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemCPUNormalizedUsageAverage(cfg MongodbatlasSystemCPUNormalizedUsageAverageMetricConfig) metricMongodbatlasSystemCPUNormalizedUsageAverage {
-	m := metricMongodbatlasSystemCPUNormalizedUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemCPUNormalizedUsageAverage)
 }
 
 type metricMongodbatlasSystemCPUNormalizedUsageMax struct {
@@ -5051,75 +2663,25 @@ func (m *metricMongodbatlasSystemCPUNormalizedUsageMax) init() {
 }
 
 func (m *metricMongodbatlasSystemCPUNormalizedUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemCPUNormalizedUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemCPUNormalizedUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemCPUNormalizedUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemCPUNormalizedUsageMax(cfg MongodbatlasSystemCPUNormalizedUsageMaxMetricConfig) metricMongodbatlasSystemCPUNormalizedUsageMax {
-	m := metricMongodbatlasSystemCPUNormalizedUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemCPUNormalizedUsageMax)
 }
 
 type metricMongodbatlasSystemCPUUsageAverage struct {
@@ -5140,75 +2702,25 @@ func (m *metricMongodbatlasSystemCPUUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemCPUUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemCPUUsageAverageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemCPUUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemCPUUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemCPUUsageAverage(cfg MongodbatlasSystemCPUUsageAverageMetricConfig) metricMongodbatlasSystemCPUUsageAverage {
-	m := metricMongodbatlasSystemCPUUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemCPUUsageAverage)
 }
 
 type metricMongodbatlasSystemCPUUsageMax struct {
@@ -5229,75 +2741,22 @@ func (m *metricMongodbatlasSystemCPUUsageMax) init() {
 }
 
 func (m *metricMongodbatlasSystemCPUUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemCPUUsageMaxMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasSystemCPUUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasSystemCPUUsageMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemCPUUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemCPUUsageMax(cfg MongodbatlasSystemCPUUsageMaxMetricConfig) metricMongodbatlasSystemCPUUsageMax {
-	m := metricMongodbatlasSystemCPUUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemCPUUsageMax)
 }
 
 type metricMongodbatlasSystemFtsCPUNormalizedUsage struct {
@@ -5318,75 +2777,25 @@ func (m *metricMongodbatlasSystemFtsCPUNormalizedUsage) init() {
 }
 
 func (m *metricMongodbatlasSystemFtsCPUNormalizedUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemFtsCPUNormalizedUsageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemFtsCPUNormalizedUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemFtsCPUNormalizedUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemFtsCPUNormalizedUsage(cfg MongodbatlasSystemFtsCPUNormalizedUsageMetricConfig) metricMongodbatlasSystemFtsCPUNormalizedUsage {
-	m := metricMongodbatlasSystemFtsCPUNormalizedUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemFtsCPUNormalizedUsage)
 }
 
 type metricMongodbatlasSystemFtsCPUUsage struct {
@@ -5407,75 +2816,22 @@ func (m *metricMongodbatlasSystemFtsCPUUsage) init() {
 }
 
 func (m *metricMongodbatlasSystemFtsCPUUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, cpuStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemFtsCPUUsageMetricAttributeKeyCPUState) {
-		dp.Attributes().PutStr("cpu_state", cpuStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasSystemFtsCPUUsage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasSystemFtsCPUUsage) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemFtsCPUUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemFtsCPUUsage(cfg MongodbatlasSystemFtsCPUUsageMetricConfig) metricMongodbatlasSystemFtsCPUUsage {
-	m := metricMongodbatlasSystemFtsCPUUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemFtsCPUUsage)
 }
 
 type metricMongodbatlasSystemFtsDiskUsed struct {
@@ -5493,39 +2849,22 @@ func (m *metricMongodbatlasSystemFtsDiskUsed) init() {
 }
 
 func (m *metricMongodbatlasSystemFtsDiskUsed) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64) {
-	if !m.config.Enabled {
-		return
-	}
-	dp := m.data.Gauge().DataPoints().AppendEmpty()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	dp.SetDoubleValue(val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasSystemFtsDiskUsed) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasSystemFtsDiskUsed) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemFtsDiskUsed) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemFtsDiskUsed(cfg MongodbatlasSystemFtsDiskUsedMetricConfig) metricMongodbatlasSystemFtsDiskUsed {
-	m := metricMongodbatlasSystemFtsDiskUsed{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemFtsDiskUsed)
 }
 
 type metricMongodbatlasSystemFtsMemoryUsage struct {
@@ -5548,75 +2887,25 @@ func (m *metricMongodbatlasSystemFtsMemoryUsage) init() {
 }
 
 func (m *metricMongodbatlasSystemFtsMemoryUsage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemFtsMemoryUsageMetricAttributeKeyMemoryState) {
-		dp.Attributes().PutStr("memory_state", memoryStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Sum().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemFtsMemoryUsage) updateCapacity() {
-	if m.data.Sum().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Sum().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemFtsMemoryUsage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Sum().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Sum().DataPoints().At(i).SetDoubleValue(m.data.Sum().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemFtsMemoryUsage(cfg MongodbatlasSystemFtsMemoryUsageMetricConfig) metricMongodbatlasSystemFtsMemoryUsage {
-	m := metricMongodbatlasSystemFtsMemoryUsage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemFtsMemoryUsage)
 }
 
 type metricMongodbatlasSystemMemoryUsageAverage struct {
@@ -5637,75 +2926,25 @@ func (m *metricMongodbatlasSystemMemoryUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemMemoryUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemMemoryUsageAverageMetricAttributeKeyMemoryStatus) {
-		dp.Attributes().PutStr("memory_status", memoryStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemMemoryUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemMemoryUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemMemoryUsageAverage(cfg MongodbatlasSystemMemoryUsageAverageMetricConfig) metricMongodbatlasSystemMemoryUsageAverage {
-	m := metricMongodbatlasSystemMemoryUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemMemoryUsageAverage)
 }
 
 type metricMongodbatlasSystemMemoryUsageMax struct {
@@ -5726,75 +2965,25 @@ func (m *metricMongodbatlasSystemMemoryUsageMax) init() {
 }
 
 func (m *metricMongodbatlasSystemMemoryUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStatusAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemMemoryUsageMaxMetricAttributeKeyMemoryStatus) {
-		dp.Attributes().PutStr("memory_status", memoryStatusAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemMemoryUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemMemoryUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemMemoryUsageMax(cfg MongodbatlasSystemMemoryUsageMaxMetricConfig) metricMongodbatlasSystemMemoryUsageMax {
-	m := metricMongodbatlasSystemMemoryUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemMemoryUsageMax)
 }
 
 type metricMongodbatlasSystemNetworkIoAverage struct {
@@ -5815,75 +3004,25 @@ func (m *metricMongodbatlasSystemNetworkIoAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemNetworkIoAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemNetworkIoAverageMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemNetworkIoAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemNetworkIoAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemNetworkIoAverage(cfg MongodbatlasSystemNetworkIoAverageMetricConfig) metricMongodbatlasSystemNetworkIoAverage {
-	m := metricMongodbatlasSystemNetworkIoAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemNetworkIoAverage)
 }
 
 type metricMongodbatlasSystemNetworkIoMax struct {
@@ -5904,75 +3043,22 @@ func (m *metricMongodbatlasSystemNetworkIoMax) init() {
 }
 
 func (m *metricMongodbatlasSystemNetworkIoMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemNetworkIoMaxMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasSystemNetworkIoMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasSystemNetworkIoMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemNetworkIoMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemNetworkIoMax(cfg MongodbatlasSystemNetworkIoMaxMetricConfig) metricMongodbatlasSystemNetworkIoMax {
-	m := metricMongodbatlasSystemNetworkIoMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemNetworkIoMax)
 }
 
 type metricMongodbatlasSystemPagingIoAverage struct {
@@ -5993,75 +3079,25 @@ func (m *metricMongodbatlasSystemPagingIoAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemPagingIoAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemPagingIoAverageMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemPagingIoAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemPagingIoAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemPagingIoAverage(cfg MongodbatlasSystemPagingIoAverageMetricConfig) metricMongodbatlasSystemPagingIoAverage {
-	m := metricMongodbatlasSystemPagingIoAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemPagingIoAverage)
 }
 
 type metricMongodbatlasSystemPagingIoMax struct {
@@ -6082,75 +3118,22 @@ func (m *metricMongodbatlasSystemPagingIoMax) init() {
 }
 
 func (m *metricMongodbatlasSystemPagingIoMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, directionAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemPagingIoMaxMetricAttributeKeyDirection) {
-		dp.Attributes().PutStr("direction", directionAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
-func (m *metricMongodbatlasSystemPagingIoMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
-}
+func (m *metricMongodbatlasSystemPagingIoMax) updateCapacity() { _ = "STUB: not implemented"; return }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemPagingIoMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemPagingIoMax(cfg MongodbatlasSystemPagingIoMaxMetricConfig) metricMongodbatlasSystemPagingIoMax {
-	m := metricMongodbatlasSystemPagingIoMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemPagingIoMax)
 }
 
 type metricMongodbatlasSystemPagingUsageAverage struct {
@@ -6171,75 +3154,25 @@ func (m *metricMongodbatlasSystemPagingUsageAverage) init() {
 }
 
 func (m *metricMongodbatlasSystemPagingUsageAverage) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemPagingUsageAverageMetricAttributeKeyMemoryState) {
-		dp.Attributes().PutStr("memory_state", memoryStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemPagingUsageAverage) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemPagingUsageAverage) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemPagingUsageAverage(cfg MongodbatlasSystemPagingUsageAverageMetricConfig) metricMongodbatlasSystemPagingUsageAverage {
-	m := metricMongodbatlasSystemPagingUsageAverage{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemPagingUsageAverage)
 }
 
 type metricMongodbatlasSystemPagingUsageMax struct {
@@ -6260,75 +3193,25 @@ func (m *metricMongodbatlasSystemPagingUsageMax) init() {
 }
 
 func (m *metricMongodbatlasSystemPagingUsageMax) recordDataPoint(start pcommon.Timestamp, ts pcommon.Timestamp, val float64, memoryStateAttributeValue string) {
-	if !m.config.Enabled {
-		return
-	}
-
-	dp := pmetric.NewNumberDataPoint()
-	dp.SetStartTimestamp(start)
-	dp.SetTimestamp(ts)
-	if slices.Contains(m.config.EnabledAttributes, MongodbatlasSystemPagingUsageMaxMetricAttributeKeyMemoryState) {
-		dp.Attributes().PutStr("memory_state", memoryStateAttributeValue)
-	}
-
-	var s string
-	dps := m.data.Gauge().DataPoints()
-	for i := 0; i < dps.Len(); i++ {
-		dpi := dps.At(i)
-		if dp.Attributes().Equal(dpi.Attributes()) && dp.StartTimestamp() == dpi.StartTimestamp() && dp.Timestamp() == dpi.Timestamp() {
-			switch s = m.config.AggregationStrategy; s {
-			case AggregationStrategySum, AggregationStrategyAvg:
-				dpi.SetDoubleValue(dpi.DoubleValue() + val)
-				m.aggDataPoints[i] += 1
-				return
-			case AggregationStrategyMin:
-				if dpi.DoubleValue() > val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			case AggregationStrategyMax:
-				if dpi.DoubleValue() < val {
-					dpi.SetDoubleValue(val)
-				}
-				return
-			}
-		}
-	}
-
-	dp.SetDoubleValue(val)
-	m.aggDataPoints = append(m.aggDataPoints, 1)
-	dp.MoveTo(dps.AppendEmpty())
+	_ = "STUB: not implemented"
+	return
 }
 
 // updateCapacity saves max length of data point slices that will be used for the slice capacity.
 func (m *metricMongodbatlasSystemPagingUsageMax) updateCapacity() {
-	if m.data.Gauge().DataPoints().Len() > m.capacity {
-		m.capacity = m.data.Gauge().DataPoints().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // emit appends recorded metric data to a metrics slice and prepares it for recording another set of data points.
 func (m *metricMongodbatlasSystemPagingUsageMax) emit(metrics pmetric.MetricSlice) {
-	if m.config.Enabled && m.data.Gauge().DataPoints().Len() > 0 {
-		if m.config.AggregationStrategy == AggregationStrategyAvg {
-			for i, aggCount := range m.aggDataPoints {
-				m.data.Gauge().DataPoints().At(i).SetDoubleValue(m.data.Gauge().DataPoints().At(i).DoubleValue() / aggCount)
-			}
-		}
-		m.updateCapacity()
-		m.data.MoveTo(metrics.AppendEmpty())
-		m.init()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func newMetricMongodbatlasSystemPagingUsageMax(cfg MongodbatlasSystemPagingUsageMaxMetricConfig) metricMongodbatlasSystemPagingUsageMax {
-	m := metricMongodbatlasSystemPagingUsageMax{config: cfg}
-
-	if cfg.Enabled {
-		m.data = pmetric.NewMetric()
-		m.init()
-	}
-	return m
+	_ = "STUB: not implemented"
+	return *new(metricMongodbatlasSystemPagingUsageMax)
 }
 
 // MetricsBuilder provides an interface for scrapers to report metrics while taking care of all the transformations
@@ -6416,184 +3299,32 @@ type MetricBuilderOption interface {
 type metricBuilderOptionFunc func(mb *MetricsBuilder)
 
 func (mbof metricBuilderOptionFunc) apply(mb *MetricsBuilder) {
-	mbof(mb)
+	_ = "STUB: not implemented"
+
+	// WithStartTime sets startTime on the metrics builder.
+	return
 }
 
-// WithStartTime sets startTime on the metrics builder.
 func WithStartTime(startTime pcommon.Timestamp) MetricBuilderOption {
-	return metricBuilderOptionFunc(func(mb *MetricsBuilder) {
-		mb.startTime = startTime
-	})
+	_ = "STUB: not implemented"
+	return *new(MetricBuilderOption)
 }
-func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
-	mb := &MetricsBuilder{
-		config:                     mbc,
-		startTime:                  pcommon.NewTimestampFromTime(time.Now()),
-		metricsBuffer:              pmetric.NewMetrics(),
-		buildInfo:                  settings.BuildInfo,
-		metricMongodbatlasDbCounts: newMetricMongodbatlasDbCounts(mbc.Metrics.MongodbatlasDbCounts),
-		metricMongodbatlasDbSize:   newMetricMongodbatlasDbSize(mbc.Metrics.MongodbatlasDbSize),
-		metricMongodbatlasDiskPartitionIopsAverage:                  newMetricMongodbatlasDiskPartitionIopsAverage(mbc.Metrics.MongodbatlasDiskPartitionIopsAverage),
-		metricMongodbatlasDiskPartitionIopsMax:                      newMetricMongodbatlasDiskPartitionIopsMax(mbc.Metrics.MongodbatlasDiskPartitionIopsMax),
-		metricMongodbatlasDiskPartitionLatencyAverage:               newMetricMongodbatlasDiskPartitionLatencyAverage(mbc.Metrics.MongodbatlasDiskPartitionLatencyAverage),
-		metricMongodbatlasDiskPartitionLatencyMax:                   newMetricMongodbatlasDiskPartitionLatencyMax(mbc.Metrics.MongodbatlasDiskPartitionLatencyMax),
-		metricMongodbatlasDiskPartitionQueueDepth:                   newMetricMongodbatlasDiskPartitionQueueDepth(mbc.Metrics.MongodbatlasDiskPartitionQueueDepth),
-		metricMongodbatlasDiskPartitionSpaceAverage:                 newMetricMongodbatlasDiskPartitionSpaceAverage(mbc.Metrics.MongodbatlasDiskPartitionSpaceAverage),
-		metricMongodbatlasDiskPartitionSpaceMax:                     newMetricMongodbatlasDiskPartitionSpaceMax(mbc.Metrics.MongodbatlasDiskPartitionSpaceMax),
-		metricMongodbatlasDiskPartitionThroughput:                   newMetricMongodbatlasDiskPartitionThroughput(mbc.Metrics.MongodbatlasDiskPartitionThroughput),
-		metricMongodbatlasDiskPartitionUsageAverage:                 newMetricMongodbatlasDiskPartitionUsageAverage(mbc.Metrics.MongodbatlasDiskPartitionUsageAverage),
-		metricMongodbatlasDiskPartitionUsageMax:                     newMetricMongodbatlasDiskPartitionUsageMax(mbc.Metrics.MongodbatlasDiskPartitionUsageMax),
-		metricMongodbatlasDiskPartitionUtilizationAverage:           newMetricMongodbatlasDiskPartitionUtilizationAverage(mbc.Metrics.MongodbatlasDiskPartitionUtilizationAverage),
-		metricMongodbatlasDiskPartitionUtilizationMax:               newMetricMongodbatlasDiskPartitionUtilizationMax(mbc.Metrics.MongodbatlasDiskPartitionUtilizationMax),
-		metricMongodbatlasProcessAsserts:                            newMetricMongodbatlasProcessAsserts(mbc.Metrics.MongodbatlasProcessAsserts),
-		metricMongodbatlasProcessBackgroundFlush:                    newMetricMongodbatlasProcessBackgroundFlush(mbc.Metrics.MongodbatlasProcessBackgroundFlush),
-		metricMongodbatlasProcessCacheIo:                            newMetricMongodbatlasProcessCacheIo(mbc.Metrics.MongodbatlasProcessCacheIo),
-		metricMongodbatlasProcessCacheRatio:                         newMetricMongodbatlasProcessCacheRatio(mbc.Metrics.MongodbatlasProcessCacheRatio),
-		metricMongodbatlasProcessCacheSize:                          newMetricMongodbatlasProcessCacheSize(mbc.Metrics.MongodbatlasProcessCacheSize),
-		metricMongodbatlasProcessConnections:                        newMetricMongodbatlasProcessConnections(mbc.Metrics.MongodbatlasProcessConnections),
-		metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage:  newMetricMongodbatlasProcessCPUChildrenNormalizedUsageAverage(mbc.Metrics.MongodbatlasProcessCPUChildrenNormalizedUsageAverage),
-		metricMongodbatlasProcessCPUChildrenNormalizedUsageMax:      newMetricMongodbatlasProcessCPUChildrenNormalizedUsageMax(mbc.Metrics.MongodbatlasProcessCPUChildrenNormalizedUsageMax),
-		metricMongodbatlasProcessCPUChildrenUsageAverage:            newMetricMongodbatlasProcessCPUChildrenUsageAverage(mbc.Metrics.MongodbatlasProcessCPUChildrenUsageAverage),
-		metricMongodbatlasProcessCPUChildrenUsageMax:                newMetricMongodbatlasProcessCPUChildrenUsageMax(mbc.Metrics.MongodbatlasProcessCPUChildrenUsageMax),
-		metricMongodbatlasProcessCPUNormalizedUsageAverage:          newMetricMongodbatlasProcessCPUNormalizedUsageAverage(mbc.Metrics.MongodbatlasProcessCPUNormalizedUsageAverage),
-		metricMongodbatlasProcessCPUNormalizedUsageMax:              newMetricMongodbatlasProcessCPUNormalizedUsageMax(mbc.Metrics.MongodbatlasProcessCPUNormalizedUsageMax),
-		metricMongodbatlasProcessCPUUsageAverage:                    newMetricMongodbatlasProcessCPUUsageAverage(mbc.Metrics.MongodbatlasProcessCPUUsageAverage),
-		metricMongodbatlasProcessCPUUsageMax:                        newMetricMongodbatlasProcessCPUUsageMax(mbc.Metrics.MongodbatlasProcessCPUUsageMax),
-		metricMongodbatlasProcessCursors:                            newMetricMongodbatlasProcessCursors(mbc.Metrics.MongodbatlasProcessCursors),
-		metricMongodbatlasProcessDbDocumentRate:                     newMetricMongodbatlasProcessDbDocumentRate(mbc.Metrics.MongodbatlasProcessDbDocumentRate),
-		metricMongodbatlasProcessDbOperationsRate:                   newMetricMongodbatlasProcessDbOperationsRate(mbc.Metrics.MongodbatlasProcessDbOperationsRate),
-		metricMongodbatlasProcessDbOperationsTime:                   newMetricMongodbatlasProcessDbOperationsTime(mbc.Metrics.MongodbatlasProcessDbOperationsTime),
-		metricMongodbatlasProcessDbQueryExecutorScanned:             newMetricMongodbatlasProcessDbQueryExecutorScanned(mbc.Metrics.MongodbatlasProcessDbQueryExecutorScanned),
-		metricMongodbatlasProcessDbQueryTargetingScannedPerReturned: newMetricMongodbatlasProcessDbQueryTargetingScannedPerReturned(mbc.Metrics.MongodbatlasProcessDbQueryTargetingScannedPerReturned),
-		metricMongodbatlasProcessDbStorage:                          newMetricMongodbatlasProcessDbStorage(mbc.Metrics.MongodbatlasProcessDbStorage),
-		metricMongodbatlasProcessGlobalLock:                         newMetricMongodbatlasProcessGlobalLock(mbc.Metrics.MongodbatlasProcessGlobalLock),
-		metricMongodbatlasProcessIndexBtreeMissRatio:                newMetricMongodbatlasProcessIndexBtreeMissRatio(mbc.Metrics.MongodbatlasProcessIndexBtreeMissRatio),
-		metricMongodbatlasProcessIndexCounters:                      newMetricMongodbatlasProcessIndexCounters(mbc.Metrics.MongodbatlasProcessIndexCounters),
-		metricMongodbatlasProcessJournalingCommits:                  newMetricMongodbatlasProcessJournalingCommits(mbc.Metrics.MongodbatlasProcessJournalingCommits),
-		metricMongodbatlasProcessJournalingDataFiles:                newMetricMongodbatlasProcessJournalingDataFiles(mbc.Metrics.MongodbatlasProcessJournalingDataFiles),
-		metricMongodbatlasProcessJournalingWritten:                  newMetricMongodbatlasProcessJournalingWritten(mbc.Metrics.MongodbatlasProcessJournalingWritten),
-		metricMongodbatlasProcessMemoryUsage:                        newMetricMongodbatlasProcessMemoryUsage(mbc.Metrics.MongodbatlasProcessMemoryUsage),
-		metricMongodbatlasProcessNetworkIo:                          newMetricMongodbatlasProcessNetworkIo(mbc.Metrics.MongodbatlasProcessNetworkIo),
-		metricMongodbatlasProcessNetworkRequests:                    newMetricMongodbatlasProcessNetworkRequests(mbc.Metrics.MongodbatlasProcessNetworkRequests),
-		metricMongodbatlasProcessOplogRate:                          newMetricMongodbatlasProcessOplogRate(mbc.Metrics.MongodbatlasProcessOplogRate),
-		metricMongodbatlasProcessOplogTime:                          newMetricMongodbatlasProcessOplogTime(mbc.Metrics.MongodbatlasProcessOplogTime),
-		metricMongodbatlasProcessPageFaults:                         newMetricMongodbatlasProcessPageFaults(mbc.Metrics.MongodbatlasProcessPageFaults),
-		metricMongodbatlasProcessRestarts:                           newMetricMongodbatlasProcessRestarts(mbc.Metrics.MongodbatlasProcessRestarts),
-		metricMongodbatlasProcessTickets:                            newMetricMongodbatlasProcessTickets(mbc.Metrics.MongodbatlasProcessTickets),
-		metricMongodbatlasSystemCPUNormalizedUsageAverage:           newMetricMongodbatlasSystemCPUNormalizedUsageAverage(mbc.Metrics.MongodbatlasSystemCPUNormalizedUsageAverage),
-		metricMongodbatlasSystemCPUNormalizedUsageMax:               newMetricMongodbatlasSystemCPUNormalizedUsageMax(mbc.Metrics.MongodbatlasSystemCPUNormalizedUsageMax),
-		metricMongodbatlasSystemCPUUsageAverage:                     newMetricMongodbatlasSystemCPUUsageAverage(mbc.Metrics.MongodbatlasSystemCPUUsageAverage),
-		metricMongodbatlasSystemCPUUsageMax:                         newMetricMongodbatlasSystemCPUUsageMax(mbc.Metrics.MongodbatlasSystemCPUUsageMax),
-		metricMongodbatlasSystemFtsCPUNormalizedUsage:               newMetricMongodbatlasSystemFtsCPUNormalizedUsage(mbc.Metrics.MongodbatlasSystemFtsCPUNormalizedUsage),
-		metricMongodbatlasSystemFtsCPUUsage:                         newMetricMongodbatlasSystemFtsCPUUsage(mbc.Metrics.MongodbatlasSystemFtsCPUUsage),
-		metricMongodbatlasSystemFtsDiskUsed:                         newMetricMongodbatlasSystemFtsDiskUsed(mbc.Metrics.MongodbatlasSystemFtsDiskUsed),
-		metricMongodbatlasSystemFtsMemoryUsage:                      newMetricMongodbatlasSystemFtsMemoryUsage(mbc.Metrics.MongodbatlasSystemFtsMemoryUsage),
-		metricMongodbatlasSystemMemoryUsageAverage:                  newMetricMongodbatlasSystemMemoryUsageAverage(mbc.Metrics.MongodbatlasSystemMemoryUsageAverage),
-		metricMongodbatlasSystemMemoryUsageMax:                      newMetricMongodbatlasSystemMemoryUsageMax(mbc.Metrics.MongodbatlasSystemMemoryUsageMax),
-		metricMongodbatlasSystemNetworkIoAverage:                    newMetricMongodbatlasSystemNetworkIoAverage(mbc.Metrics.MongodbatlasSystemNetworkIoAverage),
-		metricMongodbatlasSystemNetworkIoMax:                        newMetricMongodbatlasSystemNetworkIoMax(mbc.Metrics.MongodbatlasSystemNetworkIoMax),
-		metricMongodbatlasSystemPagingIoAverage:                     newMetricMongodbatlasSystemPagingIoAverage(mbc.Metrics.MongodbatlasSystemPagingIoAverage),
-		metricMongodbatlasSystemPagingIoMax:                         newMetricMongodbatlasSystemPagingIoMax(mbc.Metrics.MongodbatlasSystemPagingIoMax),
-		metricMongodbatlasSystemPagingUsageAverage:                  newMetricMongodbatlasSystemPagingUsageAverage(mbc.Metrics.MongodbatlasSystemPagingUsageAverage),
-		metricMongodbatlasSystemPagingUsageMax:                      newMetricMongodbatlasSystemPagingUsageMax(mbc.Metrics.MongodbatlasSystemPagingUsageMax),
-		resourceAttributeIncludeFilter:                              make(map[string]filter.Filter),
-		resourceAttributeExcludeFilter:                              make(map[string]filter.Filter),
-	}
-	if mbc.ResourceAttributes.MongodbAtlasClusterName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.cluster.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasClusterName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasClusterName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.cluster.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasClusterName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasDbName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.db.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasDbName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasDbName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.db.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasDbName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasDiskPartition.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.disk.partition"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasDiskPartition.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasDiskPartition.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.disk.partition"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasDiskPartition.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasHostName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.host.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasHostName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasHostName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.host.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasHostName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasOrgName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.org_name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasOrgName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasOrgName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.org_name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasOrgName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.process.id"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.process.id"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessPort.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.process.port"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessPort.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessPort.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.process.port"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessPort.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessTypeName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.process.type_name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessTypeName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProcessTypeName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.process.type_name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProcessTypeName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProjectID.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.project.id"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProjectID.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProjectID.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.project.id"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProjectID.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProjectName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.project.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProjectName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProjectName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.project.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProjectName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProviderName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.provider.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProviderName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasProviderName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.provider.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasProviderName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasRegionName.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.region.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasRegionName.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasRegionName.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.region.name"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasRegionName.MetricsExclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasUserAlias.MetricsInclude != nil {
-		mb.resourceAttributeIncludeFilter["mongodb_atlas.user.alias"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasUserAlias.MetricsInclude)
-	}
-	if mbc.ResourceAttributes.MongodbAtlasUserAlias.MetricsExclude != nil {
-		mb.resourceAttributeExcludeFilter["mongodb_atlas.user.alias"] = filter.CreateFilter(mbc.ResourceAttributes.MongodbAtlasUserAlias.MetricsExclude)
-	}
 
-	for _, op := range options {
-		op.apply(mb)
-	}
-	return mb
+func NewMetricsBuilder(mbc MetricsBuilderConfig, settings receiver.Settings, options ...MetricBuilderOption) *MetricsBuilder {
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewResourceBuilder returns a new resource builder that should be used to build a resource associated with for the emitted metrics.
 func (mb *MetricsBuilder) NewResourceBuilder() *ResourceBuilder {
-	return NewResourceBuilder(mb.config.ResourceAttributes)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // updateCapacity updates max length of metrics and resource attributes that will be used for the slice capacity.
 func (mb *MetricsBuilder) updateCapacity(rm pmetric.ResourceMetrics) {
-	if mb.metricsCapacity < rm.ScopeMetrics().At(0).Metrics().Len() {
-		mb.metricsCapacity = rm.ScopeMetrics().At(0).Metrics().Len()
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // ResourceMetricsOption applies changes to provided resource metrics.
@@ -6604,35 +3335,23 @@ type ResourceMetricsOption interface {
 type resourceMetricsOptionFunc func(pmetric.ResourceMetrics)
 
 func (rmof resourceMetricsOptionFunc) apply(rm pmetric.ResourceMetrics) {
-	rmof(rm)
+	_ = "STUB: not implemented"
+
+	// WithResource sets the provided resource on the emitted ResourceMetrics.
+	// It's recommended to use ResourceBuilder to create the resource.
+	return
 }
 
-// WithResource sets the provided resource on the emitted ResourceMetrics.
-// It's recommended to use ResourceBuilder to create the resource.
 func WithResource(res pcommon.Resource) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		res.CopyTo(rm.Resource())
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // WithStartTimeOverride overrides start time for all the resource metrics data points.
 // This option should be only used if different start time has to be set on metrics coming from different resources.
 func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
-	return resourceMetricsOptionFunc(func(rm pmetric.ResourceMetrics) {
-		var dps pmetric.NumberDataPointSlice
-		metrics := rm.ScopeMetrics().At(0).Metrics()
-		for i := 0; i < metrics.Len(); i++ {
-			switch metrics.At(i).Type() {
-			case pmetric.MetricTypeGauge:
-				dps = metrics.At(i).Gauge().DataPoints()
-			case pmetric.MetricTypeSum:
-				dps = metrics.At(i).Sum().DataPoints()
-			}
-			for j := 0; j < dps.Len(); j++ {
-				dps.At(j).SetStartTimestamp(start)
-			}
-		}
-	})
+	_ = "STUB: not implemented"
+	return *new(ResourceMetricsOption)
 }
 
 // EmitForResource saves all the generated metrics under a new resource and updates the internal state to be ready for
@@ -6641,437 +3360,408 @@ func WithStartTimeOverride(start pcommon.Timestamp) ResourceMetricsOption {
 // just `Emit` function can be called instead.
 // Resource attributes should be provided as ResourceMetricsOption arguments.
 func (mb *MetricsBuilder) EmitForResource(options ...ResourceMetricsOption) {
-	rm := pmetric.NewResourceMetrics()
-	ils := rm.ScopeMetrics().AppendEmpty()
-	ils.Scope().SetName(ScopeName)
-	ils.Scope().SetVersion(mb.buildInfo.Version)
-	ils.Metrics().EnsureCapacity(mb.metricsCapacity)
-	mb.metricMongodbatlasDbCounts.emit(ils.Metrics())
-	mb.metricMongodbatlasDbSize.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionIopsAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionIopsMax.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionLatencyAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionLatencyMax.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionQueueDepth.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionSpaceAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionSpaceMax.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionThroughput.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionUtilizationAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasDiskPartitionUtilizationMax.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessAsserts.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessBackgroundFlush.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCacheIo.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCacheRatio.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCacheSize.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessConnections.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUChildrenNormalizedUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUChildrenUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUChildrenUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUNormalizedUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUNormalizedUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCPUUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessCursors.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbDocumentRate.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbOperationsRate.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbOperationsTime.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbQueryExecutorScanned.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbQueryTargetingScannedPerReturned.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessDbStorage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessGlobalLock.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessIndexBtreeMissRatio.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessIndexCounters.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessJournalingCommits.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessJournalingDataFiles.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessJournalingWritten.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessMemoryUsage.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessNetworkIo.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessNetworkRequests.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessOplogRate.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessOplogTime.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessPageFaults.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessRestarts.emit(ils.Metrics())
-	mb.metricMongodbatlasProcessTickets.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemCPUNormalizedUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemCPUNormalizedUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemCPUUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemCPUUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemFtsCPUNormalizedUsage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemFtsCPUUsage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemFtsDiskUsed.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemFtsMemoryUsage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemMemoryUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemMemoryUsageMax.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemNetworkIoAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemNetworkIoMax.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemPagingIoAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemPagingIoMax.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemPagingUsageAverage.emit(ils.Metrics())
-	mb.metricMongodbatlasSystemPagingUsageMax.emit(ils.Metrics())
-
-	for _, op := range options {
-		op.apply(rm)
-	}
-	for attr, filter := range mb.resourceAttributeIncludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && !filter.Matches(val.AsString()) {
-			return
-		}
-	}
-	for attr, filter := range mb.resourceAttributeExcludeFilter {
-		if val, ok := rm.Resource().Attributes().Get(attr); ok && filter.Matches(val.AsString()) {
-			return
-		}
-	}
-
-	if ils.Metrics().Len() > 0 {
-		mb.updateCapacity(rm)
-		rm.MoveTo(mb.metricsBuffer.ResourceMetrics().AppendEmpty())
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 // Emit returns all the metrics accumulated by the metrics builder and updates the internal state to be ready for
 // recording another set of metrics. This function will be responsible for applying all the transformations required to
 // produce metric representation defined in metadata and user config, e.g. delta or cumulative.
 func (mb *MetricsBuilder) Emit(options ...ResourceMetricsOption) pmetric.Metrics {
-	mb.EmitForResource(options...)
-	metrics := mb.metricsBuffer
-	mb.metricsBuffer = pmetric.NewMetrics()
-	return metrics
+	_ = "STUB: not implemented"
+	return *new(pmetric.Metrics)
 }
 
 // RecordMongodbatlasDbCountsDataPoint adds a data point to mongodbatlas.db.counts metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDbCountsDataPoint(ts pcommon.Timestamp, val float64, objectTypeAttributeValue AttributeObjectType) {
-	mb.metricMongodbatlasDbCounts.recordDataPoint(mb.startTime, ts, val, objectTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDbSizeDataPoint adds a data point to mongodbatlas.db.size metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDbSizeDataPoint(ts pcommon.Timestamp, val float64, objectTypeAttributeValue AttributeObjectType) {
-	mb.metricMongodbatlasDbSize.recordDataPoint(mb.startTime, ts, val, objectTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionIopsAverageDataPoint adds a data point to mongodbatlas.disk.partition.iops.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionIopsAverageDataPoint(ts pcommon.Timestamp, val float64, diskDirectionAttributeValue AttributeDiskDirection) {
-	mb.metricMongodbatlasDiskPartitionIopsAverage.recordDataPoint(mb.startTime, ts, val, diskDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionIopsMaxDataPoint adds a data point to mongodbatlas.disk.partition.iops.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionIopsMaxDataPoint(ts pcommon.Timestamp, val float64, diskDirectionAttributeValue AttributeDiskDirection) {
-	mb.metricMongodbatlasDiskPartitionIopsMax.recordDataPoint(mb.startTime, ts, val, diskDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionLatencyAverageDataPoint adds a data point to mongodbatlas.disk.partition.latency.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionLatencyAverageDataPoint(ts pcommon.Timestamp, val float64, diskDirectionAttributeValue AttributeDiskDirection) {
-	mb.metricMongodbatlasDiskPartitionLatencyAverage.recordDataPoint(mb.startTime, ts, val, diskDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionLatencyMaxDataPoint adds a data point to mongodbatlas.disk.partition.latency.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionLatencyMaxDataPoint(ts pcommon.Timestamp, val float64, diskDirectionAttributeValue AttributeDiskDirection) {
-	mb.metricMongodbatlasDiskPartitionLatencyMax.recordDataPoint(mb.startTime, ts, val, diskDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionQueueDepthDataPoint adds a data point to mongodbatlas.disk.partition.queue.depth metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionQueueDepthDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasDiskPartitionQueueDepth.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionSpaceAverageDataPoint adds a data point to mongodbatlas.disk.partition.space.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionSpaceAverageDataPoint(ts pcommon.Timestamp, val float64, diskStatusAttributeValue AttributeDiskStatus) {
-	mb.metricMongodbatlasDiskPartitionSpaceAverage.recordDataPoint(mb.startTime, ts, val, diskStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionSpaceMaxDataPoint adds a data point to mongodbatlas.disk.partition.space.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionSpaceMaxDataPoint(ts pcommon.Timestamp, val float64, diskStatusAttributeValue AttributeDiskStatus) {
-	mb.metricMongodbatlasDiskPartitionSpaceMax.recordDataPoint(mb.startTime, ts, val, diskStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionThroughputDataPoint adds a data point to mongodbatlas.disk.partition.throughput metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionThroughputDataPoint(ts pcommon.Timestamp, val float64, diskDirectionAttributeValue AttributeDiskDirection) {
-	mb.metricMongodbatlasDiskPartitionThroughput.recordDataPoint(mb.startTime, ts, val, diskDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionUsageAverageDataPoint adds a data point to mongodbatlas.disk.partition.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionUsageAverageDataPoint(ts pcommon.Timestamp, val float64, diskStatusAttributeValue AttributeDiskStatus) {
-	mb.metricMongodbatlasDiskPartitionUsageAverage.recordDataPoint(mb.startTime, ts, val, diskStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionUsageMaxDataPoint adds a data point to mongodbatlas.disk.partition.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionUsageMaxDataPoint(ts pcommon.Timestamp, val float64, diskStatusAttributeValue AttributeDiskStatus) {
-	mb.metricMongodbatlasDiskPartitionUsageMax.recordDataPoint(mb.startTime, ts, val, diskStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionUtilizationAverageDataPoint adds a data point to mongodbatlas.disk.partition.utilization.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionUtilizationAverageDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasDiskPartitionUtilizationAverage.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasDiskPartitionUtilizationMaxDataPoint adds a data point to mongodbatlas.disk.partition.utilization.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasDiskPartitionUtilizationMaxDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasDiskPartitionUtilizationMax.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessAssertsDataPoint adds a data point to mongodbatlas.process.asserts metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessAssertsDataPoint(ts pcommon.Timestamp, val float64, assertTypeAttributeValue AttributeAssertType) {
-	mb.metricMongodbatlasProcessAsserts.recordDataPoint(mb.startTime, ts, val, assertTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessBackgroundFlushDataPoint adds a data point to mongodbatlas.process.background_flush metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessBackgroundFlushDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessBackgroundFlush.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCacheIoDataPoint adds a data point to mongodbatlas.process.cache.io metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCacheIoDataPoint(ts pcommon.Timestamp, val float64, cacheDirectionAttributeValue AttributeCacheDirection) {
-	mb.metricMongodbatlasProcessCacheIo.recordDataPoint(mb.startTime, ts, val, cacheDirectionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCacheRatioDataPoint adds a data point to mongodbatlas.process.cache.ratio metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCacheRatioDataPoint(ts pcommon.Timestamp, val float64, cacheRatioTypeAttributeValue AttributeCacheRatioType) {
-	mb.metricMongodbatlasProcessCacheRatio.recordDataPoint(mb.startTime, ts, val, cacheRatioTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCacheSizeDataPoint adds a data point to mongodbatlas.process.cache.size metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCacheSizeDataPoint(ts pcommon.Timestamp, val float64, cacheStatusAttributeValue AttributeCacheStatus) {
-	mb.metricMongodbatlasProcessCacheSize.recordDataPoint(mb.startTime, ts, val, cacheStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessConnectionsDataPoint adds a data point to mongodbatlas.process.connections metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessConnectionsDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessConnections.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUChildrenNormalizedUsageAverageDataPoint adds a data point to mongodbatlas.process.cpu.children.normalized.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUChildrenNormalizedUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUChildrenNormalizedUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUChildrenNormalizedUsageMaxDataPoint adds a data point to mongodbatlas.process.cpu.children.normalized.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUChildrenNormalizedUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUChildrenNormalizedUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUChildrenUsageAverageDataPoint adds a data point to mongodbatlas.process.cpu.children.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUChildrenUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUChildrenUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUChildrenUsageMaxDataPoint adds a data point to mongodbatlas.process.cpu.children.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUChildrenUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUChildrenUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUNormalizedUsageAverageDataPoint adds a data point to mongodbatlas.process.cpu.normalized.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUNormalizedUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUNormalizedUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUNormalizedUsageMaxDataPoint adds a data point to mongodbatlas.process.cpu.normalized.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUNormalizedUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUNormalizedUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUUsageAverageDataPoint adds a data point to mongodbatlas.process.cpu.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCPUUsageMaxDataPoint adds a data point to mongodbatlas.process.cpu.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCPUUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasProcessCPUUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessCursorsDataPoint adds a data point to mongodbatlas.process.cursors metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessCursorsDataPoint(ts pcommon.Timestamp, val float64, cursorStateAttributeValue AttributeCursorState) {
-	mb.metricMongodbatlasProcessCursors.recordDataPoint(mb.startTime, ts, val, cursorStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbDocumentRateDataPoint adds a data point to mongodbatlas.process.db.document.rate metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbDocumentRateDataPoint(ts pcommon.Timestamp, val float64, documentStatusAttributeValue AttributeDocumentStatus) {
-	mb.metricMongodbatlasProcessDbDocumentRate.recordDataPoint(mb.startTime, ts, val, documentStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbOperationsRateDataPoint adds a data point to mongodbatlas.process.db.operations.rate metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbOperationsRateDataPoint(ts pcommon.Timestamp, val float64, operationAttributeValue AttributeOperation, clusterRoleAttributeValue AttributeClusterRole) {
-	mb.metricMongodbatlasProcessDbOperationsRate.recordDataPoint(mb.startTime, ts, val, operationAttributeValue.String(), clusterRoleAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbOperationsTimeDataPoint adds a data point to mongodbatlas.process.db.operations.time metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbOperationsTimeDataPoint(ts pcommon.Timestamp, val float64, executionTypeAttributeValue AttributeExecutionType) {
-	mb.metricMongodbatlasProcessDbOperationsTime.recordDataPoint(mb.startTime, ts, val, executionTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbQueryExecutorScannedDataPoint adds a data point to mongodbatlas.process.db.query_executor.scanned metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbQueryExecutorScannedDataPoint(ts pcommon.Timestamp, val float64, scannedTypeAttributeValue AttributeScannedType) {
-	mb.metricMongodbatlasProcessDbQueryExecutorScanned.recordDataPoint(mb.startTime, ts, val, scannedTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbQueryTargetingScannedPerReturnedDataPoint adds a data point to mongodbatlas.process.db.query_targeting.scanned_per_returned metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbQueryTargetingScannedPerReturnedDataPoint(ts pcommon.Timestamp, val float64, scannedTypeAttributeValue AttributeScannedType) {
-	mb.metricMongodbatlasProcessDbQueryTargetingScannedPerReturned.recordDataPoint(mb.startTime, ts, val, scannedTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessDbStorageDataPoint adds a data point to mongodbatlas.process.db.storage metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessDbStorageDataPoint(ts pcommon.Timestamp, val float64, storageStatusAttributeValue AttributeStorageStatus) {
-	mb.metricMongodbatlasProcessDbStorage.recordDataPoint(mb.startTime, ts, val, storageStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessGlobalLockDataPoint adds a data point to mongodbatlas.process.global_lock metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessGlobalLockDataPoint(ts pcommon.Timestamp, val float64, globalLockStateAttributeValue AttributeGlobalLockState) {
-	mb.metricMongodbatlasProcessGlobalLock.recordDataPoint(mb.startTime, ts, val, globalLockStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessIndexBtreeMissRatioDataPoint adds a data point to mongodbatlas.process.index.btree_miss_ratio metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessIndexBtreeMissRatioDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessIndexBtreeMissRatio.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessIndexCountersDataPoint adds a data point to mongodbatlas.process.index.counters metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessIndexCountersDataPoint(ts pcommon.Timestamp, val float64, btreeCounterTypeAttributeValue AttributeBtreeCounterType) {
-	mb.metricMongodbatlasProcessIndexCounters.recordDataPoint(mb.startTime, ts, val, btreeCounterTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessJournalingCommitsDataPoint adds a data point to mongodbatlas.process.journaling.commits metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessJournalingCommitsDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessJournalingCommits.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessJournalingDataFilesDataPoint adds a data point to mongodbatlas.process.journaling.data_files metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessJournalingDataFilesDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessJournalingDataFiles.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessJournalingWrittenDataPoint adds a data point to mongodbatlas.process.journaling.written metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessJournalingWrittenDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessJournalingWritten.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessMemoryUsageDataPoint adds a data point to mongodbatlas.process.memory.usage metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessMemoryUsageDataPoint(ts pcommon.Timestamp, val float64, memoryStateAttributeValue AttributeMemoryState) {
-	mb.metricMongodbatlasProcessMemoryUsage.recordDataPoint(mb.startTime, ts, val, memoryStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessNetworkIoDataPoint adds a data point to mongodbatlas.process.network.io metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessNetworkIoDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricMongodbatlasProcessNetworkIo.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessNetworkRequestsDataPoint adds a data point to mongodbatlas.process.network.requests metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessNetworkRequestsDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessNetworkRequests.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessOplogRateDataPoint adds a data point to mongodbatlas.process.oplog.rate metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessOplogRateDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessOplogRate.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessOplogTimeDataPoint adds a data point to mongodbatlas.process.oplog.time metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessOplogTimeDataPoint(ts pcommon.Timestamp, val float64, oplogTypeAttributeValue AttributeOplogType) {
-	mb.metricMongodbatlasProcessOplogTime.recordDataPoint(mb.startTime, ts, val, oplogTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessPageFaultsDataPoint adds a data point to mongodbatlas.process.page_faults metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessPageFaultsDataPoint(ts pcommon.Timestamp, val float64, memoryIssueTypeAttributeValue AttributeMemoryIssueType) {
-	mb.metricMongodbatlasProcessPageFaults.recordDataPoint(mb.startTime, ts, val, memoryIssueTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessRestartsDataPoint adds a data point to mongodbatlas.process.restarts metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessRestartsDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasProcessRestarts.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasProcessTicketsDataPoint adds a data point to mongodbatlas.process.tickets metric.
 func (mb *MetricsBuilder) RecordMongodbatlasProcessTicketsDataPoint(ts pcommon.Timestamp, val float64, ticketTypeAttributeValue AttributeTicketType) {
-	mb.metricMongodbatlasProcessTickets.recordDataPoint(mb.startTime, ts, val, ticketTypeAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemCPUNormalizedUsageAverageDataPoint adds a data point to mongodbatlas.system.cpu.normalized.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemCPUNormalizedUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemCPUNormalizedUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemCPUNormalizedUsageMaxDataPoint adds a data point to mongodbatlas.system.cpu.normalized.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemCPUNormalizedUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemCPUNormalizedUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemCPUUsageAverageDataPoint adds a data point to mongodbatlas.system.cpu.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemCPUUsageAverageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemCPUUsageAverage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemCPUUsageMaxDataPoint adds a data point to mongodbatlas.system.cpu.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemCPUUsageMaxDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemCPUUsageMax.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemFtsCPUNormalizedUsageDataPoint adds a data point to mongodbatlas.system.fts.cpu.normalized.usage metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemFtsCPUNormalizedUsageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemFtsCPUNormalizedUsage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemFtsCPUUsageDataPoint adds a data point to mongodbatlas.system.fts.cpu.usage metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemFtsCPUUsageDataPoint(ts pcommon.Timestamp, val float64, cpuStateAttributeValue AttributeCPUState) {
-	mb.metricMongodbatlasSystemFtsCPUUsage.recordDataPoint(mb.startTime, ts, val, cpuStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemFtsDiskUsedDataPoint adds a data point to mongodbatlas.system.fts.disk.used metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemFtsDiskUsedDataPoint(ts pcommon.Timestamp, val float64) {
-	mb.metricMongodbatlasSystemFtsDiskUsed.recordDataPoint(mb.startTime, ts, val)
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemFtsMemoryUsageDataPoint adds a data point to mongodbatlas.system.fts.memory.usage metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemFtsMemoryUsageDataPoint(ts pcommon.Timestamp, val float64, memoryStateAttributeValue AttributeMemoryState) {
-	mb.metricMongodbatlasSystemFtsMemoryUsage.recordDataPoint(mb.startTime, ts, val, memoryStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemMemoryUsageAverageDataPoint adds a data point to mongodbatlas.system.memory.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemMemoryUsageAverageDataPoint(ts pcommon.Timestamp, val float64, memoryStatusAttributeValue AttributeMemoryStatus) {
-	mb.metricMongodbatlasSystemMemoryUsageAverage.recordDataPoint(mb.startTime, ts, val, memoryStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemMemoryUsageMaxDataPoint adds a data point to mongodbatlas.system.memory.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemMemoryUsageMaxDataPoint(ts pcommon.Timestamp, val float64, memoryStatusAttributeValue AttributeMemoryStatus) {
-	mb.metricMongodbatlasSystemMemoryUsageMax.recordDataPoint(mb.startTime, ts, val, memoryStatusAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemNetworkIoAverageDataPoint adds a data point to mongodbatlas.system.network.io.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemNetworkIoAverageDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricMongodbatlasSystemNetworkIoAverage.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemNetworkIoMaxDataPoint adds a data point to mongodbatlas.system.network.io.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemNetworkIoMaxDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricMongodbatlasSystemNetworkIoMax.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemPagingIoAverageDataPoint adds a data point to mongodbatlas.system.paging.io.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemPagingIoAverageDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricMongodbatlasSystemPagingIoAverage.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemPagingIoMaxDataPoint adds a data point to mongodbatlas.system.paging.io.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemPagingIoMaxDataPoint(ts pcommon.Timestamp, val float64, directionAttributeValue AttributeDirection) {
-	mb.metricMongodbatlasSystemPagingIoMax.recordDataPoint(mb.startTime, ts, val, directionAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemPagingUsageAverageDataPoint adds a data point to mongodbatlas.system.paging.usage.average metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemPagingUsageAverageDataPoint(ts pcommon.Timestamp, val float64, memoryStateAttributeValue AttributeMemoryState) {
-	mb.metricMongodbatlasSystemPagingUsageAverage.recordDataPoint(mb.startTime, ts, val, memoryStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // RecordMongodbatlasSystemPagingUsageMaxDataPoint adds a data point to mongodbatlas.system.paging.usage.max metric.
 func (mb *MetricsBuilder) RecordMongodbatlasSystemPagingUsageMaxDataPoint(ts pcommon.Timestamp, val float64, memoryStateAttributeValue AttributeMemoryState) {
-	mb.metricMongodbatlasSystemPagingUsageMax.recordDataPoint(mb.startTime, ts, val, memoryStateAttributeValue.String())
+	_ = "STUB: not implemented"
+	return
 }
 
 // Reset resets metrics builder to its initial state. It should be used when external metrics source is restarted,
 // and metrics builder should update its startTime and reset it's internal state accordingly.
-func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) {
-	mb.startTime = pcommon.NewTimestampFromTime(time.Now())
-	for _, op := range options {
-		op.apply(mb)
-	}
-}
+func (mb *MetricsBuilder) Reset(options ...MetricBuilderOption) { _ = "STUB: not implemented"; return }
